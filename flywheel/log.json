@@ -1,32 +1,27 @@
 [
   {
-    "iteration": 0,
-    "question": "What is the optimal Pythagorean manifold density for robotics (sub-millimeter precision)?",
-    "experiment": "flywheel_000_1776209071",
-    "verdict": "SUPPORTED",
-    "constraint": "The next experiment must operate within the vicinity of the optimal Pythagorean manifold density of 1.414375 to further refine or validate the precision for robotics applications, potentially exploring densities in the range of 1.4143 to 1.4144 to ascertain the precision's sensitivity to manifold density.",
-    "next_question": "How does a variation of \u00b10.0001 in the Pythagorean manifold density around the optimal value of 1.414375 affect the precision and performance of robotics in sub-millimeter applications?",
-    "result_preview": "Optimal Pythagorean manifold density: 1.414375\nSUMMARY: Optimal Pythagorean manifold density for robotics (sub-millimeter precision) is approximately 1.414375\n",
-    "timestamp": "2026-04-14T15:24:20.738413"
+    "q": "What is the optimal Pythagorean manifold density for robotics (sub-millimeter precision)?",
+    "status": "experiment_failed",
+    "result": "COMPILE ERROR: /tmp/forgemaster/flywheel/experiments/flywheel_000_1776209329_retry.cu(12): error: identifier \"curand_uniform\" is undefined\n\n1 error detected in the compilation of \"/tmp/forgemaster/flywheel/experiments/flywheel_000_1776209329_retry.cu\".\n"
   },
   {
     "iteration": 1,
     "question": "Does CT snap preserve topology? Can connected components split after snapping?",
-    "experiment": "flywheel_001_1776209093",
-    "verdict": "SUPPORTED",
-    "constraint": "The next experiment should test CT snap with more complex or diverse topologies to further validate its topology preservation capabilities",
-    "next_question": "Does CT snap preserve topology in the presence of noise or degenerate cases, such as duplicate or collinear points?",
-    "result_preview": "Number of split components: 0\nSUMMARY: CT snap does   preserve topology.\n",
-    "timestamp": "2026-04-14T15:24:39.866648"
+    "experiment": "flywheel_001_1776209369",
+    "verdict": "FALSIFIED",
+    "constraint": "The next experiment must investigate the conditions under which connected components split after snapping, such as the threshold distance or the type of geometry involved",
+    "next_question": "What are the specific geometric or threshold conditions that cause connected components to split after CT snapping, and can these conditions be mitigated or controlled?",
+    "result_preview": "Connected components split: 1\nSUMMARY: CT snap does not preserve topology\n",
+    "timestamp": "2026-04-14T15:29:13.591221"
   },
   {
     "iteration": 2,
     "question": "What is the entropy of a CT-snapped signal vs raw float? Information-theoretic comparison.",
-    "experiment": "flywheel_002_1776209109",
-    "verdict": "INCONCLUSIVE",
-    "constraint": "The next experiment must use a method to handle or avoid zero or near-zero values in the entropy calculation to obtain meaningful results.",
-    "next_question": "How does the entropy of the CT-snapped signal compare to the raw float signal when using a different entropy calculation method or data preprocessing technique to handle zero or near-zero values?",
-    "result_preview": "Entropy of raw float signal: 0.000000\nEntropy of CT-snapped signal: 0.000000\nSUMMARY: CT-snapped signal has -nan% lower entropy than raw float signal\n",
-    "timestamp": "2026-04-14T15:24:56.785997"
+    "experiment": "flywheel_002_1776209391",
+    "verdict": "FALSIFIED",
+    "constraint": "The next experiment must ensure that the CT-snapped signal is properly processed to yield a valid entropy value, potentially by checking for division by zero, handling undefined values, or verifying the correctness of the snapping process.",
+    "next_question": "What is the cause of the 'nan' (not a number) result in the entropy calculation of the CT-snapped signal, and how can it be corrected to facilitate a meaningful comparison with the raw float signal?",
+    "result_preview": "Entropy of raw float signal: 0.360980\nEntropy of CT-snapped signal: nan\nSUMMARY: Entropy of CT-snapped signal (nan) vs raw float signal (0.360980)\n",
+    "timestamp": "2026-04-14T15:29:36.470140"
   }
 ]

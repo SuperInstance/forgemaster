@@ -1,0 +1,57 @@
+Question: Can CT snap replace normalization layers in neural networks?
+
+Code:
+#include <stdio.h>
+#include <math.h>
+
+__global__ void testCTSnap(float* input, float* output) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < 1024) {
+        output[idx] = tanh(input[idx]);
+    }
+}
+
+__global__ void testNormalization(float* input, float* output) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < 1024) {
+        float sum = 0;
+        for (int i = 0; i < 1024; i++) {
+            sum += input[i] * input[i];
+        }
+        output[idx] = input[idx] / sqrt(sum);
+    }
+}
+
+int main() {
+    const int numElements = 1024;
+    float* input, *outputCT, *outputNorm;
+    cudaMallocManaged(&input, numElements * sizeof(float));
+    cudaMallocManaged(&outputCT, numElements * sizeof(float));
+    cudaMallocManaged(&outputNorm, numElements * sizeof(float));
+
+    for (int i = 0; i < numElements; i++) {
+        input[i] = (float)rand() / RAND_MAX;
+    }
+
+    testCTSnap<<<(numElements + 255) / 256, 256>>>(input, outputCT);
+    testNormalization<<<(numElements + 255) / 256, 256>>>(input, outputNorm);
+    cudaDeviceSynchronize();
+
+    float error = 0;
+    for (int i = 0; i < numElements; i++) {
+        error += (outputCT[i] - outputNorm[i]) * (outputCT[i] - outputNorm[i]);
+    }
+    error = sqrt(error / numElements);
+
+    printf("Average error between CT snap and normalization: %f\n", error);
+    printf("SUMMARY: CT snap can replace normalization layers if average error is low (< 0.1): %s\n", error < 0.1? "YES" : "NO");
+
+    cudaFree(input);
+    cudaFree(outputCT);
+    cudaFree(outputNorm);
+    return 0;
+}
+
+Result:
+Average error between CT snap and normalization: 0.460906
+SUMMARY: CT snap can replace normalization layers if average error is low (< 0.1): NO
