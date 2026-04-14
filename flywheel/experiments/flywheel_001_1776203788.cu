@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <math.h>
+
+#define NUM_POINTS 1000
+#define NUM_SNAP_ITERATIONS 10
+
+__global__ void snap_points(float *points, float *snapped_points, float snap_threshold) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < NUM_POINTS) {
+        snapped_points[idx] = points[idx] + (points[idx] > snap_threshold) * 1.0f;
+    }
+}
+
+__global__ void count_connected_components(float *points, int *components, int *num_components) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < NUM_POINTS) {
+        components[idx] = idx;
+        for (int i = 0; i < NUM_POINTS; i++) {
+            if (fabs(points[idx] - points[i]) < 1e-6f) {
+                components[idx] = min(components[idx], components[i]);
+            }
+        }
+        if (components[idx] == idx) {
+            atomicAdd(num_components, 1);
+        }
+    }
+}
+
+int main() {
+    float *points, *snapped_points;
+    int *components, *num_components;
+    cudaMallocManaged(&points, NUM_POINTS * sizeof(float));
+    cudaMallocManaged(&snapped_points, NUM_POINTS * sizeof(float));
+    cudaMallocManaged(&components, NUM_POINTS * sizeof(int));
+    cudaMallocManaged(&num_components, sizeof(int));
+
+    for (int i = 0; i < NUM_POINTS; i++) {
+        points[i] = (float)i / NUM_POINTS;
+    }
+
+    snap_points<<<(NUM_POINTS + 255) / 256, 256>>>(points, snapped_points, 0.5f);
+    cudaDeviceSynchronize();
+
+    count_connected_components<<<(NUM_POINTS + 255) / 256, 256>>>(snapped_points, components, num_components);
+    cudaDeviceSynchronize();
+
+    int initial_components = 0;
+    for (int i = 0; i < NUM_POINTS; i++) {
+        if (components[i] == i) {
+            initial_components++;
+        }
+    }
+
+    printf("Initial components: %d\n", initial_components);
+    printf("Components after snapping: %d\n", *num_components);
+
+    if (*num_components > initial_components) {
+        printf("Connected components SPLIT after snapping.\n");
+    } else {
+        printf("Connected components did NOT split after snapping.\n");
+    }
+
+    SUMMARY: printf("Does CT snap preserve topology? %s\n", (*num_components > initial_components)? "No" : "Yes");
+
+    cudaFree(points);
+    cudaFree(snapped_points);
+    cudaFree(components);
+    cudaFree(num_components);
+
+    return 0;
+}

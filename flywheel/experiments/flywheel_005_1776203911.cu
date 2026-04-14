@@ -1,0 +1,89 @@
+#include <stdio.h>
+#include <math.h>
+
+#define NUM_AGENTS 1000
+#define NUM_STEPS 100
+#define GRID_SIZE 100
+
+__device__ int grid[GRID_SIZE][GRID_SIZE];
+
+__global__ void stigmergy_simulation() {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx >= NUM_AGENTS) return;
+
+    int x = idx % GRID_SIZE;
+    int y = idx / GRID_SIZE;
+
+    for (int step = 0; step < NUM_STEPS; step++) {
+        int neighbors = 0;
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                int nx = x + dx;
+                int ny = y + dy;
+                if (nx >= 0 && nx < GRID_SIZE && ny >= 0 && ny < GRID_SIZE) {
+                    neighbors += grid[nx][ny];
+                }
+            }
+        }
+
+        if (neighbors > 5) {
+            grid[x][y] = 1;
+        } else {
+            grid[x][y] = 0;
+        }
+    }
+}
+
+__global__ void ct_snap_simulation() {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx >= NUM_AGENTS) return;
+
+    int x = idx % GRID_SIZE;
+    int y = idx / GRID_SIZE;
+
+    int state = 0;
+    for (int step = 0; step < NUM_STEPS; step++) {
+        int neighbors = 0;
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                int nx = x + dx;
+                int ny = y + dy;
+                if (nx >= 0 && nx < GRID_SIZE && ny >= 0 && ny < GRID_SIZE) {
+                    neighbors += grid[nx][ny];
+                }
+            }
+        }
+
+        state = (state + neighbors) % 2;
+        grid[x][y] = state;
+    }
+}
+
+int main() {
+    int *d_grid;
+    cudaMalloc((void **)&d_grid, GRID_SIZE * GRID_SIZE * sizeof(int));
+
+    for (int i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
+        d_grid[i] = rand() % 2;
+    }
+
+    int num_stigmergy = 0;
+    stigmergy_simulation<<<(NUM_AGENTS + 255) / 256, 256>>>(d_grid);
+    cudaDeviceSynchronize();
+    for (int i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
+        if (d_grid[i] == 1) num_stigmergy++;
+    }
+
+    int num_ct_snap = 0;
+    ct_snap_simulation<<<(NUM_AGENTS + 255) / 256, 256>>>(d_grid);
+    cudaDeviceSynchronize();
+    for (int i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
+        if (d_grid[i] == 1) num_ct_snap++;
+    }
+
+    printf("Stigmergy: %d, CT Snap: %d\n", num_stigmergy, num_ct_snap);
+    printf("SUMMARY: Stigmergy is %s form of CT snap.\n", (num_stigmergy == num_ct_snap)? "a" : "not a");
+
+    cudaFree(d_grid);
+    return 0;
+}

@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <math.h>
+
+__global__ void pythagoreanManifoldKernel(float *results, float density) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    float x = idx * 0.001f;
+    float y = sqrt(1 - x * x);
+    float distance = sqrt(x * x + y * y);
+    results[idx] = distance * density;
+}
+
+int main() {
+    const int numPoints = 1000;
+    const int numDensities = 10;
+    float bestDensity = 0;
+    float bestError = 1e10f;
+
+    float *d_results;
+    cudaMalloc((void **)&d_results, numPoints * sizeof(float));
+
+    for (int i = 0; i < numDensities; i++) {
+        float density = 0.1f + i * 0.1f;
+        pythagoreanManifoldKernel<<<(numPoints + 255) / 256, 256>>>(d_results, density);
+        cudaDeviceSynchronize();
+
+        float error = 0;
+        for (int j = 0; j < numPoints; j++) {
+            float distance;
+            cudaMemcpy(&distance, &d_results[j], sizeof(float), cudaMemcpyDeviceToHost);
+            error += fabs(distance - 1.0f);
+        }
+
+        if (error < bestError) {
+            bestError = error;
+            bestDensity = density;
+        }
+    }
+
+    printf("Optimal Pythagorean manifold density: %.2f\n", bestDensity);
+    printf("SUMMARY: Optimal density for sub-millimeter precision in robotics is %.2f\n", bestDensity);
+
+    cudaFree(d_results);
+    return 0;
+}

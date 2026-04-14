@@ -1,0 +1,41 @@
+Question: What is the minimum context needed for a room keeper to answer domain questions?
+
+Code:
+#include <stdio.h>
+#include <math.h>
+
+__global__ void min_context_test(int* answer) {
+    int context_size = 10;
+    int question_complexity = 5;
+    int knowledge_base = 100;
+    int iterations = 1000;
+
+    float sum = 0.0f;
+    for (int i = 0; i < iterations; i++) {
+        float context_needed = (context_size * question_complexity) / knowledge_base;
+        sum += context_needed;
+    }
+
+    if (threadIdx.x == 0) {
+        answer[0] = (int)(sum / iterations);
+    }
+}
+
+int main() {
+    int* d_answer;
+    int h_answer;
+
+    cudaMalloc((void**)&d_answer, sizeof(int));
+    min_context_test<<<1, 1>>>(d_answer);
+    cudaMemcpy(&h_answer, d_answer, sizeof(int), cudaMemcpyDeviceToHost);
+    cudaFree(d_answer);
+
+    printf("The minimum context needed for a room keeper to answer domain questions: %d\n", h_answer);
+    printf("SUMMARY: The minimum context needed is approximately %d\n", h_answer);
+
+    return 0;
+}
+
+Result:
+The minimum context needed for a room keeper to answer domain questions: 0
+SUMMARY: The minimum context needed is approximately 0

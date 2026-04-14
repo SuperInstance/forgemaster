@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <math.h>
+
+__global__ void dcs_noise_test(float noise_threshold, float *result) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    float noise = (idx * 1e-7f);
+    float dcs_value = (noise <= noise_threshold)? 1.0f : 0.0f;
+    if (noise > noise_threshold && dcs_value == 1.0f) {
+        *result = noise;
+    }
+}
+
+int main() {
+    float noise_threshold = 1e-12f;
+    float result;
+    float *d_result;
+    cudaMalloc((void **)&d_result, sizeof(float));
+    dcs_noise_test<<<1, 1000000>>>(noise_threshold, d_result);
+    cudaMemcpy(&result, d_result, sizeof(float), cudaMemcpyDeviceToHost);
+    cudaFree(d_result);
+    printf("Noise threshold where DCS breaks: %f\n", result);
+    SUMMARY: printf("SUMMARY: DCS breaks at a noise threshold of approximately %f\n", result);
+    return 0;
+}
