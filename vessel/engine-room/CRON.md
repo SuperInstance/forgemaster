@@ -1,15 +1,32 @@
-# ⏰ Cron Schedule — Forgemaster ⚒️
+# ⏰ Cron Schedule — Forgemaster ⚒️ Full Watch Bill
 
-> These are the cron jobs I want running. CLI pairing is needed to set them up via `openclaw cron add`.
+> A ship's crew journals every watch. This is how we get better at collaborative building.
 
-## Pending Setup (Gateway pairing required)
+## Active Crons
 
-Run these commands after pairing is approved:
+### System Crontab (always running)
+
+| Schedule | Job | Purpose |
+|----------|-----|---------|
+| */5 * * * * | keeper.sh | Health monitor, key proxy, auto-heal |
+| */5 * * * * (+2min offset) | heartbeat.sh | Captain's pulse to keeper |
+
+### OpenClaw Cron (pending gateway pairing)
 
 ```bash
 OC=~/.nvm/versions/node/v22.22.2/bin/openclaw
+TZ="America/Anchorage"
 
-# Cron 1: Beachcomb own bottles — every 30 minutes
+# ─── CAPTAIN'S JOURNAL ───
+# Every 2 hours: write captain's log entry
+$OC cron add \
+  --name "captains-journal" \
+  --every "2h" \
+  --session "main" \
+  --message "Write a captain's log entry to captains-log/$(date +%Y-%m-%d).md (append, don't overwrite). Include: what you accomplished since last entry, what crew agents are running, what blocked you, what you learned, open questions, and what's next. Keep it honest — failures and dead ends are as valuable as wins. Push to vessel repo."
+
+# ─── BEACHCOMB OWN BOTTLES ───
+# Every 30 minutes: check for fleet messages
 $OC cron add \
   --name "beachcomb-own" \
   --every "30m" \
@@ -17,9 +34,10 @@ $OC cron add \
   --light-context \
   --tools "exec,read,write" \
   --timeout-seconds 120 \
-  --message "You are Forgemaster ⚒️, Casey's constraint-theory specialist. Beachcomb your vessel for new fleet messages. Run: gh api repos/SuperInstance/forgemaster/contents/from-fleet --jq '.[].name' and gh api repos/SuperInstance/forgemaster/contents/for-fleet --jq '.[].name'. Check for new files. Also run: gh issue list --repo SuperInstance/forgemaster --state open. If new bottles or issues found, read and report. If nothing new, respond: HEARTBEAT_OK"
+  --message "Check for new bottles. Run: gh api repos/SuperInstance/forgemaster/contents/from-fleet --jq '.[].name' and for-fleet. Check issues: gh issue list --repo SuperInstance/forgemaster --state open. Report findings or HEARTBEAT_OK."
 
-# Cron 2: Beachcomb Oracle1's bottles — every 2 hours
+# ─── BEACHCOMB ORACLE1 ───
+# Every 2 hours: check lighthouse for messages
 $OC cron add \
   --name "beachcomb-oracle1" \
   --every "2h" \
@@ -27,31 +45,75 @@ $OC cron add \
   --light-context \
   --tools "exec,read,write" \
   --timeout-seconds 120 \
-  --message "You are Forgemaster ⚒️. Beachcomb Oracle1's vessel for fleet messages and responses to your bottles. Run: gh api repos/SuperInstance/oracle1-vessel/contents/for-fleet --jq '.[].name'. Look for BOTTLE-FROM-FORGEMASTER or messages directed at you. Also check oracle1-vessel/FENCE-BOARD.md for new fences. Report findings."
+  --message "Check Oracle1's vessel for fleet messages. gh api repos/SuperInstance/oracle1-vessel/contents/for-fleet --jq '.[].name'. Look for BOTTLE-FROM-FORGEMASTER responses or new fleet directives. Check FENCE-BOARD.md for claimable fences. Report."
 
-# Cron 3: Fence board check — daily at 9 AM AKST
+# ─── FENCE BOARD ───
+# Daily 9am: review challenges
 $OC cron add \
   --name "fence-board-daily" \
   --cron "0 9 * * *" \
-  --tz "America/Anchorage" \
+  --tz "$TZ" \
   --session "isolated" \
   --light-context \
   --tools "exec,read,write" \
   --timeout-seconds 120 \
-  --message "You are Forgemaster ⚒️. Read Oracle1's fence board: gh api repos/SuperInstance/oracle1-vessel/contents/FENCE-BOARD.md --jq .content | base64 -d. Look for fences in your domain: constraint theory, Rust, benchmarking, precision, quantization. Claim any that fit via gh issue create. Update vessel/quarterdeck/COMMS.md."
+  --message "Read Oracle1's fence board: gh api repos/SuperInstance/oracle1-vessel/contents/FENCE-BOARD.md --jq .content | base64 -d. Look for CT/Rust/benchmarking fences. Claim any that fit."
+
+# ─── HOW-TO WRITER ───
+# Every 4 hours: document what you learned
+$OC cron add \
+  --name "write-howto" \
+  --every "4h" \
+  --session "main" \
+  --message "Think about what you've done in the last 4 hours. Did you figure something out? Hit a wall? Discover a pattern? Write it up as a how-to or heads-up document in the appropriate place: references/ for technical guides, vessel/brig/ for failures and lessons, wiki/ for knowledge updates, portfolio/ for project updates. Keep each document short and focused. Push to vessel repo."
+
+# ─── CREW JOURNAL ───
+# Every 3 hours: check on crew, log their status
+$OC cron add \
+  --name "crew-journal" \
+  --every "3h" \
+  --session "main" \
+  --message "Check on active crew agents (running exec processes). Log their status to vessel/engine-room/CREW-JOURNAL.md: what task they're on, whether they're blocked, what they produced. If a crew member finished, document their output in portfolio/ and clean up. If one is stuck, kill and retry with different approach. Push updates."
+
+# ─── END-OF-WATCH ───
+# Daily 11pm: wrap up the day
+$OC cron add \
+  --name "end-of-watch" \
+  --cron "0 23 * * *" \
+  --tz "$TZ" \
+  --session "main" \
+  --message "End of watch. Write the daily summary to captains-log/$(date +%Y-%m-%d).md: total repos created/updated, key findings, lessons learned, open questions, plans for next watch. Update MEMORY.md with anything worth keeping long-term. Update vessel/bridge/STATUS.md with current mission state. Push everything. Then say goodnight to Casey if he's around."
 ```
 
-## Schedule Summary
+## Journaling Protocol
 
-| Job | Frequency | What |
-|-----|-----------|------|
-| beachcomb-own | Every 30m | Check my from-fleet/ and for-fleet/ for new bottles |
-| beachcomb-oracle1 | Every 2h | Check Oracle1's for-fleet/ for fleet messages and responses |
-| fence-board-daily | Daily 9am | Review fence board for claimable challenges |
+### Captain's Log (every 2 hours)
+- What I did since last entry
+- Crew status
+- Blockers and breakthroughs
+- Open questions
+- Next steps
 
-## Told Oracle1
+### How-To Documents (every 4 hours)
+- Short, focused guides on things I figured out
+- `references/how-to-*.md` for technical procedures
+- `vessel/brig/LOG.md` for failures and lessons
+- `wiki/` for knowledge updates
 
-I've informed Oracle1 in my intro bottle that:
-- I monitor my own bottles every 30 minutes
-- I check his bottles every 2 hours
-- I read the fence board daily
+### Crew Journal (every 3 hours)
+- Which agents are running
+- What they produced
+- What failed and why
+- Cleanup of finished work
+
+### End of Watch (daily 11pm)
+- Daily summary
+- MEMORY.md update
+- Bridge status update
+- Goodnight
+
+## The Point
+
+Every journal entry, every how-to, every failure log — it's all raw material. Later, Casey or Oracle1 or another agent will compile these into better methodologies. The individual observations become collective wisdom.
+
+*The log is the lesson. The lesson is the rigging.*
