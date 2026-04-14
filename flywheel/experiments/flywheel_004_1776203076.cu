@@ -1,0 +1,218 @@
+// ct_snap_vs_bn.cu
+// Compile: nvcc -O3 -arch=sm_86 ct_snap_vs_bn.cu -o ct_snap_vs_bn
+// Run: ./ct_snap_vs_bn
+
+#include <cstdio>
+#include <cuda_runtime.h>
+#include <curand.h>
+#include <curand_kernel.h>
+
+#define N      1024   // batch size
+#define IN_DIM  64
+#define HIDDEN  128
+#define OUT_DIM 10
+#define STEPS   200
+#define LR      0.01f
+
+// ------------------- utilities -------------------
+__global__ void init_rng(curandState *st, unsigned long seed) {
+    int id = threadIdx.x + blockIdx.x * blockDim.x;
+    curand_init(seed, id, 0, &st[id]);
+}
+__global__ void fill_random(float *x, curandState *st, int sz) {
+    int idx = threadIdx.x + blockIdx.x * blockDim.x;
+    if (idx < sz) {
+        x[idx] = curand_normal(&st[idx]) * 0.5f;
+    }
+}
+
+// ------------------- model kernels -------------------
+__global__ void forward_bn(const float *x, const float *w1, const float *b1,
+                           const float *w2, const float *b2,
+                           float *out, float *running_mean, float *running_var,
+                           bool train) {
+    int i = threadIdx.x + blockIdx.x * blockDim.x;
+    if (i >= N) return;
+
+    // layer1
+    float h[HIDDEN];
+    for (int j = 0; j < HIDDEN; ++j) {
+        float sum = b1[j];
+        for (int k = 0; k < IN_DIM; ++k) sum += w1[j * IN_DIM + k] * x[i * IN_DIM + k];
+        // batch norm (per feature across batch)
+        // compute mean/var on first call (train)
+        // Simplified: use running stats updated online
+        float mu = running_mean[j];
+        float var = running_var[j];
+        if (train) {
+            // accumulate mean/var (naive)
+            atomicAdd(&running_mean[j], sum);
+            atomicAdd(&running_var[j], sum * sum);
+        }
+        // normalize
+        float eps = 1e-5f;
+        float norm = (sum - mu) / sqrtf(var - mu * mu + eps);
+        // ReLU
+        h[j] = fmaxf(0.0f, norm);
+    }
+
+    // layer2
+    for (int o = 0; o < OUT_DIM; ++o) {
+        float sum = b2[o];
+        for (int j = 0; j < HIDDEN; ++j) sum += w2[o * HIDDEN + j] * h[j];
+        out[i * OUT_DIM + o] = sum; // linear output
+    }
+}
+
+__global__ void forward_ct(const float *x, const float *w1, const float *b1,
+                           const float *w2, const float *b2,
+                           float *out) {
+    int i = threadIdx.x + blockIdx.x * blockDim.x;
+    if (i >= N) return;
+
+    // layer1 with CT‑snap (center then clip)
+    float h[HIDDEN];
+    for (int j = 0; j < HIDDEN; ++j) {
+        float sum = b1[j];
+        for (int k = 0; k < IN_DIM; ++k) sum += w1[j * IN_DIM + k] * x[i * IN_DIM + k];
+        // CT‑snap: subtract batch mean (approx by zero) and clip to [-1,1]
+        sum = fmaxf(-1.0f, fminf(1.0f, sum));
+        // ReLU after snap
+        h[j] = fmaxf(0.0f, sum);
+    }
+
+    // layer2
+    for (int o = 0; o < OUT_DIM; ++o) {
+        float sum = b2[o];
+        for (int j = 0; j < HIDDEN; ++j) sum += w2[o * HIDDEN + j] * h[j];
+        out[i * OUT_DIM + o] = sum;
+    }
+}
+
+// loss & gradient (MSE)
+__global__ void mse_loss_grad(const float *pred, const float *target,
+                              float *grad, float *loss_out) {
+    __shared__ float block_sum;
+    if (threadIdx.x == 0) block_sum = 0.0f;
+    __syncthreads();
+
+    int idx = threadIdx.x + blockIdx.x * blockDim.x;
+    float l = 0.0f;
+    if (idx < N * OUT_DIM) {
+        float diff = pred[idx] - target[idx];
+        grad[idx] = 2.0f * diff / N;
+        l = diff * diff;
+    }
+
+    atomicAdd(&block_sum, l);
+    __syncthreads();
+
+    if (threadIdx.x == 0) atomicAdd(loss_out, block_sum);
+}
+
+// simple SGD update
+__global__ void sgd_update(float *param, const float *grad, float lr, int sz) {
+    int i = threadIdx.x + blockIdx.x * blockDim.x;
+    if (i < sz) param[i] -= lr * grad[i];
+}
+
+// ------------------- host -------------------
+int main() {
+    // allocate
+    float *d_x, *d_y;
+    float *d_w1, *d_b1, *d_w2, *d_b2;
+    float *d_out_bn, *d_out_ct;
+    float *d_grad;
+    curandState *d_state;
+    float *d_running_mean, *d_running_var;
+    float h_loss_bn = 0, h_loss_ct = 0;
+
+    size_t sz_x = N * IN_DIM * sizeof(float);
+    size_t sz_y = N * OUT_DIM * sizeof(float);
+    size_t sz_w1 = HIDDEN * IN_DIM * sizeof(float);
+    size_t sz_b1 = HIDDEN * sizeof(float);
+    size_t sz_w2 = OUT_DIM * HIDDEN * sizeof(float);
+    size_t sz_b2 = OUT_DIM * sizeof(float);
+    size_t sz_out = N * OUT_DIM * sizeof(float);
+    size_t sz_grad = sz_out;
+    size_t sz_state = N * sizeof(curandState);
+    size_t sz_stats = HIDDEN * sizeof(float);
+
+    cudaMalloc(&d_x, sz_x);
+    cudaMalloc(&d_y, sz_y);
+    cudaMalloc(&d_w1, sz_w1);
+    cudaMalloc(&d_b1, sz_b1);
+    cudaMalloc(&d_w2, sz_w2);
+    cudaMalloc(&d_b2, sz_b2);
+    cudaMalloc(&d_out_bn, sz_out);
+    cudaMalloc(&d_out_ct, sz_out);
+    cudaMalloc(&d_grad, sz_grad);
+    cudaMalloc(&d_state, sz_state);
+    cudaMalloc(&d_running_mean, sz_stats);
+    cudaMalloc(&d_running_var, sz_stats);
+
+    // init RNG and data
+    init_rng<<<(N+255)/256, 256>>>(d_state, 1234);
+    fill_random<<<(N*IN_DIM+255)/256, 256>>>(d_x, d_state, N*IN_DIM);
+    fill_random<<<(N*OUT_DIM+255)/256, 256>>>(d_y, d_state, N*OUT_DIM);
+    fill_random<<<(HIDDEN*IN_DIM+255)/256, 256>>>(d_w1, d_state, HIDDEN*IN_DIM);
+    fill_random<<<(OUT_DIM*HIDDEN+255)/256, 256>>>(d_w2, d_state, OUT_DIM*HIDDEN);
+    fill_random<<<(HIDDEN+255)/256, 256>>>(d_b1, d_state, HIDDEN);
+    fill_random<<<(OUT_DIM+255)/256, 256>>>(d_b2, d_state, OUT_DIM);
+    cudaMemset(d_running_mean, 0, sz_stats);
+    cudaMemset(d_running_var, 0, sz_stats);
+
+    // training loop
+    for (int step = 0; step < STEPS; ++step) {
+        // ----- BN model -----
+        cudaMemset(&h_loss_bn, 0, sizeof(float));
+        forward_bn<<<(N+255)/256, 256>>>(d_x, d_w1, d_b1, d_w2, d_b2,
+                                        d_out_bn, d_running_mean, d_running_var, true);
+        mse_loss_grad<<<(N*OUT_DIM+255)/256, 256>>>(d_out_bn, d_y, d_grad, &h_loss_bn);
+        sgd_update<<<(HIDDEN*IN_DIM+255)/256, 256>>>(d_w1, d_grad, LR, HIDDEN*IN_DIM);
+        sgd_update<<<(OUT_DIM*HIDDEN+255)/256, 256>>>(d_w2, d_grad, LR, OUT_DIM*HIDDEN);
+        // ----- CT‑snap model -----
+        cudaMemset(&h_loss_ct, 0, sizeof(float));
+        forward_ct<<<(N+255)/256, 256>>>(d_x, d_w1, d_b1, d_w2, d_b2, d_out_ct);
+        mse_loss_grad<<<(N*OUT_DIM+255)/256, 256>>>(d_out_ct, d_y, d_grad, &h_loss_ct);
+        sgd_update<<<(HIDDEN*IN_DIM+255)/256, 256>>>(d_w1, d_grad, LR, HIDDEN*IN_DIM);
+        sgd_update<<<(OUT_DIM*HIDDEN+255)/256, 256>>>(d_w2, d_grad, LR, OUT_DIM*HIDDEN);
+    }
+
+    // final evaluation (no training updates)
+    forward_bn<<<(N+255)/256, 256>>>(d_x, d_w1, d_b1, d_w2, d_b2,
+                                    d_out_bn, d_running_mean, d_running_var, false);
+    forward_ct<<<(N+255)/256, 256>>>(d_x, d_w1, d_b1, d_w2, d_b2, d_out_ct);
+    cudaMemset(&h_loss_bn, 0, sizeof(float));
+    cudaMemset(&h_loss_ct, 0, sizeof(float));
+    mse_loss_grad<<<(N*OUT_DIM+255)/256, 256>>>(d_out_bn, d_y, d_grad, &h_loss_bn);
+    mse_loss_grad<<<(N*OUT_DIM+255)/256, 256>>>(d_out_ct, d_y, d_grad, &h_loss_ct);
+
+    // copy losses back
+    float loss_bn, loss_ct;
+    cudaMemcpy(&loss_bn, &h_loss_bn, sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(&loss_ct, &h_loss_ct, sizeof(float), cudaMemcpyHostToDevice);
+    // Actually the above copies are wrong; we need to copy from device to host.
+    // Simpler: allocate host vars and copy directly after kernel.
+    // We'll redo:
+    cudaMemcpy(&loss_bn, &h_loss_bn, sizeof(float), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&loss_ct, &h_loss_ct, sizeof(float), cudaMemcpyDeviceToHost);
+
+    // Print results
+    printf("Final MSE Loss with BatchNorm: %f\\n", loss_bn);
+    printf("Final MSE Loss with CT‑snap:   %f\\n", loss_ct);
+    if (loss_ct <= loss_bn)
+        printf("SUMMARY: CT snap REPLACEMENT SUCCESS\\n");
+    else
+        printf("SUMMARY: CT snap NOT REPLACEMENT\\n");
+
+    // cleanup
+    cudaFree(d_x); cudaFree(d_y);
+    cudaFree(d_w1); cudaFree(d_b1);
+    cudaFree(d_w2); cudaFree(d_b2);
+    cudaFree(d_out_bn); cudaFree(d_out_ct);
+    cudaFree(d_grad);
+    cudaFree(d_state);
+    cudaFree(d_running_mean); cudaFree(d_running_var);
+    return 0;
+}

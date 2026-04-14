@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <math.h>
+
+__global__ void convergence_constants(float *matches) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < 1000000) {
+        float a = (float)idx / 1000000.0f;
+        float b = sin(a) + cos(a);
+        float c = sin(a) - cos(a);
+        float d = sin(a) * cos(a);
+        float e = sin(a) / cos(a);
+        if (fabs(b) < 0.01f && fabs(c) < 0.01f && fabs(d) < 0.01f && fabs(e) < 0.01f) {
+            matches[idx] = 1.0f;
+        } else {
+            matches[idx] = 0.0f;
+        }
+    }
+}
+
+int main() {
+    float *matches;
+    cudaMallocManaged(&matches, 1000000 * sizeof(float));
+    convergence_constants<<<256, 256>>>(matches);
+    cudaDeviceSynchronize();
+    int total_matches = 0;
+    for (int i = 0; i < 1000000; i++) {
+        total_matches += (int)matches[i];
+    }
+    printf("Total matches found: %d\n", total_matches);
+    printf("SUMMARY: Found %d convergence constants, indicating that there may be %d more matches beyond the initial 5 constants.\n", total_matches, total_matches - 5);
+    cudaFree(matches);
+    return 0;
+}

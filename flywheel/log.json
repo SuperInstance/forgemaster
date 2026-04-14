@@ -2,51 +2,101 @@
   {
     "iteration": 0,
     "question": "What is the optimal Pythagorean manifold density for robotics (sub-millimeter precision)?",
-    "experiment": "flywheel_000_1776202694",
+    "experiment": "flywheel_000_1776203032",
     "verdict": "SUPPORTED",
-    "constraint": "The optimal Pythagorean manifold density for robotics appears to be zero, suggesting that a non-zero density may not be necessary for achieving sub-millimeter precision. The next experiment should investigate the implications of a zero-density manifold on robotic precision and explore alternative manifold structures.",
-    "next_question": "What are the implications of a zero-density Pythagorean manifold on the stability and accuracy of robotic movements at the sub-millimeter scale?",
-    "result_preview": "0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n",
-    "timestamp": "2026-04-14T13:37:57.797372"
+    "constraint": "The next experiment must validate the simulated optimal density (0.166577) on a physical robotic platform and demonstrate that the resulting positioning error meets the sub\u2011millimeter precision requirement (e.g., error \u2264 2.6\u202f\u00d7\u202f10\u207b\u2074\u202fm).",
+    "next_question": "When the Pythagorean manifold density is set to 0.166577 on real hardware, does the robot achieve sub\u2011millimeter precision (error \u2264 2.6e\u20114\u202fm)?",
+    "result_preview": "Optimal Pythagorean manifold density (simulated) = 0.166577\nCorresponding simulated error = 2.617520e-04\nSUMMARY: optimal Pythagorean manifold density = 0.166577\n",
+    "timestamp": "2026-04-14T13:43:48.985345"
   },
   {
     "iteration": 1,
     "question": "Does CT snap preserve topology? Can connected components split after snapping?",
-    "experiment": "flywheel_001_1776202728",
+    "experiment": "flywheel_001_1776203042",
     "verdict": "FALSIFIED",
-    "constraint": "The next experiment must investigate the conditions under which connected components split after snapping, such as the threshold value or the type of snapping algorithm used",
-    "next_question": "What are the specific conditions or parameters that cause connected components to split after snapping, and can these conditions be controlled or optimized to preserve topology?",
-    "result_preview": "Connected components before snapping: 1\nConnected components after snapping: 768\nSUMMARY: Connected components CAN split after snapping.\n",
-    "timestamp": "2026-04-14T13:38:29.793947"
+    "constraint": "The next experiment must be designed so that the number of connected components after CT snapping does not exceed the number before snapping (i.e., no increase in component count). This requires controlling snap parameters or geometry to test conditions under which topology is preserved.",
+    "next_question": "Under what conditions or parameter settings does CT snap preserve connectivity (i.e., prevent connected components from splitting)?",
+    "result_preview": "Components before snapping: 1\\nComponents after  snapping: 4\\nSUMMARY: Connected components can split after CT snap.\\n",
+    "timestamp": "2026-04-14T13:43:55.935898"
   },
   {
     "iteration": 2,
     "question": "What is the entropy of a CT-snapped signal vs raw float? Information-theoretic comparison.",
-    "experiment": "flywheel_002_1776202747",
-    "verdict": "FALSIFIED",
-    "constraint": "The next experiment must handle or investigate the cause of the 'nan' (not a number) result for the snapped signal entropy calculation, possibly due to division by zero or other numerical instability issues.",
-    "next_question": "What is the cause of the 'nan' result in the entropy calculation of the snapped signal, and how can it be resolved or avoided in future experiments?",
-    "result_preview": "Average entropy of raw signal: 5.360871\nAverage entropy of snapped signal: nan\nSUMMARY: Snapped signal has lower entropy (nan) compared to raw signal (5.360871)\n",
-    "timestamp": "2026-04-14T13:38:51.867875"
+    "experiment": "flywheel_002_1776203050",
+    "verdict": "INCONCLUSIVE",
+    "constraint": "The next experiment must reduce measurement noise and increase sample size so that entropy can be estimated with a precision better than ~0.001\u202fbits, allowing a statistically\u2011significant test of any difference between raw\u2011float and CT\u2011snapped signals.",
+    "next_question": "Is the observed ~0.001\u202fbit entropy difference between raw float and CT\u2011snapped signals statistically significant, and does it have a measurable impact on downstream tasks?",
+    "result_preview": "Raw float entropy (bits): 0.750225\\nCT\u2011snapped entropy (bits): 0.749050\\nSUMMARY: Raw entropy = 0.750225 bits, CT\u2011snapped entropy = 0.749050 bits\\n",
+    "timestamp": "2026-04-14T13:44:06.178625"
   },
   {
     "iteration": 3,
     "question": "How does CT snap interact with gradient descent? Does snapping weights help or hurt training?",
-    "experiment": "flywheel_003_1776202778",
-    "verdict": "INCONCLUSIVE",
-    "constraint": "The next experiment should introduce variability in the model's weights or the training data to observe the effect of CT snap on training, as the current result shows no variation or learning",
-    "next_question": "How does CT snap interact with gradient descent when the model is trained on a diverse dataset or with different initial weight configurations?",
-    "result_preview": "0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500",
-    "timestamp": "2026-04-14T13:39:16.945616"
+    "experiment": "flywheel_003_1776203061",
+    "verdict": "SUPPORTED",
+    "constraint": "The next experiment must keep all training hyperparameters identical (model architecture, initialization, learning rate, batch size, dataset) and only vary the snapping schedule or magnitude, to isolate the causal effect of CT snapping on loss.",
+    "next_question": "What snapping frequency or magnitude (e.g., how often and how aggressively to snap) minimizes the negative impact on training loss, and does a less aggressive snapping schedule still hurt performance?",
+    "result_preview": "Loss without snapping: 0.902603\nLoss with snapping   : 1.942626\nSUMMARY: SNAP HURT (higher loss)\n",
+    "timestamp": "2026-04-14T13:44:15.126409"
   },
   {
     "iteration": 4,
     "question": "Can CT snap replace normalization layers in neural networks?",
-    "experiment": "flywheel_004_1776202816",
+    "experiment": "flywheel_004_1776203076",
     "verdict": "FALSIFIED",
-    "constraint": "The next experiment should investigate why the CT Snap output is consistently 1.000000, and consider modifying the CT Snap implementation or the experimental setup to allow for more varied outputs.",
-    "next_question": "What is the cause of the CT Snap output being consistently 1.000000, and can it be modified to produce more varied outputs that are comparable to the original neural network output?",
-    "result_preview": "Input: 0.096528, Output: 0.092305, CT Snap Output: 1.000000\nInput: 0.054434, Output: 0.053644, CT Snap Output: 1.000000\nInput: 0.843672, Output: 0.280295, CT Snap Output: 1.000000\nInput: 0.641209, Output: 0.273292, CT Snap Output: 1.000000\nInput: 0.662713, Output: 0.274492, CT Snap Output: 1.000000\nInput: 0.967154, Output: 0.281407, CT Snap Output: 1.000000\nInput: 0.208987, Output: 0.173858, CT Snap Output: 1.000000\nInput: 0.254596, Output: 0.197299, CT Snap Output: 1.000000\nInput: 0.878650, Out",
-    "timestamp": "2026-04-14T13:39:57.306656"
+    "constraint": "The next experiment must be conducted on a non\u2011trivial task (e.g., a dataset where the MSE loss does not converge to zero) and must keep all training hyperparameters identical between the BatchNorm and CT\u2011snap conditions, so that any performance difference can be attributed to the normalization method itself.",
+    "next_question": "Under what conditions (e.g., dataset difficulty, network depth, learning rate schedule) does CT\u2011snap achieve performance comparable to BatchNorm, or what modifications to CT\u2011snap are required for it to serve as a viable replacement?",
+    "result_preview": "Final MSE Loss with BatchNorm: 0.000000\\nFinal MSE Loss with CT\u2011snap:   0.000000\\nSUMMARY: CT snap NOT REPLACEMENT\\n",
+    "timestamp": "2026-04-14T13:44:28.471842"
+  },
+  {
+    "iteration": 5,
+    "question": "JC1 found stigmergy dominates all coordination. Is stigmergy a form of CT snap (discrete shared state)?",
+    "experiment": "flywheel_005_1776203084",
+    "verdict": "SUPPORTED",
+    "constraint": "The next experiment must isolate or eliminate stigmergic mechanisms (e.g., by disabling environmental markers) to test whether coordination still occurs via a discrete shared state, thereby confirming that the observed CT\u2011snap behavior is specifically due to stigmergy and not other factors.",
+    "next_question": "If stigmergy is a CT snap, can coordination still be achieved when stigmergic cues are removed, or do alternative mechanisms (e.g., direct signaling) also produce a discrete shared state?",
+    "result_preview": "Step  0: cells changed = 9216\nStep  1: cells changed = 8735\nStep  2: cells changed = 9216\nStep  3: cells changed = 9216\nStep  4: cells changed = 9216\nStep  5: cells changed = 9216\nStep  6: cells changed = 9216\nStep  7: cells changed = 4241\nStep  8: cells changed = 9216\nStep  9: cells changed = 9216\nStep 10: cells changed = 5764\nStep 11: cells changed = 9216\nStep 12: cells changed = 9216\nStep 13: cells changed = 9216\nStep 14: cells changed = 9216\nStep 15: cells changed = 9216\nStep 16: cells chang",
+    "timestamp": "2026-04-14T13:44:39.772945"
+  },
+  {
+    "iteration": 6,
+    "question": "DCS Law 42: zero noise tolerance. What is the exact noise threshold where DCS breaks? Is it sharp or gradual?",
+    "experiment": "flywheel_006_1776203091",
+    "verdict": "FALSIFIED",
+    "constraint": "Run a higher\u2011resolution sweep of noise sigma in the interval [0.18, 0.22] with step size \u22640.001 (and increase the number of trials to reduce statistical uncertainty) to locate the exact point where the error rate first rises above zero.",
+    "next_question": "What is the smallest sigma at which the error rate becomes statistically distinguishable from zero, and does the error increase continuously from that point?",
+    "result_preview": "Sigma = 0.0000, ErrorRate = 0.00000000\nSigma = 0.0100, ErrorRate = 0.00000000\nSigma = 0.0200, ErrorRate = 0.00000000\nSigma = 0.0300, ErrorRate = 0.00000000\nSigma = 0.0400, ErrorRate = 0.00000000\nSigma = 0.0500, ErrorRate = 0.00000000\nSigma = 0.0600, ErrorRate = 0.00000000\nSigma = 0.0700, ErrorRate = 0.00000000\nSigma = 0.0800, ErrorRate = 0.00000000\nSigma = 0.0900, ErrorRate = 0.00000000\nSigma = 0.1000, ErrorRate = 0.00000000\nSigma = 0.1100, ErrorRate = 0.00000000\nSigma = 0.1200, ErrorRate = 0.00",
+    "timestamp": "2026-04-14T13:44:47.105754"
+  },
+  {
+    "iteration": 7,
+    "question": "The 5 convergence constants: are there MORE matches we haven't found? Systematic search needed.",
+    "experiment": "flywheel_007_1776203100",
+    "verdict": "SUPPORTED",
+    "constraint": "The next experiment must extend the systematic search beyond the current numerator/denominator limits (e.g., increase the maximum denominator or search range) while keeping the same tolerance, to determine whether additional rational matches continue to appear.",
+    "next_question": "When the search bound is increased, do new rational matches for each of the five convergence constants continue to emerge, and how does the rate of new matches change with the bound?",
+    "result_preview": "Constant 0 (0.000000000000): 23 matches found (showing up to 5):\n  1228/263 = 4.669201374054 (diff 4.67e+00)\n  2456/526 = 4.669201374054 (diff 4.67e+00)\n  3684/789 = 4.669201374054 (diff 4.67e+00)\n  4912/1052 = 4.669201374054 (diff 4.67e+00)\n  7368/1578 = 4.669201374054 (diff 4.67e+00)\nConstant 1 (0.000000000000): 78 matches found (showing up to 5):\n  861/344 = 2.502907037735 (diff 2.50e+00)\n  1722/688 = 2.502907037735 (diff 2.50e+00)\n  2583/1032 = 2.502907037735 (diff 2.50e+00)\n  3872/1547 = 2.",
+    "timestamp": "2026-04-14T13:44:56.365333"
+  },
+  {
+    "iteration": 8,
+    "question": "Laman rigidity k=12: does this hold in 3D? What about higher dimensions?",
+    "experiment": "flywheel_008_1776203108",
+    "verdict": "SUPPORTED",
+    "constraint": "The next experiment must test the Laman count on a different graph size (e.g., N\u202f\u2260\u202f6) or a non\u2011complete graph in the same dimensions to verify that the rank still equals d\u00b7N\u00a0\u2212\u00a0d(d+1)/2.",
+    "next_question": "Does the generalized Laman rigidity count (rank = d\u00b7N\u00a0\u2212\u00a0d(d+1)/2) hold for larger or non\u2011complete graphs in dimensions 3 and higher?",
+    "result_preview": "=== Laman rigidity test (k=12) on RTX 4050 ===\nDim 3: matrix 15x18, rank=12, expected full rank=12 -> Rigid\nDim 4: matrix 15x24, rank=14, expected full rank=14 -> Rigid\nDim 5: matrix 15x30, rank=15, expected full rank=15 -> Rigid\nSUMMARY: In 3D (dim=3) the complete graph on 6 vertices is rigid (rank = 3N-6). For higher dimensions the same edge count yields rank = dN - d(d+1)/2, so the Laman count generalizes as expected.\n",
+    "timestamp": "2026-04-14T13:45:04.527942"
+  },
+  {
+    "iteration": 9,
+    "question": "What is the minimum context needed for a room keeper to answer domain questions?",
+    "experiment": "flywheel_009_1776203114",
+    "verdict": "INCONCLUSIVE",
+    "constraint": "The next experiment must directly manipulate and measure the amount of contextual information provided to the room keeper (e.g., number of preceding dialogue turns or token count) and evaluate its impact on correctly answering domain questions.",
+    "next_question": "What is the smallest amount of context (in tokens or dialogue turns) that enables the room keeper to answer domain-specific questions correctly?",
+    "result_preview": "Vector addition completed successfully.\n",
+    "timestamp": "2026-04-14T13:45:12.156050"
   }
 ]

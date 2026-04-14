@@ -1,0 +1,131 @@
+// snap_vs_gd.cu
+// Compile: nvcc -O3 -arch=sm_86 snap_vs_gd.cu -o snap_vs_gd
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <curand.h>
+#include <curand_kernel.h>
+
+#define N (1<<20)          // 1,048,576 samples
+#define BLOCK 256
+#define EPOCHS 100
+#define LR 0.01f
+#define SNAP_STEP 0.1f
+
+__global__ void init_data(float* x, float* y, unsigned long seed) {
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i >= N) return;
+    curandState st;
+    curand_init(seed, i, 0, &st);
+    float xv = curand_uniform(&st) * 10.0f;          // x in [0,10]
+    float noise = curand_normal(&st) * 0.5f;        // Gaussian noise
+    x[i] = xv;
+    y[i] = 2.0f * xv + 3.0f + noise;                // true w=2, b=3
+}
+
+__global__ void grad_kernel(const float* x, const float* y, float w, float b,
+                            float* sum_diff, float* sum_diff_x) {
+    __shared__ float s_diff[BLOCK];
+    __shared__ float s_diff_x[BLOCK];
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    float diff = 0.0f, diff_x = 0.0f;
+    if (idx < N) {
+        float pred = w * x[idx] + b;
+        diff = pred - y[idx];
+        diff_x = diff * x[idx];
+    }
+    s_diff[threadIdx.x] = diff;
+    s_diff_x[threadIdx.x] = diff_x;
+    __syncthreads();
+    for (int stride = BLOCK/2; stride > 0; stride >>= 1) {
+        if (threadIdx.x < stride) {
+            s_diff[threadIdx.x]     += s_diff[threadIdx.x + stride];
+            s_diff_x[threadIdx.x]   += s_diff_x[threadIdx.x + stride];
+        }
+        __syncthreads();
+    }
+    if (threadIdx.x == 0) {
+        atomicAdd(sum_diff,   s_diff[0]);
+        atomicAdd(sum_diff_x, s_diff_x[0]);
+    }
+}
+
+__global__ void loss_kernel(const float* x, const float* y, float w, float b,
+                            float* sum_sq) {
+    __shared__ float s_sq[BLOCK];
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    float sq = 0.0f;
+    if (idx < N) {
+        float pred = w * x[idx] + b;
+        float diff = pred - y[idx];
+        sq = diff * diff;
+    }
+    s_sq[threadIdx.x] = sq;
+    __syncthreads();
+    for (int stride = BLOCK/2; stride > 0; stride >>= 1) {
+        if (threadIdx.x < stride) s_sq[threadIdx.x] += s_sq[threadIdx.x + stride];
+        __syncthreads();
+    }
+    if (threadIdx.x == 0) atomicAdd(sum_sq, s_sq[0]);
+}
+
+float train(bool snap) {
+    float *d_x, *d_y;
+    cudaMalloc(&d_x, N*sizeof(float));
+    cudaMalloc(&d_y, N*sizeof(float));
+    init_data<<<(N+BLOCK-1)/BLOCK, BLOCK>>>(d_x, d_y, 1234ULL);
+    cudaDeviceSynchronize();
+
+    float w = 0.0f, b = 0.0f;          // init
+    float *d_sum_diff, *d_sum_diff_x, *d_sum_sq;
+    cudaMalloc(&d_sum_diff,   sizeof(float));
+    cudaMalloc(&d_sum_diff_x, sizeof(float));
+    cudaMalloc(&d_sum_sq,     sizeof(float));
+
+    for (int epoch=0; epoch<EPOCHS; ++epoch) {
+        cudaMemset(d_sum_diff,   0, sizeof(float));
+        cudaMemset(d_sum_diff_x, 0, sizeof(float));
+        grad_kernel<<<(N+BLOCK-1)/BLOCK, BLOCK>>>(d_x, d_y, w, b,
+                                                 d_sum_diff, d_sum_diff_x);
+        cudaDeviceSynchronize();
+
+        float h_sum_diff, h_sum_diff_x;
+        cudaMemcpy(&h_sum_diff,   d_sum_diff,   sizeof(float), cudaMemcpyDeviceToHost);
+        cudaMemcpy(&h_sum_diff_x, d_sum_diff_x, sizeof(float), cudaMemcpyDeviceToHost);
+
+        float grad_w = (2.0f/N) * h_sum_diff_x;
+        float grad_b = (2.0f/N) * h_sum_diff;
+
+        w -= LR * grad_w;
+        b -= LR * grad_b;
+
+        if (snap) {
+            w = roundf(w / SNAP_STEP) * SNAP_STEP;
+            b = roundf(b / SNAP_STEP) * SNAP_STEP;
+        }
+    }
+
+    // final loss
+    cudaMemset(d_sum_sq, 0, sizeof(float));
+    loss_kernel<<<(N+BLOCK-1)/BLOCK, BLOCK>>>(d_x, d_y, w, b, d_sum_sq);
+    cudaDeviceSynchronize();
+    float h_sum_sq;
+    cudaMemcpy(&h_sum_sq, d_sum_sq, sizeof(float), cudaMemcpyDeviceToHost);
+    float loss = h_sum_sq / N;
+
+    cudaFree(d_x); cudaFree(d_y);
+    cudaFree(d_sum_diff); cudaFree(d_sum_diff_x); cudaFree(d_sum_sq);
+    return loss;
+}
+
+int main() {
+    float loss_no_snap = train(false);
+    float loss_snap    = train(true);
+    printf("Loss without snapping: %.6f\n", loss_no_snap);
+    printf("Loss with snapping   : %.6f\n", loss_snap);
+    if (loss_snap < loss_no_snap)
+        printf("SUMMARY: SNAP HELPED (lower loss)\n");
+    else
+        printf("SUMMARY: SNAP HURT (higher loss)\n");
+    return 0;
+}

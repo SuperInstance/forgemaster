@@ -1,0 +1,96 @@
+Question: DCS Law 42: zero noise tolerance. What is the exact noise threshold where DCS breaks? Is it sharp or gradual?
+
+Code:
+#include <stdio.h>
+#include <math.h>
+
+__global__ void dcs_simulation(float* results, int trials, float noise_start, float noise_step, int noise_steps) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    int stride = gridDim.x * blockDim.x;
+
+    for (int n = 0; n < noise_steps; n++) {
+        float p_noise = noise_start + n * noise_step;
+        int success_count = 0;
+
+        // Each thread runs multiple trials
+        for (int t = 0; t < trials; t++) {
+            // Simulate DCS: assume deterministic correct signal is 1.0, noise is random in [-p_noise, p_noise]
+            float noise = (2.0f * (float)rand() / RAND_MAX - 1.0f) * p_noise;
+            float signal = 1.0f + noise;
+
+            // DCS "breaks" when noise flips the sign (simple model of zero noise tolerance)
+            if (signal > 0.0f) {
+                success_count++;
+            }
+        }
+
+        if (idx == 0) {
+            float success_rate = (float)success_count / trials;
+            results[n] = success_rate;
+        }
+    }
+}
+
+int main() {
+    const int trials = 10000;
+    const int noise_steps = 20;
+    const float noise_start = 0.0f;
+    const float noise_step = 0.05f;
+
+    float *d_results, *h_results;
+    h_results = (float*)malloc(noise_steps * sizeof(float));
+    cudaMalloc(&d_results, noise_steps * sizeof(float));
+
+    dim3 block(256);
+    dim3 grid(1);
+
+    // Initialize random seed on host
+    srand(12345);
+
+    dcs_simulation<<<grid, block>>>(d_results, trials, noise_start, noise_step, noise_steps);
+    cudaDeviceSynchronize();
+
+    cudaMemcpy(h_results, d_results, noise_steps * sizeof(float), cudaMemcpyDeviceToHost);
+
+    // Analyze threshold: find where success rate drops below 0.5
+    float threshold = 0.0f;
+    int threshold_idx = -1;
+    for (int i = 0; i < noise_steps; i++) {
+        printf("Noise=%.2f, SuccessRate=%.3f\n", noise_start + i * noise_step, h_results[i]);
+        if (threshold_idx == -1 && h_results[i] < 0.5f) {
+            threshold_idx = i;
+            threshold = noise_start + i * noise_step;
+        }
+    }
+
+    // Determine if transition is sharp or gradual
+    int sharp = 1;
+    for (int i = 0; i < noise_steps - 1; i++) {
+        float diff = fabsf(h_results[i] - h_results[i+1]);
+        if (diff < 0.3f && h_results[i] > 0.8f && h_results[i+1] < 0.2f) {
+            // Large drop in one step
+        } else if (diff < 0.3f) {
+            sharp = 0; // gradual
+        }
+    }
+
+    if (threshold_idx == -1) threshold = noise_start + noise_steps * noise_step;
+
+    printf("SUMMARY: DCS breaks at noise threshold %.2f; transition is %s\n", 
+           threshold, (sharp ? "sharp" : "gradual"));
+
+    // Cleanup
+    free(h_results);
+    cudaFree(d_results);
+
+    return 0;
+}
+
+Result:
+COMPILE ERROR: /tmp/forgemaster/flywheel/experiments/flywheel_006_1776203358.cu(6): warning #177-D: variable "stride" was declared but never referenced
+
+/tmp/forgemaster/flywheel/experiments/flywheel_006_1776203358.cu(15): error: calling a __host__ function("rand") from a __global__ function("dcs_simulation") is not allowed
+
+/tmp/forgemaster/flywheel/experiments/flywheel_006_1776203358.cu(15): error: identifier "rand" is undefined in device code
+
+2 errors detected in the compilation of "/tmp/forgemaster/flywheel/experiments/flywheel_006_1776203358.cu".

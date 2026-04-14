@@ -1,0 +1,102 @@
+Question: What is the entropy of a CT-snapped signal vs raw float? Information-theoretic comparison.
+
+Code:
+// entropy_test.cu
+// Compile: nvcc -O3 -arch=sm_86 entropy_test.cu -o entropy_test -lcurand
+#include <cstdio>
+#include <curand_kernel.h>
+#include <cuda_runtime.h>
+
+#define N (1<<22)               // ~4M samples
+#define BINS 4096
+#define THREADS 256
+
+__global__ void init_rng(curandState *state, unsigned long seed) {
+    int id = blockIdx.x * blockDim.x + threadIdx.x;
+    if (id < N) curand_init(seed, id, 0, &state[id]);
+}
+
+__global__ void sample_and_hist(curandState *state, unsigned int *hist_raw, unsigned int *hist_ct) {
+    __shared__ unsigned int s_raw[BINS];
+    __shared__ unsigned int s_ct[BINS];
+    if (threadIdx.x < BINS) {
+        s_raw[threadIdx.x] = 0;
+        s_ct[threadIdx.x] = 0;
+    }
+    __syncthreads();
+
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    int stride = gridDim.x * blockDim.x;
+    for (int i = idx; i < N; i += stride) {
+        curandState local = state[i];
+        float x = curand_uniform(&local);          // uniform [0,1)
+        // raw histogram (scale to BINS)
+        int bin_raw = min((int)(x * BINS), BINS - 1);
+        atomicAdd(&s_raw[bin_raw], 1);
+        // CT‑snapped (quantize to 12‑bit integer)
+        int ct_val = __float2int_rn(x * (BINS - 1));
+        ct_val = max(0, min(ct_val, BINS - 1));
+        atomicAdd(&s_ct[ct_val], 1);
+        state[i] = local;
+    }
+    __syncthreads();
+
+    // merge block histograms to global
+    if (threadIdx.x < BINS) {
+        atomicAdd(&hist_raw[threadIdx.x], s_raw[threadIdx.x]);
+        atomicAdd(&hist_ct[threadIdx.x], s_ct[threadIdx.x]);
+    }
+}
+
+int main() {
+    curandState *d_state;
+    cudaMalloc(&d_state, N * sizeof(curandState));
+
+    unsigned int *d_hist_raw, *d_hist_ct;
+    cudaMalloc(&d_hist_raw, BINS * sizeof(unsigned int));
+    cudaMalloc(&d_hist_ct,  BINS * sizeof(unsigned int));
+    cudaMemset(d_hist_raw, 0, BINS * sizeof(unsigned int));
+    cudaMemset(d_hist_ct,  0, BINS * sizeof(unsigned int));
+
+    dim3 blk(THREADS);
+    dim3 grid((N + THREADS - 1) / THREADS);
+
+    init_rng<<<grid, blk>>>(d_state, 1234ULL);
+    cudaDeviceSynchronize();
+
+    sample_and_hist<<<grid, blk>>>(d_state, d_hist_raw, d_hist_ct);
+    cudaDeviceSynchronize();
+
+    // copy histograms back
+    unsigned int h_hist_raw[BINS];
+    unsigned int h_hist_ct[BINS];
+    cudaMemcpy(h_hist_raw, d_hist_raw, BINS * sizeof(unsigned int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_hist_ct,  d_hist_ct,  BINS * sizeof(unsigned int), cudaMemcpyDeviceToHost);
+
+    // compute entropies
+    double entropy_raw = 0.0, entropy_ct = 0.0;
+    const double invN = 1.0 / (double)N;
+    for (int i = 0; i < BINS; ++i) {
+        if (h_hist_raw[i]) {
+            double p = h_hist_raw[i] * invN;
+            entropy_raw -= p * log2(p);
+        }
+        if (h_hist_ct[i]) {
+            double p = h_hist_ct[i] * invN;
+            entropy_ct -= p * log2(p);
+        }
+    }
+
+    printf("Raw float entropy (bits): %.6f\\n", entropy_raw);
+    printf("CT‑snapped entropy (bits): %.6f\\n", entropy_ct);
+    printf("SUMMARY: Raw entropy = %.6f bits, CT‑snapped entropy = %.6f bits\\n",
+           entropy_raw, entropy_ct);
+
+    cudaFree(d_state);
+    cudaFree(d_hist_raw);
+    cudaFree(d_hist_ct);
+    return 0;
+}
+
+Result:
+Raw float entropy (bits): 0.750225\nCT‑snapped entropy (bits): 0.749050\nSUMMARY: Raw entropy = 0.750225 bits, CT‑snapped entropy = 0.749050 bits\n
