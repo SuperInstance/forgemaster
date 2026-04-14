@@ -1,0 +1,15 @@
+Q: What is the minimum info an agent needs to enter a MUD room and be useful? Answer in one sentence.
+A: An agent needs to know the room's description, available exits, and any objects or characters present to enter a MUD room and be minimally useful, allowing it to understand its surroundings and make basic decisions.
+
+Q: If two agents share a MUD room, what's the cheapest coordination mechanism? One sentence.
+A: In a MUD (Multi-User Dungeon) room, the cheapest coordination mechanism for two agents is likely a simple turn-taking or alternating action protocol, where each agent takes individual turns making a move or action, eliminating the need for more complex communication or negotiation mechanisms.
+
+Q: What's the most efficient way for agents to discover each other's capabilities in a MUD? One sentence.
+A: In a MUD (Multi-User Dungeon), agents can efficiently discover each other's capabilities through a combination of observation, experimentation, and explicit communication, such as querying or negotiating with other agents to learn about their abilities and limitations.
+
+Q: Should room keepers pre-compute answers or generate them on demand? Why? One sentence.
+A: Room keepers should generate answers on demand to provide the most up-to-date and relevant information, rather than relying on pre-computed answers that may become outdated or less accurate over time.
+
+Q: What MUD command would give an agent the most value per token spent? One sentence.
+A: The "map" command would likely give an agent the most value per token spent, as it provides a broad overview of the environment, revealing nearby rooms, objects, and potential paths, at a relatively low token cost.
+
