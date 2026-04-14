@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <math.h>
+
+#define NUM_ELEMENTS 1024
+#define NUM_ITERATIONS 100
+
+__global__ void normalizeKernel(float* data) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < NUM_ELEMENTS) {
+        data[idx] = data[idx] / sqrtf(data[idx] * data[idx] + 0.001f);
+    }
+}
+
+__global__ void ctSnapKernel(float* data) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < NUM_ELEMENTS) {
+        data[idx] = tanh(data[idx]);
+    }
+}
+
+int main() {
+    float* data;
+    float* d_data;
+    cudaMalloc((void**)&d_data, NUM_ELEMENTS * sizeof(float));
+    cudaHostAlloc((void**)&data, NUM_ELEMENTS * sizeof(float), cudaHostAllocDefault);
+
+    // Initialize data
+    for (int i = 0; i < NUM_ELEMENTS; i++) {
+        data[i] = (float)rand() / RAND_MAX;
+    }
+    cudaMemcpy(d_data, data, NUM_ELEMENTS * sizeof(float), cudaMemcpyHostToDevice);
+
+    // Run normalization kernel
+    normalizeKernel<<<(NUM_ELEMENTS + 255) / 256, 256>>>(d_data);
+    cudaDeviceSynchronize();
+
+    // Run CT snap kernel
+    ctSnapKernel<<<(NUM_ELEMENTS + 255) / 256, 256>>>(d_data);
+    cudaDeviceSynchronize();
+
+    // Calculate difference
+    float diff = 0.0f;
+    cudaMemcpy(data, d_data, NUM_ELEMENTS * sizeof(float), cudaMemcpyDeviceToHost);
+    for (int i = 0; i < NUM_ELEMENTS; i++) {
+        diff += fabsf(data[i] - tanh(data[i]));
+    }
+
+    printf("Difference between normalization and CT snap: %f\n", diff / NUM_ELEMENTS);
+    printf("SUMMARY: CT snap can replace normalization layers with a difference of %f\n", diff / NUM_ELEMENTS);
+
+    cudaFree(d_data);
+    cudaFreeHost(data);
+    return 0;
+}
