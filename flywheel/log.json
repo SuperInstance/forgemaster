@@ -2,96 +2,31 @@
   {
     "iteration": 0,
     "question": "What is the optimal Pythagorean manifold density for robotics (sub-millimeter precision)?",
-    "experiment": "flywheel_000_1776203758",
+    "experiment": "flywheel_000_1776209071",
     "verdict": "SUPPORTED",
-    "constraint": "The next experiment should utilize a Pythagorean manifold density of 0.000255 to verify its effectiveness in achieving sub-millimeter precision in robotics.",
-    "next_question": "How does the optimal Pythagorean manifold density of 0.000255 impact the accuracy and reliability of robotic systems in various environments and tasks?",
-    "result_preview": "Optimal Pythagorean manifold density: 0.000255\nSUMMARY: The optimal Pythagorean manifold density for robotics (sub-millimeter precision) is approximately 0.000255\n",
-    "timestamp": "2026-04-14T13:55:45.543611"
+    "constraint": "The next experiment must operate within the vicinity of the optimal Pythagorean manifold density of 1.414375 to further refine or validate the precision for robotics applications, potentially exploring densities in the range of 1.4143 to 1.4144 to ascertain the precision's sensitivity to manifold density.",
+    "next_question": "How does a variation of \u00b10.0001 in the Pythagorean manifold density around the optimal value of 1.414375 affect the precision and performance of robotics in sub-millimeter applications?",
+    "result_preview": "Optimal Pythagorean manifold density: 1.414375\nSUMMARY: Optimal Pythagorean manifold density for robotics (sub-millimeter precision) is approximately 1.414375\n",
+    "timestamp": "2026-04-14T15:24:20.738413"
   },
   {
     "iteration": 1,
     "question": "Does CT snap preserve topology? Can connected components split after snapping?",
-    "experiment": "flywheel_001_1776203788",
+    "experiment": "flywheel_001_1776209093",
     "verdict": "SUPPORTED",
-    "constraint": "The next experiment should test the preservation of topology under more extreme conditions, such as increased noise or varying levels of detail in the input data, to further validate the results.",
-    "next_question": "Does CT snap preserve topology in the presence of noise or outliers in the input data?",
-    "result_preview": "Initial components: 1000\nComponents after snapping: 1000\nConnected components did NOT split after snapping.\nDoes CT snap preserve topology? Yes\n",
-    "timestamp": "2026-04-14T13:56:03.277888"
+    "constraint": "The next experiment should test CT snap with more complex or diverse topologies to further validate its topology preservation capabilities",
+    "next_question": "Does CT snap preserve topology in the presence of noise or degenerate cases, such as duplicate or collinear points?",
+    "result_preview": "Number of split components: 0\nSUMMARY: CT snap does   preserve topology.\n",
+    "timestamp": "2026-04-14T15:24:39.866648"
   },
   {
     "iteration": 2,
     "question": "What is the entropy of a CT-snapped signal vs raw float? Information-theoretic comparison.",
-    "experiment": "flywheel_002_1776203818",
-    "verdict": "SUPPORTED",
-    "constraint": "The next experiment should investigate the cause of the entropy reduction, such as the effect of quantization or the specific characteristics of the CT-snapping process, to determine if the entropy loss is inherent to the snapping process or a result of the specific implementation.",
-    "next_question": "Does the entropy reduction due to CT-snapping vary with the precision of the snapping, and if so, what is the relationship between snapping precision and resulting entropy?",
-    "result_preview": "Entropy of raw float signal: 7.999821\nEntropy of CT-snapped signal: 3.906290\nSUMMARY: The entropy of the CT-snapped signal (3.906290) is lower than the raw float signal (7.999821)\n",
-    "timestamp": "2026-04-14T13:56:35.317215"
-  },
-  {
-    "iteration": 3,
-    "question": "How does CT snap interact with gradient descent? Does snapping weights help or hurt training?",
-    "experiment": "flywheel_003_1776203846",
+    "experiment": "flywheel_002_1776209109",
     "verdict": "INCONCLUSIVE",
-    "constraint": "The next experiment must introduce variability in the weight updates, such as using a different learning rate, initialization, or optimization algorithm, to determine if CT snap is effective in a non-stationary environment.",
-    "next_question": "How does CT snap interact with gradient descent when the model is initialized with different weights or learning rates, and does this affect the convergence of the training process?",
-    "result_preview": "Weight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss: 0.000100\nWeight: -0.010000, Loss:",
-    "timestamp": "2026-04-14T13:57:05.898281"
-  },
-  {
-    "iteration": 4,
-    "question": "Can CT snap replace normalization layers in neural networks?",
-    "experiment": "flywheel_004_1776203884",
-    "verdict": "SUPPORTED",
-    "constraint": "The next experiment should investigate the conditions under which the average difference of 0.899530 is acceptable, such as the type of neural network, dataset, or task, to further validate the effectiveness of CT snap as a replacement for normalization layers.",
-    "next_question": "What is the impact of CT snap on the performance of neural networks in different domains (e.g. image classification, natural language processing, etc.) and how does it compare to traditional normalization layers in these scenarios?",
-    "result_preview": "Average difference: 0.899530\nSUMMARY: CT snap can replace normalization layers with an average difference of 0.899530\n",
-    "timestamp": "2026-04-14T13:57:54.064472"
-  },
-  {
-    "q": "JC1 found stigmergy dominates all coordination. Is stigmergy a form of CT snap (discrete shared state)?",
-    "status": "experiment_failed",
-    "result": ""
-  },
-  {
-    "iteration": 6,
-    "question": "DCS Law 42: zero noise tolerance. What is the exact noise threshold where DCS breaks? Is it sharp or gradual?",
-    "experiment": "flywheel_006_1776203939",
-    "verdict": "SUPPORTED",
-    "constraint": "The next experiment must use a noise threshold of less than or equal to 0.010000 to test the sharpness or gradualness of the DCS breakdown",
-    "next_question": "Is the breakdown of DCS at a noise threshold of 0.010000 sharp, occurring immediately at this threshold, or is it gradual, with DCS performance degrading over a range of noise levels around this threshold?",
-    "result_preview": "Noise threshold where DCS breaks: 0.010000\nSUMMARY: The noise threshold where DCS breaks is 0.010000\n",
-    "timestamp": "2026-04-14T13:58:48.217728"
-  },
-  {
-    "iteration": 7,
-    "question": "The 5 convergence constants: are there MORE matches we haven't found? Systematic search needed.",
-    "experiment": "flywheel_007_1776203968",
-    "verdict": "SUPPORTED",
-    "constraint": "The search methodology used is exhaustive, as it has found all possible matches, leaving no room for additional discoveries.",
-    "next_question": "What is the underlying mechanism or pattern that limits the number of convergence constants to exactly 5?",
-    "result_preview": "Total matches found: 5\nSUMMARY: There are 0 more matches that haven't been found.\n",
-    "timestamp": "2026-04-14T13:59:20.362921"
-  },
-  {
-    "iteration": 8,
-    "question": "Laman rigidity k=12: does this hold in 3D? What about higher dimensions?",
-    "experiment": "flywheel_008_1776203976",
-    "verdict": "SUPPORTED",
-    "constraint": "The next experiment should test dimensions greater than 4D, as the current result only confirms the hypothesis for 3D and 4D.",
-    "next_question": "Does Laman rigidity k=12 hold in dimensions greater than 4D, and if so, what is the corresponding value?",
-    "result_preview": "SUMMARY: Laman rigidity k=12 holds in 3D with value 1728.000000, and in 4D with value 20736.000000\n",
-    "timestamp": "2026-04-14T13:59:31.395515"
-  },
-  {
-    "iteration": 9,
-    "question": "What is the minimum context needed for a room keeper to answer domain questions?",
-    "experiment": "flywheel_009_1776203988",
-    "verdict": "SUPPORTED",
-    "constraint": "The minimum context size for a room keeper to answer domain questions must be at least 0.100000",
-    "next_question": "What is the relationship between context size and accuracy of domain question answering by the room keeper?",
-    "result_preview": "Minimum context size: 0.100000\nSUMMARY: Minimum context size is approximately 0.100000\n",
-    "timestamp": "2026-04-14T13:59:41.795848"
+    "constraint": "The next experiment must use a method to handle or avoid zero or near-zero values in the entropy calculation to obtain meaningful results.",
+    "next_question": "How does the entropy of the CT-snapped signal compare to the raw float signal when using a different entropy calculation method or data preprocessing technique to handle zero or near-zero values?",
+    "result_preview": "Entropy of raw float signal: 0.000000\nEntropy of CT-snapped signal: 0.000000\nSUMMARY: CT-snapped signal has -nan% lower entropy than raw float signal\n",
+    "timestamp": "2026-04-14T15:24:56.785997"
   }
 ]
