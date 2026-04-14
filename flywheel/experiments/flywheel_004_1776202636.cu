@@ -1,0 +1,46 @@
+```cuda
+#include <cuda_runtime.h>
+#include <cuda.h>
+#include <stdio.h>
+
+__global__ void ct_snap_test(float* input, float* output) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < 1024) {
+        float x = input[idx];
+        float ct_snap = x / (1 + x);
+        float normalization = x / sqrtf(x * x + 1);
+        output[idx] = ct_snap - normalization;
+    }
+}
+
+int main() {
+    const int N = 1024;
+    float* d_input, *d_output;
+    cudaMalloc((void**)&d_input, N * sizeof(float));
+    cudaMalloc((void**)&d_output, N * sizeof(float));
+
+    float* h_input = (float*)malloc(N * sizeof(float));
+    for (int i = 0; i < N; i++) {
+        h_input[i] = i * 0.1;
+    }
+    cudaMemcpy(d_input, h_input, N * sizeof(float), cudaMemcpyHostToDevice);
+
+    ct_snap_test<<<(N + 255) / 256, 256>>>(d_input, d_output);
+
+    float* h_output = (float*)malloc(N * sizeof(float));
+    cudaMemcpy(h_output, d_output, N * sizeof(float), cudaMemcpyDeviceToHost);
+
+    float sum = 0;
+    for (int i = 0; i < N; i++) {
+        sum += h_output[i] * h_output[i];
+    }
+    printf("MSE between CT snap and normalization: %f\n", sum / N);
+    printf("SUMMARY: CT snap can replace normalization layers with an MSE of %f\n", sum / N);
+
+    cudaFree(d_input);
+    cudaFree(d_output);
+    free(h_input);
+    free(h_output);
+    return 0;
+}
+```

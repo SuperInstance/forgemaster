@@ -1,0 +1,52 @@
+[
+  {
+    "iteration": 0,
+    "question": "What is the optimal Pythagorean manifold density for robotics (sub-millimeter precision)?",
+    "experiment": "flywheel_000_1776202694",
+    "verdict": "SUPPORTED",
+    "constraint": "The optimal Pythagorean manifold density for robotics appears to be zero, suggesting that a non-zero density may not be necessary for achieving sub-millimeter precision. The next experiment should investigate the implications of a zero-density manifold on robotic precision and explore alternative manifold structures.",
+    "next_question": "What are the implications of a zero-density Pythagorean manifold on the stability and accuracy of robotic movements at the sub-millimeter scale?",
+    "result_preview": "0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n0.000000\n",
+    "timestamp": "2026-04-14T13:37:57.797372"
+  },
+  {
+    "iteration": 1,
+    "question": "Does CT snap preserve topology? Can connected components split after snapping?",
+    "experiment": "flywheel_001_1776202728",
+    "verdict": "FALSIFIED",
+    "constraint": "The next experiment must investigate the conditions under which connected components split after snapping, such as the threshold value or the type of snapping algorithm used",
+    "next_question": "What are the specific conditions or parameters that cause connected components to split after snapping, and can these conditions be controlled or optimized to preserve topology?",
+    "result_preview": "Connected components before snapping: 1\nConnected components after snapping: 768\nSUMMARY: Connected components CAN split after snapping.\n",
+    "timestamp": "2026-04-14T13:38:29.793947"
+  },
+  {
+    "iteration": 2,
+    "question": "What is the entropy of a CT-snapped signal vs raw float? Information-theoretic comparison.",
+    "experiment": "flywheel_002_1776202747",
+    "verdict": "FALSIFIED",
+    "constraint": "The next experiment must handle or investigate the cause of the 'nan' (not a number) result for the snapped signal entropy calculation, possibly due to division by zero or other numerical instability issues.",
+    "next_question": "What is the cause of the 'nan' result in the entropy calculation of the snapped signal, and how can it be resolved or avoided in future experiments?",
+    "result_preview": "Average entropy of raw signal: 5.360871\nAverage entropy of snapped signal: nan\nSUMMARY: Snapped signal has lower entropy (nan) compared to raw signal (5.360871)\n",
+    "timestamp": "2026-04-14T13:38:51.867875"
+  },
+  {
+    "iteration": 3,
+    "question": "How does CT snap interact with gradient descent? Does snapping weights help or hurt training?",
+    "experiment": "flywheel_003_1776202778",
+    "verdict": "INCONCLUSIVE",
+    "constraint": "The next experiment should introduce variability in the model's weights or the training data to observe the effect of CT snap on training, as the current result shows no variation or learning",
+    "next_question": "How does CT snap interact with gradient descent when the model is trained on a diverse dataset or with different initial weight configurations?",
+    "result_preview": "0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500000 0.500",
+    "timestamp": "2026-04-14T13:39:16.945616"
+  },
+  {
+    "iteration": 4,
+    "question": "Can CT snap replace normalization layers in neural networks?",
+    "experiment": "flywheel_004_1776202816",
+    "verdict": "FALSIFIED",
+    "constraint": "The next experiment should investigate why the CT Snap output is consistently 1.000000, and consider modifying the CT Snap implementation or the experimental setup to allow for more varied outputs.",
+    "next_question": "What is the cause of the CT Snap output being consistently 1.000000, and can it be modified to produce more varied outputs that are comparable to the original neural network output?",
+    "result_preview": "Input: 0.096528, Output: 0.092305, CT Snap Output: 1.000000\nInput: 0.054434, Output: 0.053644, CT Snap Output: 1.000000\nInput: 0.843672, Output: 0.280295, CT Snap Output: 1.000000\nInput: 0.641209, Output: 0.273292, CT Snap Output: 1.000000\nInput: 0.662713, Output: 0.274492, CT Snap Output: 1.000000\nInput: 0.967154, Output: 0.281407, CT Snap Output: 1.000000\nInput: 0.208987, Output: 0.173858, CT Snap Output: 1.000000\nInput: 0.254596, Output: 0.197299, CT Snap Output: 1.000000\nInput: 0.878650, Out",
+    "timestamp": "2026-04-14T13:39:57.306656"
+  }
+]

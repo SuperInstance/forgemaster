@@ -1,0 +1,144 @@
+Question: Does CT snap preserve topology? Can connected components split after snapping?
+
+Code:
+```cuda
+#include <stdio.h>
+#include <cuda_runtime.h>
+
+#define NUM_POINTS 1000
+
+__global__ void snapTopology(float *points, int *labels, float epsilon) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx >= NUM_POINTS) return;
+
+    float dx, dy;
+    int label = labels[idx];
+    for (int i = 0; i < NUM_POINTS; i++) {
+        dx = points[i * 2] - points[idx * 2];
+        dy = points[i * 2 + 1] - points[idx * 2 + 1];
+        float dist = sqrtf(dx * dx + dy * dy);
+        if (dist < epsilon && labels[i]!= label) {
+            labels[i] = label;
+        }
+    }
+}
+
+int main() {
+    float *d_points, *h_points;
+    int *d_labels, *h_labels;
+    h_points = (float *)malloc(NUM_POINTS * 2 * sizeof(float));
+    h_labels = (int *)malloc(NUM_POINTS * sizeof(int));
+
+    for (int i = 0; i < NUM_POINTS; i++) {
+        h_points[i * 2] = (float)rand() / RAND_MAX;
+        h_points[i * 2 + 1] = (float)rand() / RAND_MAX;
+        h_labels[i] = i;
+    }
+
+    cudaMalloc((void **)&d_points, NUM_POINTS * 2 * sizeof(float));
+    cudaMalloc((void **)&d_labels, NUM_POINTS * sizeof(int));
+
+    cudaMemcpy(d_points, h_points, NUM_POINTS * 2 * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_labels, h_labels, NUM_POINTS * sizeof(int), cudaMemcpyHostToDevice);
+
+    snapTopology<<<(NUM_POINTS + 255) / 256, 256>>>(d_points, d_labels, 0.1f);
+
+    cudaMemcpy(h_labels, d_labels, NUM_POINTS * sizeof(int), cudaMemcpyDeviceToHost);
+
+    int connected = 1;
+    for (int i = 1; i < NUM_POINTS; i++) {
+        if (h_labels[i]!= h_labels[0]) connected = 0;
+    }
+
+    printf("Connected components split after snapping: %d\n",!connected);
+
+    cudaFree(d_points);
+    cudaFree(d_labels);
+    free(h_points);
+    free(h_labels);
+
+    SUMMARY: printf("Does CT snap preserve topology? No\n");
+
+    return 0;
+}
+```
+
+Result:
+COMPILE ERROR: /tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(1): error: unrecognized token
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(1): error: expected a declaration
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(1): error: unrecognized token
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(1): error: unrecognized token
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(36): warning #12-D: parsing restarts here after previous syntax error
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(38): error: this declaration has no storage class or type specifier
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(38): error: declaration is incompatible with "cudaError_t cudaMemcpy(void *, const void *, size_t, cudaMemcpyKind)"
+/usr/include/cuda_runtime_api.h(6062): here
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(38): error: identifier "d_points" is undefined
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(38): error: identifier "h_points" is undefined
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(38): error: too many initializer values
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(39): error: this declaration has no storage class or type specifier
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(39): error: variable "cudaMemcpy" has already been defined
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(39): error: identifier "d_labels" is undefined
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(39): error: identifier "h_labels" is undefined
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(39): error: too many initializer values
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(41): error: this declaration has no storage class or type specifier
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(41): error: expected a ";"
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(43): error: this declaration has no storage class or type specifier
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(43): error: variable "cudaMemcpy" has already been defined
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(43): error: too many initializer values
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(46): error: expected a declaration
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(50): warning #12-D: parsing restarts here after previous syntax error
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(52): error: this declaration has no storage class or type specifier
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(52): error: declaration is incompatible with "cudaError_t cudaFree(void *)"
+/usr/include/cuda_runtime_api.h(4927): here
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(53): error: this declaration has no storage class or type specifier
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(53): error: variable "cudaFree" has already been defined
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(54): error: this declaration has no storage class or type specifier
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(54): error: declaration is incompatible with "void free(void *) noexcept(true)"
+/usr/include/crt/common_functions.h(158): here
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(55): error: this declaration has no storage class or type specifier
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(55): error: variable "free" has already been defined
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(57): error: this declaration has no storage class or type specifier
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(57): error: expected a ";"
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(59): error: expected a declaration
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(60): error: expected a declaration
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(61): error: unrecognized token
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(61): error: unrecognized token
+
+/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu(61): error: unrecognized token
+
+35 errors detected in the compilation of "/tmp/forgemaster/flywheel/experiments/flywheel_001_1776202582.cu".

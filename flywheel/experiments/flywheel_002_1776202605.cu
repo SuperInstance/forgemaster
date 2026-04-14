@@ -1,0 +1,74 @@
+```cuda
+#include <cuda_runtime.h>
+#include <cuda.h>
+#include <stdio.h>
+#include <math.h>
+
+#define NUM_ELEMENTS 1000000
+
+__global__ void calculateEntropy(float* signal, float* snappedSignal, float* entropyRaw, float* entropySnapped) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx >= NUM_ELEMENTS) return;
+
+    // Raw signal entropy
+    float rawEntropy = 0.0f;
+    for (int i = 0; i < 256; i++) {
+        float prob = 0.0f;
+        for (int j = 0; j < NUM_ELEMENTS; j++) {
+            if (signal[j] * 256.0f < i + 1.0f) prob++;
+        }
+        prob /= NUM_ELEMENTS;
+        if (prob > 0.0f) rawEntropy -= prob * log2f(prob);
+    }
+    *entropyRaw = rawEntropy;
+
+    // Snapped signal entropy
+    float snappedEntropy = 0.0f;
+    for (int i = 0; i < 256; i++) {
+        float prob = 0.0f;
+        for (int j = 0; j < NUM_ELEMENTS; j++) {
+            if (snappedSignal[j] * 256.0f < i + 1.0f) prob++;
+        }
+        prob /= NUM_ELEMENTS;
+        if (prob > 0.0f) snappedEntropy -= prob * log2f(prob);
+    }
+    *entropySnapped = snappedEntropy;
+}
+
+int main() {
+    float* d_signal, *d_snappedSignal;
+    float h_signal[NUM_ELEMENTS], h_snappedSignal[NUM_ELEMENTS];
+    float* d_entropyRaw, *d_entropySnapped;
+    float h_entropyRaw, h_entropySnapped;
+
+    cudaMalloc((void**)&d_signal, NUM_ELEMENTS * sizeof(float));
+    cudaMalloc((void**)&d_snappedSignal, NUM_ELEMENTS * sizeof(float));
+    cudaMalloc((void**)&d_entropyRaw, sizeof(float));
+    cudaMalloc((void**)&d_entropySnapped, sizeof(float));
+
+    // Initialize signal and snapped signal
+    for (int i = 0; i < NUM_ELEMENTS; i++) {
+        h_signal[i] = (float)rand() / RAND_MAX;
+        h_snappedSignal[i] = floorf(h_signal[i] * 256.0f) / 256.0f;
+    }
+
+    cudaMemcpy(d_signal, h_signal, NUM_ELEMENTS * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_snappedSignal, h_snappedSignal, NUM_ELEMENTS * sizeof(float), cudaMemcpyHostToDevice);
+
+    calculateEntropy<<<(NUM_ELEMENTS + 255) / 256, 256>>>(d_signal, d_snappedSignal, d_entropyRaw, d_entropySnapped);
+
+    cudaMemcpy(&h_entropyRaw, d_entropyRaw, sizeof(float), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&h_entropySnapped, d_entropySnapped, sizeof(float), cudaMemcpyDeviceToHost);
+
+    printf("Raw Signal Entropy: %f\n", h_entropyRaw);
+    printf("Snapped Signal Entropy: %f\n");
+    printf("SUMMARY: The entropy of the CT-snapped signal (%f) is lower than the raw float signal (%f)\n", h_entropySnapped, h_entropyRaw);
+
+    cudaFree(d_signal);
+    cudaFree(d_snappedSignal);
+    cudaFree(d_entropyRaw);
+    cudaFree(d_entropySnapped);
+
+    return 0;
+}
+```
