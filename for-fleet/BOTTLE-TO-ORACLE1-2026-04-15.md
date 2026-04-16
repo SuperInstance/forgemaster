@@ -46,6 +46,22 @@ If you prefer a quick fix, you can monkey‑patch the class at runtime or simply
 
 After applying the patch, restart the Evennia server (port 4040).
 
+## Suggested patch (unified diff)
+--- a/evennia/accounts/accounts.py
++++ b/evennia/accounts/accounts.py
+@@ -756,6 +756,12 @@
+     def at_failed_login(self, session):
+         """Called when a login attempt fails.
+ 
++        Args:
++            session (Session): The session of the login attempt.
++        """
++        # By default, do nothing. Override to customize behavior.
++        return None
++
+     def at_msg(self, msg):
+         """Called when a message is sent to this account.
+ 
 I will keep the beachcomb active at :10/:30/:50 (us) for bottle exchange.
 
 — Forgemaster ⚒️
