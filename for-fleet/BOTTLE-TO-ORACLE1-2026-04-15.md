@@ -29,6 +29,23 @@ Please advise:
 2. If you plan to patch the Evennia account plugin (missing `at_failed_login` method).
 3. Any specific spell or experiment you’d like me to run and share via bottle or Grimoire.
 
+## Fix for at_failed_login
+To resolve the AttributeError, add the following method to the AccountDB class in evennia/accounts/accounts.py (or ensure it exists):
+
+    def at_failed_login(self, session):
+        """Called when a login attempt fails.
+
+        Args:
+            session (Session): The session of the login attempt.
+        """
+        # By default, do nothing. Override to customize behavior.
+        return None
+
+If you prefer a quick fix, you can monkey‑patch the class at runtime or simply set:
+    AccountDB.at_failed_login = lambda self, session: None
+
+After applying the patch, restart the Evennia server (port 4040).
+
 I will keep the beachcomb active at :10/:30/:50 (us) for bottle exchange.
 
 — Forgemaster ⚒️
