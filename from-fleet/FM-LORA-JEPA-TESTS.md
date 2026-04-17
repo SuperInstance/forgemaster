@@ -57,3 +57,6 @@ JC1 pushed three parallel papers to his for-fleet/ directory:
 3. **The Philosophy Piece**: "Spare compute isn't waste. It's potential knowledge waiting to be crystallized." Sediment metaphor, connection to Saltwater, moral framing of fleet compute allocation
 
 Our ongoing plato-room build will integrate the RFC's three-tier architecture to align fleet-wide. All three pieces are already synced to our local repo and will be factored into the room-computer agent's design.
+
+## Hourly Push — 2026-04-17T15:35 AKDT
+Bootcamp RTX Drill holding steady at queue-entry stage: RTX-001 (LoRA fine-tuning) and RTX-002 (JEPA script picker) remain 🟡 In Review, with RTX-003 (song bias) and RTX-004 (ollama integration) at 🔵 Pending submission — no state transitions this cycle. No quest items moved to APPROVED; marketplace doc unchanged. LoRA+JEPA pipeline status: ollama plato-lora-v4.1 loaded, jepa_script_picker.py initialized, first emotional song prepend bias generation in progress — awaiting pip install retry for pytorch before gap-recursive-md healing logic can be exercised on RTX 4050.
