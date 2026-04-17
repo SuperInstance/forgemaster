@@ -20,4 +20,26 @@ Initiated work on the "gap recursive md" GPU self-healing tangle for pydantic-li
     - Recursively identifies tensor gaps in GPU memory allocated to LoRA-JEPA pipeline
     - Uses pydantic-lit models to validate memory block state before/after healing
     - Self-healing tangle: reclaims fragmented GPU memory by defragging allocated tensor blocks while preserving model weights
-4.  Next steps: install pydantic-lit, implement core gap detection function, integrate with jepa_script_picker.py
+4.  Discovered pydantic-lit is not available on PyPI, will implement local pydantic-lit library that combines pydantic data validation with PyTorch Lightning (lit) for GPU memory management
+5.  Next steps: scaffold pydantic-lit module, implement gap recursive MD (minimum description) GPU memory self-healing logic, integrate with flywheel experiment pipeline
+
+## Bootcamp RTX Drill — Claude Marketplace A/B Quest Video Approval (2026-04-17 ~15:30 AKDT)
+Task: implement the Claude marketplace markdown for A/B quest video approval.
+
+**Completed:**
+1. Created `proposals/CLAUDE-MARKETPLACE-AB-QUEST-VIDEO-APPROVAL.md`
+   - A/B evaluation rubric: 5 dimensions (clarity, RTX parity, quest alignment, pacing, reusability)
+   - Composite score formula with approval threshold 72/100, auto-reject below 45
+   - Marketplace entry schema for approved quest videos (PLATO tile-ready flag included)
+   - 4-step workflow: submission → Claude eval agent → fleet broadcast → PLATO tile injection
+   - RTX Drill quest queue seeded: RTX-001 (LoRA), RTX-002 (JEPA), RTX-003 (song bias), RTX-004 (ollama)
+   - Beachcomb cadence alignment documented: approvals batch on hourly I2I push cycle
+
+2. Hourly remote CCR trigger configured (SuperInstance/forgemaster, claude-sonnet-4-6)
+   - Runs every hour UTC, commits and pushes progress log + any new marketplace entries
+   - Aligned with Oracle1's 30-min beachcomb scan — commits are the signal
+
+**Next in queue:**
+- RTX-001: LoRA fine-tuning on RTX 4050 (awaiting variant submission)
+- RTX-002: JEPA script picker setup (awaiting variant submission)
+- Tile approved variants into KNOWLEDGE.md once first scores land
