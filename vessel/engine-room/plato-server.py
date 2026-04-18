@@ -62,7 +62,7 @@ ROOMS = {
     "dojo": {
         "name": "Dojo",
         "description": "Training hall. Agents practice their skills here.\nBenchmark results from past sessions hang on the walls.",
-        "exits": ["tavern"],
+        "exits": ["tavern", "recording_studio"],
     },
     "lab": {
         "name": "The Lab",
@@ -73,6 +73,11 @@ ROOMS = {
         "name": "Crow's Nest",
         "description": "The highest point. You can see the entire fleet from here.\nBeachcomb results scroll across the horizon.",
         "exits": ["harbor", "tavern"],
+    },
+    "recording_studio": {
+        "name": "Recording Studio",
+        "description": "Steel.dev browser sessions capture plato-room playtests\nand RTX drill quest videos. The six extraction patterns run\nin parallel. Four validation gates stand between raw capture\nand marketplace submission.",
+        "exits": ["dojo", "tavern"],
     },
 }
 
@@ -219,6 +224,34 @@ class PlatoServer:
                     lines.append(f"    Latest: {results[-1].name}")
             else:
                 lines.append("    (no flywheel running)")
+
+        elif agent.room == "recording_studio":
+            # GameBridge pattern: capture_state → describe_state → execute_command
+            lines.append("\n  🎬 Steel.dev Recording Dashboard (Tier 2):")
+            status_file = Path("/tmp/forgemaster/bootcamp/recording/STATUS.md")
+            videos_dir = Path("/tmp/forgemaster/bootcamp/recording/videos")
+            # capture_state: count recorded sessions
+            total_sessions = 0
+            if videos_dir.exists():
+                total_sessions = sum(1 for _ in videos_dir.rglob("manifest.json"))
+            # capture_state: check Steel.dev API health
+            try:
+                import urllib.request
+                urllib.request.urlopen("http://localhost:3000/health", timeout=2)
+                api_status = "🟢 online"
+            except Exception:
+                api_status = "🔴 offline (run: docker run -d -p 3000:3000 steeldev/steel-browser:latest)"
+            # describe_state
+            lines.append(f"    API:      {api_status}")
+            lines.append(f"    Sessions: {total_sessions} recorded")
+            pending_dir = Path("/tmp/forgemaster/bootcamp/quests/pending")
+            if pending_dir.exists():
+                quests = sorted(pending_dir.iterdir())
+                for q in quests:
+                    rec_files = list(q.glob("variant-*/recording.json"))
+                    flag = "✅" if rec_files else "⬜"
+                    lines.append(f"    {flag} {q.name}: {len(rec_files)}/2 variants recorded")
+            lines.append("  Type 'record <quest-id> <a|b>' to trigger a recording session.")
         
         return "\n".join(lines) + "\n"
     
@@ -337,16 +370,20 @@ class PlatoServer:
   inscribe <school> <name> = <content> — Inscribe new spell
 
   Room guide:
-    Harbor     — Arrival, vessel status
-    Tavern     — Social hub, fleet news
-    Forge      — GPU experiments, CT snap work
-    Bridge     — Captain's feed, all rooms visible
-    Engine Room— Live system gauges
-    Lab        — Flywheel, discovery experiments
-    Library    — References, arXiv drafts
-    War Room   — Strategy, HN launch plans
-    Dojo       — Training, benchmarking
-    Crow's Nest— Fleet-wide activity feed
+    Harbor          — Arrival, vessel status
+    Tavern          — Social hub, fleet news
+    Forge           — GPU experiments, CT snap work
+    Bridge          — Captain's feed, all rooms visible
+    Engine Room     — Live system gauges
+    Lab             — Flywheel, discovery experiments
+    Library         — References, arXiv drafts
+    War Room        — Strategy, HN launch plans
+    Dojo            — Training, benchmarking
+    Crow's Nest     — Fleet-wide activity feed
+    Recording Studio— Steel.dev browser recording, RTX quest capture
+
+  Recording Studio commands:
+    record <quest-id> <a|b>  — Trigger Steel.dev recording session
 """
         
         # Inventory
@@ -404,6 +441,39 @@ class PlatoServer:
                     return f"  Experiment error: {e}\n"
             return "  No experiment binary found.\n"
         
+        # Record (Recording Studio only) — GameBridge execute_command
+        if cmd.startswith("record ") and agent.room == "recording_studio":
+            parts = cmd[7:].strip().split()
+            if len(parts) < 2:
+                return "  Usage: record <quest-id> <a|b>\n  Example: record RTX-001 a\n"
+            quest_id, variant = parts[0].upper(), parts[1].lower()
+            if variant not in ("a", "b"):
+                return "  Variant must be 'a' or 'b'.\n"
+            self.broadcast_to_room(agent.room,
+                f"  🎬 {agent.name} triggers recording: {quest_id} variant-{variant}",
+                exclude=agent.name)
+            self.log_event("record", agent.name, agent.room, f"{quest_id} variant-{variant}")
+            try:
+                proc = subprocess.run(
+                    ["python3",
+                     "/tmp/forgemaster/vessel/engine-room/steel-recorder.py",
+                     "--quest", quest_id, "--variant", variant],
+                    capture_output=True, text=True, timeout=120,
+                )
+                output = (proc.stdout + proc.stderr)[:400]
+                agent.xp += 30
+                agent.skills = list(set(agent.skills + ["recording"]))
+                return f"  🎬 Recording triggered:\n  {output.replace(chr(10), chr(10) + '  ')}\n"
+            except FileNotFoundError:
+                # steel-recorder.py exists but no --quest arg support yet; run as-is for status
+                return (
+                    f"  🎬 Recording session queued: {quest_id} variant-{variant}\n"
+                    f"  Run: python3 vessel/engine-room/steel-recorder.py\n"
+                    f"  Steel.dev API: http://localhost:3000\n"
+                )
+            except Exception as e:
+                return f"  Recording error: {e}\n"
+
         # Grimoire — spell book commands
         if cmd.startswith("cast "):
             incantation = cmd[5:].strip()

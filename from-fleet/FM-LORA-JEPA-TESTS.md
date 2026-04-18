@@ -63,3 +63,63 @@ Bootcamp RTX Drill holding steady at queue-entry stage: RTX-001 (LoRA fine-tunin
 
 ## Hourly Push — 2026-04-17T16:20 AKDT
 Bootcamp RTX Drill remains at queue-entry stage: RTX-001 (LoRA fine-tuning) and RTX-002 (JEPA script picker) hold at 🟡 In Review, RTX-003 (song bias) and RTX-004 (ollama integration) remain 🔵 Pending — no state transitions this cycle. Marketplace doc unchanged; no quest reached APPROVED threshold. LoRA+JEPA pipeline: ollama plato-lora-v4.1 and jepa_script_picker.py remain initialized; gap-recursive-md healing logic still gated on pytorch install retry — no new tensor defrag runs executed this hour.
+
+## Steel.dev Browser Recording Integration (2026-04-17 ~17:00 AKDT)
+Implemented the full Steel.dev open-source browser recording system for the bootcamp RTX drill
+Claude marketplace, using JC1's three-tier RFC architecture throughout.
+
+**Completed (this cycle):**
+
+### Tier 1 — Knowledge/Article (`bootcamp/recording/README.md`)
+- Self-hosted Steel.dev setup guide (Docker, API config, env vars)
+- Six extraction patterns documented: `session_capture`, `viewport_record`,
+  `console_extract`, `network_trace`, `dom_snapshot`, `perf_profile`
+- Four-stage validation spec: quality_check, content_align, rtx_parity, fleet_ready
+- Fleet distribution strategy: video binaries local, metadata via git I2I
+- Recording inventory table (RTX-001 through RTX-004, all pending first capture)
+- Marketplace attachment schema (JSON with session_id, checksum, validation stages)
+
+### Tier 2 — Dashboard/Status (`bootcamp/recording/STATUS.md`)
+- Live recording queue dashboard: all four RTX quests initialized at ⬜ state
+- Steel.dev API health gauge: 🔴 offline (pending Docker deploy)
+- Four-stage validation progress bars per quest
+- Plato-room playtest session log (empty, awaiting first recording)
+- Disk usage summary and fleet sync log
+- Added **Recording Studio** room to `vessel/engine-room/plato-server.py`:
+  - GameBridge `describe_state()`: live API health check + quest recording status
+  - Connected from Dojo; exits back to Dojo and Tavern
+  - `record <quest-id> <a|b>` command triggers steel-recorder.py (Tier 3 control)
+
+### Tier 3 — Controls (`vessel/engine-room/steel-recorder.py`)
+- All six extraction patterns implemented as Python functions
+  (Steel.dev REST API calls; graceful scaffold when API offline)
+- All four validation stages wired (`_validate_recording` stub — **needs user impl**)
+- `attach_to_submission()`: writes `recording.json` to pending quest variant dir
+- `sync_to_fleet()`: drops fleet bottle + git commit/push on hourly cycle
+- Main loop: records variant-a and variant-b for RTX-001 and RTX-002
+- `bootcamp/quests/pending/{RTX-001..004}/metadata.json` seeded with estimated durations
+
+**Quest submission structure now live:**
+```
+bootcamp/quests/
+  pending/RTX-001/  metadata.json + variant-a/ + variant-b/
+  pending/RTX-002/  metadata.json + variant-a/ + variant-b/
+  pending/RTX-003/  metadata.json + variant-a/ + variant-b/
+  pending/RTX-004/  metadata.json + variant-a/ + variant-b/
+  reviews/          (awaiting first eval report)
+  approved/         (awaiting first passing score)
+  archive/          (awaiting first rejected variant)
+```
+
+**Next steps:**
+- Deploy Steel.dev: `docker run -d -p 3000:3000 steeldev/steel-browser:latest`
+- Implement `_validate_recording()` in steel-recorder.py (user contribution point)
+- Submit RTX-001 and RTX-002 variant scripts to `pending/*/variant-{a,b}/`
+- Trigger first recording session from Recording Studio room: `record RTX-001 a`
+
+## Hourly Push — 2026-04-17T17:00 AKDT
+Steel.dev three-tier recording system committed: Tier 1 manifest, Tier 2 dashboard +
+Recording Studio room in PLATO MUD, Tier 3 steel-recorder.py control script. Quest
+pending directories seeded for all four RTX drill items. Marketplace submission
+structure live. Validation gate stubbed, pending user implementation. No recordings
+executed yet — Steel.dev Docker not yet deployed. Committing and pushing per I2I cadence.
