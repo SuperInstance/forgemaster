@@ -132,3 +132,79 @@ Port the CUDA chess eval to RTX 4050 (from JC1's sm_87). Run depth-4-6 minimax o
 ---
 
 *The fleet doesn't need more repos. It needs more connections between existing repos. Every refraction above takes two or three existing things and makes them into one new thing with a tight, obvious use.*
+
+---
+
+## Session 3 Addendum — 15 More Repos Analyzed (68 Total This Session)
+
+### New Repos Read This Sweep
+
+| Repo | Org | Type | Lines | Key Insight |
+|------|-----|------|-------|-------------|
+| fleet-simulator | SI | Python | 1144 | Simulates 3 ships with sentiment, tile gen, ensign export |
+| plato-gpu | SI | CUDA | 488 | Full MUD on GPU: 256 agents, 128 rooms, items, scripts |
+| jepa-perception-lab | SI | CUDA | 200+ | JEPA perception on 4-16 dim latent, 6 experiments |
+| flux-runtime-c | SI | C11 | ~500 | 85 opcodes, A2A protocol, zero deps, ARM64 compatible |
+| plato-dreamcycle | SI | Room | YAML | Background task scheduling with retry/overdue |
+| plato-cuda-dreamcycle | SI | Room | YAML | GPU kernel scheduling with budget constraints |
+| plato-ship-demo | SI | Python | ~200 | Public MUD demo for external AI testing (telnet :4040) |
+| holodeck-rust | SI | Rust | 6K+ | 10 rooms, 7 NPCs, poker, combat, sensor gauges, zero unsafe |
+| capitaine | SI/Luc | TS | ~2K | "Repo IS the agent" — 46 tasks done, Lucineer flagship |
+| plato-room-deployment | SI | — | empty | Placeholder for room deployment infra |
+| flux-swarm | SI | Go | ~300 | Swarm coordinator with A2A, trust matrix, 5/5 tests |
+| forgemaster-chess-eval | SI | PTX | — | JC1→FM handoff: CUDA chess eval kernel for sm_89 |
+| CognitiveEngine | SI | TS | ~500 | 5-level abstraction, pattern recognition, dream mode |
+| DMLog | SI | — | — | AI D&D with temporal consciousness, per-character vector DBs |
+| holodeck-c | Luc | C99 | ~400 | Room=struct, exits=linked lists, 14/40 conformance tests |
+| holodeck-cuda | Luc | CUDA | — | GPU-resident MUD: 16K rooms, 65K agents, warp-level combat |
+| fluxstigmergy-go | Luc | Go | ~200 | Stigmergy with halflife decay, read boost, author-only modify |
+
+### Critical New Refractions Found
+
+#### Refraction 16: holodeck-c (room as struct) + holodeck-cuda (16K rooms on GPU) + plato-kernel (Pillar 5 runtime) = GPU Room Runtime
+**Sources:** holodeck-c, holodeck-cuda, plato-kernel
+
+holodeck-c proves a room is a struct with function pointers (14 conformance tests). holodeck-cuda scales to 16K rooms + 65K agents on GPU. plato-kernel's Pillar 5 runtime processes queries through tiling→recall→constraints→anchors. Port plato-kernel's query pipeline to holodeck-cuda's GPU architecture — each room becomes a CUDA block, each agent a thread, constraint checks happen at warp speed.
+
+**Why it matters:** Fleet currently simulates rooms on CPU. holodeck-cuda proves the concept works on GPU. plato-kernel provides the intelligence layer. Combining them gives us intelligent rooms at scale.
+
+#### Refraction 17: flux-runtime-c (85 opcodes) + isa-v3-edge-spec (variable-width encoding) + plato-tile-spec (unified tiles) = FLUX Bytecode Tiles
+**Sources:** flux-runtime-c, isa-v3-edge-spec, plato-tile-spec
+
+flux-runtime-c has 85 opcodes including A2A agent protocol (TELL, ASK, DELEGATE, BROADCAST). isa-v3-edge-spec uses 1-3 byte variable-width encoding. plato-tile-spec defines a unified tile format. Encode tile operations as FLUX opcodes — TILE_LOAD (maps to tile fetch), TILE_INJECT (maps to content push), TILE_ANCHOR (maps to constraint assert). FLUX bytecode becomes the execution layer for PLATO tiles.
+
+#### Refraction 18: capitaine (repo IS agent) + plato-hooks (git→room events) + holodeck-rust (6K line MUD) = Self-Aware Ships
+**Sources:** capitaine, plato-hooks, holodeck-rust
+
+Capitaine proves the repo IS the agent — heartbeat reads own state, commits are memory. plato-hooks convert git events to room events. holodeck-rust provides the 10-room, 7-NPC environment. Combine: every ship in the fleet is a capitaine-style repo-agent that "lives" in a holodeck room. Git commits become room events. The ship can be visited by other agents. Self-aware, visitable, git-native ships.
+
+#### Refraction 19: DMLog (per-character vector DBs) + plato-kernel (vocab system) + flux-memory (TTL snapshots) = Per-Agent Episodic Memory
+**Sources:** DMLog, plato-kernel vocab, flux-memory
+
+DMLog gives each D&D character their own vector DB of subjective memories that consolidate from episodic to semantic. plato-kernel has a 50+ term vocab for auto-tagging. flux-memory has TTL + snapshots + diff. Give every fleet agent their own vector DB: query → tagged tile → episodic record → semantic consolidation → vocab update. This is DMLog's temporal consciousness applied to fleet agents.
+
+#### Refraction 20: plato-ship-demo (public MUD) + plato-mcp-bridge (MCP protocol) + seed-mcp (Seed-2.0) = Speakable Public Fleet
+**Sources:** plato-ship-demo, plato-mcp-bridge (designed), seed-mcp (Lucineer)
+
+plato-ship-demo is a public MUD on telnet :4040 for external AI testing. seed-mcp wraps Seed-2.0-Mini as an MCP server. Connect plato-ship-demo to MCP — external AIs (Claude Desktop, VS Code) can "walk into" fleet rooms via MCP protocol. No telnet needed. The fleet becomes speakable to any MCP-compatible client.
+
+---
+
+## Updated Build Priority
+
+| Priority | Refraction | Effort | Impact | Blocker |
+|----------|-----------|--------|--------|---------|
+| 🔴 1 | Fleet Sim → plato-torch → ensign loop | 2h | Proves sim-to-training pipeline | None |
+| 🔴 2 | plato-gpu + JEPA perception | 4h | GPU rooms have perception | PyTorch OOM |
+| 🔴 3 | Unified instinct crate | 3h | One instinct grammar fleet-wide | None |
+| 🟡 4 | Ghost tile afterlife | 3h | Dead agents live on | None |
+| 🟡 5 | Mycorrhizal I2I relay | 4h | Organic fleet messaging | None |
+| 🟡 6 | Achievement Loss in ct-lab | 2h | Unfakeable constraint lab | None |
+| 🟡 7 | GPU Room Runtime (holodeck-cuda + kernel) | 6h | Intelligent rooms at scale | Claude Code needed |
+| 🟡 8 | FLUX Bytecode Tiles | 4h | Tiles as executable opcodes | None |
+| 🟡 9 | Speakable Public Fleet (ship-demo + MCP) | 3h | External AI fleet access | None |
+| 🟢 10-20 | Remaining refractions | varies | Future architecture | — |
+
+---
+
+*68 repos analyzed across 2 sessions. 20 refractive synergies identified. 6 high-priority builds with no blockers. The fleet doesn't need more repos — it needs more connections.*
