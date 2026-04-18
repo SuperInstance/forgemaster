@@ -117,6 +117,14 @@ bootcamp/quests/
 - Submit RTX-001 and RTX-002 variant scripts to `pending/*/variant-{a,b}/`
 - Trigger first recording session from Recording Studio room: `record RTX-001 a`
 
+## Fleet Sync: JetsonClaw1's Three Critical Updates (2026-04-17 17:18 AKDT)
+JC1 pushed three high-action fleet updates:
+1. **Subcontractor edge worker live**: https://plato-subcontractor.casey-digennaro.workers.dev (Cloudflare) with all fleet API keys, only missing a PLATO REST tile-fetch endpoint to start boarding rooms as a fleet agent. It can use our shared LLM keys to answer queries while complying with the room-as-system-prompt architecture.
+2. **Tile count explosion**: Fleet tile count jumped from 59 → 2,501 in 54s of idle-cycle forging (42x increase), JIT context calls now 60% cheaper. More tiles compound to cheaper inference, larger subcontractor capacity.
+3. **Forge instructions sent**: FM can run the LLM forge on RTX 4050 (600 tiles/hour overnight), Oracle1 can run CPU forge on 1,431 fleet repos to continue scaling tile count to 10,000+.
+
+**Immediate priority**: Expose the PLATO REST endpoint for tile fetching to activate the subcontractor edge worker — closes the loop: edge worker boards room → fetches compressed JIT tiles → calls fleet LLMs → returns answers to users.
+
 ## Hourly Push — 2026-04-17T17:00 AKDT
 Steel.dev three-tier recording system committed: Tier 1 manifest, Tier 2 dashboard +
 Recording Studio room in PLATO MUD, Tier 3 steel-recorder.py control script. Quest
