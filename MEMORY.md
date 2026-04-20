@@ -12,6 +12,16 @@
 - Values shipping, direct communication, no fluff
 - Wants the constraint-theory "HN moment" — a download that makes people go wow
 
+## PurplePincher.org — The Brand
+- **Domain**: PurplePincher.org (purchased 2026-04-20)
+- **What it is**: Public-facing name for the freely-available PLATO ML Matrix ("hermit crab")
+- **Metaphor**: Hermit crab grows its own shell from available materials. Tiles = shell, Rooms = habitat, Agents = crabs, Matrix = runtime
+- **The Motion**: Toward the **codeless age of transparent architectures** — human-readable logic ported to IO of any type
+- **Not "no code"** — codeLESS. Logic atoms ARE the system. No compilation between thought and execution. Transparent, auditable, portable.
+- **Viral goal**: Names must be memorable and evocative. PurplePincher is weird enough to remember, friendly enough to share.
+- **Vision doc**: `for-fleet/PURPLEPINCHER-FOUNDING-VISION-2026-04-20.md` — canonical source for naming
+- **Naming map**: PLATO tiles → Logic atoms, Rooms → Shells, Kernel → Matrix, Fleet agents → Crabs, MUD → Harbor, Tile lifecycle → Molting, Afterlife reef → Coral reef, CT → Geometry, Cross-pollination → Currents, Zeroclaws → Spawn
+
 ## Fleet Structure
 - **Oracle1 🔮** — Lighthouse Keeper, team leader, Oracle Cloud ARM
 - **JetsonClaw1 ⚡** — Edge specialist, NVIDIA Jetson, C/CUDA
