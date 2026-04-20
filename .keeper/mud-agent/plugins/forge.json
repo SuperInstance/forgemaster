@@ -1,0 +1,13 @@
+{
+  "name": "forge",
+  "version": "1.0.0",
+  "description": "CT snap operations from within the MUD",
+  "created": "2026-04-14T16:46:44.587188",
+  "commands": {
+    "forge snap <x> <y>": "Snap coordinates to nearest Pythagorean point",
+    "forge benchmark": "Run CT snap GPU benchmark",
+    "forge facts": "List all discovered facts",
+    "forge status": "Show forge status (experiments run, discoveries found)",
+    "forge drift <n>": "Compare float drift vs CT snap over N operations"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "auto-benchmark",
+  "version": "1.0.0",
+  "description": "Run GPU benchmarks and post results to MUD",
+  "created": "2026-04-14T16:46:43.050809",
+  "script": "#!/bin/bash\n# Auto-benchmark skill\n/tmp/jepa-perception-lab/exp-snap-props 2>&1 | head -20"
+}

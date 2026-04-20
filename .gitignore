@@ -1,0 +1,10 @@
+# Keeper runtime artifacts
+.keeper/ticker/raw/*.log
+.keeper/mud-agent/logs/*.json
+.keeper/grimoire/__pycache__/
+.keeper/*.log
+.keeper/output-queue.json
+.keeper/work-queue.json
+.keeper/mud-agent/output-queue.json
+.keeper/mud-agent/work-queue.json
+.keeper/mud-agent/state.json

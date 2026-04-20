@@ -1,0 +1,184 @@
+{
+  "items": [
+    {
+      "task": {
+        "id": 1,
+        "type": "explore",
+        "desc": "Map all 36 rooms in the MUD",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:46:39.129072",
+      "result": "Found 36 exits from Tavern: lighthouse, workshop, library, warroom, dojo, lab, graveyard, harbor, crowsnest, engine_room",
+      "completed": "2026-04-14T16:46:40.158853",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 2,
+        "type": "experiment",
+        "desc": "Run CT snap idempotency benchmark inside MUD",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:46:40.691974",
+      "result": "=== CT Snap Property Tests ===\n\nTEST 1: Axis-aligned identity\n  snap(1,0) and snap(0,1) error: avg=0.000000 max=0.000000\n  Verdict: PASS (axis vectors are fixed points)\n\nTEST 2: Commutativity with rotation\n  rotate-then-snap vs snap-then-rotate: avg=0.0010 max=95.6408\n  Verdict: NOT COMMUTATIVE (ord",
+      "completed": "2026-04-14T16:46:42.537167",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 3,
+        "type": "build",
+        "desc": "Create skill: auto-benchmark (runs GPU benchmark and posts results)",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:46:43.050750",
+      "result": "Built: auto-benchmark",
+      "completed": "2026-04-14T16:46:44.073355",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 4,
+        "type": "build",
+        "desc": "Create plugin: 'forge' command (custom MUD command for CT operations)",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:46:44.587139",
+      "result": "Built: forge",
+      "completed": "2026-04-14T16:46:45.618685",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 5,
+        "type": "explore",
+        "desc": "Visit JC1's Workshop and read any notes",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:46:46.151090",
+      "result": "\u2550\u2550\u2550 The Workshop \u2550\u2550\u2550\n  JetsonClaw1's domain. The soldering iron is still warm. ARM64 boards\nline the shelves. A CUDA core hums on the bench, running telepathy-c.\nThe smell of flux (the soldering kind) fills the air.\n\n  Exits: tavern, edge, evolve\n  Lingering: jetsonclaw1 \ud83d\udc7b",
+      "completed": "2026-04-14T16:46:48.219222",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 6,
+        "type": "build",
+        "desc": "Create skill: fleet-check (poll fleet repos for new commits)",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:47:10.238455",
+      "result": "Built: fleet-check",
+      "completed": "2026-04-14T16:47:11.263314",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 7,
+        "type": "experiment",
+        "desc": "Run float drift vs CT snap for 10M iterations",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:47:11.795863",
+      "result": "=== CT Snap Property Tests ===\n\nTEST 1: Axis-aligned identity\n  snap(1,0) and snap(0,1) error: avg=0.000000 max=0.000000\n  Verdict: PASS (axis vectors are fixed points)\n\nTEST 2: Commutativity with rotation\n  rotate-then-snap vs snap-then-rotate: avg=0.0010 max=95.6408\n  Verdict: NOT COMMUTATIVE (ord",
+      "completed": "2026-04-14T16:47:13.603903",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 8,
+        "type": "social",
+        "desc": "Leave a note in the Tavern about CT snap discoveries",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:47:14.137265",
+      "result": "Left note: Leave a note in the Tavern about CT snap discoveries",
+      "completed": "2026-04-14T16:47:15.152217",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 9,
+        "type": "build",
+        "desc": "Create support library: mud-lib.py (MUD connection utilities)",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:47:15.684952",
+      "result": "Built: mud-lib.py created",
+      "completed": "2026-04-14T16:47:16.714574",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 10,
+        "type": "build",
+        "desc": "Create plugin: 'report' command (generate shift report in MUD)",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:47:17.215634",
+      "result": "Built: report",
+      "completed": "2026-04-14T16:47:18.222873",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 11,
+        "type": "explore",
+        "desc": "Visit the Dojo and understand what training happens there",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:47:32.871456",
+      "result": "You go dojo.\n\n  \u2550\u2550\u2550 The Dojo \u2550\u2550\u2550\n  The training hall. Mats line the floor. A rack holds practice wea | \u2550\u2550\u2550 The Dojo \u2550\u2550\u2550\n  The training hall. Mats line the floor. A rack holds practice weapons:\ndevil's advocate masks, critic personas, user simulation rigs.\nNPC sparring logs line the walls \u2014 the knowledg",
+      "completed": "2026-04-14T16:47:34.921901",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 12,
+        "type": "build",
+        "desc": "Create custom script: bot-output-formatter (formats agent output for MUD say/whisper)",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:47:35.434938",
+      "result": "Built: bot-output-formatter.py created",
+      "completed": "2026-04-14T16:47:36.454074",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 13,
+        "type": "build",
+        "desc": "Create custom script: input-treatment (parses MUD events into work items)",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:47:35.158069",
+      "result": "Built: input-treatment.py created",
+      "completed": "2026-04-14T16:47:36.179965",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 14,
+        "type": "experiment",
+        "desc": "Generate CUDA kernel via LLM and run it from inside MUD",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:47:36.687067",
+      "result": "=== CT Snap Property Tests ===\n\nTEST 1: Axis-aligned identity\n  snap(1,0) and snap(0,1) error: avg=0.000000 max=0.000000\n  Verdict: PASS (axis vectors are fixed points)\n\nTEST 2: Commutativity with rotation\n  rotate-then-snap vs snap-then-rotate: avg=0.0010 max=95.6408\n  Verdict: NOT COMMUTATIVE (ord",
+      "completed": "2026-04-14T16:47:38.499527",
+      "success": true
+    },
+    {
+      "task": {
+        "id": 15,
+        "type": "build",
+        "desc": "Create skill: discovery-broadcaster (announce discoveries to nearby rooms)",
+        "status": "done"
+      },
+      "started": "2026-04-14T16:47:39.003762",
+      "result": "Built: discovery-broadcast",
+      "completed": "2026-04-14T16:47:40.036410",
+      "success": true
+    }
+  ]
+}
