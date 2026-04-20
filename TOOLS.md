@@ -28,7 +28,16 @@
 - **Best for**: In-repo editing, refactoring, multi-file changes
 - **Cost**: Free (Groq) — unlimited
 
-### 4. Codex CLI (codex) — OpenAI
+### 4. Kimi CLI (kimi) — Moonshot AI, high-quality coding
+- **Binary**: `/home/phoenix/.local/bin/kimi` v1.36.0
+- **Mode**: `kimi -p "prompt" --quiet --work-dir /path` (non-interactive)
+- **Also**: `--print` (verbose), `-y` (auto-approve), `--thinking` (extended reasoning)
+- **Best for**: Production-quality code with type hints, docstrings, proper architecture
+- **Proven**: Built 428-line GpuTrainer (Python), 316-line TileAPI (Rust, 10 tests)
+- **Caution**: OOM-prone on <13GB free memory. Use `--quiet` mode to reduce memory. Works best with 13GB+ free.
+- **Cost**: Free (Kimi account)
+
+### 5. Codex CLI (codex) — OpenAI
 - **Binary**: `/usr/bin/codex` v0.120.0
 - **Key**: Needs OPENAI_API_KEY (not currently set)
 - **Mode**: `codex exec "prompt"` with PTY
@@ -43,10 +52,17 @@
 - Serialize builds: write code in parallel, compile one at a time
 - Clean target/ dirs between builds
 
+## Tool Priority (Casey's Directive 2026-04-20)
+1. **Kimi CLI** — quick, quality coding. First choice for implementation work.
+2. **Claude Opus 4.7** — high planning, complex architecture. Use sparingly.
+3. **Pi + Groq** — unlimited batch work, boilerplate, tests.
+4. **Aider + Groq** — in-repo refactoring, multi-file edits.
+
 ### Recommended Agent Assignment
 | Agent | Provider | Tokens | Use For |
-|-------|----------|--------|---------|
-| Claude Code | Anthropic | Limited | Architecture, complex algorithms, reviews |
+|-------|----------|--------|--------|
+| Kimi CLI | Moonshot | Free | **Primary coder** — quality + speed |
+| Claude Opus 4.7 | Anthropic | Limited | Architecture, complex algorithms, reviews |
 | Pi + Groq | Groq | Unlimited | Batch code gen, tests, boilerplate |
 | Aider + Groq | Groq | Unlimited | In-repo refactoring, multi-file edits |
 | Codex | OpenAI | TBD | Needs key — general coding |
