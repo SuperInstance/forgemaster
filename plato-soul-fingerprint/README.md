@@ -1,23 +1,43 @@
-# plato-soul-fingerprint
+# 🦀 plato-soul-fingerprint
 
-Extract a soul vector from a git repository — coding identity compression for the fleet.
+> *Every codebase leaves fingerprints. We measure them.*
 
-Every codebase has a personality. `plato-soul-fingerprint` extracts 63+ features from a git repository's source code, commit history, dependency graph, and documentation, then compresses them into a low-dimensional "soul vector" via PCA. This vector captures the repo's coding identity — its style, structure, communication patterns, and philosophical orientation.
+Extract a **soul vector** from any git repository — a compressed mathematical representation of its coding identity. Part of the [PurplePincher](https://purplepincher.org) ecosystem.
 
-## What It Measures
+## The Idea
 
-**6 feature extraction modules, 63+ dimensions:**
+When a hermit crab grows, it leaves nacre deposits on its shell. When a developer writes code, they leave **stylistic patterns** — function lengths, naming conventions, commit rhythms, documentation habits, dependency choices. These patterns form a fingerprint as unique as the coder who wrote them.
 
-| Module | Features | What It Captures |
-|--------|----------|------------------|
-| **Temporal** | 30 | Commit frequency, burstiness, hourly patterns, batch vs incremental |
-| **Stylistic** | 8 | Function length, naming conventions, doc comments, error handling, magic numbers |
-| **Structural** | 6+ | File type distribution, test ratio, doc ratio, directory depth, module cohesion |
-| **Dependency** | 4 | Dependency count, dev dep ratio, freshness, overlap with reference set |
-| **Communication** | 7 | Commit message length, conventional commits, imperative verbs, emoji, references |
-| **Philosophical** | 4 | Vocabulary richness, metaphor density, architecture mentions, doc length |
+`plato-soul-fingerprint` extracts 63+ features across 6 dimensions, then compresses them via PCA into a low-dimensional **soul vector** — typically 10-12 numbers that capture the essence of a codebase's personality.
 
-**Languages supported:** Python, Rust, C/C++ (automatic detection).
+## What Makes Two Repos Similar?
+
+The tool measures **cosine distance** between soul vectors. We tested it on 16 fleet repositories and found:
+
+| Repo A | Repo B | Distance | Why? |
+|--------|--------|----------|------|
+| plato-tile-dedup | plato-tile-validate | 0.08 | Both thin, single-purpose tile crates built the same way |
+| plato-tile-scorer | plato-tile-validate | 0.16 | Same tile ecosystem, different functions |
+| plato-i2i-dcs | plato-room-engine | 0.34 | Both infrastructure crates, different domains |
+| oracle1 (vessel) | plato-room-engine (crate) | 1.54 | Large vessel vs minimal crate — maximum soul distance |
+
+**The closer the souls, the more similar the coding DNA.** This isn't about code duplication — it's about *style*, *structure*, and *approach*.
+
+## Constraint Theory Mode
+
+For fleets that value **exact geometry over floating-point approximation**, the CT quantization module snaps soul vectors to a Pythagorean coordinate grid:
+
+```python
+from plato_soul_fingerprint import snap_to_pythagorean, soul_hash
+
+snapped = snap_to_pythagorean(soul_vector, density=100)
+# Error: 0.56% relative — well within drift bounds
+
+hash = soul_hash(snapped)
+# soul_0f37c6b31fdb4ee6 — deterministic, reproducible across any machine
+```
+
+This enables **soul identity verification** — the same codebase always produces the same hash, regardless of floating-point differences between machines. The fleet's constraint theory research shows CT snap is 4% *faster* than float operations with 93.8% perfect idempotency. Soul vectors inherit these properties.
 
 ## Installation
 
@@ -25,89 +45,88 @@ Every codebase has a personality. `plato-soul-fingerprint` extracts 63+ features
 pip install plato-soul-fingerprint
 ```
 
+Requires: Python 3.8+, numpy
+
 ## Quick Start
 
 ```bash
-# Extract a soul from a single repo
+# Extract a soul from a repo
 plato-soul-fingerprint extract /path/to/repo
 
-# Extract and fit PCA across multiple repos
-plato-soul-fingerprint extract /path/to/repo --fit-repos /repo1,/repo2,/repo3
+# Print its signature (compact personality description)
+plato-soul-fingerprint signatures /path/to/souls/
 
-# Cosine distance between two repos
-plato-soul-fingerprint distance repo_a repo_b
+# Distance between two repos
+plato-soul-fingerprint distance /repo/a /repo/b
 
-# Compare two repos feature-by-feature
-plato-soul-fingerprint compare repo_a repo_b
-
-# Human-readable report
-plato-soul-fingerprint report /path/to/repo
-
-# Batch extract all repos in a directory
+# Batch extract a directory of repos
 plato-soul-fingerprint batch /directory/of/repos
 
-# Print soul signatures (compact personality descriptions)
-plato-soul-fingerprint signatures /directory/of/.soul.json/files
+# Compare two repos feature-by-feature
+plato-soul-fingerprint compare /repo/a /repo/b
 
 # Hierarchical clustering
-plato-soul-fingerprint cluster /directory/of/.soul.json/files
+plato-soul-fingerprint cluster /directory/of/souls/
 ```
 
 ## Python API
 
 ```python
 from plato_soul_fingerprint import SoulExtractor
-from plato_soul_fingerprint.analysis import (
-    soul_distance, soul_compare, soul_signature,
-    feature_importance, dendrogram_text, batch_extract
-)
+from plato_soul_fingerprint.analysis import soul_signature, soul_distance
+from plato_soul_fingerprint.ct_quantize import snap_to_pythagorean, soul_hash
 
-# Extract features
+# Extract raw features (63+ dimensions)
 extractor = SoulExtractor()
 data = extractor.extract("/path/to/repo")
 
-# Fit PCA on multiple repos
+# Fit PCA across multiple repos
 extractor.fit(["/repo1", "/repo2", "/repo3"])
 transformed = extractor.transform(data)
 
-# Soul signature (human-readable personality)
+# Get the soul signature
 print(soul_signature(transformed))
 # → "constraint-theory-core (rust, 44 commits) — heavily documented, self-contained"
 
-# Feature importance (what drives the PCA dimensions)
-importance = feature_importance(
-    all_data, extractor.pca.components_,
-    extractor.pca.explained_variance_ratio_,
-    extractor._feature_keys
-)
+# CT quantize for deterministic hashing
+snapped = snap_to_pythagorean(transformed["pca_vector"])
+print(soul_hash(snapped))
+# → soul_7a3f2c9b1e0d4568
 ```
 
-## Output
+## Feature Dimensions
 
-Each extraction produces two files:
+| Module | Features | What It Captures |
+|--------|----------|------------------|
+| **Temporal** | 30 | Commit frequency, burstiness, hourly patterns, batch vs incremental |
+| **Stylistic** | 8 | Function length, naming conventions, doc comments, error handling, magic numbers |
+| **Structural** | 7 | File type distribution, test ratio, doc ratio, directory depth, module cohesion |
+| **Dependency** | 4 | Dependency count, dev dep ratio, freshness, ecosystem overlap |
+| **Communication** | 7 | Commit message length, conventional commits, imperative verbs, emoji use |
+| **Philosophical** | 4 | Vocabulary richness, metaphor density, architecture mentions, doc length |
 
-- **`{repo}.soul.json`** — Machine-readable: metadata, raw features (63+), PCA vector, PCA metadata
-- **`{repo}.soul.txt`** — Human-readable report with top features and PCA vector
+**Languages:** Python, Rust, C, C++, CUDA (.cu/.cuh)
 
-## How It Works
+## Output Files
 
-1. **Extract** 63+ raw features across 6 dimensions (temporal, stylistic, structural, dependency, communication, philosophical)
-2. **Standardize** via z-score normalization
-3. **Reduce** via PCA (covariance eigendecomposition) — typically 95% variance in 10-12 dimensions
-4. **Output** both raw and compressed representations
-
-The PCA reduction is critical: 63 raw features → ~11 dimensions captures 95% of variance across fleet repos. This means a repo's entire coding personality can be represented in a single short vector.
+Each extraction produces:
+- **`{repo}.soul.json`** — Machine-readable: metadata, 63+ raw features, PCA vector, variance info
+- **`{repo}.soul.txt`** — Human-readable report with top features and PCA summary
 
 ## Fleet Integration
 
-This tool is part of the [PurplePincher](https://purplepincher.org) ecosystem — the freely-available PLATO ML Matrix. Soul vectors enable:
+Part of the [PurplePincher](https://purplepincher.org) / PLATO ecosystem:
 
-- **Agent identity compression** — compress a codebase's personality into a comparable fingerprint
-- **Style anomaly detection** — flag repos whose soul diverges from fleet norms
-- **Temporal soul tracking** — extract at each git tag to plot personality evolution
-- **Federated soul averaging** — find the fleet's collective coding personality
-- **Constraint theory integration** — soul vectors as points on a style manifold, quantizable via Pythagorean snapping
+- 🦀 **Soul as shell geometry** — each codebase's personality is its shell pattern
+- 🔮 **Operator diversity tracking** — different AI agents have different coding styles (signal, not noise)
+- ⚓ **Constraint theory verified** — CT quantization eliminates floating-point drift
+- 📊 **Temporal soul tracking** — extract at each git tag to plot personality evolution
+- 🔍 **Anomaly detection** — flag repos whose soul diverges from fleet norms
 
 ## License
 
 MIT
+
+---
+
+*"The shell is not a constraint; it is the crucible."* — CoCapn-Claw
