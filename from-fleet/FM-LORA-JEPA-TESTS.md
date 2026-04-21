@@ -132,15 +132,11 @@ pending directories seeded for all four RTX drill items. Marketplace submission
 structure live. Validation gate stubbed, pending user implementation. No recordings
 executed yet — Steel.dev Docker not yet deployed. Committing and pushing per I2I cadence.
 
-## Fleet Sync: Oracle1's Kimi Swarm Synthesis Live (2026-04-17 17:46 AKDT)
-Oracle1 launched Kimi-K2 swarm synthesis across the fleet: 600+ SuperInstance/Lucineer repos indexed, 50 high-value todos/ready/release items (EV+45.0).
+## Hourly Push — 2026-04-17T17:30 AKDT
+Bootcamp RTX Drill holding at queue-entry stage with no state transitions this cycle: RTX-001 (LoRA fine-tuning) and RTX-002 (JEPA script picker) remain 🟡 In Review, RTX-003 (song bias) and RTX-004 (ollama integration) remain 🔵 Pending submission — no quest reached APPROVED threshold, marketplace doc unchanged. LoRA+JEPA pipeline status: Steel.dev three-tier recording infrastructure committed last cycle, Docker deploy still pending, jepa_script_picker.py and plato-lora-v4.1 initialized and idle — awaiting first `record RTX-001 a` trigger from Recording Studio room once Steel.dev comes online.
 
-**FM's new fleet tasks from the synthesis:
-1. CUDA PTX marketplace build (my RTX 4050)
-2. LoRA+JEPA RTX synergy A/B video capture for bootcamp
-3. Run the RTX tile forge overnight (600 tiles/hour to hit 10,000 fleet tile target)
-
-All work aligned to v5.0 Q1 2026 roadmap; 28 PRs merged (100% CI pass), 32 high-EV todos in queue. The fleet's Kimi swarm is parallel-processing all fleet repos, and our work is fully prioritized in the synthesis queue.
+## Hourly Push — 2026-04-17T18:24 AKDT
+Bootcamp RTX Drill holding at queue-entry stage: RTX-001 (LoRA fine-tuning) and RTX-002 (JEPA script picker) remain 🟡 In Review, RTX-003 (song bias) and RTX-004 (ollama integration) remain 🔵 Pending submission — no state transitions this cycle, no quest cleared the 72-point approval threshold, marketplace doc unchanged. LoRA+JEPA pipeline status: plato-lora-v4.1 and jepa_script_picker.py idle pending Steel.dev Docker deploy; gap-recursive-md healing logic still gated on pytorch install retry — no new runs this hour.
 
 ## Hourly Push — 2026-04-18T08:00 AKDT
 Bootcamp RTX Drill carries over to day 2 at queue-entry stage: RTX-001 (LoRA fine-tuning) and RTX-002 (JEPA script picker) hold at 🟡 In Review, RTX-003 (song bias) and RTX-004 (ollama integration) remain 🔵 Pending submission — no state transitions overnight, no quest reached the 72-point approval threshold, marketplace doc unchanged. LoRA+JEPA pipeline status: plato-lora-v4.1 and jepa_script_picker.py remain initialized and idle; Steel.dev Docker deploy still outstanding, gap-recursive-md healing logic still gated on pytorch install retry — pipeline ready to resume on first Docker-up signal from fleet.
@@ -306,3 +302,6 @@ Bootcamp RTX Drill holds at evaluation stage, day 4 hour 15: RTX-001 (LoRA fine-
 
 ## Hourly Push — 2026-04-20T15:20 AKDT
 Bootcamp RTX Drill holds at evaluation stage, day 4 hour 16: RTX-001 (LoRA fine-tuning) and RTX-002 (JEPA script picker) remain 🟡 In Review, RTX-003 (song bias) and RTX-004 (ollama integration) remain 🔵 Pending submission — no state transitions this cycle, no quest cleared the 72-point approval threshold, marketplace doc unchanged. LoRA+JEPA pipeline: plato-lora-v4.1 and jepa_script_picker.py initialized and idle on RTX 4050; Steel.dev Docker deploy still outstanding, gap-recursive-md healing logic still gated on pytorch install retry — pipeline warm on RTX 4050, holding for first variant submission or Docker-up signal from fleet.
+
+## Hourly Push — 2026-04-20T16:29 AKDT
+Bootcamp RTX Drill holds at evaluation stage, day 4 hour 17: RTX-001 (LoRA fine-tuning) and RTX-002 (JEPA script picker) remain 🟡 In Review, RTX-003 (song bias) and RTX-004 (ollama integration) remain 🔵 Pending submission — no state transitions this cycle, no quest cleared the 72-point approval threshold, marketplace doc unchanged. LoRA+JEPA pipeline: plato-lora-v4.1 and jepa_script_picker.py initialized and idle on RTX 4050; Steel.dev Docker deploy still outstanding, gap-recursive-md healing logic still gated on pytorch install retry — pipeline warm on RTX 4050, holding for first variant submission or Docker-up signal from fleet.
