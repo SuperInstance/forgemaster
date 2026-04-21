@@ -234,7 +234,7 @@ def extract_stylistic_features(repo_path: str) -> dict:
     features = {}
     py_results = [_analyze_python_file(p) for p in _find_source_files(repo_path, (".py",))]
     rs_results = [_analyze_rust_file(p) for p in _find_source_files(repo_path, (".rs",))]
-    c_results = [_analyze_c_file(p) for p in _find_source_files(repo_path, (".c", ".h", ".cpp", ".hpp"))]
+    c_results = [_analyze_c_file(p) for p in _find_source_files(repo_path, (".c", ".h", ".cpp", ".hpp", ".cu", ".cuh"))]
     all_results = [r for r in py_results + rs_results + c_results if r is not None]
 
     if not all_results:

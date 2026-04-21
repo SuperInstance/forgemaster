@@ -12,6 +12,8 @@ EXTENSION_MAP = {
     ".go": "go",
     ".c": "c",
     ".cpp": "cpp",
+    ".cu": "cuda",
+    ".cuh": "cuda",
     ".h": "c",
     ".hpp": "cpp",
     ".java": "java",

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "plato-soul-fingerprint"
-version = "0.2.0"
+version = "0.3.0"
 description = "Extract a soul vector from a git repository — coding identity compression for the fleet"
 readme = "README.md"
 license = {text = "MIT"}
