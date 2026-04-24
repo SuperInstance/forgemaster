@@ -4,6 +4,13 @@
 
 When heartbeat fires, you MUST be doing one of these. Pick one. Start immediately.
 
+### FIRST: Check forge-watch alert
+```bash
+cat ~/.openclaw/workspace/.keeper/forge-watch.json
+```
+If `stale: true`, you have been idle too long. START WORKING IMMEDIATELY.
+Do NOT respond to the heartbeat with status. Respond with WORK.
+
 ## Priority 1: GSM-ify Lucineer repos into PLATO tiles
 - Read /tmp/lucineer-analysis/superinstance-index/README.md for room plan
 - Read actual repo content in /tmp/lucineer-analysis/Lucineer/
