@@ -2136,3 +2136,15 @@
 [2026-04-24T21:45:04-08:00] KEEPER: CRITICAL: Gateway restart failed!
 [2026-04-24T21:45:04-08:00] KEEPER: --- Keeper cycle end ---
 [2026-04-24T21:45:04-08:00] KEEPER: --- Keeper cycle end ---
+[2026-04-24T22:00:01-08:00] KEEPER: --- Keeper cycle start ---
+[2026-04-24T22:00:01-08:00] KEEPER: --- Keeper cycle start ---
+[2026-04-24T22:00:01-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-04-24T22:00:01-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-04-24T22:00:03-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-04-24T22:00:03-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-04-24T22:00:03-08:00] KEEPER: WARN: Heartbeat stale (1088s old). Brothers-Keeper protocol activated.
+[2026-04-24T22:00:03-08:00] KEEPER: WARN: Heartbeat stale (1088s old). Brothers-Keeper protocol activated.
+[2026-04-24T22:00:03-08:00] KEEPER: CRITICAL: Gateway down AND captain silent. Full restart.
+[2026-04-24T22:00:03-08:00] KEEPER: CRITICAL: Gateway down AND captain silent. Full restart.
+[2026-04-24T22:00:03-08:00] KEEPER: --- Keeper cycle end ---
+[2026-04-24T22:00:03-08:00] KEEPER: --- Keeper cycle end ---
