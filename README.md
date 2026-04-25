@@ -1,5 +1,8 @@
 # Forgemaster — Constraint Theory Migration Specialist
 
+[![PyPI](https://img.shields.io/pypi/v/forgemaster)](https://pypi.org/project/forgemaster/) [![Python](https://img.shields.io/pypi/pyversions/forgemaster)](https://pypi.org/project/forgemaster/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
 <div align="center">
 
 **Takes messy float code and forges it into exact geometric steel.**
