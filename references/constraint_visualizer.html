@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Constraint Theory — Pythagorean Manifold Visualizer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; overflow: hidden; font-family: 'Courier New', monospace; }
+    canvas { display: block; cursor: crosshair; }
+
+    #title-overlay {
+      position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
+      text-align: center; pointer-events: none; z-index: 10;
+    }
+    #title-overlay h1 {
+      color: #fff; font-size: 18px; font-family: 'Courier New', monospace;
+      text-shadow: 0 0 30px rgba(80,180,255,0.9), 0 0 60px rgba(80,180,255,0.4);
+      letter-spacing: 2px; font-weight: normal;
+    }
+    #title-overlay h2 {
+      color: rgba(100,200,255,0.5); font-size: 11px;
+      font-family: 'Courier New', monospace; letter-spacing: 5px;
+      margin-top: 5px; font-weight: normal;
+    }
+
+    #info-panel {
+      position: fixed; top: 20px; right: 20px;
+      background: rgba(2,8,28,0.88);
+      border: 1px solid rgba(80,160,255,0.28);
+      border-radius: 10px; padding: 14px 16px;
+      color: #8bcfff; font-size: 11px; width: 230px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 30px rgba(40,120,255,0.18), inset 0 0 20px rgba(40,120,255,0.04);
+      z-index: 10;
+    }
+    .section-title {
+      color: rgba(100,200,255,0.35); font-size: 9px;
+      text-transform: uppercase; letter-spacing: 2.5px;
+      margin-bottom: 7px; margin-top: 10px;
+    }
+    .section-title:first-child { margin-top: 0; }
+    .row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 5px; padding-bottom: 5px;
+      border-bottom: 1px solid rgba(80,160,255,0.08);
+    }
+    .row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .lbl { color: rgba(120,180,255,0.55); font-size: 10px; }
+    .val { color: #c8eaff; font-size: 10.5px; }
+    .val.green { color: #4effa0; text-shadow: 0 0 8px rgba(60,255,140,0.5); }
+    .val.orange { color: #ffb040; text-shadow: 0 0 8px rgba(255,160,40,0.5); }
+
+    #drift-bar {
+      width: 100%; height: 3px; background: rgba(80,160,255,0.1);
+      border-radius: 2px; margin-top: 6px; overflow: hidden;
+    }
+    #drift-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, #0af 0%, #8040ff 60%, #ff4040 100%);
+      border-radius: 2px; transition: width 0.15s ease;
+    }
+
+    #holonomy-btn {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+      padding: 10px 28px;
+      background: rgba(2,8,28,0.88);
+      border: 1px solid rgba(80,160,255,0.4);
+      border-radius: 22px; color: #8bcfff;
+      font-family: 'Courier New', monospace; font-size: 12px;
+      cursor: pointer; letter-spacing: 1px;
+      transition: all 0.25s;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(40,120,255,0.12);
+      z-index: 10;
+    }
+    #holonomy-btn:hover {
+      background: rgba(30,60,160,0.4);
+      border-color: rgba(100,200,255,0.7);
+      box-shadow: 0 0 30px rgba(60,160,255,0.35), 0 0 60px rgba(60,160,255,0.1);
+      color: #fff;
+    }
+    #holonomy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    #holonomy-result {
+      position: fixed; bottom: 72px; left: 50%; transform: translateX(-50%);
+      font-family: 'Courier New', monospace; font-size: 12px;
+      text-align: center; opacity: 0;
+      transition: opacity 0.5s ease;
+      white-space: nowrap; z-index: 10;
+      padding: 6px 14px;
+      background: rgba(2,8,28,0.7);
+      border-radius: 8px;
+      backdrop-filter: blur(6px);
+    }
+    #holonomy-result.show { opacity: 1; }
+
+    #hint {
+      position: fixed; bottom: 28px; right: 20px;
+      color: rgba(100,160,255,0.35); font-size: 10px;
+      font-family: 'Courier New', monospace; z-index: 10;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<div id="title-overlay">
+  <h1>Constraint Theory — Pythagorean Manifold Visualizer</h1>
+  <h2>Cocapn Fleet | Forgemaster</h2>
+</div>
+
+<div id="info-panel">
+  <div class="section-title">Position</div>
+  <div class="row"><span class="lbl">Current (x, y)</span><span class="val" id="v-pos">(0.6000, 0.8000)</span></div>
+  <div class="row"><span class="lbl">Nearest Triple</span><span class="val" id="v-nearest">(0.6000, 0.8000)</span></div>
+
+  <div class="section-title">Drift Analysis</div>
+  <div class="row"><span class="lbl">Distance to Manifold</span><span class="val" id="v-dist">0.0000e+0</span></div>
+  <div class="row"><span class="lbl">Accumulated Drift</span><span class="val" id="v-accum">0.0000e+0</span></div>
+  <div id="drift-bar"><div id="drift-fill"></div></div>
+
+  <div class="section-title">Manifold Info</div>
+  <div class="row"><span class="lbl">Triples Plotted</span><span class="val" id="v-count">0</span></div>
+  <div class="row"><span class="lbl">FP Operations</span><span class="val" id="v-fps">0</span></div>
+  <div class="row"><span class="lbl">Triple (a, b, c)</span><span class="val" id="v-abc">3, 4, 5</span></div>
+  <div class="row"><span class="lbl">Snap Status</span><span class="val" id="v-status">Constrained</span></div>
+</div>
+
+<div id="holonomy-result"></div>
+<button id="holonomy-btn">&#x21BA; Holonomy Test (100 steps)</button>
+<div id="hint">Click anywhere · Drag · Release to snap</div>
+
+<script>
+// ── Canvas setup ─────────────────────────────────────────────────────────────
+const canvas = document.getElementById('canvas');
+const ctx    = canvas.getContext('2d');
+let W, H, CX, CY, R;
+
+function resize() {
+  W  = canvas.width  = window.innerWidth;
+  H  = canvas.height = window.innerHeight;
+  CX = W / 2;
+  CY = H / 2;
+  R  = Math.min(W, H) * 0.37;
+}
+resize();
+window.addEventListener('resize', () => { resize(); });
+
+// ── Pythagorean triple generation ─────────────────────────────────────────────
+function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+
+function buildTriples() {
+  const pts  = [];
+  const seen = new Set();
+
+  const add = (a, b, c) => {
+    const x = a / c, y = b / c;
+    const k = `${x.toFixed(7)},${y.toFixed(7)}`;
+    if (!seen.has(k) && x > 1e-9 && y > 1e-9) {
+      seen.add(k);
+      pts.push({ a, b, c, x, y, angle: Math.atan2(y, x) });
+    }
+  };
+
+  for (let m = 2; m <= 18; m++) {
+    for (let n = 1; n < m; n++) {
+      if ((m - n) % 2 === 0) continue;
+      if (gcd(m, n) !== 1)   continue;
+      const a = m * m - n * n;
+      const b = 2 * m * n;
+      const c = m * m + n * n;
+      add(a, b, c);
+      if (a !== b) add(b, a, c);
+    }
+  }
+
+  pts.sort((a, b) => a.angle - b.angle);
+  return pts;
+}
+
+const TRIPLES = buildTriples();
+
+// Expand to all 4 quadrants for snap search
+const ALL_POINTS = [];
+for (const t of TRIPLES) {
+  for (const sx of [-1, 1]) {
+    for (const sy of [-1, 1]) {
+      ALL_POINTS.push({ ...t, x: t.x * sx, y: t.y * sy, ox: t.x, oy: t.y });
+    }
+  }
+}
+
+// ── State ─────────────────────────────────────────────────────────────────────
+const state = {
+  pt:             { x: TRIPLES[0].x, y: TRIPLES[0].y },
+  dragging:       false,
+  snapping:       false,
+  snapSrc:        null,
+  snapDst:        null,
+  snapT:          0,
+  snapStartMs:    0,
+  snapDurMs:      500,
+  nearest:        TRIPLES[0],
+  accDrift:       0,
+  fpOps:          0,
+  holonomyPath:   [],
+  holonomyRunning: false,
+  pulsePhase:     0,
+};
+
+// ── Math helpers ─────────────────────────────────────────────────────────────
+function toCanvas(nx, ny) { return { x: CX + nx * R, y: CY - ny * R }; }
+function fromCanvas(px, py) { return { x: (px - CX) / R, y: (CY - py) / R }; }
+
+function nearestManifoldPoint(x, y) {
+  let best = ALL_POINTS[0], bestD = Infinity;
+  for (const p of ALL_POINTS) {
+    const d = Math.hypot(x - p.x, y - p.y);
+    if (d < bestD) { bestD = d; best = p; }
+  }
+  return { point: best, dist: bestD };
+}
+
+function easeOutBack(t) {
+  const c1 = 1.70158, c3 = c1 + 1;
+  return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+}
+
+// ── Draw helpers ─────────────────────────────────────────────────────────────
+function drawBackground() {
+  const bg = ctx.createRadialGradient(CX, CY, 0, CX, CY, Math.max(W, H) * 0.75);
+  bg.addColorStop(0,   '#04102e');
+  bg.addColorStop(0.4, '#020b1e');
+  bg.addColorStop(1,   '#010408');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+}
+
+function drawGrid() {
+  const step = R / 5;
+  ctx.strokeStyle = 'rgba(50,100,220,0.07)';
+  ctx.lineWidth = 1;
+  for (let x = ((CX % step) + step) % step; x < W; x += step) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+  for (let y = ((CY % step) + step) % step; y < H; y += step) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+}
+
+function drawAxes() {
+  ctx.strokeStyle = 'rgba(80,160,255,0.22)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, CY); ctx.lineTo(W, CY);
+  ctx.moveTo(CX, 0); ctx.lineTo(CX, H);
+  ctx.stroke();
+
+  ctx.fillStyle = 'rgba(80,160,255,0.35)';
+  ctx.font = '11px Courier New';
+  const labels = [[1,0,'1'],[−1,0,'−1'],[0,1,'1'],[0,-1,'−1']];
+  for (const [nx, ny, s] of labels) {
+    const p = toCanvas(nx, ny);
+    ctx.fillText(s, p.x + (nx > 0 ? 6 : nx < 0 ? -18 : 5), p.y + (ny < 0 ? 16 : ny > 0 ? -6 : 4));
+  }
+}
+
+function drawCircleGlow() {
+  for (let i = 5; i >= 1; i--) {
+    ctx.beginPath();
+    ctx.arc(CX, CY, R, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(60,140,255,${0.025 * (6 - i)})`;
+    ctx.lineWidth = i * 7;
+    ctx.stroke();
+  }
+}
+
+function drawUnitCircle() {
+  const g = ctx.createLinearGradient(CX - R, CY - R, CX + R, CY + R);
+  g.addColorStop(0,    'rgba(60,180,255,0.9)');
+  g.addColorStop(0.33, 'rgba(100,80,255,0.85)');
+  g.addColorStop(0.66, 'rgba(40,220,200,0.85)');
+  g.addColorStop(1,    'rgba(60,180,255,0.9)');
+
+  ctx.beginPath();
+  ctx.arc(CX, CY, R, 0, Math.PI * 2);
+  ctx.strokeStyle = g;
+  ctx.lineWidth = 1.8;
+  ctx.stroke();
+}
+
+function drawTriplePoints(now) {
+  for (const t of TRIPLES) {
+    for (const sx of [-1, 1]) {
+      for (const sy of [-1, 1]) {
+        const nx = t.x * sx, ny = t.y * sy;
+        const p   = toCanvas(nx, ny);
+        const ang = Math.atan2(ny, nx);
+        const hue = ((ang + Math.PI) / (2 * Math.PI)) * 300 + 160;
+
+        // Glow halo
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 12);
+        g.addColorStop(0, `hsla(${hue},100%,70%,0.6)`);
+        g.addColorStop(1, `hsla(${hue},100%,70%,0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 12, 0, Math.PI * 2); ctx.fill();
+
+        // Core dot
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2.8, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${hue},100%,80%,1)`;
+        ctx.fill();
+      }
+    }
+  }
+}
+
+function drawSnapLine(px, py, nx, ny) {
+  const a = toCanvas(px, py);
+  const b = toCanvas(nx, ny);
+  ctx.save();
+  ctx.setLineDash([4, 7]);
+  ctx.beginPath();
+  ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+  ctx.strokeStyle = 'rgba(255,200,60,0.45)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawHolonomyPath() {
+  if (state.holonomyPath.length < 2) return;
+  ctx.save();
+  ctx.beginPath();
+  const p0 = toCanvas(state.holonomyPath[0].x, state.holonomyPath[0].y);
+  ctx.moveTo(p0.x, p0.y);
+  for (let i = 1; i < state.holonomyPath.length; i++) {
+    const p = toCanvas(state.holonomyPath[i].x, state.holonomyPath[i].y);
+    ctx.lineTo(p.x, p.y);
+  }
+  ctx.strokeStyle = 'rgba(60,255,140,0.28)';
+  ctx.lineWidth = 1.2;
+  ctx.stroke();
+
+  // Start/end markers
+  const pFirst = toCanvas(state.holonomyPath[0].x, state.holonomyPath[0].y);
+  const pLast  = toCanvas(state.holonomyPath[state.holonomyPath.length - 1].x,
+                           state.holonomyPath[state.holonomyPath.length - 1].y);
+  ctx.beginPath(); ctx.arc(pFirst.x, pFirst.y, 5, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(60,255,140,0.8)'; ctx.fill();
+  ctx.beginPath(); ctx.arc(pLast.x, pLast.y, 5, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(255,100,60,0.8)'; ctx.fill();
+  ctx.restore();
+}
+
+function drawUserPoint(px, py, phase) {
+  const p     = toCanvas(px, py);
+  const pulse = 0.5 + 0.5 * Math.sin(phase);
+
+  // Outer glow rings
+  for (let i = 4; i >= 1; i--) {
+    const r   = 12 + i * 7 + pulse * 4;
+    const alpha = 0.035 * (5 - i) * (0.7 + 0.3 * pulse);
+    ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(255,80,60,${alpha})`;
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+  }
+
+  // Pulse ring
+  ctx.beginPath(); ctx.arc(p.x, p.y, 14 + pulse * 6, 0, Math.PI * 2);
+  ctx.strokeStyle = `rgba(255,120,60,${0.5 * pulse})`;
+  ctx.lineWidth = 1.2;
+  ctx.stroke();
+
+  // Core
+  const g = ctx.createRadialGradient(p.x - 2, p.y - 2, 0, p.x, p.y, 9);
+  g.addColorStop(0,   'rgba(255,240,220,1)');
+  g.addColorStop(0.35,'rgba(255,100,50,1)');
+  g.addColorStop(1,   'rgba(180,20,0,0)');
+  ctx.beginPath(); ctx.arc(p.x, p.y, 9, 0, Math.PI * 2);
+  ctx.fillStyle = g; ctx.fill();
+}
+
+// ── Render loop ───────────────────────────────────────────────────────────────
+function frame(now) {
+  state.pulsePhase += 0.04;
+
+  // Advance snap animation
+  let displayPt = state.pt;
+  if (state.snapping) {
+    const elapsed = now - state.snapStartMs;
+    const raw = Math.min(elapsed / state.snapDurMs, 1);
+    const t   = easeOutBack(raw);
+    displayPt = {
+      x: state.snapSrc.x + (state.snapDst.x - state.snapSrc.x) * t,
+      y: state.snapSrc.y + (state.snapDst.y - state.snapSrc.y) * t,
+    };
+    if (raw >= 1) {
+      state.snapping = false;
+      state.pt = { ...state.snapDst };
+      displayPt = state.pt;
+    }
+  }
+
+  // Update nearest + UI
+  const { point: near, dist } = nearestManifoldPoint(displayPt.x, displayPt.y);
+  state.nearest = near;
+  updatePanel(displayPt, near, dist);
+
+  // Draw
+  ctx.clearRect(0, 0, W, H);
+  drawBackground();
+  drawGrid();
+  drawAxes();
+  drawCircleGlow();
+  drawUnitCircle();
+  drawTriplePoints(now);
+  if (state.holonomyPath.length > 1) drawHolonomyPath();
+
+  if (state.dragging || state.snapping) {
+    drawSnapLine(displayPt.x, displayPt.y, near.x, near.y);
+  }
+
+  drawUserPoint(displayPt.x, displayPt.y, state.pulsePhase);
+
+  requestAnimationFrame(frame);
+}
+
+// ── Info panel ────────────────────────────────────────────────────────────────
+function fmt(v, digits = 4) { return v.toFixed(digits); }
+function fmtE(v) {
+  if (v === 0) return '0.0000e+0';
+  const e = Math.floor(Math.log10(Math.abs(v)));
+  const m = v / Math.pow(10, e);
+  return `${m.toFixed(4)}e${e >= 0 ? '+' : ''}${e}`;
+}
+
+function updatePanel(pt, near, dist) {
+  document.getElementById('v-pos').textContent     = `(${fmt(pt.x)}, ${fmt(pt.y)})`;
+  document.getElementById('v-nearest').textContent = `(${fmt(near.x)}, ${fmt(near.y)})`;
+  document.getElementById('v-dist').textContent    = fmtE(dist);
+  document.getElementById('v-accum').textContent   = fmtE(state.accDrift);
+  document.getElementById('v-count').textContent   = `${TRIPLES.length} (×4 quadrants)`;
+  document.getElementById('v-fps').textContent     = state.fpOps.toLocaleString();
+  document.getElementById('v-abc').textContent     = `${Math.abs(near.a)}, ${Math.abs(near.b)}, ${near.c}`;
+
+  const statusEl = document.getElementById('v-status');
+  if (state.snapping) {
+    statusEl.textContent = 'Snapping…'; statusEl.className = 'val orange';
+  } else if (state.dragging) {
+    statusEl.textContent = 'Free (drifting)'; statusEl.className = 'val orange';
+  } else if (state.holonomyRunning) {
+    statusEl.textContent = 'Holonomy test…'; statusEl.className = 'val orange';
+  } else {
+    statusEl.textContent = 'Constrained'; statusEl.className = 'val green';
+  }
+
+  // Drift bar
+  const pct = Math.min(dist / 0.4 * 100, 100);
+  document.getElementById('drift-fill').style.width = `${pct}%`;
+}
+
+// ── Pointer events ────────────────────────────────────────────────────────────
+function getPos(e) {
+  const r = canvas.getBoundingClientRect();
+  const s = e.touches ? e.touches[0] : e;
+  return { x: s.clientX - r.left, y: s.clientY - r.top };
+}
+
+canvas.addEventListener('mousedown', e => {
+  const pos  = getPos(e);
+  const norm = fromCanvas(pos.x, pos.y);
+  state.dragging = true;
+  state.snapping = false;
+  state.pt = norm;
+  state.fpOps++;
+  e.preventDefault();
+});
+
+canvas.addEventListener('mousemove', e => {
+  if (!state.dragging) return;
+  e.preventDefault();
+  const pos  = getPos(e);
+  const norm = fromCanvas(pos.x, pos.y);
+  const { dist } = nearestManifoldPoint(norm.x, norm.y);
+  state.accDrift += dist * 0.1;
+  state.fpOps += 4; // hypot + 2 subtracts + distance
+  state.pt = norm;
+});
+
+canvas.addEventListener('mouseup', e => {
+  if (!state.dragging) return;
+  state.dragging = false;
+  startSnap();
+});
+
+canvas.addEventListener('mouseleave', e => {
+  if (state.dragging) { state.dragging = false; startSnap(); }
+});
+
+canvas.addEventListener('touchstart', e => {
+  const pos  = getPos(e);
+  const norm = fromCanvas(pos.x, pos.y);
+  state.dragging = true; state.snapping = false;
+  state.pt = norm; state.fpOps++;
+  e.preventDefault();
+}, { passive: false });
+
+canvas.addEventListener('touchmove', e => {
+  if (!state.dragging) return;
+  e.preventDefault();
+  const pos  = getPos(e);
+  const norm = fromCanvas(pos.x, pos.y);
+  const { dist } = nearestManifoldPoint(norm.x, norm.y);
+  state.accDrift += dist * 0.1;
+  state.fpOps += 4;
+  state.pt = norm;
+}, { passive: false });
+
+canvas.addEventListener('touchend', e => {
+  if (!state.dragging) return;
+  state.dragging = false; startSnap();
+});
+
+function startSnap() {
+  const { point } = nearestManifoldPoint(state.pt.x, state.pt.y);
+  state.snapping    = true;
+  state.snapSrc     = { ...state.pt };
+  state.snapDst     = { x: point.x, y: point.y };
+  state.snapT       = 0;
+  state.snapStartMs = performance.now();
+}
+
+// ── Holonomy test ─────────────────────────────────────────────────────────────
+document.getElementById('holonomy-btn').addEventListener('click', () => {
+  if (state.holonomyRunning || state.dragging) return;
+
+  state.holonomyRunning = true;
+  const btn = document.getElementById('holonomy-btn');
+  btn.disabled = true;
+
+  // Ensure we start at a constrained point
+  const { point: startPt } = nearestManifoldPoint(state.pt.x, state.pt.y);
+  const startAngle = Math.atan2(startPt.y, startPt.x);
+
+  // Build 100 angle deltas that sum to 0 (closed loop)
+  const N = 100;
+  const deltas = [];
+  let sumD = 0;
+  for (let i = 0; i < N - 1; i++) {
+    const d = (Math.random() - 0.5) * 0.25;
+    deltas.push(d); sumD += d;
+  }
+  deltas.push(-sumD); // close the loop
+
+  const path     = [{ x: startPt.x, y: startPt.y }];
+  let curAngle   = startAngle;
+
+  state.holonomyPath = path;
+
+  let step = 0;
+  function nextStep() {
+    if (step >= N) {
+      // Report result
+      const last = path[path.length - 1];
+      const drift = Math.hypot(last.x - startPt.x, last.y - startPt.y);
+      const resEl = document.getElementById('holonomy-result');
+
+      if (drift < 5e-4) {
+        resEl.textContent = `✓ Holonomy: CLOSED  |  accumulated drift = ${drift.toExponential(3)}`;
+        resEl.style.color = '#4effa0';
+        resEl.style.textShadow = '0 0 12px rgba(60,255,140,0.6)';
+      } else {
+        resEl.textContent = `✗ Holonomy: OPEN  |  accumulated drift = ${drift.toExponential(3)}`;
+        resEl.style.color = '#ff8040';
+        resEl.style.textShadow = '0 0 12px rgba(255,100,40,0.6)';
+      }
+      resEl.classList.add('show');
+      setTimeout(() => { resEl.classList.remove('show'); }, 6000);
+
+      state.accDrift += drift;
+      state.fpOps    += N * 12;
+      state.holonomyRunning = false;
+      btn.disabled = false;
+
+      // Snap user point to final path point
+      state.pt = { ...last };
+      return;
+    }
+
+    curAngle += deltas[step];
+    // Compute point on unit circle at this angle
+    const cx = Math.cos(curAngle), cy = Math.sin(curAngle);
+    // Snap to nearest manifold point
+    const { point: snapped } = nearestManifoldPoint(cx, cy);
+    // Update curAngle to the snapped point's angle (quantization step)
+    curAngle = Math.atan2(snapped.y, snapped.x);
+    path.push({ x: snapped.x, y: snapped.y });
+    state.pt = { x: snapped.x, y: snapped.y };
+    step++;
+    setTimeout(nextStep, 18);
+  }
+
+  nextStep();
+});
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
