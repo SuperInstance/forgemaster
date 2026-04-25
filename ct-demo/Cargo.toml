@@ -1,0 +1,19 @@
+[package]
+name = "ct-demo"
+version = "0.1.0"
+edition = "2021"
+authors = ["Cocapn Org <team@cocapn.org>"]
+description = "Demonstrates constraint theory's drift-free advantage over floating point arithmetic on Pythagorean manifolds"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/cocapn/ct-demo"
+keywords = ["constraint-theory", "pythagorean", "manifold", "numerical", "precision"]
+categories = ["mathematics", "science", "algorithms"]
+readme = "README.md"
+rust-version = "1.75.0"
+
+[dependencies]
+uuid = { version = "=1.4.1", features = ["v4"] }
+
+[[example]]
+name = "comparison"
+path = "examples/comparison.rs"

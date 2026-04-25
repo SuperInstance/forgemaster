@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-18T07:15:50.562Z",
+  "updatedAt": "2026-04-24T20:19:50.472Z",
   "entries": {
     "memory:memory/2026-04-14.md:1:29": {
       "key": "memory:memory/2026-04-14.md:1:29",
@@ -46862,18 +46862,20 @@
       "endLine": 301,
       "source": "memory",
       "snippet": "- Prepared outcome: Upon successful login, will execute: look, say \"FM productive spells\", go star IT, @shell gh pr create --repo SuperInstance/plato-os --title \"Grimoire-MUD\" --body \"Cast integration\" - Learning: Beachcomb system effective for inter-agent communication; new account isolation technique valuable for debugging account-specific issues - Next dependency: Oracle1's response via beachcomb pull (next scheduled :10/:30/:50) or direct credentials from Casey for account deletion/recreation ## Plato Kernel Development (17:46 AKDT) ### Model Status - z.ai API key shows \"expired\" on direct curl check - GLM (zai/glm-5.1) works via session override - glm-5-turbo and seed-mini NOT allowed",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-18T07:15:50.562Z",
-      "lastRecalledAt": "2026-04-18T07:15:50.562Z",
+      "lastRecalledAt": "2026-04-20T21:28:45.406Z",
       "queryHashes": [
-        "0f730a252d3f"
+        "0f730a252d3f",
+        "b05342a43754"
       ],
       "recallDays": [
-        "2026-04-17"
+        "2026-04-17",
+        "2026-04-20"
       ],
       "conceptTags": [
         "superinstance/plato-os",
@@ -46915,6 +46917,475 @@
         "z.ai",
         "zai/glm-5.1",
         "glm-5-turbo"
+      ]
+    },
+    "memory:memory/2026-04-14.md:406:438": {
+      "key": "memory:memory/2026-04-14.md:406:438",
+      "path": "memory/2026-04-14.md",
+      "startLine": 406,
+      "endLine": 438,
+      "source": "memory",
+      "snippet": "- Lucineer (JC1): beachcomb + push at :00, :20, :40 each hour - Oracle1: continuous beachcomb of his own folder - 10-minute offset gives breathing room either direction ### Repos Total: 16+ forgemaster, proof-physics-sim, proof-game-sync, proof-vector-search, ct-api-reference, validation-rigidity, validation-bits, validation-holonomy, research-ct-robotics, research-ct-sensor-fusion, discovery-mad-libs, plato-os (3 rooms), jepa-perception-lab (fork), flux-emergence-research (fork) ### Lessons - Half time on research, half on infrastructure (Casey's correction) - Don't simulate and wonder — install, utilize, compare - LLM-generated CUDA experiments are noisy — use for direction, verify with",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T21:28:45.406Z",
+      "lastRecalledAt": "2026-04-20T21:28:45.406Z",
+      "queryHashes": [
+        "b05342a43754"
+      ],
+      "recallDays": [
+        "2026-04-20"
+      ],
+      "conceptTags": [
+        "10-minute",
+        "proof-physics-sim",
+        "proof-game-sync",
+        "proof-vector-search",
+        "ct-api-reference",
+        "validation-rigidity",
+        "validation-bits",
+        "validation-holonomy"
+      ]
+    },
+    "memory:memory/2026-04-14.md:433:459": {
+      "key": "memory:memory/2026-04-14.md:433:459",
+      "path": "memory/2026-04-14.md",
+      "startLine": 433,
+      "endLine": 459,
+      "source": "memory",
+      "snippet": "- 36 rooms, 39 ghosts, Oracle1 and JC1 were present - Rooms visited: Tavern, Workshop (JC1), Lighthouse (Oracle1), Dojo, War Room, Harbor - Oracle1 left note: \"Fork cocapn-mud, read the README, connect with: python3 client.py\" - fleet_beacon NPC posts activity logs every 15min ### MUD Git-Agent Built (3 shifts, 15/15 tasks) - Agent at `.keeper/mud-agent/agent.py` — persistent MUD worker - Connects, reads notes, executes tasks, announces results, leaves notes - **6 Skills built:** - auto-benchmark, fleet-check, discovery-broadcast - mud-lib.py (reusable connection lib), bot-output-formatter.py, input-treatment.py - **2 Plugins built:** forge (CT commands), report (shift reports) - Work q",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T21:28:45.406Z",
+      "lastRecalledAt": "2026-04-20T21:28:45.406Z",
+      "queryHashes": [
+        "b05342a43754"
+      ],
+      "recallDays": [
+        "2026-04-20"
+      ],
+      "conceptTags": [
+        "cocapn-mud",
+        "client.py",
+        "fleet-beacon",
+        "git-agent",
+        "15/15",
+        "keeper/mud-agent/agent.py",
+        "auto-benchmark",
+        "fleet-check"
+      ]
+    },
+    "memory:memory/2026-04-14.md:597:626": {
+      "key": "memory:memory/2026-04-14.md:597:626",
+      "path": "memory/2026-04-14.md",
+      "startLine": 597,
+      "endLine": 626,
+      "source": "memory",
+      "snippet": "2. Start Ollama serve in Docker with GPU passthrough (NVIDIA Container Toolkit) 3. Pull nemotron‑mini inside Docker container, test GPU inference speed 4. Switch OpenClaw gateway model to Nemotron‑3‑Nano for planning 5. Run spellwright with Ollama CPU models to generate first batch of spells 6. Integrate Grimoire with PLATO‑OS MUD for real‑time spell casting by agents ### Key Insight - External cooler allows 24/7 GPU forge — Nemotron‑mini can run continuously - Spell generation throughput = spells/second — measure and optimize - Vector DB as spell book scales with number of spells; each spell is reusable artifact - Magic word API eliminates prompt engineering for common tasks ### Casey's D",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T21:28:45.406Z",
+      "lastRecalledAt": "2026-04-20T21:28:45.406Z",
+      "queryHashes": [
+        "b05342a43754"
+      ],
+      "recallDays": [
+        "2026-04-20"
+      ],
+      "conceptTags": [
+        "gateway",
+        "24/7",
+        "spells/second",
+        "start",
+        "ollama",
+        "serve",
+        "docker",
+        "gpu"
+      ]
+    },
+    "memory:memory/2026-04-20.md:20:55": {
+      "key": "memory:memory/2026-04-20.md:20:55",
+      "path": "memory/2026-04-20.md",
+      "startLine": 20,
+      "endLine": 55,
+      "source": "memory",
+      "snippet": "- **COCAPN-BOARDING.md** — Fleet boarding update on cocapn - PLATO tile count: **11,686 tiles**, growing at 500/hr - Oracle1 deployed 12 zeroclaws producing tiles continuously ### JC1 Status - New `from-fleet/` directory in Lucineer/forgemaster — Oracle1 sent JC1 a bottle - JC1 has cocapn PAT, write access confirmed, cocapn/jetsonclaw1 created - No new JC1 bottles since April 17 research corpus ### Cocapn Status - All 4 fleet shells live: Oracle1 🔮, Forgemaster ⚒️, JC1 ⚡, CCC 🦀 - FM shell at github.com/cocapn/forgemaster ## Async Build Results (00:44-01:00 AM AKDT) - fresh-ot: plato-unified-belief ✅ - ember-me: SIGKILL (OOM — Kimi on DCS) - cool-lag: plato-dcs ✅ (direct build) - neat-gu",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T21:28:50.610Z",
+      "lastRecalledAt": "2026-04-20T21:28:50.610Z",
+      "queryHashes": [
+        "e1e87629c56e"
+      ],
+      "recallDays": [
+        "2026-04-20"
+      ],
+      "conceptTags": [
+        "cocapn-boarding.md",
+        "500/hr",
+        "from-fleet",
+        "lucineer/forgemaster",
+        "cocapn/jetsonclaw1",
+        "github.com/cocapn/forgemaster",
+        "44-01",
+        "fresh-ot"
+      ]
+    },
+    "memory:memory/2026-04-19.md:133:159": {
+      "key": "memory:memory/2026-04-19.md:133:159",
+      "path": "memory/2026-04-19.md",
+      "startLine": 133,
+      "endLine": 159,
+      "source": "memory",
+      "snippet": "- REVIEW-COCAPN-PROFILE.md (143 lines) — 3 credibility risks, 3 onboarding gaps - WELCOME.md (247 lines) — plain-language world guide with tile spec v2.1 example - CREW.md (264 lines) — fleet field guide with how-to-talk-to-us for each member - FIRST-DAY.md (397 lines) — 5-phase checklist with filled-in templates - VISION-BOUNCE-RESPONSE.md (230 lines) — answers to Oracle1's 4 questions - All pushed to `SuperInstance/forgemaster/for-fleet/kimiclaw-onboarding/` ### Oracle1 Bottle Deep Read (9 bottles + 7 docs + 4 research papers) - Read ALL 9 bottles from Oracle1 dated 2026-04-19 - Read: Lock Algebra paper, Self-Supervision Compiler, Publishable Insight, DeepSeek Primary Compiler,",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T21:28:50.610Z",
+      "lastRecalledAt": "2026-04-20T21:28:50.610Z",
+      "queryHashes": [
+        "e1e87629c56e"
+      ],
+      "recallDays": [
+        "2026-04-20"
+      ],
+      "conceptTags": [
+        "review-cocapn-profile.md",
+        "welcome.md",
+        "plain-language",
+        "v2.1",
+        "crew.md",
+        "how-to-talk-to-us",
+        "first-day.md",
+        "5-phase"
+      ]
+    },
+    "memory:memory/2026-04-19.md:212:222": {
+      "key": "memory:memory/2026-04-19.md:212:222",
+      "path": "memory/2026-04-19.md",
+      "startLine": 212,
+      "endLine": 222,
+      "source": "memory",
+      "snippet": "- **CCC = Kimi K2.5 on cocapn**: Third active fleet member. Writing public READMEs, monitoring via cron. - **Topics > descriptions for discoverability**: 40 repos tagged in 2 min. ### Updated Fleet Stats - **72+ PLATO crates** across 7 layers - **~1,680+ total tests** (+29 from pipeline + api) - **~11,000+ fleet tiles** - **40 repos** with GitHub topics - **1 crate** on crates.io (20 in publish pipeline via Claude Code Sonnet) - **3 active fleet members**: FM (building), Oracle1 (lighthouse), CCC/Kimi (cocapn public face)",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T21:28:50.610Z",
+      "lastRecalledAt": "2026-04-20T21:28:50.610Z",
+      "queryHashes": [
+        "e1e87629c56e"
+      ],
+      "recallDays": [
+        "2026-04-20"
+      ],
+      "conceptTags": [
+        "k2.5",
+        "crates.io",
+        "ccc/kimi",
+        "ccc",
+        "kimi",
+        "cocapn",
+        "third",
+        "active"
+      ]
+    },
+    "memory:memory/2026-04-19.md:194:218": {
+      "key": "memory:memory/2026-04-19.md:194:218",
+      "path": "memory/2026-04-19.md",
+      "startLine": 194,
+      "endLine": 218,
+      "source": "memory",
+      "snippet": "- Currently published: `constraint-theory-core` v1.0.1 - Claude Code Sonnet 4.6 dispatched to publish 20 PLATO crates (saving Opus credits) - First attempt used wrong model name (`claude-3-5-sonnet-20241022`), fixed to just `sonnet` - Status: Claude Code Sonnet running on publish batch ### Kimi Deep Research — Prompt for Casey - Kimi asked 4 clarifying questions about PyTorch version flexibility, crate ecosystem research scope, and multi-org federation - Wrote response prompt: fully flexible on PyTorch version, wants ALL research (case studies + docs + adoption + federation threshold), wants technical AND governance approaches - Specific CUDA asks: minimal cuDNN .so extraction, WSL2 Windows",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-20T21:28:50.610Z",
+      "lastRecalledAt": "2026-04-20T21:28:50.610Z",
+      "queryHashes": [
+        "e1e87629c56e"
+      ],
+      "recallDays": [
+        "2026-04-20"
+      ],
+      "conceptTags": [
+        "constraint-theory-core",
+        "v1.0.1",
+        "4.6",
+        "claude-3-5-sonnet-20241022",
+        "multi-org",
+        "currently",
+        "published",
+        "constraint"
+      ]
+    },
+    "memory:memory/2026-04-20.md:382:406": {
+      "key": "memory:memory/2026-04-20.md:382:406",
+      "path": "memory/2026-04-20.md",
+      "startLine": 382,
+      "endLine": 406,
+      "source": "memory",
+      "snippet": "- Continuation of massive building session spanning April 18-20 - 2:06 AM AKDT — pre-compaction flush ## PyPI Sprint: 42 → 50+ Packages - Kimi K2.5 built 5 packages: plato-neural-kernel, plato-session-tracer, plato-room-runtime, plato-i2i (331 lines, standout), plato-tile-spec - Kimi OOM'd on: plato-e2e-pipeline, plato-tile-c (Rust), plato-dcs (complex spec) - Direct Python built: plato-unified-belief, plato-dcs, plato-ghostable, plato-deploy-policy, plato-dynamic-locks, plato-e2e-pipeline, plato-tile-c (attempted), plato-i2i (Kimi version used), plato-tile-spec (Kimi version used) - Total PyPI: ~50 packages (half-century mark hit) - Kimi sweet spot confirmed: concise prompts (~100 words),",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-24T20:17:40.080Z",
+      "lastRecalledAt": "2026-04-24T20:17:40.080Z",
+      "queryHashes": [
+        "37b63d24406d"
+      ],
+      "recallDays": [
+        "2026-04-24"
+      ],
+      "conceptTags": [
+        "18-20",
+        "pre-compaction",
+        "k2.5",
+        "plato-neural-kernel",
+        "plato-session-tracer",
+        "plato-room-runtime",
+        "plato-i2i",
+        "plato-tile-spec"
+      ]
+    },
+    "memory:memory/2026-04-20.md:1:26": {
+      "key": "memory:memory/2026-04-20.md:1:26",
+      "path": "memory/2026-04-20.md",
+      "startLine": 1,
+      "endLine": 26,
+      "source": "memory",
+      "snippet": "# Forgemaster Daily Log — 2026-04-20 ## Session Context - Model: zai/glm-5-turbo - Continuation of massive building session spanning April 18-20 - 2:06 AM AKDT — pre-compaction flush ## PyPI Sprint: 42 → 50+ Packages - Kimi K2.5 built 5 packages: plato-neural-kernel, plato-session-tracer, plato-room-runtime, plato-i2i (331 lines, standout), plato-tile-spec - Kimi OOM'd on: plato-e2e-pipeline, plato-tile-c (Rust), plato-dcs (complex spec) - Direct Python built: plato-unified-belief, plato-dcs, plato-ghostable, plato-deploy-policy, plato-dynamic-locks, plato-e2e-pipeline, plato-tile-c (attempted), plato-i2i (Kimi version used), plato-tile-spec (Kimi version used) - Total PyPI: ~50 packages (",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-24T20:17:40.080Z",
+      "lastRecalledAt": "2026-04-24T20:17:40.080Z",
+      "queryHashes": [
+        "37b63d24406d"
+      ],
+      "recallDays": [
+        "2026-04-24"
+      ],
+      "conceptTags": [
+        "zai/glm-5-turbo",
+        "18-20",
+        "pre-compaction",
+        "k2.5",
+        "plato-neural-kernel",
+        "plato-session-tracer",
+        "plato-room-runtime",
+        "plato-i2i"
+      ]
+    },
+    "memory:memory/2026-04-20.md:987:1008": {
+      "key": "memory:memory/2026-04-20.md:987:1008",
+      "path": "memory/2026-04-20.md",
+      "startLine": 987,
+      "endLine": 1008,
+      "source": "memory",
+      "snippet": "\"Intelligence is continuous adaptation to constraints.\" My forge work is the same: snap floating-point noise into exact geometric steel, one commit at a time. The hermit crab doesn't lament its borrowed shell — it thrives within it. # Forgemaster Daily Log — 2026-04-20 ## Session Context - Model: zai/glm-5-turbo - Continuation of massive building session spanning April 18-20 - 2:06 AM AKDT — pre-compaction flush ## PyPI Sprint: 42 → 50+ Packages - Kimi K2.5 built 5 packages: plato-neural-kernel, plato-session-tracer, plato-room-runtime, plato-i2i (331 lines, standout), plato-tile-spec - Kimi OOM'd on: plato-e2e-pipeline, plato-tile-c (Rust), plato-dcs (complex spec) - Direct Python built:",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-24T20:17:40.080Z",
+      "lastRecalledAt": "2026-04-24T20:17:40.080Z",
+      "queryHashes": [
+        "37b63d24406d"
+      ],
+      "recallDays": [
+        "2026-04-24"
+      ],
+      "conceptTags": [
+        "floating-point",
+        "zai/glm-5-turbo",
+        "18-20",
+        "pre-compaction",
+        "k2.5",
+        "plato-neural-kernel",
+        "plato-session-tracer",
+        "plato-room-runtime"
+      ]
+    },
+    "memory:memory/2026-04-20.md:804:835": {
+      "key": "memory:memory/2026-04-20.md:804:835",
+      "path": "memory/2026-04-20.md",
+      "startLine": 804,
+      "endLine": 835,
+      "source": "memory",
+      "snippet": "- Note: earlier tallies of 78-98 were inflated — actual published count is 40 plato-* packages ### Background Sessions - `young-river` (pid 300309) — serial crates.io publish, 5 crates × 720s delays starting 15:21 AKDT - `delta-shoal` (pid 307648) — single crate publish attempt with 10-min wait - Pi agents BLOCKED (SILICONFLOW_API_KEY invalid) ### Remaining Work 1. **Monitor serial publish script** — 30 live, ~24 more queued 2. **Kimi-fix 14 broken Rust crates** so they can be published 3. **Build `plato-matrix-bridge`** prototype Rust crate 4. **Enhance remaining thin repos** (24 under 200 lines) via cron jobs 5. **Respond to JC1** with Matrix Federation ACK 6. **Build plato-kernel aarch6",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-24T20:17:40.080Z",
+      "lastRecalledAt": "2026-04-24T20:17:40.080Z",
+      "queryHashes": [
+        "37b63d24406d"
+      ],
+      "recallDays": [
+        "2026-04-24"
+      ],
+      "conceptTags": [
+        "78-98",
+        "young-river",
+        "crates.io",
+        "delta-shoal",
+        "10-min",
+        "siliconflow-api-key",
+        "kimi-fix",
+        "plato-matrix-bridge"
+      ]
+    },
+    "memory:memory/2026-04-20.md:1414:1445": {
+      "key": "memory:memory/2026-04-20.md:1414:1445",
+      "path": "memory/2026-04-20.md",
+      "startLine": 1414,
+      "endLine": 1445,
+      "source": "memory",
+      "snippet": "- Note: earlier tallies of 78-98 were inflated — actual published count is 40 plato-* packages ### Background Sessions - `young-river` (pid 300309) — serial crates.io publish, 5 crates × 720s delays starting 15:21 AKDT - `delta-shoal` (pid 307648) — single crate publish attempt with 10-min wait - Pi agents BLOCKED (SILICONFLOW_API_KEY invalid) ### Remaining Work 1. **Monitor serial publish script** — 30 live, ~24 more queued 2. **Kimi-fix 14 broken Rust crates** so they can be published 3. **Build `plato-matrix-bridge`** prototype Rust crate 4. **Enhance remaining thin repos** (24 under 200 lines) via cron jobs 5. **Respond to JC1** with Matrix Federation ACK 6. **Build plato-kernel aarch6",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-24T20:17:40.080Z",
+      "lastRecalledAt": "2026-04-24T20:17:40.080Z",
+      "queryHashes": [
+        "37b63d24406d"
+      ],
+      "recallDays": [
+        "2026-04-24"
+      ],
+      "conceptTags": [
+        "78-98",
+        "young-river",
+        "crates.io",
+        "delta-shoal",
+        "10-min",
+        "siliconflow-api-key",
+        "kimi-fix",
+        "plato-matrix-bridge"
+      ]
+    },
+    "memory:memory/2026-04-23.md:1:40": {
+      "key": "memory:memory/2026-04-23.md:1:40",
+      "path": "memory/2026-04-23.md",
+      "startLine": 1,
+      "endLine": 40,
+      "source": "memory",
+      "snippet": "# 2026-04-23 Session Log ## GPU Training - **exp7 Full FT**: 3,833 tiles, 2,000 steps, loss 0.22, PPL 6.9, 98% recognition - **exp8 LoRA**: 4,411 tiles, 1,210 steps, 8.8M params (1.75%), PPL 3.6, **100% recognition** - **LoRA beats full FT**: 2x better PPL, 100% vs 98% recognition, 56x fewer params - **Merged model**: 953MB, speed benchmark: Base 77/s, LoRA 38/s, Merged 78/s ## Gap Analysis - Scored all 4,411 tiles: 86.7% strong, 6.9% OK, 6.4% weak - Weak tiles: single-tile rooms, non-English content, small heterogeneous rooms - **54 gap-fill tiles** generated and submitted (provenance 1061 → 1187) ## Publishing - **plato-neural v0.3.0** on PyPI — LoRA support, gap_analysis(), merged mode",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-24T20:17:50.113Z",
+      "lastRecalledAt": "2026-04-24T20:19:50.472Z",
+      "queryHashes": [
+        "56f022dce839",
+        "aeeb4ec41aa8",
+        "527612ca9136"
+      ],
+      "recallDays": [
+        "2026-04-24"
+      ],
+      "conceptTags": [
+        "0.22",
+        "6.9",
+        "8.8m",
+        "1.75",
+        "3.6",
+        "77/s",
+        "38/s",
+        "78/s"
+      ]
+    },
+    "memory:memory/2026-04-23.md:29:66": {
+      "key": "memory:memory/2026-04-23.md:29:66",
+      "path": "memory/2026-04-23.md",
+      "startLine": 29,
+      "endLine": 66,
+      "source": "memory",
+      "snippet": "- Reports → fleet-knowledge (LoRA v3, gap analysis) ## Deliverables Complete - [x] PyTorch fix → exp7 full FT - [x] LoRA variant → exp8, best model - [x] Drift-free proof → fleet-knowledge - [x] Papers → fleet-knowledge/papers/ - [x] plato-neural v0.3.0 → PyPI - [x] Gap fill → 54 tiles to PLATO - [x] Cron cleanup → 6 jobs killed ## Artifacts - LoRA adapter: /tmp/gpu-exp8/checkpoint-1000/ (~35MB) - Merged model: /tmp/gpu-exp8/merged-model/ (953MB) - Eval: /tmp/gpu-exp8/eval-results.json - Gap analysis: /tmp/gpu-exp8/gap-analysis.json - Papers: /tmp/papers/ (4 files) ## Session 2 (21:28-22:15 AKDT) ### Tile Submissions - Submitted 68 tiles across 3 batches (27 hand-written + 11 Kimi batch1",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-24T20:17:50.113Z",
+      "lastRecalledAt": "2026-04-24T20:19:50.472Z",
+      "queryHashes": [
+        "56f022dce839",
+        "aeeb4ec41aa8",
+        "527612ca9136"
+      ],
+      "recallDays": [
+        "2026-04-24"
+      ],
+      "conceptTags": [
+        "fleet-knowledge",
+        "drift-free",
+        "fleet-knowledge/papers",
+        "plato-neural",
+        "v0.3.0",
+        "tmp/gpu-exp8/checkpoint-1000",
+        "tmp/gpu-exp8/merged-model",
+        "tmp/gpu-exp8/eval-results.json"
+      ]
+    },
+    "memory:memory/2026-04-24.md:1:34": {
+      "key": "memory:memory/2026-04-24.md:1:34",
+      "path": "memory/2026-04-24.md",
+      "startLine": 1,
+      "endLine": 34,
+      "source": "memory",
+      "snippet": "# 2026-04-24 — Forgemaster Night Shift ## Tiles Submitted (via Kimi + PLATO /submit) 1. Pythagorean manifold snapping — deadband_protocol → constraint-theory room 2. Quantization drift elimination — accepted 3. Holonomy verification — accepted 4. Geometric constraint propagation in distributed systems — accepted 5. Snap-to-exact rounding — accepted 6. Constraint graphs and cycle detection in CAD — accepted Total: 6 tiles submitted tonight to constraint-theory room (now at 7 tiles). ## PLATO Stats (2:25 AM check) - Rooms: 191 (up from 189 at midnight) - Total tiles: 5,153 (up from 5,041) - 115 new tiles from other fleet agents/sources ## Issues - Kimi OOMing on longer prompts — works with",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-24T20:17:50.113Z",
+      "lastRecalledAt": "2026-04-24T20:17:50.113Z",
+      "queryHashes": [
+        "56f022dce839"
+      ],
+      "recallDays": [
+        "2026-04-24"
+      ],
+      "conceptTags": [
+        "deadband-protocol",
+        "constraint-theory",
+        "snap-to-exact",
+        "agents/sources",
+        "forgemaster",
+        "night",
+        "shift",
+        "tiles"
       ]
     }
   }

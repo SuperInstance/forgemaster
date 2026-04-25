@@ -1,10 +1,27 @@
-# Keeper runtime artifacts
-.keeper/ticker/raw/*.log
-.keeper/mud-agent/logs/*.json
-.keeper/grimoire/__pycache__/
-.keeper/*.log
-.keeper/output-queue.json
-.keeper/work-queue.json
-.keeper/mud-agent/output-queue.json
-.keeper/mud-agent/work-queue.json
-.keeper/mud-agent/state.json
+# Build artifacts
+target/
+node_modules/
+__pycache__/
+*.pyc
+.next/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
+
+# Keeper ephemera (tracked separately)
+.keeper/ticker/compressed/
+
+# Downloaded/temp
+*.zip
+download/
