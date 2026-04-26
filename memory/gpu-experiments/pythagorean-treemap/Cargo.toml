@@ -1,0 +1,13 @@
+[package]
+name = "pythagorean-treemap"
+version = "0.1.0"
+edition = "2021"
+description = "Treemap visualization of Pythagorean triple density — hierarchical space-filling representation of the constraint manifold"
+license = "MIT"
+keywords = ["pythagorean", "treemap", "visualization", "constraint"]
+categories = ["mathematics", "visualization"]
+repository = "https://github.com/SuperInstance/pythagorean-treemap"
+readme = "README.md"
+
+[profile.release]
+opt-level = 3
