@@ -1,0 +1,20 @@
+[package]
+name    = "ct-wasm"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+# cdylib → .wasm for the browser via wasm-pack
+# rlib   → allows `cargo check` / `cargo test` on native
+
+[dependencies]
+wasm-bindgen = "0.2"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"
+
+[profile.release]
+opt-level = "z"   # size-optimise; wasm-opt handles speed
+lto       = true
+panic     = "abort"

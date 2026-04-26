@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constraint Theory — WASM Demo</title>
+<style>
+/* ── Reset & base ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #0d1117;
+  --surface: #161b22;
+  --border:  #30363d;
+  --accent:  #58a6ff;
+  --green:   #238636;
+  --orange:  #f0883e;
+  --purple:  #bc8cff;
+  --red:     #f85149;
+  --text:    #e6edf3;
+  --dim:     #8b949e;
+  --mono:    'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ── Layout ───────────────────────────────────────────────────────────────── */
+.app {
+  display: grid;
+  grid-template-columns: 220px 1fr 240px;
+  grid-template-rows: 44px 1fr;
+  height: 100vh;
+  gap: 0;
+}
+
+/* ── Top bar ──────────────────────────────────────────────────────────────── */
+.topbar {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar h1 {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+#wasm-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  background: #1f3d2a;
+  border: 1px solid var(--green);
+  border-radius: 20px;
+  color: #3fb950;
+}
+
+#wasm-badge.fallback {
+  background: #2d1f00;
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.topbar .spacer { flex: 1; }
+.topbar .hint { color: var(--dim); font-size: 11px; }
+
+/* ── Left panel ───────────────────────────────────────────────────────────── */
+.panel-left {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Canvas area ──────────────────────────────────────────────────────────── */
+.canvas-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+canvas {
+  cursor: crosshair;
+  display: block;
+}
+
+/* ── Right panel ──────────────────────────────────────────────────────────── */
+.panel-right {
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Shared panel components ─────────────────────────────────────────────── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.section-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 4px;
+  margin-bottom: 2px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--dim);
+  font-size: 11px;
+}
+
+label .label-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+input[type=range] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+button {
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+button:hover { border-color: var(--accent); background: #1c2940; }
+button.primary { background: #0d419d; border-color: var(--accent); color: var(--text); }
+button.primary:hover { background: #1158c7; }
+button.danger  { border-color: var(--red); }
+button.danger:hover { background: #3d0c0c; }
+
+.btn-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ── Info cards ───────────────────────────────────────────────────────────── */
+#snap-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#snap-info div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.label { color: var(--dim); }
+.val   { color: var(--accent); font-weight: 600; }
+
+/* ── Performance bars ─────────────────────────────────────────────────────── */
+.bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.bar-label { width: 64px; color: var(--dim); flex-shrink: 0; }
+.bar-track {
+  flex: 1;
+  height: 10px;
+  background: var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.4s ease;
+}
+.bar-fill.bs { background: var(--accent); }
+.bar-fill.bf { background: var(--orange); }
+.bar-fill.native { background: var(--green); }
+.bar-mqps { width: 64px; text-align: right; color: var(--text); flex-shrink: 0; }
+
+/* ── Holonomy display ─────────────────────────────────────────────────────── */
+#holonomy-val {
+  font-size: 22px;
+  color: var(--purple);
+  text-align: center;
+  padding: 6px 0;
+  letter-spacing: 0.04em;
+}
+
+/* ── Float drift ──────────────────────────────────────────────────────────── */
+.drift-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.drift-table td {
+  padding: 3px 4px;
+  border-bottom: 1px solid var(--border);
+}
+.drift-table td:first-child { color: var(--dim); }
+.drift-table td:last-child  { color: var(--accent); text-align: right; }
+
+/* ── No-WASM banner ───────────────────────────────────────────────────────── */
+#no-wasm-banner {
+  display: none;
+  position: absolute;
+  top: 8px; left: 50%; transform: translateX(-50%);
+  background: #2d1f00;
+  border: 1px solid var(--orange);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 11px;
+  color: var(--orange);
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* ── Loading overlay ──────────────────────────────────────────────────────── */
+#loading {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 17, 23, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--dim);
+  z-index: 20;
+  transition: opacity 0.3s;
+}
+#loading.hidden { opacity: 0; pointer-events: none; }
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ── WebAssembly not supported fallback ─────────────────────────────────── -->
+<noscript>
+  <div style="padding:2em;color:#f85149;font-family:monospace">
+    JavaScript is required for this demo.
+  </div>
+</noscript>
+
+<div class="app">
+
+  <!-- ── Top bar ─────────────────────────────────────────────────────────── -->
+  <header class="topbar">
+    <h1>Constraint Theory — WASM Demo</h1>
+    <span id="wasm-badge">loading…</span>
+    <span class="spacer"></span>
+    <span class="hint">Click the circle to snap · Path mode for holonomy</span>
+  </header>
+
+  <!-- ── Left controls panel ─────────────────────────────────────────────── -->
+  <aside class="panel-left">
+
+    <div class="section">
+      <div class="section-title">Manifold</div>
+      <label>
+        <div class="label-row">
+          <span>max_c</span>
+          <span id="maxc-display">1000</span>
+        </div>
+        <input type="range" id="maxc" min="100" max="50000" value="1000" step="100">
+      </label>
+      <label>
+        <div class="label-row">
+          <span>ε (snap threshold)</span>
+          <span id="eps-display">0.020</span>
+        </div>
+        <input type="range" id="eps" min="1" max="100" value="20" step="1">
+      </label>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Path / Holonomy</div>
+      <div class="btn-row">
+        <button id="btn-path" class="primary">Draw Path</button>
+        <button id="btn-close">Close</button>
+        <button id="btn-clear" class="danger">Clear</button>
+      </div>
+      <label>
+        <div class="label-row">
+          <span>Auto-path steps</span>
+          <span id="steps-display">50</span>
+        </div>
+        <input type="range" id="steps" min="10" max="500" value="50" step="10">
+      </label>
+      <button id="btn-auto-path">Run Auto-Path</button>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Float Drift Demo</div>
+      <button id="btn-drift">Run 1M iterations</button>
+      <table class="drift-table" id="drift-table">
+        <tr><td>Raw error</td><td id="drift-raw">—</td></tr>
+        <tr><td>Snap error</td><td id="drift-snap">—</td></tr>
+        <tr><td>Improvement</td><td id="drift-ratio">—</td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Benchmark</div>
+      <button id="btn-bench">Run (100 k snaps)</button>
+    </div>
+
+  </aside>
+
+  <!-- ── Canvas ──────────────────────────────────────────────────────────── -->
+  <main class="canvas-wrap">
+    <div id="no-wasm-banner">
+      ⚠ WASM build not found — using JS fallback.
+      Run <code>wasm-pack build --target web --dev</code> for native speed.
+    </div>
+    <div id="loading">Initialising…</div>
+    <canvas id="canvas"></canvas>
+  </main>
+
+  <!-- ── Right info panel ────────────────────────────────────────────────── -->
+  <aside class="panel-right">
+
+    <div class="section">
+      <div class="section-title">Snap Result</div>
+      <div id="snap-info">
+        <div><span class="label">—</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Holonomy</div>
+      <div id="holonomy-val">—</div>
+      <div style="font-size:11px;color:var(--dim);text-align:center">
+        Euclidean displacement (end − start)
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Performance</div>
+      <div class="bar-container" id="perf-bars">
+        <div class="bar-row">
+          <span class="bar-label">Binary</span>
+          <div class="bar-track"><div class="bar-fill bs" id="bar-bs" style="width:0%"></div></div>
+          <span class="bar-mqps" id="mqps-bs">—</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Brute</span>
+          <div class="bar-track"><div class="bar-fill bf" id="bar-bf" style="width:0%"></div></div>
+          <span class="bar-mqps" id="mqps-bf">—</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Native*</span>
+          <div class="bar-track"><div class="bar-fill native" id="bar-native" style="width:75%"></div></div>
+          <span class="bar-mqps">~19 Mqps</span>
+        </div>
+      </div>
+      <div id="speedup-label" style="font-size:11px;color:var(--dim);margin-top:4px">
+        Speedup: <span id="speedup" style="color:var(--accent)">—</span>
+        &nbsp;·&nbsp; *native brute-force baseline
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">About</div>
+      <div style="font-size:11px;color:var(--dim);line-height:1.6">
+        All normalised Pythagorean triple points lie on the unit circle,
+        giving them a natural 1-D ordering by θ = atan2(b, a).
+        Binary search snaps in <strong style="color:var(--accent)">O(log n)</strong>
+        with zero allocations — ideal for WebAssembly hot loops.<br><br>
+        Holonomy measures the phase slip after traversing a closed path
+        on the discrete snap manifold.
+      </div>
+    </div>
+
+  </aside>
+
+</div><!-- .app -->
+
+<!-- ── Main script ─────────────────────────────────────────────────────────── -->
+<script type="module">
+import { Demo, floatDriftDemo } from './bootstrap.js';
+
+// ── Canvas sizing ──────────────────────────────────────────────────────────
+const canvas = document.getElementById('canvas');
+const wrap   = canvas.parentElement;
+
+function resizeCanvas() {
+  const { width, height } = wrap.getBoundingClientRect();
+  if (canvas.width !== Math.floor(width) || canvas.height !== Math.floor(height)) {
+    canvas.width  = Math.floor(width);
+    canvas.height = Math.floor(height);
+    demo?._draw();
+  }
+}
+
+// ── Demo initialisation ────────────────────────────────────────────────────
+const sidebar = document.getElementById('snap-info');
+const demo    = new Demo(canvas, sidebar);
+
+const loading = document.getElementById('loading');
+const badge   = document.getElementById('wasm-badge');
+
+async function boot(maxC) {
+  loading.classList.remove('hidden');
+  try {
+    await demo.init(maxC);
+    if (!demo.useWasm) {
+      badge.classList.add('fallback');
+      document.getElementById('no-wasm-banner').style.display = 'block';
+    }
+  } finally {
+    loading.classList.add('hidden');
+  }
+}
+
+resizeCanvas();
+new ResizeObserver(resizeCanvas).observe(wrap);
+
+// ── Controls wiring ────────────────────────────────────────────────────────
+
+// max_c slider (debounced)
+const maxcSlider   = document.getElementById('maxc');
+const maxcDisplay  = document.getElementById('maxc-display');
+let rebuildTimer   = null;
+
+maxcSlider.addEventListener('input', () => {
+  maxcDisplay.textContent = Number(maxcSlider.value).toLocaleString();
+  clearTimeout(rebuildTimer);
+  rebuildTimer = setTimeout(async () => {
+    loading.classList.remove('hidden');
+    await demo.rebuild(parseInt(maxcSlider.value));
+    loading.classList.add('hidden');
+  }, 300);
+});
+
+// epsilon slider
+const epsSlider  = document.getElementById('eps');
+const epsDisplay = document.getElementById('eps-display');
+epsSlider.addEventListener('input', () => {
+  const v = parseInt(epsSlider.value) / 1000;
+  epsDisplay.textContent = v.toFixed(3);
+  window._epsilon = v;
+  demo._draw();
+});
+window._epsilon = 0.02;
+
+// steps slider
+const stepsSlider  = document.getElementById('steps');
+const stepsDisplay = document.getElementById('steps-display');
+stepsSlider.addEventListener('input', () => {
+  stepsDisplay.textContent = stepsSlider.value;
+});
+
+// Canvas click
+canvas.addEventListener('click', e => {
+  demo.handleClick(e.offsetX, e.offsetY);
+});
+
+// Path buttons
+document.getElementById('btn-path').addEventListener('click', () => {
+  demo.enterPathMode();
+  document.getElementById('btn-path').classList.add('primary');
+  document.getElementById('holonomy-val').textContent = '—';
+});
+
+document.getElementById('btn-close').addEventListener('click', () => {
+  const h = demo.closePath();
+  if (h !== undefined) {
+    document.getElementById('holonomy-val').textContent = h.toExponential(4);
+  }
+  document.getElementById('btn-path').classList.remove('primary');
+});
+
+document.getElementById('btn-clear').addEventListener('click', () => {
+  demo.clearPath();
+  document.getElementById('holonomy-val').textContent = '—';
+  document.getElementById('btn-path').classList.remove('primary');
+});
+
+// Auto-path: generate a circular path with N steps
+document.getElementById('btn-auto-path').addEventListener('click', () => {
+  const n     = parseInt(stepsSlider.value);
+  const step  = (2 * Math.PI) / n;
+  // Seed the path angles directly (bypasses click-to-angle conversion)
+  demo.pathMode   = false;
+  demo.pathAngles = Array.from({ length: n }, (_, i) => i * step);
+  demo.holonomy   = null;
+  const deltas    = new Float64Array(n);
+  for (let i = 0; i < n - 1; i++) deltas[i] = step;
+  deltas[n - 1] = -(n - 1) * step;   // close
+  const h = demo.manifold.measureHolonomy(deltas);
+  demo.holonomy = h;
+  document.getElementById('holonomy-val').textContent = h.toExponential(4);
+  demo._draw();
+});
+
+// Float drift demo
+document.getElementById('btn-drift').addEventListener('click', () => {
+  const { rawError } = floatDriftDemo(1_000_000);
+  document.getElementById('drift-raw').textContent  = rawError.toExponential(3);
+  document.getElementById('drift-snap').textContent  = '0';
+  document.getElementById('drift-ratio').textContent =
+    rawError > 0 ? '∞ improvement' : '—';
+});
+
+// Benchmark
+document.getElementById('btn-bench').addEventListener('click', async () => {
+  const btn = document.getElementById('btn-bench');
+  btn.disabled = true;
+  btn.textContent = 'Running…';
+  // Yield to browser before heavy loop
+  await new Promise(r => setTimeout(r, 0));
+
+  const { bsMqps, bfMqps, speedup } = await demo.runBenchmark(100_000);
+
+  const nativeMqps = 19;
+  const maxMqps    = Math.max(bsMqps, nativeMqps, 1);
+
+  document.getElementById('bar-bs').style.width    = `${(bsMqps / maxMqps * 100).toFixed(1)}%`;
+  document.getElementById('bar-bf').style.width    = `${(bfMqps / maxMqps * 100).toFixed(1)}%`;
+  document.getElementById('bar-native').style.width = `${(nativeMqps / maxMqps * 100).toFixed(1)}%`;
+
+  document.getElementById('mqps-bs').textContent = bsMqps.toFixed(2) + ' Mqps';
+  document.getElementById('mqps-bf').textContent = bfMqps.toFixed(2) + ' Mqps';
+  document.getElementById('speedup').textContent  = speedup.toFixed(1) + '×';
+
+  btn.disabled = false;
+  btn.textContent = 'Run (100 k snaps)';
+});
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+boot(parseInt(maxcSlider.value));
+</script>
+</body>
+</html>
