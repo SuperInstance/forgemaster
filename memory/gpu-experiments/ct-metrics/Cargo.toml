@@ -1,0 +1,15 @@
+[package]
+name = "constraint-theory-metrics"
+version = "0.1.0"
+edition = "2021"
+description = "Benchmarking and analysis tools for constraint theory — distribution analysis, correctness verification, performance measurement"
+license = "MIT"
+keywords = ["constraint", "benchmark", "metrics", "pythagorean"]
+categories = ["mathematics", "development-tools"]
+repository = "https://github.com/SuperInstance/constraint-theory-metrics"
+readme = "README.md"
+
+[dependencies]
+
+[profile.release]
+opt-level = 3
