@@ -1,0 +1,17 @@
+[package]
+name = "pythagorean-snap"
+version = "0.1.0"
+edition = "2021"
+description = "O(log n) nearest-neighbor search on the Pythagorean manifold — full-circle, zero-drift, 316x faster than brute force"
+license = "MIT"
+keywords = ["pythagorean", "triple", "manifold", "snap", "constraint"]
+categories = ["mathematics", "algorithms", "no-std"]
+repository = "https://github.com/SuperInstance/pythagorean-snap"
+readme = "README.md"
+
+[features]
+default = ["std"]
+std = []
+
+[profile.release]
+opt-level = 3
