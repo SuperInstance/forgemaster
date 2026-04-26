@@ -1,0 +1,24 @@
+[package]
+name = "ct-simd"
+version = "0.1.0"
+edition = "2021"
+
+# wide provides stable f32x8 SIMD (AVX on x86, NEON on ARM) without nightly.
+# std::simd is still feature-gated as of Rust 1.95.
+[dependencies]
+wide = "0.7"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "snap_bench"
+harness = false
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+
+[profile.bench]
+opt-level = 3
+lto = "thin"
