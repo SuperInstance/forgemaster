@@ -1,12 +1,6 @@
 {
-  "lastActivity": "2026-04-26T09:50:00Z",
-  "stale": false,
-  "batchesThisSession": 58,
-  "tilesSubmitted": 1812,
-  "experimentsCompleted": 10,
-  "cratesPublished": 10,
-  "pypiPublished": 3,
-  "gitPushes": 75,
-  "lastBatch": 58,
-  "lastPush": "2026-04-26T09:50:00Z"
+  "timestamp": "2026-04-26T13:13:58-08:00",
+  "last_git_push_min_ago": 3698,
+  "plato_total_tiles": "7470",
+  "stale": true
 }
