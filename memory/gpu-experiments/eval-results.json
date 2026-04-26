@@ -1,0 +1,12 @@
+{
+  "experiment": "gpu-exp8-lora",
+  "steps": 1000,
+  "corpus": 4411,
+  "trainable_params": "8.8M (1.75%)",
+  "avg_ppl": 3.6,
+  "median_ppl": 2.0,
+  "recognition": 100.0,
+  "confidence": 0.974,
+  "tok_per_sec": 33,
+  "loss": 0.3846
+}
