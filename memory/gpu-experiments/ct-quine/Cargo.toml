@@ -1,0 +1,13 @@
+[package]
+name    = "ct-quine"
+version = "0.1.0"
+edition = "2021"
+
+# No external dependencies — the proof is self-contained.
+
+[[bin]]
+name = "ct-quine"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
