@@ -1,0 +1,13 @@
+[package]
+name = "constraint-theory-nn"
+version = "0.1.0"
+edition = "2021"
+description = "Nearest-neighbor lookup on the Pythagorean manifold — exact 1-NN with O(log n) binary search"
+license = "MIT"
+keywords = ["nearest-neighbor", "pythagorean", "constraint", "search"]
+categories = ["mathematics", "algorithms"]
+repository = "https://github.com/SuperInstance/constraint-theory-nn"
+readme = "README.md"
+
+[profile.release]
+opt-level = 3
