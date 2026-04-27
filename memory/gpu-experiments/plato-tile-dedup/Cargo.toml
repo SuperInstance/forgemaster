@@ -1,0 +1,9 @@
+[package]
+name = "plato-tile-dedup"
+version = "0.1.0"
+edition = "2021"
+description = "Tile deduplication for PLATO knowledge graph — near-duplicate detection via content hashing"
+license = "MIT"
+keywords = ["plato", "dedup", "knowledge-graph", "hash"]
+categories = ["text-processing"]
+readme = "README.md"
