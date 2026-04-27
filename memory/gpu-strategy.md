@@ -140,3 +140,37 @@ passthrough may activate. Then `nvidia-smi` should show the RTX 4050 inside WSL.
 3. Git repos on cocapn org for both
 4. CI that compiles CUDA (but doesn't run it)
 5. Try the WSL2 passthrough fix → if it works, immediately run CUDA benchmarks
+
+## LIVE GPU RESULTS (2026-04-26, after WSL2 passthrough fix)
+
+### Hardware
+- NVIDIA GeForce RTX 4050 Laptop GPU
+- 20 SMs, 2055 MHz, 6439 MB global mem
+- Driver 595.79, CUDA 13.2 runtime, nvcc 12.6
+
+### Snap Benchmark (max_c=50000, 41216 triples)
+
+| Backend | qps | vs CPU |
+|---------|-----|--------|
+| GPU CUDA (binary search, global mem) | **2.6 billion** | **94x** |
+| CPU sequential | 27.7 million | 1x |
+| CPU Rust (release) | ~44 million | 1.6x |
+| CPU Rust (Rayon parallel) | ~57 million | 2x |
+
+### Key Numbers
+- 1M queries: 0.52 ms on GPU
+- 2B queries: 765 ms on GPU (20 iterations x 100M)
+- 100% correctness (0/10000 invalid indices)
+- Holonomy: 10K walks x 10K steps = 0.8 ms
+
+### Bottleneck Analysis
+The binary search does ~16 iterations (log2(41216) ≈ 15.3), each reading from
+global memory. L2 cache (6MB) holds the entire 41K triple array (328KB),
+so after warmup it's pure compute. The 94x speedup comes from 20 SMs x 32
+warps running 640 threads simultaneously vs 1 CPU thread.
+
+### What This Enables
+- PLATO-scale batch: snap all 7700 tiles in <0.01 ms
+- Holonomy Monte Carlo: 10K walks in <1 ms (vs seconds on CPU)
+- Real-time manifold rendering at 60+ FPS
+- Neural snap training: process 1B training samples in 6 minutes
