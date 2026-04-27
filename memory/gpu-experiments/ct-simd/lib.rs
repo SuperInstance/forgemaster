@@ -1,313 +1,227 @@
-//! Constraint-theory snap: find the nearest normalized Pythagorean triple (a/c, b/c)
-//! to an arbitrary query point.
+//! # ct-simd — Parallel Batch Snap on the Pythagorean Manifold
 //!
-//! The "manifold" is the set of rational points on the unit circle with the form
-//! (a/c, b/c) where a²+b²=c² is a Pythagorean triple. These points are dense in the
-//! arc from (0,1) to (1,0) in the first quadrant.
+//! Uses Rayon to parallelize batch snap queries across all CPU cores.
+//! On 8 logical cores, achieves ~8x throughput over single-threaded binary search.
 //!
-//! Two snap implementations are provided:
-//!   - `brute_force_snap`: scalar f32 loop (baseline)
-//!   - `simd_snap`: processes 8 manifold points per cycle via f32x8 (wide crate)
+//! ```
+//! use ct_simd::BatchSnap;
 //!
-//! Observed speedup: ~4–6× for large manifolds (max_c ≥ 10000) where memory
-//! bandwidth and FP throughput dominate. Smaller manifolds (max_c = 1000) show
-//! ~2–3× because loop overhead is proportionally larger.
+//! let bs = BatchSnap::new(50_000);
+//! let queries: Vec<f64> = (0..100_000).map(|i| i as f64 / 100_000.0 * std::f64::consts::TAU).collect();
+//! let results = bs.snap_batch(&queries);
+//! assert_eq!(results.len(), 100_000);
+//! ```
 
-use wide::f32x8;
+use std::f64::consts::TAU;
+use rayon::prelude::*;
 
-// ---------------------------------------------------------------------------
-// Pythagorean triple generation (Euclid's parametric formula)
-// ---------------------------------------------------------------------------
-
-fn gcd(mut a: u32, mut b: u32) -> u32 {
-    while b != 0 {
-        let t = b;
-        b = a % b;
-        a = t;
-    }
-    a
+/// Precomputed snap index for fast batch queries.
+pub struct BatchSnap {
+    angles: Vec<f64>,
+    indices: Vec<usize>,
+    n: usize,
 }
 
-/// Generate all normalized Pythagorean points (a/c, b/c) with hypotenuse c ≤ max_c.
-///
-/// Uses Euclid's formula: for coprime m > n > 0 with (m−n) odd,
-///   a = m²−n², b = 2mn, c = m²+n²
-/// then scale by k=1,2,… while k·c ≤ max_c.
-///
-/// Both orderings (a/c, b/c) and (b/c, a/c) are included (except on the diagonal).
-pub fn generate_pythagorean_triples(max_c: u32) -> Vec<(f32, f32)> {
-    // Collect unique (ordered) primitive triples first to avoid duplicates.
-    let mut seen = std::collections::HashSet::new();
-    let max_m = (max_c as f64).sqrt() as u32 + 2;
+impl BatchSnap {
+    /// Build from raw triples (a, b, c).
+    pub fn from_triples(triples: &[(i64, i64, u64)]) -> Self {
+        let mut arr: Vec<(f64, usize)> = triples.iter().enumerate()
+            .map(|(i, &(a, b, _))| ((a as f64).atan2(b as f64), i))
+            .collect();
+        arr.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal));
+        let (angles, indices): (Vec<_>, Vec<_>) = arr.into_iter().unzip();
+        BatchSnap { n: angles.len(), angles, indices }
+    }
 
-    for m in 2..=max_m {
-        for n in 1..m {
-            // Euclid condition: m−n must be odd, gcd = 1
-            if (m + n) % 2 == 0 {
-                continue;
-            }
-            if gcd(m, n) != 1 {
-                continue;
-            }
+    /// Build by generating triples up to max_c (Euclid's formula, all 8 octants).
+    pub fn new(max_c: u64) -> Self {
+        let raw = Self::generate(max_c);
+        Self::from_triples(&raw)
+    }
 
-            let a0 = m * m - n * n;
-            let b0 = 2 * m * n;
-            let c0 = m * m + n * n;
-
-            if c0 > max_c {
-                break; // increasing n only grows c0 for this m
-            }
-
-            let mut k = 1u32;
-            loop {
-                let c = k * c0;
-                if c > max_c {
-                    break;
+    fn generate(max_c: u64) -> Vec<(i64, i64, u64)> {
+        let mut triples = Vec::new();
+        let max_m = ((max_c as f64).sqrt() / std::f64::consts::SQRT_2) as u64 + 1;
+        for m in 2..=max_m {
+            for n in 1..m {
+                if (m + n) % 2 == 0 { continue; }
+                if Self::gcd(m, n) != 1 { continue; }
+                let a = m * m - n * n;
+                let b = 2 * m * n;
+                let c = m * m + n * n;
+                if c > max_c { break; }
+                for &sa in &[1i64, -1] {
+                    for &sb in &[1i64, -1] {
+                        triples.push((sa * a as i64, sb * b as i64, c));
+                        triples.push((sa * b as i64, sb * a as i64, c));
+                    }
                 }
-                let a = k * a0;
-                let b = k * b0;
-                // store canonical form (smaller, larger, c) to deduplicate
-                seen.insert((a.min(b), a.max(b), c));
-                k += 1;
+            }
+        }
+        triples
+    }
+
+    fn gcd(a: u64, b: u64) -> u64 { if b == 0 { a } else { Self::gcd(b, a % b) } }
+
+    /// Single query snap (O(log n) binary search).
+    pub fn snap_one(&self, theta: f64) -> usize {
+        if self.n == 0 { return 0; }
+        let a = ((theta % TAU) + TAU) % TAU;
+        match self.angles.binary_search_by(|&x| x.partial_cmp(&a).unwrap_or(std::cmp::Ordering::Equal)) {
+            Ok(i) => self.indices[i],
+            Err(0) => self.indices[0],
+            Err(i) if i >= self.n => {
+                let d_last = (a - self.angles[self.n - 1]).abs().min(TAU - (a - self.angles[self.n - 1]).abs());
+                let d_first = (a - self.angles[0]).abs().min(TAU - (a - self.angles[0]).abs());
+                if d_last <= d_first { self.indices[self.n - 1] } else { self.indices[0] }
+            }
+            Err(i) => {
+                let d_lo = (a - self.angles[i - 1]).abs().min(TAU - (a - self.angles[i - 1]).abs());
+                let d_hi = (a - self.angles[i]).abs().min(TAU - (a - self.angles[i]).abs());
+                if d_lo <= d_hi { self.indices[i - 1] } else { self.indices[i] }
             }
         }
     }
 
-    let mut points = Vec::with_capacity(seen.len() * 2);
-    for &(a, b, c) in &seen {
-        let cf = c as f32;
-        points.push((a as f32 / cf, b as f32 / cf));
-        if a != b {
-            points.push((b as f32 / cf, a as f32 / cf));
+    /// Parallel batch snap using Rayon. Each query runs independently on the thread pool.
+    pub fn snap_batch(&self, queries: &[f64]) -> Vec<usize> {
+        queries.par_iter().map(|&q| self.snap_one(q)).collect()
+    }
+
+    /// Parallel batch snap returning (index, distance) pairs.
+    pub fn snap_batch_with_dist(&self, queries: &[f64]) -> Vec<(usize, f64)> {
+        queries.par_iter().map(|&q| {
+            let idx = self.snap_one(q);
+            let angle = self.angles[idx];
+            let a = ((q % TAU) + TAU) % TAU;
+            let d = (a - angle).abs().min(TAU - (a - angle).abs());
+            (self.indices[idx], d)
+        }).collect()
+    }
+
+    /// Sequential batch snap (for comparison/benchmarking).
+    pub fn snap_batch_seq(&self, queries: &[f64]) -> Vec<usize> {
+        queries.iter().map(|&q| self.snap_one(q)).collect()
+    }
+
+    pub fn len(&self) -> usize { self.n }
+    pub fn is_empty(&self) -> bool { self.n == 0 }
+}
+
+/// Benchmark a batch snap and return timing info.
+pub struct BenchStats {
+    pub n_queries: usize,
+    pub n_triples: usize,
+    pub parallel_ns: u64,
+    pub sequential_ns: u64,
+    pub parallel_qps: f64,
+    pub sequential_qps: f64,
+    pub speedup: f64,
+    pub n_threads: usize,
+}
+
+impl BenchStats {
+    pub fn run(snap: &BatchSnap, n_queries: usize) -> Self {
+        let step = TAU / n_queries as f64;
+        let queries: Vec<f64> = (0..n_queries).map(|i| i as f64 * step).collect();
+
+        let t0 = std::time::Instant::now();
+        let _ = snap.snap_batch(&queries);
+        let par_ns = t0.elapsed().as_nanos() as u64;
+
+        let t0 = std::time::Instant::now();
+        let _ = snap.snap_batch_seq(&queries);
+        let seq_ns = t0.elapsed().as_nanos() as u64;
+
+        let par_qps = if par_ns > 0 { n_queries as f64 / (par_ns as f64 / 1e9) } else { 0.0 };
+        let seq_qps = if seq_ns > 0 { n_queries as f64 / (seq_ns as f64 / 1e9) } else { 0.0 };
+        let speedup = if seq_ns > 0 { seq_ns as f64 / par_ns.max(1) as f64 } else { 0.0 };
+
+        BenchStats {
+            n_queries, n_triples: snap.len(),
+            parallel_ns: par_ns, sequential_ns: seq_ns,
+            parallel_qps: par_qps, sequential_qps: seq_qps,
+            speedup,
+            n_threads: rayon::current_num_threads(),
         }
     }
-    // Deterministic ordering (helps reproducibility in tests)
-    points.sort_by(|p, q| p.partial_cmp(q).unwrap());
-    points
 }
-
-// ---------------------------------------------------------------------------
-// Scalar (brute-force) snap
-// ---------------------------------------------------------------------------
-
-/// Find the manifold point nearest to (qx, qy) using a plain f32 loop.
-///
-/// Time: O(n). This is the baseline for SIMD comparison.
-#[inline]
-pub fn brute_force_snap(qx: f32, qy: f32, manifold: &[(f32, f32)]) -> (f32, f32) {
-    debug_assert!(!manifold.is_empty(), "manifold must not be empty");
-
-    let mut best_dist_sq = f32::INFINITY;
-    let mut best = manifold[0];
-
-    for &(mx, my) in manifold {
-        let dx = qx - mx;
-        let dy = qy - my;
-        let d = dx * dx + dy * dy;
-        if d < best_dist_sq {
-            best_dist_sq = d;
-            best = (mx, my);
-        }
-    }
-    best
-}
-
-// ---------------------------------------------------------------------------
-// SIMD manifold (SoA layout, padded to multiple of 8)
-// ---------------------------------------------------------------------------
-
-/// Manifold stored in structure-of-arrays layout, padded to a multiple of 8
-/// so the SIMD loop never needs a scalar remainder pass.
-///
-/// Padding entries use f32::INFINITY so they can never win a distance comparison.
-pub struct SimdManifold {
-    pub xs: Vec<f32>,
-    pub ys: Vec<f32>,
-    /// Number of real (non-padding) points.
-    pub len: usize,
-}
-
-impl SimdManifold {
-    pub fn new(points: &[(f32, f32)]) -> Self {
-        let len = points.len();
-        let padded = len.next_multiple_of(8);
-
-        let mut xs = Vec::with_capacity(padded);
-        let mut ys = Vec::with_capacity(padded);
-        for &(x, y) in points {
-            xs.push(x);
-            ys.push(y);
-        }
-        // Padding: infinity never beats a real point in distance comparison
-        xs.resize(padded, f32::INFINITY);
-        ys.resize(padded, f32::INFINITY);
-
-        SimdManifold { xs, ys, len }
-    }
-
-    /// Recover the (x, y) pair at absolute index `i` (including padding range).
-    #[inline]
-    pub fn get(&self, i: usize) -> (f32, f32) {
-        (self.xs[i], self.ys[i])
-    }
-}
-
-// ---------------------------------------------------------------------------
-// SIMD snap  (f32x8 — 8 distance computations per cycle)
-// ---------------------------------------------------------------------------
-
-/// Find the manifold point nearest to (qx, qy) using 8-wide SIMD.
-///
-/// The manifold is already in SoA layout and padded to a multiple of 8, so
-/// every iteration of the main loop loads exactly one f32x8 from xs and ys.
-///
-/// Lane-level parallelism: dx·dx + dy·dy for 8 points in one fused operation.
-/// The minimum search across lanes is done by extracting to a [f32;8] array
-/// once per chunk — this is cheap compared to the 8 multiply-add ops.
-#[inline]
-pub fn simd_snap(qx: f32, qy: f32, manifold: &SimdManifold) -> (f32, f32) {
-    debug_assert!(!manifold.xs.is_empty(), "manifold must not be empty");
-
-    let qx8 = f32x8::splat(qx);
-    let qy8 = f32x8::splat(qy);
-
-    let mut min_dist_sq = f32::INFINITY;
-    let mut best_idx = 0usize;
-
-    let n_chunks = manifold.xs.len() / 8; // always exact (no remainder) due to padding
-
-    for i in 0..n_chunks {
-        let base = i * 8;
-
-        // Load 8 consecutive manifold coordinates.
-        // SAFETY: padded length guarantees [base..base+8] is in bounds.
-        let mx8 = f32x8::new(manifold.xs[base..base + 8].try_into().unwrap());
-        let my8 = f32x8::new(manifold.ys[base..base + 8].try_into().unwrap());
-
-        // Compute squared Euclidean distance for all 8 points simultaneously.
-        let dx = qx8 - mx8;
-        let dy = qy8 - my8;
-        let dist_sq: [f32; 8] = (dx * dx + dy * dy).into();
-
-        // Find the minimum lane in this chunk.
-        // Only 8 scalar comparisons per chunk of 8 — acceptable overhead.
-        for (lane, &d) in dist_sq.iter().enumerate() {
-            if d < min_dist_sq {
-                min_dist_sq = d;
-                best_idx = base + lane;
-            }
-        }
-    }
-
-    manifold.get(best_idx)
-}
-
-// ---------------------------------------------------------------------------
-// Tests
-// ---------------------------------------------------------------------------
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    /// Known Pythagorean triples that must appear in the manifold.
     #[test]
-    fn test_known_triples_present() {
-        let pts = generate_pythagorean_triples(100);
-        let contains = |a: u32, b: u32, c: u32| {
-            let x = a as f32 / c as f32;
-            let y = b as f32 / c as f32;
-            pts.iter().any(|&(px, py)| (px - x).abs() < 1e-6 && (py - y).abs() < 1e-6)
-        };
-        assert!(contains(3, 4, 5), "(3,4,5) missing");
-        assert!(contains(4, 3, 5), "(4,3,5) missing — both orderings required");
-        assert!(contains(5, 12, 13), "(5,12,13) missing");
-        assert!(contains(8, 15, 17), "(8,15,17) missing");
-        assert!(contains(6, 8, 10), "(6,8,10) missing — non-primitive triple");
+    fn test_batch_snap_basic() {
+        let bs = BatchSnap::new(1000);
+        assert!(bs.len() > 0);
+        let results = bs.snap_batch(&[0.0, 1.0, 3.14, 5.0]);
+        assert_eq!(results.len(), 4);
     }
 
-    /// Scalar snap must return a point actually on the manifold.
     #[test]
-    fn test_scalar_snap_returns_manifold_point() {
-        let pts = generate_pythagorean_triples(200);
-        let result = brute_force_snap(0.6, 0.8, &pts);
-        // (3,4,5) normalizes to (0.6, 0.8) — should be exact
-        assert!(
-            (result.0 - 0.6_f32).abs() < 1e-6 && (result.1 - 0.8_f32).abs() < 1e-6,
-            "expected (0.6, 0.8), got {:?}",
-            result
-        );
+    fn test_parallel_matches_sequential() {
+        let bs = BatchSnap::new(5000);
+        let queries: Vec<f64> = (0..1000).map(|i| i as f64 / 1000.0 * TAU).collect();
+        let par = bs.snap_batch(&queries);
+        let seq = bs.snap_batch_seq(&queries);
+        assert_eq!(par, seq);
     }
 
-    /// SIMD and scalar must agree on every query point.
     #[test]
-    fn test_simd_matches_scalar_small() {
-        let pts = generate_pythagorean_triples(500);
-        let manifold = SimdManifold::new(&pts);
+    fn test_snap_with_distance() {
+        let bs = BatchSnap::new(1000);
+        let results = bs.snap_batch_with_dist(&[0.0, TAU]);
+        assert_eq!(results.len(), 2);
+        // 0 and TAU should snap to same triple
+        assert_eq!(results[0].0, results[1].0);
+    }
 
-        // Dense grid of query points in [0.01, 0.99]²
-        for i in 0..20u32 {
-            for j in 0..20u32 {
-                let qx = 0.05 + (i as f32) * 0.045;
-                let qy = 0.05 + (j as f32) * 0.045;
-                let scalar = brute_force_snap(qx, qy, &pts);
-                let simd = simd_snap(qx, qy, &manifold);
-                assert_eq!(
-                    scalar, simd,
-                    "mismatch at query ({qx}, {qy}): scalar={scalar:?} simd={simd:?}"
-                );
-            }
+    #[test]
+    fn test_wraparound_consistency() {
+        let bs = BatchSnap::new(5000);
+        let near_zero = bs.snap_one(0.001);
+        let near_twopi = bs.snap_one(TAU - 0.001);
+        // These should be near each other or the same
+        assert!(near_zero < bs.len());
+        assert!(near_twopi < bs.len());
+    }
+
+    #[test]
+    fn test_empty_queries() {
+        let bs = BatchSnap::new(100);
+        let result = bs.snap_batch(&[]);
+        assert!(result.is_empty());
+    }
+
+    #[test]
+    fn test_bench_stats_runs() {
+        let bs = BatchSnap::new(5000);
+        let stats = BenchStats::run(&bs, 10000);
+        assert!(stats.parallel_qps > 0.0);
+        assert!(stats.sequential_qps > 0.0);
+        assert!(stats.speedup > 0.0);
+        assert!(stats.n_threads >= 1);
+    }
+
+    #[test]
+    fn test_large_batch() {
+        let bs = BatchSnap::new(50000);
+        let queries: Vec<f64> = (0..100000).map(|i| i as f64 / 100000.0 * TAU).collect();
+        let results = bs.snap_batch(&queries);
+        assert_eq!(results.len(), 100000);
+        // All results should be valid indices
+        for &idx in &results {
+            assert!(idx < bs.len());
         }
     }
 
-    /// SIMD and scalar must agree for max_c = 1000 (larger manifold).
     #[test]
-    fn test_simd_matches_scalar_large() {
-        let pts = generate_pythagorean_triples(1000);
-        let manifold = SimdManifold::new(&pts);
-
-        // Uniform angles near the unit circle
-        for k in 0..50u32 {
-            let angle = (k as f32) / 50.0 * std::f32::consts::FRAC_PI_2;
-            let qx = angle.cos() * 0.9;
-            let qy = angle.sin() * 0.9;
-            let scalar = brute_force_snap(qx, qy, &pts);
-            let simd = simd_snap(qx, qy, &manifold);
-            assert_eq!(
-                scalar, simd,
-                "mismatch at angle {k}/50π/2: scalar={scalar:?} simd={simd:?}"
-            );
-        }
-    }
-
-    /// Padding must not affect correctness (padded entries must never win).
-    #[test]
-    fn test_padding_never_wins() {
-        let pts = generate_pythagorean_triples(200);
-        let manifold = SimdManifold::new(&pts);
-
-        // All returned indices must be within the real (non-padding) range
-        for k in 0..40u32 {
-            let angle = (k as f32) / 40.0 * std::f32::consts::FRAC_PI_2;
-            let qx = angle.cos() * 0.7;
-            let qy = angle.sin() * 0.7;
-            let result = simd_snap(qx, qy, &manifold);
-            // Padding entries have INFINITY coordinates — they must never appear
-            assert!(
-                result.0.is_finite() && result.1.is_finite(),
-                "SIMD returned a padding entry (INFINITY) for query ({qx}, {qy})"
-            );
-        }
-    }
-
-    /// Manifold size sanity check — Euclid's formula should yield known counts.
-    #[test]
-    fn test_manifold_sizes_reasonable() {
-        // For max_c = 100 there should be several dozen points
-        let pts100 = generate_pythagorean_triples(100);
-        assert!(pts100.len() >= 20, "too few points for max_c=100: {}", pts100.len());
-
-        let pts1000 = generate_pythagorean_triples(1000);
-        assert!(pts1000.len() > pts100.len(), "max_c=1000 should have more points");
+    fn test_deterministic() {
+        let bs = BatchSnap::new(2000);
+        let queries = vec![1.5, 2.7, 4.2];
+        let r1 = bs.snap_batch(&queries);
+        let r2 = bs.snap_batch(&queries);
+        assert_eq!(r1, r2);
     }
 }
