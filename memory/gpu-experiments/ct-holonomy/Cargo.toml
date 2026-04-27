@@ -1,0 +1,9 @@
+[package]
+name = "ct-holonomy"
+version = "0.1.0"
+edition = "2021"
+description = "Holonomy measurement on the Pythagorean manifold — angular deficit, Berry phase analogy"
+license = "MIT"
+keywords = ["holonomy", "pythagorean", "manifold", "berry-phase"]
+categories = ["mathematics", "science"]
+readme = "README.md"
