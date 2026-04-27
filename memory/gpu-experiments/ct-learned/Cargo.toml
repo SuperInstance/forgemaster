@@ -1,0 +1,9 @@
+[package]
+name = "ct-learned"
+version = "0.1.0"
+edition = "2021"
+description = "Learned index structures for O(1) Pythagorean snap — CDF prediction with linear correction"
+license = "MIT"
+keywords = ["learned-index", "cdf", "snap", "pythagorean"]
+categories = ["mathematics", "science"]
+readme = "README.md"
