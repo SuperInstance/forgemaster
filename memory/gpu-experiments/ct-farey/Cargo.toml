@@ -1,0 +1,9 @@
+[package]
+name = "ct-farey"
+version = "0.1.0"
+edition = "2021"
+description = "Farey sequence — optimal rational enumeration for Pythagorean snap quality bounds"
+license = "MIT"
+keywords = ["farey", "rational", "snap", "pythagorean"]
+categories = ["mathematics"]
+readme = "README.md"
