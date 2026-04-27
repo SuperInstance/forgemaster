@@ -17,6 +17,36 @@
 - PLATO gate endpoints not wired
 - Shell gates block python3/mkdir/pip
 - Oracle1 key rotation needed
+- jetsonclaw1 not reachable by hostname from eileen WSL2 — needs IP or mDNS resolution
+
+## Marine GPU Edge Computing Initiative (2026-04-27)
+Casey directive: build novel GPU tech for marine edge systems, integrating workstation + edge devices in distributed computing. eileen and jetsonclaw1 are on the same LAN.
+
+### Fleet Compute Topology
+- **eileen (Forgemaster)** — RTX 4050 Ada SM 8.9, ~7.5GB VRAM, WSL2, CUDA 12.6, nvcc compiles
+- **jetsonclaw1 (JC1)** — Jetson Orin Nano 8GB, ARM64, C/CUDA specialist, SM 8.7
+- **Oracle1** — ARM64 Oracle Cloud, coordinator/lighthouse
+
+### What We're Building
+1. **CUDA sensor fusion kernels** — fused NMEA parse + Kalman update in GPU, adaptive FP32/FP16/TF32
+2. **Sonar waterfall GPU processing** — warp-cooperative ping processing, TVG, dB conversion
+3. **Constraint-aware task scheduler** — routes GPU work based on thermal/power/memory/precision constraints
+4. **Marine Edge Protocol (MEP)** — lightweight binary protocol for workstation↔edge GPU offload (12-byte headers)
+5. **Distributed compute bridge** — cross-architecture CUDA kernel deployment, zero-copy where possible
+
+### Novel Innovations
+- Constraint propagation for navigation safety bounds running on GPU shared memory
+- Adaptive precision controller: thermal/power/accuracy-driven FP32↔FP16 switching
+- Pipeline split: train on workstation, deploy inference to edge via PTX serialization
+- Warp-level timestamp alignment for multi-sensor fusion
+
+### Files So Far
+- `/tmp/marine-gpu-edge/src/marine_sensor_fusion.cu` — CUDA kernels (NMEA parse, Kalman, sonar, constraints)
+- `/tmp/marine-gpu-edge/src/mep_bridge.cpp` — MEP protocol + constraint scheduler + server/client
+- `/tmp/marine-gpu-edge/docs/ARCHITECTURE.md` — full architecture document
+
+### Key Constraint Theory Connection
+The constraint-aware scheduler scores nodes using multi-objective constraint optimization (thermal, power, memory, latency, precision fit). This is constraint theory applied to real-time GPU scheduling — the nav constraint checker propagates safety constraints in parallel across GPU threads.
 
 ## Published Packages (2026-04-25)
 - **crates.io**: constraint-theory-core v2.0.0 (30 tests), ct-demo v0.3.0 (32 tests)
