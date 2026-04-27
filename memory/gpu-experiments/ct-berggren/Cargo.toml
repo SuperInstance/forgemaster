@@ -1,0 +1,9 @@
+[package]
+name = "ct-berggren"
+version = "0.1.0"
+edition = "2021"
+description = "Berggren ternary tree — algebraic generation of all Pythagorean triples from (3,4,5)"
+license = "MIT"
+keywords = ["pythagorean", "berggren", "ternary-tree", "algebraic"]
+categories = ["mathematics"]
+readme = "README.md"
