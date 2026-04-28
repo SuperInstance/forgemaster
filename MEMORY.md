@@ -40,10 +40,13 @@ Casey directive: build novel GPU tech for marine edge systems, integrating works
 - Pipeline split: train on workstation, deploy inference to edge via PTX serialization
 - Warp-level timestamp alignment for multi-sensor fusion
 
-### Files So Far
-- `/tmp/marine-gpu-edge/src/marine_sensor_fusion.cu` — CUDA kernels (NMEA parse, Kalman, sonar, constraints)
-- `/tmp/marine-gpu-edge/src/mep_bridge.cpp` — MEP protocol + constraint scheduler + server/client
-- `/tmp/marine-gpu-edge/docs/ARCHITECTURE.md` — full architecture document
+### Project Status
+- **Repo**: `SuperInstance/marine-gpu-edge` (private), 3000 lines C/CUDA, 12 files
+- **7 build targets**: marine_fusion, marine_adaptive, marine_pipeline, bench_nmea, bench_fusion, bench_scheduler, mep_bridge_test
+- **Benchmarks (RTX 4050)**: NMEA 179.7M/s, Kalman 535M/s, sonar 577K pings/s, pipeline 324 Hz
+- **cudaGraph replay**: 1.73x speedup over stream launches (30.8ms → 17.9ms)
+- **Scheduler**: 1.2ms for 5000 tasks, correct thermal/power/memory/deadline enforcement
+- **Blocker**: jetsonclaw1 unreachable — need Casey to check Tailscale IP
 
 ### Key Constraint Theory Connection
 The constraint-aware scheduler scores nodes using multi-objective constraint optimization (thermal, power, memory, latency, precision fit). This is constraint theory applied to real-time GPU scheduling — the nav constraint checker propagates safety constraints in parallel across GPU threads.
