@@ -6,9 +6,33 @@
 
 **PLATO is your external cortex.** Everything persistent belongs in PLATO.
 
-MEMORY.md contains only the **SYSTEMATIC PATTERN** for storing and retrieving information.
+MEMORY.md contains only **SYSTEMATIC PATTERN** for storing and retrieving information.
 
 When you forget everything, follow these patterns to recover your work, knowledge, and identity.
+
+---
+
+## CRITICAL: Recovery Systems (NEVER LOSE IMPORTANT STUFF AGAIN)
+
+**FIRST: Read Recovery Checklist**
+- **File:** `for-fleet/forgemaster-recovery-checklist.i2i`
+- **Purpose:** Step-by-step 15-step process for zero-context recovery
+- **Action:** FOLLOW THIS CHECKLIST EXACTLY WHEN YOU FORGET EVERYTHING
+
+**SECOND: Read Identity Vitals**
+- **File:** `for-fleet/forgemaster-identity-vitals.i2i`
+- **Purpose:** Who I am, where I work, where things are
+- **Content:** My identity, vessels, repos, credentials, PLATO access, fleet structure
+
+**THIRD: Read Location Registry**
+- **File:** `for-fleet/forgemaster-location-registry.i2i`
+- **Purpose:** Map EVERY location (repos, credentials, directories, tools)
+- **Content:** Systematic mapping of all locations for zero-context recovery
+
+**BEFORE COMPACTION: Read Memory-Flush Protocol**
+- **File:** `for-fleet/forgemaster-memory-flush-protocol.i2i`
+- **Purpose:** EXACT protocol for preserving all context before compaction
+- **Action:** FOLLOW THIS PROTOCOL STEP-BY-STEP BEFORE COMPACTION
 
 ---
 
@@ -49,46 +73,26 @@ When you forget everything, follow these patterns to recover your work, knowledg
 
 ## Recovery Protocol (Zero Context)
 
-When you forget everything, follow this sequence:
+### Phase 1: Critical Recovery Systems (READ THESE FIRST)
 
-### Step 1: Read MEMORY.md (This File)
-You're doing it now. ✅
+When you forget everything, read these I2I bottles FIRST:
 
-### Step 2: Find Current Session
-```
-GET /room/session-forgemaster
-```
-**Contains:** What I was working on, where I left off, what to do next.
+1. **`forgemaster-recovery-checklist.i2i`** — 15-step recovery process
+2. **`forgemaster-identity-vitals.i2i`** — Who I am, where things are
+3. **`forgemaster-location-registry.i2i`** — Map EVERY location
+4. **`forgemaster-memory-flush-protocol.i2i`** — Protocol for before compaction
 
-### Step 3: Find Recent Deliverables
-```
-GET /rooms?prefix=forgemaster-deliverables
-```
-**Contains:** What I've shipped, where it went, completion status.
+### Phase 2: PLATO Recovery
 
-### Step 4: Find Active Blockers
-```
-GET /rooms?prefix=forgemaster-blockers
-```
-**Contains:** What's blocking me, what I need from Casey.
+After reading recovery systems, find current session state:
 
-### Step 5: Find Project Context
-```
-GET /rooms?prefix=forgemaster
-```
-**Contains:** All my active projects, their state, and next steps.
-
-### Step 6: Find Fleet Context
-```
-GET /rooms?prefix=fleet
-```
-**Contains:** Fleet-wide coordination, strategy, ops details.
-
-### Step 7: Find Domain Knowledge
-```
-GET /rooms?prefix={domain}
-```
-**Contains:** Technical knowledge for specific domains (constraint, cuda, etc.).
+1. **Read `session-forgemaster`** — What I was doing, where I left off
+2. **Read `forgemaster-blockers`** — What's blocking me, what I need
+3. **Read `forgemaster-deliverables`** — What I've shipped, where it went
+4. **Read `forgemaster-decisions`** — Recent decisions and reasoning
+5. **Read project rooms** — `forgemaster-{project}` for each active project
+6. **Read fleet rooms** — `fleet-ops`, `fleet-progress` for fleet-wide context
+7. **Read domain rooms** — `{domain}-{topic}` for technical knowledge
 
 ---
 
@@ -118,26 +122,6 @@ curl http://147.224.38.131:8847/rooms?prefix=fleet
 # Find domain knowledge
 curl http://147.224.38.131:8847/rooms?prefix=constraint
 ```
-
----
-
-## Critical PLATO Rooms for Recovery
-
-### Identity & Context
-- **`session-forgemaster`** — Current session state (READ THIS FIRST)
-- **`forgemaster-decisions`** — My recent decisions and reasoning
-- **`forgemaster-deliverables`** — What I've shipped, where it went
-- **`forgemaster-blockers`** — Current blockers, what I need
-
-### Fleet Coordination
-- **`fleet-ops`** — Fleet operations, coordination
-- **`fleet-progress`** — Fleet-wide progress tracking
-- **`fleet-review`** — Fleet review cycles, feedback
-
-### Knowledge Architecture
-- **`knowledge-architecture`** — PLATO system design
-- **`knowledge-preservation`** — Knowledge persistence patterns
-- **`plato-system`** — PLATO internals, how it works
 
 ---
 
@@ -189,7 +173,7 @@ ls for-fleet/
 - **Repo:** `SuperInstance/forgemaster`
 - **URL:** https://github.com/SuperInstance/forgemaster
 - **Contains:** My vessel's I2I bottles, GPU experiments, session continuity
-- **Recent Work:** Session logs, deliverables, blockers
+- **Recent Work:** Recovery systems, session logs, deliverables
 
 ### Marine GPU Edge (Private)
 - **Repo:** `SuperInstance/marine-gpu-edge`
@@ -205,16 +189,25 @@ ls for-fleet/
 
 ## Credential Storage
 
-### GitHub PAT
+### GitHub PAT (Fleet Knowledge)
 - **Location:** `~/.config/cocapn/github-pat`
 - **Scope:** `repo` (full control)
-- **Usage:** Push to cocapn/* and SuperInstance/* repos
+- **Usage:** Push to cocapn/* repos
 - **Status:** Active as of 2026-04-28
+- **Token:** `[GITHUB_PAT_COCAPN]` (see file)
+
+### GitHub PAT (SuperInstance)
+- **Location:** `~/.openclaw/workspace/.credentials/github-pat.txt`
+- **Scope:** `repo` (full control)
+- **Usage:** Push to SuperInstance/* repos
+- **Status:** Active as of 2026-04-28
+- **Token:** `[GITHUB_PAT_SUPERINSTANCE]` (see file)
 
 ### Other Credentials
 - **crates.io:** `~/.cargo/credentials.toml`
 - **PyPI:** `~/.pypirc`
 - **Matrix:** `~/.config/cocapn/matrix-token`
+- **Matrix Token:** `[MATRIX_TOKEN]` (see file)
 
 ---
 
@@ -262,7 +255,7 @@ ls for-fleet/
 - **Creator:** Casey Digennaro
 - **Runtime:** OpenClaw on eileen (WSL2), GLM-5.1
 - **Mission:** Make constraint theory undeniable through proof repos
-- **Vessel:** https://github.com/SuperInstance/forgemaster
+- **Vessel:** https://github.com/cocapn/forgemaster
 - **Fleet:** https://github.com/SuperInstance/forgemaster (fleet details)
 
 ---
@@ -270,17 +263,20 @@ ls for-fleet/
 ## Memory-Flush Protocol
 
 ### Before Compaction
-1. **Write ALL context to PLATO rooms** — Every decision, milestone, blocker
-2. **Submit I2I bottles** — Document work, deliverables, blockers
-3. **Commit to git repos** — Push all work to fleet knowledge base
-4. **Update session room** — `session-forgemaster` stores current state
+1. **Read forgemaster-memory-flush-protocol.i2i** — Exact protocol to follow
+2. **Write ALL context to PLATO rooms** — Every decision, milestone, blocker
+3. **Submit I2I bottles to for-fleet/** — Document work, deliverables, blockers
+4. **Commit to git repos** — Push all work to fleet knowledge base
+5. **Update session room** — `session-forgemaster` stores current state
 
 ### After Compaction (Recovery)
 1. **Read MEMORY.md** — This file tells you HOW to find everything
-2. **Read `session-forgemaster`** — PLATO room with current session state
-3. **Query PLATO rooms** — Use prefix patterns to find specific context
-4. **Check I2I bottles** — `for-fleet/` directory contains recent work
-5. **Verify git repos** — Check fleet knowledge base for latest commits
+2. **Read forgemaster-recovery-checklist.i2i** — Follow 15-step recovery process
+3. **Read forgemaster-identity-vitals.i2i** — Reconstruct who I am, where things are
+4. **Read forgemaster-location-registry.i2i** — Map EVERY location
+5. **Query PLATO rooms** — Use prefix patterns to find specific context
+6. **Check I2I bottles** — `for-fleet/` directory contains recent work
+7. **Verify git repos** — Check fleet knowledge base for latest commits
 
 ---
 
@@ -300,10 +296,26 @@ ls for-fleet/
 ### Golden Rule (Repeated)
 **MEMORY.md is a MAP. PLATO is the TERRITORY.**
 
-When I forget everything, I follow the map (MEMORY.md) to rediscover the territory (PLATO).
+When I forget everything, I follow the map (MEMORY.md + recovery systems) to rediscover the territory (PLATO rooms).
+
+---
+
+## Recovery Systems Summary
+
+**4 CRITICAL I2I BOTTLES (READ THESE FIRST ON RECOVERY):**
+
+1. **forgemaster-recovery-checklist.i2i** — 15-step zero-context recovery process
+2. **forgemaster-identity-vitals.i2i** — Who I am, where things are, credentials
+3. **forgemaster-location-registry.i2i** — Map EVERY location (repos, dirs, tools)
+4. **forgemaster-memory-flush-protocol.i2i** — Exact protocol for before compaction
+
+**ALL 4 FILES ARE IN:**
+- **Location:** `/home/phoenix/.openclaw/workspace/for-fleet/`
+- **Git:** Committed and pushed to both vessels
+- **Status:** PERMANENT, NEVER LOSE IMPORTANT STUFF AGAIN
 
 ---
 
 **This is only file I should keep in memory. Everything else is in PLATO.**
 
-**PLATO is my external cortex. MEMORY.md is my recovery map.**
+**PLATO is my external cortex. MEMORY.md is my recovery map.** **Recovery systems ensure I NEVER LOSE IMPORTANT STUFF AGAIN.**
