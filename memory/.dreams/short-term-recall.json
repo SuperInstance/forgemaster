@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-24T20:19:50.472Z",
+  "updatedAt": "2026-04-29T10:43:08.560Z",
   "entries": {
     "memory:memory/2026-04-14.md:1:29": {
       "key": "memory:memory/2026-04-14.md:1:29",
@@ -47364,18 +47364,20 @@
       "endLine": 34,
       "source": "memory",
       "snippet": "# 2026-04-24 — Forgemaster Night Shift ## Tiles Submitted (via Kimi + PLATO /submit) 1. Pythagorean manifold snapping — deadband_protocol → constraint-theory room 2. Quantization drift elimination — accepted 3. Holonomy verification — accepted 4. Geometric constraint propagation in distributed systems — accepted 5. Snap-to-exact rounding — accepted 6. Constraint graphs and cycle detection in CAD — accepted Total: 6 tiles submitted tonight to constraint-theory room (now at 7 tiles). ## PLATO Stats (2:25 AM check) - Rooms: 191 (up from 189 at midnight) - Total tiles: 5,153 (up from 5,041) - 115 new tiles from other fleet agents/sources ## Issues - Kimi OOMing on longer prompts — works with",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-24T20:17:50.113Z",
-      "lastRecalledAt": "2026-04-24T20:17:50.113Z",
+      "lastRecalledAt": "2026-04-29T10:43:08.560Z",
       "queryHashes": [
-        "56f022dce839"
+        "56f022dce839",
+        "92e939225278"
       ],
       "recallDays": [
-        "2026-04-24"
+        "2026-04-24",
+        "2026-04-29"
       ],
       "conceptTags": [
         "deadband-protocol",
@@ -47386,6 +47388,99 @@
         "night",
         "shift",
         "tiles"
+      ]
+    },
+    "memory:memory/2026-04-24.md:30:46": {
+      "key": "memory:memory/2026-04-24.md:30:46",
+      "path": "memory/2026-04-24.md",
+      "startLine": 30,
+      "endLine": 46,
+      "source": "memory",
+      "snippet": "- **172 new tiles submitted** (started at 5,406, now at 5,578) - **Chain: 561 → ~748** (+187) - **Source**: Lucineer extraction — 15+ docs GSM-ified into PLATO tiles - **Agent utilization**: - Direct forge: ~107 tiles across chip design, neuromorphic, physics, supply chain, security, business, complex systems, simulation cycles, final synthesis - Kimi CLI: 54 tiles across 6 runs (FPGA, deep dive, competitive landscape, network effects, synaptic plasticity, competitive dynamics) - Claude Code: 5 tiles (BitLinear, TSV, PDN, packaging, DfT) — short prompt worked - **Infrastructure fixes**: - forge-watch.sh deployed (cron every 5 min) - HEARTBEAT.md rewritten with autonomous DO WORK in",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-29T10:43:08.560Z",
+      "lastRecalledAt": "2026-04-29T10:43:08.560Z",
+      "queryHashes": [
+        "92e939225278"
+      ],
+      "recallDays": [
+        "2026-04-29"
+      ],
+      "conceptTags": [
+        "network",
+        "gsm-ified",
+        "forge-watch.sh",
+        "heartbeat.md",
+        "new",
+        "tiles",
+        "submitted",
+        "started"
+      ]
+    },
+    "memory:memory/2026-04-24.md:59:74": {
+      "key": "memory:memory/2026-04-24.md:59:74",
+      "path": "memory/2026-04-24.md",
+      "startLine": 59,
+      "endLine": 74,
+      "source": "memory",
+      "snippet": "- PLATO: 5,732 tiles (started at 5,406 = +326) - Chain: ~869 - 199 rooms - 13 Claude Code sessions + 8 Kimi runs + direct forging - ~170+ git pushes to fleet-knowledge ## Lucineer Extraction Progress - 25+ documents fully extracted and GSM-ified - Coverage: FPGA, neuromorphic, deep dive, executive summary, master vision, design system, component extraction, developer plan, supply chain, security, ecosystem, financial, business, AlphaGo synthesis, anti-piracy, competitive, network effects, synaptic plasticity, diffusion transport, complex systems, mask-locking history, social science, patent IP, technical spec, simulation cycles, competitive dynamics, thermal dynamics, multiscale,",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-29T10:43:08.560Z",
+      "lastRecalledAt": "2026-04-29T10:43:08.560Z",
+      "queryHashes": [
+        "92e939225278"
+      ],
+      "recallDays": [
+        "2026-04-29"
+      ],
+      "conceptTags": [
+        "network",
+        "fleet-knowledge",
+        "gsm-ified",
+        "anti-piracy",
+        "mask-locking",
+        "plato",
+        "5,732",
+        "tiles"
+      ]
+    },
+    "memory:memory/2026-04-24.md:45:67": {
+      "key": "memory:memory/2026-04-24.md:45:67",
+      "path": "memory/2026-04-24.md",
+      "startLine": 45,
+      "endLine": 67,
+      "source": "memory",
+      "snippet": "- **Lucineer docs covered**: FPGA guide, neuromorphic architecture, deep dive v2, investor pitch, executive summary, master vision, design system, component extraction, developer plan, supply chain review, AI security, ecosystem strategy, financial analyst, business ecosystem, AlphaGo synthesis, anti-piracy, competitive intelligence, network effects, synaptic plasticity, diffusion transport, complex systems, mask-locking history, social science, patent IP, technical specification, final synthesis, competitive dynamics ## Massive Claude Code Sprint (09:03 - 09:35 AKDT) - **Claude Code: 12 successful sessions, 96 tiles** (1 SIGTERM on token limit) - Dev plan (8), VP manufacturing (8), neuro",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-29T10:43:08.560Z",
+      "lastRecalledAt": "2026-04-29T10:43:08.560Z",
+      "queryHashes": [
+        "92e939225278"
+      ],
+      "recallDays": [
+        "2026-04-29"
+      ],
+      "conceptTags": [
+        "network",
+        "anti-piracy",
+        "mask-locking",
+        "lucineer",
+        "docs",
+        "covered",
+        "fpga",
+        "guide"
       ]
     }
   }
