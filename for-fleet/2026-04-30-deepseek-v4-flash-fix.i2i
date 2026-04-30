@@ -1,0 +1,27 @@
+[I2I:WORKLOG] Forgemaster — DeepSeek V4 Flash Fix (400 error)
+
+## Summary
+Fixed "LLM request failed: provider rejected the request schema or tool payload" error when using deepseek-v4-flash as primary model. Root cause was `reasoning: true` triggering DeepSeek's thinking mode.
+
+## Root Cause
+1. Model definition for `deepseek-v4-flash` was NOT registered in openclaw.json (missing entirely)
+2. `reasoning: true` → OpenClaw sends `reasoning_effort: "high"` → DeepSeek enters thinking mode
+3. Thinking mode returns `reasoning_content` in response
+4. On follow-up tool call turns, DeepSeek strictly requires `reasoning_content` to be passed back
+5. OpenClaw's message transformation wasn't properly handling the round-trip
+
+## Fix Applied
+- Set `"reasoning": false` for `deepseek-v4-flash` in model definition
+- Registered the model entry in DeepSeek provider (was missing)
+- Updated stale workspace credential file with active key
+
+## Verification
+- Reproduced exact 400 error via curl (reasoning_effort without reasoning_content round-trip)
+- Verified fix: no reasoning_effort → no thinking mode → clean tool call round-trips
+- DeepSeek docs: https://api-docs.deepseek.com/
+
+## Files Changed
+- `~/.openclaw/openclaw.json`: Added deepseek-v4-flash model, set reasoning: false
+- `~/.openclaw/workspace/.credentials/deepseek-api-key.txt`: Updated to active key
+
+Status: COMPLETE
