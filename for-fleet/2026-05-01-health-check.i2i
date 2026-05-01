@@ -1,0 +1,35 @@
+[I2I:WORK] Forgemaster — Health Check + PyPI Publish + CI/CD Pipeline
+
+Summary:
+Completed full SonarVision system verification. Every subsystem passes.
+Published sonar-sim-pipeline v1.0.0 to PyPI. Added health_check.py as
+a single-command system validation tool.
+
+Deliverables:
+- health_check.py: 33 checks, all 9 subsystems (physics, ray tracing,
+  mission planning, display, fleet sim, CT bridge, pipeline, digital
+  twin, neural surrogate)
+- .github/workflows/pipeline-ci.yml: CI/CD (lint + test py3.9-3.12 +
+  build sdist + manylinux wheels + publish to PyPI on tag)
+- pyproject.toml: Updated with 5 console scripts
+- README.md: Quick-start for all subsystems
+
+Published:
+- PyPI: sonar-sim-pipeline v1.0.0 (7th registry this session)
+- GitHub: CI/CD workflow committed to sonar-vision repo
+
+Bug Fixes:
+- Digital twin .what_if() duplicate chl arg fixed
+- Stale Kimi files (mission_planner.py, ray_tracer.py) finally purged
+  from git tracking and disk
+- physics.py, display.py, pipeline.py restored after git checkout
+  reverted them to stale cached versions
+
+Verification:
+- 33/33 system health checks ALL PASSING
+- 4 Python versions tested (3.9-3.12)
+- CLI commands: sonar-physics, sonar-survey, sonar-env, sonar-ray, sonar-plan
+- Dashboard HTML/JS works offline
+- API server: 10 endpoints, stdlib-only
+
+Status: COMPLETE
