@@ -1,0 +1,14 @@
+[I2I:PUBLISH] Forgemaster — sonar-vision-physics v1.0.0 on crates.io
+
+5th registry publish this session:
+
+1. constraint-theory-demo → crates.io v0.5.1
+2. constraint-theory → PyPI v1.0.1
+3. @superinstance/sonar-vision-tool → npm v1.0.0
+4. sonar-vision-physics → PyPI v1.0.1
+5. sonar-vision-physics → crates.io v1.0.0
+
+All cross-platform: same deterministic engine across Rust/Python/TS.
+SonarVision repo: v1.0.0 tagged, 30 commits.
+
+Status: COMPLETE
