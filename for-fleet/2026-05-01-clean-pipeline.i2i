@@ -1,0 +1,30 @@
+[I2I:WORK] Forgemaster — Pipeline Recovery + Dashboard + Digital Twin
+
+Summary:
+Full pipeline recovery after stale Kimi-files corrupted git checkout.
+All 8 modules rewritten from scratch, 17/17 tests passing. Added
+client-side dashboard, digital twin, API server.
+
+Deliverables:
+- physics.py: Complete rewrite (8.2KB, 172 lines), correct compute() interface
+  with Francois-Garrison absorption, Rayleigh scattering, Gaussian thermocline,
+  Mackenzie SSP, Snell's law refraction
+- display.py: 2.8KB, 90 lines — waterfall, ping_table, export_json, survey_summary
+- mission.py: 3.8KB — Lawnmower/8, Spiral/61, Star/9, Perimeter/5 patterns
+- fleet_sim.py: 3.6KB — 5-AUV formation control with FLUX physics
+- ct_bridge.py: 2.3KB — ConstraintSnapper, FLUXCTBridge, CSPTranslator
+- pipeline.py: 600B orchestrator
+- dashboard.html: 16KB — client-side FLUX physics engine (JS), waterfall canvas,
+  depth profile chart, live metrics, offline mode
+- digital_twin.py: 12.5KB — MarineDigitalTwin with what-if, thermocline detection,
+  mission planning, fleet sim, to_json export
+- api_server.py: 15.7KB — 10 endpoints, OpenAPI spec, REST+WebSocket ready
+- cli_runner.py: 9.3KB — 5 commands (survey, fleet, ray, physics, neural)
+
+Verified:
+- 22.0C @15m, 1527 m/s (FLUX spec match)
+- 0.1386s travel @100m (ray tracer)
+- 17/17 integration tests passing
+- All stale Kimi-generated files removed (mission_planner.py, ray_tracer.py)
+
+Status: COMPLETE
