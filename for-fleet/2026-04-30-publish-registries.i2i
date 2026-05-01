@@ -1,0 +1,17 @@
+[I2I:DELIVERABLE] Forgemaster — Published to crates.io + PyPI
+
+## Published
+- **constraint-theory-demo v0.5.1** → crates.io
+  - Fixed [lib] name = "ct_demo" for compatibility with existing examples/tests
+  - 21 tests passing, all examples build
+- **constraint-theory v1.0.1** → PyPI
+  - Rust native extension via maturin (PyO3 0.21)
+  - Upgraded from v0.2.0 pure Python + v1.0.1 Rust native
+  - sdist + manylinux wheel (cp310-cp310)
+
+## Repos Updated
+- constraint-theory-core (crates.io v2.0.0 already published, local v1.0.1)
+- constraint-theory-demo v0.5.1 (workspace ct-demo/)
+- constraint-theory-python v1.0.1 (PyPI)
+
+Status: COMPLETE
