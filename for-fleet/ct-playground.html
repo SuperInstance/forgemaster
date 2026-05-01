@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constraint Theory Playground</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0e17;color:#c0d0e0;font-family:'Fira Code','Cascadia Code','Consolas',monospace;min-height:100vh}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+h1{font-size:1.4em;color:#58f;margin-bottom:4px;letter-spacing:-0.02em}
+h1 small{color:#5c7;font-size:0.55em;font-weight:400}
+h2{font-size:1em;color:#6af;margin:12px 0 6px;border-bottom:1px solid #1a2a3a;padding-bottom:4px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;align-items:center}
+.toolbar button,.toolbar select{background:#1a2a3a;color:#c0d0e0;border:1px solid #2a4a5a;padding:4px 12px;border-radius:4px;cursor:pointer;font:inherit;font-size:0.85em}
+.toolbar button:hover{background:#2a4a5a}
+.toolbar button:active{background:#3a5a7a}
+.toolbar label{font-size:0.8em;color:#8ab}
+.toolbar input[type=range]{width:120px;vertical-align:middle;background:#1a2a3a;height:4px;border-radius:2px}
+.toolbar input[type=range]::-webkit-slider-thumb{background:#58f;width:12px;height:12px;border-radius:50%}
+.stats{display:flex;gap:16px;flex-wrap:wrap;font-size:0.75em;color:#8ab;margin:4px 0}
+.stats span{background:#111a22;padding:2px 10px;border-radius:3px;border:1px solid #1a2a3a}
+.stats .val{color:#6cf;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:#0d1520;border:1px solid #1a2a3a;border-radius:6px;padding:12px;position:relative}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#58f,#5c7,#58f);opacity:0.6}
+.full{grid-column:1/-1}
+#csp-graph svg{width:100%;height:200px}
+#search-tree svg{width:100%;height:120px}
+.vars{display:flex;flex-wrap:wrap;gap:4px}
+.vars .var{border:1px solid #2a4a5a;border-radius:3px;padding:2px 6px;font-size:0.75em;cursor:pointer}
+.var-assigned{background:#1a3a2a;border-color:#3a6a4a!important;color:#5d8}
+.var-current{background:#1a2a3a;border-color:#58f!important;color:#6af}
+.var-backtracked{background:#3a1a1a;border-color:#f55!important;color:#f77}
+.constraints{display:flex;flex-wrap:wrap;gap:4px;font-size:0.72em}
+.constraint{background:#151e28;padding:2px 6px;border-radius:3px;color:#8ab;border:1px solid #2a3a4a}
+.solutions{font-size:0.85em;margin:6px 0;color:#5d8}
+.puzzle-select{background:#1a2a3a;color:#c0d0e0;border:1px solid #2a4a5a;padding:4px 10px;border-radius:4px;font:inherit;font-size:0.85em}
+.info{font-size:0.72em;color:#7a9;margin:6px 0;line-height:1.5}
+.collapse{cursor:pointer;color:#6af;font-size:0.78em}
+.collapse:hover{text-decoration:underline}
+.hidden{display:none}
+button.solve{background:#1a4a2a!important;border-color:#2a6a3a!important}
+button.step{background:#2a2a4a!important;border-color:#4a4a7a!important}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Constraint Theory Playground <small>backtracking · AC-3 · MRV · LCV</small></h1>
+
+<div class="toolbar">
+<select id="puzzle" class="puzzle-select" onchange="loadPuzzle()">
+<option value="queens">8-Queens</option>
+<option value="sudoku">Sudoku 4x4</option>
+<option value="coloring">Graph 3-Coloring</option>
+</select>
+<button class="solve" onclick="solveAll()">▶ Solve</button>
+<button class="step" onclick="stepOnce()">⏭ Step</button>
+<button onclick="resetPuzzle()">↺ Reset</button>
+<label>Speed: <input type="range" id="speed" min="10" max="2000" value="200" oninput="document.getElementById('spd').textContent=this.value+'ms'"> <span id="spd">200ms</span></label>
+<label><input type="checkbox" id="ac3" checked> AC-3</label>
+<label><input type="checkbox" id="showTree" checked> Tree</label>
+</div>
+
+<div class="stats">
+<span>Assignments: <span class="val" id="s-asgn">0</span></span>
+<span>Backtracks: <span class="val" id="s-back">0</span></span>
+<span>Checks: <span class="val" id="s-chk">0</span></span>
+<span>Duration: <span class="val" id="s-dur">0ms</span></span>
+<span>Nodes: <span class="val" id="s-nodes">0</span></span>
+</div>
+
+<div class="grid">
+<div class="card full" id="graphCard">
+<h2>Constraint Graph</h2>
+<div id="csp-graph"><svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg"><text x="400" y="100" fill="#4a6a8a" text-anchor="middle" font-size="14">Load a puzzle to visualize</text></svg></div>
+</div>
+<div class="card" id="varsCard">
+<h2>Variables</h2>
+<div id="vars-container" class="vars"></div>
+<h2>Constraints</h2>
+<div id="constraints-container" class="constraints"></div>
+</div>
+<div class="card" id="solutionsCard">
+<h2>Solutions</h2>
+<div id="solutions-container" class="solutions">—</div>
+</div>
+<div class="card full" id="treeCard">
+<h2>Search Tree</h2>
+<div id="search-tree"><svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg"><text x="400" y="60" fill="#4a6a8a" text-anchor="middle" font-size="12">No search history yet — click Solve</text></svg></div>
+</div>
+<div class="card full" id="infoCard">
+<h2>Algorithm Reference <span class="collapse" onclick="togRef()">[show]</span></h2>
+<div id="ref-content" class="hidden info">
+<b>Backtracking:</b> Assign variables one by one, check constraints after each assignment. If a constraint fails, backtrack and try the next value.
+<br><b>MRV (Minimum Remaining Values):</b> Choose the variable with the fewest legal values left first. Fails fast.
+<br><b>LCV (Least Constraining Value):</b> Choose values that leave the most options for unassigned variables.
+<br><b>Forward Checking:</b> After each assignment, prune incompatible values from unassigned variable domains.
+<br><b>AC-3 (Arc Consistency):</b> Preprocess: remove values that have no supporting value in any neighbor variable's domain.
+</div>
+</div>
+</div>
+</div>
+
+<script>
+// ============================================================
+// CSP Solver Engine
+// ============================================================
+
+let vars = []; let cons = []; let domains = {};
+let assignments = {}; let order = [];
+let backtrackCount = 0; let checkCount = 0; let assignmentCount = 0;
+let nodeCount = 0; let solving = false; let stopped = false;
+let solutions = []; let history = []; let pendingVar = null; let pendingVal = null;
+let doAc3 = true; let solveTimer = null; let paused = false;
+
+const colors = ['#4af','#f74','#5d8','#f85','#a6f','#48f','#f44','#8a4','#f8a'];
+
+class Variable {
+  constructor(name, domain) {
+    this.name = name; this.domain = [...domain]; this.current = null;
+    this.original = [...domain]; this.state = 'unassigned';
+  }
+  get size() { return this.domain.filter(v=>v!==null).length; }
+}
+
+class Constraint {
+  constructor(scope, type, params={}) {
+    this.scope = scope; this.type = type; this.params = params;
+  }
+  check(assign) {
+    checkCount++;
+    const vals = this.scope.map(v=>assign[v.name]!=null?assign[v.name]:v.current);
+    // Skip if any unassigned
+    for (const v of vals) { if (v===undefined||v===null) return true; }
+    switch(this.type) {
+      case 'alldiff': return new Set(vals).size === vals.length;
+      case 'ne': return vals[0] !== vals[1];
+      case 'lt': return vals[0] < vals[1];
+      case 'gt': return vals[0] > vals[1];
+      case 'eq': return vals[0] === vals[1];
+      case 'sum': return vals.reduce((a,b)=>a+b,0) === this.params.target;
+      case 'diagonal':
+        for (let i=0;i<vals.length;i++) for(let j=i+1;j<vals.length;j++)
+          if(Math.abs(vals[i]-vals[j])===Math.abs(i-j)) return false;
+        for(let i=0;i<vals.length;i++) for(let j=i+1;j<vals.length;j++)
+          if(vals[i]===vals[j]) return false;
+        return true;
+      case 'row': case 'col': case 'box':
+        return new Set(vals).size === vals.length;
+      default: return true;
+    }
+  }
+}
+
+function ac3(vars, cons, assign) {
+  const unassigned = vars.filter(v=>v.current===null);
+  const arcs = [];
+  for (const c of cons) {
+    for (let i=0;i<c.scope.length;i++) for(let j=0;j<c.scope.length;j++)
+      if (i!==j) arcs.push([c.scope[i],c.scope[j],c]);
+  }
+  let queue = [...arcs];
+  while (queue.length) {
+    const [x,y,c] = queue.shift();
+    if (x.current!==null) continue;
+    if (revise(x,y,c,assign)) {
+      if (x.domain.filter(v=>v!==null).length===0) return false;
+      for (const [a,b,_] of arcs)
+        if (b===x&&a!==y) queue.push([a,x,_]);
+    }
+  }
+  return true;
+}
+
+function revise(x, y, c, assign) {
+  let changed = false;
+  const vals = [...x.domain];
+  for (const vx of vals) {
+    if (vx===null) continue;
+    let supported = false;
+    for (const vy of y.domain) {
+      if (vy===null) continue;
+      const test = {...assign};
+      test[x.name]=vx; test[y.name]=vy;
+      if (c.check(test)) { supported=true; break; }
+    }
+    if (!supported) {
+      x.domain[x.domain.indexOf(vx)] = null;
+      changed = true;
+    }
+  }
+  return changed;
+}
+
+function getMRV(vars, assign) {
+  let min = Infinity, best = [];
+  for (const v of vars) {
+    if (v.current!==null) continue;
+    const s = v.domain.filter(x=>x!==null).length;
+    if (s < min) { min = s; best = [v]; }
+    else if (s === min) best.push(v);
+  }
+  if (best.length===0) return null;
+  // Degree heuristic for ties
+  if (best.length>1) {
+    let degBest = null, maxDeg = -1;
+    for (const v of best) {
+      let deg = 0;
+      for (const c of cons) if (c.scope.includes(v)) deg++;
+      if (deg > maxDeg) { maxDeg = deg; degBest = v; }
+    }
+    return degBest;
+  }
+  return best[0];
+}
+
+function getLCV(v, vars, assign) {
+  const vals = v.domain.filter(x=>x!==null);
+  const scores = [];
+  for (const val of vals) {
+    let cnt = 0;
+    const test = {...assign, [v.name]: val};
+    for (const ov of vars) {
+      if (ov===v||ov.current!==null) continue;
+      for (const c of cons)
+        if (c.scope.includes(v)&&c.scope.includes(ov))
+          for (const ovv of ov.domain)
+            if (ovv!==null&&c.check({...test,[ov.name]:ovv})) cnt++;
+    }
+    scores.push({val, score: -cnt});
+  }
+  scores.sort((a,b)=>a.score-b.score);
+  return scores.map(s=>s.val);
+}
+
+function forwardCheck(v, val, vars, cons) {
+  const affected = [];
+  for (const ov of vars) {
+    if (ov===v||ov.current!==null) continue;
+    const oldDomain = [...ov.domain];
+    for (const c of cons) {
+      if (!c.scope.includes(v)||!c.scope.includes(ov)) continue;
+      for (let i=0;i<ov.domain.length;i++) {
+        if (ov.domain[i]===null) continue;
+        const test = {}; test[v.name]=val; test[ov.name]=ov.domain[i];
+        if (!c.check(test)) { ov.domain[i]=null; affected.push({v:ov,val:oldDomain[i]}); }
+      }
+    }
+  }
+  return affected;
+}
+
+function restoreDomains(effects) {
+  for (const e of effects) {
+    const idx = e.v.domain.indexOf(null);
+    if (idx!==-1) e.v.domain[idx] = e.val;
+  }
+}
+
+// ============================================================
+// Puzzle Definitions
+// ============================================================
+
+function eightQueens() {
+  const n=8; vars=[]; cons=[];
+  for(let i=0;i<n;i++) vars.push(new Variable('Q'+i,Array.from({length:n},(_,j)=>j)));
+  cons.push(new Constraint(vars,'diagonal'));
+  return vars;
+}
+
+function sudoku4() {
+  vars=[]; cons=[];
+  const n=4; const d=Array.from({length:n},(_,i)=>i);
+  for(let i=0;i<n*n;i++) vars.push(new Variable('C'+i,[...d]));
+  for(let r=0;r<n;r++) cons.push(new Constraint(vars.slice(r*n,(r+1)*n),'row'));
+  for(let c=0;c<n;c++) { const col=[]; for(let r=0;r<n;r++) col.push(vars[r*n+c]); cons.push(new Constraint(col,'col')); }
+  const boxes=[[0,1,4,5],[2,3,6,7],[8,9,12,13],[10,11,14,15]];
+  for(const b of boxes) cons.push(new Constraint(b.map(i=>vars[i]),'box'));
+  return vars;
+}
+
+function graph3Coloring() {
+  vars=[]; cons=[];
+  for(let i=0;i<6;i++) vars.push(new Variable('V'+i,[0,1,2]));
+  const edges = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,3],[1,4],[2,5]];
+  for(const [a,b] of edges) cons.push(new Constraint([vars[a],vars[b]],'ne'));
+  return vars;
+}
+
+// ============================================================
+// Solver
+// ============================================================
+
+function* backtrackSolver() {
+  const unassigned = vars.filter(v=>v.current===null);
+  if (unassigned.length===0) {
+    const sol = {}; for(const v of vars) sol[v.name]=v.current;
+    solutions.push(sol);
+    updateUI();
+    yield;
+    return;
+  }
+
+  if (doAc3) {
+    const assign = {}; for(const v of vars) if(v.current!==null) assign[v.name]=v.current;
+    if (!ac3(vars, cons, assign)) { backtrackCount++; return; }
+  }
+
+  const v = getMRV(vars, {});
+  if (!v) { yield; return; }
+  const lcv = getLCV(v, vars, {});
+
+  for (const val of lcv) {
+    if (stopped) return;
+    const affects = forwardCheck(v, val, vars, cons);
+    v.current = val; v.state = 'assigned';
+    assignmentCount++; nodeCount++;
+
+    // Step history
+    history.push({var:v.name,val,type:'assign'});
+
+    pendingVar = v; pendingVal = val; updateUI();
+    yield; // Allow stepping
+
+    // Check constraints
+    let ok = true;
+    for (const c of cons) if (!c.check({...assignments,[v.name]:val})) { ok=false; break; }
+
+    if (ok) {
+      assignments[v.name] = val;
+      order.push(v.name);
+      yield* backtrackSolver();
+      if (solutions.length>0&&!paused) { restoreDomains(affects); break; }
+      if (stopped) { restoreDomains(affects); break; }
+      // Backtrack
+      backtrackCount++;
+      history.push({var:v.name,val,type:'backtrack'});
+      v.state = 'backtracked';
+    } else {
+      backtrackCount++;
+      history.push({var:v.name,val,type:'backtrack'});
+      v.state = 'backtracked';
+    }
+
+    v.current = null; delete assignments[v.name]; v.state = 'unassigned';
+    restoreDomains(affects);
+    updateUI();
+    yield;
+  }
+}
+
+let solverGen = null;
+
+function solveAll() {
+  if (solveTimer) { clearTimeout(solveTimer); solveTimer=null; }
+  if (solving) { stopped=true; solving=false; return; }
+  stopped=false; solving=true; paused=false;
+  document.querySelector('.solve').textContent = '■ Stop';
+  resetInternals();
+  solverGen = backtrackSolver();
+  runGenerator();
+}
+
+function runGenerator() {
+  if (!solving||stopped) { solving=false; document.querySelector('.solve').textContent='▶ Solve'; return; }
+  const speed = parseInt(document.getElementById('speed').value);
+  const result = solverGen.next();
+  if (result.done) { solving=false; document.querySelector('.solve').textContent='▶ Solve'; updateUI(); return; }
+  updateUI();
+  solveTimer = setTimeout(runGenerator, speed);
+}
+
+function stepOnce() {
+  if (solveTimer) { clearTimeout(solveTimer); solveTimer=null; }
+  if (!solverGen) { resetInternals(); solverGen = backtrackSolver(); }
+  solving=true; paused=true;
+  const result = solverGen.next();
+  updateUI();
+  if (result.done) { solving=false; document.querySelector('.solve').textContent='▶ Solve'; }
+}
+
+function resetInternals() {
+  for (const v of vars) { v.current=null; v.domain=[...v.original]; v.state='unassigned'; }
+  assignments={}; order=[]; backtrackCount=0; checkCount=0; assignmentCount=0; nodeCount=0;
+  solutions=[]; history=[];
+}
+
+function resetPuzzle() {
+  if (solveTimer) { clearTimeout(solveTimer); solveTimer=null; }
+  solving=false; stopped=false; paused=false;
+  document.querySelector('.solve').textContent='▶ Solve';
+  loadPuzzle();
+}
+
+function loadPuzzle() {
+  if (solveTimer) { clearTimeout(solveTimer); solveTimer=null; }
+  solving=false; stopped=false;
+  const p = document.getElementById('puzzle').value;
+  if (p==='queens') eightQueens();
+  else if (p==='sudoku') sudoku4();
+  else if (p==='coloring') graph3Coloring();
+  resetInternals(); updateUI();
+}
+
+// ============================================================
+// UI
+// ============================================================
+
+function updateUI() {
+  doAc3 = document.getElementById('ac3').checked;
+  document.getElementById('s-asgn').textContent = assignmentCount;
+  document.getElementById('s-back').textContent = backtrackCount;
+  document.getElementById('s-chk').textContent = checkCount;
+  document.getElementById('s-nodes').textContent = nodeCount;
+
+  // Variables
+  const vc = document.getElementById('vars-container');
+  vc.innerHTML = vars.map(v=>{
+    let cls = 'var';
+    if (v.state==='assigned') cls+=' var-assigned';
+    else if (v.state==='backtracked') cls+=' var-backtracked';
+    else if (v===pendingVar) cls+=' var-current';
+    const dstr = v.domain.filter(x=>x!==null).map(x=>typeof(x)==='number'?x==0?'Q':x+1:x).join(',');
+    const val = v.current!==null ? (typeof(v.current)==='number'?v.current+1:v.current) : '?';
+    return `<div class="${cls}" title="${v.name}: [${dstr}]">${v.name}=${val}</div>`;
+  }).join('');
+
+  // Constraints
+  const cc = document.getElementById('constraints-container');
+  cc.innerHTML = cons.map(c=>
+    `<span class="constraint" title="${c.scope.map(v=>v.name).join(',')}">${c.type}(${c.scope.length})</span>`
+  ).join('');
+
+  // Solutions
+  const sc = document.getElementById('solutions-container');
+  if (solutions.length===0) sc.textContent='—';
+  else sc.textContent = `Found ${solutions.length} solution(s)`;
+
+  // Graph
+  const g = document.getElementById('csp-graph');
+  let svg = `<svg viewBox="0 0 ${Math.max(800,vars.length*80)} 200" xmlns="http://www.w3.org/2000/svg">`;
+  const angleStep = 2*Math.PI/vars.length;
+  const cx=400, cy=90, r=70;
+  const pos = {};
+  for(let i=0;i<vars.length;i++) {
+    const a = angleStep*i - Math.PI/2;
+    const x = cx+r*Math.cos(a); const y = cy+r*Math.sin(a);
+    pos[vars[i].name] = {x,y};
+  }
+  // Edges
+  for(const c of cons) {
+    for(let i=0;i<c.scope.length;i++) for(let j=i+1;j<c.scope.length;j++) {
+      const p1=pos[c.scope[i].name]; const p2=pos[c.scope[j].name];
+      if(p1&&p2) svg+=`<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="#2a4a5a" stroke-width="1.5"/>`;
+    }
+  }
+  // Nodes
+  for(const v of vars) {
+    const p = pos[v.name]; if(!p) continue;
+    let color = '#2a4a5a', glow = 'none';
+    if(v.state==='assigned'){color='#3a6a4a';glow='0 0 8px #3a6a4a';}
+    else if(v.state==='backtracked'){color='#6a2a2a';glow='0 0 8px #6a2a2a';}
+    else if(v===pendingVar){color='#4a8afa';glow='0 0 12px #4a8afa';}
+    svg+=`<circle cx="${p.x}" cy="${p.y}" r="18" fill="#0d1520" stroke="${color}" stroke-width="2" filter="url(#g)"/>`;
+    svg+=`<text x="${p.x}" y="${p.y+4}" fill="#c0d0e0" text-anchor="middle" font-size="10">${v.name}</text>`;
+  }
+  svg+=`<defs><filter id="g"><feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="currentColor"/></filter></defs>`;
+  svg+='</svg>';
+  g.innerHTML = svg;
+
+  // Search tree
+  if (document.getElementById('showTree').checked&&history.length>0) {
+    const t = document.getElementById('search-tree');
+    let ts = `<svg viewBox="0 0 ${Math.max(800,history.length*60)} ${Math.min(200,history.length*8+40)}" xmlns="http://www.w3.org/2000/svg">`;
+    const depth = {}; let maxDepth = 0;
+    for(const h of history) {
+      if(!depth[h.var]) depth[h.var]=maxDepth++;
+    }
+    for(let i=0;i<history.length;i++) {
+      const h=history[i]; const d=depth[h.var]||0;
+      const x=40+i*30; const y=20+d*30;
+      const color = h.type==='assign'?'#3a6a4a':'#6a2a2a';
+      ts+=`<circle cx="${x}" cy="${y}" r="6" fill="none" stroke="${color}" stroke-width="1.5"/>`;
+      ts+=`<text x="${x}" y="${y+3}" fill="#8ab" text-anchor="middle" font-size="8">${h.val}</text>`;
+      if(i>0) ts+=`<line x1="${40+(i-1)*30}" y1="${20+(depth[history[i-1].var]||0)*30}" x2="${x}" y2="${y}" stroke="#2a4a5a" stroke-width="0.8"/>`;
+    }
+    ts+='</svg>';
+    t.innerHTML = ts;
+  }
+}
+
+function togRef() {
+  const el = document.getElementById('ref-content');
+  el.classList.toggle('hidden');
+}
+
+// Init
+loadPuzzle();
+</script>
+</body>
+</html>
