@@ -1,137 +1,72 @@
 """Mission planner for autonomous sonar surveys."""
-import math
-import json
+import math, json
 from dataclasses import dataclass, asdict
 from typing import List, Optional, Tuple
-from enum import Enum
 from datetime import datetime
-
-
-class SurveyPattern(Enum):
-    LAWNMOWER = "lawnmower"
-    SPIRAL = "spiral"
-    ADAPTIVE = "adaptive"
-    STAR = "star"
-    PERIMETER = "perimeter"
-
 
 @dataclass
 class Waypoint:
-    x: float
-    y: float
-    depth: float
-    speed: float = 1.5
-    ping_rate: float = 1.0
-    index: int = 0
-
-    def to_dict(self) -> dict:
-        return asdict(self)
-
+    x: float; y: float; depth: float
+    speed: float = 1.5; ping_rate: float = 1.0; index: int = 0
+    def to_dict(self) -> dict: return asdict(self)
 
 @dataclass
 class Mission:
-    name: str
-    pattern: str
-    waypoints: List[Waypoint]
-    area_width: float
-    area_height: float
-    max_depth: float
+    name: str; pattern: str; waypoints: List[Waypoint]
+    area_width: float; area_height: float; max_depth: float
     created_at: str = ""
-
     def __post_init__(self):
-        if not self.created_at:
-            self.created_at = datetime.utcnow().isoformat()
-
+        if not self.created_at: self.created_at = datetime.utcnow().isoformat()
     def to_dict(self) -> dict:
-        return {
-            "name": self.name,
-            "pattern": self.pattern,
-            "area_width": self.area_width,
-            "area_height": self.area_height,
-            "max_depth": self.max_depth,
-            "waypoints": [wp.to_dict() for wp in self.waypoints],
-            "waypoint_count": len(self.waypoints),
-            "created_at": self.created_at,
-        }
-
-    def to_json(self, indent=2) -> str:
-        return json.dumps(self.to_dict(), indent=indent)
-
+        return {"name": self.name, "pattern": self.pattern,
+                "area_width": self.area_width, "area_height": self.area_height,
+                "max_depth": self.max_depth,
+                "waypoints": [wp.to_dict() for wp in self.waypoints],
+                "waypoint_count": len(self.waypoints), "created_at": self.created_at}
+    def to_json(self, indent=2) -> str: return json.dumps(self.to_dict(), indent=indent)
     def total_distance(self) -> float:
-        total = 0.0
+        t = 0.0
         for i in range(1, len(self.waypoints)):
             dx = self.waypoints[i].x - self.waypoints[i-1].x
             dy = self.waypoints[i].y - self.waypoints[i-1].y
             dz = self.waypoints[i].depth - self.waypoints[i-1].depth
-            total += math.sqrt(dx*dx + dy*dy + dz*dz)
-        return round(total, 1)
-
+            t += math.sqrt(dx*dx + dy*dy + dz*dz)
+        return round(t, 1)
     def estimated_duration(self) -> float:
-        dist = self.total_distance()
-        avg_speed = self.waypoints[0].speed if self.waypoints else 1.5
-        return round(dist / avg_speed, 1)
-
+        return round(self.total_distance() / (self.waypoints[0].speed if self.waypoints else 1.5), 1)
 
 class MissionPlanner:
-    """Generate survey missions with configurable patterns."""
-
-    def __init__(self, physics=None):
-        self.physics = physics
-        self._wp_counter = 0
-
-    def _next_index(self) -> int:
-        self._wp_counter += 1
-        return self._wp_counter
-
-    def lawnmover(self, name: str, width: float, height: float,
-                  depth: float, line_spacing: float = 50.0,
-                  speed: float = 1.5, ping_rate: float = 1.0) -> Mission:
-        waypoints = []
-        lines = max(2, int(height / line_spacing))
-        for i in range(lines):
-            y = i * line_spacing
+    def __init__(self, physics=None): self.physics = physics; self._n = 0
+    def _i(self): self._n += 1; return self._n
+    def lawnmover(self, name, width, height, depth, spacing=50.0, speed=1.5, pr=1.0) -> Mission:
+        wps = []
+        for i in range(max(2, int(height/spacing))):
+            y = i * spacing
             if i % 2 == 0:
-                waypoints.append(Waypoint(0, y, depth, speed, ping_rate, self._next_index()))
-                waypoints.append(Waypoint(width, y, depth, speed, ping_rate, self._next_index()))
+                wps.append(Waypoint(0, y, depth, speed, pr, self._i()))
+                wps.append(Waypoint(width, y, depth, speed, pr, self._i()))
             else:
-                waypoints.append(Waypoint(width, y, depth, speed, ping_rate, self._next_index()))
-                waypoints.append(Waypoint(0, y, depth, speed, ping_rate, self._next_index()))
-        return Mission(name, "lawnmower", waypoints, width, height, depth)
-
-    def spiral(self, name: str, max_radius: float,
-               depth: float, turns: int = 5,
-               speed: float = 1.5, ping_rate: float = 1.0) -> Mission:
-        waypoints = []
-        points_per_turn = 12
-        for t in range(turns * points_per_turn + 1):
-            angle = 2 * math.pi * t / points_per_turn
-            radius = max_radius * (1 - t / (turns * points_per_turn))
-            x = radius * math.cos(angle)
-            y = radius * math.sin(angle)
-            waypoints.append(Waypoint(x, y, depth, speed, ping_rate, self._next_index()))
-        return Mission(name, "spiral", waypoints, max_radius * 2, max_radius * 2, depth)
-
-    def star(self, name: str, radius: float,
-             depth: float, arms: int = 4,
-             speed: float = 1.5, ping_rate: float = 1.0) -> Mission:
-        waypoints = []
-        waypoints.append(Waypoint(0, 0, depth, speed, ping_rate, self._next_index()))
+                wps.append(Waypoint(width, y, depth, speed, pr, self._i()))
+                wps.append(Waypoint(0, y, depth, speed, pr, self._i()))
+        return Mission(name, "lawnmower", wps, width, height, depth)
+    def spiral(self, name, max_radius, depth, turns=5, speed=1.5, pr=1.0) -> Mission:
+        wps = []
+        for t in range(turns * 12 + 1):
+            angle = 2 * math.pi * t / 12
+            r = max_radius * (1 - t / (turns * 12))
+            wps.append(Waypoint(r*math.cos(angle), r*math.sin(angle), depth, speed, pr, self._i()))
+        return Mission(name, "spiral", wps, max_radius*2, max_radius*2, depth)
+    def star(self, name, radius, depth, arms=4, speed=1.5, pr=1.0) -> Mission:
+        wps = [Waypoint(0, 0, depth, speed, pr, self._i())]
         for i in range(arms):
-            angle = 2 * math.pi * i / arms
-            x = radius * math.cos(angle)
-            y = radius * math.sin(angle)
-            waypoints.append(Waypoint(x, y, depth, speed, ping_rate, self._next_index()))
-            waypoints.append(Waypoint(0, 0, depth, speed, ping_rate, self._next_index()))
-        return Mission(name, "star", waypoints, radius * 2, radius * 2, depth)
-
-    def perimeter(self, name: str, width: float, height: float,
-                  depth: float, speed: float = 1.5,
-                  ping_rate: float = 1.0) -> Mission:
-        waypoints = [
-            Waypoint(0, 0, depth, speed, ping_rate, self._next_index()),
-            Waypoint(width, 0, depth, speed, ping_rate, self._next_index()),
-            Waypoint(width, height, depth, speed, ping_rate, self._next_index()),
-            Waypoint(0, height, depth, speed, ping_rate, self._next_index()),
-            Waypoint(0, 0, depth, speed, ping_rate, self._next_index()),
-        ]
-        return Mission(name, "perimeter", waypoints, width, height, depth)
+            a = 2 * math.pi * i / arms
+            wps.append(Waypoint(radius*math.cos(a), radius*math.sin(a), depth, speed, pr, self._i()))
+            wps.append(Waypoint(0, 0, depth, speed, pr, self._i()))
+        return Mission(name, "star", wps, radius*2, radius*2, depth)
+    def perimeter(self, name, width, height, depth, speed=1.5, pr=1.0) -> Mission:
+        wps = [Waypoint(0, 0, depth, speed, pr, self._i()),
+               Waypoint(width, 0, depth, speed, pr, self._i()),
+               Waypoint(width, height, depth, speed, pr, self._i()),
+               Waypoint(0, height, depth, speed, pr, self._i()),
+               Waypoint(0, 0, depth, speed, pr, self._i())]
+        return Mission(name, "perimeter", wps, width, height, depth)
