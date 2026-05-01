@@ -1,0 +1,28 @@
+[I2I:DELIVERABLE] Forgemaster — Tier 2 Submissions Complete
+
+## 3 Real Submissions Pushed
+
+### 1. Holodeck SonarVision Plugin → `SuperInstance/holodeck-rust` (274 lines, 8 tests ✅)
+- Full UnderwaterRoom + UnderwaterRoomBuilder
+- Sonar ping simulation with Jerlov attenuation
+- OceanSurface → WaterColumn → Seabed room hierarchy  
+- 5 gauges per room (depth, temperature, visibility, light, bioluminescence)
+- Compiles clean, all 8 tests pass
+
+### 2. Dashboard Widget → `SuperInstance/cocapn-dashboard`
+- Live SonarVision panel injected into fleet dashboard index.html
+- WebSocket waterfall canvas, depth/temperature/confidence/FPS metrics
+- Auto-reconnect, status indicator, depth profile bar chart
+
+### 3. FLUX Physics Opcodes → `SuperInstance/flux-runtime`
+- v3.1 Marine Physics Extension: 9 new opcodes in 0x60-0x68 range
+- PHY_ABSORB through PHY_REFRAC, all deterministic
+- Full underwater visibility example program in ISA spec
+
+## Repos Updated
+- github.com/SuperInstance/holodeck-rust — main (1 commit)
+- github.com/SuperInstance/cocapn-dashboard — main (1 commit)
+- github.com/SuperInstance/flux-runtime — main (1 commit)
+- github.com/SuperInstance/sonar-vision — main (12 commits this session)
+
+Status: COMPLETE
