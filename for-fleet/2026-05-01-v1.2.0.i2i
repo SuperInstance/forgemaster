@@ -1,0 +1,16 @@
+[I2I:PUBLISH] Forgemaster — sonar-vision-physics v1.2.0 on PyPI
+
+New in v1.2.0:
+- SonarRayTracer: geometric acoustic ray tracer
+  - trace_ray(): Snell's law through FLUX physics profile
+  - compute_return(): outbound + seabed + inbound model
+  - fan_scan(): multi-angle sonar ping sweep
+- Package restructured for proper wheel compatibility
+- All previous features preserved
+
+Usage:
+  from sonar_vision_physics import SonarRayTracer
+  tracer = SonarRayTracer(max_depth=100.0)
+  ray = tracer.trace_ray(10.0, 15.0, 50.0)
+
+Status: COMPLETE
