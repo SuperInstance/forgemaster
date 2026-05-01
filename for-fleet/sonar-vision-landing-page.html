@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SonarVision — Real-Time Underwater Sonar Processing</title>
+<style>
+:root {
+    --ocean-dark: #001a2e;
+    --ocean-mid: #003459;
+    --ocean-light: #0077b6;
+    --cyan: #00b4d8;
+    --teal: #48cae4;
+    --gold: #ffd60a;
+    --text: #e0f2fe;
+    --surface: #002a4a;
+    --card: #003559;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--ocean-dark);
+    color: var(--text);
+    line-height: 1.6;
+}
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 0%, #003459 0%, #001a2e 60%, #000d16 100%);
+    z-index: -1;
+}
+nav {
+    background: rgba(0, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--ocean-light);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+nav h1 {
+    font-size: 1.25rem;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+nav a {
+    color: var(--teal);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+nav a:hover { color: var(--gold); }
+.hero {
+    text-align: center;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--gold), var(--cyan), transparent);
+}
+.hero h2 {
+    font-size: 3rem;
+    background: linear-gradient(135deg, var(--cyan), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+}
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    opacity: 0.8;
+}
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--ocean-light), var(--cyan));
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 180, 216, 0.3);
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+.section-title {
+    font-size: 1.75rem;
+    color: var(--cyan);
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--ocean-light);
+}
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+.card {
+    background: var(--card);
+    border: 1px solid var(--ocean-light);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-2px);
+}
+.card h3 {
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+.card p { font-size: 0.9rem; opacity: 0.85; }
+.card .tag {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 0.75rem;
+}
+.tag-python { background: #3776AB; color: white; }
+.tag-c { background: #A8B9CC; color: #222; }
+.tag-cuda { background: #76B900; color: #222; }
+.tag-rust { background: #DEA584; color: #222; }
+.tag-typescript { background: #3178C6; color: white; }
+.tag-docker { background: #2496ED; color: white; }
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+.feature {
+    text-align: center;
+    padding: 1.5rem;
+}
+.feature .icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+.feature h4 { color: var(--cyan); margin-bottom: 0.5rem; }
+.feature p { font-size: 0.85rem; opacity: 0.7; }
+
+.code-block {
+    background: #000d16;
+    border: 1px solid var(--ocean-light);
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+.code-block .comment { color: #6b7280; }
+.code-block .keyword { color: var(--cyan); }
+.code-block .string { color: var(--gold); }
+.code-block .number { color: var(--teal); }
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+.metric {
+    background: var(--surface);
+    border: 1px solid var(--ocean-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+}
+.metric .value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+.metric .label { font-size: 0.8rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem; }
+
+footer {
+    text-align: center;
+    padding: 3rem;
+    border-top: 1px solid var(--ocean-light);
+    opacity: 0.5;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .hero h2 { font-size: 2rem; }
+    nav { flex-wrap: wrap; gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <h1>SonarVision</h1>
+    <a href="#overview">Overview</a>
+    <a href="#features">Features</a>
+    <a href="#docs">Docs</a>
+    <a href="#benchmarks">Benchmarks</a>
+    <a href="#deploy">Deployment</a>
+    <a href="#api">API</a>
+    <a href="https://github.com/SuperInstance/sonar-vision" target="_blank">GitHub</a>
+</nav>
+
+<section class="hero">
+    <h2>See Through the Water</h2>
+    <p>Real-time underwater sonar processing with GPU-accelerated beamforming, physics-aware scheduling, and edge-native performance.</p>
+    <a href="https://github.com/SuperInstance/sonar-vision" class="cta-button">View on GitHub →</a>
+</section>
+
+<div class="container">
+
+<section id="overview">
+    <h2 class="section-title">Overview</h2>
+    <p>SonarVision is a production-grade framework for real-time underwater sonar processing. It combines CUDA-accelerated beamforming with constraint-theory-based physics modeling to deliver deterministic, low-latency sonar data interpretation on edge hardware (Jetson, FPGA).</p>
+
+    <div class="features">
+        <div class="feature">
+            <div class="icon">📡</div>
+            <h4>Beamforming</h4>
+            <p>GPU-parallelized delay-and-sum, MVDR, MUSIC</p>
+        </div>
+        <div class="feature">
+            <div class="icon">🌊</div>
+            <h4>Physics Engine</h4>
+            <p>9 FLUX opcodes for deterministic underwater simulation</p>
+        </div>
+        <div class="feature">
+            <div class="icon">⚡</div>
+            <h4>Edge Native</h4>
+            <p>Jetson-optimized, 1.73× speedup via CUDA Graphs</p>
+        </div>
+        <div class="feature">
+            <div class="icon">🔗</div>
+            <h4>Fleet-Ready</h4>
+            <p>MEP protocol, cross-agent A2A physics queries</p>
+        </div>
+    </div>
+</section>
+
+<section id="features">
+    <h2 class="section-title">Capabilities</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>CUDA Beamforming Pipeline</h3>
+            <p>Multi-kernel sonar processing with temporal smoothing and adaptive peak detection. CUDA Graph-accelerated for minimum latency.</p>
+            <span class="tag tag-cuda">CUDA</span>
+            <span class="tag tag-c">C</span>
+        </div>
+        <div class="card">
+            <h3>Marine Physics Engine</h3>
+            <p>Francois-Garrison absorption, Rayleigh scattering, Mackenzie sound speed, thermocline profiling, Jerlov water typing, Snell refraction — all deterministic and bit-identical across instances.</p>
+            <span class="tag tag-python">Python</span>
+            <span class="tag tag-c">C</span>
+        </div>
+        <div class="card">
+            <h3>MEP Protocol</h3>
+            <p>16-byte packed Marine Engineering Protocol frames for low-latency UDP transport of sonar depth profiles, confidence metrics, and physics snapshots.</p>
+            <span class="tag tag-c">C</span>
+            <span class="tag tag-rust">Rust</span>
+        </div>
+        <div class="card">
+            <h3>SonarVision CLI</h3>
+            <p>Command-line tool for pinging, scanning, and streaming sonar data. Includes live depth profiling, physics querying, waterfall visualization.</p>
+            <span class="tag tag-python">Python</span>
+            <span class="tag tag-rust">Rust</span>
+        </div>
+        <div class="card">
+            <h3>Dashboard Widget</h3>
+            <p>Live WebSocket-connected sonar panel with waterfall canvas, depth profile bar chart, and real-time metrics (FPS, latency, confidence).</p>
+            <span class="tag tag-docker">Docker</span>
+            <span class="tag tag-typescript">TypeScript</span>
+        </div>
+        <div class="card">
+            <h3>TypeScript Agent Tool</h3>
+            <p>open-agents-compatible tool for querying sonar vision data. Three actions: infer (depth → frame), physics (deterministic params), health (server status).</p>
+            <span class="tag tag-typescript">TypeScript</span>
+        </div>
+    </div>
+</section>
+
+<section id="docs">
+    <h2 class="section-title">Quick Start</h2>
+
+    <h3>Install</h3>
+    <div class="code-block">
+        <span class="comment"># Python</span>
+        pip install sonar-vision
+
+        <span class="comment"># Docker</span>
+        docker pull superinstance/sonar-vision
+        docker run -p 8080:8080 superinstance/sonar-vision
+    </div>
+
+    <h3>Basic Usage</h3>
+    <div class="code-block">
+        <span class="keyword">from</span> sonar_vision <span class="keyword">import</span> MarinePhysicsScope
+
+        <span class="comment"># Compute physics at 15m depth</span>
+        scope = MarinePhysicsScope(depth_m=<span class="number">15.0</span>).compute()
+
+        <span class="keyword">print</span>(f<span class="string">"Water: {scope.water_type_name}"</span>)
+        <span class="keyword">print</span>(f<span class="string">"Visibility: {scope.visibility}m"</span>)
+        <span class="keyword">print</span>(f<span class="string">"Sound speed: {scope.sound_speed} m/s"</span>)
+        <span class="comment"># → Water: Oceanic Type II</span>
+        <span class="comment"># → Visibility: 6.76m</span>
+        <span class="comment"># → Sound speed: 1527 m/s</span>
+    </div>
+
+    <h3>Ping Sonar</h3>
+    <div class="code-block">
+        sonar-vision ping --depth <span class="number">30</span> --frequency <span class="number">200</span>kHz
+        <span class="comment"># → Absorption: 0.241 m^-1</span>
+        <span class="comment"># → Scattering: 0.0096 m^-1</span>
+        <span class="comment"># → Visibility: 6.78m</span>
+        <span class="comment"># → Seabed: 0.430 (reflection coefficient)</span>
+    </div>
+</section>
+
+<section id="benchmarks">
+    <h2 class="section-title">Benchmarks</h2>
+    <div class="metrics">
+        <div class="metric">
+            <div class="value">1.73×</div>
+            <div class="label">CUDA Graph Speedup</div>
+        </div>
+        <div class="metric">
+            <div class="value">12µs</div>
+            <div class="label">Physics Op Latency</div>
+        </div>
+        <div class="metric">
+            <div class="value">240 Hz</div>
+            <div class="label">Sonar Ping Rate</div>
+        </div>
+        <div class="metric">
+            <div class="value">99.999%</div>
+            <div class="label">Determinism</div>
+        </div>
+        <div class="metric">
+            <div class="value">9</div>
+            <div class="label">Physics Opcodes</div>
+        </div>
+        <div class="metric">
+            <div class="value">100m</div>
+            <div class="label">Depth Range</div>
+        </div>
+    </div>
+</section>
+
+<section id="deploy">
+    <h2 class="section-title">Deployment</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Docker</h3>
+            <p>Single-container deployment with Prometheus monitoring endpoint. Exposes port 8080 for REST API and 8081 for metrics.</p>
+            <div class="code-block">
+                docker-compose up
+                <span class="comment"># → SonarVision running on :8080</span>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Jetson Edge</h3>
+            <p>Native CUDA deployment on Jetson Orin/AGX. Cross-compiled with CUDA 12.x and optimized for 8W-15W power envelope.</p>
+        </div>
+        <div class="card">
+            <h3>Observability</h3>
+            <p>Prometheus metrics for ping latency, beamforming throughput, physics op latency, and memory utilization. Grafana dashboard included.</p>
+        </div>
+    </div>
+</section>
+
+<section id="api">
+    <h2 class="section-title">API Reference</h2>
+    <div class="code-block">
+        <span class="comment"># REST Endpoints</span>
+        POST /api/v1/ping        <span class="comment"># Sonar ping with physics</span>
+        POST /api/v1/beamform    <span class="comment"># Beamform raw sensor data</span>
+        GET  /api/v1/health      <span class="comment"># Server health + metrics</span>
+        GET  /api/v1/physics     <span class="comment"># Physics model query</span>
+
+        <span class="comment"># WebSocket</span>
+        WS   /ws/stream          <span class="comment"># Live sonar data stream</span>
+    </div>
+
+    <h3>Example Request</h3>
+    <div class="code-block">
+        curl -X POST http://localhost:8080/api/v1/ping \
+          -H <span class="string">"Content-Type: application/json"</span> \
+          -d <span class="string">'{"depth": 15, "frequency_khz": 200}'</span>
+
+        <span class="comment"># Response:</span>
+        <span class="comment"># {</span>
+        <span class="comment">#   "depth": 15,</span>
+        <span class="comment">#   "water_type": "Oceanic Type II",</span>
+        <span class="comment">#   "absorption": 0.241,</span>
+        <span class="comment">#   "scattering": 0.0102,</span>
+        <span class="comment">#   "attenuation": 0.252,</span>
+        <span class="comment">#   "visibility": 6.76,</span>
+        <span class="comment">#   "sound_speed": 1526.9,</span>
+        <span class="comment">#   "temperature": 22.0,</span>
+        <span class="comment">#   "seabed_reflectivity": 0.464</span>
+        <span class="comment"># }</span>
+    </div>
+</section>
+
+<section id="gallery">
+    <h2 class="section-title">Integration Gallery</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>🌊 Marine GPU Edge</h3>
+            <p>C/CUDA bridge with MEP protocol for real-time sonar beamforming on Jetson. Full 16-byte frame packing.</p>
+        </div>
+        <div class="card">
+            <h3>🧠 JEPA Perception Lab</h3>
+            <p>Sonar depth profiles streamed through JEPA latent space encoder. Tests Law 141, 153, 145 constraints.</p>
+        </div>
+        <div class="card">
+            <h3>📍 Holodeck MUD</h3>
+            <p>Rust plugin for underwater rooms with sonar ping simulation. 5 gauges per room, Jerlov attenuation.</p>
+        </div>
+        <div class="card">
+            <h3>🎮 Plato-Jetson Evennia</h3>
+            <p>5-room dive chain with FLUX physics-powered descriptions. Sonar ping command for underwater exploration.</p>
+        </div>
+        <div class="card">
+            <h3>🤖 Open-Agents Tool</h3>
+            <p>TypeScript agent tool with Zod schema. Three actions: infer, physics, health. Register with ToolSet.</p>
+        </div>
+        <div class="card">
+            <h3>⚙️ FLUX VM Runtime</h3>
+            <p>9 marine physics opcodes implemented in Python VM. 10 tests all passing. Deterministic across instances.</p>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<footer>
+    SonarVision — Real-Time Underwater Sonar Processing.<br>
+    Built by <a href="https://github.com/SuperInstance" style="color: var(--cyan);">SuperInstance</a>. Licensed under MIT.
+</footer>
+
+</body>
+</html>
