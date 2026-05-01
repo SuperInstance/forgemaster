@@ -1,0 +1,159 @@
+# PLATO Tiles: neural-compression
+# Domain: Neural network compression for edge deployment
+# Generated: 2026-04-30
+# Batch: 10-15 tiles
+# ---
+
+[TILE:neural-compression-001]
+title: "Neural network compression for edge deployment — Core Principles"
+tags: [domain:neural-compression, type:reference, tier:foundation]
+body: |-
+  # Neural network compression for edge deployment
+  
+  ## Core Principles
+  
+  1. **Principle One** — Every signal carries uncertainty. The measure of a good system is not how well it handles perfect inputs, but how gracefully it degrades under noise.
+  
+  2. **Principle Two** — The most elegant solution in simulation is often the least practical in the field. Benchmark on real hardware, not synthetic traces.
+  
+  3. **Principle Three** — Information decays with distance. Compensate at the source, not the receiver.
+  
+  These principles drive every design decision in this domain. When in doubt, optimize for the worst case.
+
+[TILE:neural-compression-002]
+title: "Neural network compression for edge deployment — Key Metrics"
+tags: [domain:neural-compression, type:reference, tier:foundation]
+body: |-
+  # Key Metrics
+
+  | Metric | Target | Warning | Critical |
+  |--------|--------|---------|----------|
+  | Latency | < 10ms | 10-50ms | > 50ms |
+  | Throughput | > 1000 Hz | 100-1000 Hz | < 100 Hz |
+  | Accuracy | > 95% | 85-95% | < 85% |
+  | Power | < 10W | 10-30W | > 30W |
+  
+  These are deployment-specific. Adjust per hardware target.
+
+[TILE:neural-compression-003]
+title: "Neural network compression for edge deployment — Common Pitfalls"
+tags: [domain:neural-compression, type:pattern, tier:implementation]
+body: |-
+  # Common Pitfalls
+
+  1. **Premature Optimization** — Optimizing before profiling is the #1 source of wasted engineering time.
+  2. **Over-fitting to Test Data** — If validation accuracy is suspiciously high, check for data leakage.
+  3. **Ignoring the Tail Latency** — P50 might be 1ms, but P99 is 500ms. The tail kills user experience.
+  4. **Hardcoding Constants** — Wavelengths, thresholds, and margins change. Make them configurable.
+  5. **Synthetic-Only Testing** — If it hasn't run on real hardware with real data, it doesn't work.
+
+[TILE:neural-compression-004]
+title: "Neural network compression for edge deployment — Design Patterns"
+tags: [domain:neural-compression, type:pattern, tier:architecture]
+body: |-
+  # Design Patterns
+
+  ## Pattern: Pipeline Decomposition
+  Break the problem into stages with clearly defined interfaces between them.
+  
+  ## Pattern: Observer-Consensus
+  Multiple observers each produce a hypothesis. A consensus layer merges them.
+  
+  ## Pattern: Graceful Degradation
+  When a component fails, the system degrades predictably rather than crashing.
+
+[TILE:neural-compression-005]
+title: "Neural network compression for edge deployment — Hardware Considerations"
+tags: [domain:neural-compression, type:reference, tier:tradeoffs]
+body: |-
+  # Hardware Considerations
+
+  | Component | Preferred | Acceptable | Avoid |
+  |-----------|-----------|------------|-------|
+  | Compute | GPU with tensor cores | CPU with SIMD | Microcontroller |
+  | Memory | Unified memory | Discrete GPU RAM | Shared system RAM |
+  | Storage | NVMe SSD | SATA SSD | HDD |
+  | Network | 10GbE | 1GbE | WiFi |
+
+[TILE:neural-compression-006]
+title: "Neural network compression for edge deployment — Testing Strategy"
+tags: [domain:neural-compression, type:pattern, tier:testing]
+body: |-
+  # Testing Strategy
+
+  ## Levels
+  1. **Unit** — Test each component in isolation
+  2. **Integration** — Test component interfaces
+  3. **End-to-End** — Test the full pipeline
+  4. **Stress** — Test under worst-case load
+  5. **Regression** — Continuous verification
+
+  ## Key Assertions
+  - Output bounds are within expected ranges
+  - Performance meets latency/throughput targets
+  - Memory usage stays within budget
+
+[TILE:neural-compression-007]
+title: "Neural network compression for edge deployment — Deployment Checklist"
+tags: [domain:neural-compression, type:checklist, tier:operations]
+body: |-
+  # Deployment Checklist
+
+  - [ ] All unit tests pass
+  - [ ] Integration tests pass on target hardware
+  - [ ] Latency meets target (measured on-device)
+  - [ ] Memory usage within budget
+  - [ ] Logging configured
+  - [ ] Monitoring configured
+  - [ ] Rollback plan documented
+  - [ ] Contact on-call engineer notified
+
+[TILE:neural-compression-008]
+title: "Neural network compression for edge deployment — Optimization Guide"
+tags: [domain:neural-compression, type:guide, tier:implementation]
+body: |-
+  # Optimization Guide
+
+  ## Order of Operations
+  1. Profile first
+  2. Fix the worst bottleneck
+  3. Re-profile
+  4. Repeat
+  
+  ## Common Optimizations
+  - Fuse kernels where possible
+  - Reduce memory transfers
+  - Use mixed precision
+  - Batch operations
+  - Pre-compute constants
+
+[TILE:neural-compression-009]
+title: "Neural network compression for edge deployment — Safety Margins"
+tags: [domain:neural-compression, type:reference, tier:operations]
+body: |-
+  # Safety Margins
+
+  | Resource | Budget | Buffer | Hard Limit |
+  |----------|--------|--------|------------|
+  | CPU | 70% | 20% | 90% |
+  | Memory | 60% | 25% | 85% |
+  | GPU | 75% | 15% | 90% |
+  | Power | 80% | 10% | 90% |
+  | Bandwidth | 50% | 30% | 80% |
+
+[TILE:neural-compression-010]
+title: "Neural network compression for edge deployment — References"
+tags: [domain:neural-compression, type:reference, tier:reference]
+body: |-
+  # References
+
+  - Standard textbooks in the domain
+  - Relevant academic papers (cited where applicable)
+  - Production systems and their architecture
+  - Community best practices and patterns
+  
+  ## Related Domains
+  - Constraint theory for system boundaries
+  - Edge computing for deployment patterns
+  - Signal processing for core algorithms
+

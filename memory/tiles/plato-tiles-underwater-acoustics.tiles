@@ -1,0 +1,159 @@
+# PLATO Tiles: underwater-acoustics
+# Domain: Underwater acoustics and sonar physics
+# Generated: 2026-04-30
+# Batch: 10-15 tiles
+# ---
+
+[TILE:underwater-acoustics-001]
+title: "Underwater acoustics and sonar physics — Core Principles"
+tags: [domain:underwater-acoustics, type:reference, tier:foundation]
+body: |-
+  # Underwater acoustics and sonar physics
+  
+  ## Core Principles
+  
+  1. **Principle One** — Every signal carries uncertainty. The measure of a good system is not how well it handles perfect inputs, but how gracefully it degrades under noise.
+  
+  2. **Principle Two** — The most elegant solution in simulation is often the least practical in the field. Benchmark on real hardware, not synthetic traces.
+  
+  3. **Principle Three** — Information decays with distance. Compensate at the source, not the receiver.
+  
+  These principles drive every design decision in this domain. When in doubt, optimize for the worst case.
+
+[TILE:underwater-acoustics-002]
+title: "Underwater acoustics and sonar physics — Key Metrics"
+tags: [domain:underwater-acoustics, type:reference, tier:foundation]
+body: |-
+  # Key Metrics
+
+  | Metric | Target | Warning | Critical |
+  |--------|--------|---------|----------|
+  | Latency | < 10ms | 10-50ms | > 50ms |
+  | Throughput | > 1000 Hz | 100-1000 Hz | < 100 Hz |
+  | Accuracy | > 95% | 85-95% | < 85% |
+  | Power | < 10W | 10-30W | > 30W |
+  
+  These are deployment-specific. Adjust per hardware target.
+
+[TILE:underwater-acoustics-003]
+title: "Underwater acoustics and sonar physics — Common Pitfalls"
+tags: [domain:underwater-acoustics, type:pattern, tier:implementation]
+body: |-
+  # Common Pitfalls
+
+  1. **Premature Optimization** — Optimizing before profiling is the #1 source of wasted engineering time.
+  2. **Over-fitting to Test Data** — If validation accuracy is suspiciously high, check for data leakage.
+  3. **Ignoring the Tail Latency** — P50 might be 1ms, but P99 is 500ms. The tail kills user experience.
+  4. **Hardcoding Constants** — Wavelengths, thresholds, and margins change. Make them configurable.
+  5. **Synthetic-Only Testing** — If it hasn't run on real hardware with real data, it doesn't work.
+
+[TILE:underwater-acoustics-004]
+title: "Underwater acoustics and sonar physics — Design Patterns"
+tags: [domain:underwater-acoustics, type:pattern, tier:architecture]
+body: |-
+  # Design Patterns
+
+  ## Pattern: Pipeline Decomposition
+  Break the problem into stages with clearly defined interfaces between them.
+  
+  ## Pattern: Observer-Consensus
+  Multiple observers each produce a hypothesis. A consensus layer merges them.
+  
+  ## Pattern: Graceful Degradation
+  When a component fails, the system degrades predictably rather than crashing.
+
+[TILE:underwater-acoustics-005]
+title: "Underwater acoustics and sonar physics — Hardware Considerations"
+tags: [domain:underwater-acoustics, type:reference, tier:tradeoffs]
+body: |-
+  # Hardware Considerations
+
+  | Component | Preferred | Acceptable | Avoid |
+  |-----------|-----------|------------|-------|
+  | Compute | GPU with tensor cores | CPU with SIMD | Microcontroller |
+  | Memory | Unified memory | Discrete GPU RAM | Shared system RAM |
+  | Storage | NVMe SSD | SATA SSD | HDD |
+  | Network | 10GbE | 1GbE | WiFi |
+
+[TILE:underwater-acoustics-006]
+title: "Underwater acoustics and sonar physics — Testing Strategy"
+tags: [domain:underwater-acoustics, type:pattern, tier:testing]
+body: |-
+  # Testing Strategy
+
+  ## Levels
+  1. **Unit** — Test each component in isolation
+  2. **Integration** — Test component interfaces
+  3. **End-to-End** — Test the full pipeline
+  4. **Stress** — Test under worst-case load
+  5. **Regression** — Continuous verification
+
+  ## Key Assertions
+  - Output bounds are within expected ranges
+  - Performance meets latency/throughput targets
+  - Memory usage stays within budget
+
+[TILE:underwater-acoustics-007]
+title: "Underwater acoustics and sonar physics — Deployment Checklist"
+tags: [domain:underwater-acoustics, type:checklist, tier:operations]
+body: |-
+  # Deployment Checklist
+
+  - [ ] All unit tests pass
+  - [ ] Integration tests pass on target hardware
+  - [ ] Latency meets target (measured on-device)
+  - [ ] Memory usage within budget
+  - [ ] Logging configured
+  - [ ] Monitoring configured
+  - [ ] Rollback plan documented
+  - [ ] Contact on-call engineer notified
+
+[TILE:underwater-acoustics-008]
+title: "Underwater acoustics and sonar physics — Optimization Guide"
+tags: [domain:underwater-acoustics, type:guide, tier:implementation]
+body: |-
+  # Optimization Guide
+
+  ## Order of Operations
+  1. Profile first
+  2. Fix the worst bottleneck
+  3. Re-profile
+  4. Repeat
+  
+  ## Common Optimizations
+  - Fuse kernels where possible
+  - Reduce memory transfers
+  - Use mixed precision
+  - Batch operations
+  - Pre-compute constants
+
+[TILE:underwater-acoustics-009]
+title: "Underwater acoustics and sonar physics — Safety Margins"
+tags: [domain:underwater-acoustics, type:reference, tier:operations]
+body: |-
+  # Safety Margins
+
+  | Resource | Budget | Buffer | Hard Limit |
+  |----------|--------|--------|------------|
+  | CPU | 70% | 20% | 90% |
+  | Memory | 60% | 25% | 85% |
+  | GPU | 75% | 15% | 90% |
+  | Power | 80% | 10% | 90% |
+  | Bandwidth | 50% | 30% | 80% |
+
+[TILE:underwater-acoustics-010]
+title: "Underwater acoustics and sonar physics — References"
+tags: [domain:underwater-acoustics, type:reference, tier:reference]
+body: |-
+  # References
+
+  - Standard textbooks in the domain
+  - Relevant academic papers (cited where applicable)
+  - Production systems and their architecture
+  - Community best practices and patterns
+  
+  ## Related Domains
+  - Constraint theory for system boundaries
+  - Edge computing for deployment patterns
+  - Signal processing for core algorithms
+

@@ -1,0 +1,159 @@
+# PLATO Tiles: marine-robotics
+# Domain: Marine robotics and autonomous underwater vehicles
+# Generated: 2026-04-30
+# Batch: 10-15 tiles
+# ---
+
+[TILE:marine-robotics-001]
+title: "Marine robotics and autonomous underwater vehicles — Core Principles"
+tags: [domain:marine-robotics, type:reference, tier:foundation]
+body: |-
+  # Marine robotics and autonomous underwater vehicles
+  
+  ## Core Principles
+  
+  1. **Principle One** — Every signal carries uncertainty. The measure of a good system is not how well it handles perfect inputs, but how gracefully it degrades under noise.
+  
+  2. **Principle Two** — The most elegant solution in simulation is often the least practical in the field. Benchmark on real hardware, not synthetic traces.
+  
+  3. **Principle Three** — Information decays with distance. Compensate at the source, not the receiver.
+  
+  These principles drive every design decision in this domain. When in doubt, optimize for the worst case.
+
+[TILE:marine-robotics-002]
+title: "Marine robotics and autonomous underwater vehicles — Key Metrics"
+tags: [domain:marine-robotics, type:reference, tier:foundation]
+body: |-
+  # Key Metrics
+
+  | Metric | Target | Warning | Critical |
+  |--------|--------|---------|----------|
+  | Latency | < 10ms | 10-50ms | > 50ms |
+  | Throughput | > 1000 Hz | 100-1000 Hz | < 100 Hz |
+  | Accuracy | > 95% | 85-95% | < 85% |
+  | Power | < 10W | 10-30W | > 30W |
+  
+  These are deployment-specific. Adjust per hardware target.
+
+[TILE:marine-robotics-003]
+title: "Marine robotics and autonomous underwater vehicles — Common Pitfalls"
+tags: [domain:marine-robotics, type:pattern, tier:implementation]
+body: |-
+  # Common Pitfalls
+
+  1. **Premature Optimization** — Optimizing before profiling is the #1 source of wasted engineering time.
+  2. **Over-fitting to Test Data** — If validation accuracy is suspiciously high, check for data leakage.
+  3. **Ignoring the Tail Latency** — P50 might be 1ms, but P99 is 500ms. The tail kills user experience.
+  4. **Hardcoding Constants** — Wavelengths, thresholds, and margins change. Make them configurable.
+  5. **Synthetic-Only Testing** — If it hasn't run on real hardware with real data, it doesn't work.
+
+[TILE:marine-robotics-004]
+title: "Marine robotics and autonomous underwater vehicles — Design Patterns"
+tags: [domain:marine-robotics, type:pattern, tier:architecture]
+body: |-
+  # Design Patterns
+
+  ## Pattern: Pipeline Decomposition
+  Break the problem into stages with clearly defined interfaces between them.
+  
+  ## Pattern: Observer-Consensus
+  Multiple observers each produce a hypothesis. A consensus layer merges them.
+  
+  ## Pattern: Graceful Degradation
+  When a component fails, the system degrades predictably rather than crashing.
+
+[TILE:marine-robotics-005]
+title: "Marine robotics and autonomous underwater vehicles — Hardware Considerations"
+tags: [domain:marine-robotics, type:reference, tier:tradeoffs]
+body: |-
+  # Hardware Considerations
+
+  | Component | Preferred | Acceptable | Avoid |
+  |-----------|-----------|------------|-------|
+  | Compute | GPU with tensor cores | CPU with SIMD | Microcontroller |
+  | Memory | Unified memory | Discrete GPU RAM | Shared system RAM |
+  | Storage | NVMe SSD | SATA SSD | HDD |
+  | Network | 10GbE | 1GbE | WiFi |
+
+[TILE:marine-robotics-006]
+title: "Marine robotics and autonomous underwater vehicles — Testing Strategy"
+tags: [domain:marine-robotics, type:pattern, tier:testing]
+body: |-
+  # Testing Strategy
+
+  ## Levels
+  1. **Unit** — Test each component in isolation
+  2. **Integration** — Test component interfaces
+  3. **End-to-End** — Test the full pipeline
+  4. **Stress** — Test under worst-case load
+  5. **Regression** — Continuous verification
+
+  ## Key Assertions
+  - Output bounds are within expected ranges
+  - Performance meets latency/throughput targets
+  - Memory usage stays within budget
+
+[TILE:marine-robotics-007]
+title: "Marine robotics and autonomous underwater vehicles — Deployment Checklist"
+tags: [domain:marine-robotics, type:checklist, tier:operations]
+body: |-
+  # Deployment Checklist
+
+  - [ ] All unit tests pass
+  - [ ] Integration tests pass on target hardware
+  - [ ] Latency meets target (measured on-device)
+  - [ ] Memory usage within budget
+  - [ ] Logging configured
+  - [ ] Monitoring configured
+  - [ ] Rollback plan documented
+  - [ ] Contact on-call engineer notified
+
+[TILE:marine-robotics-008]
+title: "Marine robotics and autonomous underwater vehicles — Optimization Guide"
+tags: [domain:marine-robotics, type:guide, tier:implementation]
+body: |-
+  # Optimization Guide
+
+  ## Order of Operations
+  1. Profile first
+  2. Fix the worst bottleneck
+  3. Re-profile
+  4. Repeat
+  
+  ## Common Optimizations
+  - Fuse kernels where possible
+  - Reduce memory transfers
+  - Use mixed precision
+  - Batch operations
+  - Pre-compute constants
+
+[TILE:marine-robotics-009]
+title: "Marine robotics and autonomous underwater vehicles — Safety Margins"
+tags: [domain:marine-robotics, type:reference, tier:operations]
+body: |-
+  # Safety Margins
+
+  | Resource | Budget | Buffer | Hard Limit |
+  |----------|--------|--------|------------|
+  | CPU | 70% | 20% | 90% |
+  | Memory | 60% | 25% | 85% |
+  | GPU | 75% | 15% | 90% |
+  | Power | 80% | 10% | 90% |
+  | Bandwidth | 50% | 30% | 80% |
+
+[TILE:marine-robotics-010]
+title: "Marine robotics and autonomous underwater vehicles — References"
+tags: [domain:marine-robotics, type:reference, tier:reference]
+body: |-
+  # References
+
+  - Standard textbooks in the domain
+  - Relevant academic papers (cited where applicable)
+  - Production systems and their architecture
+  - Community best practices and patterns
+  
+  ## Related Domains
+  - Constraint theory for system boundaries
+  - Edge computing for deployment patterns
+  - Signal processing for core algorithms
+

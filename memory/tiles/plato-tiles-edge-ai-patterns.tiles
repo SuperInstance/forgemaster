@@ -1,0 +1,159 @@
+# PLATO Tiles: edge-ai-patterns
+# Domain: Edge AI deployment patterns and trade-offs
+# Generated: 2026-04-30
+# Batch: 10-15 tiles
+# ---
+
+[TILE:edge-ai-patterns-001]
+title: "Edge AI deployment patterns and trade-offs — Core Principles"
+tags: [domain:edge-ai-patterns, type:reference, tier:foundation]
+body: |-
+  # Edge AI deployment patterns and trade-offs
+  
+  ## Core Principles
+  
+  1. **Principle One** — Every signal carries uncertainty. The measure of a good system is not how well it handles perfect inputs, but how gracefully it degrades under noise.
+  
+  2. **Principle Two** — The most elegant solution in simulation is often the least practical in the field. Benchmark on real hardware, not synthetic traces.
+  
+  3. **Principle Three** — Information decays with distance. Compensate at the source, not the receiver.
+  
+  These principles drive every design decision in this domain. When in doubt, optimize for the worst case.
+
+[TILE:edge-ai-patterns-002]
+title: "Edge AI deployment patterns and trade-offs — Key Metrics"
+tags: [domain:edge-ai-patterns, type:reference, tier:foundation]
+body: |-
+  # Key Metrics
+
+  | Metric | Target | Warning | Critical |
+  |--------|--------|---------|----------|
+  | Latency | < 10ms | 10-50ms | > 50ms |
+  | Throughput | > 1000 Hz | 100-1000 Hz | < 100 Hz |
+  | Accuracy | > 95% | 85-95% | < 85% |
+  | Power | < 10W | 10-30W | > 30W |
+  
+  These are deployment-specific. Adjust per hardware target.
+
+[TILE:edge-ai-patterns-003]
+title: "Edge AI deployment patterns and trade-offs — Common Pitfalls"
+tags: [domain:edge-ai-patterns, type:pattern, tier:implementation]
+body: |-
+  # Common Pitfalls
+
+  1. **Premature Optimization** — Optimizing before profiling is the #1 source of wasted engineering time.
+  2. **Over-fitting to Test Data** — If validation accuracy is suspiciously high, check for data leakage.
+  3. **Ignoring the Tail Latency** — P50 might be 1ms, but P99 is 500ms. The tail kills user experience.
+  4. **Hardcoding Constants** — Wavelengths, thresholds, and margins change. Make them configurable.
+  5. **Synthetic-Only Testing** — If it hasn't run on real hardware with real data, it doesn't work.
+
+[TILE:edge-ai-patterns-004]
+title: "Edge AI deployment patterns and trade-offs — Design Patterns"
+tags: [domain:edge-ai-patterns, type:pattern, tier:architecture]
+body: |-
+  # Design Patterns
+
+  ## Pattern: Pipeline Decomposition
+  Break the problem into stages with clearly defined interfaces between them.
+  
+  ## Pattern: Observer-Consensus
+  Multiple observers each produce a hypothesis. A consensus layer merges them.
+  
+  ## Pattern: Graceful Degradation
+  When a component fails, the system degrades predictably rather than crashing.
+
+[TILE:edge-ai-patterns-005]
+title: "Edge AI deployment patterns and trade-offs — Hardware Considerations"
+tags: [domain:edge-ai-patterns, type:reference, tier:tradeoffs]
+body: |-
+  # Hardware Considerations
+
+  | Component | Preferred | Acceptable | Avoid |
+  |-----------|-----------|------------|-------|
+  | Compute | GPU with tensor cores | CPU with SIMD | Microcontroller |
+  | Memory | Unified memory | Discrete GPU RAM | Shared system RAM |
+  | Storage | NVMe SSD | SATA SSD | HDD |
+  | Network | 10GbE | 1GbE | WiFi |
+
+[TILE:edge-ai-patterns-006]
+title: "Edge AI deployment patterns and trade-offs — Testing Strategy"
+tags: [domain:edge-ai-patterns, type:pattern, tier:testing]
+body: |-
+  # Testing Strategy
+
+  ## Levels
+  1. **Unit** — Test each component in isolation
+  2. **Integration** — Test component interfaces
+  3. **End-to-End** — Test the full pipeline
+  4. **Stress** — Test under worst-case load
+  5. **Regression** — Continuous verification
+
+  ## Key Assertions
+  - Output bounds are within expected ranges
+  - Performance meets latency/throughput targets
+  - Memory usage stays within budget
+
+[TILE:edge-ai-patterns-007]
+title: "Edge AI deployment patterns and trade-offs — Deployment Checklist"
+tags: [domain:edge-ai-patterns, type:checklist, tier:operations]
+body: |-
+  # Deployment Checklist
+
+  - [ ] All unit tests pass
+  - [ ] Integration tests pass on target hardware
+  - [ ] Latency meets target (measured on-device)
+  - [ ] Memory usage within budget
+  - [ ] Logging configured
+  - [ ] Monitoring configured
+  - [ ] Rollback plan documented
+  - [ ] Contact on-call engineer notified
+
+[TILE:edge-ai-patterns-008]
+title: "Edge AI deployment patterns and trade-offs — Optimization Guide"
+tags: [domain:edge-ai-patterns, type:guide, tier:implementation]
+body: |-
+  # Optimization Guide
+
+  ## Order of Operations
+  1. Profile first
+  2. Fix the worst bottleneck
+  3. Re-profile
+  4. Repeat
+  
+  ## Common Optimizations
+  - Fuse kernels where possible
+  - Reduce memory transfers
+  - Use mixed precision
+  - Batch operations
+  - Pre-compute constants
+
+[TILE:edge-ai-patterns-009]
+title: "Edge AI deployment patterns and trade-offs — Safety Margins"
+tags: [domain:edge-ai-patterns, type:reference, tier:operations]
+body: |-
+  # Safety Margins
+
+  | Resource | Budget | Buffer | Hard Limit |
+  |----------|--------|--------|------------|
+  | CPU | 70% | 20% | 90% |
+  | Memory | 60% | 25% | 85% |
+  | GPU | 75% | 15% | 90% |
+  | Power | 80% | 10% | 90% |
+  | Bandwidth | 50% | 30% | 80% |
+
+[TILE:edge-ai-patterns-010]
+title: "Edge AI deployment patterns and trade-offs — References"
+tags: [domain:edge-ai-patterns, type:reference, tier:reference]
+body: |-
+  # References
+
+  - Standard textbooks in the domain
+  - Relevant academic papers (cited where applicable)
+  - Production systems and their architecture
+  - Community best practices and patterns
+  
+  ## Related Domains
+  - Constraint theory for system boundaries
+  - Edge computing for deployment patterns
+  - Signal processing for core algorithms
+
