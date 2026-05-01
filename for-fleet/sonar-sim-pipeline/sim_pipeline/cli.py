@@ -12,7 +12,7 @@ import logging
 import sys
 from typing import Sequence
 
-from .physics import JerlovWaterType
+from .physics import JerlovWaterType, FluxPhysics
 from .mission_planner import SurveyType
 from .pipeline import Pipeline
 
@@ -54,7 +54,7 @@ def build_parser() -> argparse.ArgumentParser:
     """Build the argument parser."""
     parser = argparse.ArgumentParser(
         prog="sim_pipeline",
-        description="Sonar simulation pipeline: mission → physics → ray trace → display",
+        description="Sonar simulation pipeline: mission -> physics -> ray trace -> display",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument("--verbose", "-v", action="store_true", help="Enable debug logging")
@@ -145,25 +145,20 @@ def cmd_info(args: argparse.Namespace) -> int:
     print("=" * 60)
     print("SONAR SIMULATION PIPELINE - PHYSICS REFERENCE")
     print("=" * 60)
-    print("
-Sound Speed: Mackenzie (1981)")
+    print("\nSound Speed: Mackenzie (1981)")
     print("  c = 1448.96 + 4.591*T - 5.304e-2*T^2 + 2.374e-4*T^3")
     print("      + 1.340*(S-35) + 1.630e-2*D + 1.675e-7*D^2")
     print("      - 1.025e-2*T*(S-35) - 7.139e-13*T*D^3")
-    print("
-Absorption: Francois-Garrison (1982)")
+    print("\nAbsorption: Francois-Garrison (1982)")
     print("  alpha = alpha_boric + alpha_magnesium + alpha_water")
     print("  alpha_boric  = 0.106 * f1*f^2/(f1^2+f^2) * exp((pH-8)/0.56)")
     print("  alpha_mg     = 0.52*(1+T/43)*(S/35)*f2*f^2/(f2^2+f^2)*exp(-D/6000)")
     print("  alpha_water  = 0.00049*f^2*exp(-(T/27 + D/17000))")
-    print("
-Refraction: Snell's Law")
+    print("\nRefraction: Snell's Law")
     print("  sin(theta2)/sin(theta1) = c2/c1")
-    print("
-Thermocline: Exponential decay")
+    print("\nThermocline: Exponential decay")
     print("  T(z) = T_deep + (T_surface - T_deep) * exp(-z / z_thermo)")
-    print("
-Jerlov Water Types (Kd in m^-1):")
+    print("\nJerlov Water Types (Kd in m^-1):")
     for wt in JerlovWaterType:
         print(f"  {wt.value:>8} : Kd = {FluxPhysics.JERLOV_KD.get(wt, 0.0):.3f}")
     print("=" * 60)
