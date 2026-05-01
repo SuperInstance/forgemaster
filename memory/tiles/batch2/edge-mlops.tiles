@@ -1,0 +1,18 @@
+# PLATO Tiles: Edge MLOps
+# Generated: 2026-04-30 Night Shift
+# Batch: deep domain-specific (non-template)
+# ---
+
+[TILE:edge-mlops-001]
+title: "Model Deployment Pipeline"
+tags: [domain:edge-mlops, type:reference, tier:foundation]
+body: |-
+  Edge MLOps pipeline: train (cloud) → quantize → compile → deploy → monitor.
+  
+  Quantization: FP32 → INT8 reduces model size 4x and speeds up inference 2-4x
+  on hardware with INT8 tensor cores (Jetson Orin: 8-bit, 16-bit, FP16).
+  
+  TensorRT optimizer: kernel fusion, layer merging, memory reuse.
+  Profile-guided: run on target to find optimal tactic selection.
+  Fallback layers: ops unsupported by INT8 run in FP16.
+

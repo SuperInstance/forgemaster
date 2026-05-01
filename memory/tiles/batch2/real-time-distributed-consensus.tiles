@@ -1,0 +1,47 @@
+# PLATO Tiles: Real-Time Distributed Consensus
+# Generated: 2026-04-30 Night Shift
+# Batch: deep domain-specific (non-template)
+# ---
+
+[TILE:real-time-distributed-consensus-001]
+title: "Raft Consensus"
+tags: [domain:real-time-distributed-consensus, type:reference, tier:foundation]
+body: |-
+  Raft elects a leader that manages log replication. Three states:
+  Leader (handles all client requests), Follower (passive), Candidate (election).
+  
+  Terms: time divided into terms of arbitrary length. Each term has at most one
+  leader. Elections use randomized timeouts (150-300ms).
+  
+  Log replication: leader sends AppendEntries RPCs. Majority commit required.
+  Safety: at most one leader per term, leader completeness, state machine safety.
+  Raft ensures exactly-once semantics for client operations.
+
+[TILE:real-time-distributed-consensus-002]
+title: "HotStuff BFT"
+tags: [domain:real-time-distributed-consensus, type:reference, tier:implementation]
+body: |-
+  HotStuff is a BFT consensus with O(n) communication per round.
+  Uses threshold signatures: a block is certified when 2f+1 partial signatures
+  are combined into a single multi-signature.
+  
+  Pacemaker drives view changes: view n → prepare → pre-commit → commit → decide.
+  Four phases of QC (quorum certificate) chaining provide safety under asynchrony.
+  
+  LibraBFT (Diem) uses HotStuff variant. Latency: ~3 network round trips.
+  Throughput: 1000+ tx/s per validator.
+
+[TILE:real-time-distributed-consensus-003]
+title: "PBFT Optimization"
+tags: [domain:real-time-distributed-consensus, type:reference, tier:tradeoffs]
+body: |-
+  PBFT requires 3 phases: pre-prepare, prepare, commit. That's 5 message delays.
+  Optimizations for real-time: speculation (execute before commit),
+  checkpoint sliding (lazy pruning of log), batching (multiple requests per round).
+  
+  View change cost: O(n²) messages in naive PBFT. Optimized view change reduces
+  to O(n) by electing a checkpoint-containing view.
+  
+  For embedded systems (< 10 nodes): PBFT with optimistic path is practical.
+  For > 20 nodes: switch to HotStuff or BFT-SMR.
+

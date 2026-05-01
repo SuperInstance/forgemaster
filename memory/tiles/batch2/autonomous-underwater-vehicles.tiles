@@ -1,0 +1,18 @@
+# PLATO Tiles: Autonomous Underwater Vehicles
+# Generated: 2026-04-30 Night Shift
+# Batch: deep domain-specific (non-template)
+# ---
+
+[TILE:autonomous-underwater-vehicles-001]
+title: "Navigation and Localization"
+tags: [domain:autonomous-underwater-vehicles, type:reference, tier:foundation]
+body: |-
+  AUV navigation without GPS (underwater constraints):
+  - INS (Inertial Navigation): accelerometer + gyroscope, drifts ~1km/hour
+  - DVL (Doppler Velocity Log): bottom track for velocity, drift ~1%/hour
+  - USBL/LBL: acoustic positioning (surface beacons), 1-5m accuracy
+  - SLAM: feature-based (sonar features), corrects drift via loop closure
+  
+  Combined navigation: EKF fusing INS, DVL, depth sensor, USBL.
+  Terrain-aided: match bathymetry profile to prior map (particle filter).
+

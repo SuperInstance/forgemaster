@@ -1,0 +1,19 @@
+# PLATO Tiles: Audio Spatial Computing
+# Generated: 2026-04-30 Night Shift
+# Batch: deep domain-specific (non-template)
+# ---
+
+[TILE:audio-spatial-computing-001]
+title: "Head-Related Transfer Function"
+tags: [domain:audio-spatial-computing, type:reference, tier:foundation]
+body: |-
+  HRTF models how the pinna, head, and torso filter sound from source to eardrum.
+  Captured as pair of impulse responses (left/right ear) for all directions.
+  
+  ITD (Interaural Time Difference): ~0-700μs depending on azimuth.
+  ILD (Interaural Level Difference): ~0-20dB, dominant above 1.5kHz.
+  
+  Convolution with HRTF produces realistic spatial audio over headphones.
+  Personalized HRTF (from ear scan or anthropometry) critical for accuracy.
+  Generic HRTF works for quadrants but lacks individual elevation cues.
+

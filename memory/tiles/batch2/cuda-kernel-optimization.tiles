@@ -1,0 +1,46 @@
+# PLATO Tiles: CUDA Kernel Optimization
+# Generated: 2026-04-30 Night Shift
+# Batch: deep domain-specific (non-template)
+# ---
+
+[TILE:cuda-kernel-optimization-001]
+title: "GPU Memory Hierarchy"
+tags: [domain:cuda-kernel-optimization, type:reference, tier:foundation]
+body: |-
+  CUDA memory: global (high latency ~400 cycles), shared (low latency ~20 cycles),
+  registers (zero latency, thread-private), constant (cached, read-only), texture.
+  
+  ROOFLINE model: performance bound by either compute (FLOP/s) or memory bandwidth.
+  Arithmetic intensity = FLOPs / bytes moved. Kernel is compute-bound if intensity
+  above ridge point, memory-bound if below.
+  
+  Rule: maximize arithmetic intensity. Fuse kernels, use shared memory as cache.
+
+[TILE:cuda-kernel-optimization-002]
+title: "Occupancy Optimization"
+tags: [domain:cuda-kernel-optimization, type:reference, tier:tradeoffs]
+body: |-
+  Occupancy = active warps / max warps per SM. Higher occupancy hides latency.
+  
+  Occupancy limiters: register pressure (too many registers → fewer blocks),
+  shared memory (too much per block → fewer blocks), block size (too few
+  threads per block → underfilled SM).
+  
+  Tradeoff: max occupancy may not max performance. Some kernels benefit from
+  high register count (less spilling) even at lower occupancy.
+  Use occupancy API: cudaOccupancyMaxPotentialBlockSize.
+
+[TILE:cuda-kernel-optimization-003]
+title: "Warp Shuffle Instructions"
+tags: [domain:cuda-kernel-optimization, type:reference, tier:implementation]
+body: |-
+  Warp shuffle (__shfl_sync) enables register-to-register communication
+  between threads in the same warp WITHOUT shared memory. Key ops:
+  - __shfl_sync(mask, val, src_lane): broadcast from src_lane
+  - __shfl_up_sync: shift values up (lower lane → higher lane)
+  - __shfl_down_sync: shift values down
+  - __shfl_xor_sync: butterfly reduction (XOR-based)
+  
+  Speed: ~3 cycles vs ~20 cycles for shared memory access.
+  Warp-level reductions: tree reduction using XOR shuffle.
+

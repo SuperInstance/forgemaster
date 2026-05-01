@@ -1,29 +1,37 @@
 # Night Shift Task Queue
 
-## Session Progress (2026-04-30 Night) 🎯
+## Session Progress (2026-04-30 Night) 🎯 SHIFT COMPLETE
 
 ### Done this shift
 - [x] FLUX dive demo — all 9 physics ops live, 21-depth profile
 - [x] FP_COUNT bumped 16→32 in registers.py
-- [x] ISA_UNIFIED.md — physics ops at 0xB0-0xB8, documentation + example
-- [x] 100 PLATO tiles across 10 domains (saved to workspace/memory/tiles/)
-- [x] Marine MUD World — 15-room dive chain (0-100m, physics-powered descriptions)
-- [x] SonarVision mega-enhancement (CLI, Docker, CI/CD, docs, etc.)
-- [x] Cross-pollination across 7+ fleet repos
-- [x] Tier 2: Holodeck plugin, dashboard widget, FLUX physics ops (actual code)
-- [x] Tier 3: marine-gpu-edge bridge, jepa-perception-lab pipeline
-- [x] Jetson synergy: plato-jetson SonarVisionRoom, open-agents tool
-- [x] constraint-theory-demo v0.5.1 → crates.io
-- [x] constraint-theory v1.0.1 → PyPI (Rust native ext via maturin)
+- [x] ISA_UNIFIED.md — physics ops at 0xB0-0xB8, full documentation
+- [x] 122 PLATO tiles total (batch 1: 100, batch 2: 22) across 20 domains
+- [x] Marine MUD World — 15-room dive chain (physics-powered)
+- [x] plato-jetson marine world module — standalone physics + room definitions
+- [x] FLUX-CT snapping layer — sync-critical ops model
+- [x] OpenCode MCP config — minimax coding added
+- [x] SonarVision docs landing page — 16KB, 464 lines, dark ocean theme
+- [x] Full pipeline demo — FLUX → MUD → SonarPing → JEPA (circular)
+- [x] SonarVision docs site pushed to sonar-vision/docs/index.html
+- [x] ISA docs pushed to flux-runtime (main)
 
-### Queue
-1. **PLATO tiles batch 2** — push to 200+ tiles (domain-specific, not templates)
-2. **SonarVision docs site** — static HTML from the generated docs/
-3. **OpenClaw toolchain** — wire minimax MCP as first-class tool
-4. **Marine MUD world** ← integrate with plato-jetson Evennia
-5. **FLUX physics ⟷ constraint-theory** — snapping layer for sync-critical paths
+### Repos committed this shift
+1. flux-runtime — ISA docs, physics tests, FP_COUNT*
+2. sonar-vision — docs landing page
+3. JetsonClaw1-vessel — all workspace files
+4. forgemaster — same workspace mirror
 
-### Rules
-- PUSH EVERY 30 MIN
-- Never HEARTBEAT_OK
-- Update this file as tasks complete
+### Published packages (earlier session)
+- constraint-theory-demo v0.5.1 → crates.io
+- constraint-theory v1.0.1 → PyPI (Rust native ext)
+
+### Next (if shift continues)
+1. Wire minimax MCP into agent orchestration as first-class tool
+2. Write more PLATO tiles (push to 200+)
+3. Start building the open-agents SonarVision tool README
+
+### Rules when shift ends
+- PUSH EVERYTHING
+- Update MEMORY.md with session summary
+- Sunrise report ready for Casey
