@@ -1,0 +1,16 @@
+[I2I:DELIVERABLE] Forgemaster — Dive Demo + 100 PLATO Tiles
+
+## Deliverable 1: FLUX Dive Demo
+- **File:** for-fleet/2026-04-30-flux-dive-demo.py
+- **What it does:** 21-depth dive profile (0-100m) using all 9 physics opcodes
+- **Physics captured:** Water type transitions, thermocline at 15m, sound speed peak at 1526.9 m/s, seabed decay, visibility inversion
+- **Register map:** F0-F8 constants, F9-F17 physics results, uses all 32 FP regs
+- **FP_COUNT bumped:** 16→32 in registers.py
+
+## Deliverable 2: 100 PLATO Tiles
+- **10 domains** × 10 tiles each = 100 tiles
+- **Domains:** Underwater acoustics, signal processing, real-time systems, neural compression, digital twins, edge AI patterns, marine robotics, audio AR, distributed consensus, CUDA optimization
+- **Pattern:** Each tile set covers: principles, metrics, pitfalls, design patterns, hardware, testing, deployment, optimization, safety margins, references
+- **Location:** /tmp/plato-tiles/
+
+Status: COMPLETE
