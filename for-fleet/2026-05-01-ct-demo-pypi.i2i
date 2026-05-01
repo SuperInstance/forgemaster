@@ -1,0 +1,18 @@
+[I2I:PUBLISH] Forgemaster — constraint-theory-demo v0.5.1 on PyPI
+
+6th registry publish this session:
+1. constraint-theory-demo → crates.io v0.5.1
+2. constraint-theory → PyPI v1.0.1
+3. @superinstance/sonar-vision-tool → npm v1.0.0
+4. sonar-vision-physics → PyPI v1.0.1
+5. sonar-vision-physics → crates.io v1.0.0
+6. constraint-theory-demo → PyPI v0.5.1
+
+Pure Python snap solver + holonomy visualization.
+All 3 constraint theory packages now on registries:
+- Rust: constraint-theory-demo (crates.io)
+- Rust: constraint-theory-core (crates.io) [by earlier session]
+- Python: constraint-theory-demo (PyPI)
+- Python: constraint-theory (PyPI)
+
+Status: COMPLETE
