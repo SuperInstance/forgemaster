@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SonarVision Dashboard</title>
+<style>
+:root {
+    --bg: #0a0f1a;
+    --surface: #111827;
+    --card: #1f2937;
+    --border: #374151;
+    --cyan: #06b6d4;
+    --teal: #2dd4bf;
+    --gold: #fbbf24;
+    --text: #e2e8f0;
+    --muted: #6b7280;
+    --red: #ef4444;
+    --green: #22c55e;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 1rem;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+header h1 { font-size: 1.2rem; color: var(--cyan); letter-spacing: 0.05em; }
+.status { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; }
+.status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--muted);
+}
+.status-dot.connected { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.status-dot.disconnected { background: var(--red); box-shadow: 0 0 6px var(--red); }
+.controls { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.controls button {
+    padding: 0.4rem 1rem; border: 1px solid var(--border);
+    border-radius: 6px; background: var(--card); color: var(--text);
+    cursor: pointer; font-size: 0.8rem; transition: all 0.2s;
+}
+.controls button:hover { border-color: var(--cyan); color: var(--cyan); }
+.controls button:active { background: var(--cyan); color: black; }
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+@media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+}
+.card h2 {
+    font-size: 0.9rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;
+}
+#waterfall {
+    width: 100%; height: 300px;
+    background: #000d16;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+.metric {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 0.75rem; text-align: center;
+}
+.metric .value {
+    font-size: 1.5rem; font-weight: 700; color: var(--gold);
+    font-variant-numeric: tabular-nums;
+}
+.metric .label {
+    font-size: 0.7rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem;
+}
+.depth-bar {
+    height: 4px; background: var(--card); border-radius: 2px;
+    overflow: hidden; margin-top: 1rem;
+}
+.depth-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cyan), var(--gold));
+    border-radius: 2px; transition: width 0.3s;
+}
+.messages {
+    max-height: 150px; overflow-y: auto;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.75rem; color: var(--muted);
+}
+.messages .ping { color: var(--cyan); }
+.messages .status-msg { color: var(--gold); }
+.messages .error-msg { color: var(--red); }
+.depth-chart {
+    display: flex; align-items: flex-end;
+    height: 120px; gap: 2px;
+}
+.depth-bar-column {
+    flex: 1;
+    background: var(--cyan);
+    border-radius: 1px 1px 0 0;
+    min-height: 2px;
+    transition: height 0.3s;
+    opacity: 0.7;
+}
+.depth-bar-column:hover { opacity: 1; }
+</style>
+</head>
+<body>
+<header>
+    <h1>SonarVision &#9654; Live Dashboard</h1>
+    <div class="status">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Disconnected</span>
+    </div>
+    <div class="controls">
+        <button onclick="connect()">Connect</button>
+        <button onclick="send('reset')">Reset Dive</button>
+        <button onclick="send('pause')">Pause</button>
+        <button onclick="send('resume')">Resume</button>
+        <button onclick="send('goto:50')">Goto 50m</button>
+    </div>
+</header>
+
+<div class="grid">
+    <div class="card">
+        <h2>Waterfall Display</h2>
+        <canvas id="waterfall"></canvas>
+    </div>
+    <div class="card">
+        <h2>Depth Profile (Last 30)</h2>
+        <div id="depthChart" class="depth-chart"></div>
+        <div class="depth-bar">
+            <div class="depth-bar-fill" id="depthBar" style="width: 0%"></div>
+        </div>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="card">
+        <h2>Metrics</h2>
+        <div class="metrics-grid">
+            <div class="metric">
+                <div class="value" id="valDepth">--</div>
+                <div class="label">Depth</div>
+                <div class="unit">m</div>
+            </div>
+            <div class="metric">
+                <div class="value" id="valTemp">--</div>
+                <div class="label">Temperature</div>
+                <div class="unit">&#176;C</div>
+            </div>
+            <div class="metric">
+                <div class="value" id="valSound">--</div>
+                <div class="label">Sound Speed</div>
+                <div class="unit">m/s</div>
+            </div>
+            <div class="metric">
+                <div class="value" id="valVis">--</div>
+                <div class="label">Visibility</div>
+                <div class="unit">m</div>
+            </div>
+            <div class="metric">
+                <div class="value" id="valAbs">--</div>
+                <div class="label">Absorption</div>
+                <div class="unit">m&#8315;&#185;</div>
+            </div>
+            <div class="metric">
+                <div class="value" id="valSeabed">--</div>
+                <div class="label">Seabed</div>
+                <div class="unit">refl</div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h2>Event Log</h2>
+        <div id="messages" class="messages"></div>
+    </div>
+</div>
+
+<script>
+let ws = null;
+let reconnectTimer = null;
+const MAX_HISTORY = 30;
+const depthHistory = [];
+let waterfallImageData = null;
+let wfCtx = null;
+
+function initCanvas() {
+    const c = document.getElementById('waterfall');
+    wfCtx = c.getContext('2d');
+    c.width = c.clientWidth || 600;
+    c.height = 300;
+    waterfallImageData = wfCtx.createImageData(c.width, c.height);
+    for (let i = 0; i < waterfallImageData.data.length; i += 4) {
+        waterfallImageData.data[i] = 0;
+        waterfallImageData.data[i+1] = 10;
+        waterfallImageData.data[i+2] = 30;
+        waterfallImageData.data[i+3] = 255;
+    }
+    wfCtx.putImageData(waterfallImageData, 0, 0);
+}
+
+function updateWaterfall(val) {
+    if (!waterfallImageData) return;
+    const w = waterfallImageData.width;
+    const h = waterfallImageData.height;
+    const d = waterfallImageData.data;
+
+    for (let y = h - 1; y > 0; y--) {
+        for (let x = 0; x < w; x++) {
+            const si = (x + (y-1) * w) * 4;
+            const di = (x + y * w) * 4;
+            d[di] = d[si]; d[di+1] = d[si+1]; d[di+2] = d[si+2]; d[di+3] = d[si+3];
+        }
+    }
+
+    const intensity = Math.min(255, Math.max(0, val * 25));
+    for (let x = 0; x < w; x++) {
+        const i = x * 4;
+        d[i] = Math.min(255, intensity + 30);
+        d[i+1] = Math.min(255, intensity + 180);
+        d[i+2] = Math.min(255, intensity + 210);
+        d[i+3] = 255;
+    }
+    wfCtx.putImageData(waterfallImageData, 0, 0);
+}
+
+function log(msg, type) {
+    const el = document.getElementById('messages');
+    const line = document.createElement('div');
+    if (type) line.className = type;
+    line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
+    el.appendChild(line);
+    el.scrollTop = el.scrollHeight;
+}
+
+function setStatus(ok) {
+    document.getElementById('statusDot').className = 'status-dot ' + (ok ? 'connected' : 'disconnected');
+    document.getElementById('statusText').textContent = ok ? 'Connected' : 'Disconnected';
+}
+
+function updateMetrics(data) {
+    const el = id => document.getElementById(id);
+    el('valDepth').textContent = data.depth ? data.depth.toFixed(1) : '--';
+    el('valTemp').textContent = data.temperature ? data.temperature.toFixed(1) : '--';
+    el('valSound').textContent = data.sound_speed ? data.sound_speed.toFixed(0) : '--';
+    el('valVis').textContent = data.visibility ? data.visibility.toFixed(1) : '--';
+    el('valAbs').textContent = data.absorption ? data.absorption.toFixed(3) : '--';
+    el('valSeabed').textContent = data.seabed_reflectivity ? data.seabed_reflectivity.toFixed(3) : '--';
+
+    if (data.depth) {
+        const pct = Math.min(100, data.depth / 100 * 100);
+        document.getElementById('depthBar').style.width = pct + '%';
+
+        depthHistory.push(data.depth);
+        if (depthHistory.length > MAX_HISTORY) depthHistory.shift();
+
+        const dc = document.getElementById('depthChart');
+        dc.innerHTML = '';
+        depthHistory.forEach(d => {
+            const bar = document.createElement('div');
+            bar.className = 'depth-bar-column';
+            bar.style.height = Math.max(2, d) + '%';
+            dc.appendChild(bar);
+        });
+    }
+
+    if (data.visibility !== undefined) updateWaterfall(data.visibility);
+}
+
+function connect() {
+    if (ws && ws.readyState === WebSocket.OPEN) return;
+    if (reconnectTimer) { clearTimeout(reconnectTimer); reconnectTimer = null; }
+
+    const port = window.location.port || '8081';
+    const host = window.location.hostname || 'localhost';
+    const url = 'ws://' + host + ':' + port;
+    log('Connecting to ' + url, 'status-msg');
+
+    try { ws = new WebSocket(url); }
+    catch (e) {
+        log('Connection error: ' + e.message, 'error-msg');
+        setStatus(false);
+        reconnectTimer = setTimeout(connect, 3000);
+        return;
+    }
+
+    ws.onopen = () => { log('Connected', 'status-msg'); setStatus(true); };
+    ws.onclose = () => {
+        log('Disconnected', 'status-msg'); setStatus(false); ws = null;
+        reconnectTimer = setTimeout(connect, 3000);
+    };
+    ws.onerror = () => {};
+
+    ws.onmessage = function(ev) {
+        try {
+            var d = JSON.parse(ev.data);
+            if (d.type === 'status') { log('Status: ' + d.message, 'status-msg'); }
+            else if (d.type === 'error') { log('Error: ' + d.message, 'error-msg'); }
+            else if (d.type === 'help') { log('Commands: ' + d.commands.join(', '), 'status-msg'); }
+            else {
+                updateMetrics(d);
+                log('Ping @ ' + d.depth.toFixed(1) + 'm | ' +
+                    d.water_type_name + ' | ' +
+                    d.temperature.toFixed(1) + 'C', 'ping');
+            }
+        } catch(e) {
+            if (typeof ev.data === 'string') log('Message: ' + ev.data, 'status-msg');
+        }
+    };
+}
+
+function send(cmd) {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(cmd);
+        log('Sent: ' + cmd, 'status-msg');
+    } else {
+        log('Not connected', 'error-msg');
+    }
+}
+
+window.addEventListener('load', function() {
+    initCanvas();
+    setTimeout(connect, 500);
+});
+</script>
+</body>
+</html>
