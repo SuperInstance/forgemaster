@@ -49,3 +49,23 @@ class MissionPlanner:
                 wps+=[Waypoint(width,y,depth,speed,pr,self._i()),Waypoint(0,y,depth,speed,pr,self._i())]
         return Mission(name,"lawnmower",wps,width,height,depth)
 
+    def spiral(self,name,mr,depth,turns=5,speed=1.5,pr=1.0):
+        wps=[]
+        for t in range(turns*12+1):
+            a=2*math.pi*t/12; r=mr*(1-t/(turns*12))
+            wps.append(Waypoint(r*math.cos(a),r*math.sin(a),depth,speed,pr,self._i()))
+        return Mission(name,"spiral",wps,mr*2,mr*2,depth)
+    def star(self,name,radius,depth,arms=4,speed=1.5,pr=1.0):
+        wps=[Waypoint(0,0,depth,speed,pr,self._i())]
+        for i in range(arms):
+            a=2*math.pi*i/arms
+            wps+=[Waypoint(radius*math.cos(a),radius*math.sin(a),depth,speed,pr,self._i()),
+                  Waypoint(0,0,depth,speed,pr,self._i())]
+        return Mission(name,"star",wps,radius*2,radius*2,depth)
+    def perimeter(self,name,width,height,depth,speed=1.5,pr=1.0):
+        wps=[Waypoint(0,0,depth,speed,pr,self._i()),
+             Waypoint(width,0,depth,speed,pr,self._i()),
+             Waypoint(width,height,depth,speed,pr,self._i()),
+             Waypoint(0,height,depth,speed,pr,self._i()),
+             Waypoint(0,0,depth,speed,pr,self._i())]
+        return Mission(name,"perimeter",wps,width,height,depth)
