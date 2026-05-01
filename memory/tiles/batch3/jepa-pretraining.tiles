@@ -1,0 +1,35 @@
+# PLATO Tiles: jepa-pretraining
+# Generated: 2026-04-30 Night Shift (Batch 3)
+# ---
+
+[TILE:jepa-pretraining-001]
+title: "Joint-Embedding Predictive Architecture"
+tags: [domain:jepa-pretraining, type:reference, tier:foundation]
+body: |-
+  JEPA learns representations by predicting one view from another
+  in latent space. Contrast with reconstruction-based methods (MAE)
+  that predict pixel values.
+  
+  Composition: encoder → predictor → loss in latent space.
+  Encoder: context view. Predictor: target view from context.
+  Stop-gradient on target encoder prevents collapse.
+  
+  JEPA learns semantic features without pixel-level reconstruction.
+  For sonar: predict future depth profile from past profiles.
+  Encoder compresses 21-depth profile to 8-dim latent.
+
+[TILE:jepa-pretraining-002]
+title: "Energy-Based JEPA"
+tags: [domain:jepa-pretraining, type:reference, tier:technique]
+body: |-
+  Energy-based JEPA uses a contrastive loss in latent space.
+  Energy E(x, y) = ||f(x) - g(y)||² where f,g are encoders.
+  
+  Training: minimize energy for positive pairs (x, y related),
+  maximize for negative pairs (unrelated).
+  
+  VICReg variant: variance, invariance, covariance regularization.
+  Variance: standard deviation > 1 (prevents collapse).
+  Invariance: MSE between representations of same input.
+  Covariance: decorrelate features (prevents dimensional collapse).
+
