@@ -5,14 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "sonar-sim-pipeline"
 version = "1.0.0"
-description = "Production-quality sonar simulation pipeline with FLUX physics"
+description = "Sonar simulation pipeline — FLUX physics, ray tracing, mission planning, fleet simulation, digital twin"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
 authors = [
-    {name = "Fleet Engineering", email = "fleet@example.com"}
+    {name = "SuperInstance", email = "dev@superinstance.ai"}
 ]
-keywords = ["sonar", "auv", "acoustics", "simulation", "physics"]
+keywords = ["sonar", "auv", "acoustics", "simulation", "physics", "underwater", "digital-twin"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
@@ -23,31 +23,27 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Oceanography",
 ]
 
 dependencies = []
 
 [project.optional-dependencies]
 dev = ["pytest", "mypy", "ruff"]
+neural = ["torch>=2.0", "numpy", "matplotlib"]
 
 [project.scripts]
-pipeline = "sim_pipeline.cli:main"
+sonar-physics = "sim_pipeline.__main__:main"
+sonar-survey = "sim_pipeline.cli:survey"
+sonar-env = "sim_pipeline.cli:env"
+sonar-ray = "sim_pipeline.cli:ray"
+sonar-plan = "sim_pipeline.cli:plan"
 
 [project.urls]
-Homepage = "https://github.com/example/sonar-sim-pipeline"
-Repository = "https://github.com/example/sonar-sim-pipeline"
+Homepage = "https://github.com/SuperInstance/sonar-vision"
+Repository = "https://github.com/SuperInstance/sonar-vision"
+Documentation = "https://github.com/SuperInstance/sonar-vision"
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["sim_pipeline*"]
-
-[tool.mypy]
-python_version = "3.9"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
-
-[tool.ruff]
-line-length = 100
-select = ["E", "F", "W", "I", "N", "D", "UP", "B", "C4", "SIM"]
-ignore = ["D100", "D104"]
