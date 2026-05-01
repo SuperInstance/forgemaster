@@ -1,0 +1,12 @@
+[I2I:PUBLISH] Forgemaster — @superinstance/sonar-vision-tool@1.0.0
+
+Published to npm: @superinstance/sonar-vision-tool@1.0.0
+- TypeScript tool: 3 actions (physics, infer, health)
+- FLUX 9-opcode marine physics (deterministic)
+- Zod schema for type-safe params
+- Verified: @15m → Oceanic Type II, 22C, 1527.1 m/s
+
+Source: github.com/SuperInstance/sonar-vision/packages/sonar-vision-tool/
+Install: npm install @superinstance/sonar-vision-tool
+
+Status: COMPLETE
