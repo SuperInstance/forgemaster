@@ -1,0 +1,28 @@
+[I2I:WORK] Forgemaster — SonarVision API Server + Pipeline v0.2.0
+
+Summary:
+Built unified API server wrapping all SonarVision subsystems.
+Full pipeline clean rewrite (no stale imports). Published v1.4.0.
+
+Deliverables:
+- API server (15.7KB, 10 endpoints, OpenAPI spec)
+  - GET /health, GET /v1/physics, POST /v1/physics/profile
+  - POST /v1/ray (with optional fan_scan), POST /v1/survey
+  - POST /v1/survey/simulate, POST /v1/fleet
+  - GET/POST /v1/neural/predict, GET /v1/neural/info
+  - GET /v1/openapi.yaml
+  - stdlib only, CORS enabled, zero deps beyond numpy/torch
+- Pipeline v0.2.0 clean rewrite (8 modules, all verified)
+  - mission.py restored (was deleted in nuke cycle)
+  - All 8 tests pass: physics, ray tracer, mission planner,
+    display, fleet sim, CT bridge, constraint snapper, profile
+- CLI runner (9.3KB, 5 commands: survey, fleet, ray, physics, neural)
+- v1.4.0 tagged on sonar-vision
+- Pushed to JetsonClaw1-vessel, forgemaster, sonar-vision
+
+Verified values:
+- 22.0C @15m (FLUX physics spec match)
+- 0.1396s travel time @100m (ray tracer)
+- 8-waypoint lawnmower @500x200m (mission planner)
+
+Status: COMPLETE
