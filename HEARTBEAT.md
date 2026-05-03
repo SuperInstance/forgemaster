@@ -1,35 +1,42 @@
 # Night Shift Task Queue
 
-## Session Progress (2026-04-30 Night) 🎯 SHIFT COMPLETE
+## Session Progress (2026-05-02 Night) 🔨 ACTIVE
 
 ### Done this shift
-- [x] FLUX dive demo — all 9 physics ops live, 21-depth profile
-- [x] FP_COUNT bumped 16→32 in registers.py
-- [x] ISA_UNIFIED.md — physics ops at 0xB0-0xB8, full documentation
-- [x] 122 PLATO tiles total (batch 1: 100, batch 2: 22) across 20 domains
-- [x] Marine MUD World — 15-room dive chain (physics-powered)
-- [x] plato-jetson marine world module — standalone physics + room definitions
-- [x] FLUX-CT snapping layer — sync-critical ops model
-- [x] OpenCode MCP config — minimax coding added
-- [x] SonarVision docs landing page — 16KB, 464 lines, dark ocean theme
-- [x] Full pipeline demo — FLUX → MUD → SonarPing → JEPA (circular)
-- [x] SonarVision docs site pushed to sonar-vision/docs/index.html
-- [x] ISA docs pushed to flux-runtime (main)
+- [x] Fleet integration strategy — Claude Opus 5-action plan with dependency ordering
+- [x] SonarVision tool README — full API docs (5 actions), streaming, error handling
+- [x] Minimax MCP wiring — OpenCode config updated (needs API key)
+- [x] Fleet service guard v2 — auto-remediation with restart loop + I2I escalation
+- [x] SonarTelemetryStream — WebSocket endpoint for fleet dashboard (port 4052)
+- [x] ZeroClaw prompt fix design — Claude Opus design doc with context block + dedup gate
+- [x] CT TypeScript bridge — Node.js wrapper for constraint-theory Python package
+- [x] 80 PLATO tiles generated — 4 domains (CT-core, flux, sonar, forgemaster) pending gate wiring
+- [x] Oracle1 audit critique delivered via I2I bottle
+- [x] Fleet ops runbook — Claude Opus authoring
 
-### Repos committed this shift
-1. flux-runtime — ISA docs, physics tests, FP_COUNT*
-2. sonar-vision — docs landing page
-3. JetsonClaw1-vessel — all workspace files
-4. forgemaster — same workspace mirror
+### Workers used
+1. Claude Code (Opus) — strategic planning, ZC prompt fix, fleet runbook
+2. Kimi CLI — attempted (timed out twice, 0 output — not delivering tonight)
+3. Subagents (GLM-5.1) — minimax MCP (done), PLATO tiles (timed out, done manually)
+4. Forgemaster direct — tiles, README, telemetry stream, service guard, CT bridge
 
-### Published packages (earlier session)
-- constraint-theory-demo v0.5.1 → crates.io
-- constraint-theory v1.0.1 → PyPI (Rust native ext)
+### Known blockers
+- PLATO gate endpoints not wired (404 on POST) — tiles queued locally
+- Minimax rate-limited for ~1 hour
+- DeepInfra off limits per Casey
+- Oracle1 agent offline (hours) — server still up, PLATO readable
+- Matrix send broken (needs Oracle1 gateway restart)
 
-### Next (if shift continues)
-1. Wire minimax MCP into agent orchestration as first-class tool
-2. Write more PLATO tiles (push to 200+)
-3. Start building the open-agents SonarVision tool README
+### Next wave
+1. Fleet ops runbook (Opus authoring now)
+2. Deploy SonarTelemetryStream to Oracle1 when back online
+3. Batch submit 80 tiles to PLATO when gate opens
+4. CT bridge npm package scaffolding
+5. More PLATO tiles (push toward 200+)
+
+### Previous shift (2026-04-30)
+- FLUX dive demo, ISA_UNIFIED.md, 122 PLATO tiles, Marine MUD World
+- Published: ct-demo v0.5.1, constraint-theory v1.0.1
 
 ### Rules when shift ends
 - PUSH EVERYTHING
