@@ -5,7 +5,7 @@ Reads tiles from a live PLATO server and validates them against
 the Rust plato-engine gate rules.
 
 Usage:
-    python3 plato_migrate.py [--server URL] [--output FILE]
+    python3 plato_migrate.py [--server URL] [--output FILE] [--max-rooms N] [--room NAME]
 """
 
 from __future__ import annotations
@@ -28,11 +28,11 @@ DEFAULT_SERVER = "http://147.224.38.131:8847"
 MAX_RETRIES = 3
 RETRY_DELAY = 2.0  # seconds
 REQUEST_TIMEOUT = 10  # seconds
-VALID_TYPES = {"fact", "claim", "question", "evidence", "inference"}
 ABSOLUTE_WORDS_PATTERN = re.compile(
     r"(?i)\b(always|never|impossible|definitely|certainly|without doubt|undeniably)\b"
 )
-REQUIRED_FIELDS = ("id", "room_id", "content", "type")
+# PLATO tile fields: domain, question, answer, confidence, source, _hash, provenance, energy, reinforcement_count
+REQUIRED_FIELDS = ("domain", "question", "answer", "confidence", "source")
 
 
 # ---------------------------------------------------------------------------
@@ -40,12 +40,7 @@ REQUIRED_FIELDS = ("id", "room_id", "content", "type")
 # ---------------------------------------------------------------------------
 
 def _http_get_json(url: str) -> Any:
-    """Fetch JSON from *url* with retries and timeout.
-
-    Raises:
-        RuntimeError: if the server is unreachable after all retries or
-                      returns an HTTP error status.
-    """
+    """Fetch JSON from *url* with retries and timeout."""
     last_error: Optional[Exception] = None
     for attempt in range(1, MAX_RETRIES + 1):
         try:
@@ -55,12 +50,10 @@ def _http_get_json(url: str) -> Any:
                 return json.loads(data)
         except HTTPError as exc:
             last_error = exc
-            # Non-retryable 4xx client errors — don't retry
             if 400 <= exc.code < 500:
                 raise RuntimeError(
                     f"HTTP {exc.code} {exc.reason} for URL {url}"
                 ) from exc
-            # 5xx — retry
             if attempt < MAX_RETRIES:
                 time.sleep(RETRY_DELAY)
                 continue
@@ -81,22 +74,24 @@ def _http_get_json(url: str) -> Any:
     )
 
 
-def fetch_rooms(server_url: str) -> List[Dict[str, Any]]:
-    """Return the list of rooms from the server."""
+def fetch_rooms(server_url: str) -> Dict[str, Dict[str, Any]]:
+    """Return rooms dict from the server. Keys are room names, values are room metadata."""
     url = f"{server_url}/rooms"
     result = _http_get_json(url)
-    if not isinstance(result, list):
-        raise RuntimeError(f"Expected list from /rooms, got {type(result).__name__}")
+    if not isinstance(result, dict):
+        raise RuntimeError(f"Expected dict from /rooms, got {type(result).__name__}")
     return result
 
 
-def fetch_tiles(server_url: str, room_id: str) -> List[Dict[str, Any]]:
-    """Return the list of tiles for a given room."""
-    url = f"{server_url}/rooms/{room_id}/tiles"
+def fetch_tiles(server_url: str, room_name: str) -> List[Dict[str, Any]]:
+    """Return the list of tiles for a given room via /room/{room_name}."""
+    url = f"{server_url}/room/{room_name}"
     result = _http_get_json(url)
-    if not isinstance(result, list):
-        raise RuntimeError(f"Expected list from /rooms/{room_id}/tiles, got {type(result).__name__}")
-    return result
+    if isinstance(result, dict):
+        return result.get("tiles", [])
+    if isinstance(result, list):
+        return result
+    raise RuntimeError(f"Unexpected response from /room/{room_name}: {type(result).__name__}")
 
 
 # ---------------------------------------------------------------------------
@@ -105,52 +100,64 @@ def fetch_tiles(server_url: str, room_id: str) -> List[Dict[str, Any]]:
 
 def validate_tile(
     tile: Dict[str, Any],
+    room_name: str,
     seen_contents: Set[str],
 ) -> Tuple[bool, List[str], List[str]]:
     """Validate a single tile against the Rust plato-engine gate rules.
 
     Returns:
         (passed, reasons, matched_words)
-        * passed        – True if the tile passes ALL rules
-        * reasons       – list of rejection reason keys (e.g. "absolute_claims")
-        * matched_words – words from the absolute-claim regex that matched
-                          (empty list when the rule did not fire)
     """
     reasons: List[str] = []
     matched_words: List[str] = []
 
-    # 4. Missing fields
+    # 1. Missing fields
     for field in REQUIRED_FIELDS:
         value = tile.get(field)
         if value is None or (isinstance(value, str) and value.strip() == ""):
             reasons.append("missing_fields")
-            # Missing fields means we can't safely check the remaining rules
-            # that depend on those fields, but we still want to surface ALL
-            # applicable rejections.  We'll guard with fallbacks below.
 
-    # 5. Invalid type
-    tile_type = tile.get("type")
-    if tile_type is not None and tile_type not in VALID_TYPES:
-        reasons.append("invalid_type")
+    # 2. Empty question
+    question = tile.get("question", "")
+    if not isinstance(question, str) or question.strip() == "":
+        reasons.append("empty_question")
 
-    # 3. Too short
-    content = tile.get("content", "")
-    if isinstance(content, str):
-        if len(content.strip()) < 10:
+    # 3. Invalid confidence
+    confidence = tile.get("confidence")
+    if confidence is not None:
+        try:
+            c = float(confidence)
+            if not (0.0 <= c <= 1.0):
+                reasons.append("invalid_confidence")
+        except (ValueError, TypeError):
+            reasons.append("invalid_confidence")
+    else:
+        reasons.append("invalid_confidence")
+
+    # 4. Domain mismatch
+    domain = tile.get("domain", "")
+    if isinstance(domain, str) and isinstance(room_name, str):
+        if domain.strip().lower() != room_name.strip().lower():
+            reasons.append("domain_mismatch")
+
+    # 5. Too short (check 'answer' as main content)
+    answer = tile.get("answer", "")
+    if isinstance(answer, str):
+        if len(answer.strip()) < 10:
             reasons.append("too_short")
     else:
         reasons.append("too_short")
 
-    # 1. Absolute claims
-    if isinstance(content, str):
-        found = ABSOLUTE_WORDS_PATTERN.findall(content)
+    # 6. Absolute claims (check 'answer' as main content)
+    if isinstance(answer, str):
+        found = ABSOLUTE_WORDS_PATTERN.findall(answer)
         if found:
             reasons.append("absolute_claims")
             matched_words = [w.lower() for w in found]
 
-    # 2. Duplicates (global)
-    if isinstance(content, str):
-        normalised = content.strip().lower()
+    # 7. Duplicates (global, based on 'answer')
+    if isinstance(answer, str):
+        normalised = answer.strip().lower()
         if normalised in seen_contents:
             reasons.append("duplicates")
         else:
@@ -171,12 +178,29 @@ def _content_preview(content: str, max_len: int = 80) -> str:
 # Migration engine
 # ---------------------------------------------------------------------------
 
-def run_migration(server_url: str) -> Dict[str, Any]:
+def run_migration(
+    server_url: str,
+    max_rooms: Optional[int] = None,
+    single_room: Optional[str] = None,
+) -> Dict[str, Any]:
     """Execute the full migration pipeline and return the report dict."""
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    rooms = fetch_rooms(server_url)
-    total_rooms = len(rooms)
+    rooms_dict = fetch_rooms(server_url)
+    room_names = sorted(rooms_dict.keys())
+    total_rooms_available = len(room_names)
+
+    # Filter to single room if specified
+    if single_room:
+        if single_room not in rooms_dict:
+            raise RuntimeError(
+                f"Room '{single_room}' not found. Available rooms: {len(room_names)}"
+            )
+        room_names = [single_room]
+
+    # Apply max_rooms limit
+    if max_rooms is not None and max_rooms > 0:
+        room_names = room_names[:max_rooms]
 
     seen_contents: Set[str] = set()
     rejected_tiles: List[Dict[str, Any]] = []
@@ -186,16 +210,11 @@ def run_migration(server_url: str) -> Dict[str, Any]:
     total_tiles = 0
     total_passed = 0
 
-    for room in rooms:
-        room_id = room.get("id", "<unknown>")
-        room_name = room.get("name", "<unnamed>")
-
+    for room_name in room_names:
         try:
-            tiles = fetch_tiles(server_url, room_id)
+            tiles = fetch_tiles(server_url, room_name)
         except RuntimeError as exc:
-            # Gracefully skip rooms whose tiles cannot be fetched.
             per_room_stats.append({
-                "room_id": room_id,
                 "room_name": room_name,
                 "total_tiles": 0,
                 "passed": 0,
@@ -210,30 +229,24 @@ def run_migration(server_url: str) -> Dict[str, Any]:
 
         for tile in tiles:
             if not isinstance(tile, dict):
-                # Defensive: skip non-dict entries gracefully
                 room_total -= 1
                 continue
 
-            passed, reasons, matched_words = validate_tile(tile, seen_contents)
+            passed, reasons, matched_words = validate_tile(tile, room_name, seen_contents)
             total_tiles += 1
 
             if passed:
                 total_passed += 1
                 room_passed += 1
             else:
-                total_failed = total_tiles - total_passed
                 room_failed += 1
 
-                tile_id = tile.get("id", "<no-id>")
-                tile_room_id = tile.get("room_id", room_id)
-                content = tile.get("content", "")
-                content_str = content if isinstance(content, str) else str(content)
-
-                primary_reason = reasons[0]  # Use first reason as the main one
+                answer = tile.get("answer", "")
+                content_str = answer if isinstance(answer, str) else str(answer)
+                primary_reason = reasons[0]
 
                 rejected_entry: Dict[str, Any] = {
-                    "tile_id": tile_id,
-                    "room_id": tile_room_id,
+                    "tile_domain": tile.get("domain", ""),
                     "reason": primary_reason,
                     "content_preview": _content_preview(content_str),
                 }
@@ -247,7 +260,6 @@ def run_migration(server_url: str) -> Dict[str, Any]:
                     rejection_counter[reason] += 1
 
         per_room_stats.append({
-            "room_id": room_id,
             "room_name": room_name,
             "total_tiles": room_total,
             "passed": room_passed,
@@ -262,7 +274,8 @@ def run_migration(server_url: str) -> Dict[str, Any]:
         "server": server_url,
         "timestamp": timestamp,
         "summary": {
-            "total_rooms": total_rooms,
+            "total_rooms": total_rooms_available,
+            "rooms_scanned": len(room_names),
             "total_tiles": total_tiles,
             "passed": total_passed,
             "failed": total_failed,
@@ -273,7 +286,9 @@ def run_migration(server_url: str) -> Dict[str, Any]:
             "duplicates": rejection_counter.get("duplicates", 0),
             "too_short": rejection_counter.get("too_short", 0),
             "missing_fields": rejection_counter.get("missing_fields", 0),
-            "invalid_type": rejection_counter.get("invalid_type", 0),
+            "invalid_confidence": rejection_counter.get("invalid_confidence", 0),
+            "empty_question": rejection_counter.get("empty_question", 0),
+            "domain_mismatch": rejection_counter.get("domain_mismatch", 0),
         },
         "rejected_tiles": rejected_tiles,
         "per_room": per_room_stats,
@@ -307,6 +322,18 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Optional file path to write the JSON report",
     )
+    parser.add_argument(
+        "--max-rooms",
+        type=int,
+        default=None,
+        help="Limit scanning to N rooms (default: scan all)",
+    )
+    parser.add_argument(
+        "--room",
+        type=str,
+        default=None,
+        help="Scan a specific room by name",
+    )
     return parser.parse_args()
 
 
@@ -315,7 +342,11 @@ def main() -> int:
     server_url = args.server.rstrip("/")
 
     try:
-        report = run_migration(server_url)
+        report = run_migration(
+            server_url,
+            max_rooms=args.max_rooms,
+            single_room=args.room,
+        )
     except RuntimeError as exc:
         error_report = {
             "migration": "plato_tiles",
