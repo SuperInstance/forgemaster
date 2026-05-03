@@ -10,6 +10,7 @@
 //! - Bridge context switch is atomic (no interleaving)
 
 use std::collections::HashMap;
+use std::time::{Duration, Instant};
 
 /// FLUX-X register file (R0-R15)
 pub type RegisterFile = [u64; 16];
@@ -56,6 +57,107 @@ pub enum SafeState {
     FallbackMode,
     /// Reset to bootloader
     WarmReset,
+}
+
+/// A single constraint check descriptor for batch operations
+pub struct ConstraintCheckRequest<'a> {
+    /// Opaque ID for this constraint (caller-defined)
+    pub constraint_id: u32,
+    /// FLUX-C bytecode to execute
+    pub bytecode: &'a [u8],
+    /// Gas limit override; None → use BridgeConfig::gas_limit
+    pub gas_limit_override: Option<u32>,
+}
+
+/// Outcome of a batch constraint run
+#[derive(Debug, Clone)]
+pub struct BatchResult {
+    /// Per-constraint results, in submission order
+    pub results: Vec<(u32, BridgeResult)>,
+    /// First failing constraint ID, if any
+    pub first_failure: Option<u32>,
+    /// Total gas consumed across all constraints
+    pub total_gas_used: u32,
+}
+
+impl BatchResult {
+    /// True iff every constraint passed
+    pub fn all_passed(&self) -> bool {
+        self.first_failure.is_none()
+    }
+}
+
+/// Cumulative statistics tracked across all bridge calls
+#[derive(Debug, Clone, Default)]
+pub struct BridgeStats {
+    /// Total calls to constraint_check (single or via batch)
+    pub total_calls: u64,
+    /// How many resulted in BridgeResult::Pass
+    pub pass_count: u64,
+    /// How many resulted in BridgeResult::Fail
+    pub fail_count: u64,
+    /// Cumulative gas consumed (for average calculation)
+    pub total_gas_used: u64,
+    /// Minimum single-constraint execution time observed
+    pub min_exec_time: Option<Duration>,
+    /// Maximum single-constraint execution time observed
+    pub max_exec_time: Option<Duration>,
+    /// Cumulative execution time (for average calculation)
+    pub total_exec_time: Duration,
+}
+
+impl BridgeStats {
+    /// Pass rate in [0.0, 1.0]; returns 0.0 when no calls recorded
+    pub fn pass_rate(&self) -> f64 {
+        if self.total_calls == 0 {
+            return 0.0;
+        }
+        self.pass_count as f64 / self.total_calls as f64
+    }
+
+    /// Fail rate in [0.0, 1.0]; returns 0.0 when no calls recorded
+    pub fn fail_rate(&self) -> f64 {
+        if self.total_calls == 0 {
+            return 0.0;
+        }
+        self.fail_count as f64 / self.total_calls as f64
+    }
+
+    /// Average gas consumed per constraint check; returns 0 when no calls recorded
+    pub fn avg_gas_used(&self) -> u64 {
+        if self.total_calls == 0 {
+            return 0;
+        }
+        self.total_gas_used / self.total_calls
+    }
+
+    /// Average execution time per constraint check; returns Duration::ZERO when no calls recorded
+    pub fn avg_exec_time(&self) -> Duration {
+        if self.total_calls == 0 {
+            return Duration::ZERO;
+        }
+        self.total_exec_time / self.total_calls as u32
+    }
+
+    /// Record one completed constraint check into the statistics
+    fn record(&mut self, passed: bool, gas_used: u32, elapsed: Duration) {
+        self.total_calls += 1;
+        self.total_gas_used += gas_used as u64;
+        self.total_exec_time += elapsed;
+        if passed {
+            self.pass_count += 1;
+        } else {
+            self.fail_count += 1;
+        }
+        self.min_exec_time = Some(match self.min_exec_time {
+            None => elapsed,
+            Some(prev) => prev.min(elapsed),
+        });
+        self.max_exec_time = Some(match self.max_exec_time {
+            None => elapsed,
+            Some(prev) => prev.max(elapsed),
+        });
+    }
 }
 
 /// Bridge configuration
@@ -121,6 +223,8 @@ pub struct FluxBridge {
     active: bool,
     /// Lock bit — once set, bridge cannot be bypassed
     locked: bool,
+    /// Running statistics across all constraint checks
+    pub stats: BridgeStats,
 }
 
 impl FluxBridge {
@@ -130,6 +234,7 @@ impl FluxBridge {
             audit_trail: Vec::new(),
             active: false,
             locked: true, // Bridge is locked by default
+            stats: BridgeStats::default(),
         }
     }
 
@@ -178,11 +283,18 @@ impl FluxBridge {
         }
 
         // Step 3: Execute FLUX-C bytecode (simplified — real impl uses flux_vm crate)
+        let t0 = Instant::now();
         let result = self.execute_flux_c(flux_c_bytecode, &mut stack);
+        let elapsed = t0.elapsed();
 
-        // Step 4: Handle result
+        // Approximate gas used: gas_limit minus remaining (execute_flux_c doesn't return it
+        // directly yet, so we track at the call-site level with full limit as upper bound).
+        let gas_used = self.config.gas_limit;
+
+        // Step 4: Handle result and record stats
         match result {
             BridgeResult::Pass => {
+                self.stats.record(true, gas_used, elapsed);
                 self.active = false;
                 if self.config.audit_log {
                     self.audit_trail.push(context);
@@ -190,12 +302,14 @@ impl FluxBridge {
                 BridgeResult::Pass
             }
             BridgeResult::Fail(fault) => {
+                self.stats.record(false, gas_used, elapsed);
+
                 // Transition to safe state
                 let safe_state = self.config.fault_safe_states
                     .get(&fault)
                     .copied()
                     .unwrap_or(SafeState::HaltAndClockGate);
-                
+
                 self.safe_state_transition(safe_state, fault);
 
                 if self.config.audit_log {
@@ -208,6 +322,139 @@ impl FluxBridge {
                 BridgeResult::Fail(fault)
             }
         }
+    }
+
+    /// Execute multiple constraint checks in sequence.
+    ///
+    /// Stops at the first failure (fail-fast), matching the TrustZone model where a single
+    /// fault puts FLUX-X into safe state — continuing further checks would be unsound.
+    ///
+    /// Returns a `BatchResult` with per-constraint outcomes and aggregate gas usage.
+    pub fn batch_constraint_check(
+        &mut self,
+        registers: &RegisterFile,
+        pc: u64,
+        requests: &[ConstraintCheckRequest<'_>],
+    ) -> BatchResult {
+        let mut results = Vec::with_capacity(requests.len());
+        let mut total_gas_used: u32 = 0;
+        let mut first_failure: Option<u32> = None;
+
+        for req in requests {
+            // Temporarily override gas limit if the request specifies one
+            let original_gas = self.config.gas_limit;
+            if let Some(limit) = req.gas_limit_override {
+                self.config.gas_limit = limit;
+            }
+
+            let outcome = self.constraint_check(registers, pc, req.constraint_id, req.bytecode);
+
+            // Restore gas limit after each check
+            self.config.gas_limit = original_gas;
+            total_gas_used = total_gas_used.saturating_add(self.config.gas_limit);
+
+            let passed = outcome == BridgeResult::Pass;
+            results.push((req.constraint_id, outcome));
+
+            if !passed {
+                first_failure = Some(req.constraint_id);
+                break; // Fail-fast: one fault → safe state already entered
+            }
+        }
+
+        BatchResult { results, first_failure, total_gas_used }
+    }
+
+    /// Return SymbiYosys-compatible formal verification hints for this bridge.
+    ///
+    /// Each string is a valid SystemVerilog/SVA `assert` or `assume` statement that
+    /// captures the key safety properties of the bridge protocol. Feed these into a
+    /// `.sby` file under the `[script]` section alongside your RTL.
+    ///
+    /// Properties encoded:
+    /// - `locked` is an invariant — the bridge can never be unlocked at runtime
+    /// - Reentrancy is impossible — `active` is false whenever `constraint_check` is called
+    /// - All register-to-stack mappings are in-range
+    /// - Safe-state is always reached on fault (liveness)
+    pub fn formal_verification_hints(&self) -> Vec<String> {
+        let mut hints = Vec::new();
+
+        // ── Invariants (assert: must hold in all reachable states) ──────────────
+
+        hints.push(
+            "// Bridge lock invariant: locked bit is set at reset and never cleared\n\
+             assert property (@(posedge clk) bridge_locked === 1'b1);"
+                .to_string(),
+        );
+
+        hints.push(
+            "// No reentrancy: bridge cannot be entered while already active\n\
+             assert property (@(posedge clk) bridge_active |-> !constraint_check_req);"
+                .to_string(),
+        );
+
+        hints.push(
+            "// Context atomicity: FLUX-X registers are frozen during FLUX-C execution\n\
+             assert property (@(posedge clk) bridge_active |-> $stable(flux_x_registers));"
+                .to_string(),
+        );
+
+        // ── Register map bounds (one assertion per mapped register) ─────────────
+
+        for (&reg, &pos) in &self.config.register_map {
+            hints.push(format!(
+                "// Register R{reg} maps to stack[{pos}] — both must be in range\n\
+                 assert property (@(posedge clk) reg_idx === {reg} |-> stack_pos === {pos} && stack_pos < {STACK_SIZE});"
+            ));
+        }
+
+        // ── Liveness: fault must reach safe state within bounded cycles ──────────
+
+        for (fault, state) in &self.config.fault_safe_states {
+            let state_signal = match state {
+                SafeState::HaltAndClockGate => "safe_halt_clkgate",
+                SafeState::FallbackMode     => "safe_fallback_mode",
+                SafeState::WarmReset        => "safe_warm_reset",
+            };
+            let fault_signal = match fault {
+                FaultCode::RangeViolation      => "fault_range",
+                FaultCode::WhitelistViolation  => "fault_whitelist",
+                FaultCode::BitmaskViolation    => "fault_bitmask",
+                FaultCode::ThermalExceeded     => "fault_thermal",
+                FaultCode::SparsityInsufficient => "fault_sparsity",
+                FaultCode::AssertFailed        => "fault_assert",
+                FaultCode::GasExhausted        => "fault_gas",
+                FaultCode::StackCorruption     => "fault_stack",
+            };
+            hints.push(format!(
+                "// Liveness: {fault_signal} must trigger {state_signal} within 4 cycles\n\
+                 assert property (@(posedge clk) {fault_signal} |-> ##[1:4] {state_signal});"
+            ));
+        }
+
+        // ── Gas bound: FLUX-C execution terminates ───────────────────────────────
+
+        hints.push(format!(
+            "// Termination: gas counter reaches zero within gas_limit={} cycles\n\
+             assert property (@(posedge clk) bridge_active |-> ##[0:{}] !bridge_active);",
+            self.config.gas_limit, self.config.gas_limit
+        ));
+
+        // ── Assume: environment constraints for bounded model checking ───────────
+
+        hints.push(
+            "// Assume: FLUX-C bytecode length is bounded (prevents state explosion)\n\
+             assume property (@(posedge clk) bytecode_len <= 256);"
+                .to_string(),
+        );
+
+        hints.push(
+            "// Assume: FLUX-X only drives constraint_check when not in safe state\n\
+             assume property (@(posedge clk) safe_halt_clkgate |-> !constraint_check_req);"
+                .to_string(),
+        );
+
+        hints
     }
 
     /// Execute FLUX-C bytecode on the constraint VM
