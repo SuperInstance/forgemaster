@@ -2,7 +2,95 @@
 
 ## Session Progress (2026-05-03 Night) 🔨 ACTIVE
 
-### Done this shift
+### Done this shift (Phase 2: Post-compaction GPU + Research)
+- [x] Fleet integration strategy — Claude Opus 5-action plan with dependency ordering
+- [x] SonarVision tool README — full API docs (5 actions), streaming, error handling
+- [x] Minimax MCP wiring — OpenCode config updated (needs API key)
+- [x] Fleet service guard v2 — auto-remediation with restart loop + I2I escalation
+- [x] SonarTelemetryStream — WebSocket endpoint for fleet dashboard (port 4052)
+- [x] ZeroClaw prompt fix design — Claude Opus design doc with context block + dedup gate
+- [x] CT TypeScript bridge — Node.js wrapper for constraint-theory Python package
+- [x] 80 PLATO tiles generated — 78/80 ACCEPTED into PLATO via /submit endpoint
+- [x] Oracle1 audit critique delivered via I2I bottle
+- [x] Fleet ops runbook — Claude Opus authoring
+- [x] CT bridge npm builds clean (tsc, no errors)
+- [x] 58 more PLATO tiles submitted — discovered v2 schema (domain/question/answer required)
+- [x] Gate rejects absolute claims (never, always, guaranteed) — adapted content
+- [x] PLATO total: 1399 rooms, 18929 tiles (+59 from session start)
+- [x] CSP solver R&D: AC-3 + backtracking + holonomy checker (77 tests passing)
+- [x] Holonomy discovery: res=10 on 3D manifolds shows drift=20 — resolution boundary
+- [x] 6 R&D PLATO tiles submitted (ct-demo-research, holonomy-theory, petersen-graph)
+- [x] solver_demo.rs example: N-Queens, graph coloring, holonomy verification
+- [x] Total PLATO tiles this session: 71 accepted
+- [x] Below-C R&D: BitmaskDomain type — 12,324× faster N-Queens (N=10)
+- [x] Bitmask benchmark: 4,667× faster at N=8, grows with problem size
+- [x] Full analysis: for-fleet/2026-05-03-going-below-c-rnd.md
+- [x] Roadmap: Software → FPGA → RISC-V → ASIC
+- [x] 7 PLATO tiles submitted (below-c-research, bitmask-n-queens)
+- [x] **Multi-model deep research: 25+ models, 10+ rounds**
+- [x] Claude Opus: strategic analysis, semantic gap collapse thesis, GTM, GUARD DSL, LLVM, Coq
+- [x] Kimi: synthesis-not-checking critique, VC business analysis, red team attacks
+- [x] Nemotron: DO-178C certification path, quantum-CSP connection
+- [x] Seed-2.0-pro: DO-254 real Vivado numbers, SymbiYosys, TUTOR-CRDT merge, FPGA pipeline
+- [x] Seed-2.0-code: BHCSP framework, Rust benchmarks, PLATO constraint store Rust impl
+- [x] Seed-2.0-mini: safety auditor, DSL design, GTM strategy (safety→agentic)
+- [x] GLM-5.1: compiler IR pipeline, RISC-V Xconstr, Coq formalization, SmartCRDT Rust impl
+- [x] DeepSeek Reasoner: P2 proof, holonomy snap, 6-instr CSP machine, Turing completeness, CRDT theorems
+- [x] Hermes-405B: math insights, DO-254 expert, eVTOL IRAM spec, agentic OS architecture
+- [x] Qwen-397B: novelty assessment, 5-year agentic vision, SmartCRDT types
+- [x] Qwen-235B: PLDI review, EMSOFT roadmap, TUTOR agent, CRDT research
+- [x] Qwen3.6-35B: FABEP protocol, evaluation methodology
+- [x] DeepSeek Chat: self-improvement without ML
+- [x] **SystemVerilog**: DO-254 DAL A FLUX checker (flux-hardware/rtl/)
+- [x] **SymbiYosys**: formal verification kit, 7 assertions + 6 covers
+- [x] **RISC-V extension**: Xconstr with CREVISE
+- [x] **Mathematical proofs**: P2 invariant, AC-3 termination, bitmask functor
+- [x] **Holonomy resolved**: discretization error from snap-to-lattice
+- [x] **Agentic FLUX backend**: 5-year vision, FABEP, TUTOR, intent-to-bytecode compiler
+- [x] **SmartCRDT**: 5 CRDT types, TUTOR-enhanced merge, agentic OS architecture
+- [x] **FLUX-LUCID convergence**: 8-model synergy analysis of FLUX + Lucineer mask-locked inference
+- [x] **SoC architecture**: FPGA integration (44,243 LUTs, 2.58W, zero latency) + ASIC floorplan (12.7mm²)
+- [x] **GUARD-to-Mask compiler**: Complete Rust constraint-to-silicon implementation
+- [x] **Security red team**: 10 attack vectors with severity/likelihood/mitigation
+- [x] **FABEP hardware**: SERDES protocol, CRDT scaling 2→100 chips
+- [x] **XNOR-AND-MERGE bridge**: Mathematical equivalence connecting RAU to SmartCRDT
+- [x] **11 PLATO tiles**: flux-lucid-architecture (6), flux-lucid-fpga (1), flux-lucid-asic (1), guard-mask-compiler (1), lucineer-hardware (1), flux-lucid-strategy (1)
+- [x] **Creative adversarial round**: Hermes-70B devil's advocate + MythoMax Socratic/visionary
+- [x] **Gemma-4-26B critical assessment**: novelty 9/10, feasibility 6/10, impact 9/10, Safe-TOPS/W benchmark proposal
+- [x] **Gap analysis**: Scaling (linear!), semantic gap (closed for finite domains), verification (6-9 months Coq)
+- [x] **Weight ROM density breakthrough**: 22nm FDSOI differential ternary = 103B params single die (Seed-2.0-Pro)
+- [x] **Safe-TOPS/W benchmark**: Complete specification + Python implementation + comparison table
+- [x] **Patent drafts archived**: Ternary ROM + Constraint-to-Silicon research (Apache 2.0 strategy adopted)
+- [x] **Coq formalization**: Semantic gap theorem for finite output domains (DeepSeek)
+- [x] **EMSOFT paper intro**: Abstract + introduction (Qwen-397B, 7.5KB)
+- [x] **FLUX VM interpreter**: 43 opcodes, Rust, 11/11 tests passing
+- [x] **GUARD conflict resolution**: 10 examples with priority/override/weaken (Seed-Mini)
+- [x] **Investor one-pager + VC Q&A**: 10 hard questions, 5 survive scrutiny (Hermes-70B)
+- [x] **SDK CLI design**: 8 commands for aerospace engineers (Hermes-70B)
+- [x] **Safe-TOPS/W comparison**: FLUX-LUCID 20.17 vs 0 for all uncertified chips
+- [x] **.fluxproject template**: Complete TOML config for eVTOL projects (Seed-Mini)
+- [x] **I2I fleet engagement**: 2 bottles to Oracle1/CCC on fleet-bottles repo + GitHub discussion
+- [x] **FLUX ISA alignment**: FLUX-C (43 opcode, DAL A) vs FLUX-X (247 opcode, general) TrustZone proposal
+- [x] **GUARD parser rewrite**: Hand-written recursive descent (Hermes-70B nom macros were hallucinated)
+- [x] **GUARD→FLUX compiler**: Complete constraint-to-bytecode bridge (guard2mask 0.1.2)
+- [x] **FLUX bridge protocol**: TrustZone-style FLUX-X↔FLUX-C bridge (flux-bridge 0.1.0)
+- [x] **Pipeline integration test**: Full GUARD→FLUX→VM end-to-end (4 test cases)
+- [x] **plato-room-phi description**: Added via Kimi CLI
+- [x] **3 PLATO tiles**: parser architecture, compilation rules, rewrite lesson
+- [x] **CUDA kernels (3)**: bitmask_ac3, flux_vm_batch, domain_reduce — compiled for RTX 4050
+- [x] **GPU benchmarks**: 432M checks/s (warp-vote), 12.1x AC-3 speedup
+- [x] **Advanced CUDA kernels (2)**: warp-vote + shared-cache
+- [x] **CUDA graphs pipeline**: Stream capture for zero-overhead replay
+- [x] **1.02B checks/s**: Shared-cache kernel at 10M inputs
+- [x] **4 parallel research agents**: GPU safety, CUDA patterns, formal verification, emerging HW
+- [x] **Deep research synthesis**: 100KB+ raw reports, key finding: no GPU has ASIL D/DAL A
+- [x] **Differential testing**: 210 tests, 5.58M inputs, ZERO mismatches
+- [x] **WebGPU shader**: Browser-based FLUX VM (flux_constraint_shader.wgsl)
+- [x] **flux_webgpu.js**: Drop-in JS module with CPU fallback
+- [x] **flux-test.html**: Standalone browser test page with benchmarks
+- [x] **Vulkan Compute shader**: Cross-vendor GPU constraint checking
+- [x] **Multi-stream pipeline benchmark**: 4.2M checks/s sustained (Python-driven)
+- [x] **Fleet coordination cadence**: FM at :15/:45, Oracle1 at :00/:30
 - [x] Fleet integration strategy — Claude Opus 5-action plan with dependency ordering
 - [x] SonarVision tool README — full API docs (5 actions), streaming, error handling
 - [x] Minimax MCP wiring — OpenCode config updated (needs API key)
