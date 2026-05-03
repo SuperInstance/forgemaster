@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "cocapn"
+name = "cocapn-plato"
 version = "0.1.0"
-description = "Python client library for the PLATO knowledge server"
+description = "PLATO knowledge server client — sync/async Python client with quality-gated tile submission"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
@@ -37,8 +37,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/cocapn/plato-client"
-Issues = "https://github.com/cocapn/plato-client/issues"
+Homepage = "https://github.com/SuperInstance/forgemaster"
+Issues = "https://github.com/SuperInstance/forgemaster/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/cocapn"]
