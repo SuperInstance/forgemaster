@@ -353,3 +353,64 @@ mod tests {
         assert_eq!(node.max_severity(), Severity::Hard);
     }
 }
+
+// === Temporal Extensions (v3.0) ===
+
+/// Temporal failure mode — not every failure is a catastrophe
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum TemporalFault {
+    Timeout,         // Deadline exceeded
+    WatchExpired,    // Watched signal didn't change in time
+    StaleValue,      // Value received but too old
+    DriftExceeded,   // Signal drifting beyond threshold
+}
+
+/// Checkpoint for state reversion
+#[derive(Debug, Clone, PartialEq)]
+pub struct Checkpoint {
+    pub id: u8,
+    pub cycle_created: u32,
+    pub description: String,
+}
+
+/// Temporal constraint: enforce with deadline and fallback
+#[derive(Debug, Clone, PartialEq)]
+pub struct TemporalBoundNode {
+    pub inner: BoundNode,
+    pub deadline_cycles: u32,
+    pub on_timeout: Box<ConstraintNode>,  // fallback constraint
+}
+
+/// Temporal delegate: delegate with timeout and revert semantics
+#[derive(Debug, Clone, PartialEq)]
+pub struct TemporalDelegateNode {
+    pub source_agent: String,
+    pub target_agent: String,
+    pub constraint: Box<ConstraintNode>,
+    pub protocol: DelegateProtocol,
+    pub deadline_cycles: u32,
+    pub on_timeout: Box<ConstraintNode>,  // degraded mode
+}
+
+/// Drift monitor: detect constraint violations BEFORE they happen
+#[derive(Debug, Clone, PartialEq)]
+pub struct DriftMonitorNode {
+    pub signal: SignalRef,
+    pub checkpoint: String,          // named checkpoint reference
+    pub warning_threshold: Value,     // switch to degraded mode
+    pub violation_threshold: Value,   // hard fault
+    pub severity: Severity,
+}
+
+impl ConstraintNode {
+    /// Check if this node has temporal semantics (deadlines, checkpoints, watches)
+    pub fn has_temporal(&self) -> bool {
+        match self {
+            ConstraintNode::Delegate(d) => matches!(d.protocol, DelegateProtocol::Async | DelegateProtocol::CoIterate),
+            ConstraintNode::And(cs) | ConstraintNode::Or(cs) => cs.iter().any(|c| c.has_temporal()),
+            ConstraintNode::Not(c) => c.has_temporal(),
+            ConstraintNode::Implies(a, b) => a.has_temporal() || b.has_temporal(),
+            _ => false,
+        }
+    }
+}
