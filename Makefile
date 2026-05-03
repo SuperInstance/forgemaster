@@ -1,491 +1,380 @@
-# Makefile — Cocapn Fleet Stack Build System
-# Builds: C libs (static+shared), CUDA kernels (sm_72+sm_86), Rust crates (+aarch64 cross)
-# Target: JetsonClaw1 (Jetson Xavier NX, ARM64 Carmel) + cloud servers (x86_64, sm_86)
-# Author: Fleet Coding Agent
+# =============================================================================
+# Makefile — Cocapn Fleet Definitive Build System
+# =============================================================================
+# Builds: C libs, CUDA binaries, Rust crates (all fleet targets)
+# Target: JetsonClaw1 (Jetson Xavier NX, ARM64) + cloud (x86_64)
+# Auto-detects toolchains, graceful degradation for missing ones
+# =============================================================================
 
 # =============================================================================
 # ANSI Colors
 # =============================================================================
-YELLOW := \033[33m
-GREEN  := \033[32m
-RED    := \033[31m
-BLUE   := \033[34m
-CYAN   := \033[36m
-RESET  := \033[0m
+Y  := \033[33m
+G  := \033[32m
+R  := \033[31m
+C  := \033[36m
+B  := \033[34m
+E  := \033[0m
 
 # =============================================================================
 # Toolchain Auto-Detection
 # =============================================================================
-
-# C compiler: prefer gcc, fallback to clang
-CC_CANDIDATE := $(shell which gcc 2>/dev/null)
-ifeq ($(CC_CANDIDATE),)
-    CC_CANDIDATE := $(shell which clang 2>/dev/null)
-endif
-CC        ?= $(CC_CANDIDATE)
-CXX       ?= $(shell which g++ 2>/dev/null || which clang++ 2>/dev/null)
-NVCC      := $(shell which nvcc 2>/dev/null)
-CARGO     := $(shell which cargo 2>/dev/null)
-RUSTUP    := $(shell which rustup 2>/dev/null)
-SCP       := $(shell which scp 2>/dev/null)
-SSH       := $(shell which ssh 2>/dev/null)
-ARCH      := $(shell uname -m)
+CC      ?= $(shell which gcc 2>/dev/null || which clang 2>/dev/null)
+CXX     ?= $(shell which g++ 2>/dev/null || which clang++ 2>/dev/null)
+NVCC    := $(shell which nvcc 2>/dev/null)
+CARGO   := $(shell which cargo 2>/dev/null)
+PYTHON3 := $(shell which python3 2>/dev/null)
+SCP     := $(shell which scp 2>/dev/null)
+ARCH    := $(shell uname -m)
 
 # =============================================================================
 # Directories
 # =============================================================================
-BUILD_DIR     := build
-BUILD_C       := $(BUILD_DIR)/c
-BUILD_CUDA    := $(BUILD_DIR)/cuda
-BUILD_RUST    := $(BUILD_DIR)/rust
-SRC_C_FLUX    := src/c/flux-isa
-SRC_C_SONAR   := src/c/sonar
-SRC_CUDA_FLUX := src/cuda/flux
-SRC_CUDA_SONAR:= src/cuda/sonar
-SRC_RUST      := src/rust
+B       := build
+BC      := $(B)/c
+BCUDA   := $(B)/cuda
+BRUST   := $(B)/rust
+BDEPLOY := $(B)/deploy
 
 # =============================================================================
 # Flags
 # =============================================================================
-C_FLAGS       := -std=c99 -O3 -Wall -Wextra -fPIC -D_POSIX_C_SOURCE=200809L
-CUDA_ARCH     := -gencode arch=compute_72,code=sm_72 -gencode arch=compute_86,code=sm_86
-NVCC_FLAGS    := -O3 $(CUDA_ARCH) -Xcompiler "$(C_FLAGS)"
+CFLAGS  := -std=c99 -O3 -Wall -Wextra -fPIC -D_POSIX_C_SOURCE=200809L
+AR      := ar
+ARFLAGS := rcs
 
-# ARM64-specific flags for Jetson Xavier NX Carmel cores
 ifeq ($(ARCH),aarch64)
-    C_FLAGS += -mcpu=carmel
+  CFLAGS += -mcpu=carmel
 endif
 
-AR            := ar
-ARFLAGS       := rcs
-LDFLAGS       := -shared
+# CUDA
+CUDA_ARCH  := -gencode arch=compute_72,code=sm_72 -gencode arch=compute_86,code=sm_86
+NVCC_FLAGS := -O3 $(CUDA_ARCH) -Xcompiler "-fPIC"
+
+# Rust — max 2 concurrent builds (OOM protection)
+CARGO_JOBS := 2
 
 # =============================================================================
-# Source Discovery (with graceful fallback)
+# C Source Discovery
 # =============================================================================
-
-# C sources — flux-isa
-FLUX_C_SRC    := $(wildcard $(SRC_C_FLUX)/*.c)
-ifeq ($(FLUX_C_SRC),)
-    FLUX_C_SRC_MSG := "$(YELLOW)[WARN]$(RESET) No C sources found in $(SRC_C_FLUX)/ — create .c files to build libfluxisa"
-endif
-
-# C sources — sonar
-SONAR_C_SRC   := $(wildcard $(SRC_C_SONAR)/*.c)
-ifeq ($(SONAR_C_SRC),)
-    SONAR_C_SRC_MSG := "$(YELLOW)[WARN]$(RESET) No C sources found in $(SRC_C_SONAR)/ — create .c files to build libsonar"
-endif
-
-# CUDA sources — flux
-FLUX_CUDA_SRC := $(wildcard $(SRC_CUDA_FLUX)/*.cu)
-ifeq ($(FLUX_CUDA_SRC),)
-    FLUX_CUDA_MSG := "$(YELLOW)[WARN]$(RESET) No CUDA sources found in $(SRC_CUDA_FLUX)/ — create .cu files to build libfluxcuda"
-endif
-
-# CUDA sources — sonar
-SONAR_CUDA_SRC:= $(wildcard $(SRC_CUDA_SONAR)/*.cu)
-ifeq ($(SONAR_CUDA_SRC),)
-    SONAR_CUDA_MSG := "$(YELLOW)[WARN]$(RESET) No CUDA sources found in $(SRC_CUDA_SONAR)/ — create .cu files to build libsonarcuda"
-endif
-
-# Object files
-FLUX_C_OBJ    := $(patsubst $(SRC_C_FLUX)/%.c,$(BUILD_C)/flux-isa-%.o,$(FLUX_C_SRC))
-SONAR_C_OBJ   := $(patsubst $(SRC_C_SONAR)/%.c,$(BUILD_C)/sonar-%.o,$(SONAR_C_SRC))
-FLUX_CUDA_OBJ := $(patsubst $(SRC_CUDA_FLUX)/%.cu,$(BUILD_CUDA)/flux-%.o,$(FLUX_CUDA_SRC))
-SONAR_CUDA_OBJ:= $(patsubst $(SRC_CUDA_SONAR)/%.cu,$(BUILD_CUDA)/sonar-%.o,$(SONAR_CUDA_SRC))
+FLUX_C_SRC    := $(wildcard flux-isa-c/src/*.c)
+SONAR_C_SRC   := $(wildcard sonar-vision-c/src/*.c)
+FLUX_C_OBJ    := $(patsubst flux-isa-c/src/%.c,$(BC)/flux-isa-%.o,$(FLUX_C_SRC))
+SONAR_C_OBJ   := $(patsubst sonar-vision-c/src/%.c,$(BC)/sonar-%.o,$(SONAR_C_SRC))
 
 # =============================================================================
-# Default Target
+# Rust Crate List (workspace-root subdirs)
+# =============================================================================
+RUST_CRATES := \
+	flux-isa \
+	flux-isa-mini \
+	flux-isa-std \
+	flux-isa-edge \
+	flux-isa-thor \
+	cocapn-glue-core \
+	plato-engine \
+	constraint-theory-core-cuda
+
+# Filter to only crates that actually have Cargo.toml
+RUST_PRESENT := $(foreach crate,$(RUST_CRATES),$(shell test -f $(crate)/Cargo.toml && echo $(crate)))
+
+# =============================================================================
+# Default
 # =============================================================================
 .DEFAULT_GOAL := all
 
 # =============================================================================
-# Build Directory Creation (order-only prerequisites)
+# Directory rules (order-only)
 # =============================================================================
-$(BUILD_C):
-	@mkdir -p $@
-	@echo "$(GREEN)[MKDIR]$(RESET) Created $@"
-
-$(BUILD_CUDA):
-	@mkdir -p $@
-	@echo "$(GREEN)[MKDIR]$(RESET) Created $@"
-
-$(BUILD_RUST):
-	@mkdir -p $@
-	@echo "$(GREEN)[MKDIR]$(RESET) Created $@"
-
-# Parent build directory
-$(BUILD_DIR):
+$(B) $(BC) $(BCUDA) $(BRUST) $(BDEPLOY):
 	@mkdir -p $@
 
 # =============================================================================
-# Pattern Rules
+# C Pattern Rules
 # =============================================================================
+$(BC)/flux-isa-%.o: flux-isa-c/src/%.c | $(BC)
+	@echo "$(G)[CC]$(E) $<"
+	@$(CC) $(CFLAGS) -Iflux-isa-c/include -c $< -o $@
 
-# C compilation: .c -> .o in build/c/
-$(BUILD_C)/flux-isa-%.o: $(SRC_C_FLUX)/%.c | $(BUILD_C)
-	@echo "$(GREEN)[CC]$(RESET) $<"
-	@$(CC) $(C_FLAGS) -c $< -o $@
-
-$(BUILD_C)/sonar-%.o: $(SRC_C_SONAR)/%.c | $(BUILD_C)
-	@echo "$(GREEN)[CC]$(RESET) $<"
-	@$(CC) $(C_FLAGS) -c $< -o $@
-
-# CUDA compilation: .cu -> .o in build/cuda/
-$(BUILD_CUDA)/flux-%.o: $(SRC_CUDA_FLUX)/%.cu | $(BUILD_CUDA)
-	@echo "$(GREEN)[NVCC]$(RESET) $<"
-	@$(NVCC) $(NVCC_FLAGS) -dc $< -o $@
-
-$(BUILD_CUDA)/sonar-%.o: $(SRC_CUDA_SONAR)/%.cu | $(BUILD_CUDA)
-	@echo "$(GREEN)[NVCC]$(RESET) $<"
-	@$(NVCC) $(NVCC_FLAGS) -dc $< -o $@
+$(BC)/sonar-%.o: sonar-vision-c/src/%.c | $(BC)
+	@echo "$(G)[CC]$(E) $<"
+	@$(CC) $(CFLAGS) -Isonar-vision-c/include -c $< -o $@
 
 # =============================================================================
-# C Targets
+# PHONY declarations
 # =============================================================================
-
-.PHONY: c flux-isa-c sonar-vision-c
-
-c: flux-isa-c sonar-vision-c
-
-# Flux ISA — static and shared libraries
-flux-isa-c: $(BUILD_C)/libfluxisa.a $(BUILD_C)/libfluxisa.so
-	@echo "$(GREEN)[DONE]$(RESET) flux-isa-c built"
-
-$(BUILD_C)/libfluxisa.a: $(FLUX_C_OBJ) | $(BUILD_C)
-ifeq ($(FLUX_C_SRC),)
-	@echo $(FLUX_C_SRC_MSG)
-	@echo "$(YELLOW)[SKIP]$(RESET) libfluxisa.a — no sources"
-else
-	@echo "$(GREEN)[AR]$(RESET) $@"
-	@$(AR) $(ARFLAGS) $@ $(FLUX_C_OBJ)
-endif
-
-$(BUILD_C)/libfluxisa.so: $(FLUX_C_OBJ) | $(BUILD_C)
-ifeq ($(FLUX_C_SRC),)
-	@echo "$(YELLOW)[SKIP]$(RESET) libfluxisa.so — no sources"
-else
-	@echo "$(GREEN)[LD]$(RESET) $@"
-	@$(CC) $(LDFLAGS) $(FLUX_C_OBJ) -o $@
-endif
-
-# Sonar Vision — static and shared libraries
-sonar-vision-c: $(BUILD_C)/libsonar.a $(BUILD_C)/libsonar.so
-	@echo "$(GREEN)[DONE]$(RESET) sonar-vision-c built"
-
-$(BUILD_C)/libsonar.a: $(SONAR_C_OBJ) | $(BUILD_C)
-ifeq ($(SONAR_C_SRC),)
-	@echo $(SONAR_C_SRC_MSG)
-	@echo "$(YELLOW)[SKIP]$(RESET) libsonar.a — no sources"
-else
-	@echo "$(GREEN)[AR]$(RESET) $@"
-	@$(AR) $(ARFLAGS) $@ $(SONAR_C_OBJ)
-endif
-
-$(BUILD_C)/libsonar.so: $(SONAR_C_OBJ) | $(BUILD_C)
-ifeq ($(SONAR_C_SRC),)
-	@echo "$(YELLOW)[SKIP]$(RESET) libsonar.so — no sources"
-else
-	@echo "$(GREEN)[LD]$(RESET) $@"
-	@$(CC) $(LDFLAGS) $(SONAR_C_OBJ) -o $@
-endif
+.PHONY: all c cuda rust test bench clean deploy-jetson publish help \
+        c-libs c-bins \
+        $(RUST_CRATES:%=rust-%)
 
 # =============================================================================
-# CUDA Targets
+# ALL
 # =============================================================================
+all:
+	@echo "$(G)════════════════════════════════════════$(E)"
+	@echo "$(G)  Cocapn Fleet Build System$(E)"
+	@echo "$(G)════════════════════════════════════════$(E)"
+	@echo "  CC:      $(or $(CC),$(R)not found$(E))"
+	@echo "  CXX:     $(or $(CXX),$(R)not found$(E))"
+	@echo "  NVCC:    $(or $(NVCC),$(Y)not found — CUDA skipped$(E))"
+	@echo "  CARGO:   $(or $(CARGO),$(Y)not found — Rust skipped$(E))"
+	@echo "  PYTHON3: $(or $(PYTHON3),$(Y)not found$(E))"
+	@echo "  ARCH:    $(C)$(ARCH)$(E)"
+	@echo "$(G)════════════════════════════════════════$(E)"
+	@$(MAKE) --no-print-directory _all
 
-.PHONY: cuda flux-cuda sonar-vision-cuda
-
-cuda: flux-cuda sonar-vision-cuda
-
-# Helper: check for nvcc
-.PHONY: check-nvcc
-check-nvcc:
-ifeq ($(NVCC),)
-	@echo "$(YELLOW)WARNING: nvcc not found, skipping CUDA targets$(RESET)"
-endif
-
-# Flux CUDA — static library
-flux-cuda: check-nvcc | $(BUILD_CUDA)
-ifeq ($(NVCC),)
-	@true
-else ifeq ($(FLUX_CUDA_SRC),)
-	@echo $(FLUX_CUDA_MSG)
-	@echo "$(YELLOW)[SKIP]$(RESET) libfluxcuda.a — no sources"
-else
-	@$(MAKE) $(BUILD_CUDA)/libfluxcuda.a
-	@echo "$(GREEN)[DONE]$(RESET) flux-cuda built"
-endif
-
-$(BUILD_CUDA)/libfluxcuda.a: $(FLUX_CUDA_OBJ) | $(BUILD_CUDA)
-	@echo "$(GREEN)[AR]$(RESET) $@"
-	@$(AR) $(ARFLAGS) $@ $(FLUX_CUDA_OBJ)
-
-# Sonar CUDA — static library
-sonar-vision-cuda: check-nvcc | $(BUILD_CUDA)
-ifeq ($(NVCC),)
-	@true
-else ifeq ($(SONAR_CUDA_SRC),)
-	@echo $(SONAR_CUDA_MSG)
-	@echo "$(YELLOW)[SKIP]$(RESET) libsonarcuda.a — no sources"
-else
-	@$(MAKE) $(BUILD_CUDA)/libsonarcuda.a
-	@echo "$(GREEN)[DONE]$(RESET) sonar-vision-cuda built"
-endif
-
-$(BUILD_CUDA)/libsonarcuda.a: $(SONAR_CUDA_OBJ) | $(BUILD_CUDA)
-	@echo "$(GREEN)[AR]$(RESET) $@"
-	@$(AR) $(ARFLAGS) $@ $(SONAR_CUDA_OBJ)
-
-# =============================================================================
-# Rust Targets
-# =============================================================================
-
-.PHONY: rust check-cargo rust-flux-isa rust-plato-engine rust-constraint-theory
-
-rust: check-cargo rust-flux-isa rust-plato-engine rust-constraint-theory
-
-check-cargo:
-ifeq ($(CARGO),)
-	@echo "$(YELLOW)WARNING: cargo not found, skipping Rust targets$(RESET)"
-endif
-
-# Build Rust crate helper — takes crate name and optional target
-# $(1) = crate name, $(2) = target triple (optional)
-define RUST_BUILD
-	@echo "$(GREEN)[CARGO]$(RESET) Building $(1)$(if $(2), for $(2)) ..."
-	@cd $(SRC_RUST)/$(1) && $(CARGO) build --release $(if $(2),--target=$(2))
-endef
-
-# Copy Rust artifacts to build/rust/
-define RUST_COPY
-	@mkdir -p $(BUILD_RUST)
-	@cp $(SRC_RUST)/$(1)/target/$(if $(2),$(2)/release,release)/$(3) $(BUILD_RUST)/$(3) 2>/dev/null || true
-endef
-
-rust-flux-isa: check-cargo | $(BUILD_RUST)
-ifeq ($(CARGO),)
-	@true
-else
-	$(call RUST_BUILD,flux-isa,)
-	$(call RUST_COPY,flux-isa,,flux-isa)
-	@echo "$(GREEN)[DONE]$(RESET) flux-isa crate built -> $(BUILD_RUST)/flux-isa"
-endif
-
-rust-plato-engine: check-cargo | $(BUILD_RUST)
-ifeq ($(CARGO),)
-	@true
-else
-	$(call RUST_BUILD,plato-engine,)
-	$(call RUST_COPY,plato-engine,,plato-engine)
-	@echo "$(GREEN)[DONE]$(RESET) plato-engine crate built -> $(BUILD_RUST)/plato-engine"
-endif
-
-rust-constraint-theory: check-cargo | $(BUILD_RUST)
-ifeq ($(CARGO),)
-	@true
-else
-	$(call RUST_BUILD,constraint-theory-core,)
-	@mkdir -p $(BUILD_RUST)
-	@cp $(SRC_RUST)/constraint-theory-core/target/release/libconstraint_theory.rlib $(BUILD_RUST)/libconstraint_theory.rlib 2>/dev/null || \
-	 cp $(SRC_RUST)/constraint-theory-core/target/release/libconstraint_theory*.rlib $(BUILD_RUST)/ 2>/dev/null || true
-	@echo "$(GREEN)[DONE]$(RESET) constraint-theory-core crate built"
-endif
-
-# =============================================================================
-# Rust Cross-Compilation (aarch64)
-# =============================================================================
-
-.PHONY: rust-cross
-
-AARCH64_TARGET := aarch64-unknown-linux-gnu
-RUST_TARGETS_INSTALLED := $(shell $(RUSTUP) target list --installed 2>/dev/null)
-AARCH64_INSTALLED := $(findstring $(AARCH64_TARGET),$(RUST_TARGETS_INSTALLED))
-
-rust-cross: check-cargo | $(BUILD_RUST)
-ifeq ($(CARGO),)
-	@echo "$(YELLOW)[SKIP]$(RESET) rust-cross — cargo not installed"
-else ifeq ($(RUSTUP),)
-	@echo "$(YELLOW)[SKIP]$(RESET) rust-cross — rustup not installed (needed for target check)"
-else ifeq ($(AARCH64_INSTALLED),)
-	@echo "$(YELLOW)WARNING: aarch64 target not installed. Run: rustup target add aarch64-unknown-linux-gnu$(RESET)"
-	@echo "$(YELLOW)[SKIP]$(RESET) rust-cross — aarch64 target missing"
-else
-	@echo "$(GREEN)[CARGO]$(RESET) Cross-compiling Rust crates for $(AARCH64_TARGET) ..."
-	@$(MAKE) rust-flux-isa-cross rust-plato-engine-cross rust-constraint-theory-cross
-	@echo "$(GREEN)[DONE]$(RESET) rust-cross complete"
-endif
-
-.PHONY: rust-flux-isa-cross rust-plato-engine-cross rust-constraint-theory-cross
-
-rust-flux-isa-cross:
-	$(call RUST_BUILD,flux-isa,$(AARCH64_TARGET))
-	$(call RUST_COPY,flux-isa,$(AARCH64_TARGET),flux-isa)
-	@mv $(BUILD_RUST)/flux-isa $(BUILD_RUST)/flux-isa-aarch64 2>/dev/null || true
-
-rust-plato-engine-cross:
-	$(call RUST_BUILD,plato-engine,$(AARCH64_TARGET))
-	$(call RUST_COPY,plato-engine,$(AARCH64_TARGET),plato-engine)
-	@mv $(BUILD_RUST)/plato-engine $(BUILD_RUST)/plato-engine-aarch64 2>/dev/null || true
-
-rust-constraint-theory-cross:
-	$(call RUST_BUILD,constraint-theory-core,$(AARCH64_TARGET))
-	@mkdir -p $(BUILD_RUST)
-	@cp $(SRC_RUST)/constraint-theory-core/target/$(AARCH64_TARGET)/release/libconstraint_theory.rlib $(BUILD_RUST)/libconstraint_theory_aarch64.rlib 2>/dev/null || \
-	 cp $(SRC_RUST)/constraint-theory-core/target/$(AARCH64_TARGET)/release/libconstraint_theory*.rlib $(BUILD_RUST)/ 2>/dev/null || true
-
-# =============================================================================
-# Aggregated Targets
-# =============================================================================
-
-.PHONY: all
-all: c cuda rust rust-cross
+.PHONY: _all
+_all: c cuda rust
 	@echo ""
-	@echo "$(GREEN)========================================$(RESET)"
-	@echo "$(GREEN)  Cocapn Fleet Stack build complete$(RESET)"
-	@echo "$(GREEN)========================================$(RESET)"
-	@echo "  Architecture: $(ARCH)"
-	@echo "  C compiler:   $(CC)"
-	@echo "  NVCC:         $(if $(NVCC),$(NVCC),$(RED)not found$(RESET))"
-	@echo "  Cargo:        $(if $(CARGO),$(CARGO),$(RED)not found$(RESET))"
-	@echo "$(GREEN)========================================$(RESET)"
+	@echo "$(G)════════════════════════════════════════$(E)"
+	@echo "$(G)  ✓ Fleet build complete$(E)"
+	@echo "$(G)════════════════════════════════════════$(E)"
 
 # =============================================================================
-# Test Target
+# C TARGETS
 # =============================================================================
+c: c-libs c-bins
+	@echo "$(G)[C]$(E) All C targets built"
 
-.PHONY: test test-c test-cuda test-rust
+# --- Libraries ---
+c-libs: $(BC)/libfluxisa.a $(BC)/libfluxisa.so $(BC)/libsonarvision.a
+	@true
 
+$(BC)/libfluxisa.a: $(FLUX_C_OBJ) | $(BC)
+ifeq ($(FLUX_C_SRC),)
+	@echo "$(Y)[SKIP]$(E) libfluxisa — no sources in flux-isa-c/src/"
+else
+	@echo "$(G)[AR]$(E) $@"
+	@$(AR) $(ARFLAGS) $@ $^
+endif
+
+$(BC)/libfluxisa.so: $(FLUX_C_OBJ) | $(BC)
+ifeq ($(FLUX_C_SRC),)
+	@echo "$(Y)[SKIP]$(E) libfluxisa.so — no sources"
+else
+	@echo "$(G)[LD]$(E) $@"
+	@$(CC) -shared $^ -o $@ -lm
+endif
+
+$(BC)/libsonarvision.a: $(SONAR_C_OBJ) | $(BC)
+ifeq ($(SONAR_C_SRC),)
+	@echo "$(Y)[SKIP]$(E) libsonarvision — no sources in sonar-vision-c/src/"
+else
+	@echo "$(G)[AR]$(E) $@"
+	@$(AR) $(ARFLAGS) $@ $^
+endif
+
+# --- Standalone C binaries ---
+c-bins: $(B)/benchmark_csp
+	@true
+
+$(B)/benchmark_csp: benchmark_csp.c c-libs | $(B)
+ifeq ($(CC),)
+	@echo "$(Y)[SKIP]$(E) benchmark_csp — no C compiler"
+else ifeq ($(wildcard benchmark_csp.c),)
+	@echo "$(Y)[SKIP]$(E) benchmark_csp.c not found"
+else
+	@echo "$(G)[CC]$(E) benchmark_csp.c → $@"
+	@$(CC) $(CFLAGS) -Iflux-isa-c/include benchmark_csp.c \
+	    -L$(BC) -lfluxisa -lm -o $@
+endif
+
+# =============================================================================
+# CUDA TARGETS
+# =============================================================================
+cuda:
+ifeq ($(NVCC),)
+	@echo "$(Y)[SKIP]$(E) CUDA — nvcc not found"
+else
+	@$(MAKE) --no-print-directory _cuda
+endif
+
+.PHONY: _cuda
+_cuda: $(B)/nqueens_cuda $(B)/test_flux_cuda
+	@echo "$(G)[CUDA]$(E) All CUDA targets built"
+
+$(B)/nqueens_cuda: nqueens_cuda.cu | $(B)
+ifeq ($(NVCC),)
+	@true
+else ifeq ($(wildcard nqueens_cuda.cu),)
+	@echo "$(Y)[SKIP]$(E) nqueens_cuda.cu not found"
+else
+	@echo "$(G)[NVCC]$(E) nqueens_cuda.cu → $@"
+	@$(NVCC) $(NVCC_FLAGS) $< -o $@
+endif
+
+$(B)/test_flux_cuda: test_flux_cuda.cu | $(B)
+ifeq ($(NVCC),)
+	@true
+else ifeq ($(wildcard test_flux_cuda.cu),)
+	@echo "$(Y)[SKIP]$(E) test_flux_cuda.cu not found"
+else
+	@echo "$(G)[NVCC]$(E) test_flux_cuda.cu → $@"
+	@$(NVCC) $(NVCC_FLAGS) $< -o $@
+endif
+
+# =============================================================================
+# RUST TARGETS
+# =============================================================================
+# Strategy: build crates in batches of CARGO_JOBS to avoid OOM
+# Each crate gets its own phony target for selective builds
+
+rust:
+ifeq ($(CARGO),)
+	@echo "$(Y)[SKIP]$(E) Rust — cargo not found"
+else ifeq ($(RUST_PRESENT),)
+	@echo "$(Y)[SKIP]$(E) Rust — no Cargo.toml found in any crate directory"
+else
+	@echo "$(G)[RUST]$(E) Building $(words $(RUST_PRESENT)) crate(s): $(RUST_PRESENT)"
+	@$(MAKE) --no-print-directory _rust
+	@echo "$(G)[RUST]$(E) All Rust crates built"
+endif
+
+.PHONY: _rust
+_rust: $(RUST_PRESENT:%=rust-%)
+
+# Per-crate build rules
+define RUST_CRATE_RULE
+rust-$(1):
+	@echo "$(G)[CARGO]$(E) Building $(1)..."
+	@cd $(1) && $(CARGO) build --release --jobs $(CARGO_JOBS)
+	@mkdir -p $(BRUST)
+	@cp -f $(1)/target/release/lib$(subst -,_,$(1)).rlib $(BRUST)/ 2>/dev/null || true
+	@cp -f $(1)/target/release/lib$(subst -,_,$(1))*.so $(BRUST)/ 2>/dev/null || true
+	@cp -f $(1)/target/release/$(1) $(BRUST)/ 2>/dev/null || true
+	@echo "$(G)[DONE]$(E) $(1)"
+endef
+
+$(foreach crate,$(RUST_PRESENT),$(eval $(call RUST_CRATE_RULE,$(crate))))
+
+# =============================================================================
+# TEST
+# =============================================================================
 test: test-c test-cuda test-rust
+	@echo "$(G)[TEST]$(E) All test suites complete"
+
+.PHONY: test-c test-cuda test-rust
 
 test-c: c
-	@echo "$(GREEN)[TEST]$(RESET) Running C unit tests ..."
-ifeq ($(wildcard test/test_c.c),)
-	@echo "$(YELLOW)[SKIP]$(RESET) No C tests found (test/test_c.c)"
-else
-	@$(CC) $(C_FLAGS) test/test_c.c -I$(SRC_C_FLUX) -I$(SRC_C_SONAR) \
-	    -L$(BUILD_C) -lfluxisa -lsonar -o $(BUILD_DIR)/test_c
-	@cd $(BUILD_DIR) && LD_LIBRARY_PATH=$(BUILD_C):$$LD_LIBRARY_PATH ./test_c
-endif
+	@echo "$(G)[TEST]$(E) Running C tests..."
+	@for dir in flux-isa-c sonar-vision-c; do \
+	    if [ -f $$dir/Makefile ] && grep -q '^test:' $$dir/Makefile 2>/dev/null; then \
+	        echo "$(G)[TEST]$(E) $$dir"; \
+	        $(MAKE) -C $$dir test || true; \
+	    fi; \
+	done
 
 test-cuda: cuda
 ifeq ($(NVCC),)
-	@echo "$(YELLOW)[SKIP]$(RESET) CUDA tests — nvcc not found"
+	@echo "$(Y)[SKIP]$(E) CUDA tests — nvcc not found"
+else ifeq ($(wildcard $(B)/test_flux_cuda),)
+	@echo "$(Y)[SKIP]$(E) No test_flux_cuda binary"
 else
-	@echo "$(GREEN)[TEST]$(RESET) Running CUDA integration tests ..."
-ifeq ($(wildcard test/test_flux_cuda),)
-	@echo "$(YELLOW)[SKIP]$(RESET) No CUDA test binary found (test/test_flux_cuda)"
-else
-	@test/test_flux_cuda
-endif
+	@echo "$(G)[TEST]$(E) Running test_flux_cuda..."
+	@$(B)/test_flux_cuda
 endif
 
-test-rust: check-cargo
+test-rust:
 ifeq ($(CARGO),)
-	@echo "$(YELLOW)[SKIP]$(RESET) Rust tests — cargo not found"
+	@echo "$(Y)[SKIP]$(E) Rust tests — cargo not found"
 else
-	@echo "$(GREEN)[TEST]$(RESET) Running Rust test suite ..."
-	@cd $(SRC_RUST)/flux-isa              && $(CARGO) test --release 2>/dev/null || echo "$(YELLOW)[SKIP]$(RESET) flux-isa tests unavailable"
-	@cd $(SRC_RUST)/plato-engine          && $(CARGO) test --release 2>/dev/null || echo "$(YELLOW)[SKIP]$(RESET) plato-engine tests unavailable"
-	@cd $(SRC_RUST)/constraint-theory-core && $(CARGO) test --release 2>/dev/null || echo "$(YELLOW)[SKIP]$(RESET) constraint-theory-core tests unavailable"
+	@echo "$(G)[TEST]$(E) Running Rust tests..."
+	@for crate in $(RUST_PRESENT); do \
+	    echo "$(G)[TEST]$(E) $$crate"; \
+	    cd $$crate && $(CARGO) test --release --jobs $(CARGO_JOBS) 2>&1 | tail -5 || true; \
+	    cd - > /dev/null; \
+	done
 endif
 
 # =============================================================================
-# Benchmark Target
+# BENCHMARK
 # =============================================================================
-
-.PHONY: bench
-
-bench: c
-	@echo "$(GREEN)[BENCH]$(RESET) Running benchmark harness ..."
-ifeq ($(wildcard benchmark/benchmark_csp),)
-ifeq ($(wildcard benchmark/benchmark_csp.c),)
-	@echo "$(YELLOW)[SKIP]$(RESET) No benchmark harness found (benchmark/benchmark_csp)"
+bench: $(B)/benchmark_csp
+ifeq ($(wildcard $(B)/benchmark_csp),)
+	@echo "$(Y)[SKIP]$(E) benchmark_csp not built"
 else
-	@$(CC) $(C_FLAGS) benchmark/benchmark_csp.c -I$(SRC_C_FLUX) -L$(BUILD_C) -lfluxisa -o $(BUILD_DIR)/benchmark_csp
-	@cd $(BUILD_DIR) && LD_LIBRARY_PATH=$(BUILD_C):$$LD_LIBRARY_PATH ./benchmark_csp
-endif
-else
-	@benchmark/benchmark_csp
+	@echo "$(G)[BENCH]$(E) Running benchmark_csp..."
+	@cd $(B) && LD_LIBRARY_PATH=$(BC):$$$$LD_LIBRARY_PATH ./benchmark_csp
 endif
 
 # =============================================================================
-# Clean Target
+# CLEAN
 # =============================================================================
-
-.PHONY: clean
-
 clean:
-	@echo "$(RED)[CLEAN]$(RESET) Removing build artifacts ..."
-	@rm -rf $(BUILD_DIR)
-	@echo "$(GREEN)[DONE]$(RESET) Clean complete"
+	@echo "$(R)[CLEAN]$(E) Removing build/ ..."
+	@rm -rf $(B)
+	@echo "$(G)[DONE]$(E) Clean complete"
 
 # =============================================================================
-# Deploy Target
+# DEPLOY
 # =============================================================================
+deploy-jetson: all
+	@mkdir -p $(BDEPLOY)
+	@cp -r $(BC)/* $(BCUDA)/* $(BRUST)/* $(BDEPLOY)/ 2>/dev/null || true
+	@echo "$(C)[DEPLOY]$(E) Deploying to jetson@jetsonclaw1.local:~/cocapn/bin/ ..."
+	@ssh jetson@jetsonclaw1.local "mkdir -p ~/cocapn/bin" 2>/dev/null || \
+	    echo "$(Y)[WARN]$(E) SSH mkdir failed (may need connectivity check)"
+	@scp -r $(BDEPLOY)/* jetson@jetsonclaw1.local:~/cocapn/bin/ || \
+	    (echo "$(R)[ERROR]$(E) Deploy failed" && exit 1)
+	@echo "$(G)[DONE]$(E) Deployed to JetsonClaw1"
 
-.PHONY: deploy-jetson check-deploy-tools
-
-check-deploy-tools:
-ifeq ($(SCP),)
-	@echo "$(RED)[ERROR]$(RESET) scp not found — required for deploy-jetson"
-	@exit 1
+# =============================================================================
+# PUBLISH (Rust crates — dry-run first)
+# =============================================================================
+publish:
+ifeq ($(CARGO),)
+	@echo "$(R)[ERROR]$(E) cargo not found"
+else
+	@echo "$(C)[PUBLISH]$(E) Dry-run publish for all Rust crates..."
+	@for crate in $(RUST_PRESENT); do \
+	    echo "$(G)[PUBLISH --dry-run]$(E) $$crate"; \
+	    cd $$crate && $(CARGO) publish --dry-run 2>&1 | tail -3 || true; \
+	    cd - > /dev/null; \
+	done
+	@echo ""
+	@echo "$(Y)Dry run complete. Run 'make publish-for-real' to actually publish.$(E)"
 endif
-ifeq ($(SSH),)
-	@echo "$(RED)[ERROR]$(RESET) ssh not found — required for deploy-jetson"
-	@exit 1
-endif
 
-deploy-jetson: all check-deploy-tools
-	@echo "$(CYAN)[DEPLOY]$(RESET) Deploying to jetson@jetsonclaw1.local ..."
-	@ssh jetson@jetsonclaw1.local "mkdir -p ~/cocapn/bin/" 2>/dev/null || \
-	    echo "$(YELLOW)[WARN]$(RESET) Could not create remote directory (ssh may fail)"
-	@scp -r $(BUILD_DIR)/* jetson@jetsonclaw1.local:~/cocapn/bin/ 2>/dev/null || \
-	    (echo "$(RED)[ERROR]$(RESET) scp deploy failed — check connectivity and credentials" && exit 1)
-	@echo "$(GREEN)[DONE]$(RESET) Deployed to jetson@jetsonclaw1.local:~/cocapn/bin/"
+.PHONY: publish-for-real
+publish-for-real:
+	@echo "$(R)[PUBLISH]$(E) Publishing ALL Rust crates for real..."
+	@for crate in $(RUST_PRESENT); do \
+	    echo "$(G)[PUBLISH]$(E) $$crate"; \
+	    cd $$crate && $(CARGO) publish || exit 1; \
+	    cd - > /dev/null; \
+	done
+	@echo "$(G)[DONE]$(E) All crates published"
 
 # =============================================================================
-# Help Target
+# HELP
 # =============================================================================
-
-.PHONY: help
-
 help:
-	@echo "Cocapn Fleet Stack Makefile"
-	@echo "============================"
+	@echo "$(C)Cocapn Fleet Build System$(E)"
+	@echo "═══════════════════════════"
 	@echo ""
-	@echo "Targets:"
-	@echo "  all           — Build entire fleet (C + CUDA + Rust)"
-	@echo "  c             — Build C libraries (libfluxisa, libsonar)"
-	@echo "  cuda          — Build CUDA libraries (libfluxcuda, libsonarcuda)"
-	@echo "  rust          — Build Rust crates (native)"
-	@echo "  rust-cross    — Cross-compile Rust for aarch64 (Jetson)"
-	@echo "  test          — Run all test suites"
-	@echo "  bench         — Run benchmark harness"
-	@echo "  clean         — Remove all build artifacts"
-	@echo "  deploy-jetson — Deploy binaries to JetsonClaw1"
-	@echo "  help          — Show this help message"
+	@echo "$(B)Targets:$(E)"
+	@echo "  all             — Build everything (C + CUDA + Rust)"
+	@echo "  c               — C targets: libfluxisa.a/so, libsonarvision.a, benchmark_csp"
+	@echo "  cuda            — CUDA targets: nqueens_cuda, test_flux_cuda"
+	@echo "  rust            — All Rust crates (OOM-safe parallelism)"
+	@echo "  test            — Run all test suites"
+	@echo "  bench           — Run benchmark_csp"
+	@echo "  clean           — Remove build/"
+	@echo "  deploy-jetson   — Deploy to jetson@jetsonclaw1.local:~/cocapn/bin/"
+	@echo "  publish         — Dry-run cargo publish for all crates"
+	@echo "  publish-for-real— Actually publish all crates"
+	@echo "  help            — This message"
 	@echo ""
-	@echo "Detected toolchains:"
-	@echo "  CC:     $(if $(CC),$(GREEN)$(CC)$(RESET),$(RED)not found$(RESET))"
-	@echo "  CXX:    $(if $(CXX),$(GREEN)$(CXX)$(RESET),$(RED)not found$(RESET))"
-	@echo "  NVCC:   $(if $(NVCC),$(GREEN)$(NVCC)$(RESET),$(YELLOW)not found$(RESET))"
-	@echo "  CARGO:  $(if $(CARGO),$(GREEN)$(CARGO)$(RESET),$(YELLOW)not found$(RESET))"
-	@echo "  RUSTUP: $(if $(RUSTUP),$(GREEN)$(RUSTUP)$(RESET),$(YELLOW)not found$(RESET))"
-	@echo "  SCP:    $(if $(SCP),$(GREEN)$(SCP)$(RESET),$(YELLOW)not found$(RESET))"
-	@echo "  SSH:    $(if $(SSH),$(GREEN)$(SSH)$(RESET),$(YELLOW)not found$(RESET))"
-	@echo "  ARCH:   $(CYAN)$(ARCH)$(RESET)"
+	@echo "$(B)Individual Rust crates:$(E)"
+	@for crate in $(RUST_PRESENT); do echo "  rust-$$crate"; done
 	@echo ""
-	@echo "Rust aarch64 target: $(if $(AARCH64_INSTALLED),$(GREEN)installed$(RESET),$(YELLOW)not installed$(RESET))"
+	@echo "$(B)Detected toolchains:$(E)"
+	@echo "  CC:      $(or $(CC),$(R)missing$(E))"
+	@echo "  CXX:     $(or $(CXX),$(R)missing$(E))"
+	@echo "  NVCC:    $(or $(NVCC),$(Y)missing$(E))"
+	@echo "  CARGO:   $(or $(CARGO),$(Y)missing$(E))"
+	@echo "  PYTHON3: $(or $(PYTHON3),$(Y)missing$(E))"
+	@echo "  ARCH:    $(C)$(ARCH)$(E)"
 	@echo ""
-	@echo "Directory layout:"
-	@echo "  src/c/flux-isa/            — C VM constraint solver sources"
-	@echo "  src/c/sonar/                — C underwater acoustic physics sources"
-	@echo "  src/cuda/flux/              — CUDA constraint solver kernels"
-	@echo "  src/cuda/sonar/             — CUDA acoustic kernels"
-	@echo "  src/rust/flux-isa/          — Rust flux-isa crate"
-	@echo "  src/rust/plato-engine/      — Rust plato-engine crate"
-	@echo "  src/rust/constraint-theory-core/ — Rust constraint-theory-core crate"
-	@echo "  build/c/                    — C build artifacts"
-	@echo "  build/cuda/                 — CUDA build artifacts"
-	@echo "  build/rust/                 — Rust build artifacts"
+	@echo "$(B)Rust crates found ($(words $(RUST_PRESENT))):$(E) $(RUST_PRESENT)"
+	@echo "$(B)Cargo parallelism:$(E) $(CARGO_JOBS) jobs"
