@@ -1,0 +1,136 @@
+// ========================================================================
+//  Example (b) — Zone Access Control
+//  System: Radiation Therapy Bunker Interlock
+//  Author: Safety Engineering Team
+//  Standard: IEC 62304 Class C / IEC 61508 SIL 3
+// ========================================================================
+
+module ZoneAccessControl
+  version "2.1.0"
+  for "Radiation Bunker Personnel Safety Interlock"
+;
+
+import PersonnelDatabase.Person as Person;
+import PersonnelDatabase.Role as Role;
+
+// ------------------------------------------------------------------------
+//  Domains: the discrete sets we reason over
+// ------------------------------------------------------------------------
+domain Zone = { Red, Orange, Yellow, Green };
+
+domain AccessMode = { Locked, Unlocked, Escorted };
+
+domain Role = { Physician, Physicist, Therapist, Technician, Visitor, None };
+
+domain DoorState = { Open, Closed, Ajar };
+
+// ------------------------------------------------------------------------
+//  Authorization matrix (constant lookup table)
+//  Each entry: (Zone, Role) → AccessMode
+// ------------------------------------------------------------------------
+state auth_matrix has
+  array [Zone × Role] of AccessMode
+  initially {
+    (Red,    Physician)  → Unlocked,
+    (Red,    Physicist)  → Unlocked,
+    (Red,    Therapist)  → Escorted,
+    (Red,    Technician) → Locked,
+    (Red,    Visitor)    → Locked,
+    (Orange, Physician)  → Unlocked,
+    (Orange, Physicist)  → Unlocked,
+    (Orange, Therapist)  → Unlocked,
+    (Orange, Technician) → Escorted,
+    (Orange, Visitor)    → Locked,
+    (Yellow, Physician)  → Unlocked,
+    (Yellow, Physicist)  → Unlocked,
+    (Yellow, Therapist)  → Unlocked,
+    (Yellow, Technician) → Unlocked,
+    (Yellow, Visitor)    → Escorted,
+    (Green,  _)          → Unlocked   // default
+  };
+
+// ------------------------------------------------------------------------
+//  Dynamic state
+// ------------------------------------------------------------------------
+state current_zone has Zone sampled every 100 ms;
+
+state badge_role has Role sampled every 100 ms;
+
+state door_front has DoorState sampled every 50 ms;
+
+state door_rear has DoorState sampled every 50 ms;
+
+state persons_inside has
+  array [1 .. 20] of record {
+    id    has integer,
+    role  has Role
+  }
+  initially {};
+
+state beam_armed has boolean initially false;
+
+// ------------------------------------------------------------------------
+//  Invariants
+// ------------------------------------------------------------------------
+
+// No one may be in Red zone unless authorized.
+invariant RedZoneRequiresPhysicistOrPhysician
+  critical
+  when current_zone = Red
+  ensure
+    forall p in persons_inside :
+      p.role = Physician or p.role = Physicist
+  on_violation halt;
+
+// Door must remain locked if authorization is insufficient.
+invariant DoorLockedWhenUnauthorized
+  major
+  when auth_matrix[current_zone, badge_role] = Locked
+  ensure door_front = Closed and door_rear = Closed
+  on_violation halt;
+
+// Escorted access: at least one authorized person must be present.
+invariant EscortRequiresAuthorizedSupervisor
+  major
+  when auth_matrix[current_zone, badge_role] = Escorted
+  ensure
+    exists p in persons_inside :
+      auth_matrix[current_zone, p.role] = Unlocked
+  on_violation warn;
+
+// Beam may only be armed when the door is fully closed.
+invariant BeamArmedRequiresDoorsClosed
+  critical
+  when beam_armed = true
+  ensure door_front = Closed and door_rear = Closed
+  on_violation halt;
+
+// ------------------------------------------------------------------------
+//  Derived: if beam is armed, the zone must be Orange or Red (treatment).
+// ------------------------------------------------------------------------
+derive BeamArmedImpliesTreatmentZone
+  from BeamArmedRequiresDoorsClosed
+  when beam_armed = true
+  conclude current_zone = Orange or current_zone = Red;
+
+// ------------------------------------------------------------------------
+//  Derived: zero persons inside implies beam must not be armed.
+// ------------------------------------------------------------------------
+derive EmptyRoomImpliesBeamDisarmed
+  from RedZoneRequiresPhysicistOrPhysician
+  when |persons_inside| = 0
+  conclude beam_armed = false;
+
+// ------------------------------------------------------------------------
+//  Proof
+// ------------------------------------------------------------------------
+proof ZoneAccessProof {
+  tactic enumerate_finite_domain;
+  tactic bounded_model_check 20 steps;
+  certificate {
+    format = native;
+    include_trace = true;
+    include_counterexample = true;
+    hash = sha256;
+  }
+}

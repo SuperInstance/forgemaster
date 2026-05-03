@@ -1,0 +1,20 @@
+[package]
+name = "guardc"
+version = "0.1.0"
+edition = "2021"
+authors = ["FLUX Systems Team"]
+description = "GUARD → FLUX verified compiler"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+flux-isa = { path = "../flux-isa" }
+winnow = "0.6"
+thiserror = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = "0.10"
+blake3 = "1.5"
+indexmap = "2.2"
+
+[dev-dependencies]
+insta = "1.39"

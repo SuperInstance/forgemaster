@@ -1,0 +1,181 @@
+(* ======================================================================== *)
+(*  GUARD DSL — Formal Grammar (Extended BNF)                               *)
+(*  Version: 1.0.0-ship                                                     *)
+(*  Target: FLUX 43-opcode stack VM                                         *)
+(* ======================================================================== *)
+
+(* --- Lexical ------------------------------------------------------------ *)
+
+letter        ::= "a"..."z" | "A"..."Z" ;
+digit         ::= "0"..."9" ;
+hexdigit      ::= digit | "a"..."f" | "A"..."F" ;
+underscore    ::= "_" ;
+prime         ::= "'" ;
+
+identifier    ::= letter { letter | digit | underscore } [ prime ] ;
+qualified_id  ::= identifier { "." identifier } ;
+
+(* Numbers with mandatory units for physical quantities *)
+decimal       ::= digit { digit } [ "." digit { digit } ] ;
+scientific    ::= decimal ( "e" | "E" ) [ "+" | "-" ] digit { digit } ;
+number        ::= decimal | scientific ;
+
+(* Units are not comments. They are semantic tokens. *)
+unit          ::= identifier | "%" | "°" | "°C" | "°F" | "°/s" ;
+quantity      ::= number unit ;
+
+string        ::= '"' { character } '"' ;
+comment       ::= "//" { character } newline | "/*" { character } "*/" ;
+
+(* --- Document Structure ------------------------------------------------- *)
+
+module        ::= header import* unit_decl* domain_decl* state_decl*
+                  invariant_decl* derive_decl* proof_decl* ;
+
+header        ::= "module" identifier [ version ] [ "for" system_desc ] ";" ;
+version       ::= "version" string ;
+system_desc   ::= string ;
+
+import        ::= "import" qualified_id [ "as" identifier ] ";" ;
+
+(* --- Unit Declarations -------------------------------------------------- *)
+(*  Engineers may define new physical dimensions and their legal ranges.   *)
+
+unit_decl     ::= "dimension" identifier "is" unit_expr [ unit_range ] ";" ;
+unit_expr     ::= identifier | unit_expr "*" unit_expr | unit_expr "/" unit_expr ;
+unit_range    ::= "from" quantity "to" quantity ;
+
+(* --- Domain Declarations ------------------------------------------------ *)
+(*  A domain is a named set of values — enums, intervals, or products.     *)
+
+domain_decl   ::= "domain" identifier "=" domain_body ";" ;
+domain_body   ::= enum_domain | interval_domain | product_domain ;
+enum_domain   ::= "{" identifier { "," identifier } "}" ;
+interval_domain
+              ::= "[" quantity ".." quantity "]" ;
+product_domain
+              ::= "(" domain_body { "×" domain_body } ")" ;
+
+(* --- State Declarations ------------------------------------------------- *)
+(*  Variables observable in the system. Each has a type, unit, and domain. *)
+
+state_decl    ::= "state" identifier "has" type_desc
+                  [ "in" domain_ref ]
+                  [ "initially" expr ]
+                  [ "sampled" "every" quantity ]
+                  ";" ;
+type_desc     ::= scalar_type | array_type | record_type ;
+scalar_type   ::= "real" | "integer" | "boolean" | "enum" domain_ref ;
+array_type    ::= "array" "[" quantity ".." quantity "]" "of" type_desc ;
+record_type   ::= "record" "{" field { "," field } "}" ;
+field         ::= identifier "has" type_desc [ "in" domain_ref ] ;
+domain_ref    ::= qualified_id | interval_domain | enum_domain ;
+
+(* --- Expressions -------------------------------------------------------- *)
+
+expr          ::= logical_expr ;
+logical_expr  ::= temporal_expr
+                | logical_expr "implies" temporal_expr
+                | logical_expr "iff" temporal_expr
+                | logical_expr "and" temporal_expr
+                | logical_expr "or" temporal_expr
+                | "not" temporal_expr ;
+
+temporal_expr ::= comparison_expr
+                | "always" comparison_expr
+                | "eventually" comparison_expr
+                | "next" comparison_expr
+                | comparison_expr "until" comparison_expr
+                | comparison_expr "since" comparison_expr
+                | "for" quantity comparison_expr
+                | "after" quantity comparison_expr ;
+
+comparison_expr
+              ::= additive_expr
+                | additive_expr "=" additive_expr
+                | additive_expr "≠" additive_expr
+                | additive_expr "<" additive_expr
+                | additive_expr ">" additive_expr
+                | additive_expr "≤" additive_expr
+                | additive_expr "≥" additive_expr
+                | additive_expr "in" domain_ref ;
+
+additive_expr ::= multiplicative_expr
+                | additive_expr "+" multiplicative_expr
+                | additive_expr "-" multiplicative_expr ;
+
+multiplicative_expr
+              ::= unary_expr
+                | multiplicative_expr "*" unary_expr
+                | multiplicative_expr "/" unary_expr
+                | multiplicative_expr "mod" unary_expr ;
+
+unary_expr    ::= primary
+                | "-" unary_expr
+                | "|" unary_expr "|"         (* absolute value *)
+                | "old" unary_expr             (* previous time-step value *)
+                | "rate_of" unary_expr         (* derivative, per sample *)
+                | "delta" unary_expr           (* difference from previous *) ;
+
+primary       ::= identifier
+                | qualified_id
+                | quantity
+                | "true" | "false"
+                | "(" expr ")"
+                | identifier "(" expr { "," expr } ")"   (* function call *)
+                | identifier "[" expr "]"                (* array access *)
+                | identifier "." identifier              (* field access *)
+                | "if" expr "then" expr "else" expr ;     (* conditional *)
+
+(* --- Invariant Declarations --------------------------------------------- *)
+(*  Core constraints that must hold. Each is a named safety requirement.    *)
+
+invariant_decl
+              ::= "invariant" identifier [ priority ] [ "when" expr ]
+                  "ensure" expr
+                  [ "on_violation" violation_action ]
+                  ";" ;
+
+priority      ::= "critical" | "major" | "minor" ;
+violation_action
+              ::= "halt" | "warn" | "log" | "transition" identifier ;
+
+(* --- Derive Declarations ------------------------------------------------ *)
+(*  Derived rules: consequences that follow from invariants and state.      *)
+
+derive_decl   ::= "derive" identifier "from" premise_list
+                  [ "when" expr ]
+                  "conclude" expr
+                  [ "proof_obligation" expr ]
+                  ";" ;
+
+premise_list  ::= premise { "," premise } ;
+premise       ::= identifier | expr ;
+
+(* --- Proof Declarations ------------------------------------------------- *)
+(*  Explicit proof hints, abstractions, and certificate tuning.             *)
+
+proof_decl    ::= "proof" identifier "{" proof_body "}" ;
+proof_body    ::= { proof_step } ;
+proof_step    ::= "tactic" identifier ";"
+                | "lemma" identifier "=" expr ";"
+                | "reduce" "to" identifier ";"
+                | "certificate" "{" cert_config "}" ;
+
+cert_config   ::= "format" "=" ( "smt2" | "lfsc" | "native" ) ";"
+                | "include_trace" "=" boolean ";"
+                | "include_counterexample" "=" boolean ";"
+                | "hash" "=" ( "sha256" | "blake3" ) ";" ;
+
+boolean       ::= "true" | "false" ;
+
+(* --- Constraints (n-ary sugar) ------------------------------------------ *)
+(*  Syntactic sugar for common n-ary constraints, expanded in lowering.    *)
+
+all_distinct  ::= "all_distinct" "(" expr { "," expr } ")" ;
+all_equal     ::= "all_equal" "(" expr { "," expr } ")" ;
+monotone      ::= "monotone" "(" expr [ "ascending" | "descending" ] ")" ;
+table_constraint
+              ::= "table" identifier "[" expr "]" "must_be" expr ;
+
+(* ======================================================================== *)

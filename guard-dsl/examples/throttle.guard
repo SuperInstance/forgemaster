@@ -1,0 +1,57 @@
+// ========================================================================
+//  Example (a) — Simple Throttle Limit
+//  System: Engine Control Unit (ECU)
+//  Author: Safety Engineering Team
+//  Review: DO-178C Level A
+// ========================================================================
+
+module ThrottleLimit
+  version "1.0.0"
+  for "ECU-320 Throttle Body Authority"
+;
+
+// ------------------------------------------------------------------------
+//  Physical dimensions used in this module
+// ------------------------------------------------------------------------
+dimension Percent is real % from 0 % to 100 %;
+
+// ------------------------------------------------------------------------
+//  State: the only observable we care about
+// ------------------------------------------------------------------------
+state throttle_command has real in [0 % .. 100 %]
+  sampled every 10 ms;
+
+// ------------------------------------------------------------------------
+//  Invariant: the hard limit
+// ------------------------------------------------------------------------
+invariant ThrottleMustNotExceedMax
+  critical
+  ensure throttle_command ≤ 100 %
+  on_violation halt;
+
+invariant ThrottleMustNotReverse
+  critical
+  ensure throttle_command ≥ 0 %
+  on_violation halt;
+
+// ------------------------------------------------------------------------
+//  Derived: any positive command implies the engine is enabled.
+//  This is a proof obligation, not a runtime check.
+// ------------------------------------------------------------------------
+derive PositiveThrottleImpliesEngineEnabled
+  from ThrottleMustNotExceedMax, ThrottleMustNotReverse
+  when throttle_command > 0 %
+  conclude engine_enabled = true;
+
+// ------------------------------------------------------------------------
+//  Proof configuration
+// ------------------------------------------------------------------------
+proof ThrottleSafetyProof {
+  tactic interval_arithmetic;
+  tactic bit_blast;
+  certificate {
+    format = native;
+    include_trace = true;
+    hash = sha256;
+  }
+}

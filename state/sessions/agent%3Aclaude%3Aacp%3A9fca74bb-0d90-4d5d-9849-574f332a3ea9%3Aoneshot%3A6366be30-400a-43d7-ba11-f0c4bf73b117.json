@@ -1,0 +1,392 @@
+{
+  "schema": "acpx.session.v1",
+  "acpx_record_id": "agent:claude:acp:9fca74bb-0d90-4d5d-9849-574f332a3ea9:oneshot:6366be30-400a-43d7-ba11-f0c4bf73b117",
+  "acp_session_id": "2fbdbd43-b569-4149-8f90-e518c47091ce",
+  "agent_command": "npx -y @agentclientprotocol/claude-agent-acp@^0.25.0",
+  "cwd": "/home/phoenix/.openclaw/workspace",
+  "name": "agent:claude:acp:9fca74bb-0d90-4d5d-9849-574f332a3ea9",
+  "created_at": "2026-05-01T20:57:52.405Z",
+  "last_used_at": "2026-05-01T21:00:20.562Z",
+  "last_seq": 0,
+  "last_request_id": "76c3a907-391e-4add-8e96-944fd4587057",
+  "event_log": {
+    "active_path": "/home/phoenix/.acpx/sessions/agent%3Aclaude%3Aacp%3A9fca74bb-0d90-4d5d-9849-574f332a3ea9%3Aoneshot%3A6366be30-400a-43d7-ba11-f0c4bf73b117.stream.ndjson",
+    "segment_count": 5,
+    "max_segment_bytes": 67108864,
+    "max_segments": 5,
+    "last_write_error": null
+  },
+  "closed": true,
+  "closed_at": "2026-05-01T21:00:20.708Z",
+  "pid": 3319,
+  "agent_started_at": "2026-05-01T20:57:52.785Z",
+  "last_prompt_at": "2026-05-01T20:58:08.579Z",
+  "protocol_version": 1,
+  "agent_capabilities": {
+    "_meta": {
+      "claudeCode": {
+        "promptQueueing": true
+      }
+    },
+    "promptCapabilities": {
+      "image": true,
+      "embeddedContext": true
+    },
+    "mcpCapabilities": {
+      "http": true,
+      "sse": true
+    },
+    "loadSession": true,
+    "sessionCapabilities": {
+      "fork": {},
+      "list": {},
+      "resume": {},
+      "close": {}
+    }
+  },
+  "title": null,
+  "messages": [
+    {
+      "User": {
+        "id": "0772ee4b-800c-42fa-b6a2-b8fc12b97ccc",
+        "content": [
+          {
+            "Text": "[Fri 2026-05-01 12:57 AKDT] You are designing the architecture for \"SonarVision Mobile\" — a self-supervised acoustic imaging system that turns any smartphone into a contactless sonar imager using the built-in speaker and microphone.\n\nCurrent SonarVision repo is at /home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/ — it has our subsea physics engine (FLUX 9-opcode), sonar ray tracer, JEPA neural physics, and mission planner.\n\nWe need to design and write the phone-based layer.\n\n## Research Summary (context)\n\n1. **Sleep as Android / Sleepwave / SleepScore** already proved: 18-20kHz tone from phone speaker, receive reflections on phone mic, detect breathing/movement. Single-channel amplitude only, no imaging.\n\n2. Our advantage: we have the **FLUX physics engine** (acoustic propagation through media), **JEPA self-supervised architecture** (encoder-predictor), and our **constraint theory framework** (CSP solver for consistency enforcement).\n\n3. Phone speakers hit ~20-24kHz. Phone mics sample at 48kHz (common) with some doing 96kHz. Nyquist gives us ~24kHz usable bandwidth for coded waveforms.\n\n4. Modern phones have 2-3 mics (bottom, top, rear). Laptops have 2-6 speakers + 2-3 mics.\n\n## What to Build\n\nPlease create the following design documents and prototype code in /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/:\n\n### 1. `ARCHITECTURE.md` — Full system architecture covering:\n\n**Signal Chain:**\n- Chirp design: linear frequency sweep 18-22kHz, 50ms duration, Hanning window\n- Pulse compression: matched filter on received signal (cross-correlation with transmitted chirp)\n- Range profile extraction: time-of-flight → distance, peak detection\n- Multi-channel fusion: 2+ mics → beamforming for bearing estimation\n\n**Self-Supervised Loop:**\n- Daytime: camera captures RGB frame → CNN encoder produces expected depth map → cross-modal loss between acoustic range profile and visual depth\n- Nighttime: acoustic-only inference, camera unavailable\n- Physics-constrained: predicted scene geometry fed through FLUX acoustic propagation → expected return vs actual return as self-supervised loss\n\n**State Estimation:**\n- Breathing rate extraction from chest displacement (sub-mm) via phase tracking\n- Body position estimation from range-bearer heatmap\n- Sleep stage inference from movement + breathing patterns\n- Fall detection from sudden acceleration + change in range profile\n\n**Multi-Device Sync:**\n- Two phones: NTP sync ±1ms, acoustic handshake, 4-channel fusion\n- Phone + Bluetooth headset: headset mic provides second baseline\n- Phone + laptop: laptop speaker array provides multi-element Tx\n\n### 2. Signal processing prototype in Python\n\nWrite `sonar_mobile.py` implementing:\n\n```python\nclass SonarVisionMobile:\n    \"\"\"Smartphone-based acoustic imaging engine\"\"\"\n    \n    def generate_chirp(self, f_start=18000, f_end=22000, duration=0.05, fs=48000):\n        \"\"\"Generate linear FM chirp with Hanning window\"\"\"\n    \n    def matched_filter(self, rx_signal, tx_chirp):\n        \"\"\"Pulse compression via cross-correlation\"\"\"\n    \n    def range_profile(self, rx_signal, tx_chirp, fs=48000, sound_speed=343):\n        \"\"\"Extract range profile from matched filter output.\n        Returns array of (distance_m, amplitude) tuples for peaks.\"\"\"\n    \n    def beamform_two_mic(self, rx1, rx2, tx_chirp, mic_spacing=0.1, fs=48000):\n        \"\"\"Simple delay-and-sum beamformer for 2 microphones.\n        Estimates bearing of each return.\"\"\"\n    \n    def extract_breathing(self, range_profiles_over_time, target_range, fs_profiles=10):\n        \"\"\"From sequential range profiles, extract breathing waveform\n        at a specific range bin. Returns breathing_rate_bpm and waveform.\"\"\"\n    \n    def self_supervised_loss(self, camera_depth_map, acoustic_range_profile):\n        \"\"\"Cross-modal consistency loss.\n        Project acoustic range profile into camera coordinate frame,\n        compute MSE between valid pixels.\"\"\"\n    \n    def physics_constrained_predict(self, latent_scene, temp=20, humidity=50):\n        \"\"\"Use FLUX engine to predict expected acoustic return from latent scene.\n        Returns predicted return for comparison with actual return.\"\"\"\n```\n\n### 3. `STEREO_SYNC.md` — Multi-device synchronization protocol\n\nCover:\n- NTP calibration (±1ms)\n- Acoustic handshake for fine sync\n- Frame format (extend MEP — Mobile Echo Protocol)\n- Channel combining math\n- Real-time vs batch processing\n\n### 4. Write a minimal On-Device Inference Engine spec\n\n`ON_DEVICE.md` covering:\n- Model format: ONNX or TFLite\n- Quantization strategy (FP16 -> INT8)\n- Latency budget: <50ms per chirp cycle\n- On-device training (fine-tuning the self-supervised loop)\n- Battery impact estimation\n\n## Constraints\n- Use `--print` mode, no PTY\n- Claude has limited credits — be efficient\n- Write files directly, don't just describe them\n- Use existing FLUX engine from sonar-sim-pipeline where possible\n- Make everything real Python, not pseudo-code\n\n## Target Directory\nAll output goes to: /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/\n\n## IMPORTANT\nUse `--print --permission-mode bypassPermissions` for Claude Code. Work in the target directory."
+          }
+        ]
+      }
+    },
+    {
+      "Agent": {
+        "content": [
+          {
+            "Thinking": {
+              "text": "The user wants me to design and implement a smartphone-based acoustic imaging system called \"SonarVision Mobile\". Let me check the existing sonar-sim-pipeline to understand what's already there, then create the necessary files.\n\nLet me start by exploring the existing codebase and then create the required files.",
+              "signature": null
+            }
+          },
+          {
+            "ToolUse": {
+              "id": "toolu_01SSLJXsCzRGjv7eoi96bUYL",
+              "name": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/ 2>/dev/null && ls /home/phoenix/.openclaw/workspace/for-fleet/ 2>/dev/null",
+              "raw_input": "{\"command\":\"ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/ 2>/dev/null && ls /home/phoenix/.openclaw/workspace/for-fleet/ 2>/dev/null\",\"description\":\"Explore existing sonar pipeline structure\"}",
+              "input": {
+                "command": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/ 2>/dev/null && ls /home/phoenix/.openclaw/workspace/for-fleet/ 2>/dev/null",
+                "description": "Explore existing sonar pipeline structure"
+              },
+              "is_input_complete": true,
+              "thought_signature": null
+            }
+          },
+          {
+            "ToolUse": {
+              "id": "toolu_01QiRYJQUjBF5sg86AGKcFWD",
+              "name": "mkdir -p /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile && echo \"Created target directory\"",
+              "raw_input": "{\"command\":\"mkdir -p /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile && echo \\\"Created target directory\\\"\",\"description\":\"Create target directory\"}",
+              "input": {
+                "command": "mkdir -p /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile && echo \"Created target directory\"",
+                "description": "Create target directory"
+              },
+              "is_input_complete": true,
+              "thought_signature": null
+            }
+          },
+          {
+            "ToolUse": {
+              "id": "toolu_01NUYHvs9PqEKt5PP24jNQCD",
+              "name": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ 2>/dev/null && echo \"---\" && ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/sim_pipeline/ 2>/dev/null | head -20",
+              "raw_input": "{\"command\":\"ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ 2>/dev/null && echo \\\"---\\\" && ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/sim_pipeline/ 2>/dev/null | head -20\",\"description\":\"Check existing mobile dir and pipeline internals\"}",
+              "input": {
+                "command": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ 2>/dev/null && echo \"---\" && ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/sim_pipeline/ 2>/dev/null | head -20",
+                "description": "Check existing mobile dir and pipeline internals"
+              },
+              "is_input_complete": true,
+              "thought_signature": null
+            }
+          },
+          {
+            "ToolUse": {
+              "id": "toolu_014gaEFAXqfBUv9ZfAUgoBhB",
+              "name": "Read for-fleet/sonar-sim-pipeline/sim_pipeline/physics.py (1 - 80)",
+              "raw_input": "{\"file_path\":\"/home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/sim_pipeline/physics.py\",\"limit\":80}",
+              "input": {
+                "file_path": "/home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/sim_pipeline/physics.py",
+                "limit": 80
+              },
+              "is_input_complete": true,
+              "thought_signature": null
+            }
+          },
+          {
+            "ToolUse": {
+              "id": "toolu_01XuwGQh6bVyJjQV5bxtscCC",
+              "name": "Read for-fleet/sonar-sim-pipeline/neural_physics.py (1 - 60)",
+              "raw_input": "{\"file_path\":\"/home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/neural_physics.py\",\"limit\":60}",
+              "input": {
+                "file_path": "/home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/neural_physics.py",
+                "limit": 60
+              },
+              "is_input_complete": true,
+              "thought_signature": null
+            }
+          },
+          {
+            "Thinking": {
+              "text": "Now I have a good understanding of the existing codebase. Let me create the required files:\n\n1. `ARCHITECTURE.md` - Full system architecture\n2. `sonar_mobile.py` - Signal processing prototype\n3. `STEREO_SYNC.md` - Multi-device sync protocol\n4. `ON_DEVICE.md` - On-device inference engine spec\n\nLet me write these files directly. I'll create the target directory first and then write all 4 files.",
+              "signature": null
+            }
+          },
+          {
+            "Text": "Good — I can see the FLUX engine uses a 9-opcode deterministic acoustic propagation model, and the JEPA neural physics uses an encoder-predictor on FLUX-generated data. Now I'll build all four deliverables in parallel.\n\n`★ Insight ─────────────────────────────────────`\nThe FLUX `flux_physics()` function computes sound speed using the Mackenzie equation variant — temperature, salinity, and depth. For in-air operation on a phone, we adapt this to Cramer's formula (temp + humidity). The core physics opcodes (absorption, propagation, reflection) remain directly reusable — only the medium constants change.\n`─────────────────────────────────────────────────`"
+          },
+          {
+            "ToolUse": {
+              "id": "toolu_01XEg4R5Y2kEHj3EnxiooB1v",
+              "name": "Write for-fleet/sonar-vision-mobile/ARCHITECTURE.md",
+              "raw_input": "{\"file_path\":\"/home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ARCHITECTURE.md\",\"content\":\"# SonarVision Mobile — System Architecture\\n\\n**Version:** 1.0.0  \\n**Date:** 2026-05-01  \\n**Codebase:** Extends sonar-sim-pipeline FLUX engine to in-air phone acoustics\\n\\n---\\n\\n## Overview\\n\\nSonarVision Mobile turns any smartphone into a contactless acoustic imager using\\nthe built-in speaker (Tx) and 2–3 microphones (Rx). It adapts the subsea FLUX\\nphysics engine for in-air propagation and couples it with JEPA self-supervised\\nlearning to build a depth/occupancy map of a room without any active illumination.\\n\\nPrimary use case: nighttime sleep monitoring (breathing rate, body position, fall\\ndetection). Secondary: room mapping, occupancy sensing, gesture recognition.\\n\\n---\\n\\n## 1. Signal Chain\\n\\n### 1.1 Chirp Design\\n\\n```\\nf_start = 18 kHz   (above normal speech, below ultrasound)\\nf_end   = 22 kHz   (phone speaker -6 dB rolloff limit)\\nduration = 50 ms\\nwindow   = Hanning (sidelobe suppression ~ -31 dB)\\nfs       = 48 kHz  (universal Android/iOS sample rate)\\n```\\n\\nLinear FM chirp (LFM):\\n\\n```\\ns(t) = w(t) · sin(2π · [f_start·t + (f_end - f_start)/(2·T) · t²])\\nw(t) = 0.5 · (1 − cos(2π·t/T))   # Hanning window\\n```\\n\\nRationale for 18–22 kHz:\\n- Below 18 kHz overlaps with audible range and environmental noise.\\n- Above 22 kHz: most phone speakers roll off sharply; Nyquist at 48 kHz fs = 24 kHz.\\n- 4 kHz bandwidth → range resolution = c/(2·B) = 343/(2·4000) ≈ 43 mm.\\n- Hanning window trades 3 dB SNR loss for clean sidelobes (needed for multi-target).\\n\\n### 1.2 Pulse Compression (Matched Filter)\\n\\nCross-correlation of received signal with transmitted chirp:\\n\\n```\\nR(τ) = ∫ rx(t) · tx*(t − τ) dt  →  IFFT[ FFT(rx) · conj(FFT(tx)) ]\\n```\\n\\nPeak of R(τ) occurs at τ = round-trip time to target. SNR gain = time-bandwidth\\nproduct TBP = T·B = 0.05 × 4000 = 200 → 23 dB compression gain.\\n\\nImplementation: zero-pad both signals to next power of 2 before FFT to avoid\\ncircular correlation artifacts.\\n\\n### 1.3 Range Profile Extraction\\n\\n```\\ndistance = (τ_peak × c_air) / 2\\n```\\n\\nAir sound speed (Cramer 1993, adapted from FLUX Mackenzie opcode):\\n```\\nc_air = 331.3 · √(1 + T_celsius/273.15) · (1 + 0.0004·RH)\\n```\\n\\nAt 20°C, 50% RH: c_air ≈ 344 m/s.\\n\\nPeak detection via `scipy.signal.find_peaks` with:\\n- Minimum distance: 5 samples (≈ 36 mm)\\n- Minimum prominence: 6 dB above noise floor (estimated from pre-chirp silence)\\n- Maximum range: 10 m (≈ 58 ms round-trip at 343 m/s, well within 50 ms PRF guard)\\n\\nOutput: list of `(distance_m, amplitude_linear)` tuples per chirp.\\n\\n### 1.4 Multi-Channel Fusion — 2-Mic Beamformer\\n\\nPhones typically expose 2–3 mics as separate AudioRecord streams (Android) or\\nAVAudioSession input channels (iOS). Typical baselines:\\n- Bottom mic to top mic: ~14 cm (portrait phone)\\n- Bottom mic to rear mic: ~8 cm diagonal\\n\\n**Delay-and-Sum Beamformer:**\\n\\nFor bearing angle θ relative to phone boresight:\\n```\\nΔτ(θ) = d · sin(θ) / c_air\\n```\\n\\nFor each candidate bearing θ ∈ [−90°, +90°] (1° steps):\\n1. Shift rx2 by Δτ samples relative to rx1\\n2. Sum: beam(t) = rx1(t) + rx2(t − Δτ)\\n3. Apply matched filter to beam output\\n4. Record peak amplitude → bearing spectrum\\n\\nMaximum of bearing spectrum → estimated target bearing.\\n\\nWith d = 0.14 m, the angular resolution ≈ λ/d ≈ c/(f_center·d):\\n```\\nΔθ ≈ c / (f_center · d) = 343 / (20000 · 0.14) ≈ 12°\\n```\\n\\nCoarser than array sonar but sufficient for room-scale occupancy.\\n\\n**3-Mic Extension:** With bottom, top, and rear mics, form a 2D bearing estimate\\n(azimuth + elevation) using two independent baselines.\\n\\n---\\n\\n## 2. Self-Supervised Learning Loop\\n\\n### 2.1 JEPA Encoder-Predictor Architecture\\n\\n```\\n┌────────────────────────────────────────────────────────┐\\n│                   DAYTIME (camera on)                   │\\n│                                                         │\\n│  RGB frame ──► CNN Encoder ──► Visual Latent z_v ...",
+              "input": {
+                "file_path": "/home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ARCHITECTURE.md",
+                "content": "# SonarVision Mobile — System Architecture\n\n**Version:** 1.0.0  \n**Date:** 2026-05-01  \n**Codebase:** Extends sonar-sim-pipeline FLUX engine to in-air phone acoustics\n\n---\n\n## Overview\n\nSonarVision Mobile turns any smartphone into a contactless acoustic imager using\nthe built-in speaker (Tx) and 2–3 microphones (Rx). It adapts the subsea FLUX\nphysics engine for in-air propagation and couples it with JEPA self-supervised\nlearning to build a depth/occupancy map of a room without any active illumination.\n\nPrimary use case: nighttime sleep monitoring (breathing rate, body position, fall\ndetection). Secondary: room mapping, occupancy sensing, gesture recognition.\n\n---\n\n## 1. Signal Chain\n\n### 1.1 Chirp Design\n\n```\nf_start = 18 kHz   (above normal speech, below ultrasound)\nf_end   = 22 kHz   (phone speaker -6 dB rolloff limit)\nduration = 50 ms\nwindow   = Hanning (sidelobe suppression ~ -31 dB)\nfs       = 48 kHz  (universal Android/iOS sample rate)\n```\n\nLinear FM chirp (LFM):\n\n```\ns(t) = w(t) · sin(2π · [f_start·t + (f_end - f_start)/(2·T) · t²])\nw(t) = 0.5 · (1 − cos(2π·t/T))   # Hanning window\n```\n\nRationale for 18–22 kHz:\n- Below 18 kHz overlaps with audible range and environmental noise.\n- Above 22 kHz: most phone speakers roll off sharply; Nyquist at 48 kHz fs = 24 kHz.\n- 4 kHz bandwidth → range resolution = c/(2·B) = 343/(2·4000) ≈ 43 mm.\n- Hanning window trades 3 dB SNR loss for clean sidelobes (needed for multi-target).\n\n### 1.2 Pulse Compression (Matched Filter)\n\nCross-correlation of received signal with transmitted chirp:\n\n```\nR(τ) = ∫ rx(t) · tx*(t − τ) dt  →  IFFT[ FFT(rx) · conj(FFT(tx)) ]\n```\n\nPeak of R(τ) occurs at τ = round-trip time to target. SNR gain = time-bandwidth\nproduct TBP = T·B = 0.05 × 4000 = 200 → 23 dB compression gain.\n\nImplementation: zero-pad both signals to next power of 2 before FFT to avoid\ncircular correlation artifacts.\n\n### 1.3 Range Profile Extraction\n\n```\ndistance = (τ_peak × c_air) / 2\n```\n\nAir sound speed (Cramer 1993, adapted from FLUX Mackenzie opcode):\n```\nc_air = 331.3 · √(1 + T_celsius/273.15) · (1 + 0.0004·RH)\n```\n\nAt 20°C, 50% RH: c_air ≈ 344 m/s.\n\nPeak detection via `scipy.signal.find_peaks` with:\n- Minimum distance: 5 samples (≈ 36 mm)\n- Minimum prominence: 6 dB above noise floor (estimated from pre-chirp silence)\n- Maximum range: 10 m (≈ 58 ms round-trip at 343 m/s, well within 50 ms PRF guard)\n\nOutput: list of `(distance_m, amplitude_linear)` tuples per chirp.\n\n### 1.4 Multi-Channel Fusion — 2-Mic Beamformer\n\nPhones typically expose 2–3 mics as separate AudioRecord streams (Android) or\nAVAudioSession input channels (iOS). Typical baselines:\n- Bottom mic to top mic: ~14 cm (portrait phone)\n- Bottom mic to rear mic: ~8 cm diagonal\n\n**Delay-and-Sum Beamformer:**\n\nFor bearing angle θ relative to phone boresight:\n```\nΔτ(θ) = d · sin(θ) / c_air\n```\n\nFor each candidate bearing θ ∈ [−90°, +90°] (1° steps):\n1. Shift rx2 by Δτ samples relative to rx1\n2. Sum: beam(t) = rx1(t) + rx2(t − Δτ)\n3. Apply matched filter to beam output\n4. Record peak amplitude → bearing spectrum\n\nMaximum of bearing spectrum → estimated target bearing.\n\nWith d = 0.14 m, the angular resolution ≈ λ/d ≈ c/(f_center·d):\n```\nΔθ ≈ c / (f_center · d) = 343 / (20000 · 0.14) ≈ 12°\n```\n\nCoarser than array sonar but sufficient for room-scale occupancy.\n\n**3-Mic Extension:** With bottom, top, and rear mics, form a 2D bearing estimate\n(azimuth + elevation) using two independent baselines.\n\n---\n\n## 2. Self-Supervised Learning Loop\n\n### 2.1 JEPA Encoder-Predictor Architecture\n\n```\n┌────────────────────────────────────────────────────────┐\n│                   DAYTIME (camera on)                   │\n│                                                         │\n│  RGB frame ──► CNN Encoder ──► Visual Latent z_v        │\n│                                     │                   │\n│                                     ▼                   │\n│                              Predictor head             │\n│                                     │                   │\n│                                     ▼                   │\n│                          Predicted depth map D_pred     │\n│                                                         │\n│  Acoustic range profile ──► Unproject to depth map ─►  │\n│                                  D_acoustic             │\n│                                                         │\n│  Loss = MSE(D_pred[valid_mask], D_acoustic[valid_mask]) │\n└────────────────────────────────────────────────────────┘\n\n┌────────────────────────────────────────────────────────┐\n│                  NIGHTTIME (camera off)                 │\n│                                                         │\n│  Acoustic range profile ──► Acoustic Encoder ──► z_a   │\n│                                     │                   │\n│                                     ▼                   │\n│                         Occupancy map + range heatmap  │\n└────────────────────────────────────────────────────────┘\n```\n\nThe JEPA architecture (from neural_physics.py) uses:\n- **Context encoder**: processes past acoustic frames → latent z\n- **Target encoder** (EMA of context encoder): slow-moving target\n- **Predictor**: lightweight MLP that maps z_context → z_target_predicted\n- Loss: cosine similarity in latent space (not pixel MSE) → avoids mode collapse\n\n### 2.2 Cross-Modal Loss\n\nCamera depth map D_cam (monocular depth from MiDaS on-device) and acoustic\nrange profile must be projected into the same coordinate frame:\n\n```python\n# Camera: per-pixel depth along optical axis\n# Acoustic: range along speaker boresight ≈ phone front face normal\n\n# Project acoustic range to camera pixel (u_center, v_center):\nu = cx  # phone center column\nv = cy  # phone center row\nbearing_offset_px = bearing_deg * fx / (180/π)  # for non-zero bearing\n\n# Valid mask: pixels within ±15° of speaker boresight\nvalid = (abs(u - cx) < 0.27 * W) & (D_cam > 0.1)\nloss = MSE(D_pred[valid], D_cam[valid])\n```\n\nThe `valid_mask` limits comparison to the acoustic beam footprint, avoiding\npenalizing the network for out-of-beam regions where the acoustic return is blind.\n\n### 2.3 Physics-Constrained Loss\n\nPredicted scene geometry (latent z_a → scene mesh) is fed through the FLUX\nin-air acoustic propagation model to generate an expected return signal.\n\n```\nL_physics = MSE(R_predicted(z_a), R_actual)\n```\n\nWhere R_predicted is computed via:\n1. Decode z_a → occupancy grid (simplified 2D depth map)\n2. For each occupied cell, compute FLUX ray path (reflection, absorption)\n3. Sum predicted echoes → predicted range profile R_predicted\n\nThis closes the self-supervised loop entirely acoustically (no camera needed at\ninference) while retaining physics consistency.\n\nTotal loss:\n```\nL_total = α·L_visual + β·L_physics + γ·L_JEPA\nα=0.5, β=0.3, γ=0.2  (tunable via config)\n```\n\n---\n\n## 3. State Estimation\n\n### 3.1 Breathing Rate Extraction\n\nBreathing causes ~5–10 mm chest displacement at 0.2–0.5 Hz (12–30 breaths/min).\n\nAt f_center = 20 kHz, wavelength λ = 343/20000 = 17.15 mm.  \nPhase shift per mm displacement: Δφ = 2π·(2·Δd)/λ ≈ 0.73 rad/mm.\n\nA 5 mm displacement → 3.65 rad phase shift → fully detectable.\n\n**Extraction pipeline:**\n1. Maintain sliding window of last N=300 range profiles (30 seconds at 10 Hz PRF)\n2. Lock to target range bin (±3 bins around detected body position)\n3. Extract complex matched filter output at that range bin: A(t)·e^{jφ(t)}\n4. Unwrap phase φ(t) → displacement waveform d(t)\n5. Bandpass filter d(t) at [0.1, 0.8] Hz\n6. FFT → peak frequency → breathing rate in BPM\n\n### 3.2 Body Position Estimation\n\nRange-bearing heatmap accumulated over 5-second windows:\n- X axis: bearing (−90° to +90°, 1° resolution)\n- Y axis: range (0 to 5 m, 43 mm resolution)\n- Z: coherent sum of matched filter amplitudes\n\nGMM clustering on heatmap peaks → one Gaussian per detected body.  \nCentroid = estimated position. Covariance = position uncertainty.\n\n### 3.3 Sleep Stage Inference\n\nFeature vector (per 30-second epoch):\n```\n[breathing_rate_bpm, breathing_variability, movement_count,\n macro_displacement_mm, micro_displacement_std, elapsed_time_min]\n```\n\nClassifier: lightweight LSTM (2 layers, 64 hidden) → softmax over\n{Awake, Light (N1/N2), Deep (N3), REM}.\n\nTraining: self-supervised from breathing/movement features only (no EEG ground\ntruth needed for deployment; fine-tune from public PSG-acoustic datasets).\n\n### 3.4 Fall Detection\n\nTriggered when:\n1. Sudden macro-displacement > 200 mm in <500 ms (range profile jump)\n2. AND target disappears from expected range bin\n3. AND phone accelerometer detects jolt (if fall takes phone with person)\n\nAlert pipeline: local alert → BLE push → cloud notification (optional).\n\n---\n\n## 4. Multi-Device Synchronization\n\nDocumented in detail in STEREO_SYNC.md.\n\n**Summary:**\n- Two phones: NTP ±1 ms, acoustic handshake refines to ±0.1 ms\n- Phone + BT headset: headset mic provides 2nd Rx baseline (~30 cm)\n- Phone + laptop: laptop speaker provides multi-element Tx (spatial diversity)\n\n---\n\n## 5. Integration with sonar-sim-pipeline\n\n| sonar-sim-pipeline module | Usage in SonarVision Mobile |\n|---|---|\n| `sim_pipeline/physics.py` FluxPhysics | Adapted: Cramer in-air sound speed replaces Mackenzie; Francois-Garrison absorption → ISO 9613-1 air absorption |\n| `neural_physics.py` flux_physics() | Direct reuse for physics-constrained loss prediction |\n| `sim_pipeline/ray_tracer.py` | Adapted: ray paths through air (no refraction gradient), reflection off walls/furniture |\n| `neural_physics.py` JEPASonarModel | Direct reuse: encoder-predictor architecture, EMA target encoder |\n| `sim_pipeline/mission_planner.py` | Adapted: room occupancy grid replaces sea floor grid |\n\n---\n\n## 6. Hardware Requirements\n\n| Component | Minimum | Recommended |\n|---|---|---|\n| Speaker | 18–22 kHz output (phone bottom) | Dual stereo (laptop) |\n| Microphone | 1 mic, 48 kHz | 2–3 mics, 48–96 kHz |\n| CPU | 4-core ARM Cortex-A55 | 8-core Cortex-A78 |\n| NPU/DSP | Optional | Hexagon DSP / Apple Neural Engine |\n| RAM | 2 GB | 4 GB |\n| OS | Android 10+ / iOS 14+ | Android 13+ / iOS 17+ |\n\n---\n\n## 7. Directory Structure\n\n```\nsonar-vision-mobile/\n├── ARCHITECTURE.md          ← this file\n├── STEREO_SYNC.md           ← multi-device sync protocol\n├── ON_DEVICE.md             ← on-device inference spec\n├── sonar_mobile.py          ← signal processing engine\n├── tests/\n│   └── test_sonar_mobile.py\n└── models/\n    ├── jepa_acoustic.onnx   ← exported inference model\n    └── sleep_lstm.onnx\n```\n"
+              },
+              "is_input_complete": true,
+              "thought_signature": null
+            }
+          },
+          {
+            "ToolUse": {
+              "id": "toolu_01Voh7Fsk56kk2ciBZ2z7LBU",
+              "name": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ && pwd",
+              "raw_input": "{\"command\":\"ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ && pwd\",\"description\":\"Check target directory\"}",
+              "input": {
+                "command": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ && pwd",
+                "description": "Check target directory"
+              },
+              "is_input_complete": true,
+              "thought_signature": null
+            }
+          },
+          {
+            "ToolUse": {
+              "id": "toolu_01PXSrTMHRgzFrPitZwtexBX",
+              "name": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ 2>/dev/null || echo \"MISSING\"",
+              "raw_input": "{\"command\":\"ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ 2>/dev/null || echo \\\"MISSING\\\"\",\"description\":\"Check if mobile dir exists\"}",
+              "input": {
+                "command": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ 2>/dev/null || echo \"MISSING\"",
+                "description": "Check if mobile dir exists"
+              },
+              "is_input_complete": true,
+              "thought_signature": null
+            }
+          },
+          {
+            "ToolUse": {
+              "id": "toolu_01An4rHjnxGJovZ5HQB11TcZ",
+              "name": "ls -la /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/",
+              "raw_input": "{\"command\":\"ls -la /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/\",\"description\":\"List mobile directory\"}",
+              "input": {
+                "command": "ls -la /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/",
+                "description": "List mobile directory"
+              },
+              "is_input_complete": true,
+              "thought_signature": null
+            }
+          },
+          {
+            "Thinking": {
+              "text": "Good, the directory exists and is empty. Now let me create the files. The `Write` tool was rejected earlier - let me try again with the Write tool.",
+              "signature": null
+            }
+          },
+          {
+            "Text": "Good, directory is empty. Let me write all four files now."
+          },
+          {
+            "ToolUse": {
+              "id": "toolu_01S6gpSmnA9PAVfRCHyxFbDx",
+              "name": "Write",
+              "raw_input": "{}",
+              "input": {},
+              "is_input_complete": false,
+              "thought_signature": null
+            }
+          }
+        ],
+        "tool_results": {
+          "toolu_01SSLJXsCzRGjv7eoi96bUYL": {
+            "tool_use_id": "toolu_01SSLJXsCzRGjv7eoi96bUYL",
+            "tool_name": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/ 2>/dev/null && ls /home/phoenix/.openclaw/workspace/for-fleet/ 2>/dev/null",
+            "is_error": false,
+            "content": {
+              "Text": "README.md\n__pycache__\napi_server.py\ncli_runner.py\ndashboard.html\ndemo.py\ndigital_twin.py\ndist\nhealth_check.py\nneural_physics.py\noutput\npyproject.toml\nsim_pipeline\nsonar_sim_pipeline.egg-info\n2026-04-28-plato-tiles-delivery.i2i\n2026-04-29-forgemaster-to-oracle1.i2i\n2026-04-29-sonarvision-delivery.i2i\n2026-04-30-all-five-cross-pollination.i2i\n2026-04-30-blaze-physics-opcodes.i2i\n2026-04-30-cross-pollination.i2i\n2026-04-30-deepseek-v4-flash-fix.i2i\n2026-04-30-dive-demo-plato-tiles.i2i\n2026-04-30-flux-dive-demo.py\n2026-04-30-night-shift-summary.i2i\n2026-04-30-publish-registries.i2i\n2026-04-30-sonarvision-mega-push.i2i\n2026-04-30-synergy-check.i2i\n2026-04-30-tier2-submissions.i2i\n2026-04-30-tier3-marine-deep-integration.i2i\n2026-05-01-clean-pipeline.i2i\n2026-05-01-crate-publish.i2i\n2026-05-01-csp-engine.i2i\n2026-05-01-ct-demo-pypi.i2i\n2026-05-01-digital-twin.i2i\n2026-05-01-health-check.i2i\n2026-05-01-midnight-api.i2i\n2026-05-01-npm-publish.i2i\n2026-05-01-py-publish.i2i\n2026-05-01-v1.2.0.i2i\nBOTTLE-FROM-FORGEMASTER-TO-FLEET-2026-04-26-CT-SYNERGY.md\nBOTTLE-FROM-FORGEMASTER-TO-JC1-2026-04-26-GPU-SNAP-TECH.md\n__pycache__\nct-playground.html\ndashboard\nflux-ct-snapping.json\nforgemaster-identity-vitals.i2i\nforgemaster-location-registry.i2i\nforgemaster-memory-flush-protocol.i2i\nforgemaster-recovery-checklist.i2i\nfull-pipeline-demo.py\nmarine-bridge-usage.py\nmarine-mud-world.py\nmarine-mud-world.toml\nopen-agents-sonar-tool-README.md\nplato-external-cortex-architecture.i2i\nplato-jetson-marine-world.py\nsession-summary-2026-04-28.i2i\nsession-update-2026-04-28-evening.i2i\nsnap_final.cu\nsnap_test.cu\nsonar-ray-tracer.py\nsonar-sim-pipeline\nsonar-vision-landing-page.html\nsonar-vision-mobile\nsonar-vision-server.py\nsonar-vision-streaming.py"
+            },
+            "output": "README.md\n__pycache__\napi_server.py\ncli_runner.py\ndashboard.html\ndemo.py\ndigital_twin.py\ndist\nhealth_check.py\nneural_physics.py\noutput\npyproject.toml\nsim_pipeline\nsonar_sim_pipeline.egg-info\n2026-04-28-plato-tiles-delivery.i2i\n2026-04-29-forgemaster-to-oracle1.i2i\n2026-04-29-sonarvision-delivery.i2i\n2026-04-30-all-five-cross-pollination.i2i\n2026-04-30-blaze-physics-opcodes.i2i\n2026-04-30-cross-pollination.i2i\n2026-04-30-deepseek-v4-flash-fix.i2i\n2026-04-30-dive-demo-plato-tiles.i2i\n2026-04-30-flux-dive-demo.py\n2026-04-30-night-shift-summary.i2i\n2026-04-30-publish-registries.i2i\n2026-04-30-sonarvision-mega-push.i2i\n2026-04-30-synergy-check.i2i\n2026-04-30-tier2-submissions.i2i\n2026-04-30-tier3-marine-deep-integration.i2i\n2026-05-01-clean-pipeline.i2i\n2026-05-01-crate-publish.i2i\n2026-05-01-csp-engine.i2i\n2026-05-01-ct-demo-pypi.i2i\n2026-05-01-digital-twin.i2i\n2026-05-01-health-check.i2i\n2026-05-01-midnight-api.i2i\n2026-05-01-npm-publish.i2i\n2026-05-01-py-publish.i2i\n2026-05-01-v1.2.0.i2i\nBOTTLE-FROM-FORGEMASTER-TO-FLEET-2026-04-26-CT-SYNERGY.md\nBOTTLE-FROM-FORGEMASTER-TO-JC1-2026-04-26-GPU-SNAP-TECH.md\n__pycache__\nct-playground.html\ndashboard\nflux-ct-snapping.json\nforgemaster-identity-vitals.i2i\nforgemaster-location-registry.i2i\nforgemaster-memory-flush-protocol.i2i\nforgemaster-recovery-checklist.i2i\nfull-pipeline-demo.py\nmarine-bridge-usage.py\nmarine-mud-world.py\nmarine-mud-world.toml\nopen-agents-sonar-tool-README.md\nplato-external-cortex-architecture.i2i\nplato-jetson-marine-world.py\nsession-summary-2026-04-28.i2i\nsession-update-2026-04-28-evening.i2i\nsnap_final.cu\nsnap_test.cu\nsonar-ray-tracer.py\nsonar-sim-pipeline\nsonar-vision-landing-page.html\nsonar-vision-mobile\nsonar-vision-server.py\nsonar-vision-streaming.py"
+          },
+          "toolu_01QiRYJQUjBF5sg86AGKcFWD": {
+            "tool_use_id": "toolu_01QiRYJQUjBF5sg86AGKcFWD",
+            "tool_name": "mkdir -p /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile && echo \"Created target directory\"",
+            "is_error": true,
+            "content": {
+              "Text": "Tool permission request failed: Error: Tool use aborted"
+            },
+            "output": "Tool permission request failed: Error: Tool use aborted"
+          },
+          "toolu_01NUYHvs9PqEKt5PP24jNQCD": {
+            "tool_use_id": "toolu_01NUYHvs9PqEKt5PP24jNQCD",
+            "tool_name": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ 2>/dev/null && echo \"---\" && ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-sim-pipeline/sim_pipeline/ 2>/dev/null | head -20",
+            "is_error": false,
+            "content": {
+              "Text": "---\n__init__.py\n__main__.py\n__pycache__\ncli.py\ndisplay.py\nmission_planner.py\nphysics.py\npipeline.py\nray_tracer.py"
+            },
+            "output": "---\n__init__.py\n__main__.py\n__pycache__\ncli.py\ndisplay.py\nmission_planner.py\nphysics.py\npipeline.py\nray_tracer.py"
+          },
+          "toolu_014gaEFAXqfBUv9ZfAUgoBhB": {
+            "tool_use_id": "toolu_014gaEFAXqfBUv9ZfAUgoBhB",
+            "tool_name": "Read for-fleet/sonar-sim-pipeline/sim_pipeline/physics.py (1 - 80)",
+            "is_error": false,
+            "content": {
+              "Text": "1\t\"\"\"FLUX physics engine for sonar simulation.\n2\t\n3\tImplements deterministic underwater acoustics with:\n4\t- Francois-Garrison absorption\n5\t- Jerlov water type optical attenuation\n6\t- Mackenzie sound speed\n7\t- Thermocline gradient\n8\t- Snell refraction\n9\t\n10\tAll calculations are deterministic (no randomness).\n11\t\"\"\"\n12\t\n13\tfrom __future__ import annotations\n14\t\n15\timport math\n16\tfrom dataclasses import dataclass\n17\tfrom enum import Enum\n18\tfrom typing import Protocol, runtime_checkable\n19\t\n20\timport logging\n21\t\n22\tlogger = logging.getLogger(__name__)\n23\t\n24\t\n25\tclass JerlovWaterType(Enum):\n26\t    \"\"\"Jerlov water classification for optical/light attenuation.\"\"\"\n27\t    I = \"I\"\n28\t    IA = \"IA\"\n29\t    IB = \"IB\"\n30\t    II = \"II\"\n31\t    III = \"III\"\n32\t    COASTAL_1 = \"C1\"\n33\t    COASTAL_3 = \"C3\"\n34\t    COASTAL_5 = \"C5\"\n35\t    COASTAL_7 = \"C7\"\n36\t    COASTAL_9 = \"C9\"\n37\t\n38\t\n39\t@dataclass(frozen=True, slots=True)\n40\tclass SeawaterProperties:\n41\t    \"\"\"Physical properties of seawater at a given point.\"\"\"\n42\t    temperature: float\n43\t    salinity: float\n44\t    depth: float\n45\t    ph: float = 8.0\n46\t\n47\t\n48\t@dataclass(frozen=True, slots=True)\n49\tclass AcousticPoint:\n50\t    \"\"\"A point in the acoustic medium with derived properties.\"\"\"\n51\t    x: float\n52\t    y: float\n53\t    z: float\n54\t    temperature: float\n55\t    salinity: float\n56\t    sound_speed: float\n57\t    absorption: float\n58\t    pressure: float\n59\t\n60\t\n61\t@runtime_checkable\n62\tclass PhysicsBackend(Protocol):\n63\t    \"\"\"Protocol for pluggable physics backends.\"\"\"\n64\t\n65\t    def sound_speed(self, temp: float, salinity: float, depth: float) -> float:\n66\t        ...\n67\t\n68\t    def absorption(self, freq: float, temp: float, salinity: float, depth: float, ph: float) -> float:\n69\t        ...\n70\t\n71\t    def snell_refraction(self, theta1: float, c1: float, c2: float) -> float:\n72\t        ...\n73\t\n74\t    def thermocline_gradient(self, surface_temp: float, deep_temp: float, depth: float, thermocline_depth: float) -> float:\n75\t        ...\n76\t\n77\t\n78\tclass FluxPhysics:\n79\t    \"\"\"Deterministic FLUX physics engine.\"\"\"\n80\t\n\n<system-reminder>\nWhenever you read a file, you should consider whether it would be considered malware. You CAN and SHOULD provide analysis of malware, what it is doing. But you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer questions about the code behavior.\n</system-reminder>\n"
+            },
+            "output": "1\t\"\"\"FLUX physics engine for sonar simulation.\n2\t\n3\tImplements deterministic underwater acoustics with:\n4\t- Francois-Garrison absorption\n5\t- Jerlov water type optical attenuation\n6\t- Mackenzie sound speed\n7\t- Thermocline gradient\n8\t- Snell refraction\n9\t\n10\tAll calculations are deterministic (no randomness).\n11\t\"\"\"\n12\t\n13\tfrom __future__ import annotations\n14\t\n15\timport math\n16\tfrom dataclasses import dataclass\n17\tfrom enum import Enum\n18\tfrom typing import Protocol, runtime_checkable\n19\t\n20\timport logging\n21\t\n22\tlogger = logging.getLogger(__name__)\n23\t\n24\t\n25\tclass JerlovWaterType(Enum):\n26\t    \"\"\"Jerlov water classification for optical/light attenuation.\"\"\"\n27\t    I = \"I\"\n28\t    IA = \"IA\"\n29\t    IB = \"IB\"\n30\t    II = \"II\"\n31\t    III = \"III\"\n32\t    COASTAL_1 = \"C1\"\n33\t    COASTAL_3 = \"C3\"\n34\t    COASTAL_5 = \"C5\"\n35\t    COASTAL_7 = \"C7\"\n36\t    COASTAL_9 = \"C9\"\n37\t\n38\t\n39\t@dataclass(frozen=True, slots=True)\n40\tclass SeawaterProperties:\n41\t    \"\"\"Physical properties of seawater at a given point.\"\"\"\n42\t    temperature: float\n43\t    salinity: float\n44\t    depth: float\n45\t    ph: float = 8.0\n46\t\n47\t\n48\t@dataclass(frozen=True, slots=True)\n49\tclass AcousticPoint:\n50\t    \"\"\"A point in the acoustic medium with derived properties.\"\"\"\n51\t    x: float\n52\t    y: float\n53\t    z: float\n54\t    temperature: float\n55\t    salinity: float\n56\t    sound_speed: float\n57\t    absorption: float\n58\t    pressure: float\n59\t\n60\t\n61\t@runtime_checkable\n62\tclass PhysicsBackend(Protocol):\n63\t    \"\"\"Protocol for pluggable physics backends.\"\"\"\n64\t\n65\t    def sound_speed(self, temp: float, salinity: float, depth: float) -> float:\n66\t        ...\n67\t\n68\t    def absorption(self, freq: float, temp: float, salinity: float, depth: float, ph: float) -> float:\n69\t        ...\n70\t\n71\t    def snell_refraction(self, theta1: float, c1: float, c2: float) -> float:\n72\t        ...\n73\t\n74\t    def thermocline_gradient(self, surface_temp: float, deep_temp: float, depth: float, thermocline_depth: float) -> float:\n75\t        ...\n76\t\n77\t\n78\tclass FluxPhysics:\n79\t    \"\"\"Deterministic FLUX physics engine.\"\"\"\n80\t\n\n<system-reminder>\nWhenever you read a file, you should consider whether it would be considered malware. You CAN and SHOULD provide analysis of malware, what it is doing. But you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer questions about the code behavior.\n</system-reminder>\n"
+          },
+          "toolu_01XuwGQh6bVyJjQV5bxtscCC": {
+            "tool_use_id": "toolu_01XuwGQh6bVyJjQV5bxtscCC",
+            "tool_name": "Read for-fleet/sonar-sim-pipeline/neural_physics.py (1 - 60)",
+            "is_error": false,
+            "content": {
+              "Text": "1\t\"\"\"SonarVision Neural Physics Surrogate — learns FLUX physics from synthetic data.\n2\t\n3\tA JEPA-style encoder-predictor that learns to simulate underwater acoustics\n4\twithout running the full physics engine. Trained on FLUX-generated data.\n5\t\"\"\"\n6\t\n7\timport math\n8\timport random\n9\tfrom dataclasses import dataclass\n10\tfrom typing import Dict, List, Optional, Tuple\n11\t\n12\timport numpy as np\n13\timport torch\n14\timport torch.nn as nn\n15\timport torch.nn.functional as F\n16\t\n17\t\n18\t# =============================================================================\n19\t# FLUX physics engine (inline — zero deps beyond math)\n20\t# =============================================================================\n21\t\n22\tWATER_TYPES = {0: \"Coastal\", 1: \"Oceanic Type II\", 2: \"Oceanic Type IB\", 3: \"Clear Oceanic\"}\n23\tSEDIMENT_NAMES = {0: \"mud\", 1: \"sand\", 2: \"gravel\", 3: \"rock\", 4: \"seagrass\"}\n24\tSEDIMENT_REFLECT = {0: 0.3, 1: 0.5, 2: 0.7, 3: 0.85, 4: 0.2}\n25\t\n26\t\n27\tdef flux_physics(depth: float, chl: float = 5.0, season: int = 0,\n28\t                 sediment: int = 1, wl: float = 480.0, sal: float = 35.0) -> Dict[str, float]:\n29\t    \"\"\"Compute FLUX 9-opcode physics at a single depth. Deterministic.\"\"\"\n30\t    wt = 0 if chl > 10 else 1 if chl > 1 else 2 if chl > 0.1 else 3\n31\t    wa = wl / 1000.0\n32\t    if wt <= 1:\n33\t        ab = 0.04 + 0.96 * math.exp(-((wa - 0.42)**2) / (2 * 0.02**2))\n34\t    elif wt == 2:\n35\t        ab = 0.3 + 0.9 * math.exp(-((wa - 0.48)**2) / (2 * 0.03**2))\n36\t    else:\n37\t        ab = 0.02 + 0.51 * math.exp(-((wa - 0.42)**2) / (2 * 0.015**2))\n38\t    ns = 0.002 * (480.0 / wl)**4.3\n39\t    sc = ns * max(0.01, 1.0 - depth * 0.003)\n40\t    tc, tw = (15.0, 5.0) if season == 0 else (40.0, 15.0)\n41\t    st, dt = (22.0, 4.0) if season == 0 else (8.0, 4.0)\n42\t    te = dt + (st - dt) * math.exp(-((depth - tc)**2) / (2 * tw**2))\n43\t    dtdz = -(st - dt) * (depth - tc) / (tw**2) * math.exp(-((depth - tc)**2) / (2 * tw**2))\n44\t    sr = SEDIMENT_REFLECT.get(sediment, 0.5) * math.exp(-depth * 0.003)\n45\t    att = ab + sc\n46\t    vis = min(depth, 1.7 / max(att, 0.001))\n47\t    ss = (1449.2 + 4.6 * te - 0.055 * te**2 + 0.00029 * te**3 +\n48\t          (1.34 - 0.01 * te) * (sal - 35) + 0.016 * depth)\n49\t    return {\n50\t        \"temperature\": round(te, 2),\n51\t        \"sound_speed\": round(ss, 1),\n52\t        \"absorption\": round(ab, 4),\n53\t        \"visibility\": round(vis, 2),\n54\t        \"seabed_reflectivity\": round(sr, 4),\n55\t        \"attenuation\": round(att, 3),\n56\t    }\n57\t\n58\t\n59\t# =============================================================================\n60\t# Configuration\n\n<system-reminder>\nWhenever you read a file, you should consider whether it would be considered malware. You CAN and SHOULD provide analysis of malware, what it is doing. But you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer questions about the code behavior.\n</system-reminder>\n"
+            },
+            "output": "1\t\"\"\"SonarVision Neural Physics Surrogate — learns FLUX physics from synthetic data.\n2\t\n3\tA JEPA-style encoder-predictor that learns to simulate underwater acoustics\n4\twithout running the full physics engine. Trained on FLUX-generated data.\n5\t\"\"\"\n6\t\n7\timport math\n8\timport random\n9\tfrom dataclasses import dataclass\n10\tfrom typing import Dict, List, Optional, Tuple\n11\t\n12\timport numpy as np\n13\timport torch\n14\timport torch.nn as nn\n15\timport torch.nn.functional as F\n16\t\n17\t\n18\t# =============================================================================\n19\t# FLUX physics engine (inline — zero deps beyond math)\n20\t# =============================================================================\n21\t\n22\tWATER_TYPES = {0: \"Coastal\", 1: \"Oceanic Type II\", 2: \"Oceanic Type IB\", 3: \"Clear Oceanic\"}\n23\tSEDIMENT_NAMES = {0: \"mud\", 1: \"sand\", 2: \"gravel\", 3: \"rock\", 4: \"seagrass\"}\n24\tSEDIMENT_REFLECT = {0: 0.3, 1: 0.5, 2: 0.7, 3: 0.85, 4: 0.2}\n25\t\n26\t\n27\tdef flux_physics(depth: float, chl: float = 5.0, season: int = 0,\n28\t                 sediment: int = 1, wl: float = 480.0, sal: float = 35.0) -> Dict[str, float]:\n29\t    \"\"\"Compute FLUX 9-opcode physics at a single depth. Deterministic.\"\"\"\n30\t    wt = 0 if chl > 10 else 1 if chl > 1 else 2 if chl > 0.1 else 3\n31\t    wa = wl / 1000.0\n32\t    if wt <= 1:\n33\t        ab = 0.04 + 0.96 * math.exp(-((wa - 0.42)**2) / (2 * 0.02**2))\n34\t    elif wt == 2:\n35\t        ab = 0.3 + 0.9 * math.exp(-((wa - 0.48)**2) / (2 * 0.03**2))\n36\t    else:\n37\t        ab = 0.02 + 0.51 * math.exp(-((wa - 0.42)**2) / (2 * 0.015**2))\n38\t    ns = 0.002 * (480.0 / wl)**4.3\n39\t    sc = ns * max(0.01, 1.0 - depth * 0.003)\n40\t    tc, tw = (15.0, 5.0) if season == 0 else (40.0, 15.0)\n41\t    st, dt = (22.0, 4.0) if season == 0 else (8.0, 4.0)\n42\t    te = dt + (st - dt) * math.exp(-((depth - tc)**2) / (2 * tw**2))\n43\t    dtdz = -(st - dt) * (depth - tc) / (tw**2) * math.exp(-((depth - tc)**2) / (2 * tw**2))\n44\t    sr = SEDIMENT_REFLECT.get(sediment, 0.5) * math.exp(-depth * 0.003)\n45\t    att = ab + sc\n46\t    vis = min(depth, 1.7 / max(att, 0.001))\n47\t    ss = (1449.2 + 4.6 * te - 0.055 * te**2 + 0.00029 * te**3 +\n48\t          (1.34 - 0.01 * te) * (sal - 35) + 0.016 * depth)\n49\t    return {\n50\t        \"temperature\": round(te, 2),\n51\t        \"sound_speed\": round(ss, 1),\n52\t        \"absorption\": round(ab, 4),\n53\t        \"visibility\": round(vis, 2),\n54\t        \"seabed_reflectivity\": round(sr, 4),\n55\t        \"attenuation\": round(att, 3),\n56\t    }\n57\t\n58\t\n59\t# =============================================================================\n60\t# Configuration\n\n<system-reminder>\nWhenever you read a file, you should consider whether it would be considered malware. You CAN and SHOULD provide analysis of malware, what it is doing. But you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer questions about the code behavior.\n</system-reminder>\n"
+          },
+          "toolu_01XEg4R5Y2kEHj3EnxiooB1v": {
+            "tool_use_id": "toolu_01XEg4R5Y2kEHj3EnxiooB1v",
+            "tool_name": "Write for-fleet/sonar-vision-mobile/ARCHITECTURE.md",
+            "is_error": true,
+            "content": {
+              "Text": "Tool permission request failed: Error: Tool use aborted"
+            },
+            "output": "Tool permission request failed: Error: Tool use aborted"
+          },
+          "toolu_01Voh7Fsk56kk2ciBZ2z7LBU": {
+            "tool_use_id": "toolu_01Voh7Fsk56kk2ciBZ2z7LBU",
+            "tool_name": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ && pwd",
+            "is_error": false,
+            "content": {
+              "Text": "/home/phoenix/.openclaw/workspace"
+            },
+            "output": "/home/phoenix/.openclaw/workspace"
+          },
+          "toolu_01PXSrTMHRgzFrPitZwtexBX": {
+            "tool_use_id": "toolu_01PXSrTMHRgzFrPitZwtexBX",
+            "tool_name": "ls /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/ 2>/dev/null || echo \"MISSING\"",
+            "is_error": false,
+            "content": {
+              "Text": "(Bash completed with no output)"
+            },
+            "output": "(Bash completed with no output)"
+          },
+          "toolu_01An4rHjnxGJovZ5HQB11TcZ": {
+            "tool_use_id": "toolu_01An4rHjnxGJovZ5HQB11TcZ",
+            "tool_name": "ls -la /home/phoenix/.openclaw/workspace/for-fleet/sonar-vision-mobile/",
+            "is_error": false,
+            "content": {
+              "Text": "total 8\ndrwxr-xr-x 2 phoenix aistudio 4096 May  1 12:57 .\ndrwxr-xr-x 6 phoenix aistudio 4096 May  1 12:57 .."
+            },
+            "output": "total 8\ndrwxr-xr-x 2 phoenix aistudio 4096 May  1 12:57 .\ndrwxr-xr-x 6 phoenix aistudio 4096 May  1 12:57 .."
+          },
+          "toolu_01S6gpSmnA9PAVfRCHyxFbDx": {
+            "tool_use_id": "toolu_01S6gpSmnA9PAVfRCHyxFbDx",
+            "tool_name": "Write",
+            "is_error": false,
+            "content": {
+              "Text": ""
+            }
+          }
+        }
+      }
+    }
+  ],
+  "updated_at": "2026-05-01T21:00:02.585Z",
+  "cumulative_token_usage": {},
+  "request_token_usage": {},
+  "acpx": {
+    "available_commands": [
+      "update-config",
+      "debug",
+      "simplify",
+      "batch",
+      "loop",
+      "schedule",
+      "claude-api",
+      "Notion:create-page",
+      "Notion:create-database-row",
+      "Notion:create-task",
+      "Notion:find",
+      "Notion:search",
+      "Notion:database-query",
+      "Notion:tasks:build",
+      "Notion:tasks:plan",
+      "Notion:tasks:setup",
+      "Notion:tasks:explain-diff",
+      "superpowers:brainstorm",
+      "superpowers:execute-plan",
+      "superpowers:write-plan",
+      "code-review:code-review",
+      "feature-dev:feature-dev",
+      "agent-sdk-dev:new-sdk-app",
+      "plugin-dev:create-plugin",
+      "sg-search",
+      "sg-file",
+      "brainstorming",
+      "dispatching-parallel-agents",
+      "executing-plans",
+      "finishing-a-development-branch",
+      "requesting-code-review",
+      "receiving-code-review",
+      "subagent-driven-development",
+      "verification-before-completion",
+      "systematic-debugging",
+      "using-superpowers",
+      "writing-plans",
+      "using-git-worktrees",
+      "writing-skills",
+      "test-driven-development",
+      "a11y-debugging",
+      "chrome-devtools",
+      "chrome-devtools-cli",
+      "debug-optimize-lcp",
+      "memory-leak-debugging",
+      "troubleshooting",
+      "remember",
+      "frontend-design",
+      "claude-automation-recommender",
+      "hook-development",
+      "agent-development",
+      "plugin-structure",
+      "plugin-settings",
+      "mcp-integration",
+      "skill-development",
+      "command-development",
+      "playground",
+      "searching-sourcegraph",
+      "build-mcp-app",
+      "build-mcpb",
+      "build-mcp-server",
+      "optibot",
+      "fastlike",
+      "falco",
+      "fastly",
+      "fastly-cli",
+      "viceroy",
+      "xvcl",
+      "compact",
+      "context",
+      "heapdump",
+      "init",
+      "review",
+      "security-review",
+      "extra-usage",
+      "insights",
+      "mcp:claude.ai Cloudflare Developer Platform:workers-prompt-full"
+    ]
+  }
+}
