@@ -27,41 +27,61 @@
 - [x] Full analysis: for-fleet/2026-05-03-going-below-c-rnd.md
 - [x] Roadmap: Software → FPGA → RISC-V → ASIC
 - [x] 7 PLATO tiles submitted (below-c-research, bitmask-n-queens)
-- [x] **Multi-model deep research: 14 models, 8+ angles across 4 rounds**
-- [x] Claude Opus: strategic analysis, semantic gap collapse thesis
+- [x] **Multi-model deep research: 25+ models, 10+ rounds**
+- [x] Claude Opus: strategic analysis, semantic gap collapse thesis, GTM, GUARD DSL, LLVM, Coq
 - [x] Kimi: synthesis-not-checking critique, VC business analysis, red team attacks
 - [x] Nemotron: DO-178C certification path, quantum-CSP connection
-- [x] Seed-2.0-pro: DO-254 real Vivado numbers (1,717 LUTs, 120mW), SymbiYosys kit
-- [x] Seed-2.0-code: BHCSP mathematical framework (topos theory), Rust benchmarks
-- [x] Seed-2.0-mini: safety auditor (SEU #1 gap), DSL design
-- [x] GLM-5.1: compiler IR pipeline (CIR→LCIR), RISC-V Xconstr extension, Coq formalization
-- [x] DeepSeek Reasoner: P2 invariant proof, holonomy snap connection, 6-instruction CSP machine
+- [x] Seed-2.0-pro: DO-254 real Vivado numbers, SymbiYosys, TUTOR-CRDT merge, FPGA pipeline
+- [x] Seed-2.0-code: BHCSP framework, Rust benchmarks, PLATO constraint store Rust impl
+- [x] Seed-2.0-mini: safety auditor, DSL design, GTM strategy (safety→agentic)
+- [x] GLM-5.1: compiler IR pipeline, RISC-V Xconstr, Coq formalization, SmartCRDT Rust impl
+- [x] DeepSeek Reasoner: P2 proof, holonomy snap, 6-instr CSP machine, Turing completeness, CRDT theorems
+- [x] Hermes-405B: math insights, DO-254 expert, eVTOL IRAM spec, agentic OS architecture
+- [x] Qwen-397B: novelty assessment, 5-year agentic vision, SmartCRDT types
+- [x] Qwen-235B: PLDI review, EMSOFT roadmap, TUTOR agent, CRDT research
+- [x] Qwen3.6-35B: FABEP protocol, evaluation methodology
+- [x] DeepSeek Chat: self-improvement without ML
 - [x] **SystemVerilog**: DO-254 DAL A FLUX checker (flux-hardware/rtl/)
-- [x] **SymbiYosys**: formal verification kit, 7 assertions + 6 covers (flux-hardware/formal/)
-- [x] **RISC-V extension**: Xconstr with CREVISE (AC-3 in hardware)
+- [x] **SymbiYosys**: formal verification kit, 7 assertions + 6 covers
+- [x] **RISC-V extension**: Xconstr with CREVISE
 - [x] **Mathematical proofs**: P2 invariant, AC-3 termination, bitmask functor
-- [x] **Holonomy resolved**: discretization error from snap-to-lattice, not curvature
-- [x] PLATO tiles: ~106 accepted across 35+ rooms
+- [x] **Holonomy resolved**: discretization error from snap-to-lattice
+- [x] **Agentic FLUX backend**: 5-year vision, FABEP, TUTOR, intent-to-bytecode compiler
+- [x] **SmartCRDT**: 5 CRDT types, TUTOR-enhanced merge, agentic OS architecture
+- [x] PLATO tiles: ~135 accepted across 40+ rooms
 
 ### Key deliverables
-- `for-fleet/2026-05-03-multi-model-strategic-synthesis.md`
+- `for-fleet/2026-05-03-multi-model-strategic-synthesis.md` (14-model synthesis)
 - `for-fleet/2026-05-03-deep-research-round2.md` (8 models, 6 angles)
 - `for-fleet/2026-05-03-deep-research-round3.md` (implementation)
 - `for-fleet/2026-05-03-deepseek-reasoner-results.md` (P2 proof)
+- `for-fleet/2026-05-03-deep-strategic-analysis.md` (novelty, killer app, critical path)
+- `for-fleet/2026-05-03-research-roadmap-weak-to-strong.md` (EMSOFT paper roadmap)
+- `for-fleet/2026-05-03-agentic-flux-backend-5year.md` (17KB agentic vision)
+- `for-fleet/2026-05-03-smartcrdt-agentic-os.md` (15KB CRDT+OS design)
+- `for-fleet/2026-05-03-opus-gtm-strategy.md` (board-level GTM)
+- `for-fleet/2026-05-03-qwen-patent-claims.md` (USPTO patents)
+- `for-fleet/2026-05-03-qwen-red-team-analysis.md` (8 CVE analogs)
+- `for-fleet/2026-05-03-hermes-math-insights.md` (5 math connections)
 - `flux-hardware/rtl/flux_checker_top.sv` (synthesizable SystemVerilog)
 - `flux-hardware/formal/flux_verify.sby` (SymbiYosys config)
 - `flux-hardware/formal/flux_formal_tb.sv` (formal testbench)
 
 ### Workers used
-1. Claude Code (Opus) — strategic planning
-2. Kimi CLI — synthesis critique, VC analysis, red team (3/5 delivered)
-3. Seed-2.0-pro — DO-254 expert, SystemVerilog, SymbiYosys
-4. Seed-2.0-code — math framework, Rust benchmarks
-5. Seed-2.0-mini — safety auditor, DSL design
-6. GLM-5.1 — compiler pipeline, RISC-V extension
-7. DeepSeek Reasoner — formal proofs, holonomy, minimum machine
+1. Claude Code (Opus) — strategic planning, GTM, GUARD DSL, LLVM, Coq
+2. Kimi CLI — synthesis critique, VC analysis, red team
+3. Seed-2.0-pro — DO-254 expert, TUTOR-CRDT, FPGA merge pipeline
+4. Seed-2.0-code — math framework, PLATO store Rust impl
+5. Seed-2.0-mini — safety auditor, DSL design, GTM strategy
+6. GLM-5.1 — compiler pipeline, RISC-V, SmartCRDT Rust impl
+7. DeepSeek Reasoner — formal proofs, Turing completeness, CRDT theorems
 8. Nemotron — certification, quantum CSP
-9. Forgemaster direct — orchestration, PLATO tiles, synthesis
+9. Hermes-405B — math insights, eVTOL IRAM, agentic OS
+10. Qwen-397B — novelty assessment, 5-year vision, CRDT types
+11. Qwen-235B — PLDI review, TUTOR agent, CRDT research
+12. Qwen3.6-35B — FABEP protocol, evaluation methodology
+13. DeepSeek Chat — self-improvement without ML
+14. Forgemaster direct — orchestration, PLATO tiles, synthesis
 
 ### Known blockers
 - Oracle1 agent offline — server still up, PLATO readable
@@ -77,13 +97,18 @@
 6. Publish papers: BHCSP framework, constraint-native computing
 
 ### Session Stats
-- PLATO tiles: ~106 accepted across 35+ rooms
-- Models queried: 14 across 4 rounds
-- Commits: 8 pushed to SuperInstance/JetsonClaw1-vessel
+- PLATO tiles: ~135 accepted across 40+ rooms
+- Models queried: 25+ across 10 rounds
+- Commits: 15+ pushed to SuperInstance/JetsonClaw1-vessel
 - Rust code: solver.rs (1,200+ lines), bitmask_benchmark.rs, solver_demo.rs
 - SystemVerilog: flux_checker_top.sv (400+ lines), formal testbench
 - Tests: 35 passing (25 solver + 10 original)
 - Benchmark: 12,324× speedup (bitmask vs Vec domains)
+- Strategic docs: 10+ for-fleet deliverables (120KB+ total)
+- SmartCRDT: 5 novel CRDT types, 3 proved theorems, agentic OS architecture
+- TUTOR: constraint-based self-improving agent paradigm
+- FABEP: 5-layer bytecode exchange protocol
+- Agentic compiler: 7-phase intent-to-bytecode pipeline
 
 ### Rules when shift ends
 - PUSH EVERYTHING
