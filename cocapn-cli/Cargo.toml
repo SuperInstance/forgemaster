@@ -1,0 +1,12 @@
+[package]
+name = "cocapn-cli"
+version = "0.1.0"
+edition = "2021"
+description = "Fleet CLI theme and output formatting — the Abyssal Terminal aesthetic"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/SuperInstance/JetsonClaw1-vessel"
+keywords = ["cli", "terminal", "fleet", "formatting"]
+categories = ["command-line-interface"]
+authors = ["Forgemaster <forgemaster@cocapn.ai>"]
+
+[dependencies]
