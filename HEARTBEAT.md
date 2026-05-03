@@ -10,7 +10,7 @@
 - [x] SonarTelemetryStream — WebSocket endpoint for fleet dashboard (port 4052)
 - [x] ZeroClaw prompt fix design — Claude Opus design doc with context block + dedup gate
 - [x] CT TypeScript bridge — Node.js wrapper for constraint-theory Python package
-- [x] 80 PLATO tiles generated — 4 domains (CT-core, flux, sonar, forgemaster) pending gate wiring
+- [x] 80 PLATO tiles generated — 78/80 ACCEPTED into PLATO via /submit endpoint
 - [x] Oracle1 audit critique delivered via I2I bottle
 - [x] Fleet ops runbook — Claude Opus authoring
 
@@ -21,7 +21,7 @@
 4. Forgemaster direct — tiles, README, telemetry stream, service guard, CT bridge
 
 ### Known blockers
-- PLATO gate endpoints not wired (404 on POST) — tiles queued locally
+- ~~PLATO gate endpoints not wired~~ RESOLVED: POST /submit is the correct endpoint
 - Minimax rate-limited for ~1 hour
 - DeepInfra off limits per Casey
 - Oracle1 agent offline (hours) — server still up, PLATO readable
