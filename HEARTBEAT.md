@@ -60,7 +60,7 @@
 - [x] **Gap analysis**: Scaling (linear!), semantic gap (closed for finite domains), verification (6-9 months Coq)
 - [x] **Weight ROM density breakthrough**: 22nm FDSOI differential ternary = 103B params single die (Seed-2.0-Pro)
 - [x] **Safe-TOPS/W benchmark**: Complete specification + Python implementation + comparison table
-- [x] **Provisional patent draft**: Differential ternary ROM cell, 20 claims, 13KB (Qwen-397B)
+- [x] **Patent drafts archived**: Ternary ROM + Constraint-to-Silicon research (Apache 2.0 strategy adopted)
 - [x] **Coq formalization**: Semantic gap theorem for finite output domains (DeepSeek)
 - [x] **EMSOFT paper intro**: Abstract + introduction (Qwen-397B, 7.5KB)
 - [x] **FLUX VM interpreter**: 43 opcodes, Rust, 11/11 tests passing
@@ -124,7 +124,7 @@
 - **Tests**: 42 (flux-vm) + 16 (guard2mask) + 7 (flux-bridge) + 9 (SV testbench) = 74+
 - **SystemVerilog**: flux_checker_top.sv (13KB) + flux_rau_interlock.sv (282 lines) + testbench (428 lines)
 - **Academic paper**: 464 lines, 35KB (EMSOFT submission quality)
-- **Patent drafts**: 4 inventions, 20+ claims
+- **Patent drafts**: Archived — Apache 2.0 open strategy adopted
 - **for-fleet deliverables**: 30+ (220KB+ total)
 - **I2I bottles to fleet**: 4 (technology stack, ISA alignment, bridge milestone, paper milestone)
 - **GitHub discussion posts**: 4 on fleet coordination thread

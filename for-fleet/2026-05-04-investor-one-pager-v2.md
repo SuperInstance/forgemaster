@@ -34,7 +34,7 @@ Why not just wrap a standard chip in software? Because software safety layers fa
 | 74+ automated tests | Passing |
 | EMSOFT-format academic paper (35KB, 464 lines) | Complete |
 | FPGA prototype (Artix-7) at 28.8 Safe-TOPS/W | Running |
-| 4 provisional patent drafts | Filed |
+| Apache 2.0 open-source (all code, specs, papers) | Published |
 | DO-254 DAL A certification roadmap | Executing |
 
 ---
@@ -50,10 +50,10 @@ Why not just wrap a standard chip in software? Because software safety layers fa
 
 ## Business Model
 
-- **IP licensing**: FLUX constraint VM core licensed per chip to OEMs and Tier-1 suppliers ($0.50–$2.00/unit royalty at volume)
-- **Tool licensing**: FLUX constraint toolchain (compiler, verifier, simulator) as annual developer SaaS
-- **NRE + reference design**: Custom constraint profiles for specific platforms (one-time engagement fee)
-- **Exit comparables**: ARM IP acquisitions ($50–150M Series B/C); strategic acquirers include Honeywell, Collins Aerospace, Synopsys, Cadence
+- **Certification consulting**: Help OEMs pass DO-254/ISO 26262 using FLUX (engagement-based)
+- **Reference designs**: Pre-certified FPGA/ASIC implementations for specific platforms
+- **Benchmark authority**: Safe-TOPS/W scoring, auditing, and certification as industry standard
+- **Exit comparables**: Red Hat (open source + services), ARM (IP licensing without patents), Ansible (open standard + enterprise)
 
 ---
 
@@ -73,12 +73,12 @@ Research focus: hardware-enforced constraint satisfaction, ternary ROM inference
 
 | Use of capital | Allocation |
 |---|---|
-| 22nm test chip tape-out (TSMC / GlobalFoundries) | $1.0–1.2M |
-| EDA toolchain + physical design | $150K |
-| DO-254 DAL A certification consultant engagement | $100K |
+| Open-source community building (docs, examples, playground) | $200K |
+| DO-254 DAL A certification engagement | $150K |
+| FPGA reference design kit (Artix-7) | $100K |
 | 12-month runway to Series A | Remainder |
 
-**Series A trigger**: Test chip silicon validated, first OEM letter of intent signed, DO-254 milestone documented.
+**Series A trigger**: 100+ developers using FLUX, first OEM certification engagement signed, Safe-TOPS/W adopted as industry benchmark.
 
 ---
 
