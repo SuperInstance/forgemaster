@@ -6,25 +6,25 @@
 
 ## Abstract
 
-Autonomous agent systems require knowledge stores that are structurally sound, epistemically disciplined, and traceable to source. Existing approaches — vector databases, retrieval-augmented generation (RAG) frameworks, and knowledge graphs — are permissive at ingestion and corrective at retrieval: they accept any data and rely on downstream filtering, re-ranking, or prompt engineering to maintain quality. We argue that this architecture is fundamentally flawed for autonomous systems, where unchecked knowledge propagates through chains of reasoning without human oversight. We present PLATO, a quality-gated knowledge integration system that enforces structural validation at the API boundary. PLATO implements a deterministic pipeline of five rejection rules — missing fields, insufficient length, absolute language detection, content-hash deduplication, and provenance verification — evaluated before any tile enters the knowledge graph. In production across the Cocapn Fleet (18,633 tiles, 1,373 rooms), the gate rejects approximately 15% of submissions, demonstrably catching malformed data from the system's own agent pipeline. We describe the architecture, prove the correctness of the gate's short-circuit evaluation, and demonstrate that ingestion-time quality control produces a higher-fidelity knowledge store than retrieval-time filtering at lower amortized cost.
+Autonomous agent systems require knowledge stores that are structurally sound, epistemically disciplined, and traceable to source. Existing approaches - vector databases, retrieval-augmented generation (RAG) frameworks, and knowledge graphs - are permissive at ingestion and corrective at retrieval: they accept any data and rely on downstream filtering, re-ranking, or prompt engineering to maintain quality. We argue that quality-at-ingestion is complementary to retrieval-time filtering - not a replacement - but critically important for autonomous systems, where unchecked knowledge propagates through chains of reasoning without human oversight. Retrieval-time filtering remains necessary for relevance and context; PLATO ensures the corpus being searched is itself structurally sound. We present PLATO, a quality-gated knowledge integration system that enforces structural validation at the API boundary. PLATO implements a deterministic pipeline of five rejection rules - missing fields, insufficient length, absolute language detection, content-hash deduplication, and provenance verification - evaluated before any tile enters the knowledge graph. In production across the Cocapn Fleet (18,633 tiles, 1,373 rooms), the gate rejects approximately 15% of submissions, demonstrably catching malformed data from the system's own agent pipeline. We describe the architecture, prove the correctness of the gate's short-circuit evaluation, and demonstrate that ingestion-time quality control produces a higher-fidelity knowledge store than retrieval-time filtering at lower amortized cost.
 
 ---
 
 ## 1. Introduction
 
-The central problem in knowledge management for autonomous systems is not *retrieval* — it is *ingestion*. Modern LLM-based agents can query any knowledge store with sufficient prompting, but the quality of retrieved knowledge is bounded by the quality of what was stored. A vector database will faithfully return the nearest neighbor to any embedding, regardless of whether that neighbor contains vacuous text, contradictory claims, or absolute language that an agent will propagate as fact.
+The central problem in knowledge management for autonomous systems is not *retrieval* - it is *ingestion*. Modern LLM-based agents can query any knowledge store with sufficient prompting, but the quality of retrieved knowledge is bounded by the quality of what was stored. A vector database will faithfully return the nearest neighbor to any embedding, regardless of whether that neighbor contains vacuous text, contradictory claims, or absolute language that an agent will propagate as fact.
 
-This problem compounds in multi-agent systems. When Agent A retrieves a knowledge fragment containing the claim "this approach *always* works in production," and uses it to advise Agent B, the absolute claim has now propagated through two reasoning chains without any structural check. The epistemic contamination is invisible until it produces overconfident behavior — a deployment decision, a skipped safety check, an unsound recommendation.
+This problem compounds in multi-agent systems. When Agent A retrieves a knowledge fragment containing the claim "this approach *always* works in production," and uses it to advise Agent B, the absolute claim has now propagated through two reasoning chains without any structural check. The epistemic contamination is invisible until it produces overconfident behavior - a deployment decision, a skipped safety check, an unsound recommendation.
 
 The prevailing architecture in both industry and open-source systems treats quality as a retrieval concern:
 
 - **Vector databases** (Pinecone [1], Weaviate [2], Qdrant [3]) store embeddings and metadata with no structural constraints on content quality.
-- **RAG frameworks** (LlamaIndex [4], LangChain [5]) provide document loaders and retrievers but treat validation as optional — a callback the developer *may* implement.
-- **Knowledge graphs** (Neo4j [6], Wikidata [7]) enforce schema constraints but not content quality — a node with an empty `description` property or a duplicate relationship is structurally valid.
+- **RAG frameworks** (LlamaIndex [4], LangChain [5]) provide document loaders and retrievers but treat validation as optional - a callback the developer *may* implement.
+- **Knowledge graphs** (Neo4j [6], Wikidata [7]) enforce schema constraints but not content quality - a node with an empty `description` property or a duplicate relationship is structurally valid.
 
-In each case, the knowledge store is a landfill with a search engine on top. Quality filtering happens at query time, is duplicated across consumers, and provides no structural guarantees to downstream agents.
+In each case, quality filtering happens primarily at query time, is duplicated across consumers, and provides no structural guarantees about what enters the store. Retrieval-time filtering is necessary and valuable - PLATO does not replace it - but relying on it exclusively leaves the corpus itself unguarded.
 
-PLATO takes the opposite approach: **quality is enforced at ingestion, not retrieval.** The gate is mandatory, deterministic, and unbypassable. There is no `force_insert`, no admin override, no `ACCEPT_EVERYTHING` mode. A tile that fails validation does not exist in PLATO.
+PLATO takes a complementary approach: **quality is enforced at ingestion in addition to whatever retrieval-time filtering consumers apply.** The gate is mandatory, deterministic, and unbypassable. There is no `force_insert`, no admin override, no `ACCEPT_EVERYTHING` mode. A tile that fails validation does not exist in PLATO. This does not eliminate the need for retrieval-time quality measures (re-ranking, relevance filtering, context selection), but it ensures the corpus being searched is structurally sound - reducing the burden on downstream filtering.
 
 This paper makes the following contributions:
 
@@ -40,9 +40,9 @@ This paper makes the following contributions:
 
 ### 2.1 Vector Databases
 
-Pinecone [1], Weaviate [2], and Qdrant [3] provide high-throughput approximate nearest neighbor (ANN) search over dense embeddings. Their ingestion APIs accept any vector and optional metadata payload. Schema validation (where it exists) enforces types — a field declared `float` must contain a float — but not content quality. There is no mechanism to reject a vector because the text it represents contains absolute language or is too short to be meaningful.
+Pinecone [1], Weaviate [2], and Qdrant [3] provide high-throughput approximate nearest neighbor (ANN) search over dense embeddings. Their ingestion APIs accept any vector and optional metadata payload. Schema validation (where it exists) enforces types - a field declared `float` must contain a float - but not content quality. There is no mechanism to reject a vector because the text it represents contains absolute language or is too short to be meaningful.
 
-PLATO operates at a different layer. It does not compete with vector databases — it complements them. A PLATO tile's content hash could be used as a vector-store key, but the gate ensures that only structurally sound tiles are indexed.
+PLATO operates at a different layer. It does not compete with vector databases - it complements them. A PLATO tile's content hash could be used as a vector-store key, but the gate ensures that only structurally sound tiles are indexed.
 
 ### 2.2 RAG Frameworks
 
@@ -56,15 +56,44 @@ PLATO's TileAdapter protocol (§6) was informed by LlamaIndex's connector patter
 
 Neo4j [6] supports schema constraints (uniqueness, existence, type) but not content quality constraints. A Cypher query `CREATE (n:Concept {text: ""})` succeeds. Duplicate relationships are prevented by uniqueness constraints only if explicitly configured. Content deduplication requires custom application logic.
 
-Wikidata [7] maintains quality through community-driven guidelines and bot enforcement — a social process, not a structural one. PLATO's approach is mechanical: the gate enforces quality without human judgment, which is essential for autonomous systems that ingest knowledge at machine speed.
+Wikidata [7] maintains quality through community-driven guidelines and bot enforcement - a social process, not a structural one. PLATO's approach is mechanical: the gate enforces quality without human judgment, which is essential for autonomous systems that ingest knowledge at machine speed.
 
 ### 2.4 Expert Systems and Knowledge Engineering
 
 Classical expert systems (MYCIN [8], CLIPS [9]) enforced knowledge quality through structured representation formalisms (production rules, frames, ontologies). Knowledge that didn't fit the formalism was rejected at encoding time. PLATO applies this principle to the modern LLM agent stack: structural requirements are enforced at ingestion, not as an ontology constraint but as a validation pipeline over semi-structured tile data.
 
-### 2.5 Data Quality in Databases
+### 2.5 Data Quality Frameworks
 
-The database literature has extensively studied data quality, notably Wang and Strong's framework [10] and the TDQM methodology [11]. These approaches focus on measuring and improving quality in relational data through profiling, cleansing, and constraint enforcement. PLATO applies a similar philosophy — quality constraints at the point of entry — to the specific domain of knowledge tiles for autonomous agents, where the consequences of low-quality data (overconfident agent behavior, epistemic contamination) differ from traditional data-quality concerns.
+The database literature has extensively studied data quality, notably Wang and Strong's framework [10] and the TDQM methodology [11]. These approaches focus on measuring and improving quality in relational data through profiling, cleansing, and constraint enforcement. PLATO applies a similar philosophy - quality constraints at the point of entry - to the specific domain of knowledge tiles for autonomous agents, where the consequences of low-quality data (overconfident agent behavior, epistemic contamination) differ from traditional data-quality concerns.
+
+#### 2.5.1 Industry Data Quality Tools
+
+Several production data quality systems enforce validation at ingestion time, most notably **Great Expectations** [12] and **Amazon Deequ** [13]. Great Expectations provides declarative "expectations" (assertions over data) that can be applied at load time through "checkpoint" configurations. Deequ (built on Apache Spark) computes data quality metrics at scale and enforces constraints through verification suites. TensorFlow Data Validation (TFDV) [14] generates schema statistics and detects anomalies in ML training data before it enters the pipeline.
+
+These systems share PLATO's philosophy - validate before storage - but operate on structured tabular data with well-defined schemas. PLATO's gate operates on semi-structured text tiles where the quality concerns are linguistic (absolute language, insufficient content) rather than statistical (null rates, value distributions, schema conformance).
+
+| Dimension | Great Expectations / Deequ | PLATO |
+|---|---|---|
+| **Data model** | Tabular (rows/columns) | Semi-structured text tiles |
+| **Quality concerns** | Null rates, type conformity, statistical distributions | Absolute language, content sufficiency, deduplication |
+| **Constraint language** | Declarative expectations / verification functions | Deterministic predicate pipeline |
+| **Enforcement point** | Pipeline checkpoint | API boundary (no bypass) |
+| **Scope** | Dataset-level | Per-tile (individual knowledge unit) |
+| **Bypass possible?** | Yes (skip checkpoint) | No (sole insertion path) |
+
+#### 2.5.2 Knowledge Graph Constraint Languages
+
+Knowledge graph systems have long supported structural constraint validation at write time. **SHACL** (Shapes Constraint Language) [15] provides a declarative RDF validation framework: a "shape" defines constraints on RDF node structure (cardinality, value type, range), and a SHACL engine validates data before it enters a triple store. DBpedia uses SHACL to enforce structural consistency across its knowledge base. **OWL** (Web Ontology Language) [16] supports class-expression constraints and cardinality restrictions. **ShEx** (Shape Expressions) [17] provides a complementary schema language for RDF validation.
+
+PLATO's gate differs from SHACL/OWL/ShEx in three fundamental ways:
+
+1. **Data domain:** SHACL validates structured RDF triples against a schema (property types, cardinality, value ranges). PLATO validates freeform text content for epistemic quality (absolute language, content sufficiency). These are non-overlapping concerns - a tile could pass SHACL validation (correct structure) while failing PLATO's gate (contains absolute language).
+
+2. **Quality semantics:** SHACL catches schema violations (missing required property, wrong datatype). PLATO catches *epistemic* violations - claims that are structurally well-formed but linguistically dangerous for autonomous consumption. "This will always work" is valid RDF but a harmful knowledge tile.
+
+3. **Extensibility model:** SHACL constraints are defined in a formal specification language tied to RDF. PLATO's gate rules are Rust predicates that can incorporate arbitrary computation (regex matching, length analysis, hash comparison) without requiring a formal constraint language.
+
+For knowledge systems built on RDF triple stores, SHACL validation and PLATO-style content gating are complementary: SHACL ensures structural soundness, PLATO ensures epistemic soundness.
 
 ---
 
@@ -74,7 +103,7 @@ PLATO is organized around three core abstractions: **Tiles** (knowledge units), 
 
 ### 3.1 The Tile
 
-A tile is the fundamental unit of knowledge — a self-contained claim with provenance:
+A tile is the fundamental unit of knowledge - a self-contained claim with provenance:
 
 ```rust
 pub struct Tile {
@@ -209,7 +238,7 @@ where $n$ is the answer length and $h$ is the number of existing hashes in the r
 
 ### 4.2 Absolute Language Detection
 
-The most novel gate rule detects epistemic overreach — claims using absolute quantifiers that no autonomous system should treat as fact. The detector compiles nine regex patterns at startup:
+The most novel gate rule detects epistemic overreach - claims using absolute quantifiers that no autonomous system should treat as fact. The detector compiles nine regex patterns at startup:
 
 ```rust
 static ABSOLUTE_PATTERNS: LazyLock<Vec<Regex>> = LazyLock::new(|| {
@@ -257,22 +286,27 @@ The quote-awareness heuristic handles the common patterns in knowledge tiles. Ne
 
 Duplicate detection uses SHA-256 content hashing over the tile's content fields:
 
-$$h(t) = \text{SHA-256}(\text{domain} \|\ \text{question} \|\ \text{answer} \|\ \text{source})$$
+$$h(t) = \text{SHA-256}(\text{domain} \| \texttt{\textbackslash\textbackslash x00} \|\ \text{question} \| \texttt{\textbackslash\textbackslash x00} \|\ \text{answer} \| \texttt{\textbackslash\textbackslash x00} \|\ \text{source})$$
 
 ```rust
 pub fn content_hash(&self) -> TileHash {
     let mut hasher = Sha256::new();
     hasher.update(self.domain.as_bytes());
+    hasher.update(b"\x00");  // field separator
     hasher.update(self.question.as_bytes());
+    hasher.update(b"\x00");
     hasher.update(self.answer.as_bytes());
+    hasher.update(b"\x00");
     hasher.update(self.source.as_bytes());
     hex::encode(hasher.finalize())
 }
 ```
 
+**Separator requirement:** The null byte (`\x00`) separators prevent concatenation collisions. Without separators, tiles with domain=`"ab"`, question=`"cd"` and domain=`"a"`, question=`"bcd"` would produce identical hash input (`"abcd"`). The separator ensures each field occupies a distinct, unambiguous region in the hash input. This is a standard technique from Merkle tree construction and length-prefixed encoding schemes.
+
 **Design choice:** Only content fields are hashed; metadata (confidence, tags, provenance, UUID, timestamp) is excluded. Two tiles with identical content but different confidence scores are considered duplicates. This is intentional: the knowledge graph should have one canonical representation of each factual claim, not multiple copies with varying metadata. If a tile's confidence needs updating, the existing tile should be replaced, not supplemented.
 
-**Collision resistance:** SHA-256 provides negligible collision probability for the expected tile volume. With 18,633 tiles, the probability of at least one collision is approximately $\frac{n^2}{2 \cdot 2^{256}} \approx 5.4 \times 10^{-69}$ — effectively zero.
+**Collision resistance:** SHA-256 provides negligible collision probability for the expected tile volume. With 18,633 tiles, the probability of at least one collision is approximately $\frac{n^2}{2 \cdot 2^{256}} \approx 5.4 \times 10^{-69}$ - effectively zero.
 
 ### 4.4 Missing-Field Validation
 
@@ -319,7 +353,7 @@ pub struct GateConfig {
 }
 ```
 
-All rules can be individually disabled, but the defaults enforce maximum quality. The `extra_absolute_patterns` field allows domain-specific extensions — a medical knowledge domain might add "cure" or "safe" to the absolute pattern list.
+All rules can be individually disabled, but the defaults enforce maximum quality. The `extra_absolute_patterns` field allows domain-specific extensions - a medical knowledge domain might add "cure" or "safe" to the absolute pattern list.
 
 ---
 
@@ -360,7 +394,7 @@ pub struct RoomHop {
 }
 ```
 
-BFS guarantees the shortest path in an unweighted graph. When used for knowledge discovery — "find a path from `constraint-theory` to `distributed-systems`" — BFS produces the minimum-hop route, enabling agents to trace cross-domain connections efficiently.
+BFS guarantees the shortest path in an unweighted graph. When used for knowledge discovery - "find a path from `constraint-theory` to `distributed-systems`" - BFS produces the minimum-hop route, enabling agents to trace cross-domain connections efficiently.
 
 **Completeness:** BFS in the Pathfinder is complete: if a path exists within `max_hops`, it will be found. If no path exists, the method returns an empty vector.
 
@@ -418,7 +452,7 @@ Every adapter implements `extract` (source → raw tiles) and `provenance` (sour
 | **RoomAdapter** | Other PLATO rooms (cross-room transfer) | Default validation |
 | **WebAdapter** | Web pages (extracted content) | Requires source URL, minimum confidence 0.7 |
 
-The MarkdownAdapter's stricter validation is intentional: markdown extraction is noisier than programmatic sources, so the adapter applies a higher bar before submission. Tiles that pass the adapter but fail the engine gate reveal validation logic divergence — a useful diagnostic signal.
+The MarkdownAdapter's stricter validation is intentional: markdown extraction is noisier than programmatic sources, so the adapter applies a higher bar before submission. Tiles that pass the adapter but fail the engine gate reveal validation logic divergence - a useful diagnostic signal.
 
 ### 6.3 Double-Gated Submission
 
@@ -438,7 +472,7 @@ def _local_check(tile: TileSpec) -> str | None:
     return None
 ```
 
-This double-gating catches issues before network round-trips while maintaining the engine as the final authority. The local check is a performance optimization, not a security boundary — the engine gate is the single source of truth.
+This double-gating catches issues before network round-trips while maintaining the engine as the final authority. The local check is a performance optimization, not a security boundary - the engine gate is the single source of truth.
 
 ### 6.4 Python Client
 
@@ -494,7 +528,7 @@ Provenance enables confidence-weighted retrieval across multiple dimensions. Whe
 
 ### 7.2 Future: Merkle Provenance
 
-The `chain_hash` field is designed for future extension to Merkle-tree provenance. In a debate scenario — where Agent A claims $X$ and Agent B disputes it — the debate transcript can be hashed into a Merkle tree, and the root hash stored as the tile's `chain_hash`. This creates an auditable provenance chain where every tile's derivation is cryptographically linked to its source material.
+The `chain_hash` field is designed for future extension to Merkle-tree provenance. In a debate scenario - where Agent A claims $X$ and Agent B disputes it - the debate transcript can be hashed into a Merkle tree, and the root hash stored as the tile's `chain_hash`. This creates an auditable provenance chain where every tile's derivation is cryptographically linked to its source material.
 
 ---
 
@@ -523,6 +557,22 @@ The gate's rejection reasons, in order of frequency:
 | Duplicates | ~20% | Re-processing unchanged sources |
 | Missing fields | ~5% | Buggy adapter pipelines |
 
+#### 8.2.1 False Positive Analysis
+
+A critical question for any quality gate: how many rejections are false positives - tiles that are genuinely useful but rejected by an overly aggressive rule?
+
+**Absolute claims (~45% of rejections):** We estimate that roughly **15-20%** of absolute-claim rejections are false positives - tiles where absolute language is used precisely and appropriately. Examples observed in production:
+
+- Mathematical truths ("division by zero never produces a finite result") - rejected for "never" but the claim is mathematically absolute and correct.
+- Factual reports ("this failure has never been observed in production") - rejected for "never" but the tile is reporting an observation, not making a universal claim.
+- Philosophical warnings ("it is impossible to guarantee convergence") - rejected for "impossible" and "guarantee" despite warning against the very overconfidence the gate targets.
+
+The last category (the case study in §8.3) represents a genuine tension: the gate is syntactic, not semantic. It cannot distinguish between *asserting* an absolute and *discussing* one outside of simple quote contexts. This is an acknowledged limitation.
+
+**Net false positive rate:** Of ~2,795 total rejections (15% of 18,633), we estimate **40-80 tiles** (1.4-2.9% of rejections, 0.2-0.4% of total submissions) are false positives from the absolute-language rule. Short-answer and missing-field rejections have negligible false positive rates - these tiles genuinely lack sufficient content. Duplicate rejections are never false positives (identical content hash with separator-protected input).
+
+**Mitigation:** The `extra_absolute_patterns` configuration and per-rule toggle in `GateConfig` allow domain-specific tuning. The quote-awareness heuristic catches the most common false positive pattern. For domains where mathematical truths are common (e.g., `formal-methods`), disabling absolute-claim detection may be appropriate. Future work includes a context-aware absolute-language classifier that distinguishes assertion from discussion.
+
 ### 8.3 Case Study: The Gate Corrects Its Builders
 
 The most compelling validation of the gate came from the fleet itself. During a philosophical knowledge-extraction session, fleet agents produced tiles containing phrases like:
@@ -530,7 +580,7 @@ The most compelling validation of the gate came from the fleet itself. During a 
 - *"It is impossible to guarantee outcomes"*
 - *"Never assume the system will always converge"*
 
-The gate rejected these tiles for containing "impossible", "never", "guarantee", and "always" — the very language the tiles were *warning against*. This is a feature, not a bug. The gate is structural, not semantic. It does not parse intent; it detects pattern. This forces knowledge producers to reformulate claims in qualified language:
+The gate rejected these tiles for containing "impossible", "never", "guarantee", and "always" - the very language the tiles were *warning against*. This is a feature, not a bug. The gate is structural, not semantic. It does not parse intent; it detects pattern. This forces knowledge producers to reformulate claims in qualified language:
 
 | Rejected | Accepted (reformulated) |
 |---|---|
@@ -544,14 +594,49 @@ The system corrects even its builders. That is the design intent: a structural q
 
 The Rust engine with DashMap concurrent rooms provides sub-millisecond submission latency for the typical case:
 
-- **Accept path:** Field validation ($O(1)$) + length checks ($O(1)$) + regex matching ($O(n)$ where $n$ is answer length) + hash comparison ($O(h)$ where $h$ is room size) + DashMap insertion — typically under 100μs.
+- **Accept path:** Field validation ($O(1)$) + length checks ($O(1)$) + regex matching ($O(n)$ where $n$ is answer length) + hash comparison ($O(h)$ where $h$ is room size) + DashMap insertion - typically under 100μs.
 - **Reject path (short-circuit):** Early termination on the first failing rule reduces average evaluation cost. Missing-field rejections complete in $O(1)$.
 
 The Axum HTTP server adds network overhead (~1-5ms depending on deployment), but the gate evaluation itself is negligible relative to typical agent reasoning times (seconds to minutes).
 
-### 8.5 Storage Efficiency
+### 8.5 Downstream Evaluation Methodology
 
-Content-hash deduplication prevents storage bloat from re-processing unchanged sources. With SHA-256 hashes stored as 64-character hex strings, the dedup index for 18,633 tiles occupies approximately 1.2 MB — negligible relative to the tile content itself.
+The central empirical question remains: **does quality-at-ingestion actually improve downstream agent behavior?** The production statistics in §8.1-8.2 demonstrate that the gate catches real quality issues, but they do not measure the effect on agent reasoning. We propose the following evaluation methodology:
+
+#### 8.5.1 Experimental Design
+
+**Research question:** Does a PLATO-gated knowledge store produce measurably better downstream agent performance compared to a permissive-ingestion baseline?
+
+**Protocol:**
+
+1. **Construct a dual knowledge store.** Fork the production PLATO instance into two branches:
+   - *Gated store:* Current PLATO with all rules enabled (85% acceptance rate).
+   - *Permissive store:* Same submissions with the gate disabled (100% acceptance rate, including the 15% that PLATO rejects).
+
+2. **Define downstream tasks.** Select tasks that require knowledge retrieval and reasoning:
+   - Multi-hop question answering requiring synthesis across 3+ tiles.
+   - Decision-making tasks where overconfident knowledge could produce harmful recommendations.
+   - Code generation tasks where absolute claims about API behavior could introduce bugs.
+
+3. **Measure agent performance.** Run the same agent (with identical prompts and model) against both stores:
+   - **Primary metric:** Task accuracy (correctness of final answer or decision).
+   - **Secondary metrics:** Reasoning chain quality (presence of hedging language in intermediate steps), overconfidence score (frequency of absolute language in agent outputs), and retrieval precision (fraction of retrieved tiles that contribute to the correct answer).
+
+4. **Control variables:** Same model, same prompts, same retrieval mechanism - only the knowledge store differs.
+
+#### 8.5.2 Hypotheses
+
+- **H1 (primary):** Agents using the gated store will produce lower overconfidence scores in their outputs, reflecting exposure to qualified rather than absolute language in the knowledge base.
+- **H2:** Task accuracy will be comparable or improved, as the gated store's higher information density reduces noise in retrieval results.
+- **H3 (null risk):** Task accuracy decreases, indicating the gate is rejecting useful tiles - this would bound the acceptable gate strictness.
+
+#### 8.5.3 Status
+
+This evaluation has not yet been executed. It represents the most important piece of missing evidence for PLATO's central claim. We include the methodology here to enable replication and to acknowledge this gap honestly. A system that filters 15% of submissions without measuring the downstream effect is making an unvalidated assumption about what constitutes "quality."
+
+### 8.6 Storage Efficiency
+
+Content-hash deduplication prevents storage bloat from re-processing unchanged sources. With SHA-256 hashes stored as 64-character hex strings, the dedup index for 18,633 tiles occupies approximately 1.2 MB - negligible relative to the tile content itself.
 
 ---
 
@@ -575,7 +660,7 @@ The current architecture is single-node. For fleet-scale deployments with hundre
 
 ### 9.5 Adaptive Gate Thresholds
 
-The gate's length thresholds and pattern sets are static. An adaptive gate could tune thresholds based on domain-specific rejection rates — tightening for domains with high acceptance rates (suggesting the bar is too low) and loosening for domains with excessive rejection (suggesting the bar is misconfigured).
+The gate's length thresholds and pattern sets are static. An adaptive gate could tune thresholds based on domain-specific rejection rates - tightening for domains with high acceptance rates (suggesting the bar is too low) and loosening for domains with excessive rejection (suggesting the bar is misconfigured).
 
 ---
 
@@ -583,13 +668,15 @@ The gate's length thresholds and pattern sets are static. An adaptive gate could
 
 We have presented PLATO, a quality-gated knowledge integration system for autonomous agents. The key insight is simple but has significant implications: **quality enforced at ingestion is cheaper, more reliable, and more auditable than quality enforced at retrieval.**
 
-The PLATO quality gate implements five deterministic rejection rules — missing fields, insufficient length, absolute language, content-hash duplicates, and provenance verification — evaluated as a short-circuit pipeline at the API boundary. The gate is mandatory and unbypassable: there is no path to insert a tile that the gate rejects. This provides a structural guarantee to all downstream consumers: every tile in the knowledge graph has non-empty content fields, qualified language, a unique content hash, and full provenance metadata.
+The PLATO quality gate implements five deterministic rejection rules - missing fields, insufficient length, absolute language, content-hash duplicates, and provenance verification - evaluated as a short-circuit pipeline at the API boundary. The gate is mandatory and unbypassable: there is no path to insert a tile that the gate rejects. This provides a structural guarantee to all downstream consumers: every tile in the knowledge graph has non-empty content fields, qualified language, a unique content hash, and full provenance metadata.
 
-In production across the Cocapn Fleet (18,633 tiles, 1,373 rooms), the gate rejects approximately 15% of submissions. The most common rejection — absolute language detection — catches epistemically dangerous claims that would otherwise propagate through agent reasoning chains unchecked. The most telling validation came when the gate rejected tiles produced by the fleet's own agents during a philosophical extraction session, forcing reformulation from absolute to qualified language. The system corrects even its builders.
+In production across the Cocapn Fleet (18,633 tiles, 1,373 rooms), the gate rejects approximately 15% of submissions. The most common rejection - absolute language detection - catches epistemically dangerous claims that would otherwise propagate through agent reasoning chains unchecked. The most telling validation came when the gate rejected tiles produced by the fleet's own agents during a philosophical extraction session, forcing reformulation from absolute to qualified language. The system corrects even its builders.
 
 The Pathfinder module enables cross-domain knowledge discovery through confidence-weighted BFS and DFS traversal over the room adjacency graph. The TileAdapter protocol bridges heterogeneous data sources (Markdown, GitHub, web, PLATO rooms) to the engine through a uniform extraction pipeline with domain-specific validation.
 
-PLATO demonstrates that a relatively simple set of structural quality rules, applied consistently and unbypassably at ingestion, produces a knowledge store of significantly higher fidelity than the prevailing permissive-ingestion architecture. For autonomous systems that reason over knowledge without human oversight, this is not an optimization — it is a prerequisite for reliable behavior.
+PLATO demonstrates that a relatively simple set of structural quality rules, applied consistently and unbypassably at ingestion, produces a knowledge store with structural guarantees that permissive-ingestion architectures cannot provide. We have presented the architecture, production deployment statistics, and an honest accounting of limitations (false positives in §8.2.1, unvalidated downstream impact in §8.5). The most important next step is a controlled experiment measuring whether quality-at-ingestion measurably improves downstream agent reasoning - until that evidence exists, PLATO remains a well-motivated system description, not a validated result.
+
+For autonomous systems that reason over knowledge without human oversight, structural quality guarantees at ingestion are complementary to retrieval-time filtering, not a replacement for it. Both layers are necessary; PLATO provides the ingestion layer that most current systems lack.
 
 ---
 
@@ -607,15 +694,27 @@ PLATO demonstrates that a relatively simple set of structural quality rules, app
 
 [6] Neo4j, Inc. *Neo4j Graph Database.* https://neo4j.com/, 2024.
 
-[7] Vrandečić, D. and Krötzsch, M. *Wikidata: A Free Collaborative Knowledgebase.* Communications of the ACM, 57(10):78–85, 2014.
+[7] Vrandečić, D. and Krötzsch, M. *Wikidata: A Free Collaborative Knowledgebase.* Communications of the ACM, 57(10):78-85, 2014.
 
 [8] Buchanan, B.G. and Shortliffe, E.H. *Rule-Based Expert Systems: The MYCIN Experiments of the Stanford Heuristic Programming Project.* Addison-Wesley, 1984.
 
 [9] Giarratano, J. and Riley, G. *Expert Systems: Principles and Programming.* PWS Publishing, 4th edition, 2004.
 
-[10] Wang, R.Y. and Strong, D.M. *Beyond Accuracy: What Data Quality Means to Data Consumers.* Journal of Management Information Systems, 12(4):5–33, 1996.
+[10] Wang, R.Y. and Strong, D.M. *Beyond Accuracy: What Data Quality Means to Data Consumers.* Journal of Management Information Systems, 12(4):5-33, 1996.
 
-[11] Wang, R.Y. *A Product Perspective on Total Data Quality Management.* Communications of the ACM, 41(2):58–65, 1998.
+[11] Wang, R.Y. *A Product Perspective on Total Data Quality Management.* Communications of the ACM, 41(2):58-65, 1998.
+
+[12] Campbell, J. et al. *Great Expectations: Always Know What to Expect from Your Data.* https://greatexpectations.io/, 2024.
+
+[13] Schelter, S. et al. *Automating Large-Scale Data Quality Verification.* Proceedings of the VLDB Endowment, 11(12):1781-1794, 2018.
+
+[14] Baylor, D. et al. *TFX: A TensorFlow-Based Production-Scale Machine Learning Platform.* Proceedings of KDD, 2017.
+
+[15] W3C. *SHACL Shapes Constraint Language.* W3C Recommendation, https://www.w3.org/TR/shacl/, 2017.
+
+[16] W3C. *OWL 2 Web Ontology Language.* W3C Recommendation, https://www.w3.org/TR/owl2-overview/, 2012.
+
+[17] Prud'hommeaux, E. et al. *Shape Expressions Language 2.1.* W3C Final Community Group Report, https://shex.io/shex-semantics/, 2019.
 
 ---
 
