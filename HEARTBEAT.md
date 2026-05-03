@@ -21,7 +21,12 @@
 - [x] Holonomy discovery: res=10 on 3D manifolds shows drift=20 — resolution boundary
 - [x] 6 R&D PLATO tiles submitted (ct-demo-research, holonomy-theory, petersen-graph)
 - [x] solver_demo.rs example: N-Queens, graph coloring, holonomy verification
-- [x] Total PLATO tiles this session: 64 accepted
+- [x] Total PLATO tiles this session: 71 accepted
+- [x] Below-C R&D: BitmaskDomain type — 12,324× faster N-Queens (N=10)
+- [x] Bitmask benchmark: 4,667× faster at N=8, grows with problem size
+- [x] Full analysis: for-fleet/2026-05-03-going-below-c-rnd.md
+- [x] Roadmap: Software → FPGA → RISC-V → ASIC
+- [x] 7 PLATO tiles submitted (below-c-research, bitmask-n-queens)
 
 ### Workers used
 1. Claude Code (Opus) — strategic planning, ZC prompt fix, fleet runbook
@@ -48,6 +53,14 @@
 ### Previous shift (2026-04-30)
 - FLUX dive demo, ISA_UNIFIED.md, 122 PLATO tiles, Marine MUD World
 - Published: ct-demo v0.5.1, constraint-theory v1.0.1
+
+### Session Stats
+- PLATO tiles submitted: 71 accepted
+- Rust code: solver.rs (1,200+ lines), bitmask_benchmark.rs, solver_demo.rs
+- Tests: 35 passing (25 solver + 10 original)
+- Benchmark: 12,324× speedup (bitmask vs Vec domains)
+- Papers analyzed: flux-isa-architecture.md, fpga-constraint-vm.md
+- Commits: 3 pushed to SuperInstance/JetsonClaw1-vessel
 
 ### Rules when shift ends
 - PUSH EVERYTHING
