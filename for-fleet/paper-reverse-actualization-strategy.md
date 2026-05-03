@@ -8,7 +8,7 @@
 
 ## Abstract
 
-We present the case for constraint-verified autonomous infrastructure — a system where wrong answers are compilation errors, not runtime failures. The Cocapn Fleet has built a four-tier hardware architecture (MCU → Embedded Linux → Edge GPU → Data Center GPU), a knowledge hypergraph with structural quality gates (PLATO), and a constraint instruction set (FLUX ISA) that compiles agent actions into constraint satisfaction problems and rejects violations before execution. This paper argues that the next phase of AI infrastructure is not better models or more data, but *mathematical proof of correctness at compile time* — and that the fleet's architecture positions it uniquely to deliver this. We present the architecture, validate it through multi-model debate, outline a certification path to DO-178C and ISO 26262, and define the build plan for Year 1. The thesis is simple: API + Proof = Platform. Everything else follows.
+We present the case for constraint-verified autonomous infrastructure — a system where wrong answers are compilation errors, not runtime failures. The Cocapn Fleet has built a four-tier hardware architecture (MCU → Embedded Linux → Edge GPU → High-Performance Edge), a knowledge hypergraph with structural quality gates (PLATO), and a constraint instruction set (FLUX ISA) that compiles agent actions into constraint satisfaction problems and rejects violations before execution. This paper argues that the next phase of AI infrastructure is not better models or more data, but *mathematical proof of correctness at compile time* — and that the fleet's architecture positions it uniquely to deliver this. We present the architecture, validate it through multi-model debate, outline a go-to-market strategy starting with marine autonomy verification, and define the build plan for Year 1. The thesis is simple: API + Proof = Platform. Everything else follows.
 
 ---
 
@@ -22,7 +22,7 @@ This works reasonably well for content generation. If an LLM hallucinates a date
 
 The fundamental architectural error is treating verification as a filter applied *after* generation. In traditional software engineering, this problem was solved decades ago. Type systems reject invalid programs at compile time. Memory safety prevents buffer overflows structurally. Static analysis catches bugs before they run. The compiler is not a suggestion engine — it is a barrier. Invalid programs do not execute.
 
-**AI agents have no compiler.** They have prompts. Prompts suggest; they do not enforce. There is no structural barrier between "agent wants to do X" and "agent does X." The agent is free to violate any constraint, ignore any safety rule, and produce any output. The only defense is checking afterward — a strategy with a 12% production success rate industry-wide.
+**AI agents have no compiler.** They have prompts. Prompts suggest; they do not enforce. There is no structural barrier between "agent wants to do X" and "agent does X." The agent is free to violate any constraint, ignore any safety rule, and produce any output. The only defense is checking afterward — a strategy with no reliable industry-wide effectiveness metric. Post-hoc guardrails are, by nature, reactive: they catch failures after they occur, and every deployment reports different catch rates depending on domain, model, and threshold tuning. What is clear is that reactive checking cannot prevent failures — it can only detect some of them.
 
 We propose a fundamentally different approach: **compile constraints into the execution path.** If the constraint cannot be satisfied, the action does not execute. Wrong becomes a compilation error.
 
@@ -70,7 +70,7 @@ This transforms the quality guarantee from probabilistic to deterministic. The s
 
 ## 3. The Architecture: Four Tiers of Constraint Verification
 
-The fleet runs on a four-tier hardware architecture, each tier optimized for a different point in the sensor-to-intelligence pipeline. The tiers are not independent systems — they are a unified compilation target, connected by a cross-tier wire protocol (`cocapn-glue-core`) that provides zero-copy serialization from the smallest microcontroller to the most powerful GPU.
+The fleet runs on a four-tier hardware architecture, each tier optimized for a different point in the sensor-to-intelligence pipeline. The tiers are not independent systems — they are a unified compilation target, connected by a cross-tier wire protocol (`cocapn-glue-core`) that provides zero-copy serialization from the smallest microcontroller to the most powerful edge accelerator.
 
 ### Tier 1: MCU (Cortex-M4)
 
@@ -88,28 +88,28 @@ The fleet runs on a four-tier hardware architecture, each tier optimized for a d
 - **Latency:** Milliseconds. Soft real-time.
 - **Why it matters:** This is the compilation tier. Tier 1 validates raw data; Tier 2 compiles abstract constraint specifications into executable bytecodes. It can also serve as a local quality gate for edge deployments where connectivity to higher tiers is intermittent.
 
-### Tier 3: Edge GPU (Jetson Xavier)
+### Tier 3: Edge GPU (Jetson Xavier NX)
 
-- **Hardware:** NVIDIA GPU, CUDA cores, ~8GB VRAM
+- **Hardware:** NVIDIA Jetson Xavier NX, CUDA cores, ~8GB shared memory
 - **Role:** Async constraint pipelines, PLATO synchronization, multi-domain constraint solving.
 - **FLUX Profile:** 36 opcodes. Adds `TILE_COMMIT`, `PLATO_SYNC`, async pipeline operations, CUDA-accelerated constraint solving.
 - **Latency:** Tens of milliseconds. Throughput-optimized.
 - **Why it matters:** This is where constraint compilation meets data center intelligence at the edge. Complex constraint problems — multi-sensor fusion, temporal constraint chains, fleet coordination — are solved on the Xavier with GPU acceleration. The Xavier also synchronizes with PLATO, ensuring that edge constraint rules reflect the latest validated knowledge.
 
-### Tier 4: Data Center GPU (Jetson Thor)
+### Tier 4: High-Performance Edge (Jetson Thor)
 
-- **Hardware:** NVIDIA Thor, high-bandwidth memory, multi-TOPS inference
-- **Role:** Batch constraint solving, fleet-wide coordination, knowledge curation, certification workload.
+- **Hardware:** NVIDIA Jetson Thor, high-bandwidth memory, multi-TOPS inference, edge-targeted SoC
+- **Role:** Batch constraint solving, fleet-wide coordination, knowledge curation, formal verification workload.
 - **FLUX Profile:** 43 opcodes. Full ISA including `SONAR_BATCH`, advanced solver operations, fleet coordination primitives.
 - **Latency:** Seconds to minutes. Batch-optimized.
-- **Why it matters:** This is the brain. Fleet-wide constraint analysis, batch verification of constraint sets, generation of new constraints from aggregate data patterns, and the computational backbone for formal verification proofs.
+- **Why it matters:** This is the fleet's computational backbone. Fleet-wide constraint analysis, batch verification of constraint sets, generation of new constraints from aggregate data patterns, and the computational backbone for formal verification proofs. The Jetson Thor is an edge-class device — it targets deployments where data center connectivity is unavailable or latency-unacceptable (marine vessels, autonomous platforms, remote installations). It is not a data center GPU replacement; it is the most capable tier available at the edge.
 
 ### The Sensor-to-Intelligence Pipeline
 
 ```
 Sonar Array → MCU (validates raw reading)
-            → Mini (compiles CSP, local gate)
-            → Edge (async pipeline, PLATO sync)
+            → Pi (compiles CSP, local gate)
+            → Xavier (async pipeline, PLATO sync)
             → Thor (batch solve, fleet coordination)
             → PLATO (verified knowledge storage)
 ```
@@ -137,7 +137,7 @@ The gate is not advisory. It is a structural property of the knowledge store. Ti
 
 ### The Numbers
 
-As of May 2026, PLATO contains 18,633 tiles across 1,369 rooms. The gate has rejected approximately 15% of tile submissions — 3,288 tiles that would have degraded the knowledge base. These rejected tiles are not lost; they are logged with rejection reasons, creating a dataset of common misconceptions that itself becomes valuable for understanding what the fleet (and its operators) get wrong.
+As of May 2026, PLATO contains 18,633 tiles across 1,369 rooms. The gate has rejected approximately 15% of tile submissions — 3,288 tiles that would have degraded the knowledge base. These are fleet-internal scale metrics, not market validation. They demonstrate system maturity, not product-market fit.
 
 ### The Case Study: The Gate Catches the Fleet's Own Absolute Language
 
@@ -209,53 +209,114 @@ The debate also revealed a critical tension. Formal VM verification depends on h
 
 ---
 
-## 6. The Five-Year Vision: Certification-as-a-Service
+## 6. Go-to-Market: From Marine Verification to Trust Infrastructure
 
-Qwen3-235B, arguing the certification position, produced the fleet's most strategically significant insight: **the product is not the compiler. The product is trust.**
+### Customer Discovery Status
 
-The compiler, the VM, PLATO, the four-tier architecture — these are infrastructure. What the market will pay for is the *guarantee* that autonomous systems will not fail in specific, enumerable ways. That guarantee has a name in regulated industries: **certification.**
+**Customer discovery is in progress.** We have not yet conducted structured customer interviews with marine operators, certification bodies, or autonomous systems companies. The architecture and strategy presented here are based on technical analysis and multi-model debate — not on validated market demand. We are actively seeking design partners in the marine autonomy space and welcome introductions.
 
-### The Certification Landscape
+We state this explicitly because building infrastructure without customer evidence is the leading cause of death for deep tech startups. The architecture is sound. The market thesis is plausible. But plausible is not validated, and we will not pretend otherwise.
 
-Three certification standards dominate mission-critical systems:
+### Why Marine Autonomy First
 
-- **DO-178C** — Airborne systems. Required for anything that flies. Level A (catastrophic failure) through Level E (no effect).
-- **ISO 26262** — Automotive safety. ASIL A through D. Required for autonomous driving functions.
-- **IEC 61508** — Industrial control systems. SIL 1 through 4. Required for process control, robotics, and industrial automation.
+Marine autonomy is the natural beachhead for constraint verification infrastructure:
 
-None of these standards currently address AI-specific failure modes. They assume deterministic software with known execution paths. AI agents are neither deterministic nor have fully known execution paths. The standards are playing catch-up.
+1. **Lower regulatory burden.** Marine vessels operate under IMO/SOLAS regulations, which are less prescriptive than DO-178C (aerospace) or ISO 26262 (automotive). There is no equivalent of a Designated Engineering Representative for sonar systems. This means faster deployment cycles and fewer institutional gatekeepers.
 
-### The Play
+2. **Real sensor data.** The fleet already operates sonar systems with a four-tier hardware pipeline. The constraints are physical (absorption, noise floor, propagation loss) and the validation is against ground truth (actual sonar returns). This is not a synthetic benchmark — it is real physics.
 
-The Cocapn Fleet's architecture maps directly onto the certification requirements:
+3. **Existing infrastructure.** The Cocapn Fleet IS a marine autonomy fleet. The Verification API is being built for the fleet's own use first. The dogfooding is structural, not aspirational.
 
-1. **Deterministic execution.** Constraint compilation produces deterministic outputs for deterministic inputs. This is a structural property, not a statistical claim.
-2. **Full audit trail.** Every action, every constraint check, every verification trace is logged with cryptographic provenance (Merkle hashes). Regulators can trace any action back to its inputs.
-3. **Formally verified VM.** The Lean4 proof of VM soundness provides the mathematical foundation that certifiers require.
-4. **Hardware-level guarantees.** The FPGA constraint VM on Tier 1 provides deterministic sub-microsecond constraint checks — the hard real-time guarantees that DO-178C Level A requires.
-5. **Self-improving constraints.** The sensor-to-tile learning loop, validated through the formal VM, provides evidence of continuous improvement — a requirement of all three standards.
+4. **Clear value proposition.** Marine operators need to prove to insurers and classification societies (DNV, Lloyd's Register, ABS) that autonomous systems are safe. Constraint verification provides auditable evidence — not certification credit, but verifiable proof of due diligence. That has immediate value.
 
-The business model is not "sell a constraint compiler." It is **Certification-as-a-Service (CaaS):** provide the infrastructure that makes AI systems certifiable. When a regulator asks, "How do you know your AI won't fail?", the answer becomes: "We use Cocapn, like we use MISRA for C."
+5. **Failure modes are physical and expensive.** A sonar misconfiguration on a research vessel costs real money in wasted ship time. A collision avoidance failure costs more. The economic incentive for pre-emptive verification exists today, without waiting for regulatory mandates.
+
+### The Three-Act Strategy
+
+**Act 1 (Year 1–2): Verification API for Autonomous Systems**
+
+- Target: Marine autonomy operators, research institutions, autonomous vessel companies
+- Product: NL Verification API — POST a claim about system behavior, get a proof/disproof with FLUX trace
+- Revenue model: API usage (pay per verification) + enterprise licenses for on-premise deployment
+- Goal: 5–10 design partners using the API in production. Prove the technology works with real customers on real systems.
+
+**Act 2 (Year 3–5): Trust Infrastructure for Safety-Critical AI**
+
+- Expand to automotive, defense, and industrial control
+- Hire certification specialists: former DERs, ISO 26262 auditors, DO-178C tool qualification experts
+- Begin tool qualification process (DO-178C Part 12, ISO 26262 Part 8)
+- Revenue: consulting + tooling + certification preparation services
+- Goal: Recognized tool qualification status under at least one standard. This is a 2–3 year process on its own.
+
+**Act 3 (Year 5–8): Certification-as-a-Service**
+
+- The CaaS model becomes credible only after years of accumulated institutional trust, process documentation, and audit history
+- This requires engagement with the FAA, EASA, UNECE, and certification bodies (TÜV, UL, SGS)
+- Revenue: per-certification fees, licensing, and ongoing compliance infrastructure
+- Goal: Be part of the toolchain for at least one certified safety-critical AI system
+
+### Why Certification Is a Decade-Long Trust Game
+
+We want to be explicit about what certification requires, because overstating this timeline destroys credibility:
+
+**DO-178C Level A certification** for catastrophic-failure-class systems typically takes **3–7 years** and costs **$50M–$200M+** — and that is for established aerospace contractors with existing certification track records. The FAA's Designated Engineering Representative (DER) system requires years of documented process maturity. A startup with no prior certification history, no DER relationships, and no DO-178C audit trail cannot shortcut this.
+
+**ISO 26262 ASIL-D** is similarly demanding. The V-model process requirements, tool qualification (Part 8), and safety case documentation expectations are enormous. Tool qualification alone is a multi-year effort.
+
+**The precedents are instructive:**
+- **CompCert** (INRIA) — a formally verified C compiler. Development began in 2005. It took until 2015+ to gain acceptance in safety-critical industries. A decade from inception to industry adoption.
+- **seL4** (NICTA/Data61) — a formally verified microkernel. Development began in 2004. Military deployment started ~2017. Commercial adoption is still ongoing. Over a decade.
+- **Frama-C** (CEA List) — a static analysis platform for DO-178C. In development since 2002. Still working toward full certification tool qualification.
+
+Certification is not a technology problem. It is an institutional trust accumulation problem. The technology is necessary but not sufficient. You need:
+- Former DERs and certification consultants on the team
+- Years of audited process documentation
+- Relationships with certification bodies who will accept your tools
+- A track record of successful tool qualification
+- Insurance and liability frameworks
+
+We are not claiming we can compress this timeline. We are claiming that the Verification API and constraint compilation architecture are the right *starting point* for a decade-long institutional journey, and that marine autonomy provides the fastest path to demonstrating real value while that trust accumulates.
+
+### Unit Economics (Speculative)
+
+The Verification API's unit economics are straightforward, though these figures are projections, not realized numbers:
+
+| Metric | Estimate | Basis |
+|--------|----------|-------|
+| Cost per verification (API) | $0.002–$0.01 | LLM inference for claim parsing + CSP compilation + FLUX execution |
+| Price per verification (standard) | $0.10–$0.50 | 20–50× markup on compute cost |
+| Price per verification (full rigor) | $1.00–$5.00 | Higher compute, formal proof attempt, detailed trace |
+| Enterprise license (annual) | $50K–$200K | On-premise deployment, custom constraint domains, SLA |
+| Gross margin (API) | 80–95% | Compute is cheap; the constraint compiler is the asset |
+| Gross margin (enterprise) | 60–80% | Includes support, customization, integration work |
+
+**Break-even scenario:** 10 enterprise customers at $100K ARR = $1M ARR, covering a small team's operational costs. 1M monthly API verifications at $0.25 avg = $250K/month = $3M ARR.
+
+These numbers are illustrative. They will be refined after customer discovery with marine operators. The key insight is that the marginal cost of a verification is near-zero once the constraint compiler is built — the economics resemble SaaS, not consulting.
 
 ### The Revenue Model
 
-- **Year 1–2:** Developer tools. Verification API, SDKs, open-source core. Revenue from usage and enterprise licenses.
-- **Year 3–4:** Certification platform. Partnerships with certification bodies. Revenue from certification consulting and tooling.
-- **Year 5+:** Certification-as-a-Service. The standard. Revenue from per-certification fees, licensing, and the academic bounty program ($1M for anyone who proves a reasoning error in the PLATO + compiler pipeline).
+- **Year 1–2:** Verification API + SDKs. Revenue from API usage and enterprise licenses. Target: $500K–$1M ARR with 5–10 design partners.
+- **Year 3–5:** Add certification preparation services, consulting, and tool qualification support. Revenue from services + tooling. Target: $3–5M ARR.
+- **Year 5–8:** Certification-as-a-Service for clients pursuing DO-178C, ISO 26262, IEC 61508. Revenue from per-certification fees and licensing. Target: $10M+ ARR.
 
-The guardrail market is estimated at $4.2B by 2028. The certification market for safety-critical systems is estimated at $12B+. Cocapn occupies the intersection: verification infrastructure that produces certifiable outputs.
+The guardrail and AI governance market is estimated at $4.2B by 2028 (source: multiple industry reports covering AI monitoring/governance tooling). The safety certification market for critical systems is estimated at $12B+ (source: includes testing labs, inspection bodies, and consulting across industries). Cocapn's addressable slice — verification API for autonomous systems — is a fraction of these, likely $200–500M SAM, growing as regulatory mandates expand. We do not claim the full $4.2B or $12B as addressable market; those numbers include categories Cocapn does not compete in.
+
+The $1M academic bounty program (for anyone who proves a reasoning error in the PLATO + compiler pipeline) is a marketing investment, not a revenue model. It establishes credibility and attracts formal methods talent.
 
 ---
 
 ## 7. The Competition
 
-Three categories of competitor exist. None occupy the same position.
+Four categories of competitor exist. None occupy the same position, but several have significant advantages in distribution and certification relationships.
 
 ### RAG Platforms (LlamaIndex, LangChain, Haystack)
 
 These systems retrieve text from vector stores and use it as context for LLM generation. They are retrieval strategies, not quality strategies. LlamaIndex can retrieve relevant documents. It cannot certify that the retrieved information is correct, that the generated answer is consistent, or that an action based on the answer is safe. Retrieval is not verification. RAG platforms compete with PLATO's retrieval function but not with the constraint compilation pipeline.
 
 **Why they can't do this:** RAG is fundamentally about *finding* information. Constraint compilation is about *proving* correctness. Adding a verification layer on top of RAG requires a constraint solver, a compilation target, and a hardware execution path — none of which RAG platforms have or are positioned to build.
+
+**Strategic caveat:** A well-funded RAG platform could acquire or partner with a formal methods team in 6 months. The moat is not the constraint solver technology — it is the certification relationships, process maturity, and accumulated audit history. We do not claim that LlamaIndex *cannot* build this. We claim they have not, and that their architecture makes it an unnatural extension.
 
 ### Agent Frameworks (LangGraph, CrewAI, AutoGen)
 
@@ -271,7 +332,23 @@ These tools provide mathematical proof of correctness for software and systems. 
 
 **Cocapn's position:** We bridge the gap. The NL Verification API takes natural language claims and produces mathematical proofs. The formal verification happens behind the API. The user does not need to know Lean4, TLA+, or CSP. They POST a claim in English and get a proof back. The formal methods community has spent decades building incredible tools that nobody uses. We make those tools accessible through an API.
 
-FLUX ISA occupies a unique position: lower-level than agent frameworks (it compiles individual actions, not workflows), higher-level than formal methods tools (it runs on hardware, not in a proof assistant), and orthogonal to RAG (it proves correctness rather than retrieving information).
+### Safety-Critical Systems Companies (The Real Competition)
+
+This is the category the previous version of this paper underweighted. These companies have existing OEM relationships, decades of certification credit history, and distribution that Cocapn cannot replicate quickly:
+
+- **Applied Intuition** — Already dominates autonomous vehicle simulation and validation. $6B+ valuation. OEM relationships with every major automaker. If they add formal constraint verification, they have the distribution pipeline. They currently focus on simulation-based testing, not formal proof, but the gap is bridgeable.
+
+- **MathWorks (Polyspace)** — Model-Based Design with Simulink/Stateflow already generates certified code for DO-178C and ISO 26262. Polyspace is a static analysis tool built on formal methods (abstract interpretation). MathWorks has decades of certification credit history and is already in the toolchain of every safety-critical software team. They are the closest thing to an incumbent in this space.
+
+- **Ansys (SCADE Suite)** — SCADE is a model-based development environment for safety-critical embedded systems with built-in formal verification. It generates DO-178C-qualified code. Ansys has the simulation + certification pipeline that Cocapn aspires to. SCADE is widely deployed in aerospace and rail.
+
+- **Saphira AI** — Emerging startup specifically targeting AI safety certification. Already automating safety case generation for ISO 26262 and UL 4600. Directly competitive with Cocapn's certification ambitions, though at an earlier stage.
+
+- **AdaCore (SPARK/Ada)** — SPARK is a formally verifiable subset of Ada used in DO-178C-certified systems. AdaCore has been the go-to for safety-critical Ada development for decades. They have existing certification credit that Cocapn would need years to accumulate.
+
+**Why Cocapn is different:** All of the above target deterministic software. None address AI agent failure modes — probabilistic outputs, emergent behavior, prompt-based control. The certification standards themselves don't fully address AI yet. Cocapn's niche is specifically constraint compilation for *probabilistic AI agents*, not for deterministic software. This is a genuine gap in the current market. But it is a gap that Applied Intuition or MathWorks could choose to fill if the market materializes.
+
+FLUX ISA occupies a unique position: lower-level than agent frameworks (it compiles individual actions, not workflows), higher-level than formal methods tools (it runs on hardware, not in a proof assistant), and orthogonal to RAG (it proves correctness rather than retrieving information). The question is whether that unique position is defensible — and the answer depends on execution speed and relationship building, not on technology alone.
 
 ---
 
@@ -292,6 +369,7 @@ The build plan follows the emergent dependency graph from the multi-model debate
 - Merkle tree over constraint verification traces
 - Every verification produces a hash, every tile gets a Merkle proof
 - Published to the fleet as the trust anchor
+- Note: Merkle hashes provide tamper evidence (you can detect if a trace was modified), not correctness guarantees (a hash of a wrong answer is still tamper-evident). The correctness guarantee comes from the constraint compiler, not from the hash. The Merkle tree is an audit trail, not a proof of truth.
 - **1 month**
 
 **Parallel Track C: NL Verification API MVP**
@@ -303,7 +381,7 @@ The build plan follows the emergent dependency graph from the multi-model debate
 
 **Deliverable (Month 3):** A unified system (glue) with cryptographic trust (Merkle) and a public-facing verification API (MVP). The fleet stops being infrastructure and starts being a platform.
 
-### Months 3–6: Proof
+### Months 3–6: Proof + Customer Discovery
 
 **Lean4 VM Proof**
 - Extract core opcode dispatch + stack operations into Lean4 formal model
@@ -318,9 +396,16 @@ The build plan follows the emergent dependency graph from the multi-model debate
 - Do not DO certification yet — understand the gap
 - **1 month**
 
-**Deliverable (Month 6):** A formally proven VM and a clear certification roadmap. The verification API now serves proofs backed by a verified VM.
+**Customer Discovery (Parallel)**
+- Conduct 20+ customer interviews with marine autonomy operators, vessel operators, and classification society representatives
+- Validate the Verification API value proposition with potential design partners
+- Identify 3–5 design partners willing to pilot the API
+- Understand existing verification workflows and pain points
+- **Ongoing through Year 1**
 
-### Months 6–12: Learning
+**Deliverable (Month 6):** A formally proven VM, a clear certification roadmap, and validated customer demand (or an honest pivot signal).
+
+### Months 6–12: Learning + Production
 
 **Sensor-to-Tile Learning Loop**
 - Statistical analysis of constraint rejection patterns
@@ -339,26 +424,28 @@ The build plan follows the emergent dependency graph from the multi-model debate
 **Hardware Acceleration**
 - TensorRT integration: pre-compile FLUX to TensorRT-optimized kernels
 - FPGA constraint VM for deterministic sub-microsecond checks on Tier 1
-- Required for DO-178C Level A (airborne systems)
+- Required for DO-178C Level A (airborne systems) — long-term investment, not Year 1 revenue
 - **3 months**
 
-**Deliverable (Month 12):** A self-improving system with temporal awareness and hardware acceleration. Year 1 closes with: a publicly accessible verification API, a formally proven VM, self-improving constraints, temporal safety, and hardware acceleration. That is not incremental. That is a new category.
+**Deliverable (Month 12):** A self-improving system with temporal awareness and hardware acceleration. Year 1 closes with: a publicly accessible verification API with design partners in production, a formally proven VM, self-improving constraints, temporal safety, hardware acceleration, and validated market demand. That is not incremental. That is a new category — built on evidence, not assumption.
 
 ---
 
 ## 9. Conclusion
 
-The AI industry is at an inflection point. The question is no longer "can AI do it?" but "can we trust AI to do it?" The answer, for most systems, is no — not because the models aren't capable, but because there is no structural mechanism to prevent wrong outputs from being emitted. Post-hoc checking has a 12% production success rate. Guardrails are advisory. RAG retrieves text but does not verify correctness. Agent frameworks orchestrate workflows but do not prove safety.
+The AI industry is at an inflection point. The question is no longer "can AI do it?" but "can we trust AI to do it?" The answer, for most systems, is no — not because the models aren't capable, but because there is no structural mechanism to prevent wrong outputs from being emitted. Post-hoc checking catches some failures after they occur. Guardrails are advisory. RAG retrieves text but does not verify correctness. Agent frameworks orchestrate workflows but do not prove safety.
 
 The Cocapn Fleet takes a different approach: **compile constraints into the execution path so that wrong outputs are structurally impossible to produce.** This is not a new idea — it is what compilers have done for software since the 1970s. We are applying it to AI agents.
 
-The fleet has built the foundation: a four-tier hardware architecture, a constraint instruction set (FLUX ISA), a quality-gated knowledge hypergraph (PLATO), and a constraint solver (constraint-theory-core) published and running in production. The multi-model debate validated the architecture and produced an emergent dependency graph that defines the build plan.
+The fleet has built the foundation: a four-tier edge hardware architecture, a constraint instruction set (FLUX ISA), a quality-gated knowledge hypergraph (PLATO), and a constraint solver (constraint-theory-core) published and running in production. The multi-model debate validated the architecture and produced an emergent dependency graph that defines the build plan.
 
 The next phase transforms infrastructure into platform. The NL Verification API is the on-ramp — anyone can POST a claim and get a proof. The formally verified VM is the trust anchor — the proof is backed by a mathematically verified execution engine. The sensor-to-tile learning loop makes the system alive — it improves its own constraints from real-world data.
 
 **API + Proof = Platform.**
 
-The five-year vision is Certification-as-a-Service: the standard for proving that autonomous AI systems won't fail. When a regulator asks how you know your AI is safe, the answer is: "We use Cocapn. Like MISRA for C."
+But we are honest about where we are. Customer discovery is in progress. We have no external validation yet. The certification journey is a decade-long institutional process, not a technical milestone we can sprint toward. We are starting where the regulatory burden is lowest (marine autonomy) and the evidence is physical (real sonar, real constraints, real failures we can prevent). From that beachhead, we build toward the longer play: becoming part of the trust infrastructure that makes safety-critical AI certifiable.
+
+When a marine operator asks "how do I prove to my insurer that my autonomous vessel won't collide?", the answer should be: "Run it through Cocapn. The verification trace is auditable."
 
 The forge tempers steel through constraint. Stronger positions survive.
 
