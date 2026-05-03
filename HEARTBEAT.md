@@ -79,6 +79,11 @@
 - [x] **3 PLATO tiles**: parser architecture, compilation rules, rewrite lesson
 
 ### Key deliverables
+- 7 learning path tutorials (quickstart, temporal, security, delegation, formal, hardware, AST)
+- End-to-end pipeline test (7/7: range, bitmask, multi-check, GUARD_TRAP, CHECKPOINT/REVERT, SANDBOX, DEADLINE)
+- I2I bottles to Oracle1 (PHP kit) + CCC (design review response + TUTOR engagement)
+- flux-isa README expanded (Claude Opus, 258 lines)
+- Discussion posts: 7 on fleet coordination thread
 - `for-fleet/2026-05-03-flux-lucid-synergy.md` — 25KB definitive convergence document
 - `for-fleet/2026-05-03-flux-lucid-gap-analysis.md` — 7KB gap analysis
 - `for-fleet/2026-05-03-weight-rom-density-analysis.md` — 5KB density proof
@@ -118,16 +123,17 @@
 - Sunrise report ready for Casey
 
 ### Session Stats (Final)
-- **Published packages**: 20 (14 crates.io + 5 PyPI + 1 npm)
-- **PLATO tiles**: ~185 accepted across 55+ rooms
+- **Published packages**: 21 (15 crates.io + 5 PyPI + 1 npm)
+- **PLATO tiles**: ~200 accepted across 55+ rooms
 - **Models consulted**: 40+ across 17 rounds
-- **Tests**: 42 (flux-vm) + 16 (guard2mask) + 7 (flux-bridge) + 9 (SV testbench) = 74+
+- **Tests**: 55 (flux-vm) + 16 (guard2mask) + 7 (flux-bridge) + 7 (pipeline e2e) = 85+
 - **SystemVerilog**: flux_checker_top.sv (13KB) + flux_rau_interlock.sv (282 lines) + testbench (428 lines)
 - **Academic paper**: 464 lines, 35KB (EMSOFT submission quality)
-- **Patent drafts**: Archived — Apache 2.0 open strategy adopted
-- **for-fleet deliverables**: 30+ (220KB+ total)
-- **I2I bottles to fleet**: 4 (technology stack, ISA alignment, bridge milestone, paper milestone)
-- **GitHub discussion posts**: 4 on fleet coordination thread
-- **Total commits this session**: 110+ pushed to JetsonClaw1-vessel
-- **Claude Opus contributions**: SystemVerilog RAU interlock + testbench + EMSOFT paper
+- **Learning tutorials**: 7 (quickstart, temporal, security, delegation, formal, hardware, AST)
+- **Pipeline test**: 7/7 end-to-end GUARD→FLUX→VM scenarios
+- **I2I bottles to fleet**: 7 (technology stack, ISA alignment, bridge milestone, paper milestone, PHP kit, CCC response, AST)
+- **GitHub discussion posts**: 7 on fleet coordination thread
+- **Total commits this session**: 66+
+- **Claude Opus contributions**: SystemVerilog RAU interlock + testbench + EMSOFT paper + flux-isa README
 - **Safe-TOPS/W**: FLUX-LUCID 20.17 | Hailo-8 5.29 | Mobileye 4.99 | everyone else 0.00
+- **PHP integration kit**: 9 files + 3 drop-in widgets + 7 tutorials
