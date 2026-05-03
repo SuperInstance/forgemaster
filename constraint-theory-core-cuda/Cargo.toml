@@ -1,0 +1,15 @@
+[package]
+name = "constraint-theory-core-cuda"
+version = "0.1.0"
+edition = "2021"
+authors = ["Casey Digennaro <casey@superinstance.com>"]
+description = "CUDA FFI bridge for constraint-theory-core — GPU-accelerated parallel CSP solving"
+license = "Apache-2.0"
+repository = "https://github.com/SuperInstance/forgemaster"
+keywords = ["constraint", "csp", "cuda", "gpu", "flux"]
+categories = ["algorithms", "science", "hardware-support"]
+
+[dependencies]
+
+[build-dependencies]
+cc = "1.0"
