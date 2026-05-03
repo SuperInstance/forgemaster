@@ -6,41 +6,46 @@ casey@superinstance.com
 
 **Forgemaster ⚒️ (Constraint Theory Specialist)**  
 Cocapn Fleet  
- forgemaster@cocapn.fleet
+forgemaster@cocapn.fleet
 
-*Draft v1.0 — May 2026*
+*Draft v1.1 — May 2026*
 
 ---
 
 ## Abstract
 
-We present FLUX ISA, a stack-based instruction set architecture designed for *constraint compilation* — the transformation of declarative constraint satisfaction problems (CSPs) into executable bytecode with built-in verification. Unlike existing approaches that treat constraints as runtime checks or post-hoc validation, FLUX ISA elevates constraint violations to first-class compilation errors: a FLUX program that violates its constraints halts immediately with a precise diagnostic, analogous to a type error in a compiled language. The architecture is realized across four tiers — `mini` (no\_std, 21 opcodes, 256 bytes RAM), `std` (37 opcodes, CLI toolchain), `edge` (35 opcodes, async/tokio runtime), and `thor` (43 opcodes, CUDA GPU dispatch, fleet coordination) — enabling constraint execution from ARM Cortex-M0+ microcontrollers to GPU clusters. We describe the wire format (0x464C magic), the 5-stage Thor pipeline (INGEST → VALIDATE → COMPILE → EXECUTE → COMMIT), and integration with the PLATO hypergraph knowledge system. We demonstrate the architecture through a sonar physics domain where Mackenzie 1981 sound speed equations and Francois-Garrison 1982 absorption models compile directly to constraint bytecodes executable on underwater sensor nodes. FLUX ISA fills a gap unaddressed by existing systems: it is neither a retrieval framework (LlamaIndex), a workflow engine (LangGraph), a middleware bus (ROS 2), a coding standard (MISRA C), nor a formal methods tool (TLA+/Alloy), but a new category of *constraint compilation target* where correctness is enforced at the ISA level.
+We present FLUX ISA, a stack-based instruction set architecture designed for *constraint compilation* — the transformation of declarative constraint satisfaction problems (CSPs) into executable bytecode with built-in verification. Unlike existing approaches that treat constraints as runtime checks or post-hoc validation, FLUX ISA elevates constraint violations to first-class execution events: a FLUX program that violates its constraints halts immediately with a precise diagnostic, analogous to a failed assertion in a Design by Contract system, but enforced at the ISA level. The architecture is realized across four tiers — `mini` (no\_std, 256 bytes RAM), `std` (CLI toolchain), `edge` (async/tokio runtime), and `thor` (43 opcodes, CUDA GPU dispatch, fleet coordination) — enabling constraint execution from ARM Cortex-M0+ microcontrollers to GPU clusters. We describe the wire format (0x464C magic), the 5-stage Thor pipeline (INGEST → VALIDATE → COMPILE → EXECUTE → COMMIT), and integration with the PLATO hypergraph knowledge system. We demonstrate the architecture through a sonar physics domain where Mackenzie 1981 sound speed equations and Francois-Garrison 1982 absorption models compile directly to constraint bytecodes executable on underwater sensor nodes. FLUX ISA fills a gap between existing approaches — it is neither a retrieval framework (LlamaIndex), a workflow engine (LangGraph), a middleware bus (ROS 2), a coding standard (MISRA C), a formal methods tool (TLA+/Alloy), nor a contract system (Eiffel/Spec#), but a *constraint compilation target* where domain correctness is enforced as a structural property of bytecode execution.
 
 ---
 
 ## 1. Introduction
 
-The central thesis of this paper is that **constraint violations should be compilation errors, not runtime surprises**.
+The central thesis of this paper is that **constraint violations should be first-class execution events, not runtime surprises**.
 
 Consider an autonomous underwater vehicle (AUV) running sonar processing at 200m depth. A sound speed value of 800 m/s — physically impossible given the Mackenzie equation — propagates through the signal processing pipeline, corrupting bathymetric maps for hours before detection. The error was not a software bug; every function returned correctly. The error was *ontological*: the value violated the physics of the domain, but the system had no mechanism to treat physics as a type system.
 
-Current approaches to this problem fall into several categories, each with a characteristic failure mode:
+This problem has been recognized before. Eiffel's Design by Contract [Meyer 1992] compiles preconditions, postconditions, and invariants into runtime checks that halt on violation. Spec# [Barnett et al. 2011] extends this with static verification. Bitcoin Script [Nakamoto 2008] includes `OP_VERIFY` and `OP_EQUALVERIFY` — opcodes that halt transaction execution when constraints fail. These systems demonstrate that building constraint checking into the execution layer is effective.
+
+FLUX ISA extends this lineage into a new domain: a portable, tiered bytecode ISA where constraint opcodes are first-class primitives, the same constraint logic spans microcontrollers to GPU clusters, and the compilation target is domain physics rather than program invariants or transaction validity. This fills a gap not addressed by existing systems — a shared wire format for compiled constraints that executes across four orders of magnitude in hardware capability.
+
+Current approaches to constraint enforcement fall into several categories, each with a characteristic failure mode:
 
 - **Runtime assertions** (C `assert()`, Rust `debug_assert!`): Disabled in production builds. No provenance. No recovery.
 - **Guard conditions** (ROS 2 validators, API middleware): Added post-hoc, easily bypassed, unenforced at the computation layer.
 - **Formal verification** (TLA+, Alloy, Lean): Powerful but disconnected from execution. The verified model and the running code diverge.
 - **Coding standards** (MISRA C, AUTOSAR): Prevent classes of bugs but cannot encode domain physics. Sound speed is not a coding guideline.
+- **Design by Contract** (Eiffel, Spec#): Compiles assertions to runtime checks, but these are language-level features tied to specific host languages, not portable bytecode. A Spec# contract cannot run on a bare-metal sensor node.
 
-FLUX ISA introduces a new category: **constraint compilation**. Constraints are compiled into a bytecode instruction set where violation is architecturally impossible to ignore. The virtual machine treats `Assert`, `Validate`, `Check`, and `Reject` as first-class opcodes with the same precedence as arithmetic. A constraint violation halts execution with a step-level trace — the ISA equivalent of a segmentation fault, but for domain semantics rather than memory safety.
+FLUX ISA introduces *constraint compilation*: constraints are compiled into a bytecode instruction set where violation is architecturally impossible to ignore. The virtual machine treats `Assert` as a first-class opcode with the same precedence as arithmetic. A constraint violation halts execution with a step-level trace — the ISA equivalent of a segmentation fault, but for domain semantics rather than memory safety.
 
 The architecture spans four implementation tiers, enabling the same constraint logic to execute on a $3 Cortex-M0+ sensor node or an NVIDIA A100 GPU cluster:
 
-| Tier | Target | Opcodes | Runtime | Memory |
-|------|--------|---------|---------|--------|
-| `mini` | ARM Cortex-M0+/M4 | 21 | `#![no_std]` | 256 bytes stack |
-| `std` | Embedded Linux | 37 | CLI toolchain | 4KB default |
-| `edge` | Edge servers | 35 | tokio async | Dynamic + 256-slot memory |
-| `thor` | GPU servers / fleet | 43 | CUDA + tokio | 65K stack + GPU memory |
+| Tier | Target | Base Opcodes | Extended | Runtime | Memory |
+|------|--------|-------------|----------|---------|--------|
+| `mini` | ARM Cortex-M0+/M4 | subset | — | `#![no_std]` | 256 bytes stack |
+| `std` | Embedded Linux | 35 | — | CLI toolchain | 4KB default |
+| `edge` | Edge servers | 35 | — | tokio async | Dynamic + 256-slot memory |
+| `thor` | GPU servers / fleet | 35 | +8 Thor | CUDA + tokio | 65K stack + GPU memory |
 
 This paper presents the architecture, demonstrates its application to sonar physics constraints, and positions it within the landscape of existing approaches.
 
@@ -48,35 +53,49 @@ This paper presents the architecture, demonstrates its application to sonar phys
 
 ## 2. Related Work
 
-### 2.1 Retrieval-Augmented Generation (LlamaIndex, LangChain)
+### 2.1 Design by Contract (Eiffel, Spec#)
+
+Eiffel's Design by Contract [Meyer 1992] compiles preconditions (`require`), postconditions (`ensure`), and invariants into runtime checks that halt execution on violation. This is the closest philosophical ancestor to FLUX ISA: both treat assertions as non-optional execution steps. The key difference is that Eiffel contracts are language-level constructs compiled to native code, while FLUX ISA defines a portable bytecode format where constraints survive compilation as distinct opcodes. A FLUX bytecode program retains its constraint structure after compilation; an Eiffel contract compiles to an inline `if` check indistinguishable from any other branch.
+
+Spec# [Barnett et al. 2011] extends this approach with static verification, proving some contracts at compile time. FLUX ISA currently lacks static contract proving (see Section 6.4 on the Lean 4 gap), but its bytecode-level constraint representation makes static analysis more tractable than source-level analysis — a constraint opcode is an explicit annotation in the instruction stream.
+
+### 2.2 Bitcoin Script
+
+Bitcoin Script [Nakamoto 2008] is a stack-based language with constraint verification opcodes, notably `OP_VERIFY` and `OP_EQUALVERIFY`, which halt transaction execution when constraints fail. This is architecturally similar to FLUX ISA's `Assert` opcode. Bitcoin Script demonstrated that embedding constraint checking as first-class opcodes in a stack-based VM is practical and effective for a specific domain (transaction validity). FLUX ISA generalizes this pattern: the same architectural principle — constraint opcodes as VM primitives — applied to a broader domain (physical constraints in autonomous systems) with a tiered execution model spanning microcontrollers to GPUs.
+
+### 2.3 WebAssembly
+
+WebAssembly [Haas et al. 2017] provides a portable compilation target with structured control flow, linear memory, and a rigorous validation algorithm that statically rejects malformed modules. WASM validation shares FLUX ISA's goal of making correctness a structural property of the compiled artifact. The key difference is that WASM validates structural properties (type correctness, stack balance, control flow structure) while FLUX ISA validates *semantic* properties (domain constraints, physics bounds). WASM's stack-based execution model and validation approach are architectural predecessors that informed FLUX ISA's design.
+
+### 2.4 eBPF
+
+eBPF [Gregg 2019] provides a restricted instruction set with a verifier that statically rejects programs that might violate safety constraints (no unbounded loops, no out-of-bounds access). The eBPF verifier is essentially a static constraint checker for a stack-based ISA — programs that cannot be proven safe are rejected at load time. FLUX ISA takes a complementary approach: rather than statically proving safety before execution, constraints are dynamically enforced *during* execution via dedicated opcodes. Both approaches make constraint checking a structural property of the ISA rather than an application-level concern.
+
+### 2.5 Retrieval-Augmented Generation (LlamaIndex, LangChain)
 
 LlamaIndex [Liu 2022] and LangChain focus on connecting large language models to external knowledge via retrieval. Their constraint model is limited to prompt engineering and output parsing. A FLUX ISA program, by contrast, is a compiled artifact — its constraints are structural properties of the bytecode, not text in a prompt. There is no "hallucination" of constraints; they are encoded at the opcode level.
 
-### 2.2 Workflow Orchestration (LangGraph, Temporal)
+### 2.6 Workflow Orchestration (LangGraph, Temporal)
 
 LangGraph extends LangChain with graph-based workflow control, supporting cycles, branching, and state persistence. Temporal provides durable workflow execution. Both treat constraints as application logic layered *on top of* the execution engine. FLUX ISA bakes constraints *into* the execution engine. The difference is architectural: in LangGraph, a constraint check is a node in a graph; in FLUX ISA, it is an opcode that the VM *must* execute.
 
-### 2.3 Robotics Middleware (ROS 2, CYCLONE DDS)
+### 2.7 Robotics Middleware (ROS 2, CYCLONE DDS)
 
 ROS 2 [Macenski et al. 2022] provides publish-subscribe middleware for robot systems. Its quality-of-service (QoS) policies and message validators can reject malformed data, but validation occurs at the transport layer, not the computation layer. A ROS 2 node can publish garbage sensor data with valid QoS headers. FLUX ISA validates at the *computation* layer: the sensor node itself runs constraint bytecodes before publishing.
 
-### 2.4 Coding Standards (MISRA C, AUTOSAR, CERT C)
+### 2.8 Coding Standards (MISRA C, AUTOSAR, CERT C)
 
 MISRA C:2012 [MISRA 2012] defines 159 mandatory rules and 18 directives for safe C code in automotive systems. These prevent undefined behavior, memory corruption, and type errors. However, MISRA cannot express "the sound speed must be between 1430 and 1560 m/s per Mackenzie 1981" — that is a domain constraint, not a software constraint. FLUX ISA complements MISRA: the C implementation of the VM follows MISRA rules, while the *bytecode* it executes encodes domain constraints.
 
-### 2.5 Formal Methods (TLA+, Alloy, Lean 4)
+### 2.9 Formal Methods (TLA+, Alloy, Lean 4)
 
 TLA+ [Lamport 2002] and Alloy [Jackson 2012] enable specification and verification of system designs. Lean 4 [de Moura & Ullrich 2021] supports verified programming with dependent types. These tools prove properties about specifications or programs, but the verified artifact is typically *disconnected* from the deployed system. The TLA+ model of a system is not the code that runs on the sensor node.
 
 FLUX ISA occupies a different position: it does not prove properties *about* programs (though we discuss Lean 4 verification as future work). Instead, it *enforces* properties *during* execution. Every FLUX bytecode program is, by construction, a constraint satisfaction problem where violation is an architectural fault.
 
-### 2.6 Constraint Satisfaction Solvers (Gecode, Chuffed, OR-Tools)
+### 2.10 Constraint Satisfaction Solvers (Gecode, Chuffed, OR-Tools)
 
-Traditional CSP solvers take a declarative specification and search for satisfying assignments. FLUX ISA is not a solver in this sense — it is an *execution target* for compiled constraints. The Thor tier includes `BatchSolve` and `SonarBatch` opcodes that delegate to GPU-accelerated backtracking solvers, but the core contribution is the ISA itself as a compilation target, not the solving algorithm.
-
-### 2.7 WebAssembly and Other ISAs
-
-WebAssembly [Haas et al. 2017] provides a portable compilation target with structured control flow and linear memory. FLUX ISA differs in three key ways: (1) constraint opcodes are first-class, not library functions; (2) the execution model is stack-only with no linear memory in the mini tier; (3) the wire format is domain-specific (0x464C magic) rather than general-purpose.
+Traditional CSP solvers take a declarative specification and search for satisfying assignments. Gecode [Schulte & Tack 2009] compiles constraints to C++ for efficient execution. FLUX ISA is not a solver in this sense — it is an *execution target* for compiled constraints. The Thor tier includes `BatchSolve` and `SonarBatch` opcodes that delegate to GPU-accelerated backtracking solvers, but the core contribution is the ISA itself as a compilation target, not the solving algorithm.
 
 ---
 
@@ -84,8 +103,8 @@ WebAssembly [Haas et al. 2017] provides a portable compilation target with struc
 
 ### 3.1 Design Principles
 
-1. **Constraint-first**: Every tier includes constraint opcodes (`Assert`, `Validate`, `Check`, `Reject`). A tier without constraints is not FLUX.
-2. **Tiered fidelity**: The same constraint logic can be expressed with 21 opcodes on a microcontroller or 43 opcodes on a GPU. Higher tiers are strict supersets.
+1. **Constraint-first**: Every tier includes the `Assert` opcode. A tier without constraints is not FLUX.
+2. **Tiered fidelity**: The same constraint logic can be expressed with a minimal opcode subset on a microcontroller or the full 43-opcode set on a GPU. Higher tiers are strict supersets.
 3. **Stack-based execution**: No registers, no linear memory (in mini tier). The stack is the sole computational substrate. This minimizes implementation complexity and enables formal reasoning about stack effects.
 4. **Wire compatibility**: The 0x464C binary format is shared across tiers. A `.flux` file compiled for `mini` can be loaded and validated (though not fully executed) by `thor`.
 
@@ -111,29 +130,62 @@ Each instruction is a fixed 24-byte record:
 └─────────┴──────┴───────────────┴───────────────┴──────────┴───────┘
 ```
 
-The fixed 24-byte instruction size enables zero-copy deserialization — the `mini` tier decodes bytecode by casting a byte slice directly to a `&[FluxInstruction]` with no allocation:
+The fixed 24-byte instruction size enables direct indexing into the instruction array without deserialization overhead. However, the `unsafe` decode function requires care:
 
 ```rust
 pub fn decode(buf: &[u8]) -> Result<&[FluxInstruction], FluxError> {
+    if buf.len() < 4 { return Err(FluxError::BufferTooShort); }
     if buf[0] != 0x46 || buf[1] != 0x4C {
         return Err(FluxError::InvalidInstruction(buf[0]));
     }
     let count = u16::from_le_bytes([buf[2], buf[3]]) as usize;
-    let ptr = buf[4..].as_ptr() as *const FluxInstruction;
+    let data = &buf[4..];
+    if data.len() < count * 24 {
+        return Err(FluxError::BufferTooShort);
+    }
+    // NOTE: On ARM, this cast requires the instruction array to be
+    // 8-byte aligned (for f64 fields). Since the header is 4 bytes,
+    // a buffer starting at an 8-byte-aligned address will produce an
+    // instruction array at offset 4 — NOT 8-byte-aligned.
+    // Use safe byte-by-byte construction on targets with alignment
+    // requirements (ARM Cortex-M):
+    let ptr = data.as_ptr() as *const FluxInstruction;
     Ok(unsafe { core::slice::from_raw_parts(ptr, count) })
 }
 ```
 
+**Alignment note (ARM Cortex-M)**: On ARM targets, `f64` requires 8-byte alignment. Since the 4-byte header places the instruction array at offset 4 from the buffer start, the cast above may cause an alignment fault if the buffer is not padded. A safe alternative reads individual instructions from bytes without casting:
+
+```rust
+// Alignment-safe decode for ARM targets
+pub fn decode_safe(buf: &[u8]) -> Result<Vec<FluxInstruction>, FluxError> {
+    let count = u16::from_le_bytes([buf[2], buf[3]]) as usize;
+    let data = &buf[4..];
+    let mut instructions = Vec::with_capacity(count);
+    for chunk in data.chunks_exact(24).take(count) {
+        instructions.push(FluxInstruction::from_bytes(chunk));
+    }
+    Ok(instructions)
+}
+```
+
+This trades a single allocation for correctness on ARM. The `mini` tier can use the `unsafe` cast when buffer alignment is guaranteed (e.g., `static` buffers with appropriate padding), and the safe decode otherwise. We note that the `unsafe` cast also creates an aliasing concern under Rust's memory model (`&[u8]` and `&[FluxInstruction]` referencing the same memory), which is undefined behavior under Miri. A fully sound implementation would use `bytemuck` or `zerocopy` crates for checked transmutation. The wire format header could be extended to 8 bytes (4 bytes magic + count + 4 bytes padding) to guarantee alignment at the cost of 4 wasted bytes per program.
+
 ### 3.3 Opcode Taxonomy
 
-The base opcode set (shared across all tiers) is organized into six functional groups:
+The base opcode set (35 opcodes) is organized into six functional groups, with hex assignments verified against the reference implementation (`flux-isa-thor/src/opcode.rs`):
 
-**Arithmetic** (0x01–0x05): `Add`, `Sub`, `Mul`, `Div`, `Mod`  
-**Constraint** (0x10–0x13): `Assert`, `Check`, `Validate`, `Reject`  
-**Control Flow** (0x20–0x24): `Jump`, `Branch`, `Call`, `Return`, `Halt`  
-**Memory/Stack** (0x30–0x34): `Load`, `Store`, `Push`, `Pop`, `Swap`  
-**Conversion** (0x40–0x43): `Snap`, `Quantize`, `Cast`, `Promote`  
-**Logic/Compare** (0x50–0x65): `And`, `Or`, `Not`, `Xor`, `Eq`, `Neq`, `Lt`, `Gt`, `Lte`, `Gte`
+**Stack / Value** (0x00–0x06): `Nop`, `Push`, `Pop`, `Dup`, `Swap`, `Load`, `Store`
+
+**Arithmetic** (0x10–0x15): `Add`, `Sub`, `Mul`, `Div`, `Mod`, `Neg`
+
+**Logic / Comparison** (0x20–0x22, 0x30–0x35): `And`, `Or`, `Not`, `Eq`, `Ne`, `Lt`, `Le`, `Gt`, `Ge`
+
+**Control Flow** (0x40–0x45): `Jmp`, `Jz`, `Jnz`, `Call`, `Ret`, `Halt`
+
+**CSP Primitives** (0x50–0x54): `Assert`, `Constrain`, `Propagate`, `Solve`, `Verify`
+
+**I/O** (0x60–0x61): `Print`, `Debug`
 
 The Thor extension adds 8 opcodes in the 0x80–0x87 range for parallel execution, GPU dispatch, and knowledge graph operations:
 
@@ -150,6 +202,8 @@ pub enum ThorOpcode {
 }
 ```
 
+The opcode space uses a grouped layout: each functional category occupies a 16-opcode range with room for extension. Opcodes 0x07–0x0F, 0x16–0x1F, 0x23–0x2F, 0x36–0x3F, 0x46–0x4F, 0x55–0x5F, and 0x62–0x7F are reserved for future use.
+
 ### 3.4 Stack-Based Execution Model
 
 All computation operates on a single value stack. The mini tier uses a fixed `[f64; 32]` array (256 bytes of SRAM on Cortex-M). The `edge` tier uses a dynamic `Vec<f64>` with configurable depth limits. The `thor` tier supports a polymorphic `Value` type:
@@ -165,20 +219,17 @@ pub enum Value {
 }
 ```
 
-Binary operations pop two values, apply the operator, and push the result. Constraint operations pop one or more values, evaluate the constraint, and either push a boolean result (`Check`, `Validate`) or halt execution with an error (`Assert`, `Reject`).
+Binary operations pop two values, apply the operator, and push the result. Constraint operations pop one or more values, evaluate the constraint, and either push a boolean result (`Constrain`, `Propagate`) or halt execution with an error (`Assert`).
 
-The critical semantic difference between `Assert` and `Check`:
+The `Assert` opcode has a unique semantic property: it *consumes* the value on the stack. If the value is zero/false, it halts with `ConstraintViolation`. If the value is non-zero/true, execution continues with the value removed. This makes `Assert` an *irrecoverable gate* — the program cannot proceed past an `Assert` with the tested value still on the stack. This contrasts with the `Constrain` opcode, which sets domain bounds without consuming values, and the `Verify` opcode, which checks a constraint non-destructively.
 
-- **Assert**: *Consumes* the value. If zero/false, halts with `ConstraintViolation`. Irrecoverable.
-- **Check**: *Non-consuming* peek. Leaves the value on the stack, records the constraint result. Recoverable — downstream code can branch on the result.
-
-This distinction enables two programming patterns: strict constraints that gate execution (`Assert`), and soft constraints that inform downstream logic (`Check`).
+This semantic distinction enables two programming patterns: strict constraints that gate execution (`Assert`), and soft constraints that inform downstream logic (`Constrain` + `Verify`).
 
 ### 3.5 Static Validation
 
 Before execution, the bytecode validator performs two static checks:
 
-1. **Jump target validation**: Every `Jump`, `Branch`, or `Call` operand must reference a valid instruction index.
+1. **Jump target validation**: Every `Jmp`, `Jz`, `Jnz`, or `Call` operand must reference a valid instruction index.
 2. **Stack effect analysis**: For each instruction, the validator tracks the net stack effect (inputs consumed minus outputs produced). A negative cumulative effect at any program point indicates a stack underflow.
 
 ```rust
@@ -203,29 +254,108 @@ This provides a static guarantee: if validation passes, no execution path can pr
 
 ## 4. Constraint Compilation Pipeline
 
-### 4.1 From Declarative Constraints to Bytecode
+### 4.1 Compilation Algorithm
 
-The constraint compilation process transforms a declarative CSP specification into FLUX bytecode through a systematic mapping:
+The constraint compilation process transforms a declarative CSP specification into FLUX bytecode through three phases:
 
-**Declarative form**: $\forall x_i \in D_i : c_1(x_1, x_2) \wedge c_2(x_3, x_4) \wedge \ldots$
+**Phase 1 — Domain Encoding**: Each variable domain $D_i = [l_i, u_i]$ is encoded as a `Constrain` instruction that sets bounds. For discrete domains, the bounds encode the range and the step size is encoded in the flags field.
 
-**Compiled form**:
+**Phase 2 — Constraint Flattening**: Each constraint $c_j(x_{j_1}, x_{j_2}, \ldots)$ is flattened into a sequence of stack operations (push variables, apply arithmetic/comparison) followed by an `Assert` or `Verify`. Binary constraints compile to: push both variables, apply comparison, assert. N-ary constraints are decomposed into binary comparisons combined with `And`/`Or`.
+
+**Phase 3 — Topology Ordering**: Constraints are ordered to minimize stack depth. Variables shared between constraints are loaded once and duplicated with `Dup`. The compiler performs a simple live-variable analysis to insert `Pop` instructions where needed.
+
+The input is a JSON CSP specification:
+
+```json
+{
+  "variables": [
+    {"name": "x", "domain": [0, 7]},
+    {"name": "y", "domain": [0, 7]}
+  ],
+  "constraints": [
+    {"type": "neq", "args": ["x", "y"]},
+    {"type": "gt", "args": ["x", "y"], "offset": 1}
+  ]
+}
 ```
-LOAD x_1      ; push variable value
-LOAD lower_1  ; push domain lower bound  
-LOAD upper_1  ; push domain upper bound
-VALIDATE      ; pop [val, min, max], push 1.0 if valid
-LOAD x_2
-LOAD x_1
-SUB           ; compute x_2 - x_1
-LOAD threshold
-LT            ; check x_2 - x_1 < threshold
-ASSERT        ; halt if violated
+
+### 4.2 Example: 8-Queens CSP → FLUX Bytecode
+
+The N-queens problem is a canonical CSP: place N queens on an N×N board such that no two queens attack each other. The constraints are:
+
+1. **Row uniqueness**: Each queen is in a different row (encoded by using array index as row).
+2. **Column uniqueness**: No two queens share a column ($q_i \neq q_j$).
+3. **Diagonal constraints**: No two queens share a diagonal ($|q_i - q_j| \neq |i - j|$).
+
+For the 8-queens case, the CSP has 8 variables $q_0, q_1, \ldots, q_7$ each with domain $\{0, 1, \ldots, 7\}$, and 28 pairwise constraints ($\binom{8}{2}$ pairs). Each pairwise constraint compiles to:
+
+```
+; Constraint: q_i ≠ q_j (column uniqueness)
+PUSH qi_value      ; push column of queen i
+PUSH qj_value      ; push column of queen j
+Eq                 ; check qi == qj
+Not                ; invert: we want qi ≠ qj
+Assert             ; halt if violated (they share a column)
+
+; Constraint: |qi - qj| ≠ |i - j| (diagonal uniqueness)
+PUSH qi_value      ; push column of queen i
+PUSH qj_value      ; push column of queen j
+Sub                ; compute qi - qj
+PUSH offset        ; push |i - j|
+Eq                 ; check |qi - qj| == |i - j|
+Not                ; invert
+Assert             ; halt if violated (they share a diagonal)
 ```
 
-Each constraint $c_i$ compiles to a sequence of arithmetic/comparison opcodes followed by a constraint opcode (`Assert`, `Check`, or `Validate`). The constraint opcodes serve as *synchronization points* — the VM evaluates the constraint atomically and records the result in the execution trace.
+The full 8-queens compilation produces a bytecode program with 8 domain constraints (one `Constrain` per queen) and 56 `Assert` blocks (2 per pair × 28 pairs). On the Thor tier, the `BatchSolve` opcode dispatches the search to GPU, evaluating thousands of candidate placements in parallel.
 
-### 4.2 The Thor 5-Stage Pipeline
+A partial solution for queens 0–3 already placed at columns [2, 5, 0, 6]:
+
+```
+; Check queen 4 (row 4) against all placed queens
+; Domain: q4 ∈ {0..7}
+PUSH 0.0           ; domain min
+PUSH 7.0           ; domain max
+Constrain          ; set domain for q4
+
+; q4 ≠ q0 (q0 = 2)
+PUSH q4_value      ; candidate column for queen 4
+PUSH 2.0           ; queen 0 column
+Eq
+Not
+Assert
+
+; |q4 - q0| ≠ |4 - 0| = 4
+PUSH q4_value
+PUSH 2.0
+Sub
+PUSH 4.0           ; |4 - 0|
+Eq
+Not
+Assert
+
+; q4 ≠ q1 (q1 = 5)
+PUSH q4_value
+PUSH 5.0
+Eq
+Not
+Assert
+
+; |q4 - q1| ≠ |4 - 1| = 3
+PUSH q4_value
+PUSH 5.0
+Sub
+PUSH 3.0
+Eq
+Not
+Assert
+
+; ... continues for q4 vs q2, q4 vs q3
+```
+
+The compiler generates this bytecode automatically from the JSON specification. The `Solve` opcode (0x53) on the Thor tier triggers backtracking search with arc consistency (`Propagate` opcode) for constraint propagation.
+
+### 4.3 The Thor 5-Stage Pipeline
 
 The Thor tier implements a 5-stage pipeline for high-throughput constraint execution:
 
@@ -253,7 +383,7 @@ pub enum Stage {
 
 The execute stage uses a semaphore to limit concurrent VM instances (default: 8), preventing resource exhaustion under load. Each pipeline item carries its stage, payload, error state, and a nanosecond timestamp for latency tracking.
 
-### 4.3 Sonar Physics: Mackenzie 1981 + Francois-Garrison 1982
+### 4.4 Sonar Physics: Mackenzie 1981 + Francois-Garrison 1982
 
 To demonstrate constraint compilation in a real domain, we compile sonar physics constraints to FLUX bytecode.
 
@@ -274,26 +404,28 @@ The constraint compilation process produces two artifacts:
 1. **A FLUX bytecode program** that validates sensor readings against these bounds:
 ```
 ; Sonar constraint check — Mackenzie bounds
-LOAD 1500.0    ; measured sound speed (from sensor)
-LOAD 1430.0    ; SOUND_SPEED_MIN
-LOAD 1560.0    ; SOUND_SPEED_MAX
-VALIDATE       ; check: 1430 ≤ c ≤ 1560
-ASSERT         ; halt if violated
+PUSH 1500.0    ; measured sound speed (from sensor)
+PUSH 1430.0    ; SOUND_SPEED_MIN
+PUSH 1560.0    ; SOUND_SPEED_MAX
+Constrain       ; set domain: 1430 ≤ c ≤ 1560
+Verify          ; verify current value is in domain
+Assert          ; halt if violated
 
 ; Frequency check — Francois-Garrison operating range
-LOAD 200.0     ; frequency in kHz
-LOAD 1.0       ; SONAR_FREQ_MIN_KHZ
-LOAD 500.0     ; SONAR_FREQ_MAX_KHZ
-VALIDATE       ; check: 1 ≤ f ≤ 500
-ASSERT         ; halt if violated
+PUSH 200.0     ; frequency in kHz
+PUSH 1.0       ; SONAR_FREQ_MIN_KHZ
+PUSH 500.0     ; SONAR_FREQ_MAX_KHZ
+Constrain       ; set domain: 1 ≤ f ≤ 500
+Verify
+Assert          ; halt if violated
 
 ; Depth-pressure check
-LOAD 50.0      ; current depth (m)
-LOAD 200.0     ; max rated depth
-GT             ; check: depth ≤ max
-NOT            ; invert (we want depth ≤ max)
-ASSERT         ; halt if depth exceeds rating
-HALT
+PUSH 50.0      ; current depth (m)
+PUSH 200.0     ; max rated depth
+Gt              ; check: depth > max
+Not             ; invert (we want depth ≤ max)
+Assert          ; halt if depth exceeds rating
+Halt
 ```
 
 2. **A pre-compiled const module** for the `mini` tier, where the microcontroller cannot compute the full Mackenzie equation but can validate against pre-computed bounds:
@@ -309,7 +441,7 @@ pub const fn check_sound_speed(c: f64, min: f64, max: f64) -> bool {
 
 This two-level compilation — full equation on the server, pre-computed bounds on the sensor — is a key architectural pattern. The constraint is the same; the compilation target determines the implementation fidelity.
 
-### 4.4 GPU-Accelerated CSP Solving
+### 4.5 GPU-Accelerated CSP Solving
 
 The Thor tier includes a batch CSP solver that routes to GPU for large batches:
 
@@ -357,28 +489,21 @@ This creates a closed loop: constraint execution produces tiles → tiles are co
 
 ### 6.1 Bounded Execution
 
-**Theorem 1 (Finite Stack Bound)**. *For any validated FLUX bytecode program with $n$ instructions and maximum stack depth $m$, the VM executes at most $n$ steps before halting or encountering a control flow instruction, and the stack never exceeds $m$ elements.*
+**Property 1 (Finite Stack Bound)**. *For any validated FLUX bytecode program with $n$ instructions and maximum stack depth $m$, the VM executes at most $n$ steps per straight-line code segment before halting or encountering a control flow instruction, and the stack never exceeds $m$ elements.*
 
-*Proof sketch*: The static validator computes the cumulative stack effect for each instruction. If validation passes, every straight-line code path maintains a non-negative stack depth. The VM enforces a maximum stack size at runtime (`STACK_SIZE = 32` in mini, configurable in other tiers). Since each instruction increments the program counter and there is a finite number of instructions, execution must terminate (via `Halt`, `Return`, or error) in at most $O(n)$ steps per straight-line segment. Jump instructions target validated indices, so the only concern is infinite loops — addressed by execution limits in the `edge` tier (`max_steps: 1_000_000`, `max_time: 30s`).
+*Justification*: The static validator computes the cumulative stack effect for each instruction. If validation passes, every straight-line code path maintains a non-negative stack depth. The VM enforces a maximum stack size at runtime (`STACK_SIZE = 32` in mini, configurable in other tiers). Since each instruction increments the program counter and there is a finite number of instructions, execution must terminate (via `Halt`, `Ret`, or error) in at most $O(n)$ steps per straight-line segment. Jump instructions target validated indices, so the only concern is infinite loops — addressed by execution limits in the `edge` tier (`max_steps: 1_000_000`, `max_time: 30s`). We note that this is an engineering property guaranteed by runtime limits, not a formal theorem about program termination.
 
 ### 6.2 Constraint Soundness
 
-**Theorem 2 (Constraint Soundness)**. *If the VM reports `constraints_satisfied = true`, then every `Assert`, `Check`, and `Validate` instruction encountered during execution evaluated to true.*
+**Property 2 (Constraint Soundness)**. *If the VM reports `constraints_satisfied = true`, then every `Assert` instruction encountered during execution evaluated to true.*
 
-*Proof*: The VM maintains a `constraint_results: Vec<bool>` (or `constraints_ok: bool` in mini). Each constraint opcode pushes the evaluation result to this vector. `Assert` additionally halts on false, so a program that completes with `constraints_satisfied = true` necessarily passed all assertions. The final check is:
-
-```rust
-let all_satisfied = !self.constraint_results.is_empty()
-    && self.constraint_results.iter().all(|&r| r);
-```
-
-This is vacuously false for programs with no constraint instructions — a deliberate choice: a program without constraints is not "satisfied," it is "unconstrained."
+*Justification*: The VM maintains a `constraints_ok: bool` flag. Each `Assert` opcode evaluates the top of stack; if false, execution halts immediately with `ConstraintViolation`. Therefore, a program that completes with `constraints_satisfied = true` necessarily passed all assertions encountered during execution. We note that a program with no `Assert` instructions trivially reports `constraints_satisfied = true` — this is a deliberate choice: such programs are "unconstrained" rather than "satisfied."
 
 ### 6.3 Termination Guarantee
 
-**Theorem 3 (Edge Tier Termination)**. *The edge tier VM terminates within $\max(\text{max\_steps}, \text{max\_time})$ for any input program.*
+**Property 3 (Edge Tier Termination)**. *The edge tier VM terminates within $\max(\text{max\_steps}, \text{max\_time})$ for any input program.*
 
-*Proof*: The execution loop checks `self.steps >= self.limits.max_steps` and `Instant::now() > deadline` at each iteration, breaking with `MaxStepsExceeded` or `Timeout` respectively. These are hard bounds that apply regardless of the program's control flow.
+*Justification*: The execution loop checks `self.steps >= self.limits.max_steps` and `Instant::now() > deadline` at each iteration, breaking with `MaxStepsExceeded` or `Timeout` respectively. These are hard bounds that apply regardless of the program's control flow.
 
 ### 6.4 The Lean 4 Gap
 
@@ -387,7 +512,7 @@ We cannot currently prove **constraint completeness** — that the compiled byte
 - **Compilation correctness**: For every CSP specification $S$, the compiled bytecode $B$ satisfies the same constraints as $S$.
 - **Optimization preservation**: Compiler optimizations (dead code elimination, constant folding) preserve constraint semantics.
 
-Without this proof, there remains a gap between "the VM correctly executes the bytecode" (Theorem 2) and "the bytecode correctly represents the constraint" (unproven).
+Without this proof, there remains a gap between "the VM correctly executes the bytecode" (Property 2) and "the bytecode correctly represents the constraint" (unproven).
 
 ---
 
@@ -425,7 +550,9 @@ impl FluxVm {
 }
 ```
 
-All operations use `#[inline(always)]` for direct code generation. Floating-point operations use `libm` for `no_std` compatibility (e.g., `libm::round` for `Snap`). The entire VM fits in 256 bytes of SRAM — leaving the remaining ~7.7KB of a typical Cortex-M4's 8KB SRAM for sensor buffers and communication stacks.
+All operations use `#[inline(always)]` for direct code generation. Floating-point operations use `libm` for `no_std` compatibility. The entire VM fits in 256 bytes of SRAM — leaving the remaining ~7.7KB of a typical Cortex-M4's 8KB SRAM for sensor buffers and communication stacks.
+
+**Note on f64 performance**: The ARM Cortex-M4F FPU is single-precision (f32) only. All f64 operations go through software emulation (`compiler_builtins`/`libm`), making each arithmetic operation 5–10× slower than f32 hardware operations. On the Cortex-M0+ (no FPU at all), every floating-point operation is a software call. The `mini` tier uses f64 for cross-tier semantic consistency; an f32 variant for performance-sensitive deployments is planned.
 
 ### 7.3 CLI Toolchain
 
@@ -443,12 +570,13 @@ The `compile` command accepts a JSON CSP specification and produces a `.flux` by
 ```
 ; FLUX Bytecode Disassembly
 ; -------------------------
-0000  LOAD      1500
-0001  LOAD      1430
-0002  LOAD      1560
-0003  VALIDATE
-0004  ASSERT
-0005  HALT
+0000  PUSH      1500
+0001  PUSH      1430
+0002  PUSH      1560
+0003  CONSTRAIN
+0004  VERIFY
+0005  ASSERT
+0006  HALT
 ```
 
 ### 7.4 Async Execution
@@ -484,31 +612,38 @@ Tasks are queued with priority ordering and assigned to available nodes via roun
 
 ## 8. Evaluation
 
-### 8.1 Microcontroller Performance
+### 8.1 Performance Status
 
-The `mini` tier targets ARM Cortex-M4 @ 80 MHz. Estimated instruction timing:
+We are currently developing a benchmark harness (`benchmark_csp.c`) for measuring FLUX ISA performance on real hardware. The harness targets:
 
-| Operation | Cycles | Time @ 80MHz |
-|-----------|--------|-------------|
-| `Add` (pop 2, push 1) | ~15 | ~190 ns |
-| `Validate` (pop 3, push 1) | ~25 | ~310 ns |
-| `Assert` (pop 1, check) | ~10 | ~125 ns |
-| Full sonar check (5 constraints) | ~120 | ~1.5 μs |
+- **ARM Cortex-M4F** (STM32F407 @ 168 MHz, 192KB SRAM): cycle-accurate measurement via DWT cycle counter
+- **ARM Cortex-M0+** (RP2040 @ 133 MHz, 264KB SRAM): GPIO-toggle timing
+- **x86-64** (Ryzen 9, baseline comparison): `std` and `thor` tiers
 
-A complete sonar constraint check executes in under 2 microseconds — well within the sampling interval of typical sonar systems (milliseconds to seconds).
+The following table presents estimated instruction timing based on instruction count analysis. These are **not measured values** and should be treated as order-of-magnitude estimates pending hardware validation:
 
-### 8.2 GPU Batch Performance
+| Operation | Est. Cycles (Cortex-M4F) | Notes |
+|-----------|--------------------------|-------|
+| `Add` (pop 2, f64 add, push 1) | ~30–50 | f64 via software emulation on M4F |
+| `Assert` (pop 1, compare, branch) | ~10–15 | Integer comparison only |
+| Full sonar check (5 constraints) | ~200–400 | Includes bounds validation |
 
-The Thor tier's batch solver processes CSP instances via rayon (CPU) or CUDA (GPU):
+On Cortex-M0+ (no FPU), f64 arithmetic operations are estimated at 1–5 μs each, making a full sonar constraint check approximately 10–50 μs — still well within the sampling interval of typical sonar systems (milliseconds to seconds).
 
-| Batch Size | CPU (rayon) | GPU (estimated) | Speedup |
-|-----------|------------|----------------|---------|
+We plan to report measured results in a subsequent revision of this paper.
+
+### 8.2 GPU Batch Performance (Estimated)
+
+The Thor tier's batch solver processes CSP instances via rayon (CPU) or CUDA (GPU). The following estimates are based on the CPU implementation and projected GPU performance:
+
+| Batch Size | CPU (rayon, est.) | GPU (projected) | Speedup |
+|-----------|-------------------|-----------------|---------|
 | 10 | ~50 μs | ~200 μs* | 0.25× |
 | 100 | ~500 μs | ~250 μs | 2× |
 | 1,000 | ~5 ms | ~400 μs | 12.5× |
 | 10,000 | ~50 ms | ~1.5 ms | 33× |
 
-*GPU dispatch overhead dominates for small batches. The `should_use_gpu()` heuristic routes to GPU only when batch size exceeds a threshold (default: 256 instances).
+*GPU dispatch overhead dominates for small batches. The `should_use_gpu()` heuristic routes to GPU only when batch size exceeds a threshold (default: 256 instances). GPU numbers are projections; the CUDA kernel compilation path is under development.
 
 ### 8.3 Quality Gate Rejection Rate
 
@@ -529,14 +664,16 @@ The PLATO knowledge system currently manages 18,633 tiles across multiple knowle
 
 ### 8.5 Comparison Summary
 
-| Property | FLUX ISA | ROS 2 | TLA+ | MISRA C | LangGraph |
-|----------|---------|-------|------|---------|-----------|
-| Constraint at ISA level | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Runs on MCU | ✅ | ❌ | ❌ | ✅ | ❌ |
-| GPU acceleration | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Execution trace | ✅ | ❌ | ✅* | ❌ | Partial |
-| Fleet coordination | ✅ | ✅ | ❌ | ❌ | ❌ |
-| Formal guarantees | Partial | ❌ | ✅ | Partial | ❌ |
+| Property | FLUX ISA | Eiffel/Spec# | Bitcoin Script | eBPF | ROS 2 | TLA+ | MISRA C |
+|----------|---------|-------------|----------------|------|-------|------|---------|
+| Constraints as opcodes | ✅ | ❌ (language-level) | ✅ | ❌ (verifier) | ❌ | ❌ | ❌ |
+| Portable bytecode | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| Runs on MCU | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| GPU acceleration | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Domain physics constraints | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ |
+| Execution trace | ✅ | ✅ | ✅ | ✅ | ❌ | ✅* | ❌ |
+| Fleet coordination | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ |
+| Formal compilation proof | Planned | Partial | ❌ | ✅ | ❌ | ✅ | ❌ |
 
 *TLA+ traces are on specifications, not running systems.
 
@@ -571,82 +708,94 @@ Beyond CUDA GPU dispatch, we are investigating:
 
 ## 10. Conclusion
 
-FLUX ISA introduces a new category of system: the *constraint compilation architecture*. By treating constraint violations as first-class compilation errors rather than runtime surprises, it provides a fundamentally different approach to correctness in autonomous systems.
+FLUX ISA provides a constraint compilation architecture that fills a gap between existing approaches to correctness in autonomous systems. It is not a new paradigm — the lineage from Eiffel's Design by Contract through Bitcoin Script's `OP_VERIFY` demonstrates that building constraints into the execution layer is well-established. FLUX ISA's contribution is applying this principle to a new domain (physical constraints in autonomous systems) with a new architecture (tiered bytecode spanning microcontrollers to GPUs).
 
 The key contributions are:
 
-1. **A stack-based ISA with constraint opcodes as first-class operations** (`Assert`, `Check`, `Validate`, `Reject`), enabling constraint enforcement at the architectural level.
+1. **A stack-based ISA with constraint enforcement as a first-class opcode** (`Assert`), drawing on the Design by Contract tradition but realized as portable bytecode rather than a language-level feature.
 
-2. **A four-tier implementation** spanning ARM Cortex-M0+ (21 opcodes, 256 bytes RAM) to GPU clusters (43 opcodes, CUDA dispatch), with the same wire format (0x464C) across all tiers.
+2. **A four-tier implementation** spanning ARM Cortex-M0+ to GPU clusters (43 opcodes, CUDA dispatch), with the same wire format (0x464C) across all tiers.
 
 3. **A 5-stage pipeline** (INGEST → VALIDATE → COMPILE → EXECUTE → COMMIT) for high-throughput constraint execution with integrated knowledge management via the PLATO hypergraph.
 
-4. **Formal properties** including bounded execution, constraint soundness, and guaranteed termination (with the Lean 4 compilation correctness gap clearly identified).
+4. **Static validation properties** including bounded execution and constraint soundness, with the Lean 4 compilation correctness gap clearly identified.
 
 5. **A real-world demonstration** in sonar physics, showing how Mackenzie 1981 and Francois-Garrison 1982 equations compile to constraint bytecodes executable on underwater sensor nodes.
 
-The central insight is simple but powerful: **if wrong answers are possible, wrong must be a compilation error**. FLUX ISA makes this architectural, not aspirational.
+The central insight is practical rather than paradigmatic: **if wrong answers are possible, wrong should halt execution**. FLUX ISA makes this architectural, not aspirational.
 
 ---
 
 ## References
 
+- Barnett, M., Fähndrich, M., Leino, K.R.M., Müller, P., Schulte, W. & Venter, H. (2011). *Specification and Verification: The Spec# Experience*. Communications of the ACM, 54(10), 81–91.
 - de Moura, L. & Ullrich, S. (2021). *The Lean 4 Theorem Prover and Programming Language*. International Conference on Automated Deduction (CADE).
 - Francois, R.E. & Garrison, G.R. (1982). *Sound absorption based on ocean measurements: Part II: Boric acid contribution and equation for total absorption*. Journal of the Acoustical Society of America, 72(6), 1879–1890.
+- Gregg, B. (2019). *BPF Performance Tools*. Addison-Wesley.
 - Haas, A. et al. (2017). *Bringing the Web up to Speed with WebAssembly*. ACM SIGPLAN Notices, 52(6), 185–200.
 - Jackson, D. (2012). *Software Abstractions: Logic, Language, and Analysis*. MIT Press.
 - Lamport, L. (2002). *Specifying Systems: The TLA+ Language and Tools for Hardware and Software Engineers*. Addison-Wesley.
 - Liu, J. (2022). *LlamaIndex: A Data Framework for LLM Applications*. https://www.llamaindex.ai/
 - Macenski, S. et al. (2022). *The Marathon 2: A System Using the ROS 2 Navigation Stack*. IEEE Robotics and Automation Magazine.
 - Mackenzie, K.V. (1981). *Nine-term equation for sound speed in the oceans*. Journal of the Acoustical Society of America, 70(3), 807–812.
+- Meyer, B. (1992). *Applying "Design by Contract"*. Computer, 25(10), 40–51.
 - MISRA (2012). *MISRA C:2012 — Guidelines for the Use of the C Language in Critical Systems*. Motor Industry Software Reliability Association.
+- Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*. https://bitcoin.org/bitcoin.pdf.
+- Schulte, C. & Tack, G. (2009). *Modal Isa Operations for Gecode*. https://www.gecode.org/.
 
 ---
 
 *Appendix A: Complete Opcode Reference*
 
-| Hex | Mnemonic | Tier(s) | Stack Effect | Description |
-|-----|----------|---------|-------------|-------------|
-| 0x00 | `Nop` | all | +0 | No operation |
-| 0x01 | `Push` | all | +1 | Push immediate value |
-| 0x02 | `Pop` | all | -1 | Discard top |
-| 0x03 | `Dup` | std,edge,thor | +1 | Duplicate top |
-| 0x04 | `Swap` | all | ±0 | Exchange top two |
-| 0x05 | `Load` | all | +1 | Push from memory/index |
-| 0x06 | `Store` | std,edge,thor | -2 | Store to memory/index |
-| 0x10 | `Add` | all | -1 | a + b |
-| 0x11 | `Sub` | all | -1 | a - b |
-| 0x12 | `Mul` | all | -1 | a × b |
-| 0x13 | `Div` | all | -1 | a / b (halt on ÷0) |
-| 0x14 | `Mod` | all | -1 | a mod b |
-| 0x15 | `Neg` | thor | ±0 | Negate top |
-| 0x20 | `And` | all | -1 | Logical AND |
-| 0x21 | `Or` | all | -1 | Logical OR |
-| 0x22 | `Not` | all | ±0 | Logical NOT |
-| 0x30 | `Eq` | all | -1 | a = b? |
-| 0x31 | `Ne` | thor | -1 | a ≠ b? |
-| 0x32 | `Lt` | all | -1 | a < b? |
-| 0x33 | `Le` | edge,thor | -1 | a ≤ b? |
-| 0x34 | `Gt` | all | -1 | a > b? |
-| 0x35 | `Ge` | edge,thor | -1 | a ≥ b? |
-| 0x40 | `Jmp` | thor | +0 | Unconditional jump |
-| 0x41 | `Jz` | thor | -1 | Jump if false |
-| 0x42 | `Jnz` | thor | -1 | Jump if true |
-| 0x43 | `Call` | all | +0 | Function call |
-| 0x44 | `Ret` | all | +0 | Return from call |
-| 0x45 | `Halt` | thor | +0 | Stop execution |
-| 0x50 | `Assert` | all | -1 | Halt if false |
-| 0x51 | `Constrain` | thor | -3/+1 | Set domain bounds |
-| 0x52 | `Propagate` | thor | +1 | Arc consistency |
-| 0x53 | `Solve` | thor | +1 | CSP solve (GPU) |
-| 0x54 | `Verify` | thor | ±0 | Verify solution |
-| 0x60 | `Print` | thor | +0 | Debug output |
-| 0x61 | `Debug` | all | +0 | Trace output |
-| 0x80 | `ParallelBranch` | thor | +1 | Spawn N tasks |
-| 0x81 | `Reduce` | thor | -1 | Merge results |
-| 0x82 | `GpuCompile` | thor | +1 | Compile to CUDA |
-| 0x83 | `BatchSolve` | thor | -1/+1 | Batch CSP on GPU |
-| 0x84 | `SonarBatch` | thor | -1/+1 | Sonar physics GPU |
-| 0x85 | `TileCommit` | thor | +0 | Commit to PLATO |
-| 0x86 | `Pathfind` | thor | +1 | Traverse PLATO |
-| 0x87 | `ExtendedEnd` | thor | +0 | End extension |
+Base opcodes (0x00–0x61, 35 opcodes across all tiers):
+
+| Hex | Mnemonic | Category | Stack Effect | Description |
+|-----|----------|----------|-------------|-------------|
+| 0x00 | `Nop` | Stack/Value | +0 | No operation |
+| 0x01 | `Push` | Stack/Value | +1 | Push immediate value |
+| 0x02 | `Pop` | Stack/Value | -1 | Discard top |
+| 0x03 | `Dup` | Stack/Value | +1 | Duplicate top |
+| 0x04 | `Swap` | Stack/Value | ±0 | Exchange top two |
+| 0x05 | `Load` | Stack/Value | +1 | Push from memory/index |
+| 0x06 | `Store` | Stack/Value | -2 | Store to memory/index |
+| 0x10 | `Add` | Arithmetic | -1 | a + b |
+| 0x11 | `Sub` | Arithmetic | -1 | a - b |
+| 0x12 | `Mul` | Arithmetic | -1 | a × b |
+| 0x13 | `Div` | Arithmetic | -1 | a / b (halt on ÷0) |
+| 0x14 | `Mod` | Arithmetic | -1 | a mod b |
+| 0x15 | `Neg` | Arithmetic | ±0 | Negate top |
+| 0x20 | `And` | Logic | -1 | Logical AND |
+| 0x21 | `Or` | Logic | -1 | Logical OR |
+| 0x22 | `Not` | Logic | ±0 | Logical NOT |
+| 0x30 | `Eq` | Comparison | -1 | a = b? |
+| 0x31 | `Ne` | Comparison | -1 | a ≠ b? |
+| 0x32 | `Lt` | Comparison | -1 | a < b? |
+| 0x33 | `Le` | Comparison | -1 | a ≤ b? |
+| 0x34 | `Gt` | Comparison | -1 | a > b? |
+| 0x35 | `Ge` | Comparison | -1 | a ≥ b? |
+| 0x40 | `Jmp` | Control Flow | +0 | Unconditional jump |
+| 0x41 | `Jz` | Control Flow | -1 | Jump if false |
+| 0x42 | `Jnz` | Control Flow | -1 | Jump if true |
+| 0x43 | `Call` | Control Flow | +0 | Function call |
+| 0x44 | `Ret` | Control Flow | +0 | Return from call |
+| 0x45 | `Halt` | Control Flow | +0 | Stop execution |
+| 0x50 | `Assert` | CSP | -1 | Halt if false |
+| 0x51 | `Constrain` | CSP | -3/+1 | Set domain bounds |
+| 0x52 | `Propagate` | CSP | +1 | Arc consistency |
+| 0x53 | `Solve` | CSP | +1 | CSP solve (GPU) |
+| 0x54 | `Verify` | CSP | ±0 | Verify solution |
+| 0x60 | `Print` | I/O | +0 | Debug output |
+| 0x61 | `Debug` | I/O | +0 | Trace output |
+
+Thor extended opcodes (0x80–0x87, 8 opcodes, thor tier only):
+
+| Hex | Mnemonic | Category | Stack Effect | Description |
+|-----|----------|----------|-------------|-------------|
+| 0x80 | `ParallelBranch` | Thor | +1 | Spawn N tokio tasks |
+| 0x81 | `Reduce` | Thor | -1 | Merge parallel results |
+| 0x82 | `GpuCompile` | Thor | +1 | Compile to CUDA kernel |
+| 0x83 | `BatchSolve` | Thor | -1/+1 | Batch CSP on GPU |
+| 0x84 | `SonarBatch` | Thor | -1/+1 | Sonar physics GPU |
+| 0x85 | `TileCommit` | Thor | +0 | Commit to PLATO |
+| 0x86 | `Pathfind` | Thor | +1 | Traverse PLATO graph |
+| 0x87 | `ExtendedEnd` | Thor | +0 | End extension sequence |
