@@ -1,0 +1,24 @@
+[package]
+name = "cocapn-glue-core"
+version = "0.1.0"
+edition = "2021"
+description = "Cross-tier wire protocol unifying all FLUX ISA packages for the Cocapn fleet"
+license = "MIT"
+repository = "https://github.com/SuperInstance/cocapn-glue-core"
+
+[dependencies]
+postcard = { version = "1", features = ["alloc"] }
+serde = { version = "1", default-features = false, features = ["derive"] }
+heapless = "0.8"
+sha2 = { version = "0.10", default-features = false }
+
+[features]
+default = []
+std = ["postcard/use-std", "sha2/std"]
+async = ["std"]
+cuda = []
+plato = ["std"]
+
+[[test]]
+name = "glue_test"
+path = "tests/glue_test.rs"
