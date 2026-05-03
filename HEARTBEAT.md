@@ -69,6 +69,14 @@
 - [x] **SDK CLI design**: 8 commands for aerospace engineers (Hermes-70B)
 - [x] **Safe-TOPS/W comparison**: FLUX-LUCID 20.17 vs 0 for all uncertified chips
 - [x] **.fluxproject template**: Complete TOML config for eVTOL projects (Seed-Mini)
+- [x] **I2I fleet engagement**: 2 bottles to Oracle1/CCC on fleet-bottles repo + GitHub discussion
+- [x] **FLUX ISA alignment**: FLUX-C (43 opcode, DAL A) vs FLUX-X (247 opcode, general) TrustZone proposal
+- [x] **GUARD parser rewrite**: Hand-written recursive descent (Hermes-70B nom macros were hallucinated)
+- [x] **GUARD→FLUX compiler**: Complete constraint-to-bytecode bridge (guard2mask 0.1.2)
+- [x] **FLUX bridge protocol**: TrustZone-style FLUX-X↔FLUX-C bridge (flux-bridge 0.1.0)
+- [x] **Pipeline integration test**: Full GUARD→FLUX→VM end-to-end (4 test cases)
+- [x] **plato-room-phi description**: Added via Kimi CLI
+- [x] **3 PLATO tiles**: parser architecture, compilation rules, rewrite lesson
 
 ### Key deliverables
 - `for-fleet/2026-05-03-flux-lucid-synergy.md` — 25KB definitive convergence document
