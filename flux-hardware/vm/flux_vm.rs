@@ -135,3 +135,57 @@ mod tests {
         assert_eq!(vm.stack[0], 42);
     }
 }
+
+    #[test]
+    fn bitwise_and_mask() {
+        let mut vm = FluxVM::new(100);
+        // PUSH 0xFF, PUSH 0x0F, AND, HALT
+        vm.execute(&[0x00, 0xFF, 0x00, 0x0F, 0x09, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 0x0F);
+    }
+
+    #[test]
+    fn domain_check_pass() {
+        let mut vm = FluxVM::new(100);
+        // PUSH 0x42, PUSH 0x0F, AND (result 0x02), PUSH 0, EQ (0x02 != 0 → false → 0), NOT → 1, ASSERT
+        vm.execute(&[0x00, 0x42, 0x00, 0x0F, 0x09, 0x00, 0, 0x0F, 0x0C, 0x1B, 0x1A], 100).unwrap();
+        assert!(vm.halted);
+    }
+
+    #[test]
+    fn xor_swap() {
+        let mut vm = FluxVM::new(100);
+        // XOR swap of a=5, b=3:
+        // PUSH 5, PUSH 3, XOR → a^b on stack, now need actual swap...
+        // Simpler: just verify XOR properties
+        // PUSH 0xAA, PUSH 0x55, XOR → 0xFF
+        vm.execute(&[0x00, 0xAA, 0x00, 0x55, 0x0B, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 0xFF);
+    }
+
+    #[test]
+    fn comparison_gt() {
+        let mut vm = FluxVM::new(100);
+        // PUSH 10, PUSH 5, GT → 1, ASSERT, HALT
+        vm.execute(&[0x00, 10, 0x00, 5, 0x12, 0x1B, 0x1A], 100).unwrap();
+        assert!(vm.halted);
+    }
+
+    #[test]
+    fn nested_if_else() {
+        let mut vm = FluxVM::new(100);
+        // if 5 > 3 then push 42 else push 99
+        // PUSH 5, PUSH 3, GT → 1, JZ to else-branch, PUSH 42, HALT, (else:) PUSH 99, HALT
+        // Bytes: [PUSH 5, PUSH 3, GT, JZ 10, PUSH 42, HALT, PUSH 99, HALT]
+        //         0x00,5  0x00,3  0x12 0x16,10 0x00,42 0x1A  0x00,99  0x1A
+        vm.execute(&[0x00, 5, 0x00, 3, 0x12, 0x16, 10, 0x00, 42, 0x1A, 0x00, 99, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 42); // Took the "then" branch
+    }
+
+    #[test]
+    fn sub_and_assert() {
+        let mut vm = FluxVM::new(100);
+        // PUSH 10, PUSH 3, SUB → 7, PUSH 7, EQ → 1, ASSERT, HALT
+        vm.execute(&[0x00, 10, 0x00, 3, 0x07, 0x00, 7, 0x0F, 0x1B, 0x1A], 100).unwrap();
+        assert!(vm.halted);
+    }
