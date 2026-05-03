@@ -67,3 +67,11 @@ Files are copied to temp, edited by agent, then copied back.
 - Vessel: https://github.com/SuperInstance/forgemaster
 
 See `references/tools-detail.md` for full agent configs.
+
+## Claude Code Timeout Rules
+- **Simple generation** (README, docs): 300s (5 min)
+- **Architecture design** (API specs, system design): 600s (10 min)
+- **Deep analysis** (comparative analysis, strategic docs): 900s (15 min)
+- **Complex multi-file generation** (full packages, integrations): 900-1200s (15-20 min)
+- **Max timeout**: 1200s (20 min) — Claude Opus needs this for world-class output
+- **Rule of thumb**: If Opus timed out at X, retry at 3X
