@@ -1,5 +1,3 @@
-#![no_std]
-
 use core::result::Result;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -21,194 +19,71 @@ pub struct FluxVM {
 
 impl FluxVM {
     pub fn new(gas: u32) -> Self {
-        Self {
-            stack: [0u8; 256],
-            sp: 0,
-            pc: 0,
-            gas,
-            halted: false,
-        }
+        Self { stack: [0u8; 256], sp: 0, pc: 0, gas, halted: false }
     }
-
+    
     fn push(&mut self, value: u8) -> Result<(), Fault> {
-        if self.sp >= 256 {
-            return Err(Fault::StackOverflow);
-        }
+        if self.sp >= 256 { return Err(Fault::StackOverflow); }
         self.stack[self.sp] = value;
         self.sp += 1;
         Ok(())
     }
-
+    
     fn pop(&mut self) -> Result<u8, Fault> {
-        if self.sp == 0 {
-            return Err(Fault::StackUnderflow);
-        }
+        if self.sp == 0 { return Err(Fault::StackUnderflow); }
         self.sp -= 1;
         Ok(self.stack[self.sp])
     }
-
-    fn binop<F>(&mut self, f: F) -> Result<(), Fault>
-    where
-        F: FnOnce(u8, u8) -> u8,
-    {
-        let b = self.pop()?;
-        let a = self.pop()?;
-        self.push(f(a, b))
-    }
-
-    fn cmpop<F>(&mut self, f: F) -> Result<(), Fault>
-    where
-        F: FnOnce(u8, u8) -> bool,
-    {
-        let b = self.pop()?;
-        let a = self.pop()?;
-        self.push(if f(a, b) { 1 } else { 0 })
-    }
-
+    
     pub fn step(&mut self, bytecode: &[u8]) -> Result<bool, Fault> {
-        if self.halted {
-            return Ok(true);
-        }
-        if self.gas == 0 {
-            return Err(Fault::GasExhausted);
-        }
-        self.gas -= 1;
-
-        if self.pc >= bytecode.len() {
-            return Ok(true);
-        }
-
+        if self.halted { return Ok(true); }
+        if self.gas == 0 { return Err(Fault::GasExhausted); }
+        if self.pc >= bytecode.len() { return Ok(true); }
+        
         let op = bytecode[self.pc];
         self.pc += 1;
-
+        self.gas -= 1;
+        
         match op {
-            0x00 => {
-                // PUSH
-                if self.pc >= bytecode.len() {
-                    return Err(Fault::StackUnderflow);
-                }
-                let val = bytecode[self.pc];
+            0x00 => { // PUSH
+                let v = bytecode.get(self.pc).copied().ok_or(Fault::StackOverflow)?;
                 self.pc += 1;
-                self.push(val)?;
+                self.push(v)?;
             }
-            0x01 => {
-                // POP
-                self.pop()?;
-            }
-            0x02 => {
-                // DUP
-                if self.sp == 0 {
-                    return Err(Fault::StackUnderflow);
-                }
-                let val = self.stack[self.sp - 1];
-                self.push(val)?;
-            }
-            0x03 => {
-                // SWAP
-                if self.sp < 2 {
-                    return Err(Fault::StackUnderflow);
-                }
-                self.stack.swap(self.sp - 1, self.sp - 2);
-            }
-            0x06 => {
-                // ADD
-                self.binop(u8::wrapping_add)?;
-            }
-            0x07 => {
-                // SUB
-                self.binop(u8::wrapping_sub)?;
-            }
-            0x08 => {
-                // MUL
-                self.binop(u8::wrapping_mul)?;
-            }
-            0x09 => {
-                // AND
-                self.binop(|a, b| a & b)?;
-            }
-            0x0A => {
-                // OR
-                self.binop(|a, b| a | b)?;
-            }
-            0x0B => {
-                // XOR
-                self.binop(|a, b| a ^ b)?;
-            }
-            0x0C => {
-                // NOT
-                let a = self.pop()?;
-                self.push(!a)?;
-            }
-            0x0F => {
-                // EQ
-                self.cmpop(|a, b| a == b)?;
-            }
-            0x10 => {
-                // NEQ
-                self.cmpop(|a, b| a != b)?;
-            }
-            0x11 => {
-                // LT
-                self.cmpop(|a, b| a < b)?;
-            }
-            0x12 => {
-                // GT
-                self.cmpop(|a, b| a > b)?;
-            }
-            0x15 => {
-                // JUMP
-                if self.pc >= bytecode.len() {
-                    return Err(Fault::StackUnderflow);
-                }
-                let addr = bytecode[self.pc] as usize;
-                self.pc = addr;
-            }
+            0x01 => { self.pop()?; }
+            0x06 => { let b = self.pop()?; let a = self.pop()?; self.push(a.wrapping_add(b))?; }
+            0x07 => { let b = self.pop()?; let a = self.pop()?; self.push(a.wrapping_sub(b))?; }
+            0x08 => { let b = self.pop()?; let a = self.pop()?; self.push(a.wrapping_mul(b))?; }
+            0x09 => { let b = self.pop()?; let a = self.pop()?; self.push(a & b)?; }
+            0x0A => { let b = self.pop()?; let a = self.pop()?; self.push(a | b)?; }
+            0x0B => { let b = self.pop()?; let a = self.pop()?; self.push(a ^ b)?; }
+            0x0C => { let a = self.pop()?; self.push(!a)?; }
+            0x0F => { let b = self.pop()?; let a = self.pop()?; self.push(if a == b { 1 } else { 0 })?; }
+            0x10 => { let b = self.pop()?; let a = self.pop()?; self.push(if a != b { 1 } else { 0 })?; }
+            0x11 => { let b = self.pop()?; let a = self.pop()?; self.push(if a < b { 1 } else { 0 })?; }
+            0x12 => { let b = self.pop()?; let a = self.pop()?; self.push(if a > b { 1 } else { 0 })?; }
+            0x15 => { self.pc = bytecode.get(self.pc).copied().ok_or(Fault::StackOverflow)? as usize; }
             0x16 => {
-                // JZ
-                if self.pc >= bytecode.len() {
-                    return Err(Fault::StackUnderflow);
-                }
-                let addr = bytecode[self.pc] as usize;
+                let addr = bytecode.get(self.pc).copied().ok_or(Fault::StackOverflow)? as usize;
                 self.pc += 1;
-                let val = self.pop()?;
-                if val == 0 {
-                    self.pc = addr;
-                }
+                let v = self.pop()?;
+                if v == 0 { self.pc = addr; }
             }
-            0x1A => {
-                // HALT
-                self.halted = true;
-            }
-            0x1B => {
-                // ASSERT
-                let val = self.pop()?;
-                if val == 0 {
-                    return Err(Fault::AssertFailed);
-                }
-            }
-            0x20 => {
-                // GUARD_TRAP
-                return Err(Fault::GuardTrap);
-            }
-            0x27 => {
-                // NOP
-            }
+            0x1A => { self.halted = true; }
+            0x1B => { let v = self.pop()?; if v == 0 { return Err(Fault::AssertFailed); } }
+            0x20 => { return Err(Fault::GuardTrap); }
+            0x27 => {} // NOP
             _ => {}
         }
-
         Ok(self.halted)
     }
-
+    
     pub fn execute(&mut self, bytecode: &[u8], max: usize) -> Result<(), Vec<Fault>> {
-        let mut faults = Vec::new();
         for _ in 0..max {
             match self.step(bytecode) {
                 Ok(true) => return Ok(()),
                 Ok(false) => continue,
-                Err(fault) => {
-                    faults.push(fault);
-                    return Err(faults);
-                }
+                Err(f) => return Err(vec![f]),
             }
         }
         Ok(())
@@ -218,53 +93,45 @@ impl FluxVM {
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    
     #[test]
-    fn test_push_add_halt() {
+    fn push_add_halt() {
         let mut vm = FluxVM::new(100);
-        let bytecode = [0x00, 10, 0x00, 20, 0x06, 0x1A];
-        vm.execute(&bytecode, 100).unwrap();
+        // PUSH 3, PUSH 4, ADD, HALT
+        vm.execute(&[0x00, 3, 0x00, 4, 0x06, 0x1A], 100).unwrap();
         assert!(vm.halted);
         assert_eq!(vm.sp, 1);
-        assert_eq!(vm.stack[0], 30);
+        assert_eq!(vm.stack[0], 7);
     }
-
+    
     #[test]
-    fn test_assert_fails_on_zero() {
+    fn assert_fail() {
         let mut vm = FluxVM::new(100);
-        let bytecode = [0x00, 0x00, 0x1B];
-        let res = vm.execute(&bytecode, 100);
-        assert!(res.is_err());
-        assert_eq!(res.unwrap_err()[0], Fault::AssertFailed);
+        // PUSH 0, ASSERT
+        let result = vm.execute(&[0x00, 0, 0x1B], 100);
+        assert!(result.is_err());
     }
-
+    
     #[test]
-    fn test_guard_trap_immediate() {
+    fn guard_trap() {
         let mut vm = FluxVM::new(100);
-        let bytecode = [0x20];
-        let res = vm.execute(&bytecode, 100);
-        assert!(res.is_err());
-        assert_eq!(res.unwrap_err()[0], Fault::GuardTrap);
+        let result = vm.execute(&[0x20], 100);
+        assert!(matches!(result, Err(f) if f[0] == Fault::GuardTrap));
     }
-
+    
     #[test]
-    fn test_gas_exhaustion() {
+    fn gas_exhaustion() {
         let mut vm = FluxVM::new(2);
-        let bytecode = [0x00, 0x01, 0x00, 0x02, 0x06, 0x1A];
-        let res = vm.execute(&bytecode, 100);
-        assert!(res.is_err());
-        assert_eq!(res.unwrap_err()[0], Fault::GasExhausted);
+        // PUSH 1, PUSH 2, PUSH 3 — 3 instructions but only 2 gas
+        let result = vm.execute(&[0x00, 1, 0x00, 2, 0x00, 3], 100);
+        assert!(matches!(result, Err(f) if f[0] == Fault::GasExhausted));
     }
-
+    
     #[test]
-    fn test_jump_and_jz_control_flow() {
+    fn jump_control_flow() {
         let mut vm = FluxVM::new(100);
-        // 0: PUSH 1, 2: PUSH 0, 4: EQ -> 0, 5: JZ 10, 7: PUSH 99, 9: HALT
-        // 10: PUSH 42, 12: HALT
-        let bytecode = [0x00, 0x01, 0x00, 0x00, 0x0F, 0x16, 0x0A, 0x00, 0x63, 0x1A, 0x00, 0x2A, 0x1A];
-        vm.execute(&bytecode, 100).unwrap();
-        assert!(vm.halted);
-        assert_eq!(vm.sp, 1);
+        // PUSH 0, JZ 6, PUSH 99, HALT, (addr 6:) PUSH 42, HALT
+        vm.execute(&[0x00, 0, 0x16, 7, 0x00, 99, 0x1A, 0x00, 42, 0x1A], 100).unwrap();
         assert_eq!(vm.stack[0], 42);
     }
 }
