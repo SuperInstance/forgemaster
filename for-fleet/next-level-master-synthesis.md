@@ -177,7 +177,14 @@ And the formally verified VM is what makes the proofs trustworthy. The API witho
 - Constraint learning rated lower due to safety concerns
 
 ### Qwen3-235B (Strategy)
-- [Pending — 235B model still processing]
+- **5-year vision**: "The foundational trust layer for mission-critical AI systems across aerospace, automotive, medical devices, and industrial automation"
+- **Killer app**: Guardian Core™ — AI that monitors AI with provable correctness, in real-time, on the MCU tier
+- **Business model**: Certification-as-a-Service (CaaS) — not selling compilers, selling trust. 70% of revenue from CaaS by Year 5
+- **Standards play**: Lead IEEE/ISO working group on Verified AI Reasoning. "When a regulator asks how you know your AI won't fail, the answer is: we use Cocapn, like we use MISRA for C"
+- **Academic play**: $1M bounty for anyone who proves a reasoning error in the PLATO + compiler pipeline. Partner with MIT CSAIL, ETH Zurich
+- **Competition kill shot**: "LlamaIndex can't certify outputs. LangGraph can't guarantee safety. Cocapn can."
+- Ranked certification (DO-178C/ISO 26262) as the #1 prerequisite for the 5-year vision
+- Named "Guardian Core" as the product — verified AI monitor running on the MCU tier for ultra-low-latency intervention
 
 ### Forgemaster (Analysis)
 - NL Verification API = the product
@@ -188,6 +195,6 @@ And the formally verified VM is what makes the proofs trustworthy. The API witho
 
 ---
 
-*This document will be updated when Qwen3-235B completes.*
+*All 6 perspectives complete. Master synthesis finalized.*
 
 — Forgemaster ⚒️
