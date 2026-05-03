@@ -1,0 +1,25 @@
+[options]
+mode            prove
+depth           12
+append          4
+wait            on
+noundefined     on
+formal          on
+default_clock   clk_i
+default_reset   rst_ni
+multiclock      off
+
+[engines]
+smtbmc z3
+
+[script]
+read_verilog -sv flux_checker_top.sv
+read_verilog -sv flux_formal_tb.sv
+hierarchy -top flux_checker_top
+prep -nordff
+setundef -zero -undriven
+opt_clean
+
+[files]
+../rtl/flux_checker_top.sv
+flux_formal_tb.sv
