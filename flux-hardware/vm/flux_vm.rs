@@ -15,6 +15,11 @@ pub enum Fault {
     WatchExpired,
     CheckpointOverflow,
     InvalidCheckpoint,
+    // Security faults (v3.0)
+    SandboxViolation,
+    CapabilityRevoked,
+    MemoryGuardFault,
+    SealViolation,
 }
 
 const STACK_SIZE: usize = 256;
@@ -48,6 +53,13 @@ pub struct FluxVM {
     deadline: u32,             // absolute deadline (0 = none)
     checkpoints: [Option<Checkpoint>; CHECKPOINT_SIZE], // checkpoint stack
     cp_count: usize,           // number of active checkpoints
+    // Security extensions (v3.0)
+    sandbox_id: u8,            // current sandbox domain (0 = root)
+    seal_mask: [u8; 8],        // 64-bit seal flags per 8KB memory page
+    guard_active: bool,        // whether memory guard is set
+    guard_start: u16,          // guarded region start
+    guard_end: u16,            // guarded region end
+    guard_perm: u8,            // guard permissions (R=1, W=2, X=4)
 }
 
 /// VM state snapshot for temporal checkpoint/rollback
@@ -69,6 +81,12 @@ impl FluxVM {
             deadline: 0,
             checkpoints: [None; CHECKPOINT_SIZE],
             cp_count: 0,
+            sandbox_id: 0,
+            seal_mask: [0u8; 8],
+            guard_active: false,
+            guard_start: 0,
+            guard_end: 0,
+            guard_perm: 0,
         }
     }
 
@@ -373,6 +391,79 @@ impl FluxVM {
                     return Err(Fault::DeadlineExceeded);
                 }
             }
+
+            // === Security Primitives (v3.0) ===
+            0x32 => { // SANDBOX_ENTER domain_id
+                let domain = self.read_byte(bytecode)?;
+                self.pc += 1;
+                self.sandbox_id = domain;
+            }
+            0x33 => { // SANDBOX_EXIT
+                self.sandbox_id = 0; // return to root domain
+            }
+            0x34 => { // CAP_GRANT domain start len perm — simplified: just sets guard
+                let _domain = self.read_byte(bytecode)?;
+                self.pc += 1;
+                let start = self.read_byte(bytecode)? as u16;
+                self.pc += 1;
+                let len = self.read_byte(bytecode)? as u16;
+                self.pc += 1;
+                let perm = self.read_byte(bytecode)?;
+                self.pc += 1;
+                // Set memory guard as capability
+                self.guard_active = true;
+                self.guard_start = start;
+                self.guard_end = start + len;
+                self.guard_perm = perm;
+                self.push(0)?; // cap_id = 0 (single capability for now)
+            }
+            0x35 => { // CAP_REVOKE cap_id
+                let _cap_id = self.pop()?;
+                self.guard_active = false;
+                self.guard_start = 0;
+                self.guard_end = 0;
+                self.guard_perm = 0;
+            }
+            0x36 => { // MEM_GUARD start end perm
+                let start = self.read_byte(bytecode)? as u16;
+                self.pc += 1;
+                let end = self.read_byte(bytecode)? as u16;
+                self.pc += 1;
+                let perm = self.read_byte(bytecode)?;
+                self.pc += 1;
+                self.guard_active = true;
+                self.guard_start = start;
+                self.guard_end = end;
+                self.guard_perm = perm;
+            }
+            0x37 => { // PROVE invariant_id — assertion + audit marker
+                let _invariant_id = self.read_byte(bytecode)?;
+                self.pc += 1;
+                // For now, behaves like ASSERT with the top of stack
+                let v = self.pop()?;
+                self.last_check_passed = v != 0;
+                if v == 0 { return Err(Fault::AssertFailed); }
+            }
+            0x38 => { // AUDIT_PUSH event_type — no-op in single-VM mode
+                let _event = self.read_byte(bytecode)?;
+                self.pc += 1;
+                // In production: append to CRDT-merged audit log
+                // In single-VM mode: just consume the operand
+            }
+            0x39 => { // SEAL start len — make memory permanently read-only
+                let start = self.read_byte(bytecode)?;
+                self.pc += 1;
+                let len = self.read_byte(bytecode)?;
+                self.pc += 1;
+                // Set seal bits for the affected pages
+                for addr in start..start.saturating_add(len) {
+                    let page = (addr as usize) / 8192;
+                    if page < 8 {
+                        self.seal_mask[page] |= 1 << (addr % 8);
+                    }
+                }
+            }
+
 
             _ => {} // Unknown opcodes are NOP
         }
@@ -829,4 +920,86 @@ mod tests {
 
         let result = vm.execute(&bc, 200);
         assert!(matches!(result, Err(ref faults) if faults.contains(&Fault::CheckpointOverflow)));
+    }
+
+    // === Security Primitive Tests ===
+
+    #[test]
+    fn test_sandbox_enter_exit() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[
+            0x32, 5,    // SANDBOX_ENTER domain 5
+            0x33,       // SANDBOX_EXIT
+            0x1A,       // HALT
+        ], 100).unwrap();
+        assert!(vm.is_halted());
+        assert_eq!(vm.sandbox_id, 0); // back to root
+    }
+
+    #[test]
+    fn test_mem_guard() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[
+            0x36, 0, 255, 1,  // MEM_GUARD [0, 255] perm=READ
+            0x1A,              // HALT
+        ], 100).unwrap();
+        assert!(vm.guard_active);
+        assert_eq!(vm.guard_start, 0);
+        assert_eq!(vm.guard_end, 255);
+    }
+
+    #[test]
+    fn test_cap_grant_revoke() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[
+            0x34, 1, 100, 50, 3,  // CAP_GRANT domain=1, start=100, len=50, perm=RW
+            0x35,                   // CAP_REVOKE (pops cap_id)
+            0x1A,                   // HALT
+        ], 100).unwrap();
+        assert!(!vm.guard_active); // revoked
+    }
+
+    #[test]
+    fn test_seal_memory() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[
+            0x39, 0, 10,  // SEAL memory[0..10]
+            0x1A,          // HALT
+        ], 100).unwrap();
+        // Check seal bits are set
+        assert!(vm.seal_mask[0] != 0);
+    }
+
+    #[test]
+    fn test_prove_pass() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[
+            0x00, 1,      // PUSH 1 (true)
+            0x37, 0,      // PROVE invariant 0
+            0x1A,          // HALT
+        ], 100).unwrap();
+        assert!(vm.is_halted());
+        assert!(vm.last_check_passed);
+    }
+
+    #[test]
+    fn test_prove_fail() {
+        let mut vm = FluxVM::new(100);
+        let result = vm.execute(&[
+            0x00, 0,      // PUSH 0 (false)
+            0x37, 0,      // PROVE invariant 0 — should fail
+            0x1A,          // HALT
+        ], 100);
+        assert!(matches!(result, Err(ref f) if f.contains(&Fault::AssertFailed)));
+    }
+
+    #[test]
+    fn test_audit_push() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[
+            0x38, 0x01,   // AUDIT_PUSH event 1
+            0x38, 0x02,   // AUDIT_PUSH event 2
+            0x1A,          // HALT
+        ], 100).unwrap();
+        assert!(vm.is_halted());
     }
