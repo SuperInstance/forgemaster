@@ -189,3 +189,113 @@ mod tests {
         vm.execute(&[0x00, 10, 0x00, 3, 0x07, 0x00, 7, 0x0F, 0x1B, 0x1A], 100).unwrap();
         assert!(vm.halted);
     }
+
+    // === Certification Test Vectors (15 programs) ===
+
+    #[test]
+    fn cert_identity() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 42, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 42);
+    }
+
+    #[test]
+    fn cert_add() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 3, 0x00, 4, 0x06, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 7);
+    }
+
+    #[test]
+    fn cert_mul() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 6, 0x00, 7, 0x08, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 42);
+    }
+
+    #[test]
+    fn cert_sub() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 10, 0x00, 3, 0x07, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 7);
+    }
+
+    #[test]
+    fn cert_and_mask() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 0xFF, 0x00, 0x0F, 0x09, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 0x0F);
+    }
+
+    #[test]
+    fn cert_or() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 0xF0, 0x00, 0x0F, 0x0A, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 0xFF);
+    }
+
+    #[test]
+    fn cert_xor() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 0xAA, 0x00, 0x55, 0x0B, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 0xFF);
+    }
+
+    #[test]
+    fn cert_not() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 0x00, 0x0C, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 0xFF);
+    }
+
+    #[test]
+    fn cert_eq() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 7, 0x00, 7, 0x0F, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 1);
+    }
+
+    #[test]
+    fn cert_neq() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 3, 0x00, 5, 0x10, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 1);
+    }
+
+    #[test]
+    fn cert_lt() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 3, 0x00, 5, 0x11, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 1);
+    }
+
+    #[test]
+    fn cert_gt() {
+        let mut vm = FluxVM::new(100);
+        vm.execute(&[0x00, 5, 0x00, 3, 0x12, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 1);
+    }
+
+    #[test]
+    fn cert_jz_skip() {
+        let mut vm = FluxVM::new(100);
+        // PUSH 0, JZ 7, PUSH 99, HALT, (addr 7:) PUSH 42, HALT
+        vm.execute(&[0x00, 0, 0x16, 7, 0x00, 99, 0x1A, 0x00, 42, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 42);
+    }
+
+    #[test]
+    fn cert_assert_pass() {
+        let mut vm = FluxVM::new(100);
+        // PUSH 1, ASSERT, PUSH 77, HALT
+        vm.execute(&[0x00, 1, 0x1B, 0x00, 77, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 77);
+    }
+
+    #[test]
+    fn cert_nops() {
+        let mut vm = FluxVM::new(100);
+        // NOP, NOP, PUSH 13, HALT
+        vm.execute(&[0x27, 0x27, 0x00, 13, 0x1A], 100).unwrap();
+        assert_eq!(vm.stack[0], 13);
+    }
