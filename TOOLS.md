@@ -35,7 +35,7 @@ I (Forgemaster) am the **orchestrator**. I run on `deepseek-v4-flash` (cheap) an
   - Models: glm-5.1, glm-5, glm-5-turbo, glm-4.7, glm-4.7-flash, glm-4.6, glm-4.5-air
 - **Kimi:** Already configured via `~/.kimi/kimi.json`, no manual key needed
 - **DeepInfra:** `~/.openclaw/workspace/.credentials/deepinfra-api-key.txt`
-  - Models: `ByteDance/Seed-2.0-code`, `ByteDance/Seed-2.0-pro`, `ByteDance/Seed-2.0-mini`, `NousResearch/Hermes-3-Llama-3.1-405B`, `NousResearch/Hermes-3-Llama-3.1-70B`
+  - Models: `ByteDance/Seed-2.0-code`, `ByteDance/Seed-2.0-pro`, `ByteDance/Seed-2.0-mini`, `NousResearch/Hermes-3-Llama-3.1-405B`, `NousResearch/Hermes-3-Llama-3.1-70B`, `Qwen/Qwen3.6-35B-A3B`, `Qwen/Qwen3.5-397B-A17B`, `Qwen/Qwen3-235B-A22B-Instruct-2507`
   - Endpoint: `https://api.deepinfra.com/v1/openai`
 - **DeepSeek:** `~/.openclaw/workspace/.credentials/deepseek-api-key.txt`
   - Models: `deepseek-chat` (fast), `deepseek-reasoner` (slow)
