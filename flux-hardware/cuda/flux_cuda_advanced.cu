@@ -49,35 +49,30 @@ __global__ void warp_vote_kernel(
         switch (op) {
             case 0x00: stack[sp++] = bytecode[pc+1]; pc += 2; break;
             case 0x1A: passed = 1; pc = bytecode_len; break;
-            case 0x1B: { int32_t v = stack[--sp]; if (!v) fault = 1; pc++; } break;
+            case 0x1B: { int32_t v = (sp > 0) ? stack[--sp] : 0; if (!v) fault = 1; pc++; } break;
+            case 0x1C: { int32_t mask = bytecode[pc+1]; int32_t v = (sp > 0) ? stack[--sp] : 0; stack[sp++] = ((v & mask) == v) ? 1 : 0; pc += 2; } break;
             case 0x1D: {
                 int32_t lo = bytecode[pc+1], hi = bytecode[pc+2];
-                int32_t v = stack[--sp];
+                int32_t v = (sp > 0) ? stack[--sp] : 0;
                 stack[sp++] = (v >= lo && v <= hi) ? 1 : 0;
                 pc += 3;
             } break;
             case 0x20: fault = 1; pc++; break;
-            case 0x24: { int32_t b = stack[--sp], a = stack[--sp]; stack[sp++] = (a >= b); pc++; } break;
+            case 0x24: { if (sp >= 2) { int32_t b = stack[--sp], a = stack[--sp]; stack[sp++] = (a >= b); } else { fault = 1; } pc++; } break;
             default: pc++; break;
         }
     }
 
-    int my_result = (passed && !fault) ? 1 : 0;
+    int my_result = (passed && !fault) ? 0 : 1;  // 0=pass, 1=fail (consistent with basic kernel)
     results[idx] = my_result;
 
-    // Warp vote: count passes across the entire warp in one instruction
-    unsigned int mask = __ballot_sync(0xFFFFFFFF, my_result);
+    // Warp-aggregate: count passes per warp
+    unsigned int mask = __ballot_sync(0xFFFFFFFF, my_result == 0);  // ballot on pass
     int warp_passes = __popc(mask); // count set bits = number of passes
 
     // Thread 0 in each warp updates global counters
     if ((threadIdx.x & 31) == 0) {
         int warp_fails = 32 - warp_passes;
-        // Clamp if we're at the edge
-        if (idx + 31 >= n_inputs) {
-            int actual = n_inputs - (idx & ~31);
-            warp_passes = min(warp_passes, actual);
-            warp_fails = actual - warp_passes;
-        }
         atomicAdd(pass_count, warp_passes);
         atomicAdd(fail_count, warp_fails);
     }
@@ -127,15 +122,16 @@ __global__ void shared_cache_kernel(
         switch (op) {
             case 0x00: stack[sp++] = s_bytecode[pc+1]; pc += 2; break;
             case 0x1A: passed = 1; pc = bytecode_len; break;
-            case 0x1B: { int32_t v = stack[--sp]; if (!v) fault = 1; pc++; } break;
+            case 0x1B: { int32_t v = (sp > 0) ? stack[--sp] : 0; if (!v) fault = 1; pc++; } break;
+            case 0x1C: { int32_t mask = s_bytecode[pc+1]; int32_t v = (sp > 0) ? stack[--sp] : 0; stack[sp++] = ((v & mask) == v) ? 1 : 0; pc += 2; } break;
             case 0x1D: {
                 int32_t lo = s_bytecode[pc+1], hi = s_bytecode[pc+2];
-                int32_t v = stack[--sp];
+                int32_t v = (sp > 0) ? stack[--sp] : 0;
                 stack[sp++] = (v >= lo && v <= hi) ? 1 : 0;
                 pc += 3;
             } break;
             case 0x20: fault = 1; pc++; break;
-            case 0x24: { int32_t b = stack[--sp], a = stack[--sp]; stack[sp++] = (a >= b); pc++; } break;
+            case 0x24: { if (sp >= 2) { int32_t b = stack[--sp], a = stack[--sp]; stack[sp++] = (a >= b); } else { fault = 1; } pc++; } break;
             default: pc++; break;
         }
     }

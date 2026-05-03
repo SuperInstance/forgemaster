@@ -139,7 +139,7 @@ __global__ void flux_vm_batch_kernel(
 
             case 0x1B: // ASSERT
                 if (sp > 0) {
-                    int32_t val = stack[--sp];
+                    int32_t val = (sp > 0) ? stack[--sp] : 0;
                     if (val == 0) {
                         fault = 1;
                     }
@@ -151,7 +151,7 @@ __global__ void flux_vm_batch_kernel(
                 if (sp > 0 && pc + 2 < bytecode_len) {
                     int32_t lo = bytecode[pc + 1];
                     int32_t hi = bytecode[pc + 2];
-                    int32_t val = stack[--sp];
+                    int32_t val = (sp > 0) ? stack[--sp] : 0;
                     stack[sp++] = (val >= lo && val <= hi) ? 1 : 0;
                 }
                 pc += 3;
@@ -160,7 +160,7 @@ __global__ void flux_vm_batch_kernel(
             case 0x1C: // CHECK_DOMAIN mask
                 if (sp > 0 && pc + 1 < bytecode_len) {
                     int32_t mask = bytecode[pc + 1];
-                    int32_t val = stack[--sp];
+                    int32_t val = (sp > 0) ? stack[--sp] : 0;
                     stack[sp++] = ((val & mask) == val) ? 1 : 0;
                 }
                 pc += 2;
@@ -176,7 +176,7 @@ __global__ void flux_vm_batch_kernel(
                     int32_t b = stack[--sp];
                     int32_t a = stack[--sp];
                     stack[sp++] = (a >= b) ? 1 : 0;
-                }
+                } else { fault = 1; }
                 pc += 1;
                 break;
 
@@ -185,7 +185,7 @@ __global__ void flux_vm_batch_kernel(
                     int32_t b = stack[--sp];
                     int32_t a = stack[--sp];
                     stack[sp++] = (a == b) ? 1 : 0;
-                }
+                } else { fault = 1; }
                 pc += 1;
                 break;
 
