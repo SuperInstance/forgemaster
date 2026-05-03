@@ -299,3 +299,13 @@ mod tests {
         vm.execute(&[0x27, 0x27, 0x00, 13, 0x1A], 100).unwrap();
         assert_eq!(vm.stack[0], 13);
     }
+
+impl FluxVM {
+    pub fn is_halted(&self) -> bool { self.halted }
+    pub fn stack_top(&self) -> Option<u8> {
+        if self.sp > 0 { Some(self.stack[self.sp - 1]) } else { None }
+    }
+    pub fn stack_len(&self) -> usize { self.sp }
+    pub fn gas_remaining(&self) -> u32 { self.gas }
+    pub fn pc(&self) -> usize { self.pc }
+}

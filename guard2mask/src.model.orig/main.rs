@@ -1,7 +1,11 @@
+mod types;
+mod parser;
+mod solver;
+mod via_gen;
 use crate::types::*;
 use crate::parser::*;
-use crate::csp_optimizer::*;
-use crate::backends::*;
+; // csp_optimizer not yet implemented;
+use crate::via_gen::*;
 use clap::Parser;
 use std::fs;
 
