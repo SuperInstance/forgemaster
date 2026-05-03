@@ -58,6 +58,8 @@
 //! producing an exact integer result. All subsequent arithmetic on that result
 //! is integer arithmetic — exact by definition.
 
+pub mod solver;
+
 use uuid::Uuid;
 
 /// A discrete integer manifold where coordinates satisfy `a² + b² = c²`.
