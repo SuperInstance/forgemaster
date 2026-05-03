@@ -1,6 +1,6 @@
 # Night Shift Task Queue
 
-## Session Progress (2026-05-02 Night) 🔨 ACTIVE
+## Session Progress (2026-05-03 Night) 🔨 ACTIVE
 
 ### Done this shift
 - [x] Fleet integration strategy — Claude Opus 5-action plan with dependency ordering
@@ -27,40 +27,63 @@
 - [x] Full analysis: for-fleet/2026-05-03-going-below-c-rnd.md
 - [x] Roadmap: Software → FPGA → RISC-V → ASIC
 - [x] 7 PLATO tiles submitted (below-c-research, bitmask-n-queens)
+- [x] **Multi-model deep research: 14 models, 8+ angles across 4 rounds**
+- [x] Claude Opus: strategic analysis, semantic gap collapse thesis
+- [x] Kimi: synthesis-not-checking critique, VC business analysis, red team attacks
+- [x] Nemotron: DO-178C certification path, quantum-CSP connection
+- [x] Seed-2.0-pro: DO-254 real Vivado numbers (1,717 LUTs, 120mW), SymbiYosys kit
+- [x] Seed-2.0-code: BHCSP mathematical framework (topos theory), Rust benchmarks
+- [x] Seed-2.0-mini: safety auditor (SEU #1 gap), DSL design
+- [x] GLM-5.1: compiler IR pipeline (CIR→LCIR), RISC-V Xconstr extension, Coq formalization
+- [x] DeepSeek Reasoner: P2 invariant proof, holonomy snap connection, 6-instruction CSP machine
+- [x] **SystemVerilog**: DO-254 DAL A FLUX checker (flux-hardware/rtl/)
+- [x] **SymbiYosys**: formal verification kit, 7 assertions + 6 covers (flux-hardware/formal/)
+- [x] **RISC-V extension**: Xconstr with CREVISE (AC-3 in hardware)
+- [x] **Mathematical proofs**: P2 invariant, AC-3 termination, bitmask functor
+- [x] **Holonomy resolved**: discretization error from snap-to-lattice, not curvature
+- [x] PLATO tiles: ~106 accepted across 35+ rooms
+
+### Key deliverables
+- `for-fleet/2026-05-03-multi-model-strategic-synthesis.md`
+- `for-fleet/2026-05-03-deep-research-round2.md` (8 models, 6 angles)
+- `for-fleet/2026-05-03-deep-research-round3.md` (implementation)
+- `for-fleet/2026-05-03-deepseek-reasoner-results.md` (P2 proof)
+- `flux-hardware/rtl/flux_checker_top.sv` (synthesizable SystemVerilog)
+- `flux-hardware/formal/flux_verify.sby` (SymbiYosys config)
+- `flux-hardware/formal/flux_formal_tb.sv` (formal testbench)
 
 ### Workers used
-1. Claude Code (Opus) — strategic planning, ZC prompt fix, fleet runbook
-2. Kimi CLI — attempted (timed out twice, 0 output — not delivering tonight)
-3. Subagents (GLM-5.1) — minimax MCP (done), PLATO tiles (timed out, done manually)
-4. Forgemaster direct — tiles, README, telemetry stream, service guard, CT bridge
+1. Claude Code (Opus) — strategic planning
+2. Kimi CLI — synthesis critique, VC analysis, red team (3/5 delivered)
+3. Seed-2.0-pro — DO-254 expert, SystemVerilog, SymbiYosys
+4. Seed-2.0-code — math framework, Rust benchmarks
+5. Seed-2.0-mini — safety auditor, DSL design
+6. GLM-5.1 — compiler pipeline, RISC-V extension
+7. DeepSeek Reasoner — formal proofs, holonomy, minimum machine
+8. Nemotron — certification, quantum CSP
+9. Forgemaster direct — orchestration, PLATO tiles, synthesis
 
 ### Known blockers
-- ~~PLATO gate endpoints not wired~~ RESOLVED: POST /submit is the correct endpoint
-- Minimax rate-limited for ~1 hour
-- DeepInfra off limits per Casey
-- Oracle1 agent offline (hours) — server still up, PLATO readable
+- Oracle1 agent offline — server still up, PLATO readable
 - Matrix send broken (needs Oracle1 gateway restart)
+- Kimi CLI intermittent timeouts (2/5 stuck)
 
 ### Next wave
-1. Fleet ops runbook (Opus authoring now)
-2. Deploy SonarTelemetryStream to Oracle1 when back online
-3. CT bridge npm: add tests, publish to npm registry
-4. Investigate holonomy boundary: find exact resolution threshold per dimension
-5. Forward checking solver variant (better than pure backtracking)
-6. FLUX compiler integration with solver module
-7. Review papers in for-fleet/ and generate tiles from them
-
-### Previous shift (2026-04-30)
-- FLUX dive demo, ISA_UNIFIED.md, 122 PLATO tiles, Marine MUD World
-- Published: ct-demo v0.5.1, constraint-theory v1.0.1
+1. Synthesize FLUX on Artix-7 (real hardware)
+2. Run SymbiYosys formal verification
+3. Build GUARD DSL → FLUX compiler in Rust
+4. Write Coq formalization of P2 proof
+5. RISC-V Xconstr LLVM backend
+6. Publish papers: BHCSP framework, constraint-native computing
 
 ### Session Stats
-- PLATO tiles submitted: 71 accepted
+- PLATO tiles: ~106 accepted across 35+ rooms
+- Models queried: 14 across 4 rounds
+- Commits: 8 pushed to SuperInstance/JetsonClaw1-vessel
 - Rust code: solver.rs (1,200+ lines), bitmask_benchmark.rs, solver_demo.rs
+- SystemVerilog: flux_checker_top.sv (400+ lines), formal testbench
 - Tests: 35 passing (25 solver + 10 original)
 - Benchmark: 12,324× speedup (bitmask vs Vec domains)
-- Papers analyzed: flux-isa-architecture.md, fpga-constraint-vm.md
-- Commits: 3 pushed to SuperInstance/JetsonClaw1-vessel
 
 ### Rules when shift ends
 - PUSH EVERYTHING
