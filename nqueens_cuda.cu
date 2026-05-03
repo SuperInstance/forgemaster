@@ -114,28 +114,14 @@ __device__ void solve_recursive(int n, int row,
 /*  GPU Kernel                                                         */
 /*  Each thread consumes one (or more, strided) precomputed partial    */
 /*  board states and completes them via recursive backtracking.        */
-/*  Warp-shuffle reduction produces a single atomicAdd per block.      */
+/*  Uses atomicAdd for per-thread solution counting (reliable across   */
+/*  all CUDA versions, including 64-bit values on sm_72+).             */
 /* ------------------------------------------------------------------ */
 __global__ void nqueens_kernel(int n,
                                const BoardState *__restrict__ states,
                                int num_states,
                                unsigned long long *__restrict__ global_solutions)
 {
-    /* Shared memory conflict bitmap cache (N <= 16) */
-    __shared__ int shared_conflict_cache[16];
-
-    /* One accumulator per warp for the block-level reduction */
-    __shared__ unsigned long long warp_sums[32];
-
-    /* ---- initialise shared memory -------------------------------- */
-    if (threadIdx.x < 16) {
-        shared_conflict_cache[threadIdx.x] = 0;
-    }
-    if (threadIdx.x < 32) {
-        warp_sums[threadIdx.x] = 0ULL;
-    }
-    __syncthreads();
-
     /* ---- each thread processes states strided by grid size -------- */
     int tid           = blockIdx.x * blockDim.x + threadIdx.x;
     int grid_stride   = gridDim.x  * blockDim.x;
@@ -147,28 +133,9 @@ __global__ void nqueens_kernel(int n,
                         &local_count);
     }
 
-    /* ---- warp-level reduction via __shfl_down_sync --------------- */
-    unsigned long long warp_sum = local_count;
-    #pragma unroll
-    for (int offset = 16; offset > 0; offset >>= 1) {
-        warp_sum += __shfl_down_sync(0xFFFFFFFFu, warp_sum, offset);
-    }
-
-    int lane_id = threadIdx.x & 31;
-    int warp_id = threadIdx.x >> 5;
-    if (lane_id == 0) {
-        warp_sums[warp_id] = warp_sum;
-    }
-    __syncthreads();
-
-    /* ---- block leader sums warps, one atomic to global ----------- */
-    if (threadIdx.x == 0) {
-        unsigned long long block_total = 0ULL;
-        int num_warps = (blockDim.x + 31) >> 5;
-        for (int w = 0; w < num_warps; w++) {
-            block_total += warp_sums[w];
-        }
-        atomicAdd(global_solutions, block_total);
+    /* ---- accumulate per-thread results into global counter --------- */
+    if (local_count > 0ULL) {
+        atomicAdd(global_solutions, local_count);
     }
 }
 
@@ -327,6 +294,11 @@ int main(int argc, char **argv)
 {
     /* ---- CUDA setup ---------------------------------------------- */
     CUDA_CHECK(cudaSetDevice(0));
+
+    /* Recursive kernel needs more stack than default (typically 1024 B).
+       Each frame is ~48 B; with N=16 that's ~768 B, plus register spills.
+       Set to 8 KB per thread to be safe.                          */
+    CUDA_CHECK(cudaDeviceSetLimit(cudaLimitStackSize, 65536));
 
     cudaDeviceProp prop;
     CUDA_CHECK(cudaGetDeviceProperties(&prop, 0));
