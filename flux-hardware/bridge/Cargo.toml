@@ -1,0 +1,11 @@
+[package]
+name = "flux-bridge"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "FLUX-X to FLUX-C TrustZone-style bridge protocol for constraint enforcement"
+repository = "https://github.com/SuperInstance/JetsonClaw1-vessel"
+keywords = ["flux", "bridge", "constraint", "safety", "trustzone"]
+categories = ["embedded", "no-std"]
+authors = ["Forgemaster <forgemaster@cocapn.ai>"]
+readme = "README.md"
