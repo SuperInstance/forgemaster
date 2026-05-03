@@ -1,10 +1,10 @@
 //! Via pattern generator for GDSII output (stub)
 
-use crate::types::*;
+use crate::types::Assignment;
+use crate::types::GDSIIOutput;
 
 /// Generate via patterns from a constraint assignment
 pub fn generate_patterns(_assignment: &Assignment) -> GDSIIOutput {
-    // TODO: full pattern generation with metal layer routing
     GDSIIOutput::new()
 }
 
