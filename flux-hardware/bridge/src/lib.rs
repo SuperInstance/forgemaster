@@ -644,4 +644,141 @@ mod tests {
         assert_eq!(config.fault_safe_states[&FaultCode::ThermalExceeded], SafeState::FallbackMode);
         assert_eq!(config.fault_safe_states[&FaultCode::GasExhausted], SafeState::WarmReset);
     }
+
+    // ── BridgeStats tests ────────────────────────────────────────────────────
+
+    #[test]
+    fn stats_initially_zero() {
+        let bridge = FluxBridge::new(BridgeConfig::default());
+        assert_eq!(bridge.stats.total_calls, 0);
+        assert_eq!(bridge.stats.pass_rate(), 0.0);
+        assert_eq!(bridge.stats.fail_rate(), 0.0);
+        assert_eq!(bridge.stats.avg_gas_used(), 0);
+        assert_eq!(bridge.stats.avg_exec_time(), Duration::ZERO);
+        assert!(bridge.stats.min_exec_time.is_none());
+        assert!(bridge.stats.max_exec_time.is_none());
+    }
+
+    #[test]
+    fn stats_recorded_on_pass() {
+        let mut bridge = FluxBridge::new(BridgeConfig::default());
+        let regs: RegisterFile = [0u64; 16];
+        bridge.constraint_check(&regs, 0, 1, &[0x1A]); // HALT → pass
+        assert_eq!(bridge.stats.total_calls, 1);
+        assert_eq!(bridge.stats.pass_count, 1);
+        assert_eq!(bridge.stats.fail_count, 0);
+        assert!((bridge.stats.pass_rate() - 1.0).abs() < f64::EPSILON);
+        assert!(bridge.stats.min_exec_time.is_some());
+    }
+
+    #[test]
+    fn stats_recorded_on_fail() {
+        let mut bridge = FluxBridge::new(BridgeConfig::default());
+        let regs: RegisterFile = [0u64; 16];
+        bridge.constraint_check(&regs, 0, 1, &[0x20]); // GUARD_TRAP → fail
+        assert_eq!(bridge.stats.total_calls, 1);
+        assert_eq!(bridge.stats.pass_count, 0);
+        assert_eq!(bridge.stats.fail_count, 1);
+        assert!((bridge.stats.fail_rate() - 1.0).abs() < f64::EPSILON);
+    }
+
+    #[test]
+    fn stats_min_max_exec_time() {
+        let mut bridge = FluxBridge::new(BridgeConfig::default());
+        let regs: RegisterFile = [0u64; 16];
+        bridge.constraint_check(&regs, 0, 1, &[0x1A]);
+        bridge.constraint_check(&regs, 0, 2, &[0x1A]);
+        let min = bridge.stats.min_exec_time.unwrap();
+        let max = bridge.stats.max_exec_time.unwrap();
+        assert!(min <= max);
+    }
+
+    // ── batch_constraint_check tests ─────────────────────────────────────────
+
+    #[test]
+    fn batch_all_pass() {
+        let mut bridge = FluxBridge::new(BridgeConfig::default());
+        let regs: RegisterFile = [0u64; 16];
+        let requests = vec![
+            ConstraintCheckRequest { constraint_id: 1, bytecode: &[0x1A], gas_limit_override: None },
+            ConstraintCheckRequest { constraint_id: 2, bytecode: &[0x1A], gas_limit_override: None },
+            ConstraintCheckRequest { constraint_id: 3, bytecode: &[0x1A], gas_limit_override: None },
+        ];
+        let batch = bridge.batch_constraint_check(&regs, 0, &requests);
+        assert!(batch.all_passed());
+        assert!(batch.first_failure.is_none());
+        assert_eq!(batch.results.len(), 3);
+    }
+
+    #[test]
+    fn batch_stops_at_first_failure() {
+        let mut bridge = FluxBridge::new(BridgeConfig::default());
+        let regs: RegisterFile = [0u64; 16];
+        let requests = vec![
+            ConstraintCheckRequest { constraint_id: 10, bytecode: &[0x1A], gas_limit_override: None },
+            ConstraintCheckRequest { constraint_id: 20, bytecode: &[0x20], gas_limit_override: None }, // GUARD_TRAP
+            ConstraintCheckRequest { constraint_id: 30, bytecode: &[0x1A], gas_limit_override: None }, // never reached
+        ];
+        let batch = bridge.batch_constraint_check(&regs, 0, &requests);
+        assert!(!batch.all_passed());
+        assert_eq!(batch.first_failure, Some(20));
+        // Only two results: id=10 (pass) and id=20 (fail); id=30 never executed
+        assert_eq!(batch.results.len(), 2);
+        assert_eq!(batch.results[0], (10, BridgeResult::Pass));
+        assert_eq!(batch.results[1], (20, BridgeResult::Fail(FaultCode::AssertFailed)));
+    }
+
+    #[test]
+    fn batch_gas_override_respected() {
+        let mut bridge = FluxBridge::new(BridgeConfig::default()); // default gas = 10000
+        let regs: RegisterFile = [0u64; 16];
+        // 4 unknown-opcode bytes; with gas=3 would exhaust, with default=10000 passes
+        let bytecode: &[u8] = &[0x27, 0x27, 0x27, 0x1A]; // 3 NOPs then HALT
+        let requests = vec![
+            ConstraintCheckRequest { constraint_id: 99, bytecode, gas_limit_override: Some(2) },
+        ];
+        let batch = bridge.batch_constraint_check(&regs, 0, &requests);
+        assert!(!batch.all_passed());
+        assert_eq!(batch.first_failure, Some(99));
+    }
+
+    // ── formal_verification_hints tests ─────────────────────────────────────
+
+    #[test]
+    fn formal_hints_non_empty() {
+        let bridge = FluxBridge::new(BridgeConfig::default());
+        let hints = bridge.formal_verification_hints();
+        assert!(!hints.is_empty());
+    }
+
+    #[test]
+    fn formal_hints_contain_lock_invariant() {
+        let bridge = FluxBridge::new(BridgeConfig::default());
+        let hints = bridge.formal_verification_hints();
+        let has_lock = hints.iter().any(|h| h.contains("bridge_locked"));
+        assert!(has_lock, "expected a lock-invariant assertion in hints");
+    }
+
+    #[test]
+    fn formal_hints_contain_liveness_for_all_faults() {
+        let bridge = FluxBridge::new(BridgeConfig::default());
+        let hints = bridge.formal_verification_hints();
+        // Every fault code defined in the config must have a liveness property
+        for fault_signal in &[
+            "fault_range", "fault_whitelist", "fault_bitmask",
+            "fault_thermal", "fault_sparsity", "fault_assert",
+            "fault_gas", "fault_stack",
+        ] {
+            let found = hints.iter().any(|h| h.contains(fault_signal));
+            assert!(found, "missing liveness hint for {fault_signal}");
+        }
+    }
+
+    #[test]
+    fn formal_hints_contain_termination_bound() {
+        let bridge = FluxBridge::new(BridgeConfig::default());
+        let hints = bridge.formal_verification_hints();
+        let has_term = hints.iter().any(|h| h.contains("bridge_active") && h.contains("gas"));
+        assert!(has_term, "expected a gas-bounded termination assertion");
+    }
 }
