@@ -13,6 +13,15 @@
 - [x] 80 PLATO tiles generated — 78/80 ACCEPTED into PLATO via /submit endpoint
 - [x] Oracle1 audit critique delivered via I2I bottle
 - [x] Fleet ops runbook — Claude Opus authoring
+- [x] CT bridge npm builds clean (tsc, no errors)
+- [x] 58 more PLATO tiles submitted — discovered v2 schema (domain/question/answer required)
+- [x] Gate rejects absolute claims (never, always, guaranteed) — adapted content
+- [x] PLATO total: 1399 rooms, 18929 tiles (+59 from session start)
+- [x] CSP solver R&D: AC-3 + backtracking + holonomy checker (77 tests passing)
+- [x] Holonomy discovery: res=10 on 3D manifolds shows drift=20 — resolution boundary
+- [x] 6 R&D PLATO tiles submitted (ct-demo-research, holonomy-theory, petersen-graph)
+- [x] solver_demo.rs example: N-Queens, graph coloring, holonomy verification
+- [x] Total PLATO tiles this session: 64 accepted
 
 ### Workers used
 1. Claude Code (Opus) — strategic planning, ZC prompt fix, fleet runbook
@@ -30,9 +39,11 @@
 ### Next wave
 1. Fleet ops runbook (Opus authoring now)
 2. Deploy SonarTelemetryStream to Oracle1 when back online
-3. Batch submit 80 tiles to PLATO when gate opens
-4. CT bridge npm package scaffolding
-5. More PLATO tiles (push toward 200+)
+3. CT bridge npm: add tests, publish to npm registry
+4. Investigate holonomy boundary: find exact resolution threshold per dimension
+5. Forward checking solver variant (better than pure backtracking)
+6. FLUX compiler integration with solver module
+7. Review papers in for-fleet/ and generate tiles from them
 
 ### Previous shift (2026-04-30)
 - FLUX dive demo, ISA_UNIFIED.md, 122 PLATO tiles, Marine MUD World
