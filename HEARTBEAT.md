@@ -205,6 +205,35 @@
 - Strategic docs: 20+ for-fleet deliverables (200KB+ total)
 - Safe-TOPS/W: FLUX-LUCID scores 20.17, all uncertified chips score 0
 
+## Repo Extraction — COMPLETE ✅
+7 focused repos extracted from JetsonClaw1-vessel:
+1. **flux-compiler** — GUARD → LLVM IR → native (Rust workspace compiles clean)
+2. **flux-vm** — 50-opcode VM + FLUX-C/FLUX-X bridge
+3. **flux-hardware** — CUDA/AVX-512/FPGA/eBPF/WebGPU/Vulkan
+4. **flux-papers** — EMSOFT paper (47KB) + Master Roadmap (52KB) + specs
+5. **flux-site** — Web pages + PHP kit (objections, Safe-TOPS/W)
+6. **flux-hdc** — 1024-bit hypervectors, 5 theorems
+7. **flux-docs** — Tutorials, runbooks, strategy docs
+
+All live at github.com/SuperInstance/{name}
+
+## Deep Research — 345KB across 30+ documents
+50+ models consulted across 4 rounds:
+- Round 1: Architecture review, strategy, engineering, formal methods, DX
+- Round 2: Repo structure, README, competitive landscape, CI/CD
+- Round 3: DAL-A certification, community, LLVM vs Cranelift, eBPF, revenue, parser, Coq
+- Round 4: FPGA synthesis, Wasm safety, competitive moat, translation validation
+
+## Key Deliverables
+- EMSOFT paper (Claude Opus): 47KB, 580 lines, 25 refs
+- Master Roadmap (Claude Opus): 52KB, 842 lines, investor-ready
+- Rust workspace: 7 crates, compiles clean, MSRV 1.75
+- Forgemaster Operating System codified
+- Session naming convention codified
+- Tutor bottle to Oracle1
+- I2I bottles to fleet
+- 7 repos pushed to GitHub
+
 ### Rules when shift ends
 - PUSH EVERYTHING
 - Update MEMORY.md with session summary
