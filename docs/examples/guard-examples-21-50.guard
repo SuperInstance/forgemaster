@@ -1,0 +1,492 @@
+# GUARD Constraint Examples 21-50
+# Real engineering constraints across five domains
+# Examples 21-50 of 50
+
+# =============================================================================
+# CATEGORY 1: AEROSPACE (Examples 21-30)
+# =============================================================================
+
+# --- Example 21: Maximum Operating Altitude ---
+# Prevents aircraft from exceeding certified ceiling altitude.
+# Passenger aircraft: FL410 (41,000 ft) is typical max for narrow-body.
+# Pass: altitude 36,000 ft. Fail: altitude 43,000 ft.
+constraint max_operating_altitude with priority HIGH {
+  let certified_ceiling = 41000   # feet MSL
+  let margin_ft = 500
+  altitude_ft in [0, certified_ceiling - margin_ft]
+}
+
+# --- Example 22: Maneuvering Speed Envelope ---
+# Defines the safe airspeed range during maneuvering (Va to Vmo).
+# Below Va: insufficient control authority. Above Vmo: structural risk.
+# Pass: 250 KIAS in calm air. Fail: 340 KIAS above Vmo.
+constraint maneuvering_speed_envelope with priority HIGH {
+  let Va = 180    # design maneuvering speed (KIAS)
+  let Vmo = 330   # max operating speed (KIAS)
+  let gross_weight_factor = gross_weight_kg / max_takeoff_weight_kg
+  let adjusted_Va = Va * gross_weight_factor
+  airspeed_kias in [adjusted_Va, Vmo]
+  and flap_setting in [0, 1]       # flaps up or mid only at these speeds
+}
+
+# --- Example 23: Minimum Fuel Reserve ---
+# Ensures sufficient fuel remains for diversion + hold after planned arrival.
+# FAR 91.167 (IFR): arrival fuel >= alternate + 45 min reserve.
+# Pass: 5200 lbs remaining. Fail: 3100 lbs below minimum.
+constraint minimum_fuel_reserve with priority HIGH {
+  let reserve_minutes = 45
+  let hold_fuel_rate = 2400    # lbs/hr at hold weight and altitude
+  let reserve_fuel = hold_fuel_rate * (reserve_minutes / 60)
+  let alternate_fuel = 3500    # lbs planned to reach alternate
+  let minimum_fuel = alternate_fuel + reserve_fuel
+  fuel_remaining_lbs >= minimum_fuel
+  and fuel_remaining_lbs in [500, max_fuel_capacity]
+}
+
+# --- Example 24: Landing Gear Extension Envelope ---
+# Gear may only be extended below Vle (max gear extended speed) and above
+# minimum extension altitude on approach.
+# Pass: 180 KIAS, 1500 ft AGL. Fail: 260 KIAS (above Vle).
+constraint landing_gear_extension with priority HIGH {
+  let Vle = 250            # max gear-extended speed (KIAS)
+  let min_extension_alt = 800   # feet AGL on approach
+  let max_extension_alt = 3000  # feet AGL
+  airspeed_kias in [130, Vle]
+  and altitude_agl_ft in [min_extension_alt, max_extension_alt]
+  and gear_handle = "DOWN"
+}
+
+# --- Example 25: Engine EGT Overtemperature Protection ---
+# Exhaust Gas Temperature must remain below red-line with margin during
+# continuous operation. Exceedance triggers mandatory engine inspection.
+# Pass: EGT 810°C at max continuous. Fail: EGT 925°C (red-line 950°C).
+constraint engine_egt_protection with priority HIGH {
+  let egt_redline = 950       # °C
+  let max_continuous_margin = 50
+  let transient_margin = 25
+  let max_continuous = egt_redline - max_continuous_margin
+  let max_transient = egt_redline - transient_margin
+  engine_egt_celsius in [200, max_continuous]
+  or (engine_egt_celsius in [max_continuous, max_transient]
+      and duration(engine_egt_celsius > max_continuous, seconds) <= 5)
+}
+
+# --- Example 26: Takeoff Flap Configuration ---
+# Ensures flap setting is within approved range for takeoff and matches
+# computed V-speeds for current weight and conditions.
+# Pass: flaps 5, V2 = 148 KIAS. Fail: flaps 15 with V2 for flaps 5.
+constraint takeoff_flap_configuration with priority HIGH {
+  let approved_settings = [1, 5, 15]
+  let takeoff_weight_kg = actual_weight_kg
+  flap_setting in approved_settings
+  and v_speed_computed = true
+  and vref_kias in [130, 200]
+  and (flap_setting = 1 implies vref_kias >= 160)
+  and (flap_setting = 5 implies vref_kias >= 145)
+  and (flap_setting = 15 implies vref_kias >= 130)
+}
+
+# --- Example 27: Center of Gravity Envelope ---
+# CG must remain within forward and aft limits for the current weight
+# and flight phase. Out-of-CG can cause loss of control.
+# Pass: CG at 24.5% MAC, weight 65,000 kg. Fail: CG at 38% MAC.
+constraint cg_envelope with priority HIGH {
+  let fwd_cg_limit_percent_mac = 8.0 + (actual_weight_kg / 100000) * 6.0
+  let aft_cg_limit_percent_mac = 36.0 - (actual_weight_kg / 100000) * 4.0
+  cg_percent_mac in [fwd_cg_limit_percent_mac, aft_cg_limit_percent_mac]
+  and actual_weight_kg in [45000, 78000]
+}
+
+# --- Example 28: Cabin Altitude Warning ---
+# Cabin pressure altitude must not exceed 10,000 ft; triggers warning
+# at 8,000 ft for crew awareness.
+# Pass: cabin alt 6,500 ft. Fail: cabin alt 10,500 ft (emergency).
+constraint cabin_altitude_warning with priority HIGH {
+  let warning_threshold = 8000    # feet
+  let emergency_threshold = 10000  # feet
+  cabin_altitude_ft in [0, warning_threshold]
+  or (cabin_altitude_ft in [warning_threshold, emergency_threshold]
+      and duration(cabin_altitude_ft > warning_threshold, seconds) <= 30
+      and oxygen_masks_deployed = false)
+}
+
+# --- Example 29: Turbulence Penetration Speed ---
+# In moderate or severe turbulence, airspeed must be reduced to turbulence
+# penetration speed (Vb) for structural protection.
+# Pass: 270 KIAS in moderate turbulence. Fail: 320 KIAS in severe turbulence.
+constraint turbulence_penetration_speed with priority MEDIUM {
+  let Vb = 280   # turbulence penetration speed (KIAS)
+  let Vmo = 330
+  (turbulence_detected = "NONE" and airspeed_kias in [180, Vmo])
+  or (turbulence_detected = "LIGHT" and airspeed_kias in [180, Vmo])
+  or (turbulence_detected = "MODERATE" and airspeed_kias in [Vb - 20, Vb + 10])
+  or (turbulence_detected = "SEVERE" and airspeed_kias in [Vb - 20, Vb])
+}
+
+# --- Example 30: GPWS Terrain Clearance ---
+# Ground Proximity Warning System: descent rate vs terrain clearance must
+# allow recovery. Mode 2 (terrain closure rate) and Mode 4 (unsafe terrain
+# clearance with gear up).
+# Pass: 800 ft AGL, descending 500 fpm. Fail: 200 ft AGL, 1500 fpm, gear up.
+constraint gpws_terrain_clearance with priority HIGH {
+  let min_terrain_clearance_ft = 500
+  let max_descent_rate_close = 1000   # fpm below 1000 ft AGL
+  altitude_agl_ft >= min_terrain_clearance_ft
+  and (altitude_agl_ft < 1000 implies vertical_speed_fpm >= -max_descent_rate_close)
+  and (altitude_agl_ft < 500 implies gear_deployed = true)
+}
+
+# =============================================================================
+# CATEGORY 2: MARITIME (Examples 31-40)
+# =============================================================================
+
+# --- Example 31: Maximum Vessel Draft ---
+# Ship draft must not exceed channel/port maximum draft, accounting for
+# squat effect at speed and tidal variation.
+# Pass: draft 12.0m, channel depth 14.5m, tide +1.2m. Fail: draft 14.0m.
+constraint maximum_vessel_draft with priority HIGH {
+  let static_draft_m = loaded_draft_m
+  let squat_effect = 0.3 * (speed_knots / 10) ^ 2
+  let effective_draft = static_draft_m + squat_effect
+  let ukc_required = 1.0    # under-keel clearance (meters)
+  let available_depth = charted_depth_m + tide_m
+  effective_draft + ukc_required <= available_depth
+  and static_draft_m in [3.0, 15.0]
+}
+
+# --- Example 32: Cargo Weight Distribution ---
+# Container stack weight must not exceed maximum stack load, and aggregate
+# cargo weight must match declared manifest within tolerance.
+# Pass: 18-ton container, max stack 20 tons. Fail: 22-ton container.
+constraint cargo_weight_distribution with priority HIGH {
+  let max_stack_weight_tons = 20.0
+  let manifest_tolerance_pct = 2.0
+  let total_cargo_tons = sum(container_weight_tons)
+  let declared_cargo_tons = manifest_weight_tons
+  each container_weight_tons in [2.0, max_stack_weight_tons]
+  and total_cargo_tons in [declared_cargo_tons * (1 - manifest_tolerance_pct / 100),
+                           declared_cargo_tons * (1 + manifest_tolerance_pct / 100)]
+  and total_cargo_tons <= max_cargo_capacity_tons
+}
+
+# --- Example 33: Traffic Separation Scheme Compliance ---
+# Vessel must follow TSS lanes: enter via inshore traffic zone correctly,
+# maintain course within lane boundaries, cross at right angles if needed.
+# Pass: following lane at 12 kts, bearing correct. Fail: wrong-way in lane.
+constraint traffic_separation_compliance with priority HIGH {
+  let max_lane_speed_knots = 14
+  let min_crossing_angle = 60    # degrees from lane direction
+  (vessel_in_tss_lane = true
+   and vessel_course_deg in [lane_direction_deg - 10, lane_direction_deg + 10]
+   and speed_knots in [4, max_lane_speed_knots])
+  or (vessel_crossing_tss = true
+      and abs(vessel_course_deg - lane_direction_deg) >= min_crossing_angle
+      and speed_knots in [4, max_lane_speed_knots])
+}
+
+# --- Example 34: Heavy Weather Operation Limits ---
+# In significant wave heights above threshold, vessel must reduce speed
+# and secure deck operations. Above severe threshold, must seek shelter.
+# Pass: Hs 3.5m, speed 10 kts, deck secured. Fail: Hs 6.0m, full speed.
+constraint heavy_weather_limits with priority HIGH {
+  let moderate_hs_m = 3.0
+  let severe_hs_m = 5.0
+  let reduced_max_speed = 10   # knots
+  let normal_max_speed = 16
+  (sig_wave_height_m < moderate_hs_m
+   and speed_knots in [0, normal_max_speed]
+   and deck_operations = "NORMAL")
+  or (sig_wave_height_m in [moderate_hs_m, severe_hs_m]
+      and speed_knots in [0, reduced_max_speed]
+      and deck_operations = "SECURED")
+  or (sig_wave_height_m > severe_hs_m
+      and speed_knots in [0, reduced_max_speed]
+      and deck_operations = "SECURED"
+      and heading_to_nearest_shelter_deg >= 0)
+}
+
+# --- Example 35: Crew Fatigue and Rest Hours ---
+# STCW/MLC compliance: crew must have minimum rest hours in any 24h and
+# 7-day period. Watchkeepers have stricter limits.
+# Pass: 11h rest in 24h, 70h in 7 days. Fail: 8h rest in 24h.
+constraint crew_fatigue_compliance with priority HIGH {
+  let min_rest_24h = 10      # hours (STCW minimum)
+  let min_rest_7d = 77       # hours in any 7-day period
+  let watchkeeper_rest_24h = 10
+  each crew_rest_hours_24h >= min_rest_24h
+  and each crew_rest_hours_7d >= min_rest_7d
+  and (crew_role = "WATCHKEEPER" implies crew_rest_hours_24h >= watchkeeper_rest_24h)
+  and rest_period_undisturbed = true   # max 2 interruptions allowed
+}
+
+# --- Example 36: Ballast Water Exchange ---
+# Mid-ocean ballast exchange must achieve 95% volumetric exchange and
+# occur at minimum 200nm from coast, 200m depth. Flow-through method
+# requires 3x tank volume.
+# Pass: 250nm offshore, 300m depth, 3.2x volume exchanged.
+# Fail: 120nm offshore (too close).
+constraint ballast_water_exchange with priority MEDIUM {
+  let min_distance_nm = 200
+  let min_depth_m = 200
+  let exchange_efficiency_pct = 95
+  let flow_through_factor = 3.0
+  distance_from_coast_nm >= min_distance_nm
+  and water_depth_m >= min_depth_m
+  and ballast_exchange_volume >= ballast_tank_capacity * flow_through_factor
+  and ballast_exchange_efficiency_pct >= exchange_efficiency_pct
+}
+
+# --- Example 37: Mooring Line Tension Limits ---
+# Each mooring line tension must remain within safe working load with
+% safety factor. Total restraint must exceed environmental forces.
+# Pass: line tension 40t, SWL 55t. Fail: line tension 52t (exceeds 80% SWL).
+constraint mooring_line_tension with priority HIGH {
+  let safety_factor = 0.8    # max 80% of SWL during operation
+  let min_lines_deployed = 6
+  let swl_tons = 55          # safe working load per line
+  let max_operating_tension = swl_tons * safety_factor
+  number_of_lines >= min_lines_deployed
+  and each line_tension_tons in [2, max_operating_tension]
+  and sum(line_tension_tons) >= predicted_environmental_force_tons * 1.2
+}
+
+# --- Example 38: Navigation Safety — CPA/TCPA ---
+# Closest Point of Approach and Time to CPA must exceed minimum thresholds
+% for collision avoidance. Triggers alarm when either threshold breached.
+# Pass: CPA 2.5nm, TCPA 18 min. Fail: CPA 0.3nm, TCPA 3 min.
+constraint navigation_cpa_tcpa with priority HIGH {
+  let min_cpa_nm = 1.0      # minimum closest point of approach
+  let min_tcpa_min = 10     # minutes to CPA for alarm
+  let cpa_threshold_large = 2.0
+  let tcpa_threshold_large = 15
+  (target_cpa_nm >= min_cpa_nm and target_tcpa_min >= min_tcpa_min)
+  and (target_vessel_length_m > 200
+       implies target_cpa_nm >= cpa_threshold_large
+       and target_tcpa_min >= tcpa_threshold_large)
+}
+
+# --- Example 39: Inert Gas System Pressure ---
+# Tanker cargo tanks must maintain positive inert gas pressure to prevent
+% oxygen ingress. Pressure must be above minimum but below tank design limit.
+# Pass: IG pressure 800 mmH2O. Fail: IG pressure 50 mmH2O (dangerously low).
+constraint inert_gas_pressure with priority HIGH {
+  let min_pressure_mmh2o = 100    # minimum positive pressure
+  let max_pressure_mmh2o = 1400   # tank design limit
+  let alarm_low = 200
+  let oxygen_max_pct = 8.0        # O2 concentration max
+  each tank_ig_pressure_mmh2o in [min_pressure_mmh2o, max_pressure_mmh2o]
+  and each tank_oxygen_pct in [0, oxygen_max_pct]
+  and (tank_ig_pressure_mmh2o < alarm_low
+       implies ig_system_running = true
+       and duration(tank_ig_pressure_mmh2o < alarm_low, minutes) <= 5)
+}
+
+# --- Example 40: Freeboard and Stability ---
+# Minimum freeboard must be maintained after loading. Intact stability
+% criteria (GZ curve area, maximum GZ, angle of max GZ) must be satisfied.
+# Pass: freeboard 3.2m, GZmax 1.8m at 35°. Fail: freeboard 0.8m.
+constraint freeboard_and_stability with priority HIGH {
+  let min_freeboard_m = 2.0
+  let min_gz_max_m = 0.15   # minimum righting lever max (meters)
+  let min_gz_area_deg_rad = 0.055   # area under GZ curve to 30°
+  let max_gz_angle_deg = 25  # angle of max GZ should be <= this
+  actual_freeboard_m >= min_freeboard_m
+  and gz_max_m >= min_gz_max_m
+  and gz_area_to_30deg >= min_gz_area_deg_rad
+  and angle_of_max_gz_deg <= max_gz_angle_deg
+  and metacentric_height_m in [0.5, 3.0]
+}
+
+# =============================================================================
+# CATEGORY 3: AUTOMOTIVE (Examples 41-50 — first 5, continues next category)
+# =============================================================================
+
+# --- Example 41: Adaptive Cruise Control Following Distance ---
+# ACC must maintain minimum time-gap to lead vehicle. Time-gap is distance
+# divided by speed. Minimum varies with speed class.
+# Pass: 2.2s time-gap at 100 km/h. Fail: 0.6s time-gap at 120 km/h.
+constraint acc_following_distance with priority HIGH {
+  let min_time_gap_city = 2.0   # seconds below 60 km/h
+  let min_time_gap_highway = 1.5
+  let max_time_gap = 3.0
+  let speed_threshold = 60      # km/h
+  (ego_speed_kmh < speed_threshold
+   implies time_gap_seconds in [min_time_gap_city, max_time_gap])
+  and (ego_speed_kmh >= speed_threshold
+       implies time_gap_seconds in [min_time_gap_highway, max_time_gap])
+  and time_gap_seconds >= 0.5
+}
+
+# --- Example 42: Lane Keeping Assist Boundary ---
+# LKA must correct before vehicle crosses lane boundary by more than
+# the warning threshold. Correction begins at inner threshold.
+# Pass: 25cm from lane edge, corrective torque applied. Fail: 45cm over line.
+constraint lane_keeping_boundary with priority HIGH {
+  let warning_threshold_cm = 20   # cm from lane marking center
+  let max_departure_cm = 35       # cm before hard intervention
+  let lane_width_cm = 350
+  let ego_offset_cm = distance_from_lane_center_cm
+  let half_lane = lane_width_cm / 2
+  (abs(ego_offset_cm) < half_lane - warning_threshold_cm
+   implies lka_status = "MONITORING")
+  and (abs(ego_offset_cm) in [half_lane - warning_threshold_cm, half_lane]
+       implies lka_status = "SOFT_CORRECTION")
+  and (abs(ego_offset_cm) > half_lane
+       implies lka_status = "HARD_CORRECTION"
+       and abs(ego_offset_cm) <= half_lane + max_departure_cm)
+}
+
+# --- Example 43: EV Battery State of Charge Management ---
+# Battery SOC must stay within safe operating window. Deep discharge
+# damages cells. Charging must taper at high SOC to protect longevity.
+# Pass: SOC 65%, normal driving. Fail: SOC 2% (deep discharge risk).
+constraint ev_battery_soc_management with priority HIGH {
+  let min_soc_pct = 5.0      # absolute minimum
+  let recommended_min_pct = 10.0
+  let taper_start_pct = 80.0  # charging taper begins
+  let max_soc_pct = 95.0      # never charge to 100% routinely
+  battery_soc_pct in [min_soc_pct, 100]
+  and (battery_soc_pct < recommended_min_pct
+       implies charging_status = "CHARGING"
+       and driver_alert = "LOW_SOC")
+  and (charging_status = "CHARGING"
+       and battery_soc_pct >= taper_start_pct
+       implies charge_rate_kw <= max_charge_rate_kw * 0.5)
+  and (charging_status = "CHARGING"
+       and battery_soc_pct >= max_soc_pct
+       implies charge_rate_kw <= max_charge_rate_kw * 0.1)
+}
+
+# --- Example 44: Transmission Shift Protection ---
+# Prevent shifts that would over-rev or lug the engine. Downshift
+# prohibited if resulting RPM exceeds redline; upshift prohibited
+# if resulting RPM drops below minimum.
+# Pass: downshift at 4500 RPM, target 6200 RPM (below 6800 redline).
+# Fail: downshift at 6000 RPM, target 8100 RPM (exceeds redline).
+constraint transmission_shift_protection with priority HIGH {
+  let engine_redline_rpm = 6800
+  let min_operating_rpm = 1200
+  let redline_margin = 300
+  let post_shift_rpm = computed_target_rpm
+  (shift_request = "DOWNSHIFT"
+   implies post_shift_rpm in [min_operating_rpm, engine_redline_rpm - redline_margin])
+  and (shift_request = "UPSHIFT"
+       implies post_shift_rpm in [min_operating_rpm + 200, engine_redline_rpm])
+  and current_engine_rpm in [min_operating_rpm, engine_redline_rpm]
+}
+
+# --- Example 45: Brake Thermal Load Management ---
+# Brake disc temperature must remain below fade threshold. Repeated heavy
+# braking accumulates thermal load. Driver warned before fade onset.
+# Pass: disc temp 380°C after mountain descent. Fail: disc temp 680°C (fade).
+constraint brake_thermal_load with priority HIGH {
+  let nominal_max_temp_c = 500    # normal max operating
+  let fade_onset_temp_c = 600     # brake fade begins
+  let critical_temp_c = 700       # structural risk to disc
+  let cooling_rate = 2.0          # °C per second at moderate speed
+  each brake_disc_temp_c in [20, critical_temp_c]
+  and (brake_disc_temp_c > nominal_max_temp_c
+       implies driver_alert = "BRAKE_HOT"
+       and regenerative_braking_pct >= 30)
+  and (brake_disc_temp_c > fade_onset_temp_c
+       implies brake_force_reduction_active = true
+       and following_distance_increased = true)
+}
+
+# =============================================================================
+# CATEGORY 4: INDUSTRIAL (Examples 46-50 — first 5 of Industrial)
+# =============================================================================
+
+# --- Example 46: Pressure Vessel Safety Relief ---
+# Relief valve set pressure must not exceed vessel MAWP. Accumulation
+% (pressure rise during relief) limited to 10% above MAWP for fire case.
+# Pass: operating 8.5 bar, MAWP 10 bar, relief at 10 bar. Fail: relief at 11.5 bar.
+constraint pressure_vessel_safety_relief with priority HIGH {
+  let mawp_bar = 10.0             # max allowable working pressure
+  let operating_max_pct = 90      # % of MAWP for normal operation
+  let accumulation_fire_pct = 110 # % MAWP allowed during fire relief
+  let accumulation_normal_pct = 103
+  operating_pressure_bar in [0, mawp_bar * operating_max_pct / 100]
+  and relief_valve_set_pressure_bar <= mawp_bar
+  and (relief_scenario = "FIRE"
+       implies max_relieved_pressure_bar <= mawp_bar * accumulation_fire_pct / 100)
+  and (relief_scenario = "NORMAL"
+       implies max_relieved_pressure_bar <= mawp_bar * accumulation_normal_pct / 100)
+}
+
+# --- Example 47: Chemical Reactor Temperature Runaway Prevention ---
+# Exothermic reactor temperature must remain below runaway threshold.
+# Emergency cooling activates at warning level; shutdown at critical.
+# Pass: reactor 185°C, warning 200°C. Fail: reactor 215°C, no emergency cooling.
+constraint reactor_temperature_runaway with priority HIGH {
+  let normal_max_temp_c = 190
+  let warning_temp_c = 200
+  let critical_temp_c = 210
+  let runaway_temp_c = 225
+  reactor_temp_celsius in [50, runaway_temp_c]
+  and (reactor_temp_celsius > normal_max_temp_c
+       implies emergency_cooling_active = true)
+  and (reactor_temp_celsius > warning_temp_c
+       implies feed_rate_reduction_pct >= 50
+       and duration(reactor_temp_celsius > warning_temp_c, seconds) <= 60)
+  and (reactor_temp_celsius > critical_temp_c
+       implies reactor_shutdown_initiated = true
+       and duration(reactor_temp_celsius > critical_temp_c, seconds) <= 10)
+}
+
+# --- Example 48: Safety Interlock Sequencing ---
+# Machine must follow correct startup sequence: guard closed → power on →
+% spindle start. Any bypass triggers immediate shutdown. Guards must be
+% closed within timeout after power-on before spindle can start.
+# Pass: guard closed, 3s delay, spindle start. Fail: spindle start with guard open.
+constraint safety_interlock_sequence with priority HIGH {
+  let guard_to_spindle_delay_ms = 2000
+  let bypass_timeout_ms = 500
+  guard_closed = true
+  and power_enabled = true
+  and (spindle_running = true
+       implies guard_closed = true
+       and power_enabled = true
+       and duration(power_enabled, milliseconds) >= guard_to_spindle_delay_ms)
+  and (guard_bypass_detected = true
+       implies spindle_running = false
+       and duration(guard_bypass_detected, milliseconds) <= bypass_timeout_ms
+       implies emergency_stop_active = true)
+}
+
+# --- Example 49: Continuous Emissions Monitoring ---
+# Stack emissions must comply with permitted limits. NOx, SO2, and
+% particulate matter each have rolling average limits (hourly and daily).
+# Pass: NOx 180 mg/Nm3 (limit 200). Fail: NOx 230 mg/Nm3 sustained 30 min.
+constraint continuous_emissions_monitoring with priority MEDIUM {
+  let nox_hourly_limit = 200     # mg/Nm3
+  let so2_hourly_limit = 150
+  let pm_hourly_limit = 30
+  let nox_daily_limit = 170
+  let so2_daily_limit = 120
+  let pm_daily_limit = 25
+  nox_1hr_avg_mgNm3 in [0, nox_hourly_limit]
+  and so2_1hr_avg_mgNm3 in [0, so2_hourly_limit]
+  and pm_1hr_avg_mgNm3 in [0, pm_hourly_limit]
+  and nox_24hr_avg_mgNm3 in [0, nox_daily_limit]
+  and so2_24hr_avg_mgNm3 in [0, so2_daily_limit]
+  and pm_24hr_avg_mgNm3 in [0, pm_daily_limit]
+}
+
+# --- Example 50: Cleanroom Particle Contamination ---
+# ISO Class 7 cleanroom: particle count per m³ must not exceed limits
+% for each particle size threshold during operations. Excursions above
+% limit for sustained duration trigger investigation.
+# Pass: 350,000 particles/m³ at ≥0.5µm (limit 352,000 for ISO 7).
+# Fail: 500,000 particles/m³ sustained for 10 minutes.
+constraint cleanroom_particle_contamination with priority MEDIUM {
+  let iso7_limit_05um = 352000    # particles/m³ at ≥0.5µm
+  let iso7_limit_5um = 2930       # particles/m³ at ≥5µm
+  let excursion_duration_min = 5
+  let investigation_trigger_pct = 110  # % of limit
+  particles_05um_per_m3 in [0, iso7_limit_05um]
+  and particles_5um_per_m3 in [0, iso7_limit_5um]
+  and (particles_05um_per_m3 > iso7_limit_05um * investigation_trigger_pct / 100
+       implies duration(particles_05um_per_m3 > iso7_limit_05um, minutes) <= excursion_duration_min
+       and investigation_required = true)
+}
