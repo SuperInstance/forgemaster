@@ -1,0 +1,26 @@
+[tasks]
+task_smtbmc
+task_aiger
+
+[options]
+task task_smtbmc:
+    mode prove
+    depth 50
+
+task task_aiger:
+    mode cover
+    depth 50
+
+[engines]
+task task_smtbmc:
+    smtbmc --progress
+
+task task_aiger:
+    aiger
+
+[script]
+read -formal flux_checker_sby.sv
+prep -top flux_checker_sby
+
+[files]
+flux_checker_sby.sv
