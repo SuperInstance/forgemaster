@@ -1,0 +1,88 @@
+```troff
+.TH fluxc 1 "August 15, 2024" "fluxc 1.0.0" "OpenCLAW Command Reference"
+.SH NAME
+fluxc \- FLUX constraint compiler for formally verified machine code
+.SH SYNOPSIS
+.B fluxc
+[\fIOPTIONS\fR]
+\fIINPUT.guard\fR
+.SH DESCRIPTION
+.B fluxc
+compiles FLUX guard constraint specification files (identified by the .guard file extension) into provably correct, target-specific machine code or hardware binaries.
+This tool supports multiple backend targets, formal correctness verification via the Coq proof assistant, performance benchmarking, worst-case execution time (WCET) analysis, and stack safety hardening.
+If no output file is specified via \fB-o\fR, fluxc will write the compiled binary to \fIINPUT\fR with the .guard suffix removed, appended with a target-specific extension (e.g., .x86_64 for x86-64 targets).
+.SH OPTIONS
+.TP
+.B -o \fIOUTPUT\fR
+Write the final compiled output to the file path specified by \fIOUTPUT\fR, overriding the default output location.
+.TP
+.B --target \fITARGET\fR
+Specify the compilation target platform. Valid \fITARGET\fR values are:
+.RS
+.PD 0
+.TP x86-64
+64-bit x86 (AMD/Intel) desktop/server architecture
+.TP arm
+32-bit ARMv7-A and 64-bit AArch64 ARM architectures
+.TP riscv
+64-bit RISC-V GC extension architecture
+.TP cuda
+NVIDIA CUDA GPU device kernels
+.TP fpga
+Synthesizable FPGA hardware bitstreams
+.TP wasm
+WebAssembly bytecode
+.PD
+.RE
+If this option is omitted, the default target is \fIx86-64\fR, or the value of the \fBFLUXC_TARGET\fR environment variable if set.
+.TP
+.B --verify
+Run formal correctness verification using the Coq proof assistant to validate that the compiled code exactly matches the original guard specification. Exits with a non-zero status code if verification fails, and skips code generation unless verification succeeds.
+.TP
+.B --benchmark
+Enable benchmarking mode. Prints compilation time, generated code throughput, and peak resource utilization metrics to standard output.
+.TP
+.B --wcet
+Calculate a worst-case execution time estimate for the compiled constraint code using target-specific timing models. The WCET estimate is printed to standard output alongside the compiled binary.
+.TP
+.B --safe-tops-w
+Enable safe top-of-stack watermarking for stack-based target architectures. This compile-time hardening pass tracks stack pointer bounds to prevent stack overflow vulnerabilities by inserting runtime bounds checks where necessary.
+.TP
+.B -h, --help
+Display a summary of available command-line options and usage information, then exit immediately.
+.TP
+.B --version
+Print version and licensing information for the fluxc compiler, then exit immediately.
+.SH EXAMPLES
+.SS Basic Compilation
+Compile a guard specification to x86-64 machine code, writing the output to \fImy_guard.x86_64\fR:
+.EX
+fluxc --target x86-64 -o my_guard.x86_64 my_proof.guard
+.EE
+.SS Formal Verification
+Compile a network security guard specification to RISC-V machine code and run Coq verification to ensure compliance with the original constraint rules:
+.EX
+fluxc --target riscv --verify network_policy.guard
+.EE
+If verification passes, the output binary will be written to \fInetwork_policy\fR by default.
+.SS Benchmarking and WCET Analysis
+Compile a sensor filtering guard to WebAssembly, enable performance benchmarking, and generate a worst-case execution time report:
+.EX
+fluxc --target wasm --benchmark --wcet sensor_filter.guard -o sensor_filter.wasm
+.EE
+.SS FPGA Hardware Compilation
+Compile a motor controller guard specification for synthesis on an FPGA, with stack safety hardening enabled to prevent stack overflow attacks:
+.EX
+fluxc --target fpga --safe-tops-w motor_controller.guard -o motor_controller.bit
+.EE
+.SH SEE ALSO
+coq(1), gcc(1), clang(1), wasm-ld(1),
+The full OpenCLAW project documentation: \%https://openclaw.org/docs/
+.SH AUTHOR
+Written by the OpenCLAW Formal Verification Team.
+.SH BUGS
+Report bugs via the GitHub issue tracker at \%https://github.com/openclaw/fluxc/issues
+or by email to \%bugs@openclaw.org.
+```
+
+Save this file to `/home/phoenix/.openclaw/workspace/docs/reference/fluxc.1` to use as the official man page for fluxc. You can render it locally with `man ./home/phoenix/.openclaw/workspace/docs/reference/fluxc.1` after saving.

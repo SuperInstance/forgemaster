@@ -1,0 +1,46 @@
+# FLUX System Standard Error Code Reference
+Generated for OpenClaw FLUX toolchain v1.2.0
+Save this file to `/home/phoenix/.openclaw/workspace/docs/reference/error-codes.md`
+
+| Code | Category | Message | Cause | Fix |
+| :--- | :------- | :------ | :---- | :-- |
+| P001 | Parser | Syntax error in constraint declaration | Misplaced token, unclosed bracket, or invalid modifier in a FLUX constraint block | Validate syntax against FLUX parser specs; ensure all brackets are closed and use approved constraint syntax (e.g., `@constraint [name]: [expr]`) |
+| P002 | Parser | Undeclared module import alias | Referenced a module alias that was not defined in the import block | Add a valid `import [module] as [alias]` declaration before using the referenced alias |
+| P003 | Parser | Mismatched type annotation arity | Type annotation for a function has more or fewer parameters than the function definition | Adjust the type annotation to exactly match the number of function parameters |
+| P004 | Parser | Unclosed string literal in source file | String literal was not terminated with a matching single/double quote | Close all string literals with the appropriate quote character per FLUX syntax rules |
+| P005 | Parser | Invalid field access syntax | Used dot notation on a non-object type or omitted the trailing field identifier | Ensure the target of the field access is a struct/object type and follow the format `obj.field` |
+| P006 | Parser | Duplicate parameter name in function definition | Declared multiple function parameters with the same unique identifier | Rename duplicate parameters to distinct valid FLUX identifiers |
+| P007 | Parser | Unexpected end of file during parsing | Source file was truncated mid-statement or missing required closing syntax | Complete the partial statement or restore missing closing tokens (e.g., `}`, `)`) |
+| P008 | Parser | Unsupported literal type | Used a non-standard literal (e.g., unprefixed octal, hex with invalid characters) | Use only FLUX-supported literal types: decimal, hex (`0x...`), float, boolean, `null` |
+| P009 | Parser | Misplaced control flow keyword | Used `break`/`continue` outside of a loop or switch block context | Restrict control flow keywords to valid loop or switch blocks |
+| P010 | Parser | Invalid module export declaration | Exported a non-existent symbol or used malformed `export` syntax | Export only declared symbols and use valid FLUX export formats (e.g., `export [symbol]`, `export default [expr]`) |
+| C001 | Compiler | Undeclared variable | Referenced a variable that was not declared in the current scope or imported from an external module | Declare the variable before use or import it from a trusted external module |
+| C002 | Compiler | Type mismatch in assignment | Assigned a value of incompatible type to a declared variable | Cast the value to the matching variable type or adjust the variable's declared type annotation |
+| C003 | Compiler | Unreachable code after return/throw | Code exists after a terminal control flow statement (e.g., `return`, `throw`) | Remove unreachable code or reorder statements to place terminal calls last |
+| C004 | Compiler | Undefined function overload | Called a function with an argument list that matches no declared function overload | Add a matching function overload or adjust the argument types/ count to match an existing overload |
+| C005 | Compiler | Missing required function parameter | Called a function without providing all mandatory positional parameters | Supply all required parameters or add default values to omitted function parameters |
+| C006 | Compiler | Constant variable reassignment | Tried to modify a variable declared with the `const` keyword | Use `let`/`var` for mutable variables or remove the unauthorized reassignment |
+| C007 | Compiler | Invalid template argument for generic type | Passed a non-conforming type to a generic FLUX container (e.g., `string` for `List[Num]`) | Ensure template arguments meet the generic type's declared constraints |
+| C008 | Compiler | Dead code detected in module | Declared a symbol that is never referenced within the module or exported | Remove unused symbols or add intentional references for intended use cases |
+| C009 | Compiler | Mismatched return type | Function's return value does not match the declared return type annotation | Adjust the returned expression to match the declared type or update the function's return annotation |
+| C010 | Compiler | Circular dependency between modules | Module A imports B which imports A directly or indirectly | Refactor module dependencies to break the cycle, or move shared symbols to a common utility module |
+| V001 | VM | Stack underflow | Tried to pop a value from an empty operand stack during execution | Ensure stack operations are preceded by valid value pushes, or increase the VM's stack allocation limit |
+| V002 | VM | Division by zero | Executed a division operation where the divisor evaluates to zero at runtime | Add a runtime check for zero divisors or handle edge cases in the source code |
+| V003 | VM | Invalid opcode encountered | VM received an unrecognized or deprecated instruction byte | Recompile the source code with the matching FLUX VM version, or update the VM runtime to the latest release |
+| V004 | VM | Out-of-bounds memory access | Tried to read/write to memory outside the allocated heap or stack range | Fix array index calculations or adjust memory allocation bounds in the source code |
+| V005 | VM | Unhandled exception thrown | A runtime exception was not caught by a surrounding `try/catch` block | Add a `try/catch` block to handle the exception, or declare the function to throw the error type |
+| V006 | VM | Invalid function call target | Called a non-function value (e.g., number, string) as a function | Ensure the call target is a valid function or closure before invocation |
+| V007 | VM | Heap memory exhaustion | VM has exhausted all available allocated heap space | Optimize memory usage in the source code, increase the VM's heap allocation limit, or free unused objects explicitly |
+| V008 | VM | Mismatched stack frame | VM detected a corrupted call stack frame during function return | Restart the FLUX runtime, or recompile the source code to fix stack manipulation bugs |
+| V009 | VM | Invalid type coercion at runtime | Tried to coerce a value to a type that is not supported at runtime | Use only valid FLUX runtime type casts or avoid unnecessary type conversions |
+| V010 | VM | Timer timeout exceeded | A synchronous FLUX function exceeded its allocated runtime limit | Optimize the function's execution time, split work into asynchronous chunks, or increase the function's timeout limit |
+| T001 | Certification | Proof certificate invalid | Certificate signature does not match the compiled bytecode hash | Re-generate the certification using the correct compiled bytecode, or verify the signatory is a trusted authority |
+| T002 | Certification | Missing certification authority chain | Certification path does not include a trusted root CA for the FLUX network | Import the trusted root CA certificate into the FLUX certification store |
+| T003 | Certification | Expired proof certificate | The certification has passed its designated expiration date | Re-certify the compiled bytecode with a new valid, non-expired certificate |
+| T004 | Certification | Mismatched certificate version | Certificate uses an outdated FLUX certification protocol version | Upgrade the FLUX certification tool to the latest version and re-generate the certificate |
+| T005 | Certification | Unauthorized modification to certified bytecode | Certified bytecode was altered after certification was issued | Recompile the original source code and re-submit for certification, or restore the original unmodified bytecode |
+| T006 | Certification | Incomplete proof assertions | Formal proof does not cover all required safety properties for the module | Add missing proof assertions to cover all critical safety conditions (e.g., no integer overflow, valid resource access) |
+| T007 | Certification | Certification proof parsing failure | VM could not parse the embedded proof certificate from the bytecode | Ensure the certificate was embedded correctly using the FLUX certification tool, or update the VM's certificate parser |
+| T008 | Certification | Disallowed opcode in certified module | Certified module uses opcodes prohibited by the network's certification rules | Replace disallowed opcodes with approved alternatives, or request an exception from network governance |
+| T009 | Certification | Cross-chain certification mismatch | Certified bytecode does not match the target chain's execution environment specifications | Recompile the module for the target chain and re-certify for that specific environment |
+| T010 | Certification | Revoked certification authority | The signatory CA for the certificate has been revoked by the FLUX network | Obtain a new certificate from a currently trusted and active certification authority |
