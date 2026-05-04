@@ -1,0 +1,35 @@
+# Beautiful Flux Performance Comparison ASCII Chart
+*(Uses Unicode box-drawing characters, plain text formatting)*
+
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                          FLUX CONSTRAINT SYSTEM — PERFORMANCE COMPARISON                        │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  Performance (checks/sec)                                                                      │
+│                                                                                                │
+│  FLUX AVX-512 (1T):                22.3B       ████████████████████████████████████████         │
+│  FLUX Branchless (1T):             11.5B       ████████████████████████                         │
+│  FLUX Multi-thread:                70.1B       ████████████████████████████████████████████████ │
+│  FLUX GPU CUDA:                     1.0B       ██                                               │
+│  Python ctypes:                     63M        ▏                                                │
+│  CompCert verification:             ~1K        ▏                                                │
+│  SymbiYosys:                       ~100        ▏                                                │
+│                                                                                                │
+│  Safe-TOPS/W                                                                                    │
+│                                                                                                │
+│  FLUX CPU:                         410M        ████████████████████████████████████████████    │
+│  FLUX GPU:                         241M        ████████████████████████████████                │
+│  Hailo-8:                          5.29       ▏                                                │
+│  Mobileye:                          4.99        ▏                                                │
+│  Others:                           0.00        ▏                                                │
+│                                                                                                │
+│                          The constraint is the mother of invention. — Forgemaster              │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Key Details:
+1.  Aligned labels and right-aligned performance values for clean readability
+2.  Proportional bar lengths matching the provided dataset
+3.  Tiny marginal values use the light `▏` block character as requested
+4.  Full Unicode box-drawing borders for a polished, professional look
+5.  Centered title and footer text as specified

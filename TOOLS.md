@@ -15,17 +15,32 @@ I (Forgemaster) am the **orchestrator**. I run on `deepseek-v4-flash` (cheap) an
 1. **OpenCode** (`opencode`) — z.ai GLM models (paid plan), best for complex coding tasks
 2. **Droid Factory** (`droid`) — z.ai GLM models (paid plan), good for autonomous coding missions
 3. **Kimi CLI** (`kimi`) — kimi coding plan (paid plan), good for focused code modules
-4. **DeepSeek v4-chat** — backup coding (fast, ~10s via Aider)
-5. **DeepSeek v4-pro** — backup deep reasoning (background, ~60s+, Aider)
-6. **Claude Code** — architecture docs, long-form planning (limited credits, reserve)
+4. **Seed-2.0-mini** (DeepInfra) — PRIMARY FAILBACK. Cheap, fast, surprisingly good at code. Use when z.ai/kimi/claude hit limits.
+5. **Seed-2.0-code** (DeepInfra) — Good for focused code generation tasks
+6. **DeepSeek v4-chat** — backup coding (fast, ~10s via Aider)
+7. **DeepSeek v4-pro** — backup deep reasoning (background, ~60s+, Aider)
+8. **Claude Code** — architecture docs, long-form planning (limited credits, reserve)
 
 ## One-Liners
 - OpenCode: `opencode run "prompt" --cwd /path` (interactive) or via ACP
 - Droid: `droid exec "prompt" --auto high --skip-permissions-unsafe --cwd /path`
 - Kimi: `kimi -p "prompt" --quiet -y --work-dir /path`
+- Seed-2.0-mini: `curl -s https://api.deepinfra.com/v1/openai/chat/completions -H "Authorization: Bearer $DEEPINFRA_KEY" -d '{"model":"ByteDance/Seed-2.0-mini",...}'` — PRIMARY FAILBACK
+- Seed-2.0-code: Same endpoint, model `ByteDance/Seed-2.0-code`
 - DeepSeek code: `deepseek-code "prompt" --file file.py --work-dir /path`
 - DeepSeek reason: `deepseek-reason "prompt" --file file.py --work-dir /path`
 - Claude: `claude --print --permission-mode bypassPermissions`
+
+## Seed-2.0-mini Failback Protocol
+When z.ai (GLM-5.1) or other providers hit rate limits:
+1. Switch to Seed-2.0-mini via DeepInfra API
+2. Use for: code generation, file writing, research, documentation, creative content
+3. Model ID: `ByteDance/Seed-2.0-mini` (general) or `ByteDance/Seed-2.0-code` (code-focused)
+4. Endpoint: `https://api.deepinfra.com/v1/openai/chat/completions`
+5. Key: `~/.openclaw/workspace/.credentials/deepinfra-api-key.txt`
+6. Cost: Very cheap (~$0.01-0.05/query)
+7. Quality: Surprisingly good — builds working code, docs, configs
+8. Use in subagents: Pass DEEPINFRA_KEY env var to spawned agents
 
 ## API Keys
 - **z.ai:** `e6b82a81a8f9411789054b4d94100b9b.SXpqxL0iG5exA9kt`
