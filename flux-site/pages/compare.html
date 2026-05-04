@@ -1,0 +1,154 @@
+```html
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formal Verification Tools Comparison | Cocapn AI</title>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                            400: '#94a3b8',
+                            300: '#cbd5e1',
+                            100: '#f1f5f9',
+                        },
+                        blue: {
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .table-sticky {
+                position: sticky;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen">
+    <!-- Header Navigation -->
+    <header class="border-b border-slate-800 sticky top-0 bg-slate-900/95 backdrop-blur-sm z-50">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-blue-400 flex items-center gap-2">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.02z"></path>
+                </svg>
+                Cocapn AI
+            </a>
+            <nav class="hidden md:flex gap-6">
+                <a href="/" class="hover:text-blue-400 transition-colors">Home</a>
+                <a href="/products" class="hover:text-blue-400 transition-colors">Products</a>
+                <a href="/compare" class="hover:text-blue-400 transition-colors font-semibold text-blue-400">Compare</a>
+                <a href="/docs" class="hover:text-blue-400 transition-colors">Documentation</a>
+                <a href="/contact" class="hover:text-blue-400 transition-colors">Contact</a>
+            </nav>
+            <button class="md:hidden text-slate-100">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- Page Hero -->
+        <section class="mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-center">Formal Verification Tool Comparison</h1>
+            <p class="text-lg text-slate-300 text-center max-w-4xl mx-auto">
+                Compare leading safety-critical code verification tools: FLUX, CompCert, Ada/SPARK, Runtime Assertions, and Manual Review. 
+                Find the right solution for your DO-254, aerospace, or embedded project with detailed breakdowns of key capabilities and costs.
+            </p>
+        </section>
+
+        <!-- Use Case Matchmaker -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center">Which Tool is Right for Your Project?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div class="bg-slate-800 p-5 rounded-lg border border-slate-700 hover:border-blue-500 transition-all">
+                    <h3 class="font-semibold text-xl mb-2 text-blue-400">FLUX</h3>
+                    <p class="text-slate-300">Ideal for full-stack safety-critical systems, aerospace, and DO-254 compliant projects. Best for teams needing end-to-end verification from spec to hardware.</p>
+                </div>
+                <div class="bg-slate-800 p-5 rounded-lg border border-slate-700 hover:border-blue-500 transition-all">
+                    <h3 class="font-semibold text-xl mb-2 text-blue-400">CompCert</h3>
+                    <p class="text-slate-300">Perfect for C code compiler correctness. Great for teams already using standard C toolchains and needing verified binary outputs.</p>
+                </div>
+                <div class="bg-slate-800 p-5 rounded-lg border border-slate-700 hover:border-blue-500 transition-all">
+                    <h3 class="font-semibold text-xl mb-2 text-blue-400">Ada/SPARK</h3>
+                    <p class="text-slate-300">Best for Ada-based embedded systems, especially hard real-time applications with strict safety requirements.</p>
+                </div>
+                <div class="bg-slate-800 p-5 rounded-lg border border-slate-700 hover:border-blue-500 transition-all">
+                    <h3 class="font-semibold text-xl mb-2 text-blue-400">Runtime Assertions</h3>
+                    <p class="text-slate-300">Budget-friendly option for local safety checks. Great for teams needing quick validation of critical code paths without full formal verification.</p>
+                </div>
+                <div class="bg-slate-800 p-5 rounded-lg border border-slate-700 hover:border-blue-500 transition-all">
+                    <h3 class="font-semibold text-xl mb-2 text-blue-400">Manual Review</h3>
+                    <p class="text-slate-300">Only viable for small, high-impact codebases. Best for teams with limited tooling budgets and experienced embedded engineers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Overview Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">Detailed Tool Capabilities</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-400">FLUX by Cocapn AI</h3>
+                    <p class="text-slate-300 mb-3">FLUX is a modern full-stack formal verification tool designed specifically for safety-critical embedded and aerospace systems. It supports end-to-end verification from formal specifications down to compiled binary and hardware integration, with pre-built DO-254 compliance tooling.</p>
+                    <p class="text-slate-300">FLUX automates proof generation using industry-leading SMT solvers and interactive proof assistants, reducing manual verification effort by up to 80% compared to traditional manual review.</p>
+                </div>
+                <div class="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-400">CompCert</h3>
+                    <p class="text-slate-300 mb-3">Developed by INRIA, CompCert is a formally verified C compiler that provides machine-checked proofs of compiler correctness for ISO C code. It guarantees that the compiled binary exactly matches the source code semantics.</p>
+                    <p class="text-slate-300">Unlike full-stack verification tools, CompCert only validates compiler behavior and does not perform source code safety property checks or hardware integration validation.</p>
+                </div>
+                <div class="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-400">Ada/SPARK</h3>
+                    <p class="text-slate-300 mb-3">SPARK is a formally defined subset of the Ada programming language designed for safety-critical systems. It uses contract-based design with pre/post conditions, invariants, and data flow analysis to formally verify code behavior.</p>
+                    <p class="text-slate-300">SPARK includes a dedicated toolchain for formal proof, with support for hard real-time systems via the Ravenscar profile and pre-built DO-178C/DO-254 compliance documentation.</p>
+                </div>
+                <div class="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-400">Runtime Assertions</h3>
+                    <p class="text-slate-300 mb-3">Runtime assertions are lightweight checks added to source code that validate safety properties at execution time. They are supported across all major programming languages including C, C++, Rust, and Ada.</p>
+                    <p class="text-slate-300">While assertions provide immediate feedback during testing and deployment, they do not offer formal guarantees for code paths that are not executed or where assertions are disabled.</p>
+                </div>
+                <div class="bg-slate-800/50 p-6 rounded-lg border border-slate-700 md:col-span-2">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-400">Manual Code Review</h3>
+                    <p class="text-slate-300 mb-3">Manual code review involves human engineers examining source code to identify safety violations, bugs, and non-compliance with project requirements. It is the traditional verification method used before formal verification tools became widely available.</p>
+                    <p class="text-slate-300">Manual review is highly subjective and depends entirely on the expertise and thoroughness of the reviewing team. It is also extremely time-consuming, with typical review rates of 500-1000 lines of code per engineer per day.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Table -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">Full Feature Comparison</h2>
+            <div class="overflow-x-auto rounded-lg border border-slate-700">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800">
+                            <th class="border border
