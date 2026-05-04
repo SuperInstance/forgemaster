@@ -1,0 +1,158 @@
+### 1. Surgical Robot Grasper Force Limit
+```guard
+CONSTRAINT SurgicalGraspForceLimit {
+  WHEN robot_mode == ACTIVE_GRASPING
+  ASSERT (current_end_effector_force >= 0.0 N AND current_end_effector_force <= 10.0 N)
+  RANGE safe_force: 0.0 N TO 10.0 N
+  TEMPORAL ALWAYS
+  PRIORITY HIGH
+  HAZARD "Tissue rupture or patient injury from excessive grasp force"
+  TRIGGER force_reduction WHEN current_end_effector_force > 10.0 N
+}
+```
+Description: Enforces a 0-10N force range for a minimally invasive surgical robot’s end effector during active tissue grasping. The high-priority, continuous constraint ensures grasp force never exceeds safe clinical limits, with automatic force reduction triggered if thresholds are breached to prevent patient harm.
+
+---
+
+### 2. Autonomous Emergency Braking Safe Distance
+```guard
+CONSTRAINT AEBStoppingDistance {
+  WHEN autonomous_driving_active AND forward_collision_imminent
+  ASSERT (available_stopping_distance >= calculate_required_stop_distance(vehicle_speed, road_friction_coefficient))
+  RANGE valid_stopping_distance: 0.0 m TO INFINITY
+  TEMPORAL CONTINUOUSLY
+  PRIORITY CRITICAL
+  HAZARD "Rear-end collision with stationary or moving forward obstacles"
+  TRIGGER full_emergency_brake WHEN available_stopping_distance < required_stop_distance
+}
+```
+Description: Dynamically calculates and enforces minimum safe stopping distance for an SAE Level 3+ autonomous passenger vehicle, based on current speed and road surface friction. The critical-priority constraint overrides all non-safety driving commands to trigger emergency braking immediately if stopping distance is insufficient.
+
+---
+
+### 3. Satellite Debris Proximity Threshold
+```guard
+CONSTRAINT OrbitalProximityLimit {
+  WHEN satellite_operational_in_low_earth_orbit
+  ASSERT (relative_distance_to_tracked_debris >= 100.0 m)
+  RANGE safe_proximity: 100.0 m TO INFINITY
+  TEMPORAL CONTINUOUSLY
+  PRIORITY HIGHEST
+  HAZARD "In-orbit collision with debris or manned spacecraft, creating hazardous orbital waste"
+  TRIGGER evasive_maneuver WHEN relative_distance_to_debris < 100.0 m
+}
+```
+Description: Monitors real-time relative distance between a commercial LEO satellite and tracked orbital debris, enforcing a 100m minimum safe proximity. The highest-priority constraint triggers automated evasive burns immediately if thresholds are breached to prevent catastrophic in-orbit collisions.
+
+---
+
+### 4. Nuclear Reactor Core Coolant Flow
+```guard
+CONSTRAINT ReactorCoolantFlowRate {
+  WHEN nuclear_reactor_power_generation_active
+  ASSERT (coolant_flow_rate >= 1500 L/min AND coolant_flow_rate <= 2000 L/min)
+  RANGE operational_flow: 1500 L/min TO 2000 L/min
+  TEMPORAL STEADY_STATE AND TRANSIENT
+  PRIORITY CRITICAL
+  HAZARD "Core meltdown from insufficient or excessive coolant flow"
+  TRIGGER emergency_shutdown WHEN coolant_flow_rate < 1400 L/min OR coolant_flow_rate > 2100 L/min
+}
+```
+Description: Enforces a valid flow rate range for a pressurized water nuclear reactor’s primary coolant loop, active during both steady-state operation and transient load changes. The critical-priority constraint triggers an immediate reactor shutdown if flow drifts outside safe bounds to prevent catastrophic core damage.
+
+---
+
+### 5. Civil Drone Geofence Compliance
+```guard
+CONSTRAINT DroneGeofenceBoundary {
+  WHEN drone_in_flight_and_registered
+  ASSERT (current_gps_position WITHIN preapproved_airspace_polygon)
+  RANGE allowed_airspace: WKT(POLYGON((-122.38 37.61, -122.38 37.65, -122.33 37.65, -122.33 37.61, -122.38 37.61)))
+  TEMPORAL CONTINUOUSLY
+  PRIORITY HIGH
+  HAZARD "Airspace violation leading to collision with manned commercial aircraft"
+  TRIGGER controlled_auto_landing WHEN current_gps_position OUTSIDE allowed_polygon
+}
+```
+Description: Restricts a consumer drone to a preapproved geographic polygon (excluding nearby airport no-fly zones) using GPS position data. The high-priority continuous constraint triggers a controlled automatic landing if the drone drifts outside allowed airspace to prevent federal airspace infringements.
+
+---
+
+### 6. Train Speed Adapted to Track Grade
+```guard
+CONSTRAINT TrainTrackSpeedLimit {
+  WHEN freight_or_passenger_train_in_motion
+  ASSERT (current_train_speed <= calculate_max_safe_speed(track_grade, total_train_weight))
+  RANGE track_speed_limit: 0 km/h TO 160 km/h
+  TEMPORAL CONTINUOUSLY
+  PRIORITY CRITICAL
+  HAZARD "Derailment or brake failure from excessive speed on steep track grades"
+  TRIGGER emergency_brake WHEN current_train_speed > (track_speed_limit * 1.05)
+}
+```
+Description: Dynamically adjusts maximum allowable train speed based on track gradient and total train weight, preventing excessive centrifugal force on curves and brake fade on downgrades. A 5% over-speed threshold triggers emergency braking to halt the train before derailment occurs.
+
+---
+
+### 7. Implantable Pacemaker Rate Bounds
+```guard
+CONSTRAINT PacemakerPacingRate {
+  WHEN pacemaker_implanted AND patient_in_resting_or_exercising_state
+  ASSERT (pacing_rate >= 40 BPM AND pacing_rate <= 120 BPM)
+  RANGE therapeutic_rate: 40 BPM TO 120 BPM
+  TEMPORAL CONTINUOUSLY
+  PRIORITY HIGHEST
+  HAZARD "Sudden cardiac arrest from abnormally fast or slow pacing rates"
+  TRIGGER rate_adjustment WHEN pacing_rate OUTSIDE 40-120 BPM
+}
+```
+Description: Enforces a therapeutic pacing rate range for an implantable cardiac pacemaker, ensuring the heart beats within a safe 40-120 BPM window for both resting and exercising patients. The highest-priority constraint immediately adjusts pacing output or alerts clinical staff if rates drift outside safe bounds.
+
+---
+
+### 8. Industrial Robot Arm Spherical Workspace Limit
+```guard
+CONSTRAINT RobotArmWorkspaceBoundary {
+  WHEN industrial_robot_arm_active
+  ASSERT (distance_from_arm_base_to_end_effector <= 2.0 m)
+  RANGE workspace_radius: 0.0 m TO 2.0 m
+  TEMPORAL CONTINUOUSLY
+  PRIORITY HIGH
+  HAZARD "Collision with factory machinery or traumatic injury to nearby personnel"
+  TRIGGER immediate_arm_stop WHEN distance_from_arm_base_to_end_effector > 2.1 m
+}
+```
+Description: Restricts a 6-axis industrial robot arm’s end effector to a 2m spherical workspace around its base, preventing movement beyond preapproved operating zones. A 0.1m overshoot threshold triggers an immediate arm stop to mitigate collision risks with equipment or human workers.
+
+---
+
+### 9. Electric Vehicle Battery Thermal Runaway Mitigation
+```guard
+CONSTRAINT EVBatteryThermalSafety {
+  WHEN battery_pack_charging OR discharging
+  ASSERT (max_cell_temperature <= 60.0 C AND cell_voltage_difference <= 0.2 V)
+  RANGE max_safe_temp: 0.0 C TO 60.0 C
+  TEMPORAL EVERY 100 MS
+  PRIORITY CRITICAL
+  HAZARD "Thermal runaway and battery fire from cell overheating or imbalance"
+  TRIGGER active_cooling AND current_limiting WHEN max_cell_temperature > 55.0 C
+  TRIGGER full_battery_disconnect WHEN max_cell_temperature > 60.0 C
+}
+```
+Description: Monitors lithium-ion EV battery pack health every 100ms, enforcing maximum cell temperature and voltage difference limits to prevent thermal cascade. The critical-priority constraint triggers active cooling, current limiting, or full battery disconnection at predefined thresholds to avoid fires or catastrophic failure.
+
+---
+
+### 10. Manned Submarine Depth Pressure Limit
+```guard
+CONSTRAINT SubmarineDepthPressureLimit {
+  WHEN manned_submarine_submerged
+  ASSERT (current_submerged_depth <= 300.0 m)
+  RANGE operational_depth: 0.0 m TO 300.0 m
+  TEMPORAL CONTINUOUSLY
+  PRIORITY HIGHEST
+  HAZARD "Hull collapse from excessive hydrostatic pressure at extreme depth"
+  TRIGGER emergency_climb WHEN current_submerged_depth > 290.0 m
+}
+```
+Description: Enforces a maximum 300m operating depth for a manned research submarine, preventing hull failure from hydrostatic pressure. The highest-priority constraint triggers an emergency climb if depth approaches the safe limit, ensuring the submarine returns to a safe operating zone before catastrophic hull damage occurs.
