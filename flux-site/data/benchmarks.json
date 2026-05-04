@@ -1,0 +1,22 @@
+{
+  "last_updated": "2026-05-04",
+  "source": "FLUX benchmark suite",
+  "benchmarks": [
+    {"name": "FLUX CPU AVX-512 (1T)", "category": "cpu", "target": "x86-64", "checks_per_sec": 22300000000, "power_watts": 45, "safe_tops_w": 410000000, "certified": true},
+    {"name": "FLUX CPU Branchless", "category": "cpu", "target": "x86-64", "checks_per_sec": 11500000000, "power_watts": 45, "safe_tops_w": 210000000, "certified": true},
+    {"name": "FLUX CPU 12T Multiplexed", "category": "cpu", "target": "x86-64", "checks_per_sec": 70100000000, "power_watts": 65, "safe_tops_w": 640000000, "certified": true},
+    {"name": "FLUX CPU Cache-Aligned", "category": "cpu", "target": "x86-64", "checks_per_sec": 22300000000, "power_watts": 45, "safe_tops_w": 410000000, "certified": true},
+    {"name": "FLUX CPU JIT Multi-Constraint", "category": "cpu", "target": "x86-64", "checks_per_sec": 35900000000, "power_watts": 50, "safe_tops_w": 530000000, "certified": true},
+    {"name": "FLUX GPU CUDA Shared-Cache", "category": "gpu", "target": "RTX 4050", "checks_per_sec": 1020000000, "power_watts": 80, "safe_tops_w": 241000000, "certified": true},
+    {"name": "FLUX GPU Warp-Vote", "category": "gpu", "target": "RTX 4050", "checks_per_sec": 432000000, "power_watts": 80, "safe_tops_w": 102000000, "certified": true},
+    {"name": "FLUX GPU Tensor Cores", "category": "gpu", "target": "RTX 4050", "checks_per_sec": 30000000, "power_watts": 80, "safe_tops_w": 7000000, "certified": true},
+    {"name": "FLUX FPGA Artix-7", "category": "fpga", "target": "Xilinx A7", "checks_per_sec": 500000000, "power_watts": 0.12, "safe_tops_w": 5000000000, "certified": true},
+    {"name": "Python ctypes", "category": "cpu", "target": "x86-64", "checks_per_sec": 63000000, "power_watts": 45, "safe_tops_w": 0, "certified": false},
+    {"name": "CompCert verification", "category": "cpu", "target": "x86-64", "checks_per_sec": 1000, "power_watts": 45, "safe_tops_w": 0, "certified": false},
+    {"name": "SymbiYosys", "category": "fpga", "target": "Verilog", "checks_per_sec": 100, "power_watts": 45, "safe_tops_w": 0, "certified": false},
+    {"name": "Hailo-8", "category": "accelerator", "target": "Hailo-8", "checks_per_sec": 0, "power_watts": 8, "safe_tops_w": 5.29, "certified": false},
+    {"name": "Mobileye EyeQ6", "category": "accelerator", "target": "EyeQ6", "checks_per_sec": 0, "power_watts": 10, "safe_tops_w": 4.99, "certified": false},
+    {"name": "NVIDIA Orin", "category": "accelerator", "target": "Orin", "checks_per_sec": 0, "power_watts": 60, "safe_tops_w": 0, "certified": false},
+    {"name": "Qualcomm SA8295", "category": "accelerator", "target": "SA8295", "checks_per_sec": 0, "power_watts": 40, "safe_tops_w": 0, "certified": false}
+  ]
+}
