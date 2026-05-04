@@ -1,0 +1,163 @@
+[
+  {
+    "id": 0,
+    "name": "temperature",
+    "type": "range",
+    "params": {
+      "lo": 0,
+      "hi": 100
+    },
+    "features": {
+      "is_range": true,
+      "is_domain": false,
+      "is_exact": false,
+      "is_low_zero": true,
+      "is_8bit": true,
+      "is_16bit": true,
+      "is_32bit": false,
+      "magnitude_small": false,
+      "magnitude_medium": true,
+      "magnitude_large": false,
+      "is_safety": false,
+      "is_performance": false
+    }
+  },
+  {
+    "id": 1,
+    "name": "altitude",
+    "type": "range",
+    "params": {
+      "lo": 0,
+      "hi": 45000
+    },
+    "features": {
+      "is_range": true,
+      "is_domain": false,
+      "is_exact": false,
+      "is_low_zero": true,
+      "is_8bit": false,
+      "is_16bit": true,
+      "is_32bit": false,
+      "magnitude_small": false,
+      "magnitude_medium": false,
+      "magnitude_large": true,
+      "is_safety": false,
+      "is_performance": false
+    }
+  },
+  {
+    "id": 2,
+    "name": "airspeed",
+    "type": "range",
+    "params": {
+      "lo": 60,
+      "hi": 350
+    },
+    "features": {
+      "is_range": true,
+      "is_domain": false,
+      "is_exact": false,
+      "is_low_zero": false,
+      "is_8bit": false,
+      "is_16bit": true,
+      "is_32bit": false,
+      "magnitude_small": false,
+      "magnitude_medium": true,
+      "magnitude_large": false,
+      "is_safety": false,
+      "is_performance": true
+    }
+  },
+  {
+    "id": 3,
+    "name": "fuel_flow",
+    "type": "range",
+    "params": {
+      "lo": 100,
+      "hi": 2000
+    },
+    "features": {
+      "is_range": true,
+      "is_domain": false,
+      "is_exact": false,
+      "is_low_zero": false,
+      "is_8bit": false,
+      "is_16bit": true,
+      "is_32bit": false,
+      "magnitude_small": false,
+      "magnitude_medium": true,
+      "magnitude_large": false,
+      "is_safety": false,
+      "is_performance": false
+    }
+  },
+  {
+    "id": 4,
+    "name": "oil_temp",
+    "type": "range",
+    "params": {
+      "lo": 40,
+      "hi": 120
+    },
+    "features": {
+      "is_range": true,
+      "is_domain": false,
+      "is_exact": false,
+      "is_low_zero": false,
+      "is_8bit": true,
+      "is_16bit": true,
+      "is_32bit": false,
+      "magnitude_small": false,
+      "magnitude_medium": true,
+      "magnitude_large": false,
+      "is_safety": false,
+      "is_performance": false
+    }
+  },
+  {
+    "id": 5,
+    "name": "battery_v",
+    "type": "range",
+    "params": {
+      "lo": 22,
+      "hi": 29
+    },
+    "features": {
+      "is_range": true,
+      "is_domain": false,
+      "is_exact": false,
+      "is_low_zero": false,
+      "is_8bit": true,
+      "is_16bit": true,
+      "is_32bit": false,
+      "magnitude_small": true,
+      "magnitude_medium": false,
+      "magnitude_large": false,
+      "is_safety": false,
+      "is_performance": false
+    }
+  },
+  {
+    "id": 6,
+    "name": "cabin_pressure",
+    "type": "range",
+    "params": {
+      "lo": 10,
+      "hi": 15
+    },
+    "features": {
+      "is_range": true,
+      "is_domain": false,
+      "is_exact": false,
+      "is_low_zero": false,
+      "is_8bit": true,
+      "is_16bit": true,
+      "is_32bit": false,
+      "magnitude_small": true,
+      "magnitude_medium": false,
+      "magnitude_large": false,
+      "is_safety": false,
+      "is_performance": false
+    }
+  }
+]
