@@ -189,6 +189,41 @@ __global__ void flux_vm_batch_kernel(
                 pc += 1;
                 break;
 
+            case 0x26: // BOOL_AND
+                if (sp >= 2) {
+                    int32_t b = stack[--sp];
+                    int32_t a = stack[--sp];
+                    stack[sp++] = (a && b) ? 1 : 0;
+                } else { fault = 1; }
+                pc += 1;
+                break;
+
+            case 0x27: // BOOL_OR
+                if (sp >= 2) {
+                    int32_t b = stack[--sp];
+                    int32_t a = stack[--sp];
+                    stack[sp++] = (a || b) ? 1 : 0;
+                } else { fault = 1; }
+                pc += 1;
+                break;
+
+            case 0x28: // DUP
+                if (sp >= 1 && sp < 64) {
+                    int32_t val = stack[sp - 1];
+                    stack[sp++] = val;
+                } else { fault = 1; }
+                pc += 1;
+                break;
+
+            case 0x29: // SWAP
+                if (sp >= 2) {
+                    int32_t tmp = stack[sp - 1];
+                    stack[sp - 1] = stack[sp - 2];
+                    stack[sp - 2] = tmp;
+                } else { fault = 1; }
+                pc += 1;
+                break;
+
             default:
                 pc += 1; // Unknown = NOP
                 break;
