@@ -1,0 +1,30 @@
+// FLUX HDC Knowledge Base — 7 concepts
+// Each entry: 128-bit folded hypervector as 2 x 64-bit hex words
+
+// temperature
+64'hB6DA2C1216A78288,  // word 0
+64'hC89A365E848690AF,  // word 1
+
+// altitude
+64'h0E0FC328D022D775,  // word 0
+64'h89157248CEEF4F56,  // word 1
+
+// airspeed
+64'h665FCE2DFC246A3D,  // word 0
+64'h4FEC3CEAD1826A78,  // word 1
+
+// fuel_flow
+64'h6562F9F8D1A43B7F,  // word 0
+64'h5C2B3293E9A94C7E,  // word 1
+
+// oil_temp
+64'hBBA44B974D36BDFC,  // word 0
+64'hB1F829B0F6E5A053,  // word 1
+
+// battery_v
+64'hC10CAC1AAAA0B186,  // word 0
+64'h96A99FDD81F2380B,  // word 1
+
+// cabin_pressure
+64'h5BEBB690DCA5145E,  // word 0
+64'h322D3F38C5D01CD5,  // word 1
