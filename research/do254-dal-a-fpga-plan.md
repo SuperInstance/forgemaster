@@ -1,72 +1,84 @@
-# DO-254 Level A Certification Plan for Constraint Checker IP Core (CC-IP)
-**Revision 1.0 | Date: 2024-05-20 | Approved By: Design Assurance Authority (DAA)**
----
-## Core Scope & Compliance
-This plan aligns with **DO-254 Edition 10, Section 11 (Certification Plan)** and FAA Order 8110.105/EASA CS-25.1309 for DAL A (highest assurance level) hardware. The CC-IP is a zero-latency combinational constraint checker targeting the Xilinx UltraScale+ XCZU7EV-FFVA1156-2E, with specified specs: 44,243 LUTs, 2.58W maximum power, and zero combinational latency for constraint conflict evaluation.
+# DO-254/ED-80 Design Assurance Level A FPGA Constraint Checker IP Certification Plan
+**Scope**: 44K LUT Xilinx UltraScale+ IP that validates FPGA timing/physical constraints (.xdc/.sdc) for avionics systems, aligned to DO-254 Section 11 (Program Planning) and all mandatory DAL A hardware assurance requirements.
 
 ---
 
-## 1. Planning Phase Deliverables (DO-254 §11.4.1)
-Mandatory baseline planning artifacts for DAL A compliance:
-| Deliverable | Purpose |
-|-------------|---------|
-| **Hardware Requirements Specification (HRS)** | Formal, testable requirements: e.g., ≤45k LUT usage, ≤2.6W power, zero latency, detection of 12 constraint conflict types (clock domain crossings, I/O standard clashes, timing exception errors) |
-| **Hardware Design Description (HDD)** | Architecture block diagram, RTL hierarchy, synthesis/implementation flow, and floorplan for XCZU7EV |
-| **Verification Plan (VP)** | Defines simulation, formal verification, and CEH test activities |
-| **Tool Qualification Plan (TQP)** | Qualification activities for Xilinx Vivado 2023.1 toolchain |
-| **Configuration Management Plan (CMP)** | Controls versioning of all hardware deliverables |
-| **Risk Management Plan (RMP)** | Identifies DAL A-specific risks (tool bugs, timing closure gaps) and mitigations |
-| **Failure Mode & Effects Analysis (FMEA)** | Maps CC-IP failure modes to system-level impacts for DAL A hazard mitigation |
-| **Traceability Matrix** | Links every HRS requirement to RTL lines, test cases, and certification evidence |
+## 1. Planning Deliverables (DO-254 §11.3)
+Version-controlled mandatory artifacts:
+- Core Certification Plan (this document)
+- Hardware Requirements Specification (HRS): Ties 100% of IP functionality to safety goals (100% invalid constraint detection, zero critical false positives)
+- Hardware Design Description (HDD): UltraScale+ resource breakdown (44K LUTs, 120k FFs, 8 DSP slices), clock/reset domain diagram
+- Verification Plan (VP): DAL A-aligned test strategy (unit, integration, formal, STA)
+- Tool Qualification Plan (TQP): Scope for Vivado synthesis/STA/simulation
+- Configuration Management Plan (CMP): Change control and artifact versioning
+- Quality Assurance Plan (QAP): Independent audits and traceability validation
+- Structural Coverage Plan: Defines MC/DC and state transition coverage requirements
 
 ---
 
-## 2. Hardware Design Standards & Coding Guidelines (DO-254 §11.4.2)
-Mandatory rules for deterministic, DAL A-compliant RTL (zero-latency combinational logic only):
-### 2.1 Language Rules
-- Exclusively use VHDL-2008; no SystemVerilog, Verilog-2001, or implicit nets
-- All variables and signals must be explicitly declared with full type definitions
-### 2.2 Zero-Latency Constraints
-- No sequential logic: no flip-flops, clocks, resets, or inferred latches
-- All `case` statements must be exhaustive; include a default error-triggering case
-- No combinational loops: all signal assignments must have a single, non-feedback source
-### 2.3 Xilinx UltraScale+ Specific Rules
-- Use Xilinx UG954 (HDL Libraries Guide) primitives only when required; prefer synthesized constructs for portability
-- Floorplan CC-IP to a dedicated 10x10 CLB region on XCZU7EV to minimize routing delays
-- Limit logic to LUTs/MUXes to stay within the 44,243 LUT budget; avoid DSP blocks unless absolutely necessary
-### 2.4 Naming & Traceability
-- Descriptive, hierarchical signal names (e.g., `top_ccip.constraint_clk_conflict`)
-- Every RTL line includes a comment linking to its unique HRS requirement ID
-- Use Vivado RTL Analysis and Polarion ALM to automate traceability reporting
+## 2. Coding Standards (Aligned to DO-254 §10.2 & Xilinx UltraScale+ Guidelines)
+- Language: VHDL-2019 strict subset (no unbounded logic, implicit signals, or dynamic scheduling)
+- Explicit synchronous resets only; documented clock enable domains
+- No direct low-level primitive instantiation: Use verified Xilinx UltraScale+ wrapper IP
+- Descriptive naming conventions (e.g., `clk_sys_100mhz`, `err_flag_critical`)
+- 1:1 traceability between every RTL line and HRS requirements
+- Mandatory peer reviews with sign-off before integration
+- Module headers with purpose, I/O, traceability, and timing constraints
 
 ---
 
-## 3. Element-Level Verification (Simulation + Formal) (DO-254 §11.7)
-### 3.1 Core Objectives
-Prove the CC-IP implements all HRS requirements, has no unintended logic, and meets zero-latency specs.
-### 3.2 Simulation Testing
-- **Tool**: Siemens Questa Advanced Simulator 2023.4
-- **Testbenches**: Directed testbenches for every HRS requirement; constrained random testbenches for valid/invalid constraint sets
-- **Latency Validation**: Verify output changes within 0 simulation time units of input updates using zero-delay timing models
-### 3.3 Formal Verification
-- **Tools**: Siemens Questa Formal 2023.4 + Vivado Formal 2023.1
-- **Activities**:
-  1. Equivalence checking between RTL and a golden VHDL-2008 reference model
-  2. Prove no inferred latches, combinational loops, or uninitialized signals
-  3. Property-based verification: Enforce requirements such as `assert (valid_constraints = '1') -> (pass = '1')`
-  4. Validate all unreachable code is intentional and documented
-### 3.4 Verification Deliverable
-A formal report linking all test cases, coverage results, and formal proofs to HRS requirements.
+## 3. Element Verification (DO-254 §10.4)
+- **Unit Testing**: Each sub-module (constraint parser, rule engine, error logger, AXI4-Lite interface) verified via Vivado Simulator testbenches. 100% structural coverage collected per run.
+- **Formal Verification**: Synopsys Formal Pro proves the rule engine detects 100% invalid constraints and validates equivalence between formal model and RTL.
+- **Integration Testing**: Validated against 100+ test XDC files (mix of valid/invalid, critical/non-critical constraints)
+- **Traceability Matrix**: 1:1:1 link between HRS requirements, RTL modules, and test cases (mandatory for DAL A)
 
 ---
 
-## 4. Certification Engineering Hardware (CEH) Process (DO-254 §11.7.4)
-### 4.1 CEH Platform
-Xilinx ZCU111 Evaluation Board (XCZU7EV-FFVA1156-2I) with a custom test harness integrating the CC-IP.
-### 4.2 Test Setup
-- JTAG for bitstream loading and output signal readback
-- PCIe for automated constraint vector input and result capture
-- Oscilloscope to validate zero-latency output response
+## 4. CEH Process (DO-254 §12)
+- Centralized Certification Evidence Handbook (CEH) organized per DO-254 Appendix A, containing all signed-off artifacts
+- Quarterly independent QA audits of traceability, coverage, and test reports
+- Final CEH submission with FAA/EASA Form 8110-3, including vendor tool compliance statements and audit responses
+
+---
+
+## 5. Tool Qualification (DO-254 §10.5)
+- **Qualified Suite**: Xilinx Vivado ML 2024.1 (uses Xilinx’s DO-254-compliant UltraScale+ support kit)
+- **Qualification Scope**:
+  1.  RTL Synthesis: 100% equivalence check (Vivado LEC) between RTL and synthesized netlist
+  2.  STA: Correlate Vivado results against Mentor Questa STA for critical paths
+  3.  Simulation: Validate Vivado Simulator output against ModelSim for all testbenches
+- **Evidence**: Equivalence reports, correlation logs, tool version documentation, and signed vendor compliance statement
+
+---
+
+## 6. Structural Coverage (DO-254 §10.4.2)
+- DAL A Mandatory Metrics: 100% statement, branch, and Modified Condition/Decision Coverage (MC/DC) for combinational logic; 100% state transition coverage for the constraint parsing FSM
+- Coverage Collection: Vivado Simulator + Siemens Coverage Analyzer post-processing
+- Exceptions: Only documented in HRS with QA approval; no uncovered logic permitted
+- Signed coverage reports included in the CEH
+
+---
+
+## 7. Timing Analysis (DO-254 §10.6)
+- **Tool**: Qualified Vivado Static Timing Analyzer
+- **Scope**: All critical paths (AXI4-Lite interface, constraint parsing, error flag output)
+- **Corners**: Slow-slow, fast-fast, slow-fast, fast-fast process corners; operating range (-55°C to +125°C, 0.95V–1.05V)
+- **Timing Margin**: 10% buffer for avionics environmental conditions
+- Signed timing reports traceable to HRS timing requirements included in the CEH
+
+---
+
+## 8. Effort Estimate (Total ~180 Person-Weeks, 20% Contingency)
+| Phase | Person-Weeks |
+|-------|--------------|
+| Planning & Requirements | 25 |
+| Design & Coding | 40 |
+| Verification (Unit/Formal/Integration) | 70 |
+| Tool Qualification | 20 |
+| Timing Analysis & Closure | 15 |
+| CEH Compilation & Audit | 10 |
+lidate zero-latency output response
 ### 4.3 CEH Test Activities
 - Repeat all element-level simulation/formal test cases on hardware
 - Validate bitstream integrity and tool implementation correctness
