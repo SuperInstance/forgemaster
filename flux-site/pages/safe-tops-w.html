@@ -1,0 +1,101 @@
+# Dark-Themed Safe-TOPS/W Benchmark Page
+All styling uses inline CSS per requirements, with the specified color palette and monospace font:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe-TOPS/W Benchmark | cocapn.ai</title>
+</head>
+<body style="background-color: #0a0a0f; color: #e0e0e0; font-family: 'Courier New', Courier, monospace; margin: 0; padding: 2rem 1rem; min-height: 100vh; display: flex; flex-direction: column;">
+    <!-- Main Page Header -->
+    <h1 style="color: #00ffcc; text-align: center; margin: 1rem 0 2rem;">Safe-TOPS/W Benchmark Results</h1>
+
+    <!-- Official Project Link -->
+    <p style="text-align: center; margin-bottom: 3rem;">
+        <a href="https://cocapn.ai/safe-tops-w" style="color: #00ffcc; text-decoration: none;">cocapn.ai/safe-tops-w</a>
+    </p>
+
+    <!-- Benchmark Explanation -->
+    <div style="max-width: 800px; margin: 0 auto 3rem; padding: 1.5rem; background-color: #12121d; border-radius: 8px; border: 1px solid #00ffcc;">
+        <h3 style="color: #00ffcc; margin-top: 0;">About Safe-TOPS/W</h3>
+        <p>
+            <span style="color: #ffaa00;">Safe-TOPS/W</span> stands for certified safety operations per watt. 
+            This metric only includes hardware with a formal mathematical safety proof for critical workloads.
+        </p>
+        <p style="margin: 0.75rem 0 0;">
+            Any accelerator without a validated safety proof is rated <span style="color: #ff00ff; font-weight: bold;">0.00</span>,
+            as uncertified hardware cannot guarantee consistent, safe operation for safety-critical applications.
+        </p>
+    </div>
+
+    <!-- Benchmark Data Table -->
+    <table style="width: 100%; max-width: 800px; margin: 0 auto 3rem; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #12121d;">
+                <th style="padding: 1rem; border: 1px solid #00ffcc; color: #ff00ff; text-align: left;">Hardware Accelerator</th>
+                <th style="padding: 1rem; border: 1px solid #00ffcc; color: #ff00ff; text-align: right;">Safe-TOPS/W Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- FLUX Product Lines -->
+            <tr style="border-bottom: 1px solid #00ffcc40;">
+                <td style="padding: 1rem; color: #00ffcc;">FLUX CPU (Ryzen AI 9 AVX-512)</td>
+                <td style="padding: 1rem; text-align: right; color: #ffaa00;">410M</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #00ffcc40;">
+                <td style="padding: 1rem; color: #00ffcc;">FLUX GPU (RTX 4050 CUDA)</td>
+                <td style="padding: 1rem; text-align: right; color: #ffaa00;">241M</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #00ffcc40;">
+                <td style="padding: 1rem; color: #00ffcc;">FLUX FPGA (Artix-7, est)</td>
+                <td style="padding: 1rem; text-align: right; color: #ffaa00;">~500M</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #00ffcc40;">
+                <td style="padding: 1rem; color: #00ffcc;">FLUX ARM (Cortex-R52+, est)</td>
+                <td style="padding: 1rem; text-align: right; color: #ffaa00;">~1B</td>
+            </tr>
+            <!-- Third Party Hardware -->
+            <tr style="border-bottom: 1px solid #00ffcc40;">
+                <td style="padding: 1rem;">Hailo-8</td>
+                <td style="padding: 1rem; text-align: right; color: #ffaa00;">5.29 <span style="color: #ff00ff; font-size: 0.8rem;">(NOT certified)</span></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #00ffcc40;">
+                <td style="padding: 1rem;">Mobileye EyeQ5</td>
+                <td style="padding: 1rem; text-align: right; color: #ffaa00;">4.99 <span style="color: #ff00ff; font-size: 0.8rem;">(NOT constraint-native)</span></td>
+            </tr>
+            <!-- Uncertified Baseline -->
+            <tr>
+                <td style="padding: 1rem; font-weight: bold;">All others (Orin, Tesla FSD, Qualcomm)</td>
+                <td style="padding: 1rem; text-align: right; color: #ff00ff; font-weight: bold; font-size: 1.1rem;">0.00 <span style="color: #cccccc; font-size: 0.8rem;">(no formal safety proof)</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Call to Action -->
+    <div style="text-align: center; margin: 3rem 0;">
+        <a href="https://github.com/cocapn/flux" style="display: inline-block; padding: 1rem 2.5rem; background-color: #00ffcc; color: #0a0a0f; font-weight: bold; text-decoration: none; border-radius: 4px; font-size: 1.2rem;">Build with FLUX</a>
+    </div>
+
+    <!-- Footer -->
+    <footer style="text-align: center; margin-top: auto; padding: 2rem 1rem; color: #00ffcc;">
+        <p>
+            Open Source on 
+            <a href="https://github.com/cocapn/safe-tops-w" style="color: #00ffcc; text-decoration: underline;">GitHub</a> 
+            | Licensed under Apache 2.0
+        </p>
+    </footer>
+</body>
+</html>
+```
+
+## Key Features:
+1.  **Exact color palette**: Dark `#0a0a0f` background, cyan `#00ffcc` accents, magenta `#ff00ff` for warnings/uncertified labels, amber `#ffaa00` for ratings and key terms
+2.  Monospace font across all text as requested
+3.  Fully responsive mobile-friendly layout
+4.  Highlighted FLUX product rows with cyan text to stand out from third-party hardware
+5.  Clear benchmark explanation with formatted callouts for critical metric details
+6.  Official project link, GitHub repository link, and Apache 2.0 license attribution
+7.  Sticky footer that stays anchored to the bottom of the viewport
+8.  Clean, accessible table styling with cyan borders and highlighted header row
