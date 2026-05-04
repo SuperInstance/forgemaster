@@ -1,0 +1,27 @@
+# Flight Envelope Protection
+# Constraints for a general aviation aircraft
+# Author: FLUX Team
+# License: Apache 2.0
+
+@priority(1)
+@safety_level(DAL-A)
+group flight_envelope {
+    constraint altitude in [0, 40000]     # feet
+    constraint airspeed in [60, 600]      # knots
+    constraint bank_angle in [0, 60]      # degrees
+    constraint g_force in [-15, 35]       # -1.5g to 3.5g (×10)
+    constraint vertical_speed in [-2000, 2000]  # ft/min
+    constraint mach_number in [0, 82]     # ×100 (0.00 to 0.82)
+}
+
+group landing_gear {
+    constraint gear_speed_limit in [0, 250]   # knots
+    constraint gear_altitude_limit in [0, 10000]  # feet
+}
+
+group engine {
+    constraint n1_rpm in [0, 105]        # % ×100
+    constraint egt in [0, 950]           # °C
+    constraint fuel_flow in [0, 5000]    # lbs/hr
+    constraint oil_pressure in [30, 100] # PSI
+}

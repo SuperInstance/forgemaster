@@ -1,0 +1,16 @@
+# Temperature Sensor Monitor
+# Constraints for a temperature sensor reading in Celsius
+# Author: FLUX Team
+# License: Apache 2.0
+
+constraint temp in [0, 150]           # Operating range
+constraint temp_warning in [100, 150]  # Warning zone
+constraint temp_critical in [130, 150]  # Critical zone
+
+@priority(1)
+@safety_level(ASIL-B)
+group engine_temps {
+    constraint coolant_temp in [0, 120]
+    constraint oil_temp in [0, 140]
+    constraint exhaust_temp in [0, 900]
+}
