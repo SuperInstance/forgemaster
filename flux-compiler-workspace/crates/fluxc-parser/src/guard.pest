@@ -1,0 +1,77 @@
+// GUARD — PEG Grammar for the Flux Constraint Language
+// Parser generator: pest (https://pest.rs/)
+// Language version: 0.3.0
+
+WHITESPACE   = _{ " " | "\t" | "\r" }
+COMMENT      = _{ "#" ~ (!"\n" ~ ANY)* }
+
+file          = { SOI ~ statement* ~ EOI }
+
+statement     = { constraint | metadata | security_stmt | temporal_stmt }
+
+// ── Constraints ──────────────────────────────────────────────
+
+constraint    = { field ~ constraint_op }
+
+constraint_op = {
+    range_op
+  | domain_op
+  | exact_op
+  | comparison_op
+}
+
+field         = @{ ident ~ ("." ~ ident)* }
+ident         = @{ (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
+
+range_op      = { "IN" ~ range }
+range         =  { number ~ ".." ~ number }
+
+domain_op     = { "IN" ~ domain_set }
+domain_set    =  { "[" ~ string ~ ("," ~ string)* ~ "]" }
+              |  { "[" ~ "]" }
+
+exact_op      = { "IS" ~ string }
+
+comparison_op = { comp_operator ~ number }
+comp_operator = { ">=" | "<=" | "!=" | "==" | ">" | "<" }
+
+// ── Boolean Combinators ─────────────────────────────────────
+
+grouped       = { "(" ~ (constraint | grouped) ~ (combinator ~ (constraint | grouped))* ~ ")" }
+
+combinator    = { "AND" | "OR" }
+negation      = { "NOT" ~ (constraint | grouped) }
+
+// ── Temporal ────────────────────────────────────────────────
+
+temporal_stmt = {
+    constraint ~
+    "FOR" ~ "duration" ~ comp_operator ~ duration_value ~
+    ("WITH" ~ "tolerance" ~ comp_operator ~ duration_value)?
+}
+
+duration_value = @{
+    number ~ ("ms" | "s" | "m" | "h")
+}
+
+// ── Security ────────────────────────────────────────────────
+
+security_stmt = {
+    "SECURITY" ~ security_check
+}
+
+security_check = {
+    "clearance" ~ comp_operator ~ string
+  | field ~ "TRUSTED"
+}
+
+// ── Metadata ────────────────────────────────────────────────
+
+metadata      = { "@" ~ ident ~ string }
+
+// ── Primitives ──────────────────────────────────────────────
+
+string        = @{ "\"" ~ (!("\"") ~ ANY)* ~ "\"" }
+number        = @{
+    "-"? ~ ASCII_DIGIT+ ~ ("." ~ ASCII_DIGIT+)?
+}
