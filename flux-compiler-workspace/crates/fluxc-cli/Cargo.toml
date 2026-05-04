@@ -1,0 +1,20 @@
+[package]
+name = "fluxc-cli"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[[bin]]
+name = "fluxc"
+path = "src/main.rs"
+
+[dependencies]
+fluxc-parser = { path = "../fluxc-parser" }
+fluxc-ast = { path = "../fluxc-ast" }
+fluxc-ir = { path = "../fluxc-ir" }
+fluxc-optimize = { path = "../fluxc-optimize" }
+fluxc-codegen = { path = "../fluxc-codegen" }
+fluxc-verify = { path = "../fluxc-verify" }
+clap.workspace = true
+thiserror.workspace = true

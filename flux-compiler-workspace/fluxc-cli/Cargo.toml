@@ -1,0 +1,19 @@
+[package]
+name = "fluxc-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[[bin]]
+name = "fluxc"
+path = "src/main.rs"
+
+[dependencies]
+fluxc-ast = { path = "../fluxc-ast" }
+fluxc-parser = { path = "../fluxc-parser" }
+fluxc-ir = { path = "../fluxc-ir" }
+fluxc-optimize = { path = "../fluxc-optimize" }
+fluxc-codegen = { path = "../fluxc-codegen" }
+fluxc-verify = { path = "../fluxc-verify" }
+clap = { version = "4.4", features = ["derive"] }
+thiserror.workspace = true

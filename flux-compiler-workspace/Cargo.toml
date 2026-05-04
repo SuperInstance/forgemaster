@@ -1,0 +1,13 @@
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "Apache-2.0"
+rust-version = "1.75"
+
+[workspace.dependencies]
+thiserror = "1"
+clap = { version = "4", features = ["derive"] }
+uuid = { version = "1.4.1", features = ["v4"] }

@@ -1,0 +1,15 @@
+[package]
+name = "fluxc-test"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+fluxc-ast = { path = "../fluxc-ast" }
+fluxc-parser = { path = "../fluxc-parser" }
+fluxc-ir = { path = "../fluxc-ir" }
+fluxc-codegen = { path = "../fluxc-codegen", features = ["wasm"] }
+
+[[test]]
+name = "integration"
+path = "tests/integration.rs"
