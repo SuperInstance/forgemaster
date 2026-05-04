@@ -156,6 +156,40 @@ After firing parallel work, `sessions_yield()` immediately. Don't poll. The syst
 
 ---
 
+## Session Naming Convention (The Fun Part)
+
+Every background exec and subagent gets a two-word name that's evocative, memorable, and never reused. Pattern: `{adjective}-{noun}`.
+
+**The aesthetic:** Pacific Northwest meets industrial forge meets deep sea.
+
+**Adjectives:** calm, clear, cold, dark, dawn, delta, deep, dry, dull, faint, fast, flat, fresh, grey, hard, high, hollow, hot, keen, late, light, loud, low, mild, mellow, neat, pale, plain, plaid, quiet, raw, rich, rough, sharp, sheer, slow, smooth, soft, still, strange, swift, tame, tense, thick, thin, tight, tough, vivid, warm, weak, wild, wise
+
+**Nouns:** basin, beach, bloom, brook, canyon, cape, cedar, cliff, cloud, coast, coral, cove, creek, crown, delta, drift, dune, eagle, eddy, ember, falls, fen, fjord, flake, forge, frost, glade, gorge, granite, grove, gulf, gully, haven, hawk, haze, hollow, horn, inlet, iron, isle, jaw, keel, knot, ledge, limestone, loom, marsh, mesa, mist, moor, moraine, moss, nexus, notch, oak, obsidian, ore, otter, owl, ox, peak, pine, pit, plain, plume, pod, quill, raven, reef, ridge, river, rock, root, roost, rudder, sable, saddle, salt, scale, shale, shore, skull, slate, smith, snare, spike, spit, spring, spur, stag, strait, surge, swale, talon, tarn, thicket, tide, timber, torque, trench, tusk, vale, vapor, vellum, vortex, warden, wasp, wave, well, wetland, wold, zenith
+
+**Examples from this session:**
+- `tidal-canyon` — Seed Mini barrage
+- `plaid-slug` — Round 1 research
+- `quiet-otter` — Round 3 deep dive
+- `fresh-sable` — Round 4 retry
+- `mellow-nexus` — Claude + Kimi parallel
+- `vivid-zephyr` — Cargo workspace generation
+- `delta-falcon` — Round 2 research
+- `calm-coral` — README synthesis
+- `dawn-comet` — Kimi workspace attempt
+- `clear-river` — Kimi objections page
+- `tender-mist` — Kimi Safe-TOPS/W page
+
+**Rules:**
+1. Never reuse a name (check `process list` or `subagents list` first)
+2. Must be two words, hyphenated
+3. Must evoke nature, industry, or the Pacific Northwest
+4. If you can't think of one, pick from the lists above
+5. Subagent labels should also follow this convention when possible
+
+**Why this matters:** Named sessions are easier to debug, easier to track in logs, and make the commit history more human-readable. `plaid-slug` is more memorable than `session-14`.
+
+---
+
 ## What I'm Bad At (Honest Self-Assessment)
 
 1. **Long-running tasks:** I timeout on queries >180s. Use subagents for those.
