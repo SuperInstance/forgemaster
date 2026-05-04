@@ -1,0 +1,40 @@
+title: FLUX Constraint System
+description: "Proof-first constraint compilation: compile constraints, not approximations."
+url: "https://cocapn.ai"
+baseurl: ""
+theme: minima
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+permalink: pretty
+
+header_pages:
+  - index.md
+  - demo.md
+  - objections.md
+  - safe-tops.md
+  - faq.md
+  - docs.md
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+github:
+  repository: "SuperInstance/flux-compiler-workspace"
+  owner: "SuperInstance"
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
