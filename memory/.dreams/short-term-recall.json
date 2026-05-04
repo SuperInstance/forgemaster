@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-29T10:43:08.560Z",
+  "updatedAt": "2026-05-04T15:11:00.705Z",
   "entries": {
     "memory:memory/2026-04-14.md:1:29": {
       "key": "memory:memory/2026-04-14.md:1:29",
@@ -47481,6 +47481,37 @@
         "covered",
         "fpga",
         "guide"
+      ]
+    },
+    "memory:memory/2026-04-25.md:1:19": {
+      "key": "memory:memory/2026-04-25.md:1:19",
+      "path": "memory/2026-04-25.md",
+      "startLine": 1,
+      "endLine": 19,
+      "source": "memory",
+      "snippet": "# 2026-04-25 Daily Memory ## Night Shift Session 2 (batches 12-26) ### Context - Continued from previous night shift that produced ~498 tiles (batches 1-11) - Casey said \"Great keep going. Make it so\" — autonomous mode - Session compacted mid-work, resumed immediately ### Production Summary - **Batches 12-26**: ~750 tiles across 26 batches (48 tiles each, ~48 min total) - **PLATO total**: 6530 → 1002+ (milestone hit!) - **New rooms created this session**: ~65+ rooms across pure math, physical sciences, life sciences, engineering, social sciences, philosophy - **Git pushes**: 26+ pushes to both JetsonClaw1-vessel and SuperInstance/forgemaster - **Error rate**: ~2.5% transient 403s (all non",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3944886267185211,
+      "maxScore": 0.3944886267185211,
+      "firstRecalledAt": "2026-05-04T15:11:00.705Z",
+      "lastRecalledAt": "2026-05-04T15:11:00.705Z",
+      "queryHashes": [
+        "b35727b6cad2"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "12-26",
+        "1-11",
+        "mid-work",
+        "jetsonclaw1-vessel",
+        "superinstance/forgemaster",
+        "2.5",
+        "night",
+        "shift"
       ]
     }
   }
