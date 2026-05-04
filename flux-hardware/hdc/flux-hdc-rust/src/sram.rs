@@ -75,7 +75,7 @@ impl<T: Clone + Copy> SramRecord<T> {
 
     /// Check if the record is correctly 64-byte aligned.
     #[inline]
-    pub const fn is_aligned(&self) -> bool {
+    pub fn is_aligned(&self) -> bool {
         (self as *const Self as usize) % align_of::<Self>() == 0
     }
 }

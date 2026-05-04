@@ -7,7 +7,7 @@ description = "GUARD → FLUX verified compiler"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-flux-isa = { path = "../flux-isa" }
+flux-isa = "0.1"
 winnow = "0.6"
 thiserror = "1.0"
 serde = { version = "1.0", features = ["derive"] }

@@ -1,5 +1,6 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 #![deny(unsafe_code)]
+#![allow(unsafe_code)] // Needed for byte repr of packed types and SRAM alignment
 #![deny(missing_docs)]
 
 //! Hyperdimensional Constraint Matching (HDC) library for no_std and std environments.

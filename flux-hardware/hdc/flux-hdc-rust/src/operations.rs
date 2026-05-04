@@ -18,7 +18,11 @@ pub enum OperationError {
 /// Bind two hypervectors using XOR (associative, commutative, invertible).
 #[inline]
 pub fn bind(a: Hypervector, b: Hypervector) -> Hypervector {
-    Hypervector(a.0.zip(b.0).map(|(x, y)| x ^ y))
+    let mut result = [0u64; 16];
+    for i in 0..16 {
+        result[i] = a.0[i] ^ b.0[i];
+    }
+    Hypervector(result)
 }
 
 /// Bind multiple hypervectors (left-associative XOR).

@@ -2,12 +2,12 @@
 //! Uses log-uniform thresholds for high similarity between nearly-identical ranges.
 
 use crate::{Hypervector, bind, majority_bundle};
-use rand::{Rng, SeedableRng};
-use rand_xoshiro::XorShift64Star;
+use rand::SeedableRng;
+use rand_xoshiro::Xoroshiro64Star;
 use thiserror::Error;
 
 /// Error type for encoding operations.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Error)]
+#[derive(Debug, Clone, Copy, PartialEq, Error)]
 #[non_exhaustive]
 pub enum EncodingError {
     /// Range bounds are invalid (a >= b).
@@ -19,6 +19,15 @@ pub enum EncodingError {
     /// No thresholds matched the range (internal error).
     #[error("no thresholds matched the range")]
     NoMatchingThresholds,
+    /// Operation error during encoding.
+    #[error("operation error during encoding")]
+    OperationError,
+}
+
+impl From<crate::OperationError> for EncodingError {
+    fn from(_: crate::OperationError) -> Self {
+        EncodingError::OperationError
+    }
 }
 
 /// Minimum threshold value for log-uniform spacing (avoids log(0)).
@@ -35,16 +44,14 @@ pub const DEFAULT_NUM_SPAN_LEVELS: usize = 128;
 
 /// Generate log-uniform spaced thresholds for range overlap detection.
 /// Log-uniform spacing ensures nearly-identical ranges have >99% threshold overlap.
-pub const fn generate_log_uniform_thresholds<const N: usize>() -> [f64; N] {
+pub fn generate_log_uniform_thresholds<const N: usize>() -> [f64; N] {
     let mut thresholds = [0.0; N];
     let log_min = MIN_THRESHOLD.ln();
     let log_max = MAX_THRESHOLD.ln();
     let log_step = (log_max - log_min) / (N - 1) as f64;
 
-    let mut i = 0;
-    while i < N {
+    for i in 0..N {
         thresholds[i] = (log_min + log_step * i as f64).exp();
-        i += 1;
     }
     thresholds
 }
@@ -74,7 +81,7 @@ impl<
 > Encoder<NUM_T, NUM_C, NUM_S> {
     /// Create a new encoder with reproducible hypervectors from a seed.
     pub fn new(seed: u64) -> Self {
-        let mut rng = XorShift64Star::seed_from_u64(seed);
+        let mut rng = Xoroshiro64Star::seed_from_u64(seed);
         let thresholds = generate_log_uniform_thresholds::<NUM_T>();
         let threshold_hvs = [(); NUM_T].map(|_| Hypervector::random(&mut rng));
         let center_hvs = [(); NUM_C].map(|_| Hypervector::random(&mut rng));

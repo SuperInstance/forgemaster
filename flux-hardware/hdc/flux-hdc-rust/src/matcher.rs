@@ -103,3 +103,9 @@ impl<K: Clone + PartialEq> TUTORConstraintMatcher<K> {
 
 // Import for majority_bundle used in add_example
 use crate::majority_bundle;
+
+impl From<crate::OperationError> for MatcherError {
+    fn from(_: crate::OperationError) -> Self {
+        MatcherError::NoConcepts
+    }
+}
