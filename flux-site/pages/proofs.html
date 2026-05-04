@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FLUX — Foundational Proofs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            flux: {
+              bg:    '#0a0a0f',
+              card:  '#12121a',
+              border:'#1e1e2e',
+              accent:'#6d28d9',
+              glow:  '#a78bfa',
+              text:  '#e2e8f0',
+              muted: '#94a3b8',
+            }
+          },
+          fontFamily: {
+            mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
+            sans: ['"Inter"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+    body {
+      background-color: #0a0a0f;
+      color: #e2e8f0;
+    }
+
+    .theorem-card {
+      background: linear-gradient(145deg, #12121a 0%, #0f0f18 100%);
+      border: 1px solid #1e1e2e;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .theorem-card:hover {
+      border-color: #6d28d9;
+      box-shadow: 0 0 30px rgba(109, 40, 217, 0.15);
+    }
+
+    .math-block {
+      background: rgba(109, 40, 217, 0.06);
+      border-left: 3px solid #6d28d9;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .proof-line {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .proof-line:nth-child(1) { animation-delay: 0.1s; }
+    .proof-line:nth-child(2) { animation-delay: 0.25s; }
+    .proof-line:nth-child(3) { animation-delay: 0.4s; }
+    .proof-line:nth-child(4) { animation-delay: 0.55s; }
+    .proof-line:nth-child(5) { animation-delay: 0.7s; }
+
+    .consequence-box {
+      background: linear-gradient(135deg, rgba(109,40,217,0.12), rgba(109,40,217,0.03));
+      border: 1px solid rgba(109,40,217,0.25);
+    }
+
+    .glow-text {
+      background: linear-gradient(90deg, #a78bfa, #6d28d9, #a78bfa);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+    @keyframes shimmer {
+      to { background-position: 200% center; }
+    }
+
+    .stat-number {
+      background: linear-gradient(180deg, #e2e8f0, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen font-sans antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 border-b border-flux-border bg-flux-bg/80 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-flux-accent flex items-center justify-center font-mono font-bold text-white text-sm">F</div>
+        <span class="font-bold text-lg tracking-tight">FLUX</span>
+        <span class="text-flux-muted text-sm">Proofs</span>
+      </div>
+      <div class="flex gap-6 text-sm text-flux-muted">
+        <a href="#theorems" class="hover:text-flux-glow transition-colors">Theorems</a>
+        <a href="#summary" class="hover:text-flux-glow transition-colors">Summary</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="pt-32 pb-16 px-6 text-center">
+    <div class="max-w-3xl mx-auto">
+      <span class="badge bg-flux-accent/20 text-flux-glow mb-6">Foundational Proof System</span>
+      <h1 class="text-4xl md:text-5xl font-black tracking-tight mt-4 leading-tight">
+        Three theorems.<br />
+        <span class="glow-text">Zero semantic gap.</span>
+      </h1>
+      <p class="mt-6 text-flux-muted text-lg max-w-xl mx-auto leading-relaxed">
+        FLUX is not a compiler that hopes it got things right.
+        It is a compiler that can <em>prove</em> it got things right.
+        These three theorems form the mathematical bedrock.
+      </p>
+    </div>
+  </header>
+
+  <!-- Theorems -->
+  <section id="theorems" class="max-w-5xl mx-auto px-6 pb-20 space-y-12">
+
+    <!-- Theorem 1: Decidability -->
+    <article class="theorem-card rounded-2xl p-8 md:p-10">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="badge bg-emerald-500/20 text-emerald-400">Theorem 1</span>
+        <span class="text-flux-muted text-sm font-mono">DECIDABILITY</span>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold mb-3">
+        Constraint Equivalence <em>IS</em> Decidable
+      </h2>
+      <p class="text-flux-muted leading-relaxed mb-6">
+        <strong class="text-flux-text">Bold statement:</strong> Given two constraint systems
+        <span class="font-mono text-flux-glow">C₁</span> and
+        <span class="font-mono text-flux-glow">C₂</span>, there exists a terminating algorithm
+        that determines whether they describe the same solution set.
+        This is not an approximation — it is exact, and it always halts.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <!-- Intuition -->
+        <div>
+          <h3 class="text-sm font-semibold text-flux-muted uppercase tracking-wider mb-3">Intuition</h3>
+          <p class="text-sm text-flux-muted leading-relaxed">
+            Think of constraints as regions in a high-dimensional space. Two constraint systems
+            are equivalent iff their regions are identical. Because FLUX constraints are
+            <em>finite conjunctions of linear inequalities</em>, checking equality reduces to
+            polyhedral containment — a solved problem in linear programming.
+          </p>
+        </div>
+
+        <!-- Formal -->
+        <div class="math-block rounded-lg p-5">
+          <h3 class="text-sm font-semibold text-flux-muted uppercase tracking-wider mb-3">Formal</h3>
+          <div class="font-mono text-sm space-y-2 text-flux-text">
+            <p><strong>Given:</strong> C₁, C₂ ∈ Constraint(System)</p>
+            <p><strong>Define:</strong> ⟦C⟧ = { x ∈ ℝⁿ | C(x) = true }</p>
+            <p><strong>Decide:</strong> ⟦C₁⟧ = ⟦C₂⟧ ?</p>
+            <p class="text-flux-glow mt-3"><strong>Theorem:</strong> ∃ algorithm A: C₁, C₂ → {true, false} ⊥</p>
+            <p class="text-emerald-400 text-xs mt-1">A always terminates in O(poly(|C₁| + |C₂|))</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="consequence-box rounded-lg p-4">
+        <h3 class="text-xs font-semibold text-flux-muted uppercase tracking-wider mb-2">Consequence</h3>
+        <p class="text-sm text-flux-text">
+          A FLUX compiler never needs to guess. After every optimization pass, it can
+          <strong>machine-check</strong> that the transformed program satisfies exactly the same
+          constraints as the original. No heuristics. No "close enough."
+        </p>
+      </div>
+    </article>
+
+    <!-- Theorem 2: Semantic Gap -->
+    <article class="theorem-card rounded-2xl p-8 md:p-10">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="badge bg-amber-500/20 text-amber-400">Theorem 2</span>
+        <span class="text-flux-muted text-sm font-mono">SEMANTIC GAP</span>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold mb-3">
+        The Semantic Gap Is <em>ZERO</em>
+      </h2>
+      <p class="text-flux-muted leading-relaxed mb-6">
+        <strong class="text-flux-text">Bold statement:</strong> There is no loss of meaning between
+        what the programmer wrote and what the compiler proves. The distance between the source
+        program's semantics and the compiled artifact's verified behavior is exactly zero.
+        Not "negligibly small." <strong>Zero.</strong>
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <!-- Intuition -->
+        <div>
+          <h3 class="text-sm font-semibold text-flux-muted uppercase tracking-wider mb-3">Intuition</h3>
+          <p class="text-sm text-flux-muted leading-relaxed">
+            Most compilers have a "semantic gap" — the distance between what you meant and what
+            the machine does. FLUX eliminates this by making constraints the <em>sole</em> carrier
+            of meaning. Source constraints are preserved through every IR level to machine code.
+            If the constraints match, the semantics match. Period.
+          </p>
+        </div>
+
+        <!-- Formal -->
+        <div class="math-block rounded-lg p-5">
+          <h3 class="text-sm font-semibold text-flux-muted uppercase tracking-wider mb-3">Formal</h3>
+          <div class="font-mono text-sm space-y-2 text-flux-text">
+            <p><strong>Define:</strong> δ(S, T) = d(⟦S⟧, ⟦T⟧)</p>
+            <p>where d is the Hausdorff distance between<br/>solution sets of source S and target T</p>
+            <p class="text-flux-glow mt-3"><strong>Theorem:</strong> ∀ compiled programs P:</p>
+            <p class="text-center text-lg text-amber-400 font-bold">δ(S_source, P_compiled) = 0</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="consequence-box rounded-lg p-4">
+        <h3 class="text-xs font-semibold text-flux-muted uppercase tracking-wider mb-2">Consequence</h3>
+        <p class="text-sm text-flux-text">
+          "Works on my machine" is replaced by "proven on every machine." The compiled output is
+          <strong>semantically indistinguishable</strong> from the source intent. Bugs can only
+          exist in the source specification itself — never in the compilation.
+        </p>
+      </div>
+    </article>
+
+    <!-- Theorem 3: Composition -->
+    <article class="theorem-card rounded-2xl p-8 md:p-10">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="badge bg-sky-500/20 text-sky-400">Theorem 3</span>
+        <span class="text-flux-muted text-sm font-mono">COMPOSITION</span>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold mb-3">
+        New Passes Don't Break Proofs
+      </h2>
+      <p class="text-flux-muted leading-relaxed mb-6">
+        <strong class="text-flux-text">Bold statement:</strong> Optimization passes compose
+        safely. Adding a new pass to the compiler pipeline cannot invalidate proofs established
+        by earlier passes. The proof system is <strong>monotonic</strong>: correctness only
+        accumulates, it never regresses.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <!-- Intuition -->
+        <div>
+          <h3 class="text-sm font-semibold text-flux-muted uppercase tracking-wider mb-3">Intuition</h3>
+          <p class="text-sm text-flux-muted leading-relaxed">
+            Imagine a chain of transformations, each annotated with a proof that it preserves
+            constraints. Composition says: if pass A preserves constraints, and pass B preserves
+            constraints, then A∘B preserves constraints. You can stack passes arbitrarily without
+            ever re-proving the whole pipeline from scratch.
+          </p>
+        </div>
+
+        <!-- Formal -->
+        <div class="math-block rounded-lg p-5">
+          <h3 class="text-sm font-semibold text-flux-muted uppercase tracking-wider mb-3">Formal</h3>
+          <div class="font-mono text-sm space-y-2 text-flux-text">
+            <p><strong>Define:</strong> Pass p is sound iff:</p>
+            <p class="pl-4">⟦p(C)⟧ = ⟦C⟧  (equivalence)</p>
+            <p class="text-flux-glow mt-3"><strong>Theorem:</strong></p>
+            <p>If p₁, p₂, …, pₙ are sound,</p>
+            <p>then pₙ ∘ … ∘ p₂ ∘ p₁ is sound.</p>
+            <p class="text-sky-400 text-xs mt-1">Proof: by induction on n, using transitivity of =</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="consequence-box rounded-lg p-4">
+        <h3 class="text-xs font-semibold text-flux-muted uppercase tracking-wider mb-2">Consequence</h3>
+        <p class="text-sm text-flux-text">
+          Compiler engineers can add optimization passes <strong>fearlessly</strong>. Each pass
+          carries its own proof obligation, and composition guarantees the whole pipeline remains
+          correct. No integration nightmares. No "who broke the build?" — only "did this pass
+          prove itself?"
+        </p>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- Summary -->
+  <section id="summary" class="max-w-3xl mx-auto px-6 pb-32 text-center">
+    <div class="theorem-card rounded-2xl p-10 md:p-14">
+      <div class="mb-6">
+        <span class="badge bg-flux-accent/20 text-flux-glow">Summary</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-black leading-tight">
+        FLUX can <span class="glow-text">PROVE</span> it compiled correctly.
+      </h2>
+      <p class="text-xl text-flux-muted mt-4 font-semibold">
+        Not hope. <span class="text-flux-text">PROVE.</span>
+      </p>
+
+      <div class="mt-10 grid grid-cols-3 gap-6">
+        <div>
+          <div class="stat-number text-3xl font-black">∃</div>
+          <div class="text-flux-muted text-xs mt-1 uppercase tracking-wider">Decidable</div>
+        </div>
+        <div>
+          <div class="stat-number text-3xl font-black">0</div>
+          <div class="text-flux-muted text-xs mt-1 uppercase tracking-wider">Gap</div>
+        </div>
+        <div>
+          <div class="stat-number text-3xl font-black">⊕</div>
+          <div class="text-flux-muted text-xs mt-1 uppercase tracking-wider">Composable</div>
+        </div>
+      </div>
+
+      <p class="mt-10 text-flux-muted text-sm leading-relaxed max-w-lg mx-auto">
+        Three theorems. Decidability gives us the algorithm. Zero semantic gap gives us
+        fidelity. Composition gives us scale. Together they mean FLUX doesn't compile
+        programs — it <strong class="text-flux-text">proves them into existence</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-flux-border py-8 text-center text-flux-muted text-xs">
+    <p>FLUX Proof System — SuperInstance &copy; 2025</p>
+    <p class="mt-1">Constraint theory is not a limitation. It is a superpower.</p>
+  </footer>
+
+</body>
+</html>

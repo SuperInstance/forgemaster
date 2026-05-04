@@ -1,0 +1,77 @@
+{
+  "name": "guard-language",
+  "displayName": "GUARD Language Support",
+  "description": "Syntax highlighting, language configuration, and snippets for GUARD constraint files (.guard). GUARD is the constraint specification language used by the FLUX proof system.",
+  "version": "0.1.0",
+  "publisher": "SuperInstance",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SuperInstance/flux.git",
+    "directory": "editors/guard-language"
+  },
+  "bugs": {
+    "url": "https://github.com/SuperInstance/flux/issues"
+  },
+  "keywords": [
+    "guard",
+    "flux",
+    "constraint",
+    "proof",
+    "formal verification",
+    "language"
+  ],
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formal Languages"
+  ],
+  "icon": "media/icon.png",
+  "contributes": {
+    "languages": [
+      {
+        "id": "guard",
+        "aliases": [
+          "GUARD",
+          "guard",
+          "Guard Constraint"
+        ],
+        "extensions": [
+          ".guard"
+        ],
+        "configuration": "./language-configuration.json",
+        "firstLine": "^#!.*guard"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "guard",
+        "scopeName": "source.guard",
+        "path": "./syntaxes/guard.tmLanguage.json"
+      }
+    ],
+    "configurationDefaults": {
+      "[guard]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.trimAutoWhitespace": true,
+        "editor.formatOnPaste": true,
+        "editor.rulers": [80],
+        "editor.semanticHighlighting.enabled": true,
+        "editor.bracketPairColorization.enabled": true
+      }
+    }
+  },
+  "scripts": {
+    "lint": "npx js-yaml syntaxes/guard.tmLanguage.yaml > syntaxes/guard.tmLanguage.json",
+    "package": "npx vsce package",
+    "pretest": "npm run lint",
+    "test": "node test/runTest.js"
+  },
+  "devDependencies": {
+    "js-yaml": "^4.1.0",
+    "@vscode/vsce": "^2.22.0"
+  }
+}
