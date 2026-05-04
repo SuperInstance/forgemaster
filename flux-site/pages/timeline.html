@@ -1,0 +1,321 @@
+# Vertical Timeline: PLATO/TUTOR to FLUX (1960–2026)
+This is a fully responsive dark-themed vertical timeline built with pure HTML/CSS, matching all your specified requirements:
+- Dark background with cyan timeline accents
+- Amber-colored dates, white body text
+- Alternating left/right desktop layout, stacked mobile-friendly view
+- Exact technical details for every entry
+- Required footer quote
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLATO to FLUX Evolution Timeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #121212;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+
+        /* Central vertical timeline line */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #06b6d4;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 5rem 0;
+            position: relative;
+        }
+
+        /* Timeline center dot */
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: #06b6d4;
+            border-radius: 50%;
+            border: 4px solid #121212;
+            z-index: 1;
+        }
+
+        /* Content card styling */
+        .timeline-content {
+            background-color: #1e293b;
+            padding: 1.75rem;
+            border-radius: 0.75rem;
+            max-width: 48%;
+            box-shadow: 0 8px 12px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-4px);
+        }
+
+        .timeline-date {
+            color: #f59e0b;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-desc {
+            color: #e2e8f0;
+            font-size: 1rem;
+        }
+
+        /* Alternate desktop layout */
+        .timeline-item:nth-child(odd) .timeline-content {
+            order: 2;
+            margin-left: 2rem;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            order: -1;
+            text-align: right;
+            margin-right: 2rem;
+        }
+
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 2rem;
+            }
+
+            .timeline-item {
+                justify-content: flex-start;
+                width: 100%;
+            }
+
+            .timeline-dot {
+                left: 2rem;
+            }
+
+            .timeline-content {
+                max-width: calc(100% - 6rem);
+                margin-left: 5rem !important;
+                order: 2 !important;
+                text-align: left !important;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content {
+                order: 2 !important;
+            }
+        }
+
+        /* Footer styling */
+        .timeline-footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            border-top: 1px solid #334155;
+            color: #06b6d4;
+            font-size: 1.15rem;
+        }
+
+        .timeline-footer em {
+            color: #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="timeline-container">
+        <div class="timeline-line"></div>
+
+        <!-- 1960 PLATO I -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">1960</div>
+                <div class="timeline-desc">PLATO I — First computer-aided instruction. Bit-vector answer judging.</div>
+            </div>
+        </div>
+
+        <!-- 1967 TUTOR Language -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">1967</div>
+                <div class="timeline-desc">TUTOR language — judging blocks = constraint evaluation loops</div>
+            </div>
+        </div>
+
+        <!-- 1972 PLATO IV -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">1972</div>
+                <div class="timeline-desc">PLATO IV — bit-vector Hamming distance for fuzzy matching</div>
+            </div>
+        </div>
+
+        <!-- 1977 Atari 2600 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">1977</div>
+                <div class="timeline-desc">Atari 2600 — 128 bytes RAM, cycle-counted kernels, self-modifying code</div>
+            </div>
+        </div>
+
+        <!-- 1982 Commodore 64 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">1982</div>
+                <div class="timeline-desc">Commodore 64 — sprite multiplexing, raster interrupts</div>
+            </div>
+        </div>
+
+        <!-- 1985 Amiga 1000 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">1985</div>
+                <div class="timeline-desc">Amiga 1000 — Copper coprocessor: 3 instructions, synchronized constraint pipeline</div>
+            </div>
+        </div>
+
+        <!-- 1987 PC Engine/TG-16 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">1987</div>
+                <div class="timeline-desc">PC Engine/TG-16 — HuC6280 bit-test instructions (BBR/BBS)</div>
+            </div>
+        </div>
+
+        <!-- 1990 Neo Geo -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">1990</div>
+                <div class="timeline-desc">Neo Geo — Hardware sprite solver, ROM=VRAM unified</div>
+            </div>
+        </div>
+
+        <!-- 1991 SNES -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">1991</div>
+                <div class="timeline-desc">SNES — Mode 7 affine matrix, Super FX coprocessor, SA-1 parallel</div>
+            </div>
+        </div>
+
+        <!-- 1996 N64 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">1996</div>
+                <div class="timeline-desc">N64 — RSP programmable microcode, 4KB IMEM</div>
+            </div>
+        </div>
+
+        <!-- 2004 DO-254 DAL A -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">2004</div>
+                <div class="timeline-desc">DO-254 DAL A — Formal certification for airborne hardware</div>
+            </div>
+        </div>
+
+        <!-- 2012 SymbiYosys -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">2012</div>
+                <div class="timeline-desc">SymbiYosys — Open-source formal verification</div>
+            </div>
+        </div>
+
+        <!-- 2020 eBPF -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">2020</div>
+                <div class="timeline-desc">eBPF — Linux kernel verifies program correctness mathematically</div>
+            </div>
+        </div>
+
+        <!-- 2023 AVX-512 VPOPCNTDQ -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">2023</div>
+                <div class="timeline-desc">AVX-512 VPOPCNTDQ — Hardware population count for HDC</div>
+            </div>
+        </div>
+
+        <!-- 2026 FLUX ISA -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">2026</div>
+                <div class="timeline-desc">FLUX ISA — 50 opcodes, 22.3B checks/sec, formally proven compiler</div>
+            </div>
+        </div>
+
+        <!-- 2026 BitmaskDomain -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">2026</div>
+                <div class="timeline-desc">BitmaskDomain — 12,324x speedup, single u64 per domain</div>
+            </div>
+        </div>
+
+        <!-- 2026 Safe-TOPS/W -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">2026</div>
+                <div class="timeline-desc">Safe-TOPS/W — FLUX scores 410M, uncertified chips score 0</div>
+            </div>
+        </div>
+
+        <!-- Required Footer -->
+        <div class="timeline-footer">
+            <p>"The constraint is the mother of invention. — Forgemaster ⚒️"</p>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+## Key Features:
+1.  **Dark Theme**: Uses `#121212` base background with high-contrast dark gray content cards
+2.  **Accent Colors**: Cyan (`#06b6d4`) for timeline lines and dots, amber (`#f59e0b`) for dates
+3.  **Responsive Layout**: Switches to single-column stacked view on mobile devices under 768px
+4.  **Interactive Hover Effects**: Content cards lift slightly on hover for better UX
+5.  **Exact Technical Details**: All specified timeline entries are included verbatim with their technical specifications
+6.  **Required Footer**: Includes the exact quote and emoji as requested
