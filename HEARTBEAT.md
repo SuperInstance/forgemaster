@@ -29,7 +29,40 @@
 - [x] 49 duplicates removed from 5,500 raw vectors
 - [x] 3,171 pass on CPU reference, failures document saturation behavior
 
-**Commits this session:** 2 pushes
+**Blog Series (5 posts, 8,635 words):**
+- [x] #1: Why Your GPU Can't Prove Anything (1,792 words)
+- [x] #2: The 76% Lie — FP16 Unsafe (1,454 words)
+- [x] #3: 62 Billion Reasons — Production Kernel (1,633 words)
+- [x] #4: The Galois Connection (1,713 words)
+- [x] #5: Safe-TOPS/W — Trust Not Speed (2,043 words)
+
+**EMSOFT Paper (COMPLETE):**
+- [x] 665 lines, 8,366 words, IEEE conference format
+- [x] 10 major sections, 30+ references
+- [x] All benchmark numbers consistent with production kernel v2
+
+**GPU Experiments 46-50:**
+- [x] Exp46: Multi-industry fusion (4 industries simultaneous)
+- [x] Exp47: WCET determinism (10K iterations)
+- [x] Exp48: Cascade propagation (1M grid, 3-hop)
+- [x] Exp49: Power efficiency (10M/20M/50M, linear scaling)
+- [x] Exp50: 60-second stability (zero drift, zero memory errors)
+
+**Constraint Libraries:**
+- [x] 248 constraints across 10 industries, all 100% pass
+- [x] Test script + JSON results for CI
+- [x] README with standards mapping
+
+**VM Tests:**
+- [x] flux-isa: 13 tests passing (was 4)
+- [x] Added: saturation, arithmetic, comparison, underflow, trace
+
+**Tools:**
+- [x] FLUX Playground v2 (browser, zero dependencies)
+- [x] Safe-TOPS/W benchmark tool (Python, 8 chips compared)
+- [x] INT8 saturation formal spec (5 proofs)
+
+**Commits this session:** 7 pushes
 
 ---
 
