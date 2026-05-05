@@ -4232,3 +4232,11 @@
 [2026-05-04T22:45:03-08:00] KEEPER: CRITICAL: Gateway restart failed!
 [2026-05-04T22:45:03-08:00] KEEPER: --- Keeper cycle end ---
 [2026-05-04T22:45:03-08:00] KEEPER: --- Keeper cycle end ---
+[2026-05-04T22:50:01-08:00] KEEPER: --- Keeper cycle start ---
+[2026-05-04T22:50:01-08:00] KEEPER: --- Keeper cycle start ---
+[2026-05-04T22:50:01-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-05-04T22:50:01-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-05-04T22:50:04-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-05-04T22:50:04-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-05-04T22:50:05-08:00] KEEPER: --- Keeper cycle end ---
+[2026-05-04T22:50:05-08:00] KEEPER: --- Keeper cycle end ---
