@@ -62,7 +62,15 @@
 - [x] Safe-TOPS/W benchmark tool (Python, 8 chips compared)
 - [x] INT8 saturation formal spec (5 proofs)
 
-**Commits this session:** 7 pushes
+**Commits this session:** 10 pushes
+
+**R&D Experiments (exp52-54):**
+- [x] Exp52: Temporal constraints (22.8B c/s, rate-of-change + deadband + persistence)
+- [x] Exp53: Streaming incremental (77.3x faster at 0.1% change rate)
+- [x] Exp54: Multivariate cross-sensor (14.82B c/s, AND/OR compound logic)
+
+**Coq Formalization:**
+- [x] INT8 saturation: 7 Coq proofs (saturate_correct, negation_symmetry, monotonicity, order_preservation, galois_preservation, addition_closed, no_wraparound)
 
 ---
 
