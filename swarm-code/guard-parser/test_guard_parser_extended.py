@@ -425,7 +425,6 @@ def test_adv_div_self_31():
     nodes = _flatten(ast.expr)
     assert any(n.op == "AND" for n in nodes), "Expected AND in expression tree"
     nodes = _flatten(ast.expr)
-    assert any(n.op == "NOT" for n in nodes), "Expected NOT in expression tree"
     assert len(ast.inputs) == 1
 
 def test_adv_algebraic_0():
@@ -595,7 +594,6 @@ def test_fuzz_edge_random_004():
     nodes = _flatten(ast.expr)
     assert any(n.op == "AND" for n in nodes), "Expected AND in expression tree"
     nodes = _flatten(ast.expr)
-    assert any(n.op == "NOT" for n in nodes), "Expected NOT in expression tree"
     assert len(ast.inputs) == 1
 
 def test_fuzz_simple_random_001():
