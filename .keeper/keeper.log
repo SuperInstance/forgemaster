@@ -3904,3 +3904,11 @@
 [2026-05-04T19:20:04-08:00] KEEPER: CRITICAL: Gateway down AND captain silent. Full restart.
 [2026-05-04T19:20:04-08:00] KEEPER: --- Keeper cycle end ---
 [2026-05-04T19:20:04-08:00] KEEPER: --- Keeper cycle end ---
+[2026-05-04T19:25:01-08:00] KEEPER: --- Keeper cycle start ---
+[2026-05-04T19:25:01-08:00] KEEPER: --- Keeper cycle start ---
+[2026-05-04T19:25:01-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-05-04T19:25:01-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-05-04T19:25:04-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-05-04T19:25:04-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-05-04T19:25:04-08:00] KEEPER: --- Keeper cycle end ---
+[2026-05-04T19:25:04-08:00] KEEPER: --- Keeper cycle end ---
