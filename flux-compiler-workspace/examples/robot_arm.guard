@@ -1,0 +1,39 @@
+# Robot Arm Joint Constraints
+# 6-DOF industrial robot arm safety constraints
+# Author: FLUX Team
+# License: Apache 2.0
+
+@priority(1)
+@safety_level(SIL-2)
+group joint_angles {
+    constraint j1_angle in [-180, 180]    # degrees
+    constraint j2_angle in [-135, 135]
+    constraint j3_angle in [-150, 150]
+    constraint j4_angle in [-180, 180]
+    constraint j5_angle in [-120, 120]
+    constraint j6_angle in [-360, 360]    # wrist: full rotation
+}
+
+group joint_velocities {
+    constraint j1_velocity in [-180, 180]  # deg/sec
+    constraint j2_velocity in [-180, 180]
+    constraint j3_velocity in [-180, 180]
+    constraint j4_velocity in [-360, 360]
+    constraint j5_velocity in [-360, 360]
+    constraint j6_velocity in [-720, 720]
+}
+
+group joint_torques {
+    constraint j1_torque in [0, 150]       # Nm
+    constraint j2_torque in [0, 150]
+    constraint j3_torque in [0, 100]
+    constraint j4_torque in [0, 50]
+    constraint j5_torque in [0, 50]
+    constraint j6_torque in [0, 20]
+}
+
+group safety {
+    constraint e_stop_active in domain 0x01  # bit 0
+    constraint safeguard_active in domain 0x02  # bit 1
+    constraint speed_limit in [0, 250]     # mm/s (reduced speed mode)
+}

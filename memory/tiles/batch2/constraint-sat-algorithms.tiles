@@ -1,0 +1,76 @@
+# PLATO Tiles: Constraint SAT Algorithms
+# Generated: 2026-04-30 Night Shift
+# Batch: deep domain-specific (non-template)
+# ---
+
+[TILE:constraint-sat-algorithms-001]
+title: "CDCL Architecture"
+tags: [domain:constraint-sat-algorithms, type:reference, tier:foundation]
+body: |-
+  Conflict-Driven Clause Learning (CDCL) extends DPLL with clause learning.
+  Core loop: decide → propagate → conflict? → learn/backtrack → restart.
+  Key components:
+  - Decision trail: chronlogical assignment log
+  - Implication graph: records reasons for each assignment
+  - Clause database: learned clauses as constraints
+  - VSIDS: Variable State Independent Decaying Sum heuristic
+  
+  The 2-watched literal scheme enables O(1) constraint propagation by
+  tracking only 2 unassigned literals per clause.
+
+[TILE:constraint-sat-algorithms-002]
+title: "DPLL Algorithm"
+tags: [domain:constraint-sat-algorithms, type:reference, tier:foundation]
+body: |-
+  Davis-Putnam-Logemann-Loveland (DPLL) is the base SAT algorithm.
+  Unit propagation: if a clause has all false literals except one,
+  that literal must be true (unit clause rule).
+  
+  Pure literal elimination: if a variable appears in only one polarity,
+  assign it to satisfy those clauses.
+  
+  Splitting rule: choose unassigned variable, try TRUE then FALSE.
+  Modern CDCL replaces pure literal elimination with VSIDS.
+
+[TILE:constraint-sat-algorithms-003]
+title: "Conflict Analysis"
+tags: [domain:constraint-sat-algorithms, type:reference, tier:implementation]
+body: |-
+  When a conflict occurs, analyze the implication graph:
+  1. Find the conflict clause (all false under current assignment)
+  2. Find the First Unique Implication Point (1UIP)
+  3. Add the learned clause to the clause database
+  4. Backtrack to the decision level just above the UIP
+  
+  Lemma: learned clauses prune exponentially large search spaces.
+  Resolution proof from the implication graph gives the learned clause.
+  The 1UIP scheme typically produces the shortest learned clause.
+
+[TILE:constraint-sat-algorithms-004]
+title: "VSIDS Heuristic"
+tags: [domain:constraint-sat-algorithms, type:reference, tier:tradeoffs]
+body: |-
+  VSIDS maintains a score for each variable, incremented when the
+  variable appears in a learned clause. Scores decay periodically
+  (divide by 2 every N conflicts).
+  
+  Phase saving: after backtracking, prefer the last non-conflicting
+  assignment (polarity). This is critical for structure preservation.
+  
+  Tradeoff: VSIDS favors recent conflicts but can get stuck in local minima.
+  Luby restart sequences (randomized) escape hard plateaus.
+
+[TILE:constraint-sat-algorithms-005]
+title: "CDCL Extensions"
+tags: [domain:constraint-sat-algorithms, type:reference, tier:implementation]
+body: |-
+  Lazy clause generation: propagate constraints only when needed.
+  Inprocessing: apply transformations during search (bounded variable
+  elimination, blocked clause deletion, subsumption).
+  
+  Gaussian elimination for XOR constraints: detect and simplify parity
+  constraints during CDCL for crypto verification problems.
+  
+  Cube-and-conquer: split hard formula into subproblems (cubes),
+  solve each independently. Parallel SAT on shared memory.
+

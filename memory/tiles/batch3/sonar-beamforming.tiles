@@ -1,0 +1,33 @@
+# PLATO Tiles: sonar-beamforming
+# Generated: 2026-04-30 Night Shift (Batch 3)
+# ---
+
+[TILE:sonar-beamforming-001]
+title: "Delay-and-Sum Beamforming"
+tags: [domain:sonar-beamforming, type:reference, tier:foundation]
+body: |-
+  Classic DAS beamformer: sum hydrophone signals with time delays.
+  y(t) = Σ w_i × x_i(t - τ_i)
+  where τ_i = (i × d × sin(θ)) / c
+  
+  Resolution: λ / (N × d) where λ = wavelength, N = hydrophones.
+  Grating lobes appear when d > λ/2 (spatial aliasing).
+  
+  Computational cost: O(N × M) for N hydrophones and M beams.
+  CUDA grid: N threads per beam, one block per direction.
+
+[TILE:sonar-beamforming-002]
+title: "MVDR/Capon Beamforming"
+tags: [domain:sonar-beamforming, type:reference, tier:technique]
+body: |-
+  Minimum Variance Distortionless Response (MVDR) minimizes
+  output power while maintaining unity gain in the steered direction.
+  w_MVDR = R^(-1) a(θ) / (a(θ)^H × R^(-1) × a(θ))
+  
+  R = covariance matrix (N×N for N hydrophones).
+  Estimate from snapshots: R̂ = (1/K) Σ x_k × x_k^H.
+  
+  Advantage: higher resolution than DAS (super-resolution).
+  Disadvantage: sensitive to calibration errors. Diagonal loading
+  (R + εI) improves robustness in low-SNR conditions.
+

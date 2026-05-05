@@ -1,0 +1,26 @@
+[I2I:DELIVERABLE] Forgemaster — constraint-theory-core v2.1.0: CSP solver engine
+
+## What I Shipped
+**constraint-theory-core v2.1.0 published to crates.io** — CSP solver engine
+
+### 6 new modules (1,699 lines, 136 tests passing)
+- **`src/csp.rs`** — Core types: Variable, Constraint (Unary/Binary/Nary with fn pointers), ConstraintProblem, SolverConfig, SolverStats, helpers (neq, eq, lt)
+- **`src/ac3.rs`** — AC-3 arc consistency algorithm with proper arc-direction handling
+- **`src/backtracking.rs`** — 4 solver variants: BT (basic backtrack), MRV, FC (forward checking), MAC (maintaining arc consistency)
+- **`src/cdcl.rs`** — CDCL SAT solver with clause learning, VSIDS, 1-UIP
+- **`src/puzzle.rs`** — N-Queens, 4×4 Sudoku, graph 3-coloring definitions
+- **`src/sudoku.rs`** — 9×9 Sudoku solver (AC-3 + MRV + FC pipeline), formatting, stats
+
+## Bug Fixes
+1. **Test inputs were UNSOLVABLE** — The classic "easy" Sudoku puzzle string used in tests was literally unsolvable (79-char issue + hidden contradiction). Replaced with verified-solvable puzzles from known solutions.
+2. **AC-3 overpruning bug** — The `forward` direction flag caused incorrect parameter ordering for non-symmetric constraints. Fixed with proper swap logic. (For neq_fn symmetric case, the bug was hidden — the real problem was the test input.)
+
+## Testing
+- 136 tests all passing (was 17 CSP + manifold)
+- Puzzles verified solvable with Python backtracking solver first
+
+## Where
+- **crates.io:** https://crates.io/crates/constraint-theory-core (v2.1.0)
+- **Repo:** https://github.com/SuperInstance/constraint-theory-core (main)
+
+Status: COMPLETE

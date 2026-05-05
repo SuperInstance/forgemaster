@@ -1,0 +1,24 @@
+# Network Packet Constraint Firewall
+# Constraints for filtering network traffic
+# Author: FLUX Team
+# License: Apache 2.0
+
+@priority(1)
+group packet_header {
+    constraint src_port in [0, 65535]
+    constraint dst_port in [0, 65535]
+    constraint protocol in domain 0x3F   # bits 0-5: TCP/UDP/ICMP/etc
+    constraint flags in domain 0x3F       # TCP flags (6 bits)
+}
+
+group rate_limits {
+    constraint packets_per_sec in [0, 100000]
+    constraint bytes_per_sec in [0, 10485760]  # 10 MB/s
+    constraint connections_per_min in [0, 1000]
+}
+
+group security {
+    constraint payload_size in [0, 65535]
+    constraint ttl in [1, 255]
+    constraint fragment_offset in [0, 8191]
+}

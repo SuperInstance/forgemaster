@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SonarVision Dashboard</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0b101a;color:#b0c8e0;font-family:-apple-system,'Segoe UI',sans-serif;overflow:hidden}
+  #app{display:grid;grid-template-columns:320px 1fr 240px;height:100vh;gap:1px;background:#1a2230}
+  .panel{background:#0e1622;padding:12px;overflow-y:auto}
+  .panel h2{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#5a7a9a;margin-bottom:8px;border-bottom:1px solid #1a2a3a;padding-bottom:4px}
+  #waterfall{position:relative;display:flex;flex-direction:column;height:100%}
+  #waterfall canvas{flex:1;width:100%}
+  .metric{display:flex;justify-content:space-between;padding:4px 0;font-size:12px;border-bottom:1px solid #121a28}
+  .metric .label{color:#6a8aaa}
+  .metric .value{color:#7cf;font-weight:600;font-variant-numeric:tabular-nums}
+  .metric .value.warning{color:#fa4}
+  .metric .value.danger{color:#f55}
+  .control{display:flex;gap:6px;margin:8px 0;flex-wrap:wrap}
+  .control button{background:#1a2a3a;border:1px solid #2a4a5a;color:#b0c8e0;padding:6px 14px;border-radius:4px;cursor:pointer;font-size:11px}
+  .control button:hover{background:#2a4a5a}
+  .control button.active{background:#1a4a2a;border-color:#3a8a4a}
+  .control select{background:#1a2a3a;border:1px solid #2a4a5a;color:#b0c8e0;padding:6px;border-radius:4px;font-size:11px}
+  .badge{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:600}
+  .badge.ok{background:#1a3a2a;color:#5d8}
+  .badge.warn{background:#3a2a1a;color:#fa4}
+  .badge.err{background:#3a1a1a;color:#f55}
+  #depth-chart{padding:12px 0}
+  #depth-chart canvas{width:100%;height:120px}
+  #status-bar{position:fixed;bottom:0;left:0;right:0;background:#0a0e15;border-top:1px solid #1a2230;padding:4px 12px;display:flex;gap:16px;font-size:10px;color:#5a7a9a;align-items:center;z-index:10}
+  #status-bar .dot{width:6px;height:6px;border-radius:50%}
+  .dot.green{background:#5d8}
+  .dot.yellow{background:#fa4}
+  .dot.red{background:#f55}
+  #pings-list{font-size:11px;max-height:calc(100vh - 160px);overflow-y:auto}
+  #pings-list .ping{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #121a28;color:#6a8aaa}
+  #pings-list .ping .val{color:#a0c0e0}
+  .tabs{display:flex;gap:2px;margin-bottom:8px}
+  .tabs button{background:#121a28;border:none;color:#5a7a9a;padding:6px 12px;font-size:11px;cursor:pointer;border-radius:3px 3px 0 0}
+  .tabs button.active{background:#1a2a3a;color:#b0c8e0}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  @media(max-width:800px){#app{grid-template-columns:1fr;grid-template-rows:auto 1fr auto}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="panel" id="left">
+    <h2>Mission Control</h2>
+    <div class="control">
+      <button id="btn-connect" onclick="connect()">Connect</button>
+      <button id="btn-start" onclick="startSim()">▶ Start</button>
+      <button onclick="stopSim()">■ Stop</button>
+      <button onclick="clearData()">Clear</button>
+    </div>
+    <div class="control">
+      <select id="mode">
+        <option value="dive">Dive Profile</option>
+        <option value="survey">Survey Mode</option>
+        <option value="fleet">Fleet Tracking</option>
+      </select>
+      <select id="speed">
+        <option value="1">1x</option>
+        <option value="2">2x</option>
+        <option value="5" selected>5x</option>
+        <option value="10">10x</option>
+      </select>
+    </div>
+    <div id="metrics">
+      <div class="metric"><span class="label">Depth</span><span class="value" id="m-depth">--</span></div>
+      <div class="metric"><span class="label">Temperature</span><span class="value" id="m-temp">--</span></div>
+      <div class="metric"><span class="label">Sound Speed</span><span class="value" id="m-ss">--</span></div>
+      <div class="metric"><span class="label">Visibility</span><span class="value" id="m-vis">--</span></div>
+      <div class="metric"><span class="label">Attenuation</span><span class="value" id="m-att">--</span></div>
+      <div class="metric"><span class="label">FPS</span><span class="value" id="m-fps">--</span></div>
+    </div>
+    <div id="depth-chart"><canvas id="depth-canvas"></canvas></div>
+  </div>
+  <div class="panel" id="waterfall">
+    <canvas id="wf-canvas"></canvas>
+  </div>
+  <div class="panel" id="right">
+    <div class="tabs">
+      <button class="active" onclick="switchTab('pings',this)">Pings</button>
+      <button onclick="switchTab('events',this)">Events</button>
+    </div>
+    <div id="tab-pings" class="tab-content active">
+      <div id="pings-list"></div>
+    </div>
+    <div id="tab-events" class="tab-content">
+      <div id="events-list" style="font-size:11px;color:#5a7a9a">No events</div>
+    </div>
+  </div>
+</div>
+<div id="status-bar">
+  <span class="dot green" id="status-dot"></span>
+  <span id="status-text">Disconnected</span>
+  <span id="status-pings">Pings: 0</span>
+  <span id="status-time">--</span>
+</div>
+
+<script>
+// ============================================================
+// SonarVision Dashboard
+// ============================================================
+
+// State
+let ws = null;
+let connected = false;
+let running = false;
+let pings = [];
+let events = [];
+let fpsCount = 0;
+let fpsTime = 0;
+let animFrame = null;
+let tickId = null;
+
+// Canvas
+const wfCanvas = document.getElementById('wf-canvas');
+const wfCtx = wfCanvas.getContext('2d');
+const dpCanvas = document.getElementById('depth-canvas');
+const dpCtx = dpCanvas.getContext('2d');
+let wfWidth, wfHeight;
+let wfImageData = null;
+
+function resize() {
+  const rect = wfCanvas.parentElement.getBoundingClientRect();
+  wfCanvas.width = rect.width * 0.95;
+  wfCanvas.height = rect.height * 0.95;
+  wfWidth = wfCanvas.width;
+  wfHeight = wfCanvas.height;
+  dpCanvas.width = dpCanvas.parentElement.clientWidth - 24;
+  dpCanvas.height = 120;
+  clearWF();
+}
+window.addEventListener('resize', resize);
+setTimeout(resize, 100);
+
+// ============================================================
+// Connection
+// ============================================================
+
+function connect() {
+  const host = document.getElementById('api-host')?.value || 'localhost:8080';
+  const url = `ws://${host}/ws`;
+  
+  // Try REST first, then WS
+  fetch(`http://${host}/health`)
+    .then(r => r.json())
+    .then(d => {
+      if (d.status === 'ok') {
+        setStatus('Connected (REST)', 'green');
+        connected = true;
+        document.getElementById('btn-connect').textContent = 'Connected';
+        document.getElementById('btn-connect').style.background = '#1a3a2a';
+        // Start offline simulation
+        if (!running) startSim();
+      }
+    })
+    .catch(() => {
+      // No server — run offline simulation
+      setStatus('Offline Mode', 'yellow');
+      connected = true;
+      if (!running) startSim();
+    });
+}
+
+function setStatus(text, color) {
+  document.getElementById('status-text').textContent = text;
+  const dot = document.getElementById('status-dot');
+  dot.className = 'dot ' + color;
+}
+
+// ============================================================
+// Physics Engine (offline client-side FLUX physics)
+// ============================================================
+
+function fluxPhysics(depth, chl, season, temp) {
+  const wl = 480;
+  const sal = 35;
+  const isSummer = season === 'summer';
+  
+  // Water type
+  const wt = chl > 10 ? 0 : chl > 1 ? 1 : chl > 0.1 ? 2 : 3;
+  
+  // Francois-Garrison absorption
+  const wa = wl / 1000;
+  let ab;
+  if (wt <= 1) ab = 0.04 + 0.96 * Math.exp(-((wa - 0.42)**2) / (2 * 0.02**2));
+  else if (wt === 2) ab = 0.3 + 0.9 * Math.exp(-((wa - 0.48)**2) / (2 * 0.03**2));
+  else ab = 0.02 + 0.51 * Math.exp(-((wa - 0.42)**2) / (2 * 0.015**2));
+  
+  // Scattering
+  const ns = 0.002 * (480 / wl)**4.3;
+  const sc = ns * Math.max(0.01, 1 - depth * 0.003);
+  
+  // Thermocline
+  const tc = isSummer ? 15 : 40;
+  const tw = isSummer ? 5 : 15;
+  const st = isSummer ? 22 : 8;
+  const dt = isSummer ? 4 : 4;
+  const te = dt + (st - dt) * Math.exp(-((depth - tc)**2) / (2 * tw**2));
+  const dTdz = -(st - dt) * (depth - tc) / (tw**2) * Math.exp(-((depth - tc)**2) / (2 * tw**2));
+  
+  // Sound speed (Mackenzie)
+  const ss = 1449.2 + 4.6*te - 0.055*te**2 + 0.00029*te**3 + (1.34 - 0.01*te)*(sal - 35) + 0.016*depth;
+  
+  // Seabed
+  const sedReflect = [0.3, 0.5, 0.7, 0.85, 0.2];
+  const sr = (sedReflect[1] || 0.5) * Math.exp(-depth * 0.003);
+  
+  // Attenuation
+  const att = ab + sc;
+  const vis = Math.min(depth, 1.7 / Math.max(att, 0.001));
+  
+  return {
+    depth: depth, temperature: te, sound_speed: ss,
+    absorption: ab, scattering: sc, attenuation: att,
+    visibility: vis, dTdz: dTdz, seabed_reflectivity: sr
+  };
+}
+
+// ============================================================
+// Simulation Loop
+// ============================================================
+
+let simTime = 0;
+let currentDepth = 0;
+let direction = 1;
+let chl = 4.0;
+let season = 'summer';
+
+function startSim() {
+  if (running) return;
+  running = true;
+  document.getElementById('btn-start').textContent = '● Running';
+  tick();
+}
+
+function stopSim() {
+  running = false;
+  document.getElementById('btn-start').textContent = '▶ Start';
+  if (tickId) { clearTimeout(tickId); tickId = null; }
+}
+
+function tick() {
+  if (!running) return;
+  
+  const speed = parseInt(document.getElementById('speed').value);
+  const mode = document.getElementById('mode').value;
+  
+  // Dive profile: oscillate 0-50m
+  if (mode === 'dive') {
+    currentDepth += direction * speed * 0.5;
+    if (currentDepth >= 50) { currentDepth = 50; direction = -1; }
+    if (currentDepth <= 0) { currentDepth = 0; direction = 1; }
+  } else if (mode === 'survey') {
+    currentDepth = 20 + Math.sin(simTime * 0.02) * 10;
+  } else {
+    currentDepth = 25 + Math.sin(simTime * 0.01) * 15;
+  }
+  
+  const physics = fluxPhysics(currentDepth, chl, season);
+  
+  const ping = {
+    time: simTime,
+    depth: physics.depth,
+    temperature: physics.temperature,
+    sound_speed: physics.sound_speed,
+    visibility: physics.visibility,
+    attenuation: physics.attenuation,
+    absorption: physics.absorption,
+    scattering: physics.scattering,
+    dTdz: physics.dTdz,
+    seabed_reflectivity: physics.seabed_reflectivity,
+    intensity: 1 - physics.attenuation * 0.5
+  };
+  
+  pings.push(ping);
+  if (pings.length > 500) pings.shift();
+  
+  // Event at thermocline crossing
+  if (Math.abs(physics.dTdz) > 0.5 && pings.length % 5 === 0) {
+    events.push({
+      time: simTime.toFixed(1),
+      msg: `Thermocline at ${currentDepth.toFixed(0)}m (dT=${physics.dTdz.toFixed(2)}C/m)`,
+      type: 'info'
+    });
+  }
+  
+  updateMetrics(ping);
+  drawWaterfall();
+  drawDepthProfile();
+  updatePingList();
+  updateStatus();
+  
+  simTime++;
+  
+  // FPS tracking
+  fpsCount++;
+  const now = performance.now();
+  if (now - fpsTime > 1000) {
+    document.getElementById('m-fps').textContent = fpsCount;
+    fpsCount = 0;
+    fpsTime = now;
+  }
+  
+  tickId = setTimeout(tick, 50);
+}
+
+function clearData() {
+  pings = [];
+  events = [];
+  simTime = 0;
+  currentDepth = 0;
+  direction = 1;
+  clearWF();
+  updatePingList();
+  updateStatus();
+}
+
+// ============================================================
+// Rendering
+// ============================================================
+
+function clearWF() {
+  if (!wfCtx) return;
+  wfCtx.fillStyle = '#0b101a';
+  wfCtx.fillRect(0, 0, wfWidth || 600, wfHeight || 300);
+  wfImageData = null;
+}
+
+function drawWaterfall() {
+  if (pings.length < 2) return;
+  
+  const w = wfWidth || 600;
+  const h = wfHeight || 300;
+  
+  if (!wfImageData) {
+    wfImageData = wfCtx.createImageData(w, h);
+    for (let i = 0; i < wfImageData.data.length; i += 4) {
+      wfImageData.data[i] = 11;
+      wfImageData.data[i+1] = 16;
+      wfImageData.data[i+2] = 34;
+      wfImageData.data[i+3] = 255;
+    }
+  }
+  
+  // Shift left by 1 column
+  wfImageData.data.copyWithin(4, 0);
+  
+  // Prev column blank
+  for (let y = 0; y < h; y++) {
+    const idx = (y * w) * 4;
+    wfImageData.data[idx] = 11;
+    wfImageData.data[idx+1] = 16;
+    wfImageData.data[idx+2] = 34;
+    wfImageData.data[idx+3] = 255;
+  }
+  
+  // Draw latest ping as rightmost column
+  const ping = pings[pings.length - 1];
+  const val = ping.intensity;
+  const scaledY = Math.max(0, Math.min(h - 1, Math.round(h * (1 - ping.depth / 60))));
+  const intensity = Math.min(255, Math.round(val * 255));
+  
+  // Glow
+  const r = Math.min(255, intensity + 80);
+  const g = Math.min(255, Math.round(intensity * 0.6));
+  const b = Math.min(255, Math.round(intensity * 0.3) + 50);
+  
+  for (let dy = -2; dy <= 2; dy++) {
+    const yy = scaledY + dy;
+    if (yy < 0 || yy >= h) continue;
+    const idx = (yy * w + (w - 1)) * 4;
+    const alpha = dy === 0 ? 255 : 80;
+    wfImageData.data[idx] = r * alpha / 255;
+    wfImageData.data[idx+1] = g * alpha / 255;
+    wfImageData.data[idx+2] = b;
+    wfImageData.data[idx+3] = alpha;
+  }
+  
+  wfCtx.putImageData(wfImageData, 0, 0);
+  
+  // Depth labels
+  wfCtx.fillStyle = '#3a5a7a';
+  wfCtx.font = '10px monospace';
+  for (let d = 0; d <= 50; d += 10) {
+    const y = Math.round(h * (1 - d / 60));
+    wfCtx.fillText(`${d}m`, 4, y + 3);
+    wfCtx.fillStyle = '#1a2a3a';
+    wfCtx.fillRect(0, y, w, 1);
+    wfCtx.fillStyle = '#3a5a7a';
+  }
+}
+
+function drawDepthProfile() {
+  if (pings.length < 3) return;
+  const canvas = dpCanvas;
+  const ctx = dpCtx;
+  const w = canvas.width;
+  const h = canvas.height;
+  
+  ctx.fillStyle = '#0b101a';
+  ctx.fillRect(0, 0, w, h);
+  
+  // Temperature vs depth
+  const recent = pings.slice(-60);
+  const temps = recent.map(p => p.temperature);
+  const tMin = Math.min(...temps) - 1;
+  const tMax = Math.max(...temps) + 1;
+  const tRange = Math.max(tMax - tMin, 0.1);
+  
+  ctx.strokeStyle = '#5d8';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  for (let i = 0; i < recent.length; i++) {
+    const x = (i / recent.length) * w;
+    const y = h - ((recent[i].temperature - tMin) / tRange) * h * 0.8 - 8;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  
+  // Labels
+  ctx.fillStyle = '#3a5a7a';
+  ctx.font = '9px monospace';
+  ctx.fillText(`${tMin.toFixed(1)}C`, 4, h - 2);
+  ctx.fillText(`${tMax.toFixed(1)}C`, 4, 10);
+  ctx.fillText('Temp →', w - 60, 10);
+}
+
+function updateMetrics(ping) {
+  document.getElementById('m-depth').textContent = ping.depth.toFixed(1) + 'm';
+  document.getElementById('m-temp').textContent = ping.temperature.toFixed(2) + '°C';
+  document.getElementById('m-ss').textContent = ping.sound_speed.toFixed(0) + ' m/s';
+  const visEl = document.getElementById('m-vis');
+  visEl.textContent = ping.visibility.toFixed(1) + 'm';
+  visEl.className = ping.visibility < 5 ? 'value danger' : ping.visibility < 15 ? 'value warning' : 'value';
+  document.getElementById('m-att').textContent = (ping.attenuation * 1000).toFixed(2) + ' dB/km';
+}
+
+function updatePingList() {
+  const el = document.getElementById('pings-list');
+  const recent = pings.slice(-30).reverse();
+  el.innerHTML = recent.map(p => `
+    <div class="ping">
+      <span>t=${p.time.toFixed(0)}s</span>
+      <span class="val">${p.depth.toFixed(0)}m</span>
+      <span class="val">${p.temperature.toFixed(1)}°C</span>
+      <span class="val">${p.sound_speed.toFixed(0)}m/s</span>
+    </div>
+  `).join('');
+}
+
+function updateStatus() {
+  document.getElementById('status-pings').textContent = `Pings: ${pings.length}`;
+  document.getElementById('status-time').textContent = `t=${simTime.toFixed(0)}s`;
+  if (!connected) setStatus('Disconnected', 'red');
+}
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+// Auto-connect on load
+setTimeout(connect, 500);
+</script>
+</body>
+</html>

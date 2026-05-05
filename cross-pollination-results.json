@@ -1,0 +1,426 @@
+{
+  "total_repos": 496,
+  "synergies_found": 3789,
+  "top_synergies": [
+    {
+      "room_a": "flux-runtime-deu",
+      "room_b": "flux-runtime-wen",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-deu and flux-runtime-wen"
+    },
+    {
+      "room_a": "flux-runtime-deu",
+      "room_b": "flux-runtime-lat",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-deu and flux-runtime-lat"
+    },
+    {
+      "room_a": "flux-runtime-deu",
+      "room_b": "flux-runtime-kor",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-deu and flux-runtime-kor"
+    },
+    {
+      "room_a": "flux-runtime-deu",
+      "room_b": "flux-runtime-zho",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-deu and flux-runtime-zho"
+    },
+    {
+      "room_a": "flux-runtime-deu",
+      "room_b": "flux-runtime-san",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-deu and flux-runtime-san"
+    },
+    {
+      "room_a": "flux-runtime-wen",
+      "room_b": "flux-runtime-lat",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-wen and flux-runtime-lat"
+    },
+    {
+      "room_a": "flux-runtime-wen",
+      "room_b": "flux-runtime-kor",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-wen and flux-runtime-kor"
+    },
+    {
+      "room_a": "flux-runtime-wen",
+      "room_b": "flux-runtime-zho",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-wen and flux-runtime-zho"
+    },
+    {
+      "room_a": "flux-runtime-wen",
+      "room_b": "flux-runtime-san",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-wen and flux-runtime-san"
+    },
+    {
+      "room_a": "flux-runtime-lat",
+      "room_b": "flux-runtime-kor",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-lat and flux-runtime-kor"
+    },
+    {
+      "room_a": "flux-runtime-lat",
+      "room_b": "flux-runtime-zho",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-lat and flux-runtime-zho"
+    },
+    {
+      "room_a": "flux-runtime-lat",
+      "room_b": "flux-runtime-san",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-lat and flux-runtime-san"
+    },
+    {
+      "room_a": "flux-runtime-kor",
+      "room_b": "flux-runtime-zho",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-kor and flux-runtime-zho"
+    },
+    {
+      "room_a": "flux-runtime-kor",
+      "room_b": "flux-runtime-san",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-kor and flux-runtime-san"
+    },
+    {
+      "room_a": "flux-runtime-zho",
+      "room_b": "flux-runtime-san",
+      "overlap_score": 8.0,
+      "shared_concepts": [
+        "execution",
+        "support",
+        "flux",
+        "bytecode",
+        "runtime",
+        "language"
+      ],
+      "recommendation": "Merge execution, support, flux between flux-runtime-zho and flux-runtime-san"
+    },
+    {
+      "room_a": "liaison-agent",
+      "room_b": "cartridge-agent",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "standalone",
+        "fleet",
+        "bridge",
+        "orchestration",
+        "handles",
+        "agent"
+      ],
+      "recommendation": "Merge standalone, fleet, bridge between liaison-agent and cartridge-agent"
+    },
+    {
+      "room_a": "fleet-english",
+      "room_b": "fleet-latin",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-english and fleet-latin"
+    },
+    {
+      "room_a": "fleet-english",
+      "room_b": "fleet-arabic",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-english and fleet-arabic"
+    },
+    {
+      "room_a": "fleet-english",
+      "room_b": "fleet-sanskrit",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-english and fleet-sanskrit"
+    },
+    {
+      "room_a": "fleet-english",
+      "room_b": "fleet-finnish",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-english and fleet-finnish"
+    },
+    {
+      "room_a": "fleet-english",
+      "room_b": "fleet-chinese",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-english and fleet-chinese"
+    },
+    {
+      "room_a": "fleet-english",
+      "room_b": "fleet-navajo",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-english and fleet-navajo"
+    },
+    {
+      "room_a": "fleet-english",
+      "room_b": "fleet-japanese",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-english and fleet-japanese"
+    },
+    {
+      "room_a": "fleet-latin",
+      "room_b": "fleet-arabic",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-latin and fleet-arabic"
+    },
+    {
+      "room_a": "fleet-latin",
+      "room_b": "fleet-sanskrit",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-latin and fleet-sanskrit"
+    },
+    {
+      "room_a": "fleet-latin",
+      "room_b": "fleet-finnish",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-latin and fleet-finnish"
+    },
+    {
+      "room_a": "fleet-latin",
+      "room_b": "fleet-chinese",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-latin and fleet-chinese"
+    },
+    {
+      "room_a": "fleet-latin",
+      "room_b": "fleet-navajo",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-latin and fleet-navajo"
+    },
+    {
+      "room_a": "fleet-latin",
+      "room_b": "fleet-japanese",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-latin and fleet-japanese"
+    },
+    {
+      "room_a": "fleet-arabic",
+      "room_b": "fleet-sanskrit",
+      "overlap_score": 7.0,
+      "shared_concepts": [
+        "reasoned",
+        "cultural",
+        "cocapn",
+        "perspective",
+        "tradition",
+        "fleet"
+      ],
+      "recommendation": "Merge reasoned, cultural, cocapn between fleet-arabic and fleet-sanskrit"
+    }
+  ]
+}

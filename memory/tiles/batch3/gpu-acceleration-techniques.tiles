@@ -1,0 +1,47 @@
+# PLATO Tiles: gpu-acceleration-techniques
+# Generated: 2026-04-30 Night Shift (Batch 3)
+# ---
+
+[TILE:gpu-acceleration-techniques-001]
+title: "CUDA Streams and Concurrency"
+tags: [domain:gpu-acceleration-techniques, type:reference, tier:implementation]
+body: |-
+  CUDA streams enable concurrent kernel execution and overlap.
+  Multiple streams → multiple hardware work queues.
+  
+  Hyper-Q: 32 hardware work queues (Kepler+) vs 1 (Fermi).
+  Enables MPS (Multi-Process Service) for concurrent workloads.
+  
+  Default stream (stream 0) serializes all ops. Use per-pipeline
+  streams for maximum throughput. Async operations and page-locked
+  memory for overlap of compute + transfer.
+
+[TILE:gpu-acceleration-techniques-002]
+title: "Tensor Core Programming"
+tags: [domain:gpu-acceleration-techniques, type:reference, tier:tradeoffs]
+body: |-
+  NVIDIA Tensor Cores perform D = A × B + C in one operation.
+  Operate on 4×4 matrices. Require specific data layouts.
+  
+  Mixed-precision training: FP16 input → FP16/FP32 accumulation.
+  TF32: 19-bit mantissa for FP32-compatible tensor core ops.
+  
+  cuBLAS and cuDNN use Tensor Cores automatically for GEMM and
+  convolution. Manual WMMA API for custom matrix operations.
+  Ampere: 3rd gen (4× FP16, 2× TF32). Hopper: 4th gen (new WGMMA).
+
+[TILE:gpu-acceleration-techniques-003]
+title: "Unified Memory Overcommit"
+tags: [domain:gpu-acceleration-techniques, type:reference, tier:tradeoffs]
+body: |-
+  Unified Memory (UM) allows oversubscribing GPU memory by
+  migrating pages on demand between CPU and GPU.
+  
+  Pascal: hardware page fault engine. Pre-volta: software managed.
+  cudaMemAdvise: hints for prefetching (prefer GPU/CPU location).
+  
+  Tradeoff: page faults are expensive (~10μs). For predictable
+  access patterns, manual cudaMemcpyAsync + streams is faster.
+  For sparse/irregular access, UM can reduce programming complexity
+  at the cost of 10-30% peak performance.
+

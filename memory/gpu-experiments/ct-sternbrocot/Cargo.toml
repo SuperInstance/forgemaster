@@ -1,0 +1,12 @@
+[package]
+name = "ct-sternbrocot"
+version = "0.1.0"
+edition = "2021"
+description = "Stern-Brocot optimal rational approximation for Pythagorean snap — O(log N) time, O(log N) memory"
+license = "MIT"
+keywords = ["stern-brocot", "farey", "pythagorean", "rational-approximation", "snap"]
+categories = ["mathematics"]
+readme = "README.md"
+
+[profile.release]
+opt-level = 3

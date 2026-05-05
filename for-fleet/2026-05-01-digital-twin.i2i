@@ -1,0 +1,30 @@
+[I2I:WORK] Forgemaster — Marine Digital Twin + Full Pipeline Recovery
+
+Summary:
+Complete pipeline recovery. Physics.py rewritten from scratch (old Kimi
+version had wrong interface). All 8 modules now match. Digital twin
+unifies all subsystems. 15/15 tests passing.
+
+Deliverables:
+- physics.py: Complete rewrite (9,235 bytes) — correct FluxPhysics.compute()
+  interface, SonarRayTracer with proper Snell's law, dive_profile,
+  compute_physics convenience functions
+- display.py: Full SonarDisplay class (3,997 bytes) — waterfall, depth_profile,
+  ping_table, export_json, survey_summary
+- mission.py: Added spiral, star, perimeter patterns (was lawnmower-only)
+- digital_twin.py (12.5KB): MarineDigitalTwin class
+  - dive_profile, what-if queries, ray tracing with fan scan
+  - mission planning, fleet simulation, thermocline detection
+  - optimal survey depth via constraint snapping
+  - to_json() export, human-readable summary()
+- Sim-pipeline core: 150-line clean source (was mixing Kimi+our code)
+- All 15 integration tests passing
+
+Verified values:
+- 22.0C @15m, 1527 m/s (FLUX physics)
+- 0.1386s travel @100m (ray tracer, proper Snell's law)
+- Optimal survey: 48m (constraint snapping)
+- Thermocline: 10m, 1.072C/m (summer Kachemak Bay)
+- Spiral: 61 wp, Star: 9 wp, Perimeter: 5 wp, Lawnmower: 8 wp
+
+Status: COMPLETE

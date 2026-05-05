@@ -1,0 +1,159 @@
+# PLATO Tiles: real-time-systems
+# Domain: Real-time constraints and latency budgeting
+# Generated: 2026-04-30
+# Batch: 10-15 tiles
+# ---
+
+[TILE:real-time-systems-001]
+title: "Real-time constraints and latency budgeting — Core Principles"
+tags: [domain:real-time-systems, type:reference, tier:foundation]
+body: |-
+  # Real-time constraints and latency budgeting
+  
+  ## Core Principles
+  
+  1. **Principle One** — Every signal carries uncertainty. The measure of a good system is not how well it handles perfect inputs, but how gracefully it degrades under noise.
+  
+  2. **Principle Two** — The most elegant solution in simulation is often the least practical in the field. Benchmark on real hardware, not synthetic traces.
+  
+  3. **Principle Three** — Information decays with distance. Compensate at the source, not the receiver.
+  
+  These principles drive every design decision in this domain. When in doubt, optimize for the worst case.
+
+[TILE:real-time-systems-002]
+title: "Real-time constraints and latency budgeting — Key Metrics"
+tags: [domain:real-time-systems, type:reference, tier:foundation]
+body: |-
+  # Key Metrics
+
+  | Metric | Target | Warning | Critical |
+  |--------|--------|---------|----------|
+  | Latency | < 10ms | 10-50ms | > 50ms |
+  | Throughput | > 1000 Hz | 100-1000 Hz | < 100 Hz |
+  | Accuracy | > 95% | 85-95% | < 85% |
+  | Power | < 10W | 10-30W | > 30W |
+  
+  These are deployment-specific. Adjust per hardware target.
+
+[TILE:real-time-systems-003]
+title: "Real-time constraints and latency budgeting — Common Pitfalls"
+tags: [domain:real-time-systems, type:pattern, tier:implementation]
+body: |-
+  # Common Pitfalls
+
+  1. **Premature Optimization** — Optimizing before profiling is the #1 source of wasted engineering time.
+  2. **Over-fitting to Test Data** — If validation accuracy is suspiciously high, check for data leakage.
+  3. **Ignoring the Tail Latency** — P50 might be 1ms, but P99 is 500ms. The tail kills user experience.
+  4. **Hardcoding Constants** — Wavelengths, thresholds, and margins change. Make them configurable.
+  5. **Synthetic-Only Testing** — If it hasn't run on real hardware with real data, it doesn't work.
+
+[TILE:real-time-systems-004]
+title: "Real-time constraints and latency budgeting — Design Patterns"
+tags: [domain:real-time-systems, type:pattern, tier:architecture]
+body: |-
+  # Design Patterns
+
+  ## Pattern: Pipeline Decomposition
+  Break the problem into stages with clearly defined interfaces between them.
+  
+  ## Pattern: Observer-Consensus
+  Multiple observers each produce a hypothesis. A consensus layer merges them.
+  
+  ## Pattern: Graceful Degradation
+  When a component fails, the system degrades predictably rather than crashing.
+
+[TILE:real-time-systems-005]
+title: "Real-time constraints and latency budgeting — Hardware Considerations"
+tags: [domain:real-time-systems, type:reference, tier:tradeoffs]
+body: |-
+  # Hardware Considerations
+
+  | Component | Preferred | Acceptable | Avoid |
+  |-----------|-----------|------------|-------|
+  | Compute | GPU with tensor cores | CPU with SIMD | Microcontroller |
+  | Memory | Unified memory | Discrete GPU RAM | Shared system RAM |
+  | Storage | NVMe SSD | SATA SSD | HDD |
+  | Network | 10GbE | 1GbE | WiFi |
+
+[TILE:real-time-systems-006]
+title: "Real-time constraints and latency budgeting — Testing Strategy"
+tags: [domain:real-time-systems, type:pattern, tier:testing]
+body: |-
+  # Testing Strategy
+
+  ## Levels
+  1. **Unit** — Test each component in isolation
+  2. **Integration** — Test component interfaces
+  3. **End-to-End** — Test the full pipeline
+  4. **Stress** — Test under worst-case load
+  5. **Regression** — Continuous verification
+
+  ## Key Assertions
+  - Output bounds are within expected ranges
+  - Performance meets latency/throughput targets
+  - Memory usage stays within budget
+
+[TILE:real-time-systems-007]
+title: "Real-time constraints and latency budgeting — Deployment Checklist"
+tags: [domain:real-time-systems, type:checklist, tier:operations]
+body: |-
+  # Deployment Checklist
+
+  - [ ] All unit tests pass
+  - [ ] Integration tests pass on target hardware
+  - [ ] Latency meets target (measured on-device)
+  - [ ] Memory usage within budget
+  - [ ] Logging configured
+  - [ ] Monitoring configured
+  - [ ] Rollback plan documented
+  - [ ] Contact on-call engineer notified
+
+[TILE:real-time-systems-008]
+title: "Real-time constraints and latency budgeting — Optimization Guide"
+tags: [domain:real-time-systems, type:guide, tier:implementation]
+body: |-
+  # Optimization Guide
+
+  ## Order of Operations
+  1. Profile first
+  2. Fix the worst bottleneck
+  3. Re-profile
+  4. Repeat
+  
+  ## Common Optimizations
+  - Fuse kernels where possible
+  - Reduce memory transfers
+  - Use mixed precision
+  - Batch operations
+  - Pre-compute constants
+
+[TILE:real-time-systems-009]
+title: "Real-time constraints and latency budgeting — Safety Margins"
+tags: [domain:real-time-systems, type:reference, tier:operations]
+body: |-
+  # Safety Margins
+
+  | Resource | Budget | Buffer | Hard Limit |
+  |----------|--------|--------|------------|
+  | CPU | 70% | 20% | 90% |
+  | Memory | 60% | 25% | 85% |
+  | GPU | 75% | 15% | 90% |
+  | Power | 80% | 10% | 90% |
+  | Bandwidth | 50% | 30% | 80% |
+
+[TILE:real-time-systems-010]
+title: "Real-time constraints and latency budgeting — References"
+tags: [domain:real-time-systems, type:reference, tier:reference]
+body: |-
+  # References
+
+  - Standard textbooks in the domain
+  - Relevant academic papers (cited where applicable)
+  - Production systems and their architecture
+  - Community best practices and patterns
+  
+  ## Related Domains
+  - Constraint theory for system boundaries
+  - Edge computing for deployment patterns
+  - Signal processing for core algorithms
+

@@ -1,0 +1,9 @@
+[package]
+name = "fluxc-parser"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+fluxc-ast = { path = "../fluxc-ast" }
+thiserror.workspace = true

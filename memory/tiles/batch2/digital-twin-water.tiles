@@ -1,0 +1,18 @@
+# PLATO Tiles: Digital Twins for Marine Environments
+# Generated: 2026-04-30 Night Shift
+# Batch: deep domain-specific (non-template)
+# ---
+
+[TILE:digital-twin-water-001]
+title: "Virtual Marine Replica"
+tags: [domain:digital-twin-water, type:reference, tier:foundation]
+body: |-
+  A marine digital twin comprises: (1) bathymetric model, (2) water column physics,
+  (3) acoustic propagation model, (4) asset registry (pipelines, wrecks, sensors).
+  
+  Data sources: multibeam sonar (bathymetry), CTD casts (temperature/salinity),
+  HF radar (surface currents), drifters (deep currents).
+  
+  Constraints: model must run faster than real-time for predictive simulation.
+  Use surrogate models (neural nets) for computationally expensive physics.
+

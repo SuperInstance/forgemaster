@@ -1,0 +1,18 @@
+[package]
+name = "ct-cuda-prep"
+version = "0.1.0"
+edition = "2021"
+description = "GPU-ready CUDA snap kernels — compile-verified, CPU fallback, PTX analysis"
+license = "MIT"
+keywords = ["cuda", "gpu", "constraint", "pythagorean", "snap"]
+categories = ["mathematics", "hardware-support"]
+readme = "README.md"
+build = "build.rs"
+
+[features]
+default = []
+# Uncomment when CUDA toolkit is available at build time:
+# cuda = []
+
+[profile.release]
+opt-level = 3

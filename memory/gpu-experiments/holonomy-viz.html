@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constraint Theory — Holonomy Visualizer</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0d1117; color: #c9d1d9; font-family: 'Segoe UI', monospace; overflow-x: hidden; }
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+h1 { text-align: center; color: #00d4ff; font-size: 1.6em; margin-bottom: 4px; text-shadow: 0 0 20px rgba(0,212,255,0.3); }
+.subtitle { text-align: center; color: #8b949e; font-size: 0.85em; margin-bottom: 16px; }
+.main { display: flex; gap: 16px; }
+.canvas-wrap { flex: 1; background: #161b22; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; position: relative; }
+canvas { display: block; width: 100%; cursor: crosshair; }
+.controls { width: 300px; background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+.controls h2 { color: #00d4ff; font-size: 1em; margin-bottom: 12px; }
+.ctrl-group { margin-bottom: 12px; }
+.ctrl-group label { display: block; color: #8b949e; font-size: 0.8em; margin-bottom: 4px; }
+.ctrl-group input[type=range] { width: 100%; accent-color: #00d4ff; }
+.ctrl-group .val { color: #00ff88; font-size: 0.85em; float: right; }
+button { background: #21262d; color: #c9d1d9; border: 1px solid #30363d; padding: 8px 16px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 0.9em; margin-bottom: 8px; transition: all 0.2s; }
+button:hover { background: #30363d; border-color: #00d4ff; color: #00d4ff; }
+button:active { transform: scale(0.97); }
+button.running { border-color: #ffcc00; color: #ffcc00; }
+.stats { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 10px; margin-top: 12px; }
+.stats h3 { color: #ffcc00; font-size: 0.85em; margin-bottom: 6px; }
+.stat-row { display: flex; justify-content: space-between; font-size: 0.8em; margin-bottom: 3px; }
+.stat-row .label { color: #8b949e; }
+.stat-row .value { color: #00ff88; font-weight: bold; }
+.stat-row .value.bad { color: #ff4444; }
+.legend { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75em; color: #8b949e; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+.hist-section { margin-top: 16px; }
+.hist-section h2 { color: #ffcc00; font-size: 1em; margin-bottom: 8px; }
+.canvas-wrap.hist { height: 200px; }
+#histCanvas { height: 200px; }
+.explain { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin-top: 16px; font-size: 0.85em; line-height: 1.6; }
+.explain h2 { color: #00d4ff; font-size: 1em; margin-bottom: 8px; }
+.explain strong { color: #ffcc00; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>⚒️ Constraint Theory — Holonomy Visualizer</h1>
+  <p class="subtitle">Closed-loop snap displacement on the Pythagorean manifold</p>
+
+  <div class="main">
+    <div class="canvas-wrap">
+      <canvas id="mainCanvas" width="800" height="800"></canvas>
+    </div>
+    <div class="controls">
+      <h2>⚙️ Controls</h2>
+      <div class="ctrl-group">
+        <label>Steps <span class="val" id="stepsVal">50</span></label>
+        <input type="range" id="steps" min="5" max="500" value="50">
+      </div>
+      <div class="ctrl-group">
+        <label>Resolution (max_c) <span class="val" id="resVal">1000</span></label>
+        <input type="range" id="resolution" min="50" max="10000" value="1000" step="50">
+      </div>
+      <div class="ctrl-group">
+        <label>Step Magnitude (rad) <span class="val" id="deltaVal">0.10</span></label>
+        <input type="range" id="delta" min="0.01" max="0.5" value="0.10" step="0.01">
+      </div>
+      <button id="runBtn" onclick="runHolonomy()">▶ Run Holonomy Test</button>
+      <button id="batchBtn" onclick="runBatch()">📊 Run 100 Trials</button>
+      <button onclick="clearCanvas()">🗑️ Clear</button>
+
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#00d4ff"></div> Triples</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ff4444"></div> Ambient path</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#00ff88"></div> Snapped path</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ffcc00"></div> Displacement</div>
+      </div>
+
+      <div class="stats">
+        <h3>📊 Last Test Results</h3>
+        <div class="stat-row"><span class="label">Displacement</span><span class="value" id="statDisp">—</span></div>
+        <div class="stat-row"><span class="label">Angle drift</span><span class="value" id="statAngle">—</span></div>
+        <div class="stat-row"><span class="label">Snaps completed</span><span class="value" id="statSnaps">—</span></div>
+        <div class="stat-row"><span class="label">Failed snaps</span><span class="value" id="statFailed">—</span></div>
+        <div class="stat-row"><span class="label">Manifold size</span><span class="value" id="statSize">—</span></div>
+        <div class="stat-row"><span class="label">Avg gap (rad)</span><span class="value" id="statGap">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hist-section">
+    <div class="canvas-wrap hist">
+      <canvas id="histCanvas" width="1400" height="200"></canvas>
+    </div>
+  </div>
+
+  <div class="explain">
+    <h2>📖 What is Holonomy?</h2>
+    <p><strong>Holonomy</strong> measures the geometric defect when a point is transported around a closed loop on a manifold. In constraint theory, we send a query around a circular path (angle deltas summing to zero), <strong>snap to the nearest Pythagorean triple at each step</strong>, and measure how far the final position drifts from the start.</p>
+    <p><strong>Zero displacement = flat manifold</strong> (snap is perfect). <strong>Non-zero displacement = curvature</strong> (the manifold's discrete structure introduces geometric drift). Higher resolution (more triples) → smaller gaps → less holonomy drift. This is the fundamental property that distinguishes constraint theory from continuous floating-point arithmetic: <em>float drift is unbounded and random, constraint drift is bounded and geometrically predictable</em>.</p>
+  </div>
+</div>
+
+<script>
+const mainCanvas = document.getElementById('mainCanvas');
+const ctx = mainCanvas.getContext('2d');
+const histCanvas = document.getElementById('histCanvas');
+const hctx = histCanvas.getContext('2d');
+
+let triples = [];
+let particles = [];
+let animFrame = null;
+
+// Generate Pythagorean triples
+function generateTriples(maxC) {
+    const ts = [];
+    const seen = new Set();
+    for (let m = 2; m * m <= maxC; m++) {
+        for (let n = 1; n < m; n++) {
+            if ((m - n) % 2 !== 1) continue;
+            if (gcd(m, n) !== 1) continue;
+            const a = m*m - n*n, b = 2*m*n, c = m*m + n*n;
+            if (c > maxC) continue;
+            const nx = a/c, ny = b/c;
+            const key = nx.toFixed(8) + ',' + ny.toFixed(8);
+            if (!seen.has(key)) { seen.add(key); ts.push({nx, ny, a, b, c}); }
+            const nx2 = b/c, ny2 = a/c;
+            const key2 = nx2.toFixed(8) + ',' + ny2.toFixed(8);
+            if (!seen.has(key2)) { seen.add(key2); ts.push({nx: nx2, ny: ny2, a: b, b: a, c}); }
+        }
+    }
+    // Also add reflections to all quadrants
+    const all = [];
+    for (const t of ts) {
+        all.push(t, {nx: -t.nx, ny: t.ny, a: -t.a, b: t.b, c: t.c},
+                   {nx: t.nx, ny: -t.ny, a: t.a, b: -t.b, c: t.c},
+                   {nx: -t.nx, ny: -t.ny, a: -t.a, b: -t.b, c: t.c});
+    }
+    return all;
+}
+
+function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+
+// Find nearest triple
+function snap(x, y) {
+    let best = null, bestDist = Infinity;
+    for (const t of triples) {
+        const dx = x - t.nx, dy = y - t.ny;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < bestDist) { bestDist = d; best = t; }
+    }
+    return { triple: best, dist: bestDist };
+}
+
+// Coordinate transform
+function toScreen(x, y) {
+    const cx = mainCanvas.width / 2, cy = mainCanvas.height / 2;
+    const r = mainCanvas.width * 0.38;
+    return { sx: cx + x * r, sy: cy - y * r };
+}
+
+// Draw static elements
+function drawBase() {
+    const w = mainCanvas.width, h = mainCanvas.height;
+    ctx.fillStyle = '#0d1117';
+    ctx.fillRect(0, 0, w, h);
+
+    // Grid
+    ctx.strokeStyle = '#1e2a38';
+    ctx.lineWidth = 0.5;
+    for (let i = -1; i <= 1; i += 0.2) {
+        ctx.beginPath();
+        ctx.moveTo(toScreen(i, -1.2).sx, toScreen(i, -1.2).sy);
+        ctx.lineTo(toScreen(i, 1.2).sx, toScreen(i, 1.2).sy);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(toScreen(-1.2, i).sx, toScreen(-1.2, i).sy);
+        ctx.lineTo(toScreen(1.2, i).sx, toScreen(1.2, i).sy);
+        ctx.stroke();
+    }
+
+    // Unit circle
+    ctx.strokeStyle = '#1e2a38';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    const steps = 200;
+    for (let i = 0; i <= steps; i++) {
+        const a = (i / steps) * Math.PI * 2;
+        const p = toScreen(Math.cos(a), Math.sin(a));
+        if (i === 0) ctx.moveTo(p.sx, p.sy); else ctx.lineTo(p.sx, p.sy);
+    }
+    ctx.stroke();
+
+    // Triples
+    ctx.shadowColor = '#00d4ff';
+    ctx.shadowBlur = 8;
+    ctx.fillStyle = '#00d4ff';
+    for (const t of triples) {
+        const p = toScreen(t.nx, t.ny);
+        const onCircle = Math.abs(t.nx*t.nx + t.ny*t.ny - 1.0) < 0.001;
+        ctx.beginPath();
+        ctx.arc(p.sx, p.sy, onCircle ? 3 : 1.5, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+}
+
+function clearCanvas() {
+    if (animFrame) cancelAnimationFrame(animFrame);
+    particles = [];
+    drawBase();
+    document.getElementById('statDisp').textContent = '—';
+    document.getElementById('statAngle').textContent = '—';
+    document.getElementById('statSnaps').textContent = '—';
+    document.getElementById('statFailed').textContent = '—';
+}
+
+// Run holonomy test
+function runHolonomy() {
+    const numSteps = parseInt(document.getElementById('steps').value);
+    const maxC = parseInt(document.getElementById('resolution').value);
+    const deltaMag = parseFloat(document.getElementById('delta').value);
+
+    triples = generateTriples(maxC);
+    drawBase();
+
+    // Generate closed loop
+    const deltas = [];
+    let totalDelta = 0;
+    for (let i = 0; i < numSteps - 1; i++) {
+        const d = (Math.random() - 0.5) * 2 * deltaMag;
+        deltas.push(d);
+        totalDelta += d;
+    }
+    deltas.push(-totalDelta); // Close the loop
+
+    // Walk the loop
+    let angle = 0;
+    const ambientPath = [{ x: Math.cos(angle), y: Math.sin(angle) }];
+    const snappedPath = [];
+    let failedSnaps = 0;
+
+    for (const delta of deltas) {
+        angle += delta;
+        const x = Math.cos(angle), y = Math.sin(angle);
+        ambientPath.push({ x, y });
+
+        const result = snap(x, y);
+        if (result.triple) {
+            snappedPath.push({ x: result.triple.nx, y: result.triple.ny });
+            angle = Math.atan2(result.triple.ny, result.triple.nx);
+        } else {
+            failedSnaps++;
+            snappedPath.push({ x, y });
+        }
+    }
+
+    // Animate drawing
+    animatePaths(ambientPath, snappedPath, numSteps, failedSnaps, triples.length, maxC);
+}
+
+function animatePaths(ambient, snapped, steps, failed, size, maxC) {
+    let i = 0;
+    particles = [];
+
+    function draw() {
+        if (i >= Math.max(ambient.length, snapped.length)) {
+            // Draw displacement vector
+            if (snapped.length > 1) {
+                const start = toScreen(snapped[0].x, snapped[0].y);
+                const end = toScreen(snapped[snapped.length-1].x, snapped[snapped.length-1].y);
+                ctx.strokeStyle = '#ffcc00';
+                ctx.lineWidth = 3;
+                ctx.shadowColor = '#ffcc00';
+                ctx.shadowBlur = 12;
+                ctx.setLineDash([6, 4]);
+                ctx.beginPath();
+                ctx.moveTo(start.sx, start.sy);
+                ctx.lineTo(end.sx, end.sy);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.shadowBlur = 0;
+
+                // Arrow head
+                const dx = end.sx - start.sx, dy = end.sy - start.sy;
+                const len = Math.sqrt(dx*dx + dy*dy);
+                if (len > 5) {
+                    const ux = dx/len, uy = dy/len;
+                    ctx.fillStyle = '#ffcc00';
+                    ctx.beginPath();
+                    ctx.moveTo(end.sx, end.sy);
+                    ctx.lineTo(end.sx - ux*12 + uy*6, end.sy - uy*12 - ux*6);
+                    ctx.lineTo(end.sx - ux*12 - uy*6, end.sy - uy*12 + ux*6);
+                    ctx.fill();
+                }
+            }
+            updateParticles();
+            return;
+        }
+
+        // Draw ambient segment
+        if (i > 0 && i < ambient.length) {
+            const p1 = toScreen(ambient[i-1].x, ambient[i-1].y);
+            const p2 = toScreen(ambient[i].x, ambient[i].y);
+            ctx.strokeStyle = 'rgba(255, 68, 68, 0.6)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(p1.sx, p1.sy);
+            ctx.lineTo(p2.sx, p2.sy);
+            ctx.stroke();
+        }
+
+        // Draw snapped segment
+        if (i > 0 && i <= snapped.length) {
+            const p1 = toScreen(snapped[i-1].x, snapped[i-1].y);
+            const p2 = toScreen(snapped[i-1].x, snapped[i-1].y); // current snap point
+            ctx.strokeStyle = '#00ff88';
+            ctx.lineWidth = 2;
+            ctx.shadowColor = '#00ff88';
+            ctx.shadowBlur = 6;
+            ctx.beginPath();
+            ctx.arc(p1.sx, p1.sy, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Particle burst at snap point
+            if (i < snapped.length) {
+                const p = toScreen(snapped[i].x, snapped[i].y);
+                particles.push({ x: p.sx, y: p.sy, r: 0, alpha: 1, color: '#00ff88' });
+            }
+        }
+
+        updateParticles();
+
+        // Start/end markers
+        if (i === 1 && snapped.length > 0) {
+            const p = toScreen(snapped[0].x, snapped[0].y);
+            ctx.fillStyle = '#00ff88';
+            ctx.shadowColor = '#00ff88';
+            ctx.shadowBlur = 10;
+            ctx.beginPath();
+            ctx.arc(p.sx, p.sy, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+
+        i += 2;
+        animFrame = requestAnimationFrame(draw);
+    }
+    draw();
+
+    // Update stats
+    const displacement = Math.sqrt(
+        (snapped[0].x - snapped[snapped.length-1].x)**2 +
+        (snapped[0].y - snapped[snapped.length-1].y)**2
+    );
+    const angleDrift = Math.atan2(snapped[snapped.length-1].y, snapped[snapped.length-1].x) -
+                        Math.atan2(snapped[0].y, snapped[0].x);
+
+    // Estimate average gap
+    let totalGap = 0, gapCount = 0;
+    for (let a = 0; a < Math.PI * 2; a += 0.01) {
+        const s = snap(Math.cos(a), Math.sin(a));
+        totalGap += s.dist;
+        gapCount++;
+    }
+    const avgGap = totalGap / gapCount;
+
+    document.getElementById('statDisp').textContent = displacement.toFixed(6);
+    document.getElementById('statDisp').className = displacement < 0.01 ? 'value' : 'value bad';
+    document.getElementById('statAngle').textContent = angleDrift.toFixed(6) + ' rad';
+    document.getElementById('statAngle').className = Math.abs(angleDrift) < 0.01 ? 'value' : 'value bad';
+    document.getElementById('statSnaps').textContent = snapped.length;
+    document.getElementById('statFailed').textContent = failed;
+    document.getElementById('statFailed').className = failed === 0 ? 'value' : 'value bad';
+    document.getElementById('statSize').textContent = size + ' triples';
+    document.getElementById('statGap').textContent = avgGap.toFixed(4);
+}
+
+function updateParticles() {
+    particles = particles.filter(p => p.alpha > 0.05);
+    for (const p of particles) {
+        p.r += 1.5;
+        p.alpha -= 0.04;
+        ctx.strokeStyle = p.color.replace(')', `,${p.alpha})`).replace('rgb', 'rgba');
+        if (p.color.startsWith('#')) {
+            const r = parseInt(p.color.slice(1,3),16);
+            const g = parseInt(p.color.slice(3,5),16);
+            const b = parseInt(p.color.slice(5,7),16);
+            ctx.strokeStyle = `rgba(${r},${g},${b},${p.alpha})`;
+        }
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+}
+
+// Run 100 trials
+function runBatch() {
+    const numSteps = parseInt(document.getElementById('steps').value);
+    const maxC = parseInt(document.getElementById('resolution').value);
+    const deltaMag = parseFloat(document.getElementById('delta').value);
+    triples = generateTriples(maxC);
+
+    const displacements = [];
+    for (let trial = 0; trial < 100; trial++) {
+        let angle = 0;
+        const deltas = [];
+        let totalDelta = 0;
+        for (let i = 0; i < numSteps - 1; i++) {
+            const d = (Math.random() - 0.5) * 2 * deltaMag;
+            deltas.push(d);
+            totalDelta += d;
+        }
+        deltas.push(-totalDelta);
+
+        let startX, startY;
+        for (const delta of deltas) {
+            angle += delta;
+            const x = Math.cos(angle), y = Math.sin(angle);
+            const result = snap(x, y);
+            if (result.triple) {
+                angle = Math.atan2(result.triple.ny, result.triple.nx);
+                if (!startX) { startX = result.triple.nx; startY = result.triple.ny; }
+            }
+        }
+        if (startX !== undefined) {
+            const endX = Math.cos(angle), endY = Math.sin(angle);
+            displacements.push(Math.sqrt((startX - endX)**2 + (startY - endY)**2));
+        }
+    }
+
+    drawHistogram(displacements);
+
+    // Run single visible test with last trial's path
+    drawBase();
+    angle = 0;
+    const deltas2 = [];
+    let td = 0;
+    for (let i = 0; i < numSteps - 1; i++) {
+        const d = (Math.random() - 0.5) * 2 * deltaMag;
+        deltas2.push(d); td += d;
+    }
+    deltas2.push(-td);
+
+    const ambientP = [], snappedP = [];
+    let fails = 0;
+    for (const delta of deltas2) {
+        angle += delta;
+        const x = Math.cos(angle), y = Math.sin(angle);
+        ambientP.push({x, y});
+        const result = snap(x, y);
+        if (result.triple) { snappedP.push({x: result.triple.nx, y: result.triple.ny}); angle = Math.atan2(result.triple.ny, result.triple.nx); }
+        else { snappedP.push({x, y}); fails++; }
+    }
+
+    // Draw all at once
+    ctx.strokeStyle = 'rgba(255,68,68,0.4)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let i = 0; i < ambientP.length; i++) {
+        const p = toScreen(ambientP[i].x, ambientP[i].y);
+        if (i === 0) ctx.moveTo(p.sx, p.sy); else ctx.lineTo(p.sx, p.sy);
+    }
+    ctx.stroke();
+
+    ctx.strokeStyle = '#00ff88';
+    ctx.lineWidth = 2;
+    ctx.shadowColor = '#00ff88';
+    ctx.shadowBlur = 4;
+    ctx.beginPath();
+    for (let i = 0; i < snappedP.length; i++) {
+        const p = toScreen(snappedP[i].x, snappedP[i].y);
+        if (i === 0) ctx.moveTo(p.sx, p.sy); else ctx.lineTo(p.sx, p.sy);
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    if (snappedP.length > 1) {
+        const s = toScreen(snappedP[0].x, snappedP[0].y);
+        const e = toScreen(snappedP[snappedP.length-1].x, snappedP[snappedP.length-1].y);
+        ctx.strokeStyle = '#ffcc00'; ctx.lineWidth = 3; ctx.shadowColor = '#ffcc00'; ctx.shadowBlur = 12;
+        ctx.setLineDash([6,4]); ctx.beginPath(); ctx.moveTo(s.sx, s.sy); ctx.lineTo(e.sx, e.sy); ctx.stroke();
+        ctx.setLineDash([]); ctx.shadowBlur = 0;
+    }
+}
+
+function drawHistogram(displacements) {
+    const w = histCanvas.width, h = histCanvas.height;
+    hctx.fillStyle = '#0d1117';
+    hctx.fillRect(0, 0, w, h);
+
+    if (displacements.length === 0) return;
+
+    const maxD = Math.max(...displacements, 0.001);
+    const bins = 40;
+    const counts = new Array(bins).fill(0);
+    for (const d of displacements) {
+        const idx = Math.min(Math.floor(d / maxD * bins), bins - 1);
+        counts[idx]++;
+    }
+    const maxCount = Math.max(...counts, 1);
+    const barW = (w - 80) / bins;
+    const barAreaH = h - 40;
+
+    // Bars
+    for (let i = 0; i < bins; i++) {
+        const barH = (counts[i] / maxCount) * barAreaH;
+        const grad = hctx.createLinearGradient(0, h - 20 - barH, 0, h - 20);
+        grad.addColorStop(0, 'rgba(0,212,255,0.9)');
+        grad.addColorStop(1, 'rgba(0,212,255,0.2)');
+        hctx.fillStyle = grad;
+        hctx.fillRect(40 + i * barW, h - 20 - barH, barW - 1, barH);
+    }
+
+    // Axes
+    hctx.strokeStyle = '#30363d';
+    hctx.lineWidth = 1;
+    hctx.beginPath();
+    hctx.moveTo(40, 10); hctx.lineTo(40, h - 20); hctx.lineTo(w - 20, h - 20);
+    hctx.stroke();
+
+    // Labels
+    hctx.fillStyle = '#8b949e';
+    hctx.font = '11px monospace';
+    hctx.fillText('0', 35, h - 6);
+    hctx.fillText(maxD.toFixed(3), w - 60, h - 6);
+    hctx.fillText('Displacement', w / 2 - 40, h - 2);
+
+    hctx.save();
+    hctx.translate(12, h / 2);
+    hctx.rotate(-Math.PI / 2);
+    hctx.fillText('Count', -20, 0);
+    hctx.restore();
+
+    // Stats
+    const mean = displacements.reduce((a,b) => a+b, 0) / displacements.length;
+    const median = displacements.sort((a,b) => a-b)[Math.floor(displacements.length/2)];
+    hctx.fillStyle = '#00ff88';
+    hctx.font = '12px monospace';
+    hctx.fillText(`n=${displacements.length}  μ=${mean.toFixed(4)}  md=${median.toFixed(4)}  max=${maxD.toFixed(4)}`, 50, 22);
+}
+
+// Slider value displays
+document.getElementById('steps').oninput = e => document.getElementById('stepsVal').textContent = e.target.value;
+document.getElementById('resolution').oninput = e => document.getElementById('resVal').textContent = e.target.value;
+document.getElementById('delta').oninput = e => document.getElementById('deltaVal').textContent = parseFloat(e.target.value).toFixed(2);
+
+// Initial draw
+triples = generateTriples(1000);
+drawBase();
+document.getElementById('statSize').textContent = triples.length + ' triples';
+</script>
+</body>
+</html>

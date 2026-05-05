@@ -1,0 +1,72 @@
+# PLATO Tiles: Marine Acoustic Propagation
+# Generated: 2026-04-30 Night Shift
+# Batch: deep domain-specific (non-template)
+# ---
+
+[TILE:marine-acoustic-propagation-001]
+title: "Ray Tracing"
+tags: [domain:marine-acoustic-propagation, type:reference, tier:foundation]
+body: |-
+  Ray tracing treats acoustic wavefronts as rays normal to the
+  wavefront. Snell's law governs refraction: sin(θ)/c = constant.
+  
+  Gaussian ray bundles: each ray carries intensity. Beam width
+  calculated from neighboring rays (conservation of energy).
+  
+  Works well for high frequencies (f > 1kHz) where wavelength <<
+  environment scale. Fails at caustics where rays cross.
+
+[TILE:marine-acoustic-propagation-002]
+title: "Normal Mode Propagation"
+tags: [domain:marine-acoustic-propagation, type:reference, tier:foundation]
+body: |-
+  Normal mode decomposition solves the wave equation by separation
+  of variables. The sound field is a sum of propagating modes.
+  
+  Each mode has a characteristic depth function and horizontal
+  wavenumber. Modes are orthogonal: sound field = Σ Aₙ φₙ(z) e^(ikₙr).
+  
+  Most accurate for low frequencies (f < 500 Hz) in shallow water.
+  KRACKEN and ORCA use normal modes for matched-field processing.
+
+[TILE:marine-acoustic-propagation-003]
+title: "Parabolic Equation Method"
+tags: [domain:marine-acoustic-propagation, type:reference, tier:implementation]
+body: |-
+  PE approximates the Helmholtz equation by factoring out
+  the dominant phase term. The paraxial approximation assumes
+  energy propagates near the horizontal.
+  
+  Split-step Fourier: propagate through range-independent segments
+  by alternating between depth and wavenumber domains.
+  
+  RAM (Range-dependent Acoustic Model) is the reference PE implementation.
+  Range-dependent bathymetry via stair-step approximation.
+
+[TILE:marine-acoustic-propagation-004]
+title: "Wavenumber Integration"
+tags: [domain:marine-acoustic-propagation, type:reference, tier:technique]
+body: |-
+  Computes the sound field by integrating over all wavenumbers.
+  Uses FFT to transform from wavenumber domain to range domain.
+  
+  Advantage: exact solution for range-independent environments.
+  Disadvantage: O(N²) per frequency, expensive for broadband.
+  
+  OASES is the reference implementation. Used for benchmark validation
+  of faster approximate methods (PE, ray, modes).
+
+[TILE:marine-acoustic-propagation-005]
+title: "Sonar Performance Modeling"
+tags: [domain:marine-acoustic-propagation, type:reference, tier:tradeoffs]
+body: |-
+  Active sonar equation: SL - 2TL + TS - (NL - DI) = DT
+  where SL=source level, TL=transmission loss, TS=target strength,
+  NL=noise level, DI=directivity index, DT=detection threshold.
+  
+  TL decomposes into spreading (spherical/cylindrical), absorption
+  (Francois-Garrison), and scattering (volume/boundary).
+  
+  The figure of merit (FOM) is the maximum TL at which detection is
+  possible. Related to detection range via propagation model.
+

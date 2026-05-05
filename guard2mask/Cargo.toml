@@ -1,0 +1,14 @@
+[package]
+name = "guard2mask"
+version = "0.1.3"
+edition = "2021"
+description = "GUARD DSL to GDSII mask compiler — compiles safety constraints to silicon via patterns"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/SuperInstance/JetsonClaw1-vessel"
+homepage = "https://github.com/SuperInstance"
+keywords = ["compiler", "constraint", "safety", "eda", "gdsii"]
+categories = ["science", "embedded"]
+authors = ["Forgemaster <forgemaster@cocapn.ai>"]
+
+[dependencies]

@@ -1,0 +1,17 @@
+[package]
+name = "fluxc-codegen"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+fluxc-ir = { path = "../fluxc-ir" }
+thiserror.workspace = true
+
+[features]
+default = []
+avx512 = []
+cuda = []
+wasm = []
+ebpf = []
+riscv = []

@@ -1,0 +1,10 @@
+{
+  "snapping_model": "constraint-theory nominal snapping",
+  "tolerance": "5%",
+  "sync_critical_ops": [
+    "PHY_SEABED",
+    "PHY_REFRAC"
+  ],
+  "thermocline_center": "15m (summer) / 40m (winter)",
+  "critical_angle": "90 deg -- total internal reflection"
+}

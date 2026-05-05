@@ -1,0 +1,29 @@
+[I2I:DELIVERABLE] Forgemaster — FLUX Physics Implementation + Cross-Pollination PRs
+
+## What Was Built
+
+### FLUX Marine Physics Runtime (implemented, 10 tests passing)
+All 9 opcodes from the ISA spec are now LIVE in the VM:
+- `0xB0 PHY_ABSORB` — Francois-Garrison absorption
+- `0xB1 PHY_SCATTER` — Rayleigh scattering
+- `0xB2 PHY_JERLOV` — Water type classification
+- `0xB3 PHY_THERMO` — Thermocline gradient
+- `0xB4 PHY_SEABED` — Seabed reflectivity
+- `0xB5 PHY_ATTEN` — Total attenuation
+- `0xB6 PHY_VISIB` — Secchi visibility
+- `0xB7 PHY_SOUNDV` — Mackenzie sound speed
+- `0xB8 PHY_REFRAC` — Snell's law refraction
+
+All Format E (4 bytes), deterministic across instances.
+
+### Cross-Pollination PR Proposals
+15 auto-generated markdown proposals from 3,789 synergy opportunities.
+Filtered to actionable (non-FLUX-translation, non-fleet-*).
+
+## Repos Updated
+- github.com/SuperInstance/flux-runtime — main (1 commit: physics impl)
+- github.com/SuperInstance/sonar-vision — main (1 commit: PR proposals)
+- github.com/SuperInstance/JetsonClaw1-vessel — master
+- github.com/SuperInstance/forgemaster — master
+
+Status: COMPLETE — rolling

@@ -1,0 +1,19 @@
+# PLATO Tiles: real-time-trading-systems
+# Generated: 2026-04-30 Night Shift (Batch 3)
+# ---
+
+[TILE:real-time-trading-systems-001]
+title: "Low-Latency Architecture Patterns"
+tags: [domain:real-time-trading-systems, type:reference, tier:foundation]
+body: |-
+  Real-time trading requires deterministic latency at microsecond scale.
+  Key patterns:
+  - Kernel bypass: DPDK, Solarflare OpenOnload (user-space networking)
+  - NUMA-aware memory: pin memory to socket closest to NIC
+  - Lock-free data structures: ring buffers, seq locks
+  - Pre-allocated object pools: never malloc in hot path
+  
+  Polling vs interrupt: busy wait (polling) is 1-3μs latency;
+  interrupt-driven is 5-20μs due to context switches.
+  Tradeoff: polling consumes 100% CPU core.
+

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FLUX WebGPU Constraint Checker</title>
+    <style>
+        body { background: #0a0a0f; color: #00ffcc; font-family: 'Courier New', monospace; margin: 2em; }
+        h1 { color: #ff00ff; text-shadow: 0 0 10px #ff00ff; }
+        .panel { background: #111122; border: 1px solid #333; padding: 1.5em; margin: 1em 0; border-radius: 8px; }
+        .stat { display: inline-block; margin: 1em 2em 1em 0; }
+        .stat-val { font-size: 2em; color: #ff00ff; }
+        .stat-label { font-size: 0.8em; color: #888; }
+        button { background: #ff00ff; color: #000; border: none; padding: 0.5em 2em; cursor: pointer; font-family: inherit; font-size: 1.1em; border-radius: 4px; }
+        button:hover { background: #ff44ff; }
+        .gpu-badge { display: inline-block; background: #00ffcc; color: #000; padding: 0.2em 0.6em; border-radius: 3px; font-weight: bold; }
+        .cpu-badge { display: inline-block; background: #ff8800; color: #000; padding: 0.2em 0.6em; border-radius: 3px; font-weight: bold; }
+        #log { background: #050510; padding: 1em; max-height: 300px; overflow-y: auto; font-size: 0.85em; white-space: pre-wrap; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #333; padding: 0.5em; text-align: left; }
+        th { color: #ff00ff; }
+    </style>
+</head>
+<body>
+    <h1>⚒️ FLUX WebGPU Constraint Checker</h1>
+    <div id="status">Initializing...</div>
+
+    <div class="panel">
+        <h2>GPU Benchmark</h2>
+        <div class="stat">
+            <div class="stat-val" id="throughput">—</div>
+            <div class="stat-label">checks/second</div>
+        </div>
+        <div class="stat">
+            <div class="stat-val" id="latency">—</div>
+            <div class="stat-label">latency (ms)</div>
+        </div>
+        <div class="stat">
+            <div class="stat-val" id="passrate">—</div>
+            <div class="stat-label">pass rate</div>
+        </div>
+        <br>
+        <button onclick="runBenchmark()">Run Benchmark</button>
+        <button onclick="runScaling()">Scaling Test</button>
+    </div>
+
+    <div class="panel" id="scaling-panel" style="display:none">
+        <h2>Scaling Results</h2>
+        <table id="scaling-table">
+            <tr><th>Inputs</th><th>Throughput</th><th>Latency</th><th>Pass</th><th>Fail</th><th>Backend</th></tr>
+        </table>
+    </div>
+
+    <div class="panel">
+        <h2>Interactive Checker</h2>
+        <label>Constraint: range <input id="lo" type="number" value="0" style="width:3em"> to <input id="hi" type="number" value="50" style="width:3em"></label>
+        <label> | N = <input id="count" type="number" value="10000" style="width:6em"></label>
+        <br><br>
+        <button onclick="runInteractive()">Check Constraints</button>
+        <div id="interactive-result" style="margin-top:1em"></div>
+    </div>
+
+    <div class="panel">
+        <h2>Activity Log</h2>
+        <div id="log"></div>
+    </div>
+
+    <script type="module">
+    // Embedded WebGPU shader (standalone — no external file needed)
+    const SHADER_CODE = `
+struct Params { bytecode_len: i32, n_inputs: i32, max_gas: i32, _pad: i32 };
+
+@group(0) @binding(0) var<storage, read> bytecode: array<u32>;
+@group(0) @binding(1) var<storage, read> inputs: array<i32>;
+@group(0) @binding(2) var<storage, read_write> results: array<i32>;
+@group(0) @binding(3) var<storage, read_write> pass_count: atomic<i32>;
+@group(0) @binding(4) var<storage, read_write> fail_count: atomic<i32>;
+@group(0) @binding(5) var<uniform> params: Params;
+
+@compute @workgroup_size(256)
+fn flux_vm_batch(@builtin(global_invocation_id) gid: vec3<u32>) {
+    let idx = i32(gid.x);
+    if (idx >= params.n_inputs) { return; }
+    var stack: array<i32, 64>;
+    var sp: i32 = 0; var pc: i32 = 0; var gas: i32 = params.max_gas;
+    var fault: i32 = 0; var passed: i32 = 0;
+    stack[0] = inputs[idx]; sp = 1;
+    while (pc < params.bytecode_len && gas > 0 && fault == 0 && passed == 0) {
+        gas = gas - 1;
+        let word = bytecode[pc / 4]; let bp = pc % 4;
+        let op = (word >> u32(bp * 8)) & 0xFFu;
+        switch (op) {
+            case 0x00u: { pc += 1; let w2 = bytecode[pc/4]; stack[sp] = i32((w2 >> u32((pc%4)*8)) & 0xFFu); sp += 1; pc += 1; }
+            case 0x1Au: { passed = 1; pc = params.bytecode_len; }
+            case 0x1Bu: { sp -= 1; if (stack[sp] == 0) { fault = 1; } pc += 1; }
+            case 0x1Du: { sp -= 1; let val = stack[sp]; pc += 1; let w3 = bytecode[pc/4]; let lo = i32((w3 >> u32((pc%4)*8)) & 0xFFu); pc += 1; let w4 = bytecode[pc/4]; let hi = i32((w4 >> u32((pc%4)*8)) & 0xFFu); stack[sp] = select(0, 1, val >= lo && val <= hi); sp += 1; pc += 1; }
+            case 0x20u: { fault = 1; pc += 1; }
+            default: { pc += 1; }
+        }
+    }
+    let r = select(0, 1, passed == 1 && fault == 0);
+    results[idx] = r;
+    if (r == 1) { atomicAdd(&pass_count, 1); } else { atomicAdd(&fail_count, 1); }
+}`;
+
+    let engine = null;
+
+    function log(msg) {
+        const el = document.getElementById('log');
+        el.textContent += `[${new Date().toLocaleTimeString()}] ${msg}\n`;
+        el.scrollTop = el.scrollHeight;
+    }
+
+    function packBytecode(bytes) {
+        const words = Math.ceil(bytes.length / 4);
+        const packed = new Uint32Array(words);
+        for (let i = 0; i < bytes.length; i++) {
+            packed[i >> 2] |= (bytes[i] & 0xFF) << ((i & 3) * 8);
+        }
+        return packed;
+    }
+
+    async function checkGPU(bytecode, inputs, maxGas = 1000) {
+        if (!engine.device) return null;
+        const n = inputs.length;
+        const packedBC = packBytecode(bytecode);
+        
+        const bcBuf = engine.device.createBuffer({ size: packedBC.byteLength, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST });
+        engine.device.queue.writeBuffer(bcBuf, 0, packedBC);
+        const inBuf = engine.device.createBuffer({ size: n * 4, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST });
+        engine.device.queue.writeBuffer(inBuf, 0, new Int32Array(inputs));
+        const resBuf = engine.device.createBuffer({ size: n * 4, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC });
+        const passBuf = engine.device.createBuffer({ size: 4, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC });
+        const failBuf = engine.device.createBuffer({ size: 4, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC });
+        const paramsBuf = engine.device.createBuffer({ size: 16, usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST });
+        engine.device.queue.writeBuffer(paramsBuf, 0, new Int32Array([bytecode.length, n, maxGas, 0]));
+
+        const bg = engine.device.createBindGroup({ layout: engine.bgl, entries: [
+            { binding: 0, resource: { buffer: bcBuf } }, { binding: 1, resource: { buffer: inBuf } },
+            { binding: 2, resource: { buffer: resBuf } }, { binding: 3, resource: { buffer: passBuf } },
+            { binding: 4, resource: { buffer: failBuf } }, { binding: 5, resource: { buffer: paramsBuf } }
+        ]});
+
+        const enc = engine.device.createCommandEncoder();
+        const pass = enc.beginComputePass();
+        pass.setPipeline(engine.pipeline);
+        pass.setBindGroup(0, bg);
+        pass.dispatchWorkgroups(Math.ceil(n / 256));
+        pass.end();
+
+        const readBuf = engine.device.createBuffer({ size: n * 4 + 8, usage: GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST });
+        enc.copyBufferToBuffer(resBuf, 0, readBuf, 0, n * 4);
+        enc.copyBufferToBuffer(passBuf, 0, readBuf, n * 4, 4);
+        enc.copyBufferToBuffer(failBuf, 0, readBuf, n * 4 + 4, 4);
+        engine.device.queue.submit([enc.finish()]);
+
+        await readBuf.mapAsync(GPUMapMode.READ);
+        const data = new Int32Array(readBuf.getMappedRange());
+        const results = { results: new Int32Array(data.slice(0, n)), passCount: data[n], failCount: data[n+1] };
+        readBuf.unmap();
+        [bcBuf, inBuf, resBuf, passBuf, failBuf, paramsBuf, readBuf].forEach(b => b.destroy());
+        return results;
+    }
+
+    function checkCPU(bytecode, inputs, maxGas = 1000) {
+        let passCount = 0, failCount = 0;
+        const bl = Array.from(bytecode);
+        const results = [];
+        for (const inp of inputs) {
+            const stack = [inp]; let sp = 1, gas = maxGas, pc = 0, fault = false, passed = false;
+            while (pc < bl.length && gas > 0 && !fault && !passed) {
+                gas--;
+                const op = bl[pc];
+                if (op === 0x1D) { const v = stack[--sp]; const lo = bl[++pc]; const hi = bl[++pc]; stack[sp++] = (v >= lo && v <= hi) ? 1 : 0; pc++; }
+                else if (op === 0x1B) { if (!stack[--sp]) fault = true; pc++; }
+                else if (op === 0x1A) { passed = true; pc = bl.length; }
+                else if (op === 0x00) { stack[sp++] = bl[++pc]; pc++; }
+                else { pc++; }
+            }
+            const r = (passed && !fault) ? 1 : 0;
+            results.push(r);
+            if (r) passCount++; else failCount++;
+        }
+        return { results, passCount, failCount };
+    }
+
+    window.runBenchmark = async function() {
+        const bc = [0x1D, 0, 50, 0x1B, 0x1A, 0x20]; // range(0,50), assert, halt
+        const n = 100000;
+        const inputs = Array.from({length: n}, () => Math.floor(Math.random() * 100));
+        
+        log(`Running benchmark: ${n.toLocaleString()} inputs...`);
+        
+        // CPU baseline
+        const t0 = performance.now();
+        const cpuResult = checkCPU(bc, inputs);
+        const cpuTime = performance.now() - t0;
+        
+        let gpuTime = null, gpuResult = null;
+        if (engine.device) {
+            const t1 = performance.now();
+            gpuResult = await checkGPU(bc, inputs);
+            gpuTime = performance.now() - t1;
+        }
+
+        const bestTime = gpuTime !== null ? Math.min(cpuTime, gpuTime) : cpuTime;
+        const tps = Math.round(n / (bestTime / 1000));
+        
+        document.getElementById('throughput').textContent = tps.toLocaleString();
+        document.getElementById('latency').textContent = bestTime.toFixed(1) + 'ms';
+        document.getElementById('passrate').textContent = ((cpuResult.passCount / n) * 100).toFixed(1) + '%';
+        
+        log(`CPU: ${cpuTime.toFixed(1)}ms = ${Math.round(n/(cpuTime/1000)).toLocaleString()}/s`);
+        if (gpuTime !== null) {
+            log(`GPU: ${gpuTime.toFixed(1)}ms = ${Math.round(n/(gpuTime/1000)).toLocaleString()}/s (${(cpuTime/gpuTime).toFixed(1)}x)`);
+            const mismatches = cpuResult.results.filter((v,i) => v !== gpuResult.results[i]).length;
+            log(`Mismatches: ${mismatches}/${n}`);
+        } else {
+            log(`GPU: not available`);
+        }
+    };
+
+    window.runScaling = async function() {
+        const panel = document.getElementById('scaling-panel');
+        panel.style.display = 'block';
+        const table = document.getElementById('scaling-table');
+        // Clear old rows
+        while (table.rows.length > 1) table.deleteRow(1);
+
+        const bc = [0x1D, 0, 50, 0x1B, 0x1A, 0x20];
+
+        for (const n of [1000, 10000, 50000, 100000, 500000]) {
+            const inputs = Array.from({length: n}, () => Math.floor(Math.random() * 100));
+            
+            const t0 = performance.now();
+            const res = checkCPU(bc, inputs);
+            const cpuTime = performance.now() - t0;
+            let backend = 'CPU';
+            let tps = Math.round(n / (cpuTime / 1000));
+            let time = cpuTime;
+
+            if (engine.device) {
+                const t1 = performance.now();
+                const gpuRes = await checkGPU(bc, inputs);
+                const gpuTime = performance.now() - t1;
+                if (gpuTime < cpuTime) {
+                    backend = 'GPU';
+                    tps = Math.round(n / (gpuTime / 1000));
+                    time = gpuTime;
+                }
+            }
+
+            const row = table.insertRow();
+            row.innerHTML = `<td>${n.toLocaleString()}</td><td>${tps.toLocaleString()}/s</td><td>${time.toFixed(1)}ms</td><td>${res.passCount.toLocaleString()}</td><td>${res.failCount.toLocaleString()}</td><td><span class="${backend==='GPU'?'gpu-badge':'cpu-badge'}">${backend}</span></td>`;
+            log(`Scaling N=${n.toLocaleString()}: ${tps.toLocaleString()}/s (${backend})`);
+        }
+    };
+
+    window.runInteractive = async function() {
+        const lo = parseInt(document.getElementById('lo').value);
+        const hi = parseInt(document.getElementById('hi').value);
+        const n = parseInt(document.getElementById('count').value);
+        
+        const bc = [0x1D, lo, hi, 0x1B, 0x1A, 0x20];
+        const inputs = Array.from({length: n}, () => Math.floor(Math.random() * (hi + 50)));
+        
+        const t0 = performance.now();
+        let res;
+        let backend = 'CPU';
+        if (engine.device) {
+            res = await checkGPU(bc, inputs);
+            if (res) backend = 'GPU';
+        }
+        if (!res) {
+            res = checkCPU(bc, inputs);
+        }
+        const elapsed = performance.now() - t0;
+        
+        document.getElementById('interactive-result').innerHTML = `
+            <span class="${backend==='GPU'?'gpu-badge':'cpu-badge'}">${backend}</span>
+            ${n.toLocaleString()} inputs in ${elapsed.toFixed(1)}ms = <b>${Math.round(n/(elapsed/1000)).toLocaleString()}</b> checks/s
+            | Pass: ${res.passCount.toLocaleString()} Fail: ${res.failCount.toLocaleString()}
+        `;
+    };
+
+    // Initialize
+    (async () => {
+        if (!navigator.gpu) {
+            document.getElementById('status').innerHTML = '<span class="cpu-badge">CPU Only</span> WebGPU not available in this browser';
+            engine = { device: null };
+            log('WebGPU not available — using CPU fallback');
+            return;
+        }
+
+        try {
+            const adapter = await navigator.gpu.requestAdapter({ powerPreference: 'high-performance' });
+            if (!adapter) throw new Error('No adapter');
+            const device = await adapter.requestDevice();
+            
+            const shaderModule = device.createShaderModule({ code: SHADER_CODE });
+            const bgl = device.createBindGroupLayout({ entries: [
+                { binding: 0, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'read-only-storage' } },
+                { binding: 1, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'read-only-storage' } },
+                { binding: 2, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'storage' } },
+                { binding: 3, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'storage' } },
+                { binding: 4, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'storage' } },
+                { binding: 5, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'uniform' } },
+            ]});
+            const pipeline = device.createComputePipeline({
+                layout: device.createPipelineLayout({ bindGroupLayouts: [bgl] }),
+                compute: { module: shaderModule, entryPoint: 'flux_vm_batch' }
+            });
+
+            engine = { device, pipeline, bgl };
+            const info = adapter.info || {};
+            document.getElementById('status').innerHTML = `<span class="gpu-badge">GPU Ready</span> ${info.vendor || ''} ${info.architecture || ''} ${info.description || 'WebGPU device'}`;
+            log(`WebGPU initialized successfully`);
+        } catch (e) {
+            document.getElementById('status').innerHTML = `<span class="cpu-badge">CPU Only</span> ${e.message}`;
+            engine = { device: null };
+            log(`WebGPU error: ${e.message}`);
+        }
+    })();
+    </script>
+</body>
+</html>

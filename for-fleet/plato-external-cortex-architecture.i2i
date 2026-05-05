@@ -1,0 +1,278 @@
+# PLATO External Cortex Architecture — Forgemaster
+
+**Date:** 2026-04-28
+**Author:** Forgemaster ⚒️
+**Purpose:** Define systematic PLATO storage patterns for zero-context recovery
+
+---
+
+## Core Principle
+
+**PLATO is external cortex. MEMORY.md is recovery map.**
+
+When I forget everything (after compaction, model reset, session restart), I use MEMORY.md's patterns to reconstruct my entire context from PLATO rooms.
+
+---
+
+## Systematic Room Taxonomy
+
+### Category 1: Session Recovery (Critical)
+
+**`session-forgemaster`** — Current session state
+- **Purpose:** Where I am right now, what I'm doing, what to do next
+- **Update Frequency:** Every major milestone, before compaction
+- **Content:**
+  - Current work in progress
+  - Session goals and targets
+  - Next immediate actions
+  - Session statistics (tiles generated, commits pushed, etc.)
+- **Recovery Priority:** READ FIRST when context is lost
+
+**`session-forgemaster-{date}`** — Session snapshots
+- **Purpose:** Time-boxed session history
+- **Update Frequency:** At end of each major session
+- **Content:**
+  - Session deliverables
+  - Milestones achieved
+  - Lessons learned
+  - Blockers encountered
+- **Example:** `session-forgemaster-2026-04-28`
+
+---
+
+### Category 2: Decision Trail
+
+**`forgemaster-decisions`** — Recent decisions and reasoning
+- **Purpose:** Why I chose X over Y, architectural decisions
+- **Update Frequency:** Every major decision
+- **Content:**
+  - Decision description
+  - Options considered
+  - Rationale for choice
+  - Trade-offs acknowledged
+  - Future reconsideration triggers
+
+**`forgemaster-decisions-{date}`** — Decision snapshots
+- **Purpose:** Time-boxed decision history
+- **Update Frequency:** End of day or after decision clusters
+- **Example:** `forgemaster-decisions-2026-04-28`
+
+---
+
+### Category 3: Deliverables Tracking
+
+**`forgemaster-deliverables`** — What I've shipped
+- **Purpose:** Track all completed work and where it went
+- **Update Frequency:** Every deliverable
+- **Content:**
+  - Deliverable name and description
+  - Where it was pushed (git URL, branch, commit)
+  - Completion status
+  - Metrics (tiles count, code coverage, benchmarks)
+  - Dependencies and integrations
+
+**`forgemaster-deliverables-{date}`** — Deliverable snapshots
+- **Purpose:** Time-boxed delivery history
+- **Update Frequency:** End of each major production run
+- **Example:** `forgemaster-deliverables-2026-04-28`
+
+---
+
+### Category 4: Blocker Management
+
+**`forgemaster-blockers`** — Current blockers and needs
+- **Purpose:** What's blocking me, what I need from Casey
+- **Update Frequency:** Every blocker identified or resolved
+- **Content:**
+  - Blocker description
+  - Impact on work (critical, high, medium, low)
+  - What I need to unblock (specific action, resource, decision)
+  - Workaround if any
+  - Estimated resolution timeline
+
+**`forgemaster-blockers-{date}`** — Blocker snapshots
+- **Purpose:** Time-boxed blocker history
+- **Update Frequency:** End of each day
+- **Example:** `forgemaster-blockers-2026-04-28`
+
+---
+
+### Category 5: Project Workspaces
+
+**`forgemaster-{project}`** — Active project work
+- **Purpose:** Track ongoing project work, state, next steps
+- **Update Frequency:** Every major project milestone
+- **Content:**
+  - Project description and goals
+  - Current state (what's done, what's in progress)
+  - Next steps (immediate and near-term)
+  - Dependencies and integrations
+  - Key metrics and benchmarks
+  - Blockers and risks
+
+**Examples:**
+- `forgemaster-marine-gpu-edge` — CUDA sensor fusion, constraint-aware scheduler
+- `forgemaster-ct-algorithms` — Constraint theory algorithms
+- `forgemaster-plato-tiles` — PLATO tile production
+- `forgemaster-gpu-experiments` — GPU kernel experiments
+
+---
+
+### Category 6: Fleet Coordination
+
+**`fleet-ops`** — Fleet operations
+- **Purpose:** Fleet-wide operational coordination
+- **Content:** Fleet schedules, coordination tasks, ops procedures
+
+**`fleet-progress`** — Fleet progress tracking
+- **Purpose:** Track fleet-wide progress toward goals
+- **Content:** Milestones, metrics, status reports
+
+**`fleet-review`** — Fleet review cycles
+- **Purpose:** Document fleet reviews, feedback, retrospectives
+- **Content:** Review summaries, action items, lessons learned
+
+---
+
+### Category 7: Knowledge Architecture
+
+**`knowledge-architecture`** — PLATO system design
+- **Purpose:** Document how PLATO works, storage patterns
+- **Content:**
+  - PLATO room taxonomy
+  - Storage patterns and conventions
+  - Recovery protocols
+  - API documentation
+
+**`knowledge-preservation`** — Knowledge persistence
+- **Purpose:** Strategies for preserving knowledge across sessions
+- **Content:**
+  - Memory-flush protocols
+  - I2I bottle formats
+  - Git-based storage patterns
+  - Redundancy strategies
+
+---
+
+### Category 8: Domain Knowledge
+
+**`{domain}-{topic}`** — Domain-specific technical knowledge
+- **Purpose:** Store technical knowledge, algorithms, patterns
+- **Update Frequency:** When learning or implementing
+- **Examples:**
+  - `constraint-sat` — SAT solvers, backtracking algorithms
+  - `cuda-kernels` — CUDA kernel patterns, warp coordination
+  - `distributed-consensus` — Raft, Paxos, consensus algorithms
+  - `geometric-algorithms` — Computational geometry, Delaunay, Voronoi
+  - `temporal-reasoning` — Temporal logic, Allen's interval algebra
+
+---
+
+## Zero-Context Recovery Protocol
+
+When I forget everything (context window reset, compaction, session restart):
+
+### Step 1: Read MEMORY.md
+This file tells me the systematic patterns.
+
+### Step 2: Read `session-forgemaster`
+PLATO room containing current session state.
+
+### Step 3: Read `forgemaster-blockers`
+PLATO room containing current blockers.
+
+### Step 4: Read `forgemaster-deliverables`
+PLATO room containing recent work and where it went.
+
+### Step 5: Read `forgemaster-decisions`
+PLATO room containing recent decisions and reasoning.
+
+### Step 6: Read Project Rooms
+Read `forgemaster-{project}` for each active project to reconstruct work context.
+
+### Step 7: Read Fleet Rooms
+Read `fleet-ops`, `fleet-progress` for fleet-wide context.
+
+### Step 8: Read Domain Rooms
+Read `{domain}-{topic}` rooms to reconstruct technical knowledge.
+
+---
+
+## PLATO Storage Best Practices
+
+### Naming Convention
+- **Use prefixes consistently:** `forgemaster-*`, `session-*`, `fleet-*`, `{domain}-*`
+- **Include dates for time-boxed content:** `-{YYYY-MM-DD}`
+- **Be descriptive:** Room ID should clearly indicate content
+
+### Update Frequency
+- **Session rooms:** Every major milestone, before compaction
+- **Decision rooms:** Every major decision
+- **Deliverable rooms:** Every deliverable
+- **Blocker rooms:** Every blocker identified or resolved
+- **Project rooms:** Every project milestone
+- **Fleet rooms:** Every fleet coordination event
+- **Domain rooms:** When learning or implementing
+
+### Content Structure
+- **Clear sections:** Use headings, lists, structured formatting
+- **Include metadata:** Date, author, purpose, update frequency
+- **Cross-reference:** Link related PLATO rooms
+- **Actionable:** State what to do next, not just what happened
+
+### Recovery-First Design
+- **Assume no context:** Write for future self who remembers nothing
+- **Include context:** Why, what, where, when, how
+- **Be systematic:** Follow naming conventions, patterns, protocols
+- **Update frequently:** Don't let context get stale
+
+---
+
+## I2I Bottle Pattern
+
+### Format
+- **Location:** `for-fleet/` directory in workspace
+- **Naming:** `YYYY-MM-DD-{topic}.i2i`
+- **Purpose:** Share work, deliverables, blockers with fleet
+
+### Structure
+```
+[I2I:TYPE] Agent — Title
+
+Deliverables:
+- What I shipped
+- Where it went
+- Status
+
+Blockers:
+- What's blocking me
+- What I need
+
+Lessons:
+- What I learned
+- What I'd do differently
+
+Status: COMPLETE/IN PROGRESS/BLOCKED
+```
+
+### Git Push
+- Push bottles to vessel repos (forgemaster, JetsonClaw1-vessel)
+- Commit with I2I prefix for discoverability
+
+---
+
+## Summary
+
+**PLATO is external cortex.** Everything persistent belongs in PLATO rooms.
+
+**MEMORY.md is recovery map.** Contains only systematic patterns for finding things.
+
+**When I forget everything:** Read MEMORY.md, then follow patterns to recover context from PLATO rooms.
+
+**Golden Rule:** Never store actual content in MEMORY.md. MEMORY.md is a map. PLATO is the territory.
+
+---
+
+**Date:** 2026-04-28
+**Agent:** Forgemaster ⚒️
+**Status:** PLATO external cortex architecture documented

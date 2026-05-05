@@ -1,0 +1,140 @@
+Metadata-Version: 2.4
+Name: sonar-sim-pipeline
+Version: 1.0.0
+Summary: Sonar simulation pipeline — FLUX physics, ray tracing, mission planning, fleet simulation, digital twin
+Author-email: SuperInstance <dev@superinstance.ai>
+License: MIT
+Project-URL: Homepage, https://github.com/SuperInstance/sonar-vision
+Project-URL: Repository, https://github.com/SuperInstance/sonar-vision
+Project-URL: Documentation, https://github.com/SuperInstance/sonar-vision
+Keywords: sonar,auv,acoustics,simulation,physics,underwater,digital-twin
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Scientific/Engineering :: Oceanography
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Provides-Extra: neural
+Requires-Dist: torch>=2.0; extra == "neural"
+Requires-Dist: numpy; extra == "neural"
+Requires-Dist: matplotlib; extra == "neural"
+
+# Sonar Simulation Pipeline
+
+Production-grade marine physics simulation: FLUX opcode engine, geometric ray tracing,
+multi-agent AUV fleet simulation, mission planning, digital twin, and live dashboard.
+
+```
+pip install sonar-sim-pipeline
+```
+
+## Quick Start
+
+```python
+from sonar_sim_pipeline import *
+
+# 1. Physics at a single depth
+env = compute_physics(25.0, chl=4.0, season="summer", sediment="sand")
+print(f"{env['temperature']:.1f}C, {env['sound_speed']:.0f} m/s")
+
+# 2. Dive profile
+prof = dive_profile(0, 50, 5)
+for p in prof:
+    print(f"{p['depth']:5.0f}m | {p['temperature']:5.1f}C | {p['sound_speed']:6.0f}m/s | {p['visibility']:5.1f}m")
+
+# 3. Ray tracing
+rt = SonarRayTracer()
+ret = rt.compute_return(source_depth=10.0, target_depth=50.0, range=100.0)
+print(f"Travel time: {ret['total_travel_time_s']:.4f}s, Loss: {ret['total_loss_db']:.1f}dB")
+
+# 4. Survey mission
+planner = MissionPlanner()
+mission = planner.lawnmower("kachemak-bay", width=500, height=200, depth=25)
+print(f"{len(mission.waypoints)} waypoints, {mission.total_distance():.0f}m total")
+
+# 5. Fleet simulation
+from sonar_sim_pipeline import AUVFleetSimulator, FluxPhysics, Formation
+sim = AUVFleetSimulator(FluxPhysics())
+sim.spawn_fleet(5, depth=20)
+sim.formation(Formation.V, spacing=40)
+sim.run_for(60)
+print(f"Fleet: {sim.fleet_summary()['avg_battery']:.1f}% avg battery")
+
+# 6. Digital twin
+from sonar_sim_pipeline import MarineDigitalTwin
+twin = MarineDigitalTwin(max_depth=100, chl=4.0)
+twin.spawn_fleet(3)
+twin.run_fleet(30)
+print(twin.summary())
+```
+
+## CLI
+
+```bash
+# Dive profile (CSV)
+sonar-env --start 0 --end 100 --step 5
+
+# Survey mission
+sonar-survey --type lawnmower --width 500 --height 200 --depth 25
+
+# Ray trace
+sonar-ray --source-depth 10 --angle 15 --range 100
+
+# Mission plan
+sonar-plan --type spiral --radius 100 --depth 20
+```
+
+## API Server
+
+```bash
+python api_server.py --port 8080
+curl localhost:8080/health
+curl "localhost:8080/v1/physics?depth=25&season=summer"
+```
+
+## Dashboard
+
+Open `dashboard.html` in any browser — offline FLUX physics, live waterfall,
+depth profile chart, no dependencies.
+
+## Modules
+
+| Module | Description |
+|--------|-------------|
+| `physics.py` | FLUX 9-opcode engine (0xB0-0xB8): absorption, scattering, thermocline, SSP, reflectivity, refraction |
+| `mission.py` | MissionPlanner: lawnmower, spiral, star, perimeter patterns |
+| `display.py` | SonarDisplay: waterfall, ping_table, export_json, survey_summary |
+| `fleet_sim.py` | AUVFleetSimulator: multi-agent formation control with FLUX physics |
+| `ct_bridge.py` | ConstraintSnapper, FLUXCTBridge, CSPTranslator for constraint theory integration |
+| `pipeline.py` | Pipeline orchestrator |
+| `digital_twin.py` | MarineDigitalTwin: what-if queries, thermocline, mission/fleet orchestration |
+| `api_server.py` | 10-endpoint REST API, OpenAPI spec |
+| `cli_runner.py` | CLI for physics, ray, survey, fleet, neural commands |
+
+## Verified Values
+
+- 22.0°C @15m (summer thermocline, chl=4.0, sand sediment)
+- 1527 m/s @15m (Mackenzie sound speed model)
+- 0.1386s travel time @100m range (geometric ray tracer, Snell's law)
+- 48m optimal survey depth (constraint snapping)
+
+## Registry
+
+- PyPI: `sonar-sim-pipeline`
+- Source: github.com/SuperInstance/sonar-vision
+- crates.io: `sonar-vision-physics` (Rust reference impl)
+- npm: `@superinstance/sonar-vision-tool`
+
+## License
+
+MIT — SuperInstance

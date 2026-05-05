@@ -1,0 +1,20 @@
+# PLATO Tiles: Sensor Fusion Architectures
+# Generated: 2026-04-30 Night Shift
+# Batch: deep domain-specific (non-template)
+# ---
+
+[TILE:sensor-fusion-architectures-001]
+title: "Kalman Filter Fusion"
+tags: [domain:sensor-fusion-architectures, type:reference, tier:foundation]
+body: |-
+  Kalman filter fuses noisy sensor measurements into state estimates.
+  Predict step: x̂ = Fx + Bu, P = FPF^T + Q
+  Update step: K = PH^T(HPH^T+R)^(-1), x = x̂ + K(z - Hx̂), P = (I-KH)P
+  
+  Extended Kalman Filter (EKF): linearize nonlinear dynamics via 1st-order
+  Taylor expansion. Unscented Kalman Filter (UKF): propagate sigma points
+  through nonlinear functions for better accuracy.
+  
+  For sonar: EKF with depth, temperature, sound-speed as state. Measurement
+  from beamformer + physics model.
+

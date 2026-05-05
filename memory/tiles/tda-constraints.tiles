@@ -1,0 +1,108 @@
+{
+  "domain": "topological data analysis for constraint satisfaction",
+  "tiles": [
+    {
+      "id": "tda-cs-1",
+      "title": "Persistent Homology for Constraint Satisfaction",
+      "content": "Persistent homology provides a multi-scale view of constraint satisfaction solution spaces. By treating constraint violations as topological features, one can track birth-death intervals of feasible regions across relaxation parameters. Features with long persistence indicate stable constraint structures.",
+      "tags": [
+        "tda",
+        "constraint-satisfaction",
+        "persistent-homology"
+      ]
+    },
+    {
+      "id": "tda-cs-2",
+      "title": "Mapper Algorithm for Feasible Region Topology",
+      "content": "The Mapper algorithm abstracts high-dimensional constraint manifolds into simplicial complexes. Applying Mapper to constraint satisfaction problems reveals connected components, loops, and voids in the feasible region that combinatorial search alone cannot detect.",
+      "tags": [
+        "tda",
+        "mapper",
+        "feasible-regions"
+      ]
+    },
+    {
+      "id": "tda-cs-3",
+      "title": "Euler Calculus for Constraint Counting",
+      "content": "Euler calculus (integral geometry with Euler characteristic as measure) enables counting of constraint satisfaction solutions without explicit enumeration. The pushforward of Euler characteristic along constraint projection maps yields exact solution counts for certain stratified constraint spaces.",
+      "tags": [
+        "euler-calculus",
+        "constraint-counting",
+        "integral-geometry"
+      ]
+    },
+    {
+      "id": "tda-cs-4",
+      "title": "Reeb Graphs for Constraint Landscape Navigation",
+      "content": "Reeb graphs track connected components of level sets of constraint functions. They provide a topological skeleton of the constraint landscape, enabling efficient navigation between feasible regions and detection of bifurcation points where constraints become redundant or critical.",
+      "tags": [
+        "reeb-graphs",
+        "constraint-landscape",
+        "topological-skeleton"
+      ]
+    },
+    {
+      "id": "tda-cs-5",
+      "title": "Cech and Vietoris-Rips Complexes on Constraint Manifolds",
+      "content": "Sampling points from constraint manifolds and constructing Cech or Vietoris-Rips complexes yields approximations of the true topology. The nerve theorem guarantees that for sufficiently dense sampling, the Cech complex captures the homotopy type of the feasible region.",
+      "tags": [
+        "cech-complex",
+        "vietoris-rips",
+        "nerve-theorem",
+        "sampling"
+      ]
+    },
+    {
+      "id": "tda-cs-6",
+      "title": "Topological Obstructions to Constraint Decomposition",
+      "content": "Cohomological obstructions in constraint systems determine whether a global constraint can be decomposed into independent local constraints. Non-trivial cohomology classes in the constraint space indicate irreducible global coupling that prevents factorization.",
+      "tags": [
+        "cohomology",
+        "constraint-decomposition",
+        "obstruction-theory"
+      ]
+    },
+    {
+      "id": "tda-cs-7",
+      "title": "Bottleneck Distance for Constraint Similarity",
+      "content": "The bottleneck distance between persistence diagrams of constraint systems quantifies structural similarity. Systems with small bottleneck distance share near-identical solution space topology, enabling transfer learning and constraint reuse across problem instances.",
+      "tags": [
+        "bottleneck-distance",
+        "persistence-diagrams",
+        "constraint-similarity"
+      ]
+    },
+    {
+      "id": "tda-cs-8",
+      "title": "Sheaf Theory for Distributed Constraint Satisfaction",
+      "content": "Sheaves over constraint networks model how local constraint satisfaction glues to global satisfaction. The sheaf cohomology captures obstructions to consistent global assignments, and the sheaf condition formalizes the consistency requirements for distributed constraint solving.",
+      "tags": [
+        "sheaf-theory",
+        "distributed-csp",
+        "sheaf-cohomology",
+        "gluing"
+      ]
+    },
+    {
+      "id": "tda-cs-9",
+      "title": "Morse Theory for Constraint Optimization Landscapes",
+      "content": "Discrete Morse theory on constraint graphs identifies critical points where constraint gradients cancel. The Morse complex provides a minimal cell decomposition of the optimization landscape, reducing search space dimension while preserving topological invariants.",
+      "tags": [
+        "morse-theory",
+        "optimization-landscape",
+        "cell-decomposition"
+      ]
+    },
+    {
+      "id": "tda-cs-10",
+      "title": "Topological Data Analysis in Constraint Satisfaction Verification",
+      "content": "TDA provides verification tools for constraint satisfaction: persistence-based witnesses certify emptiness of feasible regions via topological invariants; barcodes serve as certificates of infeasibility; and homology group ranks bound the minimum number of search steps required.",
+      "tags": [
+        "verification",
+        "certificates",
+        "infeasibility",
+        "homology"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+[package]
+name = "plato-constraints"
+version = "0.1.0"
+edition = "2021"
+description = "Constraint-theory integration for PLATO — snap, holonomy, manifold operations"
+license = "MIT"
+keywords = ["plato", "constraint-theory", "pythagorean", "manifold"]
+categories = ["mathematics"]
+readme = "README.md"

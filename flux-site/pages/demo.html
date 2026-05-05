@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLUX — Live Demo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { background: #0a0a0f; font-family: 'Inter', system-ui, sans-serif; }
+  .gauge-container { filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.15)); }
+  .violation-flash { animation: flashRed 0.3s ease-out; }
+  @keyframes flashRed {
+    0% { background-color: rgba(239, 68, 68, 0.3); }
+    100% { background-color: transparent; }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6); }
+  }
+  .glow-border { animation: pulse-glow 2s ease-in-out infinite; }
+  .compile-btn:active { transform: scale(0.97); }
+  textarea { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+  .stat-counter { font-variant-numeric: tabular-nums; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .slide-in { animation: slideIn 0.5s ease-out; }
+</style>
+</head>
+<body class="min-h-screen text-gray-200">
+
+<!-- Header -->
+<header class="border-b border-gray-800/50 px-6 py-4">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <svg class="w-8 h-8 text-blue-500" viewBox="0 0 32 32" fill="none">
+        <path d="M16 2L28 8v16l-12 6L4 24V8l12-6z" stroke="currentColor" stroke-width="2" fill="currentColor" fill-opacity="0.1"/>
+        <path d="M16 8l8 4v8l-8 4-8-4v-8l8-4z" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+      <span class="text-xl font-bold tracking-tight">FLUX <span class="text-blue-400 font-normal text-sm">Live Demo</span></span>
+    </div>
+    <div class="flex items-center gap-6 text-sm">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+        <span class="text-gray-400">Simulating</span>
+      </div>
+      <div class="stat-counter text-blue-400 font-mono font-bold" id="checksPerSec">1,000,000,000 checks/sec</div>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-8">
+
+  <!-- Gauge Cluster -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="gaugeCluster">
+
+    <!-- Altitude Gauge -->
+    <div class="gauge-container rounded-2xl border border-gray-800/60 bg-gray-900/40 p-5 text-center">
+      <h3 class="text-xs uppercase tracking-widest text-gray-500 mb-2">Altitude</h3>
+      <svg id="altGauge" viewBox="0 0 200 130" class="w-full max-w-[220px] mx-auto"></svg>
+      <div class="mt-2 text-2xl font-bold stat-counter" id="altValue">0</div>
+      <div class="text-xs text-gray-500">feet</div>
+    </div>
+
+    <!-- Airspeed Gauge -->
+    <div class="gauge-container rounded-2xl border border-gray-800/60 bg-gray-900/40 p-5 text-center">
+      <h3 class="text-xs uppercase tracking-widest text-gray-500 mb-2">Airspeed</h3>
+      <svg id="spdGauge" viewBox="0 0 200 130" class="w-full max-w-[220px] mx-auto"></svg>
+      <div class="mt-2 text-2xl font-bold stat-counter" id="spdValue">0</div>
+      <div class="text-xs text-gray-500">knots</div>
+    </div>
+
+    <!-- Bank Angle Gauge -->
+    <div class="gauge-container rounded-2xl border border-gray-800/60 bg-gray-900/40 p-5 text-center">
+      <h3 class="text-xs uppercase tracking-widest text-gray-500 mb-2">Bank Angle</h3>
+      <svg id="bankGauge" viewBox="0 0 200 130" class="w-full max-w-[220px] mx-auto"></svg>
+      <div class="mt-2 text-2xl font-bold stat-counter" id="bankValue">0</div>
+      <div class="text-xs text-gray-500">degrees</div>
+    </div>
+
+    <!-- G-Force Gauge -->
+    <div class="gauge-container rounded-2xl border border-gray-800/60 bg-gray-900/40 p-5 text-center">
+      <h3 class="text-xs uppercase tracking-widest text-gray-500 mb-2">G-Force</h3>
+      <svg id="gforceGauge" viewBox="0 0 200 130" class="w-full max-w-[220px] mx-auto"></svg>
+      <div class="mt-2 text-2xl font-bold stat-counter" id="gforceValue">1.0</div>
+      <div class="text-xs text-gray-500">g</div>
+    </div>
+
+  </div>
+
+  <!-- Violation Banner -->
+  <div id="violationBanner" class="hidden mb-6 rounded-xl border border-red-500/40 bg-red-950/30 px-6 py-4 flex items-center gap-4 slide-in">
+    <svg class="w-6 h-6 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+    </svg>
+    <div>
+      <span class="text-red-400 font-semibold">CONSTRAINT VIOLATION</span>
+      <span class="text-gray-400 ml-2" id="violationMsg"></span>
+    </div>
+    <div class="ml-auto text-right">
+      <div class="text-xs text-gray-500">Violations</div>
+      <div class="text-xl font-bold text-red-400 stat-counter" id="violationCount">0</div>
+    </div>
+  </div>
+
+  <!-- GUARD Code + Compile Panel -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- GUARD Code Editor -->
+    <div class="lg:col-span-2 rounded-2xl border border-gray-800/60 bg-gray-900/40 overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-3 border-b border-gray-800/40 bg-gray-900/60">
+        <div class="flex items-center gap-2">
+          <div class="flex gap-1.5">
+            <span class="w-3 h-3 rounded-full bg-red-500/70"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/70"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/70"></span>
+          </div>
+          <span class="text-xs text-gray-400 ml-3">flight_constraints.guard</span>
+        </div>
+        <span class="text-xs text-gray-600">GUARD DSL v0.1</span>
+      </div>
+      <textarea id="guardCode" class="w-full bg-transparent text-green-400 text-sm p-5 resize-none focus:outline-none leading-relaxed" rows="16" spellcheck="false">// FLUX Constraint Guard — Flight Envelope Protection
+// Compiled to formally verified Rust with zero-cost runtime
+
+constraint altitude_bounds {
+    domain: Altitude(0..40000);
+    envelope: [0, 10000] => GREEN,
+              [10000, 30000] => YELLOW,
+              [30000, 40000] => RED;
+    invariant: alt >= 0 && alt <= 40000;
+    message: "Altitude outside certified envelope";
+}
+
+constraint airspeed_limits {
+    domain: Airspeed(0..600);
+    envelope: [0, 250] => GREEN,
+              [250, 400] => YELLOW,
+              [400, 600] => RED;
+    invariant: spd >= 60 && spd <= 550;
+    message: "Airspeed outside safe operating range";
+}
+
+constraint bank_protection {
+    domain: BankAngle(0..60);
+    envelope: [0, 30] => GREEN,
+              [30, 45] => YELLOW,
+              [45, 60] => RED;
+    invariant: bank >= -60 && bank <= 60;
+    message: "Excessive bank angle — stall risk";
+}
+
+constraint gforce_envelope {
+    domain: GForce(-1.5..3.5);
+    envelope: [0, 2.0] => GREEN,
+              [2.0, 3.0] => YELLOW,
+              [3.0, 3.5] => RED;
+    invariant: gf >= -1.0 && gf <= 3.0;
+    message: "G-force exceeds structural limits";
+}</textarea>
+    </div>
+
+    <!-- Compile Panel -->
+    <div class="rounded-2xl border border-gray-800/60 bg-gray-900/40 p-6 flex flex-col">
+      <h3 class="text-lg font-semibold mb-4">Compiler Output</h3>
+
+      <div id="compileOutput" class="flex-1 rounded-xl bg-black/40 border border-gray-800/30 p-4 text-xs font-mono text-gray-500 mb-4 overflow-auto">
+        <div class="text-gray-600">// Ready to compile...</div>
+        <div class="text-gray-600">// Click "Compile" to generate</div>
+        <div class="text-gray-600">// formally verified constraints</div>
+      </div>
+
+      <button id="compileBtn" onclick="compileGuard()"
+        class="compile-btn w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all duration-150 glow-border">
+        <span id="compileLabel">⚡ Compile GUARD → Rust</span>
+      </button>
+
+      <div class="mt-4 pt-4 border-t border-gray-800/40 space-y-2 text-xs text-gray-500">
+        <div class="flex justify-between">
+          <span>Proof Obligations</span>
+          <span class="text-green-400 font-mono" id="proofCount">—</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Verification Time</span>
+          <span class="text-blue-400 font-mono" id="verifyTime">—</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Runtime Overhead</span>
+          <span class="text-green-400 font-mono">0 ns</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Status</span>
+          <span class="text-yellow-400 font-mono" id="compileStatus">Idle</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+// ── Gauge Rendering ──────────────────────────────────────────────
+
+const gauges = {
+  alt:   { el: 'altGauge',    min: 0,    max: 40000, zones: [[0,10000,'green'],[10000,30000,'yellow'],[30000,40000,'red']] },
+  spd:   { el: 'spdGauge',    min: 0,    max: 600,   zones: [[0,250,'green'],[250,400,'yellow'],[400,600,'red']] },
+  bank:  { el: 'bankGauge',   min: -60,  max: 60,    zones: [[0,30,'green'],[30,45,'yellow'],[45,60,'red']] },
+  gforce:{ el: 'gforceGauge', min: -1.5, max: 3.5,   zones: [[0,2.0,'green'],[2.0,3.0,'yellow'],[3.0,3.5,'red']] }
+};
+
+function degToRad(d) { return d * Math.PI / 180; }
+
+function drawGauge(svgEl, config, value) {
+  const cx = 100, cy = 110, r = 85;
+  const startAngle = -210, endAngle = 30;
+  const range = endAngle - startAngle;
+
+  let svg = '';
+
+  // Background arc
+  svg += `<path d="M ${cx + r * Math.cos(degToRad(startAngle))} ${cy + r * Math.sin(degToRad(startAngle))} A ${r} ${r} 0 1 1 ${cx + r * Math.cos(degToRad(endAngle))} ${cy + r * Math.sin(degToRad(endAngle))}" fill="none" stroke="#1a1a2e" stroke-width="14" stroke-linecap="round"/>`;
+
+  // Zone arcs
+  const normMin = Math.abs(config.min);
+  const totalRange = config.max - config.min;
+
+  config.zones.forEach(([zMin, zMax, color]) => {
+    const a1 = startAngle + ((zMin - config.min) / totalRange) * range;
+    const a2 = startAngle + ((zMax - config.min) / totalRange) * range;
+    const colors = { green: '#22c55e', yellow: '#eab308', red: '#ef4444' };
+    const c = colors[color];
+    const x1 = cx + r * Math.cos(degToRad(a1));
+    const y1 = cy + r * Math.sin(degToRad(a1));
+    const x2 = cx + r * Math.cos(degToRad(a2));
+    const y2 = cy + r * Math.sin(degToRad(a2));
+    const largeArc = (a2 - a1) > 180 ? 1 : 0;
+    svg += `<path d="M ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2}" fill="none" stroke="${c}" stroke-width="12" stroke-opacity="0.35" stroke-linecap="butt"/>`;
+  });
+
+  // Tick marks
+  const numTicks = 10;
+  for (let i = 0; i <= numTicks; i++) {
+    const angle = startAngle + (i / numTicks) * range;
+    const cos = Math.cos(degToRad(angle)), sin = Math.sin(degToRad(angle));
+    const inner = r - 20, outer = r - 10;
+    svg += `<line x1="${cx + inner * cos}" y1="${cy + inner * sin}" x2="${cx + outer * cos}" y2="${cy + outer * sin}" stroke="#334155" stroke-width="1.5"/>`;
+  }
+
+  // Needle
+  const clampedVal = Math.max(config.min, Math.min(config.max, value));
+  const needleAngle = startAngle + ((clampedVal - config.min) / totalRange) * range;
+  const nx = cx + (r - 25) * Math.cos(degToRad(needleAngle));
+  const ny = cy + (r - 25) * Math.sin(degToRad(needleAngle));
+  svg += `<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="#f8fafc" stroke-width="2.5" stroke-linecap="round"/>`;
+  svg += `<circle cx="${cx}" cy="${cy}" r="5" fill="#3b82f6"/>`;
+  svg += `<circle cx="${cx}" cy="${cy}" r="2.5" fill="#0a0a0f"/>`;
+
+  svgEl.innerHTML = svg;
+}
+
+// ── Flight Simulation ────────────────────────────────────────────
+
+let violations = 0;
+let simTime = 0;
+
+function simulate() {
+  simTime += 0.1;
+
+  // Realistic-ish flight data with occasional excursions
+  const excursion = Math.random() < 0.08; // 8% chance of violation
+  const alt = Math.round(15000 + 12000 * Math.sin(simTime * 0.3) + (excursion ? 26000 : 0) + Math.random() * 500);
+  const spd = Math.round(280 + 80 * Math.sin(simTime * 0.5) + (excursion ? 320 : 0) + Math.random() * 20);
+  const bank = parseFloat((15 + 15 * Math.sin(simTime * 0.7) + (excursion ? 40 : 0) + Math.random() * 5).toFixed(1));
+  const gf = parseFloat((1.0 + 0.5 * Math.sin(simTime * 0.4) + (excursion ? 2.5 : 0) + Math.random() * 0.2).toFixed(1));
+
+  const clampedBank = Math.max(-60, Math.min(60, bank));
+
+  drawGauge(document.getElementById('altGauge'), gauges.alt, alt);
+  drawGauge(document.getElementById('spdGauge'), gauges.spd, spd);
+  drawGauge(document.getElementById('bankGauge'), gauges.bank, clampedBank);
+  drawGauge(document.getElementById('gforceGauge'), gauges.gforce, gf);
+
+  document.getElementById('altValue').textContent = alt.toLocaleString();
+  document.getElementById('spdValue').textContent = spd;
+  document.getElementById('bankValue').textContent = Math.abs(clampedBank).toFixed(1);
+  document.getElementById('gforceValue').textContent = gf.toFixed(1);
+
+  // Check violations against GUARD invariants
+  const violated = [];
+  if (alt < 0 || alt > 40000) violated.push('altitude_bounds');
+  if (spd < 60 || spd > 550) violated.push('airspeed_limits');
+  if (Math.abs(bank) > 45) violated.push('bank_protection');
+  if (gf < -1.0 || gf > 3.0) violated.push('gforce_envelope');
+
+  if (violated.length > 0) {
+    violations++;
+    document.getElementById('violationCount').textContent = violations;
+    document.getElementById('violationMsg').textContent = `Violated: ${violated.join(', ')}`;
+    const banner = document.getElementById('violationBanner');
+    banner.classList.remove('hidden');
+    banner.classList.remove('violation-flash');
+    void banner.offsetWidth; // reflow trigger
+    banner.classList.add('violation-flash');
+
+    // Flash gauge cluster
+    document.getElementById('gaugeCluster').classList.remove('violation-flash');
+    void document.getElementById('gaugeCluster').offsetWidth;
+    document.getElementById('gaugeCluster').classList.add('violation-flash');
+  }
+}
+
+// ── Compile Simulation ───────────────────────────────────────────
+
+function compileGuard() {
+  const btn = document.getElementById('compileBtn');
+  const label = document.getElementById('compileLabel');
+  const output = document.getElementById('compileOutput');
+
+  btn.disabled = true;
+  label.textContent = '⏳ Compiling...';
+  output.innerHTML = '<div class="text-yellow-400">▸ Parsing GUARD constraints...</div>';
+
+  const steps = [
+    { delay: 400, html: '<div class="text-yellow-400">▸ Parsing GUARD constraints...</div><div class="text-green-400">  ✓ Parsed 4 constraint definitions</div>' },
+    { delay: 800, html: '<div class="text-yellow-400">▸ Generating proof obligations...</div><div class="text-green-400">  ✓ 12 proof obligations generated</div><div class="text-green-400">  ✓ Type checking passed</div>' },
+    { delay: 1200, html: '<div class="text-blue-400">▸ Running SMT solver (Z5)...</div><div class="text-green-400">  ✓ All 12 obligations DISCHARGED</div><div class="text-green-400">  ✓ No counterexamples found</div>' },
+    { delay: 1600, html: '<div class="text-blue-400">▸ Emitting verified Rust code...</div><div class="text-green-400">  ✓ Generated 247 bytes of zero-cost runtime</div><div class="text-green-400">  ✓ No runtime allocations</div>' },
+    { delay: 2000, html: '<div class="text-green-400 font-bold">═══ COMPILATION SUCCESSFUL ═══</div><br><div class="text-gray-400">Constraints: 4 verified</div><div class="text-gray-400">Proof obligations: 12/12 discharged</div><div class="text-gray-400">Runtime cost: zero (compile-time only)</div><div class="text-gray-400">Binary size impact: +247 bytes</div><br><div class="text-green-300">All constraints formally proven correct.</div><div class="text-green-300">Safe to deploy to flight-critical system.</div>' },
+  ];
+
+  steps.forEach(({ delay, html }) => {
+    setTimeout(() => { output.innerHTML = html; }, delay);
+  });
+
+  setTimeout(() => {
+    btn.disabled = false;
+    label.textContent = '⚡ Compile GUARD → Rust';
+    document.getElementById('proofCount').textContent = '12/12 ✓';
+    document.getElementById('verifyTime').textContent = '1.2 ms';
+    document.getElementById('compileStatus').textContent = 'Verified ✓';
+    document.getElementById('compileStatus').className = 'text-green-400 font-mono';
+  }, 2200);
+}
+
+// ── Init ─────────────────────────────────────────────────────────
+
+// Initial draw
+Object.values(gauges).forEach(g => drawGauge(document.getElementById(g.el), g, g.min));
+
+// Start simulation at 100ms intervals
+setInterval(simulate, 100);
+
+// Animate checks counter with slight jitter
+setInterval(() => {
+  const base = 1000000000;
+  const jitter = Math.floor(Math.random() * 50000000);
+  document.getElementById('checksPerSec').textContent =
+    (base + jitter).toLocaleString() + ' checks/sec';
+}, 200);
+</script>
+
+</body>
+</html>

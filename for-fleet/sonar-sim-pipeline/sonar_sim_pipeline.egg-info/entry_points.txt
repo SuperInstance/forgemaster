@@ -1,0 +1,6 @@
+[console_scripts]
+sonar-env = sim_pipeline.cli:env
+sonar-physics = sim_pipeline.__main__:main
+sonar-plan = sim_pipeline.cli:plan
+sonar-ray = sim_pipeline.cli:ray
+sonar-survey = sim_pipeline.cli:survey

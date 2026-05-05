@@ -1,0 +1,26 @@
+[package]
+name = "ct-bench"
+version = "0.1.0"
+edition = "2021"
+description = "Reproducible benchmark suite for constraint theory — snap, holonomy, deadband, distribution across all backends"
+license = "MIT"
+keywords = ["benchmark", "constraint", "pythagorean", "performance"]
+categories = ["development-tools", "mathematics"]
+readme = "README.md"
+
+[dependencies]
+constraint-theory-nn = "0.1"
+constraint-theory-metrics = "0.1"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "snap_bench"
+harness = false
+
+[profile.release]
+opt-level = 3
+
+[profile.bench]
+opt-level = 3

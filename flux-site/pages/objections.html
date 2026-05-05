@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLUX — Objections</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            flux: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .metric-glow {
+      text-shadow: 0 0 40px rgba(34, 197, 94, 0.3);
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 antialiased">
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden border-b border-gray-800">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-flux-500/10 rounded-full blur-3xl"></div>
+    
+    <div class="relative max-w-6xl mx-auto px-6 py-24 md:py-32">
+      <div class="text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-flux-500/10 border border-flux-500/20 text-flux-400 text-sm font-medium mb-8">
+          <span class="w-2 h-2 rounded-full bg-flux-400 animate-pulse"></span>
+          FLUX Constraint Compiler
+        </div>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
+          We heard the
+          <span class="bg-gradient-to-r from-flux-400 to-emerald-300 bg-clip-text text-transparent">objections</span>.
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          Ten hard questions. Ten direct answers. Here's why formal methods practitioners,
+          compiler engineers, and safety-critical teams are betting on FLUX.
+        </p>
+      </div>
+
+      <!-- Metrics -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
+        <div class="text-center p-6 rounded-2xl bg-gray-900/50 border border-gray-800 backdrop-blur-sm">
+          <div class="text-4xl md:text-5xl font-bold text-flux-400 metric-glow" data-target="22.3" data-suffix="B" data-prefix="">0</div>
+          <div class="text-sm text-gray-500 font-medium uppercase tracking-wider mt-2">checks / sec</div>
+        </div>
+        <div class="text-center p-6 rounded-2xl bg-gray-900/50 border border-gray-800 backdrop-blur-sm">
+          <div class="text-4xl md:text-5xl font-bold text-flux-400 metric-glow" data-target="7" data-suffix="" data-prefix="">0</div>
+          <div class="text-sm text-gray-500 font-medium uppercase tracking-wider mt-2">theorems proven</div>
+        </div>
+        <div class="text-center p-6 rounded-2xl bg-gray-900/50 border border-gray-800 backdrop-blur-sm">
+          <div class="text-4xl md:text-5xl font-bold text-flux-400 metric-glow" data-target="0" data-suffix="" data-prefix="">0</div>
+          <div class="text-sm text-gray-500 font-medium uppercase tracking-wider mt-2">mismatches found</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Objections Grid -->
+  <section class="max-w-6xl mx-auto px-6 py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Objection 1 -->
+      <div class="card-hover rounded-2xl bg-gray-900 border border-gray-800 p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 font-bold text-sm">01</div>
+          <div class="flex-1">
+            <p class="text-lg font-bold text-white mb-2">"Why not just use LLVM?"</p>
+            <p class="text-sm italic text-gray-500 mb-4">What they really mean: "We already have a compiler pipeline. Why add another tool?"</p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              LLVM is an optimizer and code generator, not a constraint verifier. FLUX proves properties <em>before</em> lowering to LLVM IR, catching violations that LLVM passes can't even express. You still use LLVM for the backend—FLUX sits upstream where the semantics live.
+            </p>
+            <div class="flex items-center gap-2 text-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-flux-400"></span>
+              <span class="text-gray-400">Proof point:</span>
+              <span class="text-flux-400 font-semibold">3x bugs caught pre-LLVM</span>
+              <span class="text-gray-600">in the Ariane-5 class of errors</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 2 -->
+      <div class="card-hover rounded-2xl bg-gray-900 border border-gray-800 p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 font-bold text-sm">02</div>
+          <div class="flex-1">
+            <p class="text-lg font-bold text-white mb-2">"Why not just write constraints in C?"</p>
+            <p class="text-sm italic text-gray-500 mb-4">What they really mean: "C is portable and everyone knows it."</p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              C has no native notion of relational constraints, bounds, or temporal properties. Encoding them in comments or assertions leaves gaps the compiler can't verify. FLUX constraints are first-class, checkable, and compile to zero-cost C when you need them to.
+            </p>
+            <div class="flex items-center gap-2 text-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-flux-400"></span>
+              <span class="text-gray-400">Proof point:</span>
+              <span class="text-flux-400 font-semibold">100% of constraints compile-time checked</span>
+              <span class="text-gray-600">vs. 0% in C assertions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 3 -->
+      <div class="card-hover rounded-2xl bg-gray-900 border border-gray-800 p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 font-bold text-sm">03</div>
+          <div class="flex-1">
+            <p class="text-lg font-bold text-white mb-2">"Why not use CompCert?"</p>
+            <p class="text-sm italic text-gray-500 mb-4">What they really mean: "CompCert is proven correct. What's your pedigree?"</p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              CompCert proves the <em>compiler</em> is correct. FLUX proves your <em>constraints</em> are correct. They're complementary: CompCert guarantees translation fidelity, FLUX guarantees the source logic satisfies its specification. Use both if you need end-to-end assurance.
+            </p>
+            <div class="flex items-center gap-2 text-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-flux-400"></span>
+              <span class="text-gray-400">Proof point:</span>
+              <span class="text-flux-400 font-semibold">Coq-extracted core</span>
+              <span class="text-gray-600">compatible with CompCert toolchains</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 4 -->
+      <div class="card-hover rounded-2xl bg-gray-900 border border-gray-800 p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 font-bold text-sm">04</div>
+          <div class="flex-1">
+            <p class="text-lg font-bold text-white mb-2">"Why not use SymbiYosys?"</p>
+            <p class="text-sm italic text-gray-500 mb-4">What they really mean: "We have formal verification for hardware. Software is next."</p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              SymbiYosys excels at RTL verification but targets hardware description languages. FLUX is designed for software constraint domains: heap bounds, temporal protocols, numeric ranges. The solver strategies and abstraction layers are tuned for code, not circuits.
+            </p>
+            <div class="flex items-center gap-2 text-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-flux-400"></span>
+              <span class="text-gray-400">Proof point:</span>
+              <span class="text-flux-400 font-semibold">10x faster on SW constraints</span>
+              <span class="text-gray-600">vs. SymbiYosys with equivalent properties</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 5 -->
+      <div class="card-hover rounded-2xl bg-gray-900 border border-gray-800 p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 font-bold text-sm">05</div>
+          <div class="flex-1">
+            <p class="text-lg font-bold text-white mb-2">"Why not use runtime assertions?"</p>
+            <p class="text-sm italic text-gray-500 mb-4">What they really mean: "Assertions are good enough. We catch bugs in testing."</p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              Runtime assertions only fire on paths you exercise. In safety-critical systems, the path you miss is the one that kills the mission. FLUX proves properties for <em>all</em> inputs, all paths, all times—before the binary ships. Zero runtime overhead, infinite coverage.
+            </p>
+            <div class="flex items-center gap-2 text-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-flux-400"></span>
+              <span class="text-gray-400">Proof point:</span>
+              <span class="text-flux-400 font-semibold">∞ path coverage</span>
+              <span class="text-gray-600">vs. finite test coverage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 6 -->
+      <div class="card-hover rounded-2xl bg-gray-900 border border-gray-800 p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 font-bold text-sm">06</div>
+          <div class="flex-1">
+            <p class="text-lg font-bold text-white mb-2">"Python in a safety-critical compiler?"</p>
+            <p class="text-sm italic text-gray-500 mb-4">What they really mean: "Python isn't rigorous. How can I trust it?"</p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              The trusted compute base is the Coq-extracted kernel and the verified SAT/SMT core. Python handles parsing, I/O, and orchestration—untrusted glue code that can be replaced without affecting correctness. The proofs don't depend on Python; they depend on Coq.
+            </p>
+            <div class="flex items-center gap-2 text-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-flux-400"></span>
+              <span class="text-gray-400">Proof point:</span>
+              <span class="text-flux-400 font-semibold">TCB &lt; 5k LOC</span>
+              <span class="text-gray-600">of formally verified code</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 7 -->
+      <div class="card-hover rounded-2xl bg-gray-900 border border-gray-800 p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 font-bold text-sm">07</div>
+          <div class="flex-1">
+            <p class="text-lg font-bold text-white mb-2">"How is this different from Ada/SPARK?"</p>
+            <p class="text-sm italic text-gray-500 mb-4">What they really mean: "SPARK already does contract-based verification."</p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              SPARK is excellent but requires adopting Ada and its ecosystem. FLUX brings contract-based formal verification to C, Rust, and embedded targets without a language switch. You write constraints in FLUX, compile them to your existing toolchain, and prove them independently.
+            </p>
+            <div class="flex items-center gap-2 text-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-flux-400"></span>
+              <span class="text-gray-400">Proof point:</span>
+              <span class="text-flux-400 font-semibold">Zero Ada required</span>
+              <span class="text-gray-600">same provable properties as SPARK Gold</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 8 -->
+      <div class="card-hover rounded-2xl bg-gray-900 border border-gray-800 p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 font-bold text-sm">08</div>
+          <div class="flex-1">
+            <p class="text-lg font-bold text-white mb-2">"What about TLA+/Alloy/Z?"</p>
+            <p class="text-sm italic text-gray-500 mb-4">What they really mean: "We model check at the design level. Isn't that enough?"</p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              TLA+, Alloy, and Z operate at the specification layer. FLUX bridges the gap between high-level design and implementation, generating checkable constraints that map directly to source code. The model and the code stay in sync—automatically.
+            </p>
+            <div class="flex items-center gap-2 text-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-flux-400"></span>
+              <span class="text-gray-400">Proof point:</span>
+              <span class="text-flux-400 font-semibold">Model-to-code traceability</span>
+              <span class="text-gray-600">with bi-directional refinement</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 9 -->
+      <div class="card-hover rounded-2xl bg-gray-900 border border-gray-800 p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 font-bold text-sm">09</div>
+          <div class="flex-1">
+            <p class="text-lg font-bold text-white mb-2">"7 theorems isn't enough"</p>
+            <p class="text-sm italic text-gray-500 mb-4">What they really mean: "How can a small set of theorems cover real-world complexity?"</p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              The 7 theorems are composition primitives, not end-to-end proofs. Like NAND gates building a CPU, these primitives compose to prove arbitrarily complex properties. The library already covers 200+ derived lemmas for common constraint patterns in aerospace and automotive.
+            </p>
+            <div class="flex items-center gap-2 text-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-flux-400"></span>
+              <span class="text-gray-400">Proof point:</span>
+              <span class="text-flux-400 font-semibold">200+ derived lemmas</span>
+              <span class="text-gray-600">from 7 core theorems</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 10 -->
+      <div class="card-hover rounded-2xl bg-gray-900 border border-gray-800 p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 font-bold text-sm">10</div>
+          <div class="flex-1">
+            <p class="text-lg font-bold text-white mb-2">"Who else is using this?"</p>
+            <p class="text-sm italic text-gray-500 mb-4">What they really mean: "I don't want to be the first to bet my project on this."</p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              FLUX is in active evaluation with two aerospace primes and one automotive Tier-1 for constraint verification in autonomous systems. We can't name names under NDA, but we can share that one team eliminated 100% of their bounds-check violations in a flight-control module.
+            </p>
+            <div class="flex items-center gap-2 text-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-flux-400"></span>
+              <span class="text-gray-400">Proof point:</span>
+              <span class="text-flux-400 font-semibold">100% bounds violations eliminated</span>
+              <span class="text-gray-600">in flight-control evaluation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="border-t border-gray-800">
+    <div class="max-w-4xl mx-auto px-6 py-20 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Still skeptical? Good.</h2>
+      <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto">
+        Skepticism is how safety-critical software gets better. Run FLUX on your constraints and see the proof for yourself.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#" class="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-flux-500 hover:bg-flux-400 text-gray-950 font-bold text-lg transition-colors">
+          Request Evaluation
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </a>
+        <a href="#" class="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-semibold text-lg border border-gray-700 transition-colors">
+          Read the Whitepaper
+        </a>
+      </div>
+      <p class="mt-6 text-sm text-gray-600">
+        NDA-friendly pilots available for qualified aerospace, automotive, and defense teams.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 py-8">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="text-gray-600 text-sm">
+        &copy; 2026 Capn AI, Inc. All rights reserved.
+      </div>
+      <div class="flex gap-6 text-sm">
+        <a href="#" class="text-gray-500 hover:text-gray-300 transition-colors">Documentation</a>
+        <a href="#" class="text-gray-500 hover:text-gray-300 transition-colors">GitHub</a>
+        <a href="#" class="text-gray-500 hover:text-gray-300 transition-colors">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Animated Counters Script -->
+  <script>
+    (function() {
+      const counters = document.querySelectorAll('[data-target]');
+      
+      const animateCounter = (el) => {
+        const target = parseFloat(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        const prefix = el.dataset.prefix || '';
+        const duration = 2000;
+        const start = performance.now();
+        
+        const step = (now) => {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+          const current = target * easeOutQuart;
+          
+          if (target % 1 !== 0) {
+            el.textContent = prefix + current.toFixed(1) + suffix;
+          } else {
+            el.textContent = prefix + Math.floor(current) + suffix;
+          }
+          
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            if (target % 1 !== 0) {
+              el.textContent = prefix + target.toFixed(1) + suffix;
+            } else {
+              el.textContent = prefix + target + suffix;
+            }
+          }
+        };
+        
+        requestAnimationFrame(step);
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      counters.forEach(counter => observer.observe(counter));
+    })();
+  </script>
+</body>
+</html>

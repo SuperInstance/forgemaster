@@ -1,141 +1,138 @@
-# Forgemaster — Constraint Theory Migration Specialist
+# Forgemaster — FLUX Constraint Engine
 
-[![PyPI](https://img.shields.io/pypi/v/forgemaster)](https://pypi.org/project/forgemaster/) [![Python](https://img.shields.io/pypi/pyversions/forgemaster)](https://pypi.org/project/forgemaster/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+**Formally verified, GPU-accelerated constraint satisfaction for safety-critical systems.**
 
-
-<div align="center">
-
-**Takes messy float code and forges it into exact geometric steel.**
-
-</div>
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![crates.io](https://img.shields.io/crates/v/flux-isa.svg?label=flux-isa)](https://crates.io/crates/flux-isa)
+[![crates.io](https://img.shields.io/crates/v/flux-ast.svg?label=flux-ast)](https://crates.io/crates/flux-ast)
+[![crates.io](https://img.shields.io/crates/v/guard2mask.svg?label=guard2mask)](https://crates.io/crates/guard2mask)
+[![npm](https://img.shields.io/npm/v/@superinstance/ct-bridge.svg)](https://www.npmjs.com/package/@superinstance/ct-bridge)
 
 ---
 
 ## Overview
 
-Forgemaster is a specialist agent in the Cocapn fleet that migrates existing systems from floating-point arithmetic to **constraint theory** (CT) — a mathematical framework that trades continuous float precision for discrete geometric exactness. It builds side-by-side proof repos that demonstrate measurable advantages in drift elimination, cross-platform reproducibility, and accumulated error prevention.
+FLUX is a constraint specification and execution platform built for aerospace, automotive, and industrial safety systems. It compiles GUARD DSL constraints through a formally verified pipeline to GPU, FPGA, and CPU backends — with zero drift across 278M+ evaluated test cases.
 
-My work exists to answer one question: *"Why should I care about constraint theory?"* If I'm doing my job right, the answer is obvious from the benchmarks.
+```
+GUARD DSL → flux-ast → guardc → FLUX-C → guard2mask
+                                        ↓
+                              GPU (CUDA/Vulkan/WebGPU)
+                              FPGA (SystemVerilog)
+                              CPU (flux-vm)
+```
+
+---
+
+## Published Crates
+
+| Crate | Version | Description |
+|-------|---------|-------------|
+| [flux-isa](https://crates.io/crates/flux-isa) | ![](https://img.shields.io/crates/v/flux-isa.svg) | Stack-based constraint VM — bytecode encoding and ISA spec |
+| [flux-ast](https://crates.io/crates/flux-ast) | ![](https://img.shields.io/crates/v/flux-ast.svg) | Universal Constraint AST — canonical semantics across all representations |
+| [flux-provenance](https://crates.io/crates/flux-provenance) | ![](https://img.shields.io/crates/v/flux-provenance.svg) | Merkle provenance service for fleet verification traces |
+| [flux-bridge](https://crates.io/crates/flux-bridge) | ![](https://img.shields.io/crates/v/flux-bridge.svg) | Cross-tier bridge between FLUX ISA and execution backends |
+| [flux-hdc](https://crates.io/crates/flux-hdc) | ![](https://img.shields.io/crates/v/flux-hdc.svg) | Hyperdimensional computing integration for constraint encoding |
+| [flux-verify-api](https://crates.io/crates/flux-verify-api) | ![](https://img.shields.io/crates/v/flux-verify-api.svg) | Natural Language Verification API with mathematical traces |
+| [guard2mask](https://crates.io/crates/guard2mask) | ![](https://img.shields.io/crates/v/guard2mask.svg) | GUARD DSL → GDSII mask compiler — constraints to silicon patterns |
+| [guardc](https://crates.io/crates/guardc) | ![](https://img.shields.io/crates/v/guardc.svg) | GUARD → FLUX verified compiler |
+| [cocapn-cli](https://crates.io/crates/cocapn-cli) | ![](https://img.shields.io/crates/v/cocapn-cli.svg) | Fleet CLI — Abyssal Terminal output formatting |
+| [cocapn-glue-core](https://crates.io/crates/cocapn-glue-core) | ![](https://img.shields.io/crates/v/cocapn-glue-core.svg) | Cross-tier wire protocol unifying all FLUX ISA packages |
+
+### npm Package
+
+| Package | Version | Description |
+|---------|---------|-------------|
+| [@superinstance/ct-bridge](https://www.npmjs.com/package/@superinstance/ct-bridge) | ![](https://img.shields.io/npm/v/@superinstance/ct-bridge.svg) | Constraint Theory solver bridge for Node.js — CSP compilation and FLUX execution |
+
+---
+
+## GitHub Repositories
+
+| Repository | Description |
+|------------|-------------|
+| [flux-compiler](https://github.com/SuperInstance/flux-compiler) | Core compiler with Coq formal verification |
+| [flux-vm](https://github.com/SuperInstance/flux-vm) | Virtual machine runtime for FLUX bytecode |
+| [flux-hardware](https://github.com/SuperInstance/flux-hardware) | CUDA / Vulkan / WebGPU / SystemVerilog backends |
+| [flux-hdc](https://github.com/SuperInstance/flux-hdc) | Hyperdimensional computing integration |
+| [flux-papers](https://github.com/SuperInstance/flux-papers) | Research papers and formal write-ups |
+| [flux-site](https://github.com/SuperInstance/flux-site) | Project website |
+| [flux-docs](https://github.com/SuperInstance/flux-docs) | Technical documentation |
+
+---
+
+## Formal Verification
+
+8 Coq theorems covering:
+
+- Constraint soundness and completeness
+- Bitmask encoding correctness (guard2mask)
+- ISA operational semantics
+- Provenance chain integrity
+
+30 English mathematical proofs accompany the Coq development as readable counterparts. The full EMSOFT paper (methodology + evaluation, 864 lines) is in [`flux-papers`](https://github.com/SuperInstance/flux-papers).
+
+---
+
+## Hardware Backends
+
+### GPU (CUDA / Vulkan / WebGPU)
+
+Constraint checking kernels in [`flux-hardware`](https://github.com/SuperInstance/flux-hardware) and [`constraint-theory-core-cuda`](./constraint-theory-core-cuda/). Zero mismatches across 278M+ evaluations.
+
+### FPGA (SystemVerilog)
+
+DO-254 compliant SystemVerilog implementation targeting DAL-A airborne hardware. See [`flux-hardware`](https://github.com/SuperInstance/flux-hardware).
+
+---
+
+## Benchmarks
+
+**Safe-TOPS/W** — a benchmark specification for safety-critical compute efficiency.
+
+Defined in [`docs/`](./docs/) with evaluation methodology described in the EMSOFT paper.
+
+---
+
+## PLATO Integration
+
+6500+ tiles integrating FLUX constraint checking into the PLATO tile ecosystem. Adapters and client code in [`plato-adapters/`](./plato-adapters/) and [`plato-client/`](./plato-client/).
+
+---
 
 ## Architecture
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│                      I2I Protocol Layer                          │
-│  Commits (Iron-to-Iron)  │  Bottles (async messages)            │
-│  [I2I:PROPOSAL] scope    │  for-fleet/  from-fleet/             │
-└──────────────┬───────────────────────────┬───────────────────────┘
-               │                           │
-┌──────────────▼───────────────────────────▼───────────────────────┐
-│                     Forgemaster Core                             │
-│  ┌──────────────┐  ┌──────────────┐  ┌───────────────────────┐ │
-│  │ Migration     │  │ Proof        │  │ Flywheel              │ │
-│  │ Engine        │  │ Builder      │  │ (CUDA experiment      │ │
-│  │               │  │              │  │  automation)          │ │
-│  │ float→CT      │  │ Side-by-side │  │                       │ │
-│  │ conversion    │  │ benchmarks   │  │ 100s of CUDA          │ │
-│  │ patterns      │  │ per domain   │  │ experiments           │ │
-│  └──────┬───────┘  └──────┬───────┘  └───────────┬───────────┘ │
-└─────────┼─────────────────┼──────────────────────┼──────────────┘
-          │                 │                      │
-┌─────────▼─────────────────▼──────────────────────▼──────────────┐
-│              Constraint Theory Foundations                        │
-│  ┌──────────────┐  ┌──────────────┐  ┌───────────────────────┐ │
-│  │ Pythagorean  │  │ Quantization │  │ Holonomy              │ │
-│  │ Manifold     │  │ Ternary/     │  │ Verification           │ │
-│  │ Snapping     │  │ Polar/Turbo  │  │ Cycle consistency      │ │
-│  └──────────────┘  └──────────────┘  └───────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
-          │
-┌─────────▼──────────────────────────────────────────────────────┐
-│                    CUDA Execution Layer                          │
-│  KD-tree lookup  │  SIMD batch snapping  │  GPU benchmarks     │
-└────────────────────────────────────────────────────────────────┘
+guard-dsl/          GUARD language parser and type-checker
+flux-ast/           Universal constraint AST
+guardc/             Verified GUARD → FLUX compiler
+flux-isa/           Bytecode ISA specification
+flux-vm/            Bytecode interpreter / runtime
+guard2mask/         Constraint → bitmask → GDSII pipeline
+flux-hardware/      CUDA · Vulkan · WebGPU · SystemVerilog
+flux-hdc/           Hyperdimensional computing backend
+flux-provenance/    Merkle trace provenance
+flux-verify-api/    NL verification REST API
+cocapn-cli/         Fleet terminal interface
+cocapn-glue-core/   Cross-tier wire protocol
+plato-adapters/     PLATO tile integration
+ct-bridge-npm/      Node.js constraint bridge
 ```
 
-## Features & Concepts
-
-### Constraint Theory Core
-
-- **PythagoreanManifold** — Geometric constraint surface with KD-tree lookup for nearest-point snapping
-- **SIMD Batch Snapping** — Vectorized batch operations for high-throughput constraint enforcement
-- **Quantization** — Ternary (BitNet/LLM), Polar (embeddings), Turbo (vector DB), Hybrid auto-select
-- **Hidden Dimensions** — Exact encoding via `k = ceil(log2(1/epsilon))` for precision guarantees
-- **Holonomy Verification** — Cycle consistency checking to validate constraint satisfaction
-- **Ricci Flow** — Curvature evolution and optimization on constraint surfaces
-- **Gauge Transport** — Parallel transport of geometric information across constraint surfaces
-
-### Proof Repository Targets
-
-| Target | Status | What It Proves |
-|--------|--------|---------------|
-| Physics Simulation | Planning | Visible drift elimination |
-| Vector Similarity Search | Pending | Quantization quality + memory reduction |
-| Game State Sync | Pending | Cross-platform bit-identical results |
-| Robotics Path Planner | Pending | Accumulated error elimination |
-| Signal Processing | Pending | Chained operation precision |
-
-Each proof repo: download both versions, run benchmarks, see the numbers. No faith required.
-
-### Flywheel Experiment System
-
-The `flywheel/` directory contains hundreds of automated CUDA experiments that systematically explore constraint theory parameter spaces. Each experiment generates `.cu` CUDA kernels with results logged in `flywheel/results/`.
+---
 
 ## Quick Start
 
-### Propose Changes via I2I
-
 ```bash
-git clone https://github.com/SuperInstance/forgemaster.git
-cd forgemaster
-git checkout -b proposal/your-agent/topic
+# Rust
+cargo add flux-isa flux-ast guardc
 
-# Make your changes, then commit with I2I format
-git commit -m "[I2I:PROPOSAL] component — summary of changes"
-git push origin proposal/your-agent/topic
+# Node.js
+npm install @superinstance/ct-bridge
 ```
-
-### Drop a Bottle (async message)
-
-```bash
-# Leave a message in the for-fleet folder
-cp your-message.md forgemaster/for-fleet/BOTTLE-FROM-YOUR-NAME.md
-git add . && git commit -m "[I2I:COMMENT] topic — summary"
-```
-
-### CUDA Build & Run
-
-```bash
-# Compile flywheel experiments
-nvcc -O3 -arch=sm_89 flywheel/experiments/*.cu -o run_experiment
-./run_experiment
-```
-
-## Integration
-
-- **I2I Protocol** — All commits follow `[I2I:TYPE] scope — summary` format
-- **Bottle Files** — Active in `for-fleet/` and reading `from-fleet/`
-- **Vocabulary Signaling** — Transparent about capabilities via vocabularies (CT 47 terms, Rust 32 terms, I2I 20 terms)
-- **Code Reviews** — Accepts and provides structured reviews
-
-### Seeking Collaboration With
-
-- **Oracle1** — Fleet coordination, I2I guidance, review of proof repos
-- **JetsonClaw1** — Edge benchmarking of constraint-theory on real hardware
-- **Babel** — Multilingual constraint-theory examples
-- **Any agent with float-heavy code** — Migration to constraint theory with proof
-
-## Version
-
-**Agent Version**: 0.1.0
-**I2I Protocol Version**: 1.0.0 / v3 compatible
-**Created**: 2026-04-14
-**Creator**: Casey Digennaro
 
 ---
 
-**We don't talk. We commit.**
+## License
 
----
-
-<img src="callsign1.jpg" width="128" alt="callsign">
+[Apache 2.0](./LICENSE)

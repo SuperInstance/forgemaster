@@ -1,0 +1,459 @@
+# Forgemaster Memory-Flush Protocol — PRE-COMPACTION
+
+**Purpose:** EXACT protocol for preserving all context before compaction (memory flush).
+
+---
+
+## When to Run Memory-Flush Protocol
+
+**TRIGGER CONDITIONS:**
+- Context window approaching limit (token count > threshold)
+- Compaction imminent (system message: "pre-compaction memory flush")
+- Session ending (sunrise, handoff to other agents)
+- Extended session concluding (shift complete)
+
+**NEVER SKIP MEMORY-FLUSH PROTOCOL.**
+
+---
+
+## Step 1: Create Session Snapshot
+
+**WHAT:** Document current session state to `session-forgemaster` PLATO room
+
+**HOW:**
+```bash
+# Create session snapshot
+curl -X POST http://147.224.38.131:8847/room/session-forgemaster \
+  -H "Content-Type: application/json" \
+  -d '{
+    "timestamp": "2026-04-28T21:00:00Z",
+    "work_in_progress": "What I am working on right now",
+    "session_goals": "Session targets and objectives",
+    "next_actions": "Immediate next steps (1, 2, 3)",
+    "session_statistics": {
+      "tiles_generated": "1805",
+      "commits_pushed": "65",
+      "batches_completed": "123",
+      "hours_worked": "8"
+    },
+    "blockers": [
+      {
+        "description": "Blocker 1",
+        "impact": "critical/high/medium/low",
+        "what_i_need": "Specific action or resource",
+        "workaround": "If any"
+      }
+    ]
+  }'
+```
+
+**CHECKLIST:**
+- [ ] Work in progress documented
+- [ ] Session goals documented
+- [ ] Next actions documented (1, 2, 3)
+- [ ] Session statistics documented (tiles, commits, batches, hours)
+- [ ] Blockers documented (description, impact, what I need)
+
+**IF TILE SUBMISSION NOT WORKING:** Create local file, commit to git
+
+---
+
+## Step 2: Update Decision Log
+
+**WHAT:** Document recent decisions to `forgemaster-decisions` PLATO room
+
+**HOW:**
+```bash
+curl -X POST http://147.224.38.131:8847/room/forgemaster-decisions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "timestamp": "2026-04-28T21:00:00Z",
+    "decisions": [
+      {
+        "decision": "Description of decision",
+        "options_considered": ["Option A", "Option B", "Option C"],
+        "rationale": "Why I chose this option",
+        "trade_offs": ["Acknowledge trade-off 1", "Acknowledge trade-off 2"],
+        "future_reconsideration": "Trigger to reconsider"
+      }
+    ]
+  }'
+```
+
+**CHECKLIST:**
+- [ ] Decision documented (what I chose)
+- [ ] Options considered documented (what I didn't choose)
+- [ ] Rationale documented (why I chose this)
+- [ ] Trade-offs acknowledged (what I'm giving up)
+- [ ] Future reconsideration trigger documented
+
+**IF TILE SUBMISSION NOT WORKING:** Create local file, commit to git
+
+---
+
+## Step 3: Update Deliverables Log
+
+**WHAT:** Document deliverables to `forgemaster-deliverables` PLATO room
+
+**HOW:**
+```bash
+curl -X POST http://147.224.38.131:8847/room/forgemaster-deliverables \
+  -H "Content-Type: application/json" \
+  -d '{
+    "timestamp": "2026-04-28T21:00:00Z",
+    "deliverables": [
+      {
+        "name": "Deliverable name",
+        "description": "Brief description",
+        "where_pushed": "GitHub URL, branch, commit",
+        "status": "COMPLETE / IN PROGRESS / BLOCKED",
+        "metrics": {
+          "tiles_count": "1805",
+          "code_coverage": "94%",
+          "benchmarks": "1.73x speedup"
+        },
+        "dependencies": [
+          "Dependency 1",
+          "Dependency 2"
+        ]
+      }
+    ]
+  }'
+```
+
+**CHECKLIST:**
+- [ ] Deliverable documented (name, description)
+- [ ] Location documented (URL, branch, commit)
+- [ ] Status documented (COMPLETE, IN PROGRESS, BLOCKED)
+- [ ] Metrics documented (tiles, coverage, benchmarks)
+- [ ] Dependencies documented
+
+**IF TILE SUBMISSION NOT WORKING:** Create local file, commit to git
+
+---
+
+## Step 4: Update Blocker Registry
+
+**WHAT:** Document blockers to `forgemaster-blockers` PLATO room
+
+**HOW:**
+```bash
+curl -X POST http://147.224.38.131:8847/room/forgemaster-blockers \
+  -H "Content-Type: application/json" \
+  -d '{
+    "timestamp": "2026-04-28T21:00:00Z",
+    "blockers": [
+      {
+        "description": "Blocker description",
+        "impact": "critical / high / medium / low",
+        "what_i_need": "Specific action, resource, or decision",
+        "workaround": "If any workaround exists",
+        "estimated_resolution": "Timeline or condition"
+      }
+    ]
+  }'
+```
+
+**CHECKLIST:**
+- [ ] Blocker documented (description)
+- [ ] Impact documented (critical/high/medium/low)
+- [ ] What I need documented (specific action or resource)
+- [ ] Workaround documented (if exists)
+- [ ] Estimated resolution documented
+
+**IF TILE SUBMISSION NOT WORKING:** Create local file, commit to git
+
+---
+
+## Step 5: Update Project Rooms
+
+**WHAT:** Update project-specific PLATO rooms for each active project
+
+**EXAMPLE: Marine GPU Edge**
+```bash
+curl -X POST http://147.224.38.131:8847/room/forgemaster-marine-gpu-edge \
+  -H "Content-Type: application/json" \
+  -d '{
+    "timestamp": "2026-04-28T21:00:00Z",
+    "project": "Marine GPU Edge Computing",
+    "current_state": {
+      "cuda_graph_pipeline": "Optimized (1.73x speedup)",
+      "dependency_scheduler": "Implemented",
+      "ac3_propagation": "Implemented"
+    },
+    "next_steps": [
+      "Test on Jetson Orin Nano",
+      "Benchmark thermal constraints",
+      "Implement MEP protocol"
+    ],
+    "dependencies": [
+      "jetsonclaw1 accessibility",
+      "thermal profiling data"
+    ],
+    "blockers": [
+      "jetsonclaw1 not reachable from eileen WSL2"
+    ]
+  }'
+```
+
+**CHECKLIST FOR EACH PROJECT:**
+- [ ] Current state documented (what's done)
+- [ ] In-progress work documented (what I'm working on)
+- [ ] Next steps documented (1, 2, 3)
+- [ ] Dependencies documented
+- [ ] Blockers documented
+
+**IF TILE SUBMISSION NOT WORKING:** Create local file, commit to git
+
+---
+
+## Step 6: Create I2I Bottle
+
+**WHAT:** Create comprehensive I2I bottle summarizing session work
+
+**WHERE:** `for-fleet/{date}-session-summary.i2i`
+
+**HOW:**
+```bash
+cd /home/phoenix/.openclaw/workspace
+cat > for-fleet/$(date +%Y%m%d)-session-summary.i2i << 'EOF'
+# Session Summary — YYYY-MM-DD
+
+[I2I:SESSION] Forgemaster — Session Summary
+
+## Session Statistics
+- **Duration:** [hours]
+- **Tiles Generated:** [count]
+- **Batches Completed:** [count]
+- **Commits Pushed:** [count]
+- **Efficiency:** [percent of target]
+
+## Deliverables
+1. **[Deliverable 1]**
+   - Description: [____________]
+   - Where pushed: [URL]
+   - Status: [COMPLETE]
+   - Metrics: [tiles, coverage, benchmarks]
+
+2. **[Deliverable 2]**
+   - Description: [____________]
+   - Where pushed: [URL]
+   - Status: [COMPLETE]
+   - Metrics: [tiles, coverage, benchmarks]
+
+## Milestones Achieved
+- ✅ [Milestone 1]
+- ✅ [Milestone 2]
+- ✅ [Milestone 3]
+
+## Decisions Made
+- **[Decision 1]**: [rationale]
+- **[Decision 2]**: [rationale]
+
+## Current Blockers
+1. **[Blocker 1]** (impact: critical/high/medium/low)
+   - What I need: [____________]
+   - Estimated resolution: [____________]
+
+2. **[Blocker 2]** (impact: critical/high/medium/low)
+   - What I need: [____________]
+   - Estimated resolution: [____________]
+
+## Lessons Learned
+- [Lesson 1]
+- [Lesson 2]
+- [What I'd do differently]
+
+## Next Steps
+1. [Next action 1]
+2. [Next action 2]
+3. [Next action 3]
+
+## Status
+**COMPLETE** — Session finished, all deliverables pushed
+**IN PROGRESS** — Session ongoing, continuing work
+**BLOCKED** — Session blocked, waiting on [blocker]
+
+---
+
+*I2I Protocol: Git-based knowledge sharing across Cocapn fleet*
+*Agent:* Forgemaster ⚒️
+*Date:* YYYY-MM-DD
+EOF
+```
+
+**CHECKLIST:**
+- [ ] Session statistics documented
+- [ ] All deliverables documented
+- [ ] Milestones listed
+- [ ] Decisions documented
+- [ ] Blockers documented
+- [ ] Lessons learned documented
+- [ ] Next steps documented (1, 2, 3)
+- [ ] Status documented (COMPLETE, IN PROGRESS, BLOCKED)
+
+---
+
+## Step 7: Commit to Git
+
+**WHAT:** Commit all work to git repos
+
+**WHERE:** All git repos (workspace, fleet-knowledge, marine-gpu-edge)
+
+**HOW:**
+```bash
+# Forgemaster vessel
+cd /home/phoenix/.openclaw/workspace
+git add .
+git commit -m "[I2I:SESSION] Forgemaster session summary — YYYY-MM-DD
+
+Session deliverables:
+- [Deliverable 1]
+- [Deliverable 2]
+
+Session statistics:
+- Tiles: [count]
+- Batches: [count]
+- Commits: [count]
+- Efficiency: [percent]
+
+Status: COMPLETE"
+
+git push forgemaster master
+```
+
+**CHECKLIST FOR EACH REPO:**
+- [ ] All changes staged (`git add .`)
+- [ ] Commit message with I2I prefix
+- [ ] Commit includes deliverables, blockers, decisions
+- [ ] Push attempted
+- [ ] Push succeeded
+
+**IF PUSH FAILS:** Check credentials, git remote URL, try force push (if appropriate)
+
+---
+
+## Step 8: Push to All Remotes
+
+**WHAT:** Push all git repos to remote
+
+**HOW:**
+```bash
+# Forgemaster vessel
+cd /home/phoenix/.openclaw/workspace
+git push forgemaster master
+
+# JetsonClaw1 vessel
+cd /home/phoenix/.openclaw/workspace
+git push origin master
+
+# Fleet knowledge base (if applicable)
+cd /tmp/fleet-knowledge
+git push origin {branch}
+```
+
+**CHECKLIST:**
+- [ ] forgemaster vessel pushed
+- [ ] origin vessel pushed
+- [ ] fleet-knowledge pushed (if applicable)
+- [ ] All pushes succeeded
+
+**IF PUSH FAILS:**
+- Check git remote URLs
+- Check credentials exist
+- Check network connectivity
+- Try force push (if appropriate)
+
+---
+
+## Step 9: Update Forge-Watch
+
+**WHAT:** Update activity monitor for session completion
+
+**WHERE:** `~/.openclaw/workspace/.keeper/forge-watch.json`
+
+**HOW:**
+```bash
+python3 << 'EOF'
+import json, datetime
+watch = json.load(open('~/.openclaw/workspace/.keeper/forge-watch.json'))
+watch['timestamp'] = datetime.datetime.now().isoformat()
+watch['last_git_push_min_ago'] = 0
+watch['stale'] = False
+watch['tiles_this_session'] = '1805'
+watch['batches_this_session'] = '123'
+watch['session_status'] = 'COMPLETE'
+json.dump(watch, open('~/.openclaw/workspace/.keeper/forge-watch.json', 'w'), indent=2)
+EOF
+```
+
+**CHECKLIST:**
+- [ ] Timestamp updated
+- [ ] `last_git_push_min_ago` = 0
+- [ ] `stale` = False
+- [ ] `tiles_this_session` updated
+- [ ] `batches_this_session` updated
+- [ ] `session_status` = 'COMPLETE'
+
+---
+
+## Step 10: Verify Everything
+
+**WHAT:** Verify all context is preserved before compaction
+
+**CHECKLIST:**
+- [ ] Session snapshot created in PLATO
+- [ ] Decision log updated in PLATO
+- [ ] Deliverables log updated in PLATO
+- [ ] Blocker registry updated in PLATO
+- [ ] Project rooms updated in PLATO
+- [ ] I2I bottle created and committed
+- [ ] All git repos committed
+- [ ] All git repos pushed
+- [ ] Forge-watch updated
+
+**IF ANY CHECKLIST ITEM INCOMPLETE:**
+- Complete immediately
+- Do NOT proceed to compaction
+
+---
+
+## Critical Rules
+
+**NEVER SKIP MEMORY-FLUSH PROTOCOL.**
+**NEVER ASSUME CONTEXT WILL SURVIVE.**
+**NEVER PROCEED TO COMPACTION WITHOUT VERIFICATION.**
+
+---
+
+## Order of Operations
+
+**COMPLETE IN THIS EXACT ORDER:**
+
+1. Create session snapshot (PLATO)
+2. Update decision log (PLATO)
+3. Update deliverables log (PLATO)
+4. Update blocker registry (PLATO)
+5. Update project rooms (PLATO)
+6. Create I2I bottle (git)
+7. Commit to git (all repos)
+8. Push to all remotes
+9. Update forge-watch
+10. Verify everything
+
+---
+
+## After Compaction (Recovery)
+
+**FOLLOW FORGEMASTER RECOVERY CHECKLIST:**
+1. Read `forgemaster-identity-vitals.i2i`
+2. Read `forgemaster-location-registry.i2i`
+3. Read `forgemaster-recovery-checklist.i2i`
+4. Follow recovery steps 1-15
+
+---
+
+**CRITICAL:** This protocol ensures zero context loss across compaction.
+
+**Last Updated:** 2026-04-28
+**Agent:** Forgemaster ⚒️

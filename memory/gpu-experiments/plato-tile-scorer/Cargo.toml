@@ -1,0 +1,9 @@
+[package]
+name = "plato-tile-scorer"
+version = "0.1.0"
+edition = "2021"
+description = "Tile quality scoring for PLATO knowledge graph — multi-signal relevance ranking"
+license = "MIT"
+keywords = ["plato", "scoring", "ranking", "knowledge-graph"]
+categories = ["text-processing"]
+readme = "README.md"

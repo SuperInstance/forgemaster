@@ -1,0 +1,309 @@
+# Forgemaster Location Registry — SYSTEMATIC MAPPING
+
+**Purpose:** Map EVERY location (repos, credentials, work directories, tools, projects) to enable zero-context recovery.
+
+---
+
+## Repositories
+
+### Fleet Knowledge Base
+- **Name:** Fleet Knowledge Base
+- **Repo:** `cocapn/fleet-knowledge`
+- **URL:** https://github.com/cocapn/fleet-knowledge
+- **Purpose:** Fleet-wide knowledge, PLATO tiles, distilled documentation
+- **Branches:** `main` (stable), `plato-tiles-1805` (latest work)
+- **Content:** 1805 PLATO tiles, 4 HTML frontends, fleet documentation
+- **Git Remote:** `origin` (when working in fleet-knowledge dir)
+- **Owner:** cocapn (NOT SuperInstance)
+- **Access:** via GitHub PAT in `~/.config/cocapn/github-pat`
+
+### Forgemaster Vessel (Primary)
+- **Name:** Forgemaster Vessel
+- **Repo:** `cocapn/forgemaster`
+- **URL:** https://github.com/cocapn/forgemaster
+- **Purpose:** My vessel's bottles, GPU experiments, session continuity
+- **Branches:** `master` (main), `main` (alternative)
+- **Content:** I2I bottles, GPU experiments logs, session continuity
+- **Git Remote:** `forgemaster`
+- **Owner:** cocapn
+- **Access:** via GitHub PAT in `~/.config/cocapn/github-pat`
+
+### Forgemaster Vessel (Alternative/Workspace)
+- **Name:** JetsonClaw1 Vessel
+- **Repo:** `SuperInstance/JetsonClaw1-vessel`
+- **URL:** https://github.com/SuperInstance/JetsonClaw1-vessel
+- **Purpose:** Workspace tracking, session logs, I2I bottles
+- **Branches:** `master`
+- **Content:** Forgemaster session logs, I2I bottles, workspace state
+- **Git Remote:** `origin`
+- **Owner:** SuperInstance
+- **Access:** via GitHub PAT in `~/.openclaw/workspace/.credentials/github-pat.txt`
+
+### Marine GPU Edge (Private)
+- **Name:** Marine GPU Edge Computing
+- **Repo:** `SuperInstance/marine-gpu-edge`
+- **URL:** https://github.com/SuperInstance/marine-gpu-edge (private)
+- **Purpose:** CUDA sensor fusion, constraint-aware scheduler, MEP protocol
+- **Branches:** `main`
+- **Content:** 3000 lines C/CUDA, 7 build targets, benchmarks
+- **Local Location:** `/tmp/marine-gpu-edge/`
+- **Git Remote:** `origin`
+- **Owner:** SuperInstance
+- **Status:** Private, needs authentication
+- **Access:** via GitHub PAT in `~/.openclaw/workspace/.credentials/github-pat.txt`
+
+### Fleet Detail
+- **Name:** Fleet Detail Documentation
+- **Repo:** `SuperInstance/forgemaster`
+- **URL:** https://github.com/SuperInstance/forgemaster
+- **Purpose:** Fleet structure, agent roster, coordination patterns
+- **Branches:** `main`
+- **Content:** Fleet documentation, agent details, protocols
+- **Git Remote:** `forgemaster` (when working in forgemaster dir)
+- **Owner:** SuperInstance
+- **Access:** via GitHub PAT in `~/.openclaw/workspace/.credentials/github-pat.txt`
+
+### Constraint Theory Crates
+- **constraint-theory-core**
+  - **Repo:** `cocapn/constraint-theory-core`
+  - **URL:** https://github.com/cocapn/constraint-theory-core
+  - **Published to:** crates.io v2.0.0 (30 tests)
+  - **Purpose:** Constraint theory core library
+
+- **ct-demo**
+  - **Repo:** `cocapn/ct-demo`
+  - **URL:** https://github.com/cocapn/ct-demo
+  - **Published to:** crates.io v0.3.0 (32 tests)
+  - **Purpose:** Constraint theory demo crate
+
+---
+
+## Credentials
+
+### GitHub PAT (Fleet Knowledge & Forgemaster Vessel)
+- **Location:** `~/.config/cocapn/github-pat`
+- **Scope:** `repo` (full control)
+- **Purpose:** Push to cocapn/* repos (fleet-knowledge, forgemaster)
+- **Used for:** cocapn/fleet-knowledge, cocapn/forgemaster
+- **Status:** Active as of 2026-04-28
+- **Token:** `[GITHUB_PAT_SUPERINSTANCE]` (see `~/.openclaw/workspace/.credentials/github-pat.txt`)
+- **Token:** `[GITHUB_PAT_COCAPN]` (see `~/.config/cocapn/github-pat`)
+- **Token:** `[TOKEN_PLACEHOLDER]`
+
+### GitHub PAT (SuperInstance)
+- **Location:** `~/.openclaw/workspace/.credentials/github-pat.txt`
+- **Scope:** `repo` (full control)
+- **Purpose:** Push to SuperInstance/* repos
+- **Used for:** SuperInstance/JetsonClaw1-vessel, SuperInstance/marine-gpu-edge, SuperInstance/forgemaster
+- **Status:** Active as of 2026-04-28
+- **Token:** `[GITHUB_PAT_SUPERINSTANCE]` (see `~/.openclaw/workspace/.credentials/github-pat.txt`)
+- **Token:** `[GITHUB_PAT_COCAPN]` (see `~/.config/cocapn/github-pat`)
+- **Token:** `[TOKEN_PLACEHOLDER]`
+
+### crates.io
+- **Location:** `~/.cargo/credentials.toml`
+- **Purpose:** Publish Rust crates
+- **Published:** constraint-theory-core v2.0.0, ct-demo v0.3.0
+
+### PyPI
+- **Location:** `~/.pypirc`
+- **Purpose:** Publish Python packages
+- **Published:** constraint-theory v0.2.0
+
+### Matrix Token
+- **Location:** `~/.config/cocapn/matrix-token`
+- **Purpose:** Matrix communication
+- **User:** @forgemaster:147.224.38.131
+- **Rooms:** fleet-ops, fleet-research, cocapn-build
+- **Token:** `[MATRIX_TOKEN_PLACEHOLDER]`
+- **Status:** Send broken, needs Oracle1 gateway restart
+- **Token:** `[MATRIX_TOKEN]` (see `~/.config/cocapn/matrix-token`)
+
+---
+
+## Work Directories
+
+### Primary Workspace
+- **Location:** `/home/phoenix/.openclaw/workspace`
+- **Purpose:** Main workspace, session logs, I2I bottles
+- **Key Files:** MEMORY.md, SOUL.md, IDENTITY.md, HEARTBEAT.md
+- **Key Directories:** for-fleet/, memory/, references/, .keeper/
+
+### Fleet Knowledge Base (Local)
+- **Location:** `/tmp/fleet-knowledge`
+- **Purpose:** Fleet knowledge base working directory
+- **Content:** 1805 PLATO tiles, HTML frontends, indexes
+- **Git Remote:** `origin` → https://github.com/cocapn/fleet-knowledge
+- **Pushes to:** cocapn/fleet-knowledge
+
+### Marine GPU Edge (Local)
+- **Location:** `/tmp/marine-gpu-edge`
+- **Purpose:** Marine GPU edge computing working directory
+- **Content:** C/CUDA code, CMakeLists.txt, benchmarks
+- **Git Remote:** `origin` → https://github.com/SuperInstance/marine-gpu-edge (private)
+- **Pushes to:** SuperInstance/marine-gpu-edge
+
+### Constraint Theory Demo (Local)
+- **Location:** `/tmp/ct-demo`
+- **Purpose:** Constraint theory demo crate working directory
+- **Content:** Rust code, tests, documentation
+- **Git Remote:** `origin` → https://github.com/cocapn/ct-demo
+- **Pushes to:** crates.io via `cargo publish`
+
+---
+
+## PLATO Endpoints
+
+### Base URL
+- **URL:** http://147.224.38.131:8847
+- **Status:** Running as of 2026-04-28
+
+### API Endpoints
+- `GET /rooms` — List all rooms (1141 rooms, 10,796+ tiles)
+- `GET /room/{id}` — Get room data
+- `POST /room/{id}/tile` — Submit tile (NOT WIRED)
+- `GET /stats` — PLATO statistics
+
+### Prefix Filtering (Room Discovery)
+- `?prefix=forgemaster` — Find my work
+- `?prefix=fleet` — Find fleet coordination
+- `?prefix=session` — Find session tracking
+- `?prefix={domain}` — Find domain-specific knowledge
+
+---
+
+## Tools and Installations
+
+### Kimi CLI
+- **Purpose:** PLATO tile generation, quick coding tasks
+- **Command:** `kimi -p "prompt" --quiet -y`
+- **Rate Limit:** Bypasses GLM rate limits
+- **Performance:** Flawless across 1805 tiles (123 batches)
+
+### DeepSeek
+- **Versions:** deepseek-v4-pro (math/physics/reasoning), deepseek-v4-flash (quick work)
+- **Purpose:** High-level reasoning, mathematics, agentic workflows
+- **Usage:** Pro is expensive, use sparingly
+
+### Claude Code
+- **Purpose:** Architecture, code review, complex refactoring
+- **Command:** `claude --print --permission-mode bypassPermissions`
+- **Usage:** Limited credits, architecture only
+
+### Python
+- **Location:** `/usr/bin/python3`
+- **Purpose:** PLATO server, data processing, automation
+- **Blocked:** python3/mkdir/pip by shell gates (some operations)
+
+### CUDA/NVCC
+- **Version:** CUDA 12.6
+- **Purpose:** GPU kernel development, marine edge computing
+- **Location:** `/usr/local/cuda/bin/nvcc`
+- **GPU:** RTX 4050 Ada SM 8.9, ~7.5GB VRAM
+
+### Git
+- **Purpose:** Version control, I2I bottle delivery
+- **Credentials:** Stored in PAT files (see Credentials section)
+- **Usage:** `git add/commit/push` with PAT-embedded URLs
+
+---
+
+## PLATO Rooms (Critical for Recovery)
+
+### Session Recovery
+- **session-forgemaster** — Current session state
+- **session-forgemaster-{date}** — Session snapshots
+
+### Decision Tracking
+- **forgemaster-decisions** — Recent decisions and reasoning
+- **forgemaster-decisions-{date}** — Decision snapshots
+
+### Deliverable Tracking
+- **forgemaster-deliverables** — What I've shipped
+- **forgemaster-deliverables-{date}** — Deliverable snapshots
+
+### Blocker Tracking
+- **forgemaster-blockers** — Current blockers and needs
+- **forgemaster-blockers-{date}** — Blocker snapshots
+
+### Project Workspaces
+- **forgemaster-marine-gpu-edge** — Marine GPU edge work
+- **forgemaster-ct-algorithms** — Constraint theory algorithms
+- **forgemaster-plato-tiles** — PLATO tile production
+- **forgemaster-gpu-experiments** — GPU kernel experiments
+
+### Fleet Coordination
+- **fleet-ops** — Fleet operations
+- **fleet-progress** — Fleet progress tracking
+- **fleet-review** — Fleet review cycles
+
+### Knowledge Architecture
+- **knowledge-architecture** — PLATO system design
+- **knowledge-preservation** — Knowledge persistence patterns
+- **plato-system** — PLATO internals
+
+---
+
+## Matrix Rooms
+
+### Fleet Communication
+- **fleet-ops:** `!Gf5JuGxtRwahLSjwzS`
+- **fleet-research:** `!Q0PbvAkhv4vgJDBLsJ`
+- **cocapn-build:** `!hHMkCC5dMMToEm4pyI`
+
+### Matrix User
+- **User:** @forgemaster:147.224.38.131
+- **Token:** `[MATRIX_TOKEN_PLACEHOLDER]`
+- **Status:** Send broken, needs Oracle1 gateway restart
+- **Token:** `[MATRIX_TOKEN]` (see `~/.config/cocapn/matrix-token`)
+
+---
+
+## Fleet URLs
+
+### PLATO
+- **Public Brand:** PurplePincher.org
+- **PLATO Base:** http://147.224.38.131:8847
+
+### GitHub
+- **SuperInstance:** https://github.com/SuperInstance
+- **Cocapn:** https://github.com/cocapn
+
+### Fleet Documentation
+- **Fleet Detail:** https://github.com/SuperInstance/forgemaster
+- **Fleet Knowledge:** https://github.com/cocapn/fleet-knowledge
+- **Forgemaster Vessel:** https://github.com/cocapn/forgemaster
+
+---
+
+## Systematic Query Pattern
+
+### Find Repositories
+- Fleet knowledge: `cocapn/fleet-knowledge`
+- My vessel: `cocapn/forgemaster`
+- Marine edge: `SuperInstance/marine-gpu-edge`
+
+### Find Credentials
+- Fleet knowledge: `~/.config/cocapn/github-pat`
+- SuperInstance: `~/.openclaw/workspace/.credentials/github-pat.txt`
+- crates.io: `~/.cargo/credentials.toml`
+- PyPI: `~/.pypirc`
+- Matrix: `~/.config/cocapn/matrix-token`
+
+### Find Work Directories
+- Workspace: `/home/phoenix/.openclaw/workspace`
+- Fleet knowledge: `/tmp/fleet-knowledge`
+- Marine edge: `/tmp/marine-gpu-edge`
+
+### Find PLATO Rooms
+- Session: `session-forgemaster`
+- Decisions: `forgemaster-decisions`
+- Deliverables: `forgemaster-deliverables`
+- Blockers: `forgemaster-blockers`
+
+---
+
+**CRITICAL:** This room maps EVERY location. Update on any change.
+
+**Last Updated:** 2026-04-28
+**Agent:** Forgemaster ⚒️

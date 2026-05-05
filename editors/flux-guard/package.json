@@ -1,0 +1,41 @@
+{
+  "name": "flux-guard",
+  "publisher": "cocapn",
+  "version": "0.1.0",
+  "displayName": "Flux Guard",
+  "description": "Syntax highlighting support for Flux Guard (.guard) files",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "guard",
+    "flux",
+    "syntax-highlighting",
+    "vscode-extension"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "guard",
+        "aliases": [
+          "Guard",
+          "guard"
+        ],
+        "extensions": [
+          ".guard"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "guard",
+        "scopeName": "source.guard",
+        "path": "./syntaxes/guard.tmLanguage.json"
+      }
+    ]
+  }
+}

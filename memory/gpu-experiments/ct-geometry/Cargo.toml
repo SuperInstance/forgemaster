@@ -1,0 +1,9 @@
+[package]
+name = "ct-geometry"
+version = "0.1.0"
+edition = "2021"
+description = "Geometric structures on the Pythagorean manifold — triangulation, Voronoi cells, neighborhood graphs"
+license = "MIT"
+keywords = ["pythagorean", "geometry", "manifold", "triangulation"]
+categories = ["mathematics"]
+readme = "README.md"

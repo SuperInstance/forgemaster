@@ -1,0 +1,11 @@
+[package]
+name = "flux-ast"
+version = "0.1.1"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "Universal Constraint AST — single source of truth for constraint semantics across all representations"
+repository = "https://github.com/SuperInstance/JetsonClaw1-vessel"
+keywords = ["ast", "constraint", "safety", "flux", "formal"]
+categories = ["compilers", "science"]
+authors = ["Forgemaster <forgemaster@cocapn.ai>"]
+readme = "README.md"

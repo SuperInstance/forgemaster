@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sonar-sim-pipeline"
+version = "1.0.0"
+description = "Sonar simulation pipeline — FLUX physics, ray tracing, mission planning, fleet simulation, digital twin"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "SuperInstance", email = "dev@superinstance.ai"}
+]
+keywords = ["sonar", "auv", "acoustics", "simulation", "physics", "underwater", "digital-twin"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Oceanography",
+]
+
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "mypy", "ruff"]
+neural = ["torch>=2.0", "numpy", "matplotlib"]
+
+[project.scripts]
+sonar-physics = "sim_pipeline.__main__:main"
+sonar-survey = "sim_pipeline.cli:survey"
+sonar-env = "sim_pipeline.cli:env"
+sonar-ray = "sim_pipeline.cli:ray"
+sonar-plan = "sim_pipeline.cli:plan"
+
+[project.urls]
+Homepage = "https://github.com/SuperInstance/sonar-vision"
+Repository = "https://github.com/SuperInstance/sonar-vision"
+Documentation = "https://github.com/SuperInstance/sonar-vision"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sim_pipeline*"]

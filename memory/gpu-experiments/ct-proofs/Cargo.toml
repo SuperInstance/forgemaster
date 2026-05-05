@@ -1,0 +1,9 @@
+[package]
+name = "ct-proofs"
+version = "0.1.0"
+edition = "2021"
+description = "Formal verification proofs for constraint theory — exhaustive testing and property checking"
+license = "MIT"
+keywords = ["proofs", "verification", "pythagorean", "constraint"]
+categories = ["mathematics", "science"]
+readme = "README.md"

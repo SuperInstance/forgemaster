@@ -1,0 +1,41 @@
+constraint ::= identifier "@" priority? "@" override? "@" weaken? "{" expression "}"
+
+priority ::= "priority" "(" "HARD" | "SOFT" | "DEFAULT" ")"
+
+override ::= "override" "(" "this" "over" "that" ")"
+
+weaken ::= "weaken" "(" "range" ":" "[" expression "," expression "]" "→" "[" expression "," expression "]" ")"
+
+expression ::= term | expression "+" term | expression "-" term | expression "<" term | expression ">" term | expression "<=" term | expression ">=" term | expression "==" term | expression "!=" term | expression "and" term | expression "or" term
+
+term ::= factor | term "*" factor | term "/" factor | term "%" factor
+
+factor ::= primary | "-" primary | "+" primary | "not" primary
+
+primary ::= identifier | number | "(" expression ")" | "range" "(" expression "," expression "," expression ")" | "whitelist" "(" expression "," "{" expression_list "}" ")" | "bitmask" "(" expression "," expression ")" | "thermal" "(" expression ")" | "sparsity" "(" expression ")" | "min" "(" expression_list ")" | "max" "(" expression_list ")" | "abs" "(" expression ")"
+
+expression_list ::= expression | expression "," expression_list
+
+identifier ::= letter | identifier letter | identifier digit | identifier "_"
+
+number ::= digit | digit number
+
+digit ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+letter ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+
+constraint_group ::= "constraint_group" identifier "{" constraint_list "}" "@" require_all? "@" require_any?
+
+require_all ::= "require_all"
+
+require_any ::= "require_any"
+
+constraint_list ::= constraint | constraint constraint_list
+
+import ::= "use" identifier
+
+comment ::= "//" text | "/*" text "*/"
+
+text ::= letter | digit | "_" | " " | "\t" | "\n" | "\r"
+
+guard_file ::= import* constraint_group* constraint* comment*

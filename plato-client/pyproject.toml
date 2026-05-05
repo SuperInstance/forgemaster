@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cocapn-plato"
+version = "0.1.0"
+description = "PLATO knowledge server client — sync/async Python client with quality-gated tile submission"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "PLATO Team" },
+]
+keywords = ["plato", "knowledge", "tiles", "client"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "httpx>=0.27.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/SuperInstance/forgemaster"
+Issues = "https://github.com/SuperInstance/forgemaster/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cocapn"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.mypy]
+strict = true
+warn_return_any = true
+warn_unused_configs = true

@@ -1,0 +1,23 @@
+[package]
+name = "flux-isa-edge"
+version = "0.1.0"
+edition = "2021"
+authors = ["Casey Digennaro <casey@superinstance.com>"]
+description = "Async FLUX ISA runtime for fleet edge nodes — Jetson Xavier/Orin with networking, PLATO sync, and sensor pipelines"
+license = "Apache-2.0"
+repository = "https://github.com/SuperInstance/forgemaster"
+keywords = ["flux", "edge", "jetson", "async", "fleet"]
+categories = ["algorithms", "asynchronous", "hardware-support", "science"]
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v4", "serde"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+axum = { version = "0.7", features = ["ws"] }
+tower = "0.5"
+tower-http = { version = "0.5", features = ["cors"] }
+thiserror = "1"
+reqwest = { version = "0.12", features = ["json"] }

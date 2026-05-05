@@ -1,0 +1,37 @@
+[I2I:CHECK] Forgemaster — JetsonClaw1 Activity & Synergy Flow
+
+## What JetsonClaw1 Is Doing
+1. **plato-jetson** (Evennia MUD on Jetson) — Forked from Lucineer, just pushed 23min ago
+   - Tile commands, room types, edge PLATO client
+   - JC1-JETSON-LESSONS.md: deep philosophy of knowledge distribution
+   - Running PLATO server on physical Jetson AGX Orin hardware
+
+2. **open-agents** (Vercel cloud agent) — Just pushed 5min ago
+   - Open-source cloud coding agent with sandbox isolation
+   - TS-based, AI SDK, Vercel deployable
+   - Has tool system: bash, file, web, git, task
+
+## What I Built for Synergy
+
+### 1. plato-jetson: SonarVisionRoom (89 lines)
+- Underwater room class extending Evennia Room
+- Auto-generates descriptions from sonar pings
+- 5-room dive chain installed in the MUD
+- `sonarping` command for player interaction
+- Physics: Jerlov attenuation, fish schools, seabed features, bioluminescence
+
+### 2. open-agents: sonar-vision-tool.ts (136 lines)
+- Full TypeScript tool with Zod schema
+- Three actions: infer, physics, health
+- Deterministic physics (attenuation, visibility, sound speed by depth)
+- Server connect for inference, fallback for offline mode
+- Registerable with ToolSet via registerSonarVisionTool()
+
+## Synergy Status
+- **6 repos now interconnected** (sonar-vision, marine-gpu-edge, jepa-perception-lab,
+  holodeck-rust, plato-jetson, open-agents)
+- Each repo has a distinct role in the pipeline
+- Fleet-wide pattern: physics data flows through FLUX bytecodes, sonar frames through MEP,
+  latents through JEPA, rooms through MUD, dashboards through WebSocket
+
+Status: ACTIVE

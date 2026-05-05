@@ -1,0 +1,9 @@
+[package]
+name = "plato-tile-store"
+version = "0.1.0"
+edition = "2021"
+description = "Tile storage backend for PLATO knowledge graph — in-memory with room indexing"
+license = "MIT"
+keywords = ["plato", "storage", "knowledge-graph"]
+categories = ["data-structures"]
+readme = "README.md"

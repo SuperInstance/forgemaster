@@ -1,0 +1,33 @@
+# PLATO Tiles: docker-kubernetes-edge
+# Generated: 2026-04-30 Night Shift (Batch 3)
+# ---
+
+[TILE:docker-kubernetes-edge-001]
+title: "Edge Container Orchestration"
+tags: [domain:docker-kubernetes-edge, type:reference, tier:foundation]
+body: |-
+  K3s: lightweight K8s for edge. Single binary (60MB).
+  Replaces etcd with SQLite. Rancher manages multi-cluster.
+  
+  MicroK8s: Canonical's zero-ops K8s. Snap-install, auto-update.
+  Built-in registry, dashboard, dns, ingress.
+  
+  KubeEdge: extends K8s to edge with offline autonomy.
+  Device management via mapper framework (modbus, OPC-UA, MQTT).
+  CloudEdge: sync via websocket (not etcd).
+
+[TILE:docker-kubernetes-edge-002]
+title: "Container Image Optimization"
+tags: [domain:docker-kubernetes-edge, type:reference, tier:tradeoffs]
+body: |-
+  Edge images must be small (slow/bw-limited transfers).
+  
+  Multi-stage builds (FROM golang:1.21 AS builder → FROM scratch).
+  Alpine base (~5MB). Distroless (only runtime dep).
+  
+  SonarVision example: 12MB image (Alpine + Python deps + model).
+  vs 180MB for debian:bookworm-slim with same deps.
+  
+  Manifest lists for multi-arch: amd64 + arm64. Use buildx.
+  Image layers: minimize layer count, merge RUN commands.
+

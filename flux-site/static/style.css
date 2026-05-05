@@ -1,0 +1,321 @@
+/**
+ * FLUX Community Hub — Abyssal Terminal Aesthetic
+ * Cyan on dark, amber warnings, magenta accents
+ */
+
+:root {
+    --bg-primary: #0a0e17;
+    --bg-secondary: #111827;
+    --bg-card: #1a2332;
+    --bg-code: #0d1117;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --accent-cyan: #22d3ee;
+    --accent-magenta: #c084fc;
+    --accent-amber: #fbbf24;
+    --accent-green: #34d399;
+    --accent-red: #f87171;
+    --border: #1e293b;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --font-sans: 'Inter', -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+a { color: var(--accent-cyan); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Nav */
+header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+}
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: 60px;
+}
+nav .logo {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--accent-cyan);
+}
+nav a { color: var(--text-secondary); font-size: 0.9rem; }
+nav a:hover { color: var(--text-primary); }
+nav .github { margin-left: auto; color: var(--accent-magenta); }
+
+/* Main */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 4rem 0 3rem;
+}
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+.hero .accent {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hero .tagline {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* CTA */
+.cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.cta {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.cta.primary {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+}
+.cta.primary:hover {
+    background: #06b6d4;
+    text-decoration: none;
+}
+.cta.secondary {
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+.cta.secondary:hover {
+    border-color: var(--accent-cyan);
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+/* Live Demo */
+.live-demo {
+    margin: 4rem 0;
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+.live-demo h2 { text-align: center; margin-bottom: 2rem; }
+.demo-container {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+.demo-panel {
+    flex: 1;
+    min-width: 250px;
+    background: var(--bg-code);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+}
+.demo-panel h3 {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent-cyan);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.demo-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: var(--accent-cyan);
+    font-weight: bold;
+}
+pre, code {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+.guard-source code { color: var(--accent-green); }
+.flux-bytecode code { color: var(--accent-amber); }
+
+/* Result Panel */
+.result {
+    padding: 1rem;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.result.pass {
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+}
+.result-icon { font-size: 2rem; }
+.result-text {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--accent-green);
+}
+.trace {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    max-height: 150px;
+    overflow-y: auto;
+}
+.trace-line { padding: 0.2rem 0; border-bottom: 1px solid var(--border); }
+.gas-meter {
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+.gas-bar {
+    height: 4px;
+    background: var(--accent-green);
+    border-radius: 2px;
+    margin-top: 0.5rem;
+}
+
+/* Benchmark Table */
+.benchmark-preview { margin: 4rem 0; }
+.benchmark-preview h2 { text-align: center; margin-bottom: 1rem; }
+.section-desc { text-align: center; color: var(--text-secondary); margin-bottom: 2rem; }
+
+.benchmark-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+}
+.benchmark-table th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.benchmark-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+.benchmark-table tr.certified td { color: var(--text-primary); }
+.benchmark-table tr.uncertified td { color: var(--text-secondary); }
+.safe-score.has-score strong { color: var(--accent-green); font-size: 1.1rem; }
+.safe-score.zero { color: var(--text-secondary); }
+.table-caption { text-align: center; margin-top: 1rem; font-size: 0.85rem; }
+
+/* Features */
+.features { margin: 4rem 0; }
+.features h2 { text-align: center; margin-bottom: 2rem; }
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+.feature {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+.feature h3 { margin-bottom: 0.75rem; font-size: 1.1rem; }
+.feature p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; }
+.feature a { font-family: var(--font-mono); font-size: 0.85rem; }
+
+/* Packages */
+.packages { margin: 4rem 0; text-align: center; }
+.packages h2 { margin-bottom: 2rem; }
+.package-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+.pkg {
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    font-family: var(--font-mono);
+}
+.pkg code {
+    display: block;
+    color: var(--accent-cyan);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+.pkg .pkg-desc { color: var(--text-secondary); font-size: 0.8rem; font-family: var(--font-sans); }
+.pkg-total { margin-top: 1.5rem; color: var(--text-secondary); font-size: 0.9rem; }
+
+/* PLATO Preview */
+.plato-preview { margin: 4rem 0; text-align: center; }
+.plato-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 2rem 0;
+}
+.stat-num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent-magenta);
+    font-family: var(--font-mono);
+}
+.stat-label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Community CTA */
+.community-cta {
+    text-align: center;
+    padding: 4rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: 4rem;
+}
+.community-cta h2 { margin-bottom: 1rem; }
+.community-cta p { color: var(--text-secondary); margin-bottom: 2rem; }
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+}
+footer a { color: var(--text-secondary); margin: 0 0.5rem; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .demo-container { flex-direction: column; }
+    .demo-arrow { transform: rotate(90deg); justify-content: center; }
+    nav { gap: 0.75rem; flex-wrap: wrap; height: auto; padding: 0.5rem 0; }
+    .plato-stats { gap: 1.5rem; }
+}

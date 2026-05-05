@@ -1,0 +1,47 @@
+[
+  {
+    "lang": "Python",
+    "max_c": 100,
+    "triples": 32,
+    "brute_qps": 576020,
+    "bin_qps": 1912280,
+    "speedup": 3.3,
+    "mem_kb": 2
+  },
+  {
+    "lang": "Python",
+    "max_c": 1000,
+    "triples": 316,
+    "brute_qps": 60503,
+    "bin_qps": 1691865,
+    "speedup": 28.0,
+    "mem_kb": 22
+  },
+  {
+    "lang": "Python",
+    "max_c": 5000,
+    "triples": 1584,
+    "brute_qps": 11839,
+    "bin_qps": 1518777,
+    "speedup": 128.3,
+    "mem_kb": 111
+  },
+  {
+    "lang": "Python",
+    "max_c": 10000,
+    "triples": 3186,
+    "brute_qps": 5888,
+    "bin_qps": 1455073,
+    "speedup": 247.1,
+    "mem_kb": 224
+  },
+  {
+    "lang": "Python",
+    "max_c": 50000,
+    "triples": 15920,
+    "brute_qps": 1090,
+    "bin_qps": 1339735,
+    "speedup": 1229.2,
+    "mem_kb": 1119
+  }
+]

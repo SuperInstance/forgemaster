@@ -1,0 +1,12 @@
+[package]
+name = "constraint-theory"
+version = "0.1.0"
+edition = "2021"
+description = "Constraint theory umbrella — unified API for snap, holonomy, manifold operations"
+license = "MIT"
+keywords = ["constraint-theory", "pythagorean", "snap", "manifold"]
+categories = ["mathematics", "science"]
+readme = "README.md"
+
+[profile.release]
+opt-level = 3

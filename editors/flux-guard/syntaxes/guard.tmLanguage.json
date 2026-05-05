@@ -1,0 +1,17 @@
+{
+  "scopeName": "source.guard",
+  "name": "GUARD Constraint",
+  "patterns": [
+    { "name": "comment.line.guard", "match": "//.*$" },
+    { "name": "keyword.control.guard", "match": "\\b(constraint|let|in|with|priority|before|after|duration|import|implies)\\b" },
+    { "name": "constant.language.guard", "match": "\\b(HIGH|MEDIUM|LOW)\\b" },
+    { "name": "support.type.guard", "match": "\\b(f32|f64|i8|i16|i32|i64|bool)\\b" },
+    { "name": "keyword.operator.logical.guard", "match": "\\b(and|or|not)\\b" },
+    { "name": "keyword.operator.comparison.guard", "match": "(>=|<=|>|<|==|!=)" },
+    { "name": "constant.numeric.guard", "match": "\\b\\d+\\.\\d+\\b|\\b\\d+\\b" },
+    { "name": "string.quoted.double.guard", "begin": "\"", "end": "\"", "patterns": [{ "name": "constant.character.escape.guard", "match": "\\\\." }] },
+    { "name": "punctuation.section.brackets.guard", "match": "[\\[\\]]" },
+    { "name": "punctuation.section.braces.guard", "match": "[\\{\\}]" },
+    { "name": "punctuation.section.parens.guard", "match": "[\\(\\)]" }
+  ]
+}

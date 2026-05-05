@@ -1,0 +1,12 @@
+[package]
+name = "ct-core-ext"
+version = "0.1.0"
+edition = "2021"
+description = "Extended constraint theory core — adaptive deadband, multi-constraint intersection, snap diagnostics"
+license = "MIT"
+keywords = ["constraint", "deadband", "multi-constraint", "pythagorean"]
+categories = ["mathematics"]
+readme = "README.md"
+
+[profile.release]
+opt-level = 3

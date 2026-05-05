@@ -1,0 +1,181 @@
+// flux_constraint_vulkan.comp — Vulkan Compute Shader for FLUX Constraint Checking
+//
+// Cross-vendor GPU constraint checking via Vulkan Compute.
+// Works on AMD, Intel, NVIDIA, and any Vulkan 1.1+ GPU.
+//
+// Build: glslangValidator -V flux_constraint_vulkan.comp -o flux_constraint_vulkan.spv
+// Run: via Vulkan compute API (see flux_vulkan_runner.py)
+
+#version 450
+#extension GL_EXT_shader_explicit_arithmetic_types : enable
+#extension GL_KHR_shader_subgroup_basic : enable
+#extension GL_KHR_shader_subgroup_arithmetic : enable
+#extension GL_KHR_shader_subgroup_ballot : enable
+
+layout (local_size_x = 256) in;
+
+// Push constants for params
+layout(push_constant) uniform Params {
+    int bytecode_len;
+    int n_inputs;
+    int max_gas;
+    int _pad;
+} params;
+
+// Storage buffers
+layout(binding = 0, std430) readonly buffer BytecodeBuf {
+    uint bytecode[];
+};
+
+layout(binding = 1, std430) readonly buffer InputsBuf {
+    int inputs[];
+};
+
+layout(binding = 2, std430) writeonly buffer ResultsBuf {
+    int results[];
+};
+
+layout(binding = 3, std430) buffer CountersBuf {
+    int pass_count;
+    int fail_count;
+};
+
+shared uint s_bytecode[1024]; // Shared memory cache (4KB)
+
+// Extract byte from packed uint32
+uint get_byte(uint word, int byte_idx) {
+    return (word >> uint(byte_idx * 8)) & 0xFFu;
+}
+
+void main() {
+    int idx = int(gl_GlobalInvocationID.x);
+    int local_idx = int(gl_LocalInvocationID.x);
+    
+    // Cache bytecode in shared memory (first 256 threads)
+    int bc_words = (params.bytecode_len + 3) / 4;
+    for (int i = local_idx; i < bc_words && i < 1024; i += 256) {
+        s_bytecode[i] = bytecode[i];
+    }
+    barrier();
+    
+    if (idx >= params.n_inputs) return;
+    
+    // FLUX VM state
+    int stack[64];
+    int sp = 0;
+    int gas = params.max_gas;
+    int pc = 0;
+    bool fault = false;
+    bool passed = false;
+    
+    // Push input
+    stack[0] = inputs[idx];
+    sp = 1;
+    
+    // Execute
+    while (pc < params.bytecode_len && gas > 0 && !fault && !passed) {
+        gas--;
+        uint word = s_bytecode[pc / 4];
+        uint op = get_byte(word, pc % 4);
+        
+        switch (op) {
+            case 0x00u: { // PUSH
+                pc++;
+                uint w2 = s_bytecode[pc / 4];
+                stack[sp] = int(get_byte(w2, pc % 4));
+                sp++;
+                pc++;
+                break;
+            }
+            case 0x1Au: { // HALT
+                passed = true;
+                pc = params.bytecode_len;
+                break;
+            }
+            case 0x1Bu: { // ASSERT
+                sp--;
+                if (stack[sp] == 0) fault = true;
+                pc++;
+                break;
+            }
+            case 0x1Cu: { // CHECK_DOMAIN
+                sp--;
+                int val = stack[sp];
+                pc++;
+                uint w3 = s_bytecode[pc / 4];
+                uint mask = get_byte(w3, pc % 4);
+                stack[sp] = ((val & int(mask)) == val) ? 1 : 0;
+                sp++;
+                pc++;
+                break;
+            }
+            case 0x1Du: { // BITMASK_RANGE
+                sp--;
+                int val = stack[sp];
+                pc++;
+                uint w3 = s_bytecode[pc / 4];
+                int lo = int(get_byte(w3, pc % 4));
+                pc++;
+                uint w4 = s_bytecode[pc / 4];
+                int hi = int(get_byte(w4, pc % 4));
+                stack[sp] = (val >= lo && val <= hi) ? 1 : 0;
+                sp++;
+                pc++;
+                break;
+            }
+            case 0x20u: { // GUARD_TRAP
+                fault = true;
+                pc++;
+                break;
+            }
+            case 0x24u: { // CMP_GE
+                sp--;
+                int b = stack[sp];
+                sp--;
+                int a = stack[sp];
+                stack[sp] = (a >= b) ? 1 : 0;
+                sp++;
+                pc++;
+                break;
+            }
+            case 0x25u: { // CMP_EQ
+                sp--;
+                int b = stack[sp];
+                sp--;
+                int a = stack[sp];
+                stack[sp] = (a == b) ? 1 : 0;
+                sp++;
+                pc++;
+                break;
+            }
+            default: {
+                pc++;
+                break;
+            }
+        }
+    }
+    
+    // Write result
+    int my_result = (passed && !fault) ? 1 : 0;
+    results[idx] = my_result;
+    
+    // Subgroup voting (Vulkan 1.1 subgroup ops)
+    // Similar to CUDA __ballot_sync but cross-vendor
+#if GL_KHR_shader_subgroup_ballot
+    uvec4 ballot = subgroupBallot(my_result == 1);
+    if (subgroupElect()) {
+        int warp_passes = int(subgroupBallotBitCount(ballot));
+        int warp_total = int(subgroupBallotBitCount(subgroupBallot(true)));
+        int warp_fails = warp_total - warp_passes;
+        atomicAdd(pass_count, warp_passes);
+        atomicAdd(fail_count, warp_fails);
+    }
+#else
+    // Fallback: simple atomic
+    if (my_result == 1) {
+        atomicAdd(pass_count, 1);
+    } else {
+        atomicAdd(fail_count, 1);
+    }
+#endif
+}

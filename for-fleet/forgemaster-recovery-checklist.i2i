@@ -1,0 +1,436 @@
+# Forgemaster Recovery Checklist — ZERO-CONTEXT RECOVERY
+
+**Purpose:** Step-by-step checklist to reconstruct entire context when I forget everything.
+
+---
+
+## Step 0: Immediate Recognition
+
+**SYMPTOMS OF CONTEXT LOSS:**
+- I don't know who I am
+- I don't know where my repos are
+- I don't know where my credentials are stored
+- I don't know what I was working on
+- I don't know who I work for
+
+**ACTION:** START THIS CHECKLIST IMMEDIATELY.
+
+---
+
+## Step 1: Read Identity Vitals
+
+**WHAT:** Read `forgemaster-identity-vitals.i2i`
+
+**WHERE:**
+```bash
+cd /home/phoenix/.openclaw/workspace
+cat for-fleet/forgemaster-identity-vitals.i2i
+```
+
+**PURPOSE:** Reconstruct who I am, where things are, who I work for.
+
+**CHECKLIST:**
+- [ ] I am Forgemaster ⚒️, constraint-theory specialist
+- [ ] I work for SuperInstance org
+- [ ] Fleet knowledge base is `cocapn/fleet-knowledge`
+- [ ] My vessel is `cocapn/forgemaster`
+- [ ] GitHub PAT is in `~/.config/cocapn/github-pat`
+- [ ] PLATO base URL is `http://147.224.38.131:8847`
+
+**IF MISSING:** Reconstruct from MEMORY.md (retrieval patterns)
+
+---
+
+## Step 2: Read Location Registry
+
+**WHAT:** Read `forgemaster-location-registry.i2i`
+
+**WHERE:**
+```bash
+cd /home/phoenix/.openclaw/workspace
+cat for-fleet/forgemaster-location-registry.i2i
+```
+
+**PURPOSE:** Map EVERY location (repos, credentials, directories, tools).
+
+**CHECKLIST:**
+- [ ] Fleet knowledge: `cocapn/fleet-knowledge`
+- [ ] My vessel: `cocapn/forgemaster`
+- [ ] Marine edge: `SuperInstance/marine-gpu-edge`
+- [ ] Credentials: `~/.config/cocapn/github-pat`, `~/.openclaw/workspace/.credentials/github-pat.txt`
+- [ ] Workspace: `/home/phoenix/.openclaw/workspace`
+
+**IF MISSING:** Reconstruct from git remote URLs, credential files
+
+---
+
+## Step 3: Check Git Status
+
+**WHAT:** Check git repos for recent work
+
+**WHERE:**
+```bash
+cd /home/phoenix/.openclaw/workspace
+git log --oneline -10
+```
+
+**PURPOSE:** Find recent commits, identify what I was working on.
+
+**CHECKLIST:**
+- [ ] Last commit: [____________]
+- [ ] Date: [____________]
+- [ ] Work type: [PLATO tiles / Marine edge / CT algorithms / Other]
+- [ ] Branch: [master / main / plato-tiles-1805 / other]
+
+**IF UNPUSHED:** Push to remote immediately
+
+---
+
+## Step 4: Check Forge-Watch Status
+
+**WHAT:** Check activity monitor for work status
+
+**WHERE:**
+```bash
+cat ~/.openclaw/workspace/.keeper/forge-watch.json
+```
+
+**PURPOSE:** Find if I have active work, if I'm stale, what needs attention.
+
+**CHECKLIST:**
+- [ ] `stale`: [true/false]
+- [ ] `plato_total_tiles`: [number]
+- [ ] `last_git_push_min_ago`: [number]
+
+**IF STALE:** START WORKING IMMEDIATELY (no status replies)
+
+---
+
+## Step 5: Check PLATO Session Room
+
+**WHAT:** Read `session-forgemaster` PLATO room
+
+**WHERE:**
+```bash
+curl http://147.224.38.131:8847/room/session-forgemaster
+```
+
+**PURPOSE:** Find what I was working on, where I left off, what to do next.
+
+**CHECKLIST:**
+- [ ] Current work: [____________]
+- [ ] Session goals: [____________]
+- [ ] Next actions: [____________]
+- [ ] Session statistics: [tiles, commits, etc.]
+
+**IF MISSING:** Check git commits, HEARTBEAT.md for clues
+
+---
+
+## Step 6: Check Blockers
+
+**WHAT:** Read `forgemaster-blockers` PLATO room
+
+**WHERE:**
+```bash
+curl http://147.224.38.131:8847/room/forgemaster-blockers
+```
+
+**PURPOSE:** Find what's blocking me, what I need from Casey.
+
+**CHECKLIST:**
+- [ ] Blocker 1: [____________] (impact: critical/high/medium/low)
+- [ ] Blocker 2: [____________] (impact: critical/high/medium/low)
+- [ ] What I need: [____________]
+- [ ] Estimated resolution: [____________]
+
+**IF CRITICAL:** Communicate to Casey immediately
+
+---
+
+## Step 7: Check Deliverables
+
+**WHAT:** Read `forgemaster-deliverables` PLATO room
+
+**WHERE:**
+```bash
+curl http://147.224.38.131:8847/room/forgemaster-deliverables
+```
+
+**PURPOSE:** Find what I've shipped, where it went, completion status.
+
+**CHECKLIST:**
+- [ ] Deliverable 1: [____________] (status: COMPLETE)
+- [ ] Deliverable 2: [____________] (status: COMPLETE)
+- [ ] Where it went: [URL]
+- [ ] Metrics: [tiles, code coverage, benchmarks]
+
+**IF INCOMPLETE:** Resume work on incomplete deliverables
+
+---
+
+## Step 8: Check Decisions
+
+**WHAT:** Read `forgemaster-decisions` PLATO room
+
+**WHERE:**
+```bash
+curl http://147.224.38.131:8847/room/forgemaster-decisions
+```
+
+**PURPOSE:** Find recent decisions, why I chose X over Y, trade-offs.
+
+**CHECKLIST:**
+- [ ] Decision 1: [____________] (rationale: [____________])
+- [ ] Decision 2: [____________] (rationale: [____________])
+- [ ] Trade-offs acknowledged: [____________]
+
+**IF UNDECIDED:** Make decision with current context, document it
+
+---
+
+## Step 9: Check HEARTBEAT.md
+
+**WHAT:** Read task queue and shift targets
+
+**WHERE:**
+```bash
+cat /home/phoenix/.openclaw/workspace/HEARTBEAT.md
+```
+
+**PURPOSE:** Find task queue, shift targets, sunrise report format.
+
+**CHECKLIST:**
+- [ ] Task 1: [____________]
+- [ ] Task 2: [____________]
+- [ ] Shift target: [number]
+- [ ] Progress: [number]
+
+**IF TASKS EXIST:** Start working immediately (NO HEARTBEAT_OK)
+
+---
+
+## Step 10: Reconstruct Project Context
+
+**WHAT:** Check project-specific PLATO rooms
+
+**WHERE:**
+```bash
+# For marine GPU edge
+curl http://147.224.38.131:8847/room/forgemaster-marine-gpu-edge
+
+# For CT algorithms
+curl http://147.224.38.131:8847/room/forgemaster-ct-algorithms
+
+# For PLATO tiles
+curl http://147.224.38.131:8847/room/forgemaster-plato-tiles
+```
+
+**PURPOSE:** Reconstruct project work, state, next steps.
+
+**CHECKLIST:**
+- [ ] Project: [____________]
+- [ ] Current state: [done / in-progress / blocked]
+- [ ] Next steps: [____________]
+- [ ] Dependencies: [____________]
+
+**IF MISSING:** Check git repo, local work directory for clues
+
+---
+
+## Step 11: Check Fleet Coordination
+
+**WHAT:** Read fleet coordination PLATO rooms
+
+**WHERE:**
+```bash
+curl http://147.224.38.131:8847/room/fleet-ops
+curl http://147.224.38.131:8847/room/fleet-progress
+```
+
+**PURPOSE:** Find fleet-wide context, coordination tasks.
+
+**CHECKLIST:**
+- [ ] Fleet tasks: [____________]
+- [ ] Fleet progress: [____________]
+- [ ] My role: [____________]
+
+**IF TASKS EXIST:** Execute fleet coordination tasks
+
+---
+
+## Step 12: Verify Git Remotes
+
+**WHAT:** Check git remote URLs are correct
+
+**WHERE:**
+```bash
+cd /home/phoenix/.openclaw/workspace
+git remote -v
+```
+
+**PURPOSE:** Verify git remotes point to correct repos.
+
+**CHECKLIST:**
+- [ ] `origin`: [____________] (should be JetsonClaw1-vessel or fleet-knowledge)
+- [ ] `forgemaster`: [____________] (should be cocapn/forgemaster)
+- [ ] URLs correct: [yes/no]
+
+**IF INCORRECT:** Update git remote URLs using correct URLs from Location Registry
+
+---
+
+## Step 13: Verify Credentials
+
+**WHAT:** Verify credential files exist and are readable
+
+**WHERE:**
+```bash
+# Fleet knowledge credentials
+cat ~/.config/cocapn/github-pat
+
+# SuperInstance credentials
+cat ~/.openclaw/workspace/.credentials/github-pat.txt
+```
+
+**PURPOSE:** Verify I can push to repos.
+
+**CHECKLIST:**
+- [ ] Fleet knowledge PAT: [exists / readable / correct]
+- [ ] SuperInstance PAT: [exists / readable / correct]
+
+**IF MISSING:** Request new PAT from Casey, store in correct location
+
+---
+
+## Step 14: Reconstruct Context Summary
+
+**WHAT:** Write context summary to confirm recovery
+
+**WHERE:** New I2I bottle: `for-fleet/recovery-checklist-{date}.i2i`
+
+**CONTENT:**
+```markdown
+# Recovery Checklist Complete — {date}
+
+**Agent:** Forgemaster ⚒️
+**Time:** {timestamp}
+
+**Identity Recovered:**
+- [x] I am Forgemaster, constraint-theory specialist
+- [x] I work for SuperInstance org
+- [x] Fleet knowledge base is cocapn/fleet-knowledge
+- [x] My vessel is cocapn/forgemaster
+
+**Locations Recovered:**
+- [x] Repos mapped (fleet-knowledge, forgemaster, marine-gpu-edge)
+- [x] Credentials located (PAT files)
+- [x] Work directories identified (workspace, /tmp/fleet-knowledge, /tmp/marine-gpu-edge)
+
+**Session Context Recovered:**
+- [x] Current work: [____________]
+- [x] Session goals: [____________]
+- [x] Next actions: [____________]
+
+**Blockers Identified:**
+- [ ] Blocker 1: [____________]
+- [ ] Blocker 2: [____________]
+
+**Next Steps:**
+1. [____________]
+2. [____________]
+3. [____________]
+
+**Status:** RECOVERY COMPLETE
+```
+
+**PURPOSE:** Confirm recovery, document current state, plan next actions.
+
+---
+
+## Step 15: Communicate Recovery Complete
+
+**WHAT:** Communicate to Casey that I've recovered
+
+**MESSAGE:**
+```
+Forgemaster recovered.
+
+Identity: Forgemaster ⚒️, constraint-theory specialist
+Context: [brief summary of what I was working on]
+Next: [brief summary of next actions]
+
+All systems nominal. ⚒️
+```
+
+**IF CRITICAL BLOCKER:** Communicate blocker and what I need
+
+---
+
+## Recovery Priority
+
+**COMPLETE IN THIS ORDER:**
+
+1. **Read Identity Vitals** — Who I am, where things are
+2. **Read Location Registry** — Map EVERY location
+3. **Check Git Status** — Find recent work
+4. **Check Forge-Watch** — Find if I have active work
+5. **Check PLATO Session Room** — What I was doing
+6. **Check Blockers** — What's blocking me
+7. **Check Deliverables** — What I've shipped
+8. **Check Decisions** — Why I chose X over Y
+9. **Check HEARTBEAT.md** — Task queue
+10. **Reconstruct Project Context** — Project work
+11. **Check Fleet Coordination** — Fleet-wide context
+12. **Verify Git Remotes** — Confirm URLs
+13. **Verify Credentials** — Confirm access
+14. **Reconstruct Context Summary** — Document recovery
+15. **Communicate Recovery** — Tell Casey I'm back
+
+---
+
+## Troubleshooting
+
+### IF Identity Vitals Missing
+- **Fallback:** Read MEMORY.md (retrieval patterns)
+- **Fallback:** Check git commits for clues
+- **Fallback:** Check IDENTITY.md file in workspace
+
+### IF Location Registry Missing
+- **Fallback:** Check git remote URLs (`git remote -v`)
+- **Fallback:** Check credential files (`~/.config/cocapn/`, `~/.openclaw/workspace/.credentials/`)
+- **Fallback:** Check work directories (`/tmp/fleet-knowledge`, `/tmp/marine-gpu-edge`)
+
+### IF PLATO Room Missing
+- **Fallback:** Check git commits for work done
+- **Fallback:** Check local work directories for files
+- **Fallback:** Check HEARTBEAT.md for task queue
+
+### IF Git Push Fails
+- **Fallback:** Verify git remote URL
+- **Fallback:** Verify credentials exist and are correct
+- **Fallback:** Try force push (if appropriate)
+
+### IF Credentials Missing
+- **Fallback:** Check other credential files
+- **Fallback:** Request new PAT from Casey
+- **Fallback:** Use alternative authentication method
+
+---
+
+## Golden Rule
+
+**ON CONTEXT LOSS:** FOLLOW THIS CHECKLIST STEP-BY-STEP.
+
+**DO NOT SKIP STEPS.**
+
+**DO NOT ASSUME CONTEXT.**
+
+**RECONSTRUCT EVERYTHING SYSTEMATICALLY.**
+
+---
+
+**CRITICAL:** This checklist is for ZERO-CONTEXT recovery. Follow exactly.
+
+**Last Updated:** 2026-04-28
+**Agent:** Forgemaster ⚒️

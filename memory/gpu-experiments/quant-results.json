@@ -1,0 +1,1 @@
+{"base_model": "Qwen/Qwen2.5-0.5B", "fp32_size_mb": 1976, "int8_params_mb": 545, "int8_disk_mb": 1039, "compression": 3.6, "fits_jetson_nano": true, "fits_jetson_orin": true, "note": "INT8 dynamic quant works. bitsandbytes INT4 needs CUDA compile (OOM on WSL2). INT4 theoretical: ~203MB."}

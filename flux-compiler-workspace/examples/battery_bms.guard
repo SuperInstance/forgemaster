@@ -1,0 +1,30 @@
+# Battery Management System
+# Constraints for an EV lithium-ion battery pack
+# Author: FLUX Team
+# License: Apache 2.0
+
+@priority(1)
+@safety_level(ASIL-C)
+group cell_constraints {
+    constraint cell_voltage in [250, 420]    # ×100 (2.50V to 4.20V)
+    constraint cell_temp in [-20, 60]        # °C
+    constraint cell_current in [-300, 300]   # amps (charge/discharge)
+    constraint cell_soc in [0, 100]          # %
+}
+
+group pack_constraints {
+    constraint pack_voltage in [2500, 4200]  # ×100
+    constraint pack_current in [-1500, 1500] # amps
+    constraint pack_temp_max in [-20, 55]    # °C
+    constraint pack_temp_delta in [0, 5]     # °C max cell-to-cell difference
+    constraint insulation_resistance in [500, 65535]  # kΩ
+}
+
+group thermal {
+    constraint coolant_inlet_temp in [-20, 45]  # °C
+    constraint coolant_flow_rate in [0, 20]     # L/min
+    constraint heater_power in [0, 5000]        # watts
+}
+
+# Domain constraint for fault flags
+constraint fault_flags in domain 0x00FF  # bits 0-7 valid

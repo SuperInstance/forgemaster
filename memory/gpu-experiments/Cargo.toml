@@ -1,0 +1,17 @@
+[package]
+name = "constraint-benchmark"
+version = "0.1.0"
+edition = "2021"
+description = "CPU + CUDA benchmark for constraint theory snap function"
+license = "MIT"
+
+[dependencies]
+rand = "0.8"
+
+[[bin]]
+name = "cpu-benchmark"
+path = "cpu_benchmark.rs"
+
+[[bin]]
+name = "kd-benchmark"
+path = "kd_benchmark.rs"

@@ -1,0 +1,19 @@
+# PLATO Tiles: Neural Compression Standards
+# Generated: 2026-04-30 Night Shift
+# Batch: deep domain-specific (non-template)
+# ---
+
+[TILE:neural-compression-standards-001]
+title: "Learned Image Compression"
+tags: [domain:neural-compression-standards, type:reference, tier:foundation]
+body: |-
+  Autoencoder architecture: encoder → quantizer → entropy model → decoder.
+  Entropy bottleneck: learns a prior over the latent space for lossless coding
+  of the quantized representation.
+  
+  Rate-distortion tradeoff via Lagrangian: L = R + λD
+  where R = rate (bitrate), D = distortion (MSE/MS-SSIM), λ controls tradeoff.
+  
+  Ballé et al. (2018) hyperprior: scale hyperprior captures spatial dependencies
+  in the latent, improving entropy coding by ~15% over factorized prior.
+

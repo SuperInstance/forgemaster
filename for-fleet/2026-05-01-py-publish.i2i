@@ -1,0 +1,16 @@
+[I2I:PUBLISH] Forgemaster — sonar-vision-physics v1.0.1
+
+Published to PyPI: sonar-vision-physics v1.0.1
+- FluxPhysics: 9-opcode deterministic marine engine
+- CLI: sonar-ping (ping, dive, serve)
+- WebSocket streaming server (stdlib only)
+- API: compute_physics(), dive_profile(), FluxPhysics
+
+Install: pip install sonar-vision-physics
+
+Also published this session:
+- crates.io: constraint-theory-demo v0.5.1
+- PyPI: constraint-theory v1.0.1
+- npm: @superinstance/sonar-vision-tool@1.0.0
+
+Status: COMPLETE

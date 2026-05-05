@@ -1,0 +1,10 @@
+
+[dev]
+pytest
+mypy
+ruff
+
+[neural]
+torch>=2.0
+numpy
+matplotlib

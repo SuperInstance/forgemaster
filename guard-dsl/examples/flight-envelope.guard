@@ -1,0 +1,197 @@
+// ========================================================================
+//  Example (c) — Flight Envelope Protection
+//  System: Fly-by-Wire Flight Control Computer (FCC)
+//  Aircraft: Generic Regional Jet
+//  Standard: DO-178C Level A / ARP 4754A
+// ========================================================================
+
+module FlightEnvelopeProtection
+  version "3.0.2"
+  for "FCC Pitch and Airspeed Authority Limits"
+;
+
+import AtmosphereModel.density as rho;
+
+// ------------------------------------------------------------------------
+//  Dimensions
+// ------------------------------------------------------------------------
+dimension Knots    is real from 0 kt to 500 kt;
+dimension Feet     is real from -1000 ft to 55000 ft;
+dimension Degrees  is real from -90 ° to 90 °;
+dimension DegPerSec is real from -20 °/s to 20 °/s;
+dimension GUnits   is real from -3.0 g to 4.5 g;
+dimension Kg       is real from 20000 kg to 90000 kg;
+dimension Percent  is real % from 0 % to 100 %;
+
+// ------------------------------------------------------------------------
+//  Domains
+// ------------------------------------------------------------------------
+domain FlapSetting = { Clean, Takeoff, Landing };
+
+domain FlightPhase = { Ground, TakeoffRoll, Climb, Cruise, Descent, Approach, LandingRoll };
+
+domain EnvelopeRegion = { Normal, Advisory, Caution, Warning, Protection };
+
+// ------------------------------------------------------------------------
+//  Configuration limits (aircraft-specific constants)
+// ------------------------------------------------------------------------
+state V_stall_clean   has real in [80 kt .. 120 kt] initially 102 kt;
+state V_stall_takeoff has real in [70 kt .. 110 kt] initially 85 kt;
+state V_stall_landing has real in [65 kt .. 105 kt] initially 78 kt;
+state V_mo            has real in [300 kt .. 400 kt] initially 340 kt;
+state M_mo            has real in [0.70 .. 0.90]    initially 0.82;
+state Alt_max         has real in [35000 ft .. 45000 ft] initially 41000 ft;
+state Alpha_max       has real in [12 ° .. 20 °]    initially 15.5 °;
+state N_z_max         has real in [2.0 g .. 3.0 g]  initially 2.5 g;
+state N_z_min         has real in [-1.5 g .. -0.5 g] initially -1.0 g;
+
+// ------------------------------------------------------------------------
+//  Dynamic state
+// ------------------------------------------------------------------------
+state indicated_airspeed  has real in [0 kt .. 500 kt]   sampled every 20 ms;
+state altitude            has real in [-1000 ft .. 55000 ft] sampled every 20 ms;
+state angle_of_attack     has real in [-5 ° .. 25 °]     sampled every 10 ms;
+state normal_load_factor  has real in [-4.0 g .. 5.0 g]  sampled every 10 ms;
+state pitch_rate          has real in [-20 °/s .. 20 °/s] sampled every 10 ms;
+state gross_weight        has real in [20000 kg .. 90000 kg] sampled every 500 ms;
+state flap_setting        has FlapSetting                  sampled every 100 ms;
+state flight_phase        has FlightPhase                  sampled every 100 ms;
+state stick_pitch_cmd     has real in [-100 % .. 100 %]    sampled every 10 ms;
+state elevator_deflection has real in [-30 ° .. 20 °]      sampled every 10 ms;
+
+// ------------------------------------------------------------------------
+//  Derived quantities (computed by FCC, observable for constraints)
+// ------------------------------------------------------------------------
+state V_alpha_prot has real in [0 kt .. 500 kt];
+state V_alpha_max  has real in [0 kt .. 500 kt];
+state V_stall_warn has real in [0 kt .. 500 kt];
+
+// ------------------------------------------------------------------------
+//  Invariants — Airspeed
+// ------------------------------------------------------------------------
+
+// Never exceed maximum operating Mach number.
+invariant MachNeverExceed
+  critical
+  when altitude ≥ 28000 ft
+  ensure indicated_airspeed ≤ M_mo * 661 kt   (* approx Mach → KCAS at FL280 *)
+  on_violation transition Protection;
+
+// Never exceed maximum operating indicated airspeed.
+invariant VmoNeverExceed
+  critical
+  ensure indicated_airspeed ≤ V_mo
+  on_violation transition Protection;
+
+// Stall warning margin: IAS must stay above 1.05 × V_stall.
+invariant StallWarningMargin
+  major
+  ensure
+    indicated_airspeed ≥ 1.05 * V_stall_current
+  on_violation transition Advisory;
+
+// V_stall_current depends on configuration.
+derive VStallCurrentFromFlaps
+  from StallWarningMargin
+  conclude V_stall_current =
+    if flap_setting = Clean   then V_stall_clean
+    else if flap_setting = Takeoff then V_stall_takeoff
+    else V_stall_landing;
+
+// ------------------------------------------------------------------------
+//  Invariants — Angle of Attack
+// ------------------------------------------------------------------------
+
+// Alpha floor: if AoA exceeds protection threshold, autothrust must engage.
+invariant AlphaFloorProtection
+  critical
+  when angle_of_attack ≥ Alpha_max - 1.5 °
+  ensure autothrust_mode = TOGA
+  on_violation transition Protection;
+
+// Hard AoA limit: must never exceed absolute maximum.
+invariant AlphaHardLimit
+  critical
+  ensure angle_of_attack ≤ Alpha_max
+  on_violation halt;
+
+// ------------------------------------------------------------------------
+//  Invariants — Normal Load Factor (g-load)
+// ------------------------------------------------------------------------
+
+// Positive g-limit.
+invariant PositiveGLimit
+  critical
+  when flight_phase = Climb or flight_phase = Cruise or flight_phase = TakeoffRoll
+  ensure normal_load_factor ≤ N_z_max
+  on_violation transition Caution;
+
+// Negative g-limit.
+invariant NegativeGLimit
+  critical
+  ensure normal_load_factor ≥ N_z_min
+  on_violation transition Caution;
+
+// ------------------------------------------------------------------------
+//  Invariants — Temporal Rate Limits
+// ------------------------------------------------------------------------
+
+// Pitch rate must not exceed 8 °/s when below 1000 ft AGL.
+invariant PitchRateLimitLowAltitude
+  major
+  when altitude ≤ 1000 ft and (flight_phase = Approach or flight_phase = LandingRoll)
+  ensure |pitch_rate| ≤ 8 °/s
+  on_violation transition Advisory;
+
+// Pitch rate must not exceed 5 °/s during the first 3 seconds after takeoff rotation.
+invariant PitchRateLimitTakeoff
+  critical
+  when flight_phase = TakeoffRoll
+  ensure
+    for 3 s ( |pitch_rate| ≤ 5 °/s )
+  on_violation transition Caution;
+
+// Airspeed must not decrease more than 5 kt per second when in approach.
+invariant AirspeedDecayLimitApproach
+  major
+  when flight_phase = Approach
+  ensure
+    always ( delta indicated_airspeed ≥ -5 kt per s )
+  on_violation warn;
+
+// Normal load factor rate must not exceed 1.5 g per second (passenger comfort + structural).
+invariant GLimitRate
+  major
+  ensure
+    always ( |rate_of normal_load_factor| ≤ 1.5 g per s )
+  on_violation transition Advisory;
+
+// ------------------------------------------------------------------------
+//  Invariants — Authority Cross-Check
+// ------------------------------------------------------------------------
+
+// If both g-limit and alpha-limit are active, pitch authority is reduced.
+invariant AuthorityReductionWhenMultipleLimits
+  major
+  when normal_load_factor ≥ 0.9 * N_z_max and angle_of_attack ≥ 0.9 * Alpha_max
+  ensure |stick_pitch_cmd| ≤ 50 %
+  on_violation transition Caution;
+
+// ------------------------------------------------------------------------
+//  Proof
+// ------------------------------------------------------------------------
+proof FlightEnvelopeProof {
+  tactic differential_invariants;
+  tactic k_induction 5;
+  tactic interval_arithmetic;
+  lemma RateLimitBounds =
+    forall t . |rate_of normal_load_factor| ≤ 1.5 g per s
+      implies
+    next (normal_load_factor ≤ old normal_load_factor + 0.015 g);
+  certificate {
+    format = native;
+    include_trace = true;
+    include_counterexample = true;
+    hash = sha256;
+  }
+}

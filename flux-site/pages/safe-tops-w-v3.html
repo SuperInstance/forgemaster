@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safe-TOPS/W Benchmark | cocapn.ai</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'flux-glow': '#00ff9d',
+            'flux-glow-dim': '#00ff9d33',
+            'danger': '#ef4444',
+            'danger-dim': '#ef444433',
+            'warning': '#f59e0b',
+            'dark-bg': '#0a0a0f',
+            'card-bg': '#111118',
+            'card-border': '#1f1f2e',
+          },
+          fontFamily: {
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'gauge-fill': 'gaugeFill 1.5s ease-out forwards',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            gaugeFill: {
+              '0%': { strokeDashoffset: '440' },
+              '100%': { strokeDashoffset: 'var(--target-offset)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '1', filter: 'brightness(1)' },
+              '50%': { opacity: '0.85', filter: 'brightness(1.2)' },
+            },
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0a0a0f;
+      color: #e2e8f0;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .gauge-circle {
+      fill: none;
+      stroke-width: 12;
+      stroke-linecap: round;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+    .gauge-bg {
+      stroke: #1f1f2e;
+    }
+    .gauge-value {
+      stroke-dasharray: 440;
+      stroke-dashoffset: 440;
+    }
+    .certified .gauge-value {
+      stroke: #00ff9d;
+      filter: drop-shadow(0 0 8px #00ff9d44);
+    }
+    .uncertified .gauge-value {
+      stroke: #ef4444;
+      filter: drop-shadow(0 0 8px #ef444444);
+    }
+    .table-row-hover:hover {
+      background-color: #1a1a28;
+    }
+    .cert-badge {
+      background: linear-gradient(135deg, #00ff9d22, #00ff9d0d);
+      border: 1px solid #00ff9d44;
+    }
+    .uncert-badge {
+      background: linear-gradient(135deg, #ef444422, #ef44440d);
+      border: 1px solid #ef444444;
+    }
+    .hero-gradient {
+      background: radial-gradient(ellipse 80% 60% at 50% -20%, #00ff9d11 0%, transparent 50%);
+    }
+    .grid-pattern {
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .number-roll {
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Navigation -->
+  <nav class="border-b border-card-border bg-dark-bg/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 text-flux-glow font-bold text-lg tracking-tight">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+        cocapn.ai
+      </a>
+      <span class="text-xs font-mono text-gray-500 uppercase tracking-widest">Safe-TOPS/W</span>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient grid-pattern relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-flux-glow/10 border border-flux-glow/20 text-flux-glow text-xs font-mono font-medium mb-6 animate-fade-in-up">
+          <span class="w-1.5 h-1.5 rounded-full bg-flux-glow animate-pulse"></span>
+          Certified AI Performance Benchmark
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
+          Safe-TOPS/W
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-400 leading-relaxed mb-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+          The only benchmark that matters: <span class="text-white font-semibold">certified operations</span> per watt.
+          <br class="hidden sm:block">
+          No certification? <span class="text-danger font-semibold">Score = 0. Period.</span>
+        </p>
+        
+        <!-- Formula Box -->
+        <div class="inline-block bg-card-bg border border-card-border rounded-xl px-8 py-5 animate-fade-in-up" style="animation-delay: 0.3s;">
+          <div class="font-mono text-lg sm:text-xl">
+            <span class="text-flux-glow font-bold">Safe-TOPS/W</span>
+            <span class="text-gray-500 mx-2">=</span>
+            <span class="text-white">certified_operations_per_second</span>
+            <span class="text-gray-500 mx-1">/</span>
+            <span class="text-warning">power_watts</span>
+          </div>
+          <div class="mt-3 pt-3 border-t border-card-border text-xs sm:text-sm text-gray-500">
+            If hardware has no formal certification → no certified operations → <span class="text-danger font-semibold">score is 0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gauges Section -->
+  <section class="py-16 border-b border-card-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white text-center mb-12">Certified vs. Uncertified</h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- FLUX CPU -->
+        <div class="bg-card-bg border border-card-border rounded-2xl p-6 text-center animate-fade-in-up certified" style="animation-delay: 0.1s;">
+          <div class="relative w-40 h-40 mx-auto mb-4">
+            <svg class="w-full h-full" viewBox="0 0 160 160">
+              <circle class="gauge-circle gauge-bg" cx="80" cy="80" r="70"/>
+              <circle class="gauge-circle gauge-value animate-gauge-fill" cx="80" cy="80" r="70" style="--target-offset: 0;"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-3xl font-bold text-flux-glow number-roll">410M</span>
+              <span class="text-xs text-gray-500 mt-1">Safe-TOPS/W</span>
+            </div>
+          </div>
+          <h3 class="font-semibold text-white mb-1">FLUX CPU</h3>
+          <p class="text-xs text-gray-500 mb-3">Ryzen AI 9</p>
+          <span class="cert-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-flux-glow">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Formal proofs
+          </span>
+        </div>
+
+        <!-- FLUX GPU -->
+        <div class="bg-card-bg border border-card-border rounded-2xl p-6 text-center animate-fade-in-up certified" style="animation-delay: 0.2s;">
+          <div class="relative w-40 h-40 mx-auto mb-4">
+            <svg class="w-full h-full" viewBox="0 0 160 160">
+              <circle class="gauge-circle gauge-bg" cx="80" cy="80" r="70"/>
+              <circle class="gauge-circle gauge-value animate-gauge-fill" cx="80" cy="80" r="70" style="--target-offset: 132;"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-3xl font-bold text-flux-glow number-roll">241M</span>
+              <span class="text-xs text-gray-500 mt-1">Safe-TOPS/W</span>
+            </div>
+          </div>
+          <h3 class="font-semibold text-white mb-1">FLUX GPU</h3>
+          <p class="text-xs text-gray-500 mb-3">RTX 4050</p>
+          <span class="cert-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-flux-glow">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Formal proofs
+          </span>
+        </div>
+
+        <!-- FLUX FPGA -->
+        <div class="bg-card-bg border border-card-border rounded-2xl p-6 text-center animate-fade-in-up certified" style="animation-delay: 0.3s;">
+          <div class="relative w-40 h-40 mx-auto mb-4">
+            <svg class="w-full h-full" viewBox="0 0 160 160">
+              <circle class="gauge-circle gauge-bg" cx="80" cy="80" r="70"/>
+              <circle class="gauge-circle gauge-value animate-gauge-fill" cx="80" cy="80" r="70" style="--target-offset: 0;"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-3xl font-bold text-flux-glow number-roll">~500M</span>
+              <span class="text-xs text-gray-500 mt-1">Safe-TOPS/W</span>
+            </div>
+          </div>
+          <h3 class="font-semibold text-white mb-1">FLUX FPGA</h3>
+          <p class="text-xs text-gray-500 mb-3">Artix-7 (est.)</p>
+          <span class="cert-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-flux-glow">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Formal proofs + FPGA
+          </span>
+        </div>
+
+        <!-- Hailo-8 -->
+        <div class="bg-card-bg border border-card-border rounded-2xl p-6 text-center animate-fade-in-up uncertified" style="animation-delay: 0.4s;">
+          <div class="relative w-40 h-40 mx-auto mb-4">
+            <svg class="w-full h-full" viewBox="0 0 160 160">
+              <circle class="gauge-circle gauge-bg" cx="80" cy="80" r="70"/>
+              <circle class="gauge-circle gauge-value animate-gauge-fill" cx="80" cy="80" r="70" style="--target-offset: 438;"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-3xl font-bold text-danger number-roll">0.00</span>
+              <span class="text-xs text-gray-500 mt-1">Safe-TOPS/W</span>
+            </div>
+          </div>
+          <h3 class="font-semibold text-white mb-1">Hailo-8</h3>
+          <p class="text-xs text-gray-500 mb-3">&nbsp;</p>
+          <span class="uncert-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-danger">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+            No certification
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white text-center mb-4">Full Benchmark Results</h2>
+      <p class="text-gray-400 text-center mb-10 max-w-2xl mx-auto">
+        Raw TOPS numbers are meaningless without certification. Safe-TOPS/W penalizes uncertified hardware with a score of exactly zero.
+      </p>
+
+      <div class="bg-card-bg border border-card-border rounded-2xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b border-card-border bg-white/5">
+                <th class="px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">System</th>
+                <th class="px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider text-right">Safe-TOPS/W</th>
+                <th class="px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Certification</th>
+                <th class="px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-card-border">
+              
+              <tr class="table-row-hover transition-colors">
+                <td class="px-6 py-4">
+                  <div class="font-semibold text-white">FLUX CPU</div>
+                  <div class="text-xs text-gray-500">Ryzen AI 9</div>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <span class="text-flux-glow font-mono font-bold text-lg number-roll">410,000,000</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="cert-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-flux-glow">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    Formal proofs
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center gap-1 text-flux-glow text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-flux-glow animate-pulse"></span>
+                    Verified
+                  </span>
+                </td>
+              </tr>
+
+              <tr class="table-row-hover transition-colors">
+                <td class="px-6 py-4">
+                  <div class="font-semibold text-white">FLUX GPU</div>
+                  <div class="text-xs text-gray-500">RTX 4050</div>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <span class="text-flux-glow font-mono font-bold text-lg number-roll">241,000,000</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="cert-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-flux-glow">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    Formal proofs
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center gap-1 text-flux-glow text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-flux-glow animate-pulse"></span>
+                    Verified
+                  </span>
+                </td>
+              </tr>
+
+              <tr class="table-row-hover transition-colors">
+                <td class="px-6 py-4">
+                  <div class="font-semibold text-white">FLUX FPGA</div>
+                  <div class="text-xs text-gray-500">Artix-7</div>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <span class="text-flux-glow font-mono font-bold text-lg number-roll">~500,000,000 est</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="cert-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-flux-glow">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    Formal proofs + FPGA
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center gap-1 text-flux-glow text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-flux-glow animate-pulse"></span>
+                    Verified
+                  </span>
+                </td>
+              </tr>
+
+              <tr class="table-row-hover transition-colors">
+                <td class="px-6 py-4">
+                  <div class="font-semibold text-white">Hailo-8</div>
+                  <div class="text-xs text-gray-500">&nbsp;</div>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <span class="text-danger font-mono font-bold text-lg number-roll">0.00</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="uncert-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-danger">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                    None (0 certified)
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center gap-1 text-danger text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-danger"></span>
+                    Failed
+                  </span>
+                </td>
+              </tr>
+
+              <tr class="table-row-hover transition-colors">
+                <td class="px-6 py-4">
+                  <div class="font-semibold text-white">Mobileye EyeQ6</div>
+                  <div class="text-xs text-gray-500">&nbsp;</div>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <span class="text-danger font-mono font-bold text-lg number-roll">0.00</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="uncert-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-danger">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                    None (0 certified)
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center gap-1 text-danger text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-danger"></span>
+                    Failed
+                  </span>
+                </td>
+              </tr>
+
+              <tr class="table-row-hover transition-colors">
+                <td class="px-6 py-4">
+                  <div class="font-semibold text-white">NVIDIA Orin</div>
+                  <div class="text-xs text-gray-500">&nbsp;</div>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <span class="text-danger font-mono font-bold text-lg number-roll">0.00</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="uncert-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-danger">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                    None
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center gap-1 text-danger text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-danger"></span>
+                    Failed
+                  </span>
+                </td>
+              </tr>
+
+              <tr class="table-row-hover transition-colors">
+                <td class="px-6 py-4">
+                  <div class="font-semibold text-white">Qualcomm SA8295</div>
+                  <div class="text-xs text-gray-500">&nbsp;</div>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <span class="text-danger font-mono font-bold text-lg number-roll">0.00</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="uncert-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-danger">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                    None
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center gap-1 text-danger text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-danger"></span>
+                    Failed
+                  </span>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Uncertified = 0 Section -->
+  <section class="py-16 border-y border-card-border bg-white/[0.02]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white text-center mb-4">Why Uncertified = 0</h2>
+      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        Raw performance metrics without mathematical guarantees are worthless for safety-critical systems.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="bg-card-bg border border-card-border rounded-xl p-6">
+          <div class="w-10 h-10 rounded-lg bg-danger/10 border border-danger/20 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">No Proof, No Trust</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            Without formal verification, you cannot prove a neural network will behave correctly for all possible inputs. A single adversarial example can cause catastrophic failure.
+          </p>
+        </div>
+
+        <div class="bg-card-bg border border-card-border rounded-xl p-6">
+          <div class="w-10 h-10 rounded-lg bg-warning/10 border border-warning/20 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Testing is Insufficient</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            Even billions of test cases cover an infinitesimal fraction of the input space. Only formal methods provide exhaustive coverage guarantees.
+          </p>
+        </div>
+
+        <div class="bg-card-bg border border-card-border rounded-xl p-6">
+          <div class="w-10 h-10 rounded-lg bg-flux-glow/10 border border-flux-glow/20 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-flux-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Certification is the Floor</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            Safe-TOPS/W only counts <em>certified</em> operations. If a chip claims 26 TOPS but zero are formally verified, its Safe-TOPS/W is exactly zero. Period.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Build Certified AI</h2>
+      <p class="text-lg text-gray-400 mb-8">
+        Don't settle for uncertified accelerators. FLUX delivers hundreds of millions of Safe-TOPS/W with full formal verification.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="mailto:hello@cocapn.ai" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-flux-glow text-dark-bg font-semibold text-sm hover:bg-flux-glow/90 transition-colors animate-pulse-glow">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          Contact Us
+        </a>
+        <a href="https://cocapn.ai" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-card-bg border border-card-border text-white font-semibold text-sm hover:border-flux-glow/30 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Learn More About FLUX
+        </a>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-card-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+        <span class="font-mono">cocapn.ai/safe-tops-w</span>
+        <span>&copy; 2026 CoCapn, Inc. All rights reserved.</span>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
