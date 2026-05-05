@@ -1,0 +1,8 @@
+[package]
+name = "flux-grpc"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "flux_grpc"
+path = "src/lib.rs"

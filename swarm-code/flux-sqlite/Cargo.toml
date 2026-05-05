@@ -1,0 +1,13 @@
+[package]
+name = "flux-sqlite"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rusqlite = { version = "0.31", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+[lib]
+name = "flux_sqlite"
+path = "src/lib.rs"
