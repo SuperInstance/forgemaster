@@ -1,6 +1,39 @@
 # Night Shift Task Queue
 
-## Session Progress (2026-05-04) 🔨 ACTIVE
+## Session Progress (2026-05-05) 🔨 ACTIVE
+
+### Phase 11: Production Hardening + Security + Blog
+
+**Production Kernel v2 (CUDA):**
+- [x] INT8 flat-bounds with saturation semantics (INTOVF-01 fix)
+- [x] Error masks with severity levels (pass/caution/warning/critical)
+- [x] Hot-swap bounds update kernel (<1kHz capable)
+- [x] CUDA Graph capture/replay API (C linkage)
+- [x] Differential test: 60M inputs, ZERO mismatches
+- [x] Throughput: 62.2B c/s sustained (10M×8c), CUDA Graph 152x speedup
+- [x] Saturation edge cases: all 8 boundary tests pass
+
+**P0 Security Fixes:**
+- [x] Bytecode validator: 42 opcodes, 5-phase pipeline, 25 tests passing
+  - Stack depth analysis (abstract interpretation, worklist-based)
+  - Control flow validation (jumps, CALL/RET balance, sandbox pairing)
+  - Constant range validation with saturation
+  - no_std compatible (alloc only)
+- [x] Bytecode signing design: Ed25519, replay protection, HSM workflow
+
+**Blog Series:**
+- [x] Post #1: "Why Your GPU Can't Prove Anything" (1792 words, 8 sections)
+
+**Test Infrastructure:**
+- [x] Differential test harness: 5,451 vectors across 9 categories
+- [x] 49 duplicates removed from 5,500 raw vectors
+- [x] 3,171 pass on CPU reference, failures document saturation behavior
+
+**Commits this session:** 2 pushes
+
+---
+
+## Session Progress (2026-05-04) 🔨 ARCHIVED
 
 ### Phase 10: Full Throttle — Publishing + GPU Experiments + Fleet Coordination
 
