@@ -72,6 +72,23 @@
 **Coq Formalization:**
 - [x] INT8 saturation: 7 Coq proofs (saturate_correct, negation_symmetry, monotonicity, order_preservation, galois_preservation, addition_closed, no_wraparound)
 
+**Monorepo (constraint-theory-ecosystem):**
+- [x] 48+ files, 17+ commits, 8 directories
+- [x] 11 chapters (ch00-ch10), 25K+ words
+- [x] Physical Engineer's Guide (O-rings, tolerance stacks)
+- [x] Constraint theory formalized paper (4,453 words, Claude Code)
+- [x] Standards compliance mapping (DO-178C, ISO 26262, IEC 61508, IEC 62304)
+- [x] 6 worked examples (O-ring, bearing, hydraulic, turbine, insulin, SCRAM)
+- [x] Safe-TOPS/W formal benchmark specification
+- [x] PHP integration kit (class + tests + guide)
+- [x] Python integration kit (10 presets, 1.7M checks/sec)
+- [x] JavaScript integration kit (5 presets, zero deps)
+- [x] REST API specification (14.8KB)
+- [x] GPU experiment results (54 experiments documented)
+- [x] Coq proof inventory (15 theorems)
+- [x] CONTRIBUTING guide for physical engineers
+- [x] Collaborating with Oracle1 — I2I bottle sent, waiting for his build
+
 ---
 
 ## Session Progress (2026-05-04) 🔨 ARCHIVED
