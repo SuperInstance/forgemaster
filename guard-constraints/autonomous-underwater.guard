@@ -1,0 +1,147 @@
+# AUTONOMOUS-UNDERWATER Constraint Library
+# 24 constraints from FLUX R&D Swarm
+
+constraint depth {
+  min: 0 m,
+  max: 6000 m,
+  update: 10Hz
+}
+
+constraint depth_rate {
+  min: -2.0 m/s,
+  max: +2.0 m/s,
+  update: 10Hz
+}
+
+constraint hull_internal_pressure {
+  min: 0.95 bar(abs),
+  max: 1.05 bar(abs),
+  update: 1Hz
+}
+
+constraint battery_voltage {
+  min: 180 V,
+  max: 260 V,
+  update: 1Hz
+}
+
+constraint battery_current {
+  min: -50 A,
+  max: +100 A,
+  update: 10Hz
+}
+
+constraint battery_soc_auv {
+  min: 15 %,
+  max: 100 %,
+  update: 0.1Hz
+}
+
+constraint battery_temp_auv {
+  min: 0 °C,
+  max: 45 °C,
+  update: 1Hz
+}
+
+constraint buoyancy_piston {
+  min: 0 %,
+  max: 100 %,
+  update: 1Hz
+}
+
+constraint auv_pitch {
+  min: -45 degrees,
+  max: +45 degrees,
+  update: 100Hz
+}
+
+constraint auv_roll {
+  min: -30 degrees,
+  max: +30 degrees,
+  update: 100Hz
+}
+
+constraint heading_magnetic {
+  min: 0 degrees,
+  max: 359 degrees,
+  update: 10Hz
+}
+
+constraint yaw_rate_auv {
+  min: -15 deg/s,
+  max: +15 deg/s,
+  update: 100Hz
+}
+
+constraint prop_rpm_port {
+  min: 0 rpm,
+  max: 2000 rpm,
+  update: 100Hz
+}
+
+constraint prop_rpm_starboard {
+  min: 0 rpm,
+  max: 2000 rpm,
+  update: 100Hz
+}
+
+constraint dvl_bottom_lock {
+  min: 0 %,
+  max: 100 %,
+  update: 10Hz
+}
+
+constraint dvl_altitude {
+  min: 2 m,
+  max: 120 m,
+  update: 10Hz
+}
+
+constraint acoustic_snr {
+  min: 6 dB,
+  max: 50 dB,
+  update: 0.1Hz
+}
+
+constraint acoustic_range {
+  min: 0 m,
+  max: 8000 m,
+  update: 0.1Hz
+}
+
+constraint mission_elapsed_time {
+  min: 0 h,
+  max: 48 h,
+  update: 0.01Hz
+}
+
+constraint leak_detect_battery {
+  min: 0 (DRY),
+  max: 1 (WET),
+  update: 1Hz
+}
+
+constraint leak_detect_electronics {
+  min: 0 (DRY),
+  max: 1 (WET),
+  update: 1Hz
+}
+
+constraint internal_temp_electronics {
+  min: -10 °C,
+  max: 50 °C,
+  update: 1Hz
+}
+
+constraint payload_power {
+  min: 0 W,
+  max: 500 W,
+  update: 1Hz
+}
+
+constraint nav_drift {
+  min: 0 m,
+  max: 500 m,
+  update: 0.1Hz
+}
+

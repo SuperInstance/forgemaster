@@ -1,0 +1,171 @@
+# AVIATION Constraint Library
+# 28 constraints from FLUX R&D Swarm
+
+constraint airspeed_indicated {
+  min: 50 knots,
+  max: 450 knots,
+  update: 50Hz
+}
+
+constraint airspeed_true {
+  min: 55 knots,
+  max: 520 knots,
+  update: 50Hz
+}
+
+constraint altitude_pressure {
+  min: 200 hPa (~39,000 ft),
+  max: 1050 hPa (sea level),
+  update: 25Hz
+}
+
+constraint altitude_radar {
+  min: 0 ft,
+  max: 2500 ft,
+  update: 100Hz
+}
+
+constraint attitude_pitch {
+  min: -25 degrees,
+  max: +30 degrees,
+  update: 500Hz
+}
+
+constraint attitude_roll {
+  min: -67 degrees,
+  max: +67 degrees,
+  update: 500Hz
+}
+
+constraint heading_true {
+  min: 0 degrees,
+  max: 359 degrees,
+  update: 25Hz
+}
+
+constraint angle_of_attack {
+  min: -2 degrees,
+  max: +18 degrees,
+  update: 1000Hz
+}
+
+constraint engine_n1 {
+  min: 18 %,
+  max: 105 %,
+  update: 100Hz
+}
+
+constraint engine_n2 {
+  min: 55 %,
+  max: 102 %,
+  update: 100Hz
+}
+
+constraint engine_egt {
+  min: 200 °C,
+  max: 950 °C,
+  update: 50Hz
+}
+
+constraint fuel_flow {
+  min: 150 kg/h,
+  max: 12,000 kg/h,
+  update: 10Hz
+}
+
+constraint hydraulic_pressure_a {
+  min: 2200 psi,
+  max: 3500 psi,
+  update: 100Hz
+}
+
+constraint hydraulic_pressure_b {
+  min: 2200 psi,
+  max: 3500 psi,
+  update: 100Hz
+}
+
+constraint cabin_delta_p {
+  min: 0 psi,
+  max: 9.1 psi,
+  update: 10Hz
+}
+
+constraint cabin_altitude_rate {
+  min: -2000 ft/min,
+  max: +2000 ft/min,
+  update: 25Hz
+}
+
+constraint flap_position {
+  min: 0 degrees,
+  max: 40 degrees,
+  update: 25Hz
+}
+
+constraint oleo_extension {
+  min: 0 %,
+  max: 100 %,
+  update: 50Hz
+}
+
+constraint brake_temperature {
+  min: 0 °C,
+  max: 650 °C,
+  update: 1Hz
+}
+
+constraint cross_track_error {
+  min: -4.0 NM,
+  max: +4.0 NM,
+  update: 5Hz
+}
+
+constraint autopilot_vs {
+  min: -6000 ft/min,
+  max: +4000 ft/min,
+  update: 25Hz
+}
+
+constraint windshear_aoa_rate {
+  min: -5 deg/s,
+  max: +8 deg/s,
+  update: 1000Hz
+}
+
+constraint tire_pressure_main {
+  min: 180 psi,
+  max: 235 psi,
+  update: 0.1Hz
+}
+
+constraint oxy_pressure_crew {
+  min: 1200 psi,
+  max: 1850 psi,
+  update: 0.1Hz
+}
+
+constraint slat_position {
+  min: 0 degrees,
+  max: 27 degrees,
+  update: 25Hz
+}
+
+constraint rudder_trim {
+  min: -20 degrees,
+  max: +20 degrees,
+  update: 10Hz
+}
+
+constraint gpws_sink_rate {
+  min: 0 ft/min,
+  max: 2500 ft/min,
+  update: 100Hz
+}
+
+constraint tcas_range_rate {
+  min: -5000 ft/min,
+  max: +5000 ft/min,
+  update: 1Hz
+}
+
