@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLUX Constraint Playground v2</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'SF Mono', 'Fira Code', monospace; background: #0a0a0f; color: #e0e0e8; padding: 20px; }
+h1 { color: #ff6b35; margin-bottom: 5px; font-size: 1.4em; }
+.subtitle { color: #888; margin-bottom: 20px; font-size: 0.85em; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 1200px; }
+.panel { background: #12121a; border: 1px solid #2a2a3a; border-radius: 8px; padding: 15px; }
+.panel h2 { color: #ff6b35; font-size: 1em; margin-bottom: 10px; }
+.full-width { grid-column: 1 / -1; }
+label { display: block; margin: 8px 0 3px; color: #aaa; font-size: 0.8em; }
+input, select { width: 100%; padding: 8px; background: #1a1a2a; border: 1px solid #3a3a4a; border-radius: 4px; color: #e0e0e8; font-family: inherit; }
+input:focus { border-color: #ff6b35; outline: none; }
+button { padding: 10px 20px; background: #ff6b35; color: #0a0a0f; border: none; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: bold; margin: 10px 5px 0 0; }
+button:hover { background: #ff8b55; }
+button.secondary { background: #2a2a3a; color: #e0e0e8; }
+button.secondary:hover { background: #3a3a4a; }
+.result-box { background: #0a0a1a; border: 1px solid #2a2a3a; border-radius: 4px; padding: 12px; margin-top: 10px; font-size: 0.9em; min-height: 60px; white-space: pre-wrap; }
+.pass { color: #4ecdc4; }
+.fail { color: #ff6b6b; }
+.caution { color: #ffd93d; }
+.warning { color: #ff9f43; }
+.critical { color: #ff4757; }
+.severity-bar { display: flex; gap: 5px; margin-top: 10px; }
+.sev-cell { flex: 1; text-align: center; padding: 8px; border-radius: 4px; font-size: 0.75em; }
+.sev-0 { background: #1a3a2a; color: #4ecdc4; }
+.sev-1 { background: #3a3a1a; color: #ffd93d; }
+.sev-2 { background: #3a2a1a; color: #ff9f43; }
+.sev-3 { background: #3a1a1a; color: #ff4757; }
+.constraint-row { display: flex; gap: 8px; align-items: center; margin: 5px 0; }
+.constraint-row input { width: 60px; }
+.constraint-row .label { color: #888; font-size: 0.8em; width: 80px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+.stat { text-align: center; padding: 10px; background: #1a1a2a; border-radius: 4px; }
+.stat .num { font-size: 1.4em; font-weight: bold; }
+.stat .lbl { font-size: 0.7em; color: #888; }
+.benchmark { margin-top: 10px; }
+.benchmark input { width: 80px; display: inline-block; }
+a { color: #ff6b35; }
+</style>
+</head>
+<body>
+
+<h1>⚒️ FLUX Constraint Playground v2</h1>
+<p class="subtitle">Production kernel logic — INT8 saturated flat bounds with error masks | <a href="https://github.com/SuperInstance/JetsonClaw1-vessel">Source</a></p>
+
+<div class="grid">
+
+<!-- Sensor Input -->
+<div class="panel">
+  <h2>Sensor Input</h2>
+  <label>Value (INT8: -127 to 127)</label>
+  <input type="number" id="sensorVal" value="50" min="-127" max="127">
+  <label>Saturation Mode</label>
+  <select id="satMode">
+    <option value="clamp">Clamp to [-127, 127] (production)</option>
+    <option value="reject">Reject out-of-range</option>
+    <option value="raw">Raw INT8 (unsafe, demo only)</option>
+  </select>
+  <div style="margin-top: 10px;">
+    <label>Quick Values</label>
+    <button class="secondary" onclick="document.getElementById('sensorVal').value=-127">MIN (-127)</button>
+    <button class="secondary" onclick="document.getElementById('sensorVal').value=0">ZERO</button>
+    <button class="secondary" onclick="document.getElementById('sensorVal').value=127">MAX (127)</button>
+    <button class="secondary" onclick="document.getElementById('sensorVal').value=-128">OVERFLOW (-128)</button>
+  </div>
+</div>
+
+<!-- Constraint Configuration -->
+<div class="panel">
+  <h2>Constraints (up to 8)</h2>
+  <div id="constraints"></div>
+  <button class="secondary" onclick="addConstraint()">+ Add Constraint</button>
+  <button class="secondary" onclick="loadPreset('aviation')">✈ Aviation</button>
+  <button class="secondary" onclick="loadPreset('medical')">🏥 Medical</button>
+  <button class="secondary" onclick="loadPreset('maritime')">⚓ Maritime</button>
+</div>
+
+<!-- Results -->
+<div class="panel">
+  <h2>Evaluation Result</h2>
+  <button onclick="evaluate()">▶ Evaluate</button>
+  <button class="secondary" onclick="benchmark()">⚡ Benchmark</button>
+  <div class="result-box" id="result">Click Evaluate to check constraints...</div>
+  <div class="severity-bar" id="severityBar">
+    <div class="sev-cell sev-0">PASS<br><span id="sev0">-</span></div>
+    <div class="sev-cell sev-1">CAUTION<br><span id="sev1">-</span></div>
+    <div class="sev-cell sev-2">WARNING<br><span id="sev2">-</span></div>
+    <div class="sev-cell sev-3">CRITICAL<br><span id="sev3">-</span></div>
+  </div>
+</div>
+
+<!-- Batch Benchmark -->
+<div class="panel">
+  <h2>Batch Benchmark</h2>
+  <label>Number of sensors</label>
+  <input type="number" id="batchSize" value="1000000" min="100" max="10000000">
+  <label>Iterations</label>
+  <input type="number" id="batchIters" value="100" min="1" max="1000">
+  <button onclick="runBatch()">▶ Run Batch</button>
+  <div class="stats" id="batchStats">
+    <div class="stat"><div class="num" id="bRate">-</div><div class="lbl">M checks/sec</div></div>
+    <div class="stat"><div class="num" id="bTotal">-</div><div class="lbl">Total checks</div></div>
+    <div class="stat"><div class="num" id="bPass">-</div><div class="lbl">Pass rate</div></div>
+    <div class="stat"><div class="num" id="bTime">-</div><div class="lbl">Time (ms)</div></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const INT8_MIN = -127, INT8_MAX = 127;
+let constraints = [
+  { lo: 20, hi: 80, name: "Temperature (°C)" },
+  { lo: -10, hi: 50, name: "Pressure (bar)" }
+];
+
+function saturate(val) {
+  return Math.max(INT8_MIN, Math.min(INT8_MAX, val));
+}
+
+function renderConstraints() {
+  const el = document.getElementById('constraints');
+  el.innerHTML = constraints.map((c, i) => `
+    <div class="constraint-row">
+      <span class="label">${c.name || 'C'+(i+1)}</span>
+      <input type="number" value="${c.lo}" min="-127" max="127" onchange="constraints[${i}].lo=+this.value" placeholder="lo">
+      <span style="color:#888">≤</span>
+      <input type="number" value="${c.hi}" min="-127" max="127" onchange="constraints[${i}].hi=+this.value" placeholder="hi">
+      <button class="secondary" style="padding:4px 8px;margin:0" onclick="constraints.splice(${i},1);renderConstraints()">✕</button>
+    </div>
+  `).join('');
+}
+
+function addConstraint() {
+  if (constraints.length < 8) {
+    constraints.push({ lo: 0, hi: 100, name: "C" + (constraints.length + 1) });
+    renderConstraints();
+  }
+}
+
+function loadPreset(p) {
+  const presets = {
+    aviation: [
+      { lo: -55, hi: 70, name: "Cabin Temp (°C)" },
+      { lo: 75, hi: 101, name: "Cabin Pressure (kPa)" },
+      { lo: 0, hi: 100, name: "Fuel Flow (%)" },
+      { lo: 60, hi: 100, name: "Hydraulic (%)" }
+    ],
+    medical: [
+      { lo: 36, hi: 38, name: "Body Temp (°C)" },
+      { lo: 60, hi: 100, name: "Heart Rate (bpm)" },
+      { lo: 95, hi: 100, name: "SpO2 (%)" },
+      { lo: 80, hi: 120, name: "BP Systolic (mmHg)" }
+    ],
+    maritime: [
+      { lo: -2, hi: 35, name: "Sea Temp (°C)" },
+      { lo: 50, hi: 100, name: "Hull Integrity (%)" },
+      { lo: 0, hi: 50, name: "Wave Height (m)" },
+      { lo: 0, hi: 80, name: "Wind Speed (kn)" }
+    ]
+  };
+  constraints = presets[p] || constraints;
+  renderConstraints();
+}
+
+function fluxCheck(val, bounds) {
+  const mode = document.getElementById('satMode').value;
+  let v = val;
+  if (mode === 'clamp') v = saturate(val);
+  else if (mode === 'reject' && (val < INT8_MIN || val > INT8_MAX)) return null;
+  // else raw mode — use as-is
+
+  let errorMask = 0, violatedLo = 0, violatedHi = 0;
+  const details = [];
+  for (let i = 0; i < bounds.length; i++) {
+    const lo = saturate(bounds[i].lo);
+    const hi = saturate(bounds[i].hi);
+    const loFail = v < lo;
+    const hiFail = v > hi;
+    if (loFail || hiFail) errorMask |= (1 << i);
+    if (loFail) violatedLo |= (1 << i);
+    if (hiFail) violatedHi |= (1 << i);
+    details.push({ name: bounds[i].name, lo, hi, loFail, hiFail, ok: !loFail && !hiFail });
+  }
+
+  const nViolated = details.filter(d => !d.ok).length;
+  const nc = bounds.length;
+  let severity = 0;
+  if (nViolated > 0 && nViolated <= Math.floor(nc / 4)) severity = 1;
+  else if (nViolated > 0 && nViolated <= Math.floor(nc / 2)) severity = 2;
+  else if (nViolated > 0) severity = 3;
+
+  return { errorMask, violatedLo, violatedHi, severity, details, nViolated };
+}
+
+function evaluate() {
+  const val = +document.getElementById('sensorVal').value;
+  const r = fluxCheck(val, constraints);
+  const el = document.getElementById('result');
+
+  if (r === null) {
+    el.innerHTML = `<span class="critical">⛔ REJECTED: value ${val} out of INT8 range [-127, 127]</span>`;
+    return;
+  }
+
+  const sevNames = ['PASS', 'CAUTION', 'WARNING', 'CRITICAL'];
+  const sevClass = ['pass', 'caution', 'warning', 'critical'];
+  let out = `<span class="${sevClass[r.severity]}">■ ${sevNames[r.severity]}</span>  (value: ${val})\n`;
+  out += `Error mask: 0x${r.errorMask.toString(16).padStart(2,'0')} | Violations: ${r.nViolated}/${constraints.length}\n\n`;
+
+  for (const d of r.details) {
+    const icon = d.ok ? '✓' : '✗';
+    const cls = d.ok ? 'pass' : 'fail';
+    out += `  ${icon} <span class="${cls}">${d.name}</span>: ${d.lo} ≤ ${val} ≤ ${d.hi}`;
+    if (d.loFail) out += ` [LO: ${val} < ${d.lo}]`;
+    if (d.hiFail) out += ` [HI: ${val} > ${d.hi}]`;
+    out += '\n';
+  }
+
+  el.innerHTML = out;
+
+  // Update severity bar
+  document.getElementById('sev0').textContent = r.severity === 0 ? '●' : '';
+  document.getElementById('sev1').textContent = r.severity === 1 ? '●' : '';
+  document.getElementById('sev2').textContent = r.severity === 2 ? '●' : '';
+  document.getElementById('sev3').textContent = r.severity === 3 ? '●' : '';
+}
+
+function benchmark() {
+  const val = +document.getElementById('sensorVal').value;
+  const iters = 1000000;
+  const t0 = performance.now();
+  let result;
+  for (let i = 0; i < iters; i++) result = fluxCheck(val, constraints);
+  const t1 = performance.now();
+  const rate = (iters * constraints.length) / ((t1 - t0) / 1000);
+  document.getElementById('result').innerHTML += `\n<span class="pass">⚡ ${iters.toLocaleString()} evaluations in ${(t1-t0).toFixed(1)}ms</span>`;
+  document.getElementById('result').innerHTML += `\n<span class="pass">   ${(rate/1e6).toFixed(1)}M constraint checks/sec (JS single-thread)</span>`;
+}
+
+function runBatch() {
+  const n = +document.getElementById('batchSize').value;
+  const iters = +document.getElementById('batchIters').value;
+  const nc = constraints.length;
+
+  // Generate random sensor data
+  const t0 = performance.now();
+  let passCount = 0;
+  for (let i = 0; i < iters; i++) {
+    passCount = 0;
+    for (let j = 0; j < n; j++) {
+      const val = Math.floor(Math.random() * 255) - 127;
+      const r = fluxCheck(val, constraints);
+      if (r && r.severity === 0) passCount++;
+    }
+  }
+  const t1 = performance.now();
+  const total = n * nc * iters;
+  const rate = total / ((t1 - t0) / 1000);
+
+  document.getElementById('bRate').textContent = (rate / 1e6).toFixed(1);
+  document.getElementById('bTotal').textContent = (total / 1e6).toFixed(1) + 'M';
+  document.getElementById('bPass').textContent = (passCount / n * 100).toFixed(1) + '%';
+  document.getElementById('bTime').textContent = (t1 - t0).toFixed(0);
+}
+
+// Initialize
+renderConstraints();
+evaluate();
+</script>
+
+</body>
+</html>
