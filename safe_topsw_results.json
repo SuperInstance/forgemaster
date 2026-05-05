@@ -1,0 +1,82 @@
+[
+  {
+    "name": "FLUX-LUCID (RTX 4050 + FLUX VM)",
+    "vendor": "SuperInstance",
+    "safe_tops_per_watt": 20194805194.8052,
+    "raw_tops_per_watt": 20194805194.8052,
+    "certification": "DO-178C",
+    "dal_level": "DAL A",
+    "power_watts": 3.08,
+    "notes": "INT8 saturated flat bounds, 60M diff inputs, zero mismatches"
+  },
+  {
+    "name": "FLUX-LUCID (CUDA Graph)",
+    "vendor": "SuperInstance",
+    "safe_tops_per_watt": 3691394658.7537,
+    "raw_tops_per_watt": 563798219584.5697,
+    "certification": "DO-178C",
+    "dal_level": "DAL A",
+    "power_watts": 16.85,
+    "notes": "CUDA Graph 152x launch speedup, same certified kernel"
+  },
+  {
+    "name": "Hailo-8",
+    "vendor": "Hailo",
+    "safe_tops_per_watt": 1300000000.0,
+    "raw_tops_per_watt": 10400000000.0,
+    "certification": "ISO 26262",
+    "dal_level": "ASIL B",
+    "power_watts": 2.5,
+    "notes": "ASIL B certified for automotive, limited constraint ops"
+  },
+  {
+    "name": "Mobileye EyeQ Ultra",
+    "vendor": "Mobileye/Intel",
+    "safe_tops_per_watt": 500000000.0,
+    "raw_tops_per_watt": 11666666666.6667,
+    "certification": "ISO 26262",
+    "dal_level": "ASIL D",
+    "power_watts": 15,
+    "notes": "ASIL D certified vision processor, limited to vision ops"
+  },
+  {
+    "name": "Xilinx Zynq UltraScale+",
+    "vendor": "AMD/Xilinx",
+    "safe_tops_per_watt": 100000000.0,
+    "raw_tops_per_watt": 10000000000.0,
+    "certification": "DO-254",
+    "dal_level": "DAL A",
+    "power_watts": 5,
+    "notes": "DAL A certified FPGA, very low certified constraint throughput"
+  },
+  {
+    "name": "NVIDIA RTX 4050 (raw, uncertified)",
+    "vendor": "NVIDIA",
+    "safe_tops_per_watt": 0.0,
+    "raw_tops_per_watt": 333333333333.3333,
+    "certification": null,
+    "dal_level": null,
+    "power_watts": 45,
+    "notes": "Consumer GPU, no safety certification"
+  },
+  {
+    "name": "NVIDIA Orin (uncertified mode)",
+    "vendor": "NVIDIA",
+    "safe_tops_per_watt": 0.0,
+    "raw_tops_per_watt": 3333333333.3333,
+    "certification": null,
+    "dal_level": null,
+    "power_watts": 60,
+    "notes": "Raw Orin without safety firmware = zero certified ops"
+  },
+  {
+    "name": "Qualcomm SA8295 (uncertified)",
+    "vendor": "Qualcomm",
+    "safe_tops_per_watt": 0.0,
+    "raw_tops_per_watt": 1200000000000.0,
+    "certification": null,
+    "dal_level": null,
+    "power_watts": 25,
+    "notes": "Consumer SoC, no safety certification path"
+  }
+]
