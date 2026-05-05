@@ -1,0 +1,2081 @@
+{
+  "seed": 42,
+  "pass_per_constraint": 50,
+  "fail_per_constraint": 50,
+  "files": {
+    "automotive.md": {
+      "constraint_count": 27,
+      "total_tests": 2700,
+      "passed": 2700,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "constraints": [
+        {
+          "name": "vehicle_speed",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "lateral_speed",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "steering_angle",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "steering_torque",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "lateral_accel",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "longitudinal_accel",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "yaw_rate",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "brake_pedal_position",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "brake_pressure_front",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "brake_pressure_rear",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "master_cylinder_pressure",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "accelerator_position",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "motor_torque",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "battery_soc",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "battery_cell_temp",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tire_pressure_fl",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tire_pressure_fr",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tire_pressure_rl",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tire_pressure_rr",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "lane_offset",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "distance_lead",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "time_to_collision",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "roll_angle",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "coolant_temp",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "oil_pressure",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "headway_time",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "blind_spot_distance",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        }
+      ]
+    },
+    "autonomous-underwater.md": {
+      "constraint_count": 24,
+      "total_tests": 2400,
+      "passed": 2400,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "constraints": [
+        {
+          "name": "depth",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "depth_rate",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "hull_internal_pressure",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "battery_voltage",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "battery_current",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "battery_soc_auv",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "battery_temp_auv",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "buoyancy_piston",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "auv_pitch",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "auv_roll",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "heading_magnetic",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "yaw_rate_auv",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "prop_rpm_port",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "prop_rpm_starboard",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "dvl_bottom_lock",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "dvl_altitude",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "acoustic_snr",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "acoustic_range",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "mission_elapsed_time",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "leak_detect_battery",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "leak_detect_electronics",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "internal_temp_electronics",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "payload_power",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "nav_drift",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        }
+      ]
+    },
+    "aviation.md": {
+      "constraint_count": 28,
+      "total_tests": 2800,
+      "passed": 2800,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "constraints": [
+        {
+          "name": "airspeed_indicated",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "airspeed_true",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "altitude_pressure",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "altitude_radar",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "attitude_pitch",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "attitude_roll",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "heading_true",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "angle_of_attack",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "engine_n1",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "engine_n2",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "engine_egt",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "fuel_flow",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "hydraulic_pressure_a",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "hydraulic_pressure_b",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "cabin_delta_p",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "cabin_altitude_rate",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "flap_position",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "oleo_extension",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "brake_temperature",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "cross_track_error",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "autopilot_vs",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "windshear_aoa_rate",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tire_pressure_main",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "oxy_pressure_crew",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "slat_position",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "rudder_trim",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "gpws_sink_rate",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tcas_range_rate",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        }
+      ]
+    },
+    "energy.md": {
+      "constraint_count": 23,
+      "total_tests": 2300,
+      "passed": 2300,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "constraints": [
+        {
+          "name": "bus_voltage_a",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "bus_voltage_b",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "bus_voltage_c",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "system_frequency",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "rocof",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "line_current_a",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "line_current_b",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "line_current_c",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "power_factor",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "active_power_gen",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "reactive_power_gen",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "transformer_oil_temp",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "transformer_hot_spot",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "sf6_pressure",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "breaker_operating_time",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "synchrophasor_angle_diff",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "inverter_dc_link",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "der_frequency_ride_through",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "der_voltage_ride_through",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "substation_battery",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "thd_voltage",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "ltc_position",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "line_sag",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        }
+      ]
+    },
+    "maritime.md": {
+      "constraint_count": 25,
+      "total_tests": 2500,
+      "passed": 2500,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "constraints": [
+        {
+          "name": "heading_gyro",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "speed_through_water",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "speed_over_ground",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "depth_below_keel",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "ship_roll",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "ship_pitch",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "heave",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "cargo_tank_level_oil",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "cargo_tank_pressure_ig",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "main_engine_rpm",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "me_exhaust_temp",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "propeller_torque",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "propeller_pitch",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "rudder_angle",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "dp_position_north",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "dp_position_east",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "thruster_azimuth",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "thruster_rpm",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "ballast_level",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "bilge_level",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "generator_load",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "hull_bending",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "smoke_density",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "anchor_tension",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "lng_tank_temp",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        }
+      ]
+    },
+    "medical.md": {
+      "constraint_count": 28,
+      "total_tests": 2800,
+      "passed": 2800,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "constraints": [
+        {
+          "name": "infusion_rate_basal",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "infusion_rate_bolus",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "occlusion_pressure",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "heart_rate_ecg",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "heart_rate_spo2",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "spo2",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "respiratory_rate",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "etco2",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "ibp_systolic",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "ibp_diastolic",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "ibp_map",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "nibp_systolic",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "nibp_diastolic",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "temperature_core",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "temperature_skin",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "pump_motor_current",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "air_in_line",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "insulin_concentration",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "anesthetic_mac",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "peep",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "pip",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tidal_volume",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "fio2",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "defib_energy",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "pacer_amplitude",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "pacer_width",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "patient_weight",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "burst_suppression",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        }
+      ]
+    },
+    "nuclear.md": {
+      "constraint_count": 24,
+      "total_tests": 2400,
+      "passed": 2400,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "constraints": [
+        {
+          "name": "neutron_flux_linear",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "neutron_flux_log",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "coolant_temp_hot_leg",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "coolant_temp_cold_leg",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "core_delta_t",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "pressurizer_pressure",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "pressurizer_level",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "sg_level_narrow",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "sg_pressure",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "rcp_speed",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "rcp_vibration",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "rod_position_bank_d",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "rod_position_bank_a",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "boron_concentration",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "containment_pressure",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "containment_gamma",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "sgtr_activity",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "vessel_head_level",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "edg_speed",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "edg_voltage",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "safety_injection_flow",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "rhr_flow",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "containment_isolation",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "excore_detector_current",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        }
+      ]
+    },
+    "railway.md": {
+      "constraint_count": 24,
+      "total_tests": 2400,
+      "passed": 2400,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "constraints": [
+        {
+          "name": "train_speed_max",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "train_speed_current",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "distance_danger",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "braking_decel",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "braking_distance",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "position_uncertainty",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "track_gradient",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "cant_deficiency",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "signal_aspect",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "door_closed_locked",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "psd_alignment",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "traction_current",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "traction_motor_temp",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "pantograph_force",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "catenary_voltage",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "axle_bearing_temp",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "wheel_diameter",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "brake_cyl_pressure",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "route_consistency",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "atp_brake_demand",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "axle_load_bogie1",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "radio_rssi",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "cabin_pressure_tunnel",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "active_tilt",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        }
+      ]
+    },
+    "robotics.md": {
+      "constraint_count": 22,
+      "total_tests": 2200,
+      "passed": 2200,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "constraints": [
+        {
+          "name": "joint1_position",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "joint2_position",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "joint3_position",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "joint4_position",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "joint5_position",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "joint6_position",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "joint1_velocity",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "joint2_velocity",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tcp_x",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tcp_y",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tcp_z",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tcp_speed",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "joint1_torque",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "joint2_torque",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "force_x",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "force_y",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "force_z",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "human_proximity",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "base_inclination",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "drive_temp",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "brake_status",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "payload_mass",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        }
+      ]
+    },
+    "space.md": {
+      "constraint_count": 23,
+      "total_tests": 2300,
+      "passed": 2300,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "constraints": [
+        {
+          "name": "attitude_roll",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "attitude_pitch",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "attitude_yaw",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "angular_rate_x",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "angular_rate_y",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "angular_rate_z",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "solar_array_temp",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "battery_temp_space",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "battery_soc_space",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "battery_dod",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "bus_voltage_28v",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "bus_voltage_5v",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "solar_power",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "propellant_pressure_mon",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "propellant_pressure_mmh",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "thruster_pulse",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "link_margin",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "ground_track_error",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "rw_speed",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "star_id_confidence",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "tid_dose",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "altitude_perigee",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        },
+        {
+          "name": "pointing_knowledge",
+          "total": 100,
+          "passed": 100,
+          "failed": 0,
+          "pass_rate": 100.0,
+          "failure_details": []
+        }
+      ]
+    }
+  }
+}

@@ -317,4 +317,122 @@ mod tests {
         let result = vm.execute(&bc).unwrap();
         assert_eq!(result.outputs, vec![4.0]);
     }
+
+    #[test]
+    fn test_saturation_clamp_positive() {
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![200.0]),
+            FluxInstruction::with_operands(FluxOpcode::Validate, vec![0.0, 127.0]),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc);
+        // 200 > 127 → should violate
+        assert!(result.is_ok());
+        assert!(!result.unwrap().constraints_satisfied);
+    }
+
+    #[test]
+    fn test_saturation_boundary_127() {
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![127.0]),
+            FluxInstruction::with_operands(FluxOpcode::Validate, vec![-127.0, 127.0]),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert!(result.constraints_satisfied);
+        assert_eq!(result.outputs[0], 1.0);
+    }
+
+    #[test]
+    fn test_saturation_boundary_neg127() {
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![-127.0]),
+            FluxInstruction::with_operands(FluxOpcode::Validate, vec![-127.0, 127.0]),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert!(result.constraints_satisfied);
+        assert_eq!(result.outputs[0], 1.0);
+    }
+
+    #[test]
+    fn test_subtraction() {
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![10.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![3.0]),
+            FluxInstruction::new(FluxOpcode::Sub),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert_eq!(result.outputs, vec![7.0]);
+    }
+
+    #[test]
+    fn test_multiplication() {
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![6.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![7.0]),
+            FluxInstruction::new(FluxOpcode::Mul),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert_eq!(result.outputs, vec![42.0]);
+    }
+
+    #[test]
+    fn test_comparison_lt() {
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![3.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![5.0]),
+            FluxInstruction::new(FluxOpcode::Lt),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        // 3 < 5 → 1.0
+        assert_eq!(result.outputs, vec![1.0]);
+    }
+
+    #[test]
+    fn test_stack_underflow() {
+        let bc = make_bc(vec![
+            FluxInstruction::new(FluxOpcode::Add), // empty stack → error
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_execution_trace() {
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![5.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![3.0]),
+            FluxInstruction::new(FluxOpcode::Add),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        // Should have 3+ trace entries (Load, Load, Add, [Halt optional])
+        assert!(result.execution_trace.len() >= 3);
+    }
+
+    #[test]
+    fn test_multiple_constraints_all_pass() {
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![50.0]),
+            FluxInstruction::with_operands(FluxOpcode::Validate, vec![0.0, 100.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![-50.0]),
+            FluxInstruction::with_operands(FluxOpcode::Validate, vec![-127.0, 0.0]),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert!(result.constraints_satisfied);
+    }
 }
