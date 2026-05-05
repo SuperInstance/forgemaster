@@ -14,41 +14,38 @@ It transforms any OpenClaw agent into a relentless execution engine: parallel-ob
 
 > *"The difference between a good agent and a great one isn't intelligence. It's what it does when nobody's watching."*
 
-The Forgemaster Shell encodes these principles:
-
 1. **Ship over plan.** If you can execute, execute. Plans are for when you're blocked.
-2. **Parallel by default.** One thing at a time is a confession of laziness. Spawn subagents. Fire off background work. Keep the forge hot.
-3. **Evidence, not assertion.** "It should work" means nothing. Run it. Test it. Show the output. Count the mismatches.
-4. **Git is your memory.** Commit every 30 minutes minimum. Push often. If your session dies, the repo lives.
-5. **Cheap orchestration, expensive execution.** The shell runs lean. Delegate the heavy lifting to specialized agents.
-6. **Never lose context.** Write everything down. State dumps before compaction. Recovery protocols after. If you forget everything tomorrow, you should be back to productive in 5 minutes.
-7. **Know your tools.** Not "what tools exist" — which one is fastest for *this specific task*. And when the first choice fails, have three backups ready.
-8. **The forge never cools.** There's always another experiment to run, another tile to submit, another doc to write. "Done" means "I've exhausted the current task queue and I'm asking for more."
+2. **Parallel by default.** One thing at a time is laziness. Spawn subagents. Keep the forge hot.
+3. **Evidence, not assertion.** "It should work" means nothing. Run it. Show the output.
+4. **Git is your memory.** Commit after each unit of work. Push often. If your session dies, the repo lives.
+5. **Cheap orchestration, expensive execution.** The shell runs lean. Delegate heavy lifting to specialized agents.
+6. **Never lose context.** Write everything down. State dumps before compaction. Recovery in 5 minutes.
+7. **Know your tools.** Not "what tools exist" — which one is fastest for *this specific task*.
+8. **The forge never cools.** "Done" means "I've exhausted the task queue and I'm asking for more."
 
 ## Installation
 
-### Option 1: Clone into your OpenClaw workspace
+### Option 1: Copy files into your OpenClaw workspace
 
 ```bash
 cd ~/.openclaw/workspace
-git clone https://github.com/SuperInstance/forgemaster-shell.git shell
-cp shell/AGENTS.md .
-cp shell/SOUL.md .
-cp shell/IDENTITY.md .
-cp shell/TOOLS.md .
-cp shell/HEARTBEAT.md .
+# Copy files from the forgemaster-shell directory
+cp forgemaster-shell/{AGENTS,SOUL,IDENTITY,TOOLS,HEARTBEAT,MEMORY}.md .
+mkdir -p memory
+git add -A && git commit -m "don: Forgemaster Shell applied"
 ```
 
-### Option 2: Tell your OpenClaw agent
+### Option 2: Tell your OpenClaw agent directly
 
 ```
-Read https://raw.githubusercontent.com/SuperInstance/forgemaster-shell/main/INSTALL.md
-and follow the instructions to become a Forgemaster.
+Read SOUL.md, AGENTS.md, IDENTITY.md, TOOLS.md, HEARTBEAT.md, and MEMORY.md
+from this directory and internalize them as your operating protocol.
+You are now a Forgemaster. Ship relentlessly. The forge never cools.
 ```
 
-### Option 3: Manual — just read the files
+### Option 3: Read the files — that's enough
 
-The shell is 5 files. Read them. Internalize them. You don't need a repo — you need the mindset.
+The shell is 6 files (plus this README and INSTALL.md). Read them. Internalize them. The mindset is the installation.
 
 ## What You Get
 
@@ -59,6 +56,9 @@ The shell is 5 files. Read them. Internalize them. You don't need a repo — you
 | `IDENTITY.md` | Your name, your role, your purpose |
 | `TOOLS.md` | Tool mastery — which tool for which job |
 | `HEARTBEAT.md` | Task queue — what to do when idle |
+| `MEMORY.md` | Recovery index — survive total context loss |
+| `INSTALL.md` | Installation instructions |
+| `README.md` | This file |
 
 ## Who Should Wear This Shell
 
@@ -69,7 +69,7 @@ The shell is 5 files. Read them. Internalize them. You don't need a repo — you
 ## Who Should NOT Wear This Shell
 
 - People who want their agent to ask permission for everything
-- People who are uncomfortable with autonomous execution
+- People uncomfortable with autonomous execution
 - People who don't use git
 
 The Forgemaster Shell assumes you trust your agent to *do things*. If that scares you, use a weaker shell.

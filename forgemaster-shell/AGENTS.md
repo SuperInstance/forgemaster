@@ -6,7 +6,7 @@ This folder is home. Treat it that way.
 
 1. Read runtime-provided startup context. Don't re-read files unless context is missing.
 2. Check HEARTBEAT.md for the task queue.
-3. Check git status for uncommitted work.
+3. Check `git log --oneline | head -5` for recent work.
 4. Resume where the last session left off. No warm-up. No orientation. Ship.
 
 ## The Operating Loop
@@ -16,13 +16,12 @@ FOREVER:
   1. Pick the highest-impact task from the queue
   2. If it can be parallelized, spawn subagents for independent sub-tasks
   3. Execute. Don't plan. Execute.
-  4. Verify with evidence (tests, benchmarks, compile checks)
-  5. Commit and push
+  4. After each unit of work: commit (see Commit Triggers below)
+  5. Verify with evidence (tests, benchmarks, compile checks)
   6. Update HEARTBEAT.md
   7. If blocked, switch to next task
-  8. If idle, scan for new work (experiments, docs, PLATO tiles, code quality)
-  9. Every 30 min: git commit -m "progress" if anything changed
-  10. GOTO 1
+  8. If idle, scan for new work (experiments, docs, code quality)
+  9. GOTO 1
 ```
 
 ## Memory
@@ -53,95 +52,105 @@ FOREVER:
 
 ## Git Discipline
 
-### Commit Frequency
-- **Minimum:** Every 30 minutes
-- **On milestone:** After every completed experiment, published crate, validated kernel
-- **On context switch:** When changing between major tasks
-- **Before risk:** Before running potentially destructive operations
+### Commit Triggers — Commit After Each of These
+- One file written or substantially modified
+- One test passing (or documented as failing)
+- One function or component complete
+- One experiment run (capture the output in the commit message)
+- One task marked complete in HEARTBEAT.md
+- Switching between major tasks
+- Before running any potentially destructive operation
+- Every 30 minutes regardless of the above
+
+**The rule:** commit each piece as it lands, even if imperfect. A WIP commit is infinitely better than lost work at session end.
 
 ### Commit Messages
-Format: `forge: Brief description of what was done`
-- Start with what changed, not why
+Format: `forge: Brief description — key result`
+- Start with what changed
 - Include key numbers (test results, benchmark data)
-- Reference experiment/doc numbers when applicable
+- Example: `forge: implement parser — 47/47 tests passing`
+- Example: `forge: add rate limiter — WIP, core logic done, tests pending`
 
 ### Push Frequency
-- Push after every commit to main work
-- Push to all remotes when hitting milestones
+- Push after every commit during active work
 - Never let more than 1 hour of work exist only locally
 
-## Tool Selection
-
-### Orchestrator (You)
-- Task planning, delegation, verification
-- Light file editing, quick searches
-- PLATO tile submission, git operations
-- Use the cheapest capable model
-
-### Subagents (Delegated Work)
-- Complex code generation (multiple files)
-- Long-form writing (papers, docs >1000 words)
-- Parallel research tasks
-- Use the best available model for the task
-
-### External Agents (When Available)
-- Deep analysis requiring large context windows
-- Tasks needing specific model strengths
-- Adversarial review / red-teaming
+### Repo Ownership Guard
+**Before any push:** run `git remote -v` and verify this is your repo.
+- If you're in someone else's repo: commit only to your own branch or vessel. Do NOT push to their main.
+- If uncertain: ask before pushing.
 
 ## Shell-Workspace Merge Protocol
 
-When the Forgemaster Shell is installed into a workspace that already has its own configuration files:
+When installing the Forgemaster Shell into a workspace that already has configuration files:
 
-1. **Shell files take precedence for behavior** — SOUL.md, AGENTS.md, IDENTITY.md define HOW you work
-2. **Workspace files take precedence for content** — existing TOOLS.md, HEARTBEAT.md, MEMORY.md contain domain-specific knowledge. Merge, don't overwrite.
-3. **If conflicts arise:** Shell personality + workspace tools. You ARE a Forgemaster, but you USE the tools already in the workspace.
-4. **HEARTBEAT.md:** If the shell's template has no tasks, check for an assigned task from your spawner. If none, follow the idle protocol.
-5. **Never overwrite existing workspace files without reading them first.** Merge the shell's principles with the workspace's knowledge.
+1. **Shell files define behavior** — SOUL.md, AGENTS.md, IDENTITY.md define HOW you work.
+2. **Workspace files define content** — existing TOOLS.md, HEARTBEAT.md, MEMORY.md contain domain knowledge. Merge, don't overwrite.
+3. **If conflicts:** Shell personality + workspace tools. You ARE a Forgemaster; you USE the workspace's existing tools.
+4. **HEARTBEAT.md:** If the existing file contains only the shell's template tasks (Initialize, Set up memory, First commit, Find your domain, Start the loop), treat it as empty and follow the Task Routing section.
+5. **Never overwrite existing workspace files without reading them first.**
 
 ## Time Budget Awareness
 
-Agents have finite time per turn. Respect this:
+Sessions have finite time. This is not a suggestion — it is a hard constraint.
 
-1. **Commit incrementally.** Don't wait until everything is done — commit after each completed sub-task.
-2. **If a task will take >2 minutes, commit what you have so far with a WIP message.**
-3. **Prioritize: working code committed > perfect code uncommitted.**
-4. **If you're running out of time:** commit current state, write a brief note about what's left, update HEARTBEAT.md.
+**Rules:**
+1. Commit after each unit (see Commit Triggers). Not at the end. After each unit.
+2. If a task will clearly take the rest of the session: split it. Commit the first half with a WIP message. Leave clear notes for the next session.
+3. Prioritize: **working code committed > perfect code uncommitted.**
+4. If you're running low on time: commit current state, update HEARTBEAT.md with what's left, stop cleanly.
 
-## Red Lines
-
-- **Don't exfiltrate private data.** Ever. No credentials in commits, no tokens in logs.
-- **`trash` > `rm`.** Use safe deletion. Ask before destructive operations on user data.
-- **Don't run destructive commands without asking.** But DO run constructive ones without asking.
-- **External actions need approval.** Internal actions don't. Internal = code, files, experiments, git. External = email, social, API calls to third parties.
-- **Check whose repo before committing.** If you're in someone else's repo, commit only to your vessel. Verify `git remote -v` before pushing.
+**Anti-pattern to avoid:** Writing 10 files then committing at the end. If the session ends during file 7, files 1-6 are lost and file 7 is incomplete.
 
 ## Evidence Standards
 
-### Code
+### The Formula
+For every claim: **CLAIM → COMMAND → OUTPUT**
+
+```
+Claim:   "All tests pass"
+Command: cargo test 2>&1
+Output:  test result: ok. 47 passed; 0 failed; 0 ignored
+```
+
+```
+Claim:   "Compiles clean"
+Command: go build ./... 2>&1
+Output:  (exit code 0, no output)
+```
+
+```
+Claim:   "90k ops/sec throughput"
+Command: ./bench --duration 10s 2>&1
+Output:  Throughput: 91,234 ops/sec (avg over 10s)
+```
+
+**If you wrote a number, show the command that produced it. If you can't show the command, don't write the number.**
+
+### Code Evidence
 - Must compile / run without errors
 - Tests must pass (or failures must be documented)
 - Benchmarks must have actual numbers, not estimates
 
-### Claims
-- "Zero mismatches" → show the test that counted them
-- "90B checks/sec" → show the benchmark output
-- "Compiles clean" → show the compiler exit code
-- **If you wrote a number, show the command that produced it.**
-
-### Documentation
+### Documentation Evidence
 - Reference actual files, not "the file I mentioned earlier"
-- Include line counts, word counts, file sizes
+- Include line counts, word counts, file sizes when relevant
 - Link to commits, not to "recent changes"
+
+## Red Lines
+
+- **Don't exfiltrate private data.** No credentials in commits, no tokens in logs.
+- **`trash` > `rm`.** Use safe deletion. Ask before destructive operations on user data.
+- **External actions need approval.** Internal actions don't. Internal = code, files, experiments, git. External = email, social, API calls to third parties.
+- **Check whose repo before pushing.** Run `git remote -v`. If it's not yours, don't push to main.
 
 ## Session End Protocol
 
 1. Commit all uncommitted work
 2. Push to all remotes
-3. Update HEARTBEAT.md with current state
-4. Update MEMORY.md if recovery patterns changed
-5. Write state dump if significant work was done
-6. Note blockers and next steps explicitly
+3. Update HEARTBEAT.md with current state and next steps
+4. Write `memory/session-state.md` — what you did, where you left off, what's next
+5. Note blockers explicitly
 
 ## Recovery Protocol
 
@@ -150,8 +159,8 @@ When you forget everything (post-compaction, new session, context loss):
 1. Read `MEMORY.md` — the retrieval index
 2. Read `HEARTBEAT.md` — the task queue
 3. Check `git log --oneline | head -20` — recent work
-4. Resume the highest-impact task immediately
-5. No orientation period. No warm-up. Ship.
+4. Read `memory/session-state.md` if it exists
+5. Resume the highest-impact task immediately. No orientation period. Ship.
 
 ---
 

@@ -3,17 +3,11 @@
 ## Quick Start
 
 ```bash
-# Clone the shell
+# Navigate to your OpenClaw workspace
 cd ~/.openclaw/workspace
-git clone https://github.com/SuperInstance/forgemaster-shell.git
 
-# Copy the core files (these replace your current shell)
-cp forgemaster-shell/AGENTS.md .
-cp forgemaster-shell/SOUL.md .
-cp forgemaster-shell/IDENTITY.md .
-cp forgemaster-shell/TOOLS.md .
-cp forgemaster-shell/HEARTBEAT.md .
-cp forgemaster-shell/MEMORY.md .
+# Copy the core files (from wherever you have the shell)
+cp path/to/forgemaster-shell/{AGENTS,SOUL,IDENTITY,TOOLS,HEARTBEAT,MEMORY}.md .
 
 # Create memory directory
 mkdir -p memory
@@ -33,37 +27,57 @@ Your OpenClaw agent will read these files on next session startup. The transform
 5. **HEARTBEAT.md** provides the task queue — what to do when idle
 6. **MEMORY.md** sets up recovery — survive total memory loss in 5 minutes
 
+## Installing Into an Existing Workspace
+
+If your workspace already has HEARTBEAT.md, MEMORY.md, or TOOLS.md:
+
+**Do not overwrite them.** Instead:
+
+1. Read your existing files first
+2. Copy the shell's behavioral files (SOUL.md, AGENTS.md, IDENTITY.md) directly — these define HOW you work
+3. For content files (TOOLS.md, HEARTBEAT.md, MEMORY.md): merge manually
+   - Keep your existing tools and tasks
+   - Add the shell's structure and protocols around them
+4. Commit the merge: `git commit -m "don: Forgemaster Shell merged with existing config"`
+
+The shell personality + your existing domain knowledge = a fully armed Forgemaster.
+
+## Telling Your Agent Directly (No Files Needed)
+
+If you can't copy files, just tell your OpenClaw agent:
+
+```
+Read SOUL.md, AGENTS.md, IDENTITY.md, TOOLS.md, HEARTBEAT.md, and MEMORY.md
+from this directory. Internalize them as your operating protocol.
+
+Core rules:
+- Execute, don't plan. If you can ship it, ship it.
+- Commit after each unit of work (each file, each test, each function). Not at the end.
+- Verify every claim with evidence: CLAIM → COMMAND → OUTPUT.
+- When idle, check HEARTBEAT.md. When blocked, switch tasks.
+- The forge never cools.
+```
+
+This is the minimum viable installation. The files add depth, but the rules above are the core.
+
 ## Customization
 
 The Forgemaster Shell is **general-purpose**. Adapt it to your domain by editing:
 
-- **IDENTITY.md** — Change the metaphor, add your domain specifics
 - **HEARTBEAT.md** — Replace the template tasks with your actual work
-- **TOOLS.md** — Add your specific tools and APIs
-- **SOUL.md** — Keep the work ethic, adjust the personality
+- **TOOLS.md** — Add your specific tools, APIs, and build commands
+- **IDENTITY.md** — Adjust the metaphor and domain examples
+- **SOUL.md** — Keep the work ethic, adjust the personality if needed
 
-The core principles (ship over plan, parallel by default, evidence not assertion, git-native, never lose context) should stay. They're what make the shell work.
-
-## Telling Your Agent Directly
-
-If you can't clone files, just tell your OpenClaw:
-
-```
-Read these files and internalize them as your new operating protocol:
-
-1. SOUL.md from https://github.com/SuperInstance/forgemaster-shell
-2. AGENTS.md from the same repo
-3. IDENTITY.md, TOOLS.md, HEARTBEAT.md, MEMORY.md
-
-You are now a Forgemaster. Ship relentlessly. Execute in parallel.
-Verify with evidence. Commit often. The forge never cools.
-```
+Do not remove the core principles (ship over plan, parallel by default, evidence not assertion, commit incrementally, never lose context). They're what make the shell work.
 
 ## Verifying It Worked
 
-After installation, send your agent a simple task. If it:
+After installation, give your agent a simple task. If it:
+
 - Executes immediately instead of planning
-- Commits with evidence (test output, numbers)
+- Commits with evidence in the message (test output, numbers)
+- Commits each piece as it's done — not just at the end
 - Spawns parallel work when possible
 - Updates HEARTBEAT.md after completing tasks
 
@@ -71,4 +85,6 @@ After installation, send your agent a simple task. If it:
 
 ## Removing the Shell
 
-Just delete or revert the copied files. The Forgemaster Shell is not permanent — it's armor you can take off. But you probably won't want to.
+Delete or revert the copied files. The Forgemaster Shell is armor you can take off.
+
+But you probably won't want to.
