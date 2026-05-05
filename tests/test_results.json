@@ -1,0 +1,760 @@
+{
+  "total": 5500,
+  "passed": 4232,
+  "failed": 761,
+  "errors": 506,
+  "skipped": 1,
+  "elapsed_sec": 0.08,
+  "failures": [
+    {
+      "name": "boundary_pack8_11",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_11 { expr: ALL(v in arr, v >= -128 AND v <= 127), inpu",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_19",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_31",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_31 { expr: ALL(v in arr, v >= -128 AND v <= 127), inpu",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_39",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_51",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_51 { expr: ALL(v in arr, v >= -128 AND v <= 127), inpu",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_59",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_71",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_71 { expr: ALL(v in arr, v >= -128 AND v <= 127), inpu",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_79",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_91",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_91 { expr: ALL(v in arr, v >= -128 AND v <= 127), inpu",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_99",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_111",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_111 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_119",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_131",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_131 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_139",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_151",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_151 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_159",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_171",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_171 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_179",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_191",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_191 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_199",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_211",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_211 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_219",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_231",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_231 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_239",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_251",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_251 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_259",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_271",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_271 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_279",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_291",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_291 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_299",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_311",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_311 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_319",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_331",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_331 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_339",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_351",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_351 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_359",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_371",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_371 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_379",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_391",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_391 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_399",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_411",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_411 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_419",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_431",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_431 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_439",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_451",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_451 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_459",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_471",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_471 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_479",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    },
+    {
+      "name": "boundary_pack8_491",
+      "category": "boundary_values",
+      "expr": "constraint boundary_pack8_491 { expr: ALL(v in arr, v >= -128 AND v <= 127), inp",
+      "inputs": [
+        [
+          127,
+          -128,
+          0,
+          1,
+          -1,
+          64,
+          -64,
+          126
+        ]
+      ],
+      "expected": true,
+      "got": "ERROR: Trailing tokens at pos 1: ['(', 'v', 'in', 'arr', 'v', '>=', '-', 128, 'AND', 'v', '<=', 127, ')']"
+    },
+    {
+      "name": "boundary_compound_499",
+      "category": "boundary_values",
+      "expr": "(x >= -128 AND x <= 127) OR (x == 200)",
+      "inputs": [
+        200
+      ],
+      "expected": false,
+      "got": true
+    }
+  ],
+  "category_stats": {
+    "boundary_values:pass": 901,
+    "boundary_values:error": 50,
+    "boundary_values:fail": 49,
+    "type_confusion:pass": 418,
+    "type_confusion:error": 41,
+    "type_confusion:fail": 41,
+    "random_fuzzing:pass": 486,
+    "random_fuzzing:skipped": 1,
+    "random_fuzzing:fail": 513,
+    "adversarial_constraints:pass": 467,
+    "adversarial_constraints:fail": 33,
+    "stress_patterns:pass": 415,
+    "stress_patterns:fail": 43,
+    "stress_patterns:error": 42,
+    "concurrency_scenarios:pass": 434,
+    "concurrency_scenarios:error": 66,
+    "performance_regression:pass": 457,
+    "performance_regression:error": 43,
+    "decompilation_roundtrip:pass": 401,
+    "decompilation_roundtrip:error": 99,
+    "cross_platform:pass": 253,
+    "cross_platform:error": 165,
+    "cross_platform:fail": 82
+  }
+}

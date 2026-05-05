@@ -1,0 +1,59 @@
+name: Differential Test
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  differential-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run differential tests
+        run: python3 tests/differential_test.py
+
+      - name: Generate job summary
+        if: always()
+        run: |
+          if [ -f tests/test_results.json ]; then
+            python3 -c "
+          import json
+          with open('tests/test_results.json') as f:
+              r = json.load(f)
+          runnable = r['passed'] + r['failed'] + r['errors']
+          rate = r['passed'] / runnable * 100 if runnable else 0
+          print('## Differential Test Results')
+          print()
+          print(f'| Metric | Value |')
+          print(f'|--------|-------|')
+          print(f'| Total  | {r[\"total\"]} |')
+          print(f'| Passed | {r[\"passed\"]} ✅ |')
+          print(f'| Failed | {r[\"failed\"]} ❌ |')
+          print(f'| Errors | {r[\"errors\"]} ⚠️ |')
+          print(f'| Skipped| {r[\"skipped\"]} ⏭️ |')
+          print(f'| Time   | {r[\"elapsed_sec\"]}s |')
+          print(f'| Rate   | {rate:.1f}% |')
+          print()
+          if r['failures'][:10]:
+              print('### Sample Failures')
+              print()
+              for f in r['failures'][:10]:
+                  got = f['got'] if isinstance(f['got'], str) else str(f['got'])
+                  print(f'- **{f[\"name\"]}** [{f[\"category\"]}]: expected {f[\"expected\"]}, got {got}')
+          " >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: differential-test-results
+          path: tests/test_results.json
