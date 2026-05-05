@@ -1,0 +1,153 @@
+# MARITIME Constraint Library
+# 25 constraints from FLUX R&D Swarm
+
+constraint heading_gyro {
+  min: 0 degrees,
+  max: 359 degrees,
+  update: 10Hz
+}
+
+constraint speed_through_water {
+  min: 0 knots,
+  max: 35 knots,
+  update: 1Hz
+}
+
+constraint speed_over_ground {
+  min: 0 knots,
+  max: 35 knots,
+  update: 1Hz
+}
+
+constraint depth_below_keel {
+  min: 0 m,
+  max: 120 m,
+  update: 5Hz
+}
+
+constraint ship_roll {
+  min: -30 degrees,
+  max: +30 degrees,
+  update: 10Hz
+}
+
+constraint ship_pitch {
+  min: -8 degrees,
+  max: +8 degrees,
+  update: 10Hz
+}
+
+constraint heave {
+  min: -6 m,
+  max: +6 m,
+  update: 10Hz
+}
+
+constraint cargo_tank_level_oil {
+  min: 0 %,
+  max: 98 %,
+  update: 1Hz
+}
+
+constraint cargo_tank_pressure_ig {
+  min: 50 mmWG,
+  max: 2500 mmWG,
+  update: 1Hz
+}
+
+constraint main_engine_rpm {
+  min: 0 rpm,
+  max: 120 rpm,
+  update: 10Hz
+}
+
+constraint me_exhaust_temp {
+  min: 200 °C,
+  max: 520 °C,
+  update: 1Hz
+}
+
+constraint propeller_torque {
+  min: 0 kNm,
+  max: 8000 kNm,
+  update: 10Hz
+}
+
+constraint propeller_pitch {
+  min: -100 %,
+  max: +100 %,
+  update: 10Hz
+}
+
+constraint rudder_angle {
+  min: -35 degrees,
+  max: +35 degrees,
+  update: 10Hz
+}
+
+constraint dp_position_north {
+  min: -10 m,
+  max: +10 m,
+  update: 1Hz
+}
+
+constraint dp_position_east {
+  min: -10 m,
+  max: +10 m,
+  update: 1Hz
+}
+
+constraint thruster_azimuth {
+  min: 0 degrees,
+  max: 359 degrees,
+  update: 10Hz
+}
+
+constraint thruster_rpm {
+  min: 0 rpm,
+  max: 900 rpm,
+  update: 10Hz
+}
+
+constraint ballast_level {
+  min: 0 %,
+  max: 100 %,
+  update: 1Hz
+}
+
+constraint bilge_level {
+  min: 0 mm,
+  max: 500 mm,
+  update: 1Hz
+}
+
+constraint generator_load {
+  min: 0 %,
+  max: 100 %,
+  update: 1Hz
+}
+
+constraint hull_bending {
+  min: -100 %,
+  max: +100 %,
+  update: 0.1Hz
+}
+
+constraint smoke_density {
+  min: 0 %/m,
+  max: 20 %/m,
+  update: 1Hz
+}
+
+constraint anchor_tension {
+  min: 0 kN,
+  max: 5000 kN,
+  update: 1Hz
+}
+
+constraint lng_tank_temp {
+  min: -165 °C,
+  max: -150 °C,
+  update: 0.1Hz
+}
+

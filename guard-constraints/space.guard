@@ -1,0 +1,141 @@
+# SPACE Constraint Library
+# 23 constraints from FLUX R&D Swarm
+
+constraint attitude_roll {
+  min: -2 degrees,
+  max: +2 degrees,
+  update: 100Hz
+}
+
+constraint attitude_pitch {
+  min: -2 degrees,
+  max: +2 degrees,
+  update: 100Hz
+}
+
+constraint attitude_yaw {
+  min: -5 degrees,
+  max: +5 degrees,
+  update: 100Hz
+}
+
+constraint angular_rate_x {
+  min: -1 deg/s,
+  max: +1 deg/s,
+  update: 100Hz
+}
+
+constraint angular_rate_y {
+  min: -1 deg/s,
+  max: +1 deg/s,
+  update: 100Hz
+}
+
+constraint angular_rate_z {
+  min: -3 deg/s,
+  max: +3 deg/s,
+  update: 100Hz
+}
+
+constraint solar_array_temp {
+  min: -150 °C,
+  max: +120 °C,
+  update: 1Hz
+}
+
+constraint battery_temp_space {
+  min: -10 °C,
+  max: +40 °C,
+  update: 1Hz
+}
+
+constraint battery_soc_space {
+  min: 20 %,
+  max: 100 %,
+  update: 0.1Hz
+}
+
+constraint battery_dod {
+  min: 0 %,
+  max: 80 %,
+  update: 0.1Hz
+}
+
+constraint bus_voltage_28v {
+  min: 24 V,
+  max: 36 V,
+  update: 10Hz
+}
+
+constraint bus_voltage_5v {
+  min: 4.75 V,
+  max: 5.25 V,
+  update: 100Hz
+}
+
+constraint solar_power {
+  min: 0 W,
+  max: 5000 W,
+  update: 1Hz
+}
+
+constraint propellant_pressure_mon {
+  min: 10 bar,
+  max: 25 bar,
+  update: 1Hz
+}
+
+constraint propellant_pressure_mmh {
+  min: 10 bar,
+  max: 25 bar,
+  update: 1Hz
+}
+
+constraint thruster_pulse {
+  min: 4 ms,
+  max: 5000 ms,
+  update: 100Hz
+}
+
+constraint link_margin {
+  min: 3 dB,
+  max: 30 dB,
+  update: 0.1Hz
+}
+
+constraint ground_track_error {
+  min: 0 km,
+  max: 50 km,
+  update: 0.1Hz
+}
+
+constraint rw_speed {
+  min: -6000 rpm,
+  max: +6000 rpm,
+  update: 100Hz
+}
+
+constraint star_id_confidence {
+  min: 80 %,
+  max: 100 %,
+  update: 1Hz
+}
+
+constraint tid_dose {
+  min: 0 krad,
+  max: 100 krad,
+  update: 0.01Hz
+}
+
+constraint altitude_perigee {
+  min: 400 km,
+  max: 2000 km,
+  update: 0.1Hz
+}
+
+constraint pointing_knowledge {
+  min: 0 arcsec,
+  max: 60 arcsec,
+  update: 10Hz
+}
+

@@ -49,6 +49,16 @@ pub enum FluxOpcode {
     Lte = 0x64,
     Gte = 0x65,
 
+    // INT8 SATURATION (FLUX-X extended, not in FLUX-C certified subset)
+    SatAdd = 0x28,
+    SatSub = 0x29,
+    Clip = 0x2A,
+    Mad = 0x2B,
+    Popcnt = 0x2C,
+    Ctz = 0x2D,
+    Pabs = 0x2E,
+    Pmin = 0x2F,
+
     // SPECIAL
     Nop = 0x70,
     Debug = 0x71,
@@ -100,6 +110,15 @@ impl FluxOpcode {
             0x64 => Some(FluxOpcode::Lte),
             0x65 => Some(FluxOpcode::Gte),
 
+            0x28 => Some(FluxOpcode::SatAdd),
+            0x29 => Some(FluxOpcode::SatSub),
+            0x2A => Some(FluxOpcode::Clip),
+            0x2B => Some(FluxOpcode::Mad),
+            0x2C => Some(FluxOpcode::Popcnt),
+            0x2D => Some(FluxOpcode::Ctz),
+            0x2E => Some(FluxOpcode::Pabs),
+            0x2F => Some(FluxOpcode::Pmin),
+
             0x70 => Some(FluxOpcode::Nop),
             0x71 => Some(FluxOpcode::Debug),
             0x72 => Some(FluxOpcode::Trace),
@@ -119,6 +138,10 @@ impl FluxOpcode {
             FluxOpcode::Snap | FluxOpcode::Quantize | FluxOpcode::Cast | FluxOpcode::Promote => "CONVERT",
             FluxOpcode::And | FluxOpcode::Or | FluxOpcode::Not | FluxOpcode::Xor => "LOGIC",
             FluxOpcode::Eq | FluxOpcode::Neq | FluxOpcode::Lt | FluxOpcode::Gt | FluxOpcode::Lte | FluxOpcode::Gte => "COMPARE",
+            FluxOpcode::SatAdd | FluxOpcode::SatSub | FluxOpcode::Clip
+            | FluxOpcode::Mad | FluxOpcode::Popcnt | FluxOpcode::Ctz
+            | FluxOpcode::Pabs | FluxOpcode::Pmin => "INT8_SATURATION",
+
             FluxOpcode::Nop | FluxOpcode::Debug | FluxOpcode::Trace | FluxOpcode::Dump => "SPECIAL",
         }
     }
@@ -134,6 +157,12 @@ impl FluxOpcode {
             FluxOpcode::Pop => 1,
             FluxOpcode::Swap => 2,
             FluxOpcode::Assert | FluxOpcode::Check | FluxOpcode::Validate => 1,
+            FluxOpcode::SatAdd | FluxOpcode::SatSub => 2,
+            FluxOpcode::Clip => 3,  // value, lower, upper
+            FluxOpcode::Mad => 3,    // a, b, c
+            FluxOpcode::Popcnt | FluxOpcode::Ctz => 1,
+            FluxOpcode::Pabs => 1,
+            FluxOpcode::Pmin => 2,
             _ => 0,
         }
     }
@@ -148,6 +177,12 @@ impl FluxOpcode {
             FluxOpcode::Pop => 0,
             FluxOpcode::Swap => 2,
             FluxOpcode::Snap | FluxOpcode::Quantize | FluxOpcode::Cast | FluxOpcode::Promote => 1,
+            FluxOpcode::SatAdd | FluxOpcode::SatSub => 1,
+            FluxOpcode::Clip => 1,
+            FluxOpcode::Mad => 1,
+            FluxOpcode::Popcnt | FluxOpcode::Ctz => 1,
+            FluxOpcode::Pabs => 1,
+            FluxOpcode::Pmin => 1,
             _ => 0,
         }
     }

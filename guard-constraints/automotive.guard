@@ -1,0 +1,165 @@
+# AUTOMOTIVE Constraint Library
+# 27 constraints from FLUX R&D Swarm
+
+constraint vehicle_speed {
+  min: 0 km/h,
+  max: 250 km/h,
+  update: 100Hz
+}
+
+constraint lateral_speed {
+  min: -15 km/h,
+  max: +15 km/h,
+  update: 100Hz
+}
+
+constraint steering_angle {
+  min: -600 degrees,
+  max: +600 degrees,
+  update: 1000Hz
+}
+
+constraint steering_torque {
+  min: -8 Nm,
+  max: +8 Nm,
+  update: 1000Hz
+}
+
+constraint lateral_accel {
+  min: -1.2 g,
+  max: +1.2 g,
+  update: 500Hz
+}
+
+constraint longitudinal_accel {
+  min: -1.5 g,
+  max: +1.5 g,
+  update: 500Hz
+}
+
+constraint yaw_rate {
+  min: -120 deg/s,
+  max: +120 deg/s,
+  update: 1000Hz
+}
+
+constraint brake_pedal_position {
+  min: 0 %,
+  max: 100 %,
+  update: 500Hz
+}
+
+constraint brake_pressure_front {
+  min: 0 bar,
+  max: 200 bar,
+  update: 1000Hz
+}
+
+constraint brake_pressure_rear {
+  min: 0 bar,
+  max: 140 bar,
+  update: 1000Hz
+}
+
+constraint master_cylinder_pressure {
+  min: 0 bar,
+  max: 180 bar,
+  update: 1000Hz
+}
+
+constraint accelerator_position {
+  min: 0 %,
+  max: 100 %,
+  update: 1000Hz
+}
+
+constraint motor_torque {
+  min: -300 Nm,
+  max: +600 Nm,
+  update: 1000Hz
+}
+
+constraint battery_soc {
+  min: 5 %,
+  max: 100 %,
+  update: 1Hz
+}
+
+constraint battery_cell_temp {
+  min: -20 °C,
+  max: 55 °C,
+  update: 1Hz
+}
+
+constraint tire_pressure_fl {
+  min: 1.8 bar,
+  max: 3.5 bar,
+  update: 0.1Hz
+}
+
+constraint tire_pressure_fr {
+  min: 1.8 bar,
+  max: 3.5 bar,
+  update: 0.1Hz
+}
+
+constraint tire_pressure_rl {
+  min: 1.8 bar,
+  max: 3.5 bar,
+  update: 0.1Hz
+}
+
+constraint tire_pressure_rr {
+  min: 1.8 bar,
+  max: 3.5 bar,
+  update: 0.1Hz
+}
+
+constraint lane_offset {
+  min: -1.5 m,
+  max: +1.5 m,
+  update: 50Hz
+}
+
+constraint distance_lead {
+  min: 2.0 m,
+  max: 250 m,
+  update: 50Hz
+}
+
+constraint time_to_collision {
+  min: 0.0 s,
+  max: 10.0 s,
+  update: 50Hz
+}
+
+constraint roll_angle {
+  min: -8 degrees,
+  max: +8 degrees,
+  update: 500Hz
+}
+
+constraint coolant_temp {
+  min: 60 °C,
+  max: 120 °C,
+  update: 1Hz
+}
+
+constraint oil_pressure {
+  min: 1.0 bar,
+  max: 6.0 bar,
+  update: 1Hz
+}
+
+constraint headway_time {
+  min: 0.5 s,
+  max: 5.0 s,
+  update: 10Hz
+}
+
+constraint blind_spot_distance {
+  min: 0.5 m,
+  max: 20 m,
+  update: 20Hz
+}
+

@@ -1,0 +1,147 @@
+# RAILWAY Constraint Library
+# 24 constraints from FLUX R&D Swarm
+
+constraint train_speed_max {
+  min: 0 km/h,
+  max: 320 km/h,
+  update: 100Hz
+}
+
+constraint train_speed_current {
+  min: 0 km/h,
+  max: 320 km/h,
+  update: 100Hz
+}
+
+constraint distance_danger {
+  min: 0 m,
+  max: 5000 m,
+  update: 50Hz
+}
+
+constraint braking_decel {
+  min: 0 m/s²,
+  max: 2.5 m/s²,
+  update: 50Hz
+}
+
+constraint braking_distance {
+  min: 0 m,
+  max: 4000 m,
+  update: 50Hz
+}
+
+constraint position_uncertainty {
+  min: 0 m,
+  max: 50 m,
+  update: 10Hz
+}
+
+constraint track_gradient {
+  min: -40 ‰,
+  max: +40 ‰,
+  update: 1Hz
+}
+
+constraint cant_deficiency {
+  min: 0 mm,
+  max: 150 mm,
+  update: 1Hz
+}
+
+constraint signal_aspect {
+  min: 0 (STOP),
+  max: 4 (PROCEED),
+  update: 5Hz
+}
+
+constraint door_closed_locked {
+  min: 0 (OPEN),
+  max: 1 (CLOSED),
+  update: 25Hz
+}
+
+constraint psd_alignment {
+  min: 0 mm,
+  max: 200 mm,
+  update: 10Hz
+}
+
+constraint traction_current {
+  min: 0 A,
+  max: 2000 A,
+  update: 100Hz
+}
+
+constraint traction_motor_temp {
+  min: 20 °C,
+  max: 220 °C,
+  update: 1Hz
+}
+
+constraint pantograph_force {
+  min: 50 N,
+  max: 120 N,
+  update: 100Hz
+}
+
+constraint catenary_voltage {
+  min: 19 kV,
+  max: 31 kV,
+  update: 100Hz
+}
+
+constraint axle_bearing_temp {
+  min: 20 °C,
+  max: 150 °C,
+  update: 1Hz
+}
+
+constraint wheel_diameter {
+  min: 800 mm,
+  max: 920 mm,
+  update: 0.01Hz
+}
+
+constraint brake_cyl_pressure {
+  min: 0 bar,
+  max: 4.5 bar,
+  update: 100Hz
+}
+
+constraint route_consistency {
+  min: 0 (INVALID),
+  max: 1 (VALID),
+  update: 5Hz
+}
+
+constraint atp_brake_demand {
+  min: 0 %,
+  max: 100 %,
+  update: 50Hz
+}
+
+constraint axle_load_bogie1 {
+  min: 0 t,
+  max: 25 t,
+  update: 1Hz
+}
+
+constraint radio_rssi {
+  min: -100 dBm,
+  max: -40 dBm,
+  update: 1Hz
+}
+
+constraint cabin_pressure_tunnel {
+  min: 950 hPa,
+  max: 1050 hPa,
+  update: 10Hz
+}
+
+constraint active_tilt {
+  min: 0 degrees,
+  max: 8 degrees,
+  update: 50Hz
+}
+
