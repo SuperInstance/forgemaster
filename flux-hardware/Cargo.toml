@@ -1,0 +1,17 @@
+[package]
+name = "flux-hardware"
+version = "0.1.0"
+edition = "2021"
+description = "FLUX production GPU kernel — constraint checking on CUDA"
+authors = ["Casey Digennaro <casey@superinstance.com>"]
+
+[features]
+default = ["cuda"]
+cuda = []
+
+[dependencies]
+
+[build-dependencies]
+cc = "1"
+
+[dev-dependencies]
