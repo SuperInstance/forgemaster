@@ -41,12 +41,12 @@ TOKEN_SPEC = [
     ("COLON",  r":"),
     ("COMMA",  r","),
     ("DOT",    r"\."),
-    ("LT",     r"<"),
-    ("GT",     r">"),
     ("LE",     r"<="),
     ("GE",     r">="),
     ("EQ",     r"=="),
     ("NE",     r"!="),
+    ("LT",     r"<"),
+    ("GT",     r">"),
     ("ASSIGN", r"="),
     ("AND",    r"&&"),
     ("OR",     r"\|\|"),
@@ -206,7 +206,8 @@ class GuardParser:
     def parse_equality(self) -> ExprNode:
         node = self.parse_relational()
         while self.match("EQ", "NE"):
-            op = self.consume().value
+            tok = self.consume()
+            op = "EQ" if tok.kind == "EQ" else "NE"
             right = self.parse_relational()
             node = ExprNode(op, [node, right])
         return node
@@ -214,7 +215,8 @@ class GuardParser:
     def parse_relational(self) -> ExprNode:
         node = self.parse_additive()
         while self.match("LT", "GT", "LE", "GE"):
-            op = self.consume().value
+            tok = self.consume()
+            op = tok.kind  # LT, GT, LE, GE
             right = self.parse_additive()
             node = ExprNode(op, [node, right])
         return node
