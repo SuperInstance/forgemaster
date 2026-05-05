@@ -3876,3 +3876,31 @@
 [2026-05-04T18:25:04-08:00] KEEPER: CRITICAL: Gateway restart failed!
 [2026-05-04T18:25:04-08:00] KEEPER: --- Keeper cycle end ---
 [2026-05-04T18:25:04-08:00] KEEPER: --- Keeper cycle end ---
+[2026-05-04T18:30:00-08:00] KEEPER: --- Keeper cycle start ---
+[2026-05-04T18:30:00-08:00] KEEPER: --- Keeper cycle start ---
+[2026-05-04T18:30:00-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-05-04T18:30:00-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-05-04T18:30:03-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-05-04T18:30:03-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-05-04T18:30:03-08:00] KEEPER: --- Keeper cycle end ---
+[2026-05-04T18:30:03-08:00] KEEPER: --- Keeper cycle end ---
+[2026-05-04T18:35:01-08:00] KEEPER: --- Keeper cycle start ---
+[2026-05-04T18:35:01-08:00] KEEPER: --- Keeper cycle start ---
+[2026-05-04T18:35:01-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-05-04T18:35:01-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-05-04T18:35:04-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-05-04T18:35:04-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-05-04T18:35:04-08:00] KEEPER: --- Keeper cycle end ---
+[2026-05-04T18:35:04-08:00] KEEPER: --- Keeper cycle end ---
+[2026-05-04T19:20:01-08:00] KEEPER: --- Keeper cycle start ---
+[2026-05-04T19:20:01-08:00] KEEPER: --- Keeper cycle start ---
+[2026-05-04T19:20:01-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-05-04T19:20:01-08:00] KEEPER: WARN: Gateway is down. Attempting restart.
+[2026-05-04T19:20:04-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-05-04T19:20:04-08:00] KEEPER: CRITICAL: Gateway restart failed!
+[2026-05-04T19:20:04-08:00] KEEPER: WARN: Heartbeat stale (2584s old). Brothers-Keeper protocol activated.
+[2026-05-04T19:20:04-08:00] KEEPER: WARN: Heartbeat stale (2584s old). Brothers-Keeper protocol activated.
+[2026-05-04T19:20:04-08:00] KEEPER: CRITICAL: Gateway down AND captain silent. Full restart.
+[2026-05-04T19:20:04-08:00] KEEPER: CRITICAL: Gateway down AND captain silent. Full restart.
+[2026-05-04T19:20:04-08:00] KEEPER: --- Keeper cycle end ---
+[2026-05-04T19:20:04-08:00] KEEPER: --- Keeper cycle end ---
