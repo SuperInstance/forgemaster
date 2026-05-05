@@ -16,6 +16,8 @@
 #[cfg(feature = "cuda")]
 pub mod cuda;
 
+pub mod bytecode_validator;
+
 pub const CONSTRAINTS_PER_SET: usize = 8;
 
 /// Violation mask helpers — interpret the per-sensor output byte.

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-05T02:18:59.009Z",
+  "updatedAt": "2026-05-05T14:18:01.695Z",
   "entries": {
     "memory:memory/2026-04-14.md:1:29": {
       "key": "memory:memory/2026-04-14.md:1:29",
@@ -47574,6 +47574,37 @@
         "1.02b/s",
         "shared-cache",
         "x86-64"
+      ]
+    },
+    "memory:memory/2026-05-04.md:123:133": {
+      "key": "memory:memory/2026-05-04.md:123:133",
+      "path": "memory/2026-05-04.md",
+      "startLine": 123,
+      "endLine": 133,
+      "source": "memory",
+      "snippet": "- Fix 6 fleet services DOWN - EMSOFT paper: combine sections into final document - Blog post final polish - Contact TÜV SÜD for DO-330 engagement - Trademark GUARD™ and FLUX™ ## Workspace State - **Git:** 591+ commits on master - **Remotes:** origin (JetsonClaw1-vessel), forgemaster, ct-demo, shell (forgemaster-shell) - **Key directories:** gpu-experiments/, constraints/, swarm-code/, architectures/, blog-posts/, competitive-intel/, for-fleet/, docs/, research/, flux-hardware/",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.42618536353111264,
+      "maxScore": 0.42618536353111264,
+      "firstRecalledAt": "2026-05-05T14:18:01.695Z",
+      "lastRecalledAt": "2026-05-05T14:18:01.695Z",
+      "queryHashes": [
+        "196a84e78323"
+      ],
+      "recallDays": [
+        "2026-05-05"
+      ],
+      "conceptTags": [
+        "do-330",
+        "jetsonclaw1-vessel",
+        "ct-demo",
+        "forgemaster-shell",
+        "gpu-experiments",
+        "swarm-code",
+        "blog-posts",
+        "competitive-intel"
       ]
     }
   }
