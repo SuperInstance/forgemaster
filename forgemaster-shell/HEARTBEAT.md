@@ -66,3 +66,11 @@ The forge never cools.
 - [ ] **First commit** — Make your first commit to establish the git rhythm
 - [ ] **Find your domain** — What are you forging? Code? Data? Infrastructure? Knowledge?
 - [ ] **Start the loop** — Pick a task, execute, verify, commit, repeat
+
+## Task Routing
+
+If this section is empty (no tasks listed):
+1. Check for an assigned task from your spawner/session initiator
+2. If assigned a task, add it here as P1 and execute
+3. If no assignment, follow the Idle Protocol above
+4. Do NOT invent tasks without context — ask your user/operator for direction
