@@ -5,12 +5,42 @@ use serde::{Serialize, Deserialize};
 /// A signed bytecode blob: Ed25519 signature + SHA-256 fingerprint + timestamp.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Signature {
-    /// 64-byte Ed25519 signature over (fingerprint || timestamp_le_bytes).
+    /// 64-byte Ed25519 signature over (fingerprint || timestamp_le_bytes), hex-encoded.
+    #[serde(with = "hex_bytes_64")]
     pub sig: [u8; 64],
-    /// SHA-256 hash of the bytecode.
+    /// SHA-256 hash of the bytecode, hex-encoded.
+    #[serde(with = "hex_bytes_32")]
     pub fingerprint: [u8; 32],
-    /// Unix timestamp (seconds, little-endian) when the signature was created.
+    /// Unix timestamp (seconds) when the signature was created.
     pub timestamp: u32,
+}
+
+mod hex_bytes_64 {
+    use serde::{self, Deserialize, Deserializer, Serializer};
+    pub fn serialize<S: Serializer>(data: &[u8; 64], s: S) -> Result<S::Ok, S::Error> {
+        s.serialize_str(&hex::encode(data))
+    }
+    pub fn deserialize<'de, D: Deserializer<'de>>(d: D) -> Result<[u8; 64], D::Error> {
+        let s = String::deserialize(d)?;
+        let bytes = hex::decode(&s).map_err(serde::de::Error::custom)?;
+        let mut arr = [0u8; 64];
+        arr.copy_from_slice(&bytes);
+        Ok(arr)
+    }
+}
+
+mod hex_bytes_32 {
+    use serde::{self, Deserialize, Deserializer, Serializer};
+    pub fn serialize<S: Serializer>(data: &[u8; 32], s: S) -> Result<S::Ok, S::Error> {
+        s.serialize_str(&hex::encode(data))
+    }
+    pub fn deserialize<'de, D: Deserializer<'de>>(d: D) -> Result<[u8; 32], D::Error> {
+        let s = String::deserialize(d)?;
+        let bytes = hex::decode(&s).map_err(serde::de::Error::custom)?;
+        let mut arr = [0u8; 32];
+        arr.copy_from_slice(&bytes);
+        Ok(arr)
+    }
 }
 
 /// Errors produced by signing / verification.
