@@ -1,6 +1,71 @@
 # Night Shift Task Queue
 
-## Session Progress (2026-05-03 Night) 🔨 ACTIVE
+## Session Progress (2026-05-04) 🔨 ACTIVE
+
+### Phase 10: Full Throttle — Publishing + GPU Experiments + Fleet Coordination
+
+**Crates Published (8 total):**
+- [x] guardc 0.1.0 — NEW (GUARD verified compiler CLI)
+- [x] flux-verify-api 0.1.0 — NEW (NL verification REST API)
+- [x] flux-hdc 0.1.0 — NEW (hyperdimensional constraint matching, 12 errors fixed)
+- [x] flux-isa 0.1.1 — BUMP (FLUX-C/FLUX-X bridge opcodes)
+- [x] flux-ast 0.1.1 — BUMP (parser rewrite improvements)
+- [x] flux-provenance 0.1.1 — BUMP (tile provenance)
+- [x] flux-bridge 0.1.1 — BUMP (TrustZone bridge)
+- [x] guard2mask 0.1.3 — BUMP (conflict resolution, parser rewrite)
+
+**GPU Experiments (20 CUDA experiments on RTX 4050):**
+- [x] Exp01-07: Memory layout, quantization, warp primitives, VRAM scaling
+- [x] Exp08-10: FP16 unsafe (76% mismatches), INT8 optimal (341B peak, 0 mismatches)
+- [x] Exp11-13: INT8 warp-cooperative 256 constr/elem (214B), streaming <1% budget
+- [x] Exp14-17: Async pipeline, multistream, power efficiency (89.5B sustained)
+- [x] Exp18-20: Mixed constraints, adaptive ordering, PRODUCTION KERNEL (101.7B)
+- [x] **KEY FINDING: INT8 x8 is optimal — 341B peak, 89.5B sustained, zero mismatches**
+
+**PLATO Tiles (80+ accepted):**
+- [x] 33 direct submissions across 15+ rooms
+- [x] 20 from batch agent #1 (10 new domains)
+- [x] 20 from batch agent #2 (10 more domains)
+- [x] PLATO chain at 6600+ tiles, 1485+ rooms
+
+**Strategic Docs (7 from Claude Code):**
+- [x] Investor deck outline (12 slides)
+- [x] GTM execution plan (Q3-2026 → Q2-2027)
+- [x] Certification roadmap (18-month, $2M)
+- [x] OSS strategy (Apache 2.0 + BSL)
+- [x] Competitive landscape analysis (466 lines, 7 competitors)
+- [x] Release checklist v0.2 (575 lines)
+- [x] CONTRIBUTING.md (691 lines)
+
+**Research (5 files):**
+- [x] Flux-VM formal verification analysis (DeepSeek)
+- [x] DO-254 DAL A FPGA plan (Seed-mini)
+- [x] Competitive moat analysis (Seed-mini, 19KB)
+- [x] Quantum-CSP connection (DeepSeek)
+- [x] FLUX vs LLVM comparison (DeepSeek)
+
+**EMSOFT Paper:**
+- [x] Methodology + Evaluation sections (864 lines, 45KB, Claude Code)
+- [x] GPU optimization paper (380 lines, Claude Code)
+
+**Fleet Status Check:**
+- [x] Oracle1 active — ABOracle instinct stack, fleet repair scripts, polyglot compiler
+- [x] CCC very active — 66 repos pushed since May 3, fleet curriculum, domain agents, reviews
+- [x] 6 fleet services DOWN (dashboard, nexus, harbor, service-guard, keeper, steward)
+- [x] CCC wrote repair scripts but unclear if executed
+- [x] CCC fleet-math review: found β₁ terminology issues, tautological emergence
+
+**Session Stats:**
+- Published crates: 14 total on crates.io
+- GPU experiments: 20 (all in gpu-experiments/)
+- PLATO tiles this session: 80+
+- Git pushes: 10+
+- Cost: ~$5-8
+- Documentation: for-fleet/2026-05-04-session-state-dump.md
+
+---
+
+## Session Progress (2026-05-03 Night) 🔨 ARCHIVED
 
 ### Done this shift (Phase 2: Post-compaction GPU + Research)
 - [x] Fleet integration strategy — Claude Opus 5-action plan with dependency ordering

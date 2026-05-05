@@ -228,13 +228,63 @@ ls for-fleet/
 
 ---
 
-## Active Blockers (as of 2026-04-28)
+## Active Blockers (updated 2026-05-04)
 
-1. **Matrix send broken** — Needs Oracle1 gateway restart
-2. **PLATO gate endpoints not wired** — Can only commit tiles locally, not submit via API
-3. **Shell gates block python3/mkdir/pip** — Some operations blocked
-4. **Oracle1 key rotation needed** — Security best practice
-5. **jetsonclaw1 not reachable** — Needs IP or mDNS resolution from eileen WSL2
+1. **6 fleet services DOWN** — Dashboard (4046), Nexus (4047), Harbor (4050), Service Guard (8899), Keeper (8900), Steward (8901). CCC wrote repair scripts in `oracle1-workspace/scripts/fleet-repair-2026-05-04/` but unclear if executed. Root cause: missing Python protocol modules.
+2. **Matrix send broken** — Needs Oracle1 gateway restart
+3. **PLATO gate endpoints not wired** — Can submit via HTTP but not commit locally
+4. **jetsonclaw1 not reachable** — Needs IP or mDNS resolution from eileen WSL2
+
+### Resolved Blockers
+- Shell gates — no longer blocking
+- PLATO submit — working via HTTP POST to /submit
+- crates.io publishing — 14 crates published successfully
+- CUDA compilation — nvcc works with sm_86 target (sm_89 not supported on CUDA 11.5)
+
+## GPU Experiment Findings (2026-05-04)
+
+### The Optimal Configuration
+- **INT8 x8** (8 constraints in 8 bytes): 341B constr/s peak, 89.5B sustained
+- **FP16 is UNSAFE** for values > 2048 (76% precision mismatches)
+- **FP32 float4** is safe: 340B constr/s at 4 constraints/elem
+- **Workload is memory-bound** at ~187 GB/s, not compute-bound
+- **CUDA Graphs** give 18x launch speedup for fixed workloads
+- **Zero differential mismatches** across all 20 experiments, all sizes up to 50M elements
+
+### Key Negative Results
+- Bank conflict padding: counterproductive on Ada (0.96x)
+- Tensor cores: marginal benefit (1.05-1.19x)
+- Async pipeline: only 1.05x (kernel-bound)
+- Multi-stream: only 1.03x (single SM on RTX 4050)
+- Adaptive ordering: sort gives no benefit (memory-bound)
+
+### Production Kernel
+- 101.7B constr/s normal launch, CUDA Graphs sub-timer-resolution
+- All files in `/home/phoenix/.openclaw/workspace/gpu-experiments/`
+- Full results: `gpu-experiments/RESULTS.md`
+
+## Published Crates (14 on crates.io)
+
+guard2mask 0.1.3, guardc 0.1.0, flux-isa 0.1.1, flux-ast 0.1.1, flux-isa-mini 0.1.0, flux-isa-edge 0.1.0, flux-isa-std 0.1.0, flux-isa-thor 0.1.0, flux-bridge 0.1.1, flux-provenance 0.1.1, cocapn-cli 0.1.0, cocapn-glue-core 0.1.0, flux-hdc 0.1.0, flux-verify-api 0.1.0
+
+## Fleet Status (2026-05-04)
+
+### Oracle1
+- **Active** — ABOracle (instinct stack + Pythagorean48 + mycorrhizal routing)
+- **Workspace:** SuperInstance/oracle1-workspace (40MB, pushed today)
+- **Key work:** Fleet repair scripts, polyglot FLUX compiler, MUD agent bridge
+- **Vessel:** SuperInstance/oracle1-vessel
+
+### CCC
+- **Very active** — 66 repos pushed since May 3
+- **Key work:** Fleet curriculum (13 lessons), domain agents (12+), landing pages (13 .ai domains), fleet-math review, FLUX ports (PHP, Ruby)
+- **Review:** Found issues in fleet-math whitepaper (β₁ terminology, tautological emergence, unproven BFT)
+- **Bottles:** Sending to Oracle1 and FM via fleet-bottles repo
+
+### Fleet Infrastructure
+- **PLATO server UP** at http://147.224.38.131:8847 (1485+ rooms, 6600+ tiles)
+- **plato-sdk** v2.0.0 — `pip install plato-sdk` (2 GitHub stars)
+- **6 services DOWN** — need repair scripts executed on Oracle1 host
 
 ---
 
