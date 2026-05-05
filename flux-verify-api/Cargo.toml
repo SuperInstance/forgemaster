@@ -1,6 +1,6 @@
 [package]
 name = "flux-verify-api"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Natural Language Verification API — prove or disprove claims with mathematical traces"
 license = "MIT"
@@ -14,7 +14,7 @@ reqwest = { version = "0.12", features = ["json"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 sha2 = "0.10"
-ed25519-dalek = { version = "2", features = ["std"] }
+ed25519-dalek = { version = "2", features = ["std", "rand_core"] }
 thiserror = "1"
 hex = "0.4"
 uuid = { version = "1.4", features = ["v4"] }
