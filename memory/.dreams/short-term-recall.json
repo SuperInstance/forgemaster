@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-04T15:11:00.705Z",
+  "updatedAt": "2026-05-05T02:18:59.009Z",
   "entries": {
     "memory:memory/2026-04-14.md:1:29": {
       "key": "memory:memory/2026-04-14.md:1:29",
@@ -47512,6 +47512,68 @@
         "2.5",
         "night",
         "shift"
+      ]
+    },
+    "memory:memory/2026-05-03.md:605:634": {
+      "key": "memory:memory/2026-05-03.md:605:634",
+      "path": "memory/2026-05-03.md",
+      "startLine": 605,
+      "endLine": 634,
+      "source": "memory",
+      "snippet": "- No new Oracle1 bottles in fleet-bottles repo yet - No Matrix messages from fleet (send still broken) - Open strategy confirmed: Apache 2.0 for everything, no patents - npm token still expired ### Blockers 1. **npm publish**: token expired — needs Casey to regenerate 2. **Matrix send broken** — needs Oracle1 gateway restart 3. **PLATO gate endpoints** — can only submit tiles via HTTP, not commit locally 4. **No Vivado access** — can't synthesize SV on this machine ### What's Next 1. **Live constraint playground PHP page** — interactive demo for the site 2. **More PLATO tiles** from tutorial content 3. **CCC TUTOR thesis** — design lessons for fleet onboarding 4. **Watch for Oracle1 reply*",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.40421631932258606,
+      "maxScore": 0.40421631932258606,
+      "firstRecalledAt": "2026-05-05T02:18:59.009Z",
+      "lastRecalledAt": "2026-05-05T02:18:59.009Z",
+      "queryHashes": [
+        "da51c08902c9"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "gateway",
+        "fleet-bottles",
+        "2.0",
+        "new",
+        "oracle1",
+        "bottles",
+        "fleet",
+        "repo"
+      ]
+    },
+    "memory:memory/2026-05-03.md:931:958": {
+      "key": "memory:memory/2026-05-03.md:931:958",
+      "path": "memory/2026-05-03.md",
+      "startLine": 931,
+      "endLine": 958,
+      "source": "memory",
+      "snippet": "### Session Stats (Final) - **Published packages**: 21 (15 crates.io + 5 PyPI + 1 npm) - **PLATO tiles**: ~200 accepted across 55+ rooms - **Models consulted**: 40+ across 17 rounds - **Tests**: 348+ across all test suites - **Commits**: 195+ (24 hours) - **Peak CPU**: 70.1B ops/sec (12T multiplexed), 22.3B/s single (AVX-512) - **Peak GPU**: 1.02B/s (CUDA shared-cache) - **Formal theorems**: 18 (7 compiler DeepSeek + 6 compiler Qwen + 5 HDC DeepSeek) - **Languages**: C, Fortran, CUDA, WGSL, GLSL, Python, Rust, x86-64, AVX-512, SystemVerilog, Coq, eBPF - **Academic paper**: 47KB EMSOFT-quality (Claude Opus) - **I2I bottles**: 10+ to Oracle1/CCC ### Repo Extraction Plan — IN PROGRESS Casey di",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.39672893583774566,
+      "maxScore": 0.39672893583774566,
+      "firstRecalledAt": "2026-05-05T02:18:59.009Z",
+      "lastRecalledAt": "2026-05-05T02:18:59.009Z",
+      "queryHashes": [
+        "da51c08902c9"
+      ],
+      "recallDays": [
+        "2026-05-04"
+      ],
+      "conceptTags": [
+        "crates.io",
+        "70.1b",
+        "ops/sec",
+        "22.3b/s",
+        "avx-512",
+        "1.02b/s",
+        "shared-cache",
+        "x86-64"
       ]
     }
   }
