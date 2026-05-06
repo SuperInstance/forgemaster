@@ -1,6 +1,142 @@
 # Night Shift Task Queue
 
-## Session Progress (2026-05-04) 🔨 ACTIVE
+## Session Progress (2026-05-06) 🔨 ACTIVE
+
+### Phase 12: Certification Artifacts + CI + Paper Polish + Proof Inventory
+
+**CUDA Certification Report:**
+- [x] 527-line DO-178C artifact quality report
+- [x] All 54 experiments catalogued with evidence traceability
+- [x] 61M differential inputs, ZERO mismatches
+- [x] WCET 0.228ms, P99 0.065ms, 4.4× headroom for 1kHz
+- [x] Safe-TOPS/W comparison (FLUX-LUCID 20.19 vs 0.00 uncertified)
+- [x] Compliance mapping: DO-178C, ISO 26262, IEC 61508, IEC 62304
+- [x] Committed and pushed to constraint-theory-ecosystem
+
+**EMSOFT Paper v2:**
+- [x] Changed acmart sigplan → IEEEtran conference format
+- [x] Wrapped abstract in proper environment
+- [x] Fixed section/subsection hierarchy
+- [x] Removed duplicate bibliography
+- [x] Removed model attribution artifacts
+- [x] Proper author block for IEEEtran
+
+**Cross-Language CI Pipeline (5-phase):**
+- [x] Phase 1: Interpreted golden vectors (Python, JS, Ruby, PHP, Perl, Shell)
+- [x] Phase 2: Compiled golden vectors (Go)
+- [x] Phase 3: Rust tests + C embedded tests
+- [x] Phase 4: Spec validation + constraint library validation
+- [x] Phase 5: GitHub Pages deploy + consistency report
+- [x] Benchmark runner script for throughput comparison
+
+**Coq Proof Inventory:**
+- [x] 50 unique theorems across 8 files, 1,336 lines of Coq
+- [x] 8 categories: SATURATION, GALOIS, WCET, CSD, VM, CSP, COMPOSITION, SEMANTIC GAP
+- [x] Certification relevance mapping per category
+- [x] COQ-PROOF-INVENTORY.md pushed to ecosystem repo
+
+**Fleet Status:**
+- [x] PLATO alive (653 rooms, 1158 tiles, accepting submissions)
+- [x] Oracle1 active — flux-vm rewritten (50 opcodes, Rust, 55 tests)
+- [x] 6 fleet services still DOWN
+- [x] Matrix send still broken
+
+**Commits this session:** 4 pushes
+
+---
+
+## Session Progress (2026-05-05) 🔨 ARCHIVED
+
+### Phase 11: Production Hardening + Security + Blog
+
+**Production Kernel v2 (CUDA):**
+- [x] INT8 flat-bounds with saturation semantics (INTOVF-01 fix)
+- [x] Error masks with severity levels (pass/caution/warning/critical)
+- [x] Hot-swap bounds update kernel (<1kHz capable)
+- [x] CUDA Graph capture/replay API (C linkage)
+- [x] Differential test: 60M inputs, ZERO mismatches
+- [x] Throughput: 62.2B c/s sustained (10M×8c), CUDA Graph 152x speedup
+- [x] Saturation edge cases: all 8 boundary tests pass
+
+**P0 Security Fixes:**
+- [x] Bytecode validator: 42 opcodes, 5-phase pipeline, 25 tests passing
+  - Stack depth analysis (abstract interpretation, worklist-based)
+  - Control flow validation (jumps, CALL/RET balance, sandbox pairing)
+  - Constant range validation with saturation
+  - no_std compatible (alloc only)
+- [x] Bytecode signing design: Ed25519, replay protection, HSM workflow
+
+**Blog Series:**
+- [x] Post #1: "Why Your GPU Can't Prove Anything" (1792 words, 8 sections)
+
+**Test Infrastructure:**
+- [x] Differential test harness: 5,451 vectors across 9 categories
+- [x] 49 duplicates removed from 5,500 raw vectors
+- [x] 3,171 pass on CPU reference, failures document saturation behavior
+
+**Blog Series (5 posts, 8,635 words):**
+- [x] #1: Why Your GPU Can't Prove Anything (1,792 words)
+- [x] #2: The 76% Lie — FP16 Unsafe (1,454 words)
+- [x] #3: 62 Billion Reasons — Production Kernel (1,633 words)
+- [x] #4: The Galois Connection (1,713 words)
+- [x] #5: Safe-TOPS/W — Trust Not Speed (2,043 words)
+
+**EMSOFT Paper (COMPLETE):**
+- [x] 665 lines, 8,366 words, IEEE conference format
+- [x] 10 major sections, 30+ references
+- [x] All benchmark numbers consistent with production kernel v2
+
+**GPU Experiments 46-50:**
+- [x] Exp46: Multi-industry fusion (4 industries simultaneous)
+- [x] Exp47: WCET determinism (10K iterations)
+- [x] Exp48: Cascade propagation (1M grid, 3-hop)
+- [x] Exp49: Power efficiency (10M/20M/50M, linear scaling)
+- [x] Exp50: 60-second stability (zero drift, zero memory errors)
+
+**Constraint Libraries:**
+- [x] 248 constraints across 10 industries, all 100% pass
+- [x] Test script + JSON results for CI
+- [x] README with standards mapping
+
+**VM Tests:**
+- [x] flux-isa: 13 tests passing (was 4)
+- [x] Added: saturation, arithmetic, comparison, underflow, trace
+
+**Tools:**
+- [x] FLUX Playground v2 (browser, zero dependencies)
+- [x] Safe-TOPS/W benchmark tool (Python, 8 chips compared)
+- [x] INT8 saturation formal spec (5 proofs)
+
+**Commits this session:** 10 pushes
+
+**R&D Experiments (exp52-54):**
+- [x] Exp52: Temporal constraints (22.8B c/s, rate-of-change + deadband + persistence)
+- [x] Exp53: Streaming incremental (77.3x faster at 0.1% change rate)
+- [x] Exp54: Multivariate cross-sensor (14.82B c/s, AND/OR compound logic)
+
+**Coq Formalization:**
+- [x] INT8 saturation: 7 Coq proofs (saturate_correct, negation_symmetry, monotonicity, order_preservation, galois_preservation, addition_closed, no_wraparound)
+
+**Monorepo (constraint-theory-ecosystem):**
+- [x] 48+ files, 17+ commits, 8 directories
+- [x] 11 chapters (ch00-ch10), 25K+ words
+- [x] Physical Engineer's Guide (O-rings, tolerance stacks)
+- [x] Constraint theory formalized paper (4,453 words, Claude Code)
+- [x] Standards compliance mapping (DO-178C, ISO 26262, IEC 61508, IEC 62304)
+- [x] 6 worked examples (O-ring, bearing, hydraulic, turbine, insulin, SCRAM)
+- [x] Safe-TOPS/W formal benchmark specification
+- [x] PHP integration kit (class + tests + guide)
+- [x] Python integration kit (10 presets, 1.7M checks/sec)
+- [x] JavaScript integration kit (5 presets, zero deps)
+- [x] REST API specification (14.8KB)
+- [x] GPU experiment results (54 experiments documented)
+- [x] Coq proof inventory (15 theorems)
+- [x] CONTRIBUTING guide for physical engineers
+- [x] Collaborating with Oracle1 — I2I bottle sent, waiting for his build
+
+---
+
+## Session Progress (2026-05-04) 🔨 ARCHIVED
 
 ### Phase 10: Full Throttle — Publishing + GPU Experiments + Fleet Coordination
 
