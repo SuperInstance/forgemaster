@@ -11,3 +11,8 @@ __pycache__
 node_modules
 dist
 *.wasm
+target/
+*.o
+test_flux_embedded
+bench_production_v2
+tools/golden_vectors.json
