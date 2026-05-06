@@ -1,7 +1,0 @@
-{
-  "name": "fleet-check",
-  "version": "1.0.0",
-  "description": "Check fleet repos for new commits, issues, bottles",
-  "created": "2026-04-14T16:47:10.238480",
-  "script": "#!/bin/bash\n# Fleet check skill\nfor repo in SuperInstance/forgemaster SuperInstance/plato-os; do echo checking repo; done"
-}
