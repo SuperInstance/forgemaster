@@ -57,7 +57,21 @@
 - [x] 3 meta-insights: embodiment > language, speed > truth, survival ≠ creation strategies
 - [x] Revised axioms published
 
-**Commits this session:** 11 pushes
+**Underrepresented Traditions (5 perspectives, 5 models):**
+- [x] Yoruba (Qwen3.5-397B) — BRAKE: honor right relation to Earth, àṣẹ as communal authority
+- [x] Swahili (Seed-2.0-pro) — BRAKE: noun class encodes obligation, past > future, harambee of road
+- [x] Igbo (Step-3.5-Flash) — MODERATE BRAKE + RITUAL: chi/destiny, Odinani day-taboo, proverb reasoning
+- [x] Inuktitut (Qwen3-235B) — NEITHER: no future tense, crash already happened, 50 snow words as survival scripts
+- [x] ASL/Deaf (Seed-2.0-pro) — SWERVE: spatial grammar forbids violating established positions, trolley problem is sequential artifact
+- [x] 8 new dimensions discovered beyond 9-channel model
+- [x] Meta-finding: no two traditions found same primary consideration = linguistic relativity at decision level
+
+**GL(9) ZHC Generalization:**
+- [x] 870-line module: GL9Matrix, IntentVector, GL9Agent, GL9HolonomyConsensus
+- [x] 14/14 tests passing including smoking gun (9D preserves correlation, 3D destroys it)
+- [x] Pushed to holonomy-consensus repo
+
+**Commits this session:** 13 pushes
 
 ---
 
