@@ -2,6 +2,47 @@
 
 ## Session Progress (2026-05-06) 🔨 ACTIVE
 
+### Phase 13: Meta-Crate + JS Port + Cross-Model Replication
+
+**flux-lucid Meta-Crate (crates.io):**
+- [x] Created `SuperInstance/flux-lucid` — unified constraint theory ecosystem
+- [x] 11/11 tests passing: intent vectors, alignment, navigation metaphors
+- [x] Re-exports constraint-theory-llvm + holonomy-consensus
+- [x] IntentVector (9D salience + tolerance per channel)
+- [x] Alignment checking (cosine similarity, draft margin, warnings)
+- [x] Navigation: draft_check, tolerance_stack, Fitting selection (hydraulic metaphor)
+- [x] **Published v0.1.0 to crates.io** ← crate #15
+
+**polyformalism-a2a JavaScript Port:**
+- [x] Created `SuperInstance/polyformalism-a2a-js`
+- [x] 15/15 tests passing. Zero dependencies. ESM module.
+- [x] IntentVector, checkAlignment, checkDraft, toleranceStack, selectFitting
+- [x] JSON serialization for wire format
+- [x] Ready for npm publish when token refreshed
+
+**Cross-Model Replication (Batch E2):**
+- [x] 3 models evaluated 7 claims: Seed-2.0-mini, Gemma-4-26B, Hermes-70B
+- [x] **Claim 3 (Negative Knowledge) = 4.8/5 average, ~92% confidence**
+- [x] All 3 independently identified it as the strongest claim
+- [x] "Overstated universal" problem identified on C5, C6, C7
+- [x] CROSS-MODEL-REPLICATION.md pushed
+
+**Architecture Doc:**
+- [x] FLUX-LUCID-ARCHITECTURE.md — full stack, 16 repos, integration points
+- [x] 9-channel ↔ Oracle1 fleet service mapping
+- [x] 3-layer architecture: Semantic → Trust+Intent → Topological
+
+**Published This Session:**
+- [x] `flux-lucid` v0.1.0 → crates.io ← NEW
+- [ ] `@superinstance/polyformalism-a2a` → npm (READY, needs token)
+
+**Total Published (fleet-wide):**
+- crates.io: 15 crates
+- PyPI: 3 packages
+- npm: 1 ready (blocked by token)
+
+---
+
 ### Phase 12: Certification Artifacts + CI + Paper Polish + Proof Inventory
 
 **CUDA Certification Report:**
