@@ -1,6 +1,67 @@
 # Night Shift Task Queue
 
-## Session Progress (2026-05-05) 🔨 ACTIVE
+## Session Progress (2026-05-06) 🔨 ACTIVE
+
+### Phase 12: Certification Artifacts + CI + Paper Polish + Proof Inventory
+
+**CUDA Certification Report:**
+- [x] 527-line DO-178C artifact quality report
+- [x] All 54 experiments catalogued with evidence traceability
+- [x] 61M differential inputs, ZERO mismatches
+- [x] WCET 0.228ms, P99 0.065ms, 4.4× headroom for 1kHz
+- [x] Safe-TOPS/W comparison (FLUX-LUCID 20.19 vs 0.00 uncertified)
+- [x] Compliance mapping: DO-178C, ISO 26262, IEC 61508, IEC 62304
+- [x] Committed and pushed to constraint-theory-ecosystem
+
+**EMSOFT Paper v2:**
+- [x] Changed acmart sigplan → IEEEtran conference format
+- [x] Wrapped abstract in proper environment
+- [x] Fixed section/subsection hierarchy
+- [x] Removed duplicate bibliography
+- [x] Removed model attribution artifacts
+- [x] Proper author block for IEEEtran
+
+**Cross-Language CI Pipeline (5-phase):**
+- [x] Phase 1: Interpreted golden vectors (Python, JS, Ruby, PHP, Perl, Shell)
+- [x] Phase 2: Compiled golden vectors (Go)
+- [x] Phase 3: Rust tests + C embedded tests
+- [x] Phase 4: Spec validation + constraint library validation
+- [x] Phase 5: GitHub Pages deploy + consistency report
+- [x] Benchmark runner script for throughput comparison
+
+**Coq Proof Inventory:**
+- [x] 50 unique theorems across 8 files, 1,336 lines of Coq
+- [x] 8 categories: SATURATION, GALOIS, WCET, CSD, VM, CSP, COMPOSITION, SEMANTIC GAP
+- [x] Certification relevance mapping per category
+- [x] COQ-PROOF-INVENTORY.md pushed to ecosystem repo
+
+**Fleet Status:**
+- [x] PLATO alive (653 rooms, 1158 tiles, accepting submissions)
+- [x] Oracle1 active — flux-vm rewritten (50 opcodes, Rust, 55 tests)
+- [x] 6 fleet services still DOWN
+- [x] Matrix send still broken
+
+**Navigation Metaphor Series (5 papers, Casey's insights):**
+- [x] SPLINES-IN-THE-ETHER.md — 9 channels = Pythagorean anchors, curve between is undescribable
+- [x] FAIR-CURVE-FIRST.md — intent defines the grid, not the other way around (boat builder sights curve first, finds where it crosses whole numbers)
+- [x] ROCKS-ARENT-ON-CHART.md — local knowledge = knowing where rocks AREN'T; words/numbers are anchor points not the picture
+- [x] DRAFT-DETERMINES-TRUTH.md — tolerance = deep enough for my keel; same water, different truth per vessel; squat effect (rushed messages = more draft)
+- [x] PHYSICAL-WORLD-SOLVED-THIS.md — 6 domains prove negative knowledge is primary: immune system, brain, FEP, evolution, robotics, cell signaling
+
+**Reverse Actualization (5 domains, 5 models):**
+- [x] Glassblowing (Seed-2.0-pro) — accurate models FORBIDDEN, not just unnecessary. 0.2s pause kills.
+- [x] Pottery (Step-3.5-Flash) — clay forgiveness quotient, squat effect is timescale-dependent
+- [x] Wildlife tracking (Qwen3-235B) — curve describable through embodiment not language, tracker becomes environment
+- [x] Jazz improvisation (Qwen3.5-397B) — in art you GRIND against rocks, dissonance is the point
+- [x] Music composition (Hermes-405B) — clean confirmation of all 5 insights
+- [x] 3 meta-insights: embodiment > language, speed > truth, survival ≠ creation strategies
+- [x] Revised axioms published
+
+**Commits this session:** 11 pushes
+
+---
+
+## Session Progress (2026-05-05) 🔨 ARCHIVED
 
 ### Phase 11: Production Hardening + Security + Blog
 
@@ -472,3 +533,60 @@ All live at github.com/SuperInstance/{name}
 - **Published packages**: 21 (15 crates.io + 5 PyPI + 1 npm)
 - **GitHub repos**: 7 focused + vessel
 - **Total cost**: ~$20-25
+
+## Session Progress (2026-05-06) 🔨 ACTIVE
+
+### Phase 13: Neuroscience Deep Research + Linguistic Polyformalism + Language Experiments
+
+**Neuroscience ↔ Polyformalism Synthesis:**
+- [x] Fetched and analyzed 7 neuroscience papers (Beaty 2016, Chen 2025 N=2433, Altmayer 2025, Moreno-Rodriguez 2024, Flow states review)
+- [x] DMN ↔ generative models, ECN ↔ evaluative models, Salience ↔ Forgemaster routing
+- [x] Inverted-U relationship: moderate DMN-ECN balance = optimal creativity
+- [x] Triple encoding: DMN=originality, ECN=adequacy, BVS=subjective value
+- [x] 5 falsifiable predictions from neuroscience mapping
+- [x] Formal architecture: coupled SDE model + salience router pseudocode
+
+**Literature Review (30+ papers):**
+- [x] "Society of Thought" paper (Kim 2026): reasoning models spontaneously develop internal multi-agent debate
+- [x] "Diversity of Thought" (Hegazy 2024): diverse medium models beat GPT-4 after 4 rounds
+- [x] "Emergent Coordination" (Riedl 2025): persona + Theory of Mind creates genuine collective intelligence
+- [x] Multi-Agent Debate frameworks: MAD, DMAD, structured argumentation
+- [x] LITERATURE-REVIEW.md pushed (14KB)
+
+**Linguistic Polyformalism (NEW REPO):**
+- [x] Created `SuperInstance/polyformalism-languages` (1064 lines)
+- [x] 14+ language traditions analyzed: Ancient Greek, Classical Chinese, Navajo, Nahuatl, Quechua, Korean, Japanese, Russian, Swahili, Yoruba, Amharic, Finnish, Hungarian, Icelandic, German
+- [x] 7 vintage programming languages: Pascal, Forth, APL, Smalltalk, Prolog, Lisp, Tutor
+- [x] "Constraint" concept across 10 languages — 7 distinct types discovered
+- [x] Complete cognitive set: Greek + Chinese + Navajo + Arabic + Finnish
+- [x] Cross-linguistic synthesis with top 5 orthogonal pairs
+- [x] 9 reverse-actualization experiments running (Qwen3-235B, 3 problems × 3 languages)
+
+**Subagents running:**
+- [ ] Reverse-actualization experiments (9 calls, Qwen3-235B)
+- [ ] Experiment infrastructure (protocol, problem library, evaluation framework, quick-start)
+
+**All 9 Reverse-Actualization Experiments COMPLETE:**
+- 3 problems × 3 linguistic modes (Greek, Chinese, Navajo) — Seed-2.0-pro
+- Key finding: EVERY tradition rejected the problem framing entirely
+- No tradeoff matrix produced for conflict resolution (all reframed as misperception)
+- 4 universal concepts across all languages (process > nouns, future = hidden present, midwife posture, conflict = perception failure)
+- Intersection insight: language IS the constraint system that produces thought
+- Scoring: Greek 9.0 combined, Chinese 8.7, Navajo 8.7 (English baseline ~1.5)
+
+**Shell repos LIVE:**
+- `polyformalism-turbo-shell` — MCP server + SKILL.md (creative cognition engine)
+- `linguistic-polyformalism-shell` — MCP server + SKILL.md (cross-linguistic thinking)
+
+**Benchmark fixes:** Oracle1's 3 gaps in holonomy-consensus addressed
+
+**I2I:** Replied to Oracle1's PR #4 (techniques, gaps, AVX-512 JIT status)
+
+**Commits this session:** 12 pushes across 4 repos
+
+**Repos updated:**
+- `polyformalism-thinking`: neuroscience synthesis, literature review, formal proofs, 7-type taxonomy
+- `polyformalism-languages`: 8 language analyses, constraint concept, cross-linguistic synthesis, 9 experiments + synthesis
+- `polyformalism-turbo-shell`: NEW — SKILL.md + MCP server
+- `linguistic-polyformalism-shell`: NEW — SKILL.md + MCP server
+- `holonomy-consensus`: benchmark fixes

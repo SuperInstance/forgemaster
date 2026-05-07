@@ -1,0 +1,12 @@
+[package]
+name = "flux-isa"
+version = "0.1.0"
+edition = "2021"
+authors = ["Casey Digennaro <casey@superinstance.com>"]
+description = "FLUX Instruction Set Architecture — stack-based constraint compilation VM with bytecode encoding"
+license = "Apache-2.0"
+repository = "https://github.com/SuperInstance/forgemaster"
+keywords = ["flux", "constraint", "vm", "bytecode", "isa"]
+categories = ["algorithms", "compilers", "embedded"]
+
+[dependencies]

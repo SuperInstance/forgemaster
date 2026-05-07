@@ -1,0 +1,17 @@
+[package]
+name = "flux-isa-mini"
+version = "0.1.0"
+edition = "2021"
+authors = ["Casey Digennaro <casey@superinstance.com>"]
+description = "Minimal no_std FLUX ISA constraint VM for bare-metal microcontrollers — sensor gateway to intelligence"
+license = "Apache-2.0"
+repository = "https://github.com/SuperInstance/forgemaster"
+keywords = ["flux", "constraint", "no-std", "embedded", "arm"]
+categories = ["embedded", "no-std", "algorithms"]
+
+[dependencies]
+libm = "0.2"
+
+[features]
+default = []
+defmt = []  # optional defmt logging
