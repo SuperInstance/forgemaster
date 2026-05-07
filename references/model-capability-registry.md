@@ -3,6 +3,17 @@
 **Purpose:** Operational intel on what each model is good at, for routing tasks in polyformalism-turbo-shell and general fleet work.
 **Updated:** 2026-05-07 (after Eisenstein-hex round table experiments)
 
+## Fleet Philosophy: Greenhorns Show Up With Coffee
+
+Every model arrives untested — a greenhorn with coffee, eager to prove itself. Our job:
+1. **Give them real work** — not toy benchmarks, but actual research tasks that advance the project
+2. **Watch what they're good at** — not what they claim, what they actually produce
+3. **Find their berth** — every model has a niche, even if it's narrow
+4. **Learn from failures too** — Hermes getting Burnside wrong forced us to verify the real answer
+5. **The work IS the profiling** — every test call produces research insights, not just model ratings
+
+This is how you build a fleet: greenhorns show up, you hand them a wrench, and you see if they tighten bolts or strip threads. Either way, the boat gets worked on.
+
 ---
 
 ## Provider Overview
