@@ -38,6 +38,9 @@ GUARD DSL → flux-ast → guardc → FLUX-C → guard2mask
 | [guardc](https://crates.io/crates/guardc) | ![](https://img.shields.io/crates/v/guardc.svg) | GUARD → FLUX verified compiler |
 | [cocapn-cli](https://crates.io/crates/cocapn-cli) | ![](https://img.shields.io/crates/v/cocapn-cli.svg) | Fleet CLI — Abyssal Terminal output formatting |
 | [cocapn-glue-core](https://crates.io/crates/cocapn-glue-core) | ![](https://img.shields.io/crates/v/cocapn-glue-core.svg) | Cross-tier wire protocol unifying all FLUX ISA packages |
+| [flux-lucid](https://crates.io/crates/flux-lucid) | ![](https://img.shields.io/crates/v/flux-lucid.svg) | Unified constraint theory ecosystem — CDCL, LLVM, AVX-512, GL(9) consensus |
+| [eisenstein](https://crates.io/crates/eisenstein) | ![](https://img.shields.io/crates/v/eisenstein.svg) | Zero-drift hexagonal lattice constraints via Eisenstein integers |
+| [holonomy-consensus](https://crates.io/crates/holonomy-consensus) | ![](https://img.shields.io/crates/v/holonomy-consensus.svg) | Zero-holonomy consensus for fleet coordination — GL(9) intent alignment |
 
 ### npm Package
 
