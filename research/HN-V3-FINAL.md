@@ -1,8 +1,8 @@
-# Show HN: Constraint-theory – Coq-proved snapping for games, safety-critical embedded, and GPU (4KB C runtime, 22 Rust crates)
+# Show HN: Constraint-theory – Coq-proved snapping for games, safety-critical embedded, and GPU (4KB C runtime, 22 repos)
 
 We built a constraint satisfaction framework where every algorithm has a Coq proof, and it ships on $2 ARM chips.
 
-**What it is:** Mathematical foundations for deterministic constraint resolution, implemented across 22 Rust crates, 4 PyPI packages, and a bare-metal C runtime. Apache 2.0. 50 Coq theorems. Real CUDA kernels.
+**What it is:** Mathematical foundations for deterministic constraint resolution, implemented across 22 repos (4 published Rust crates, 1 published Python package), and a bare-metal C runtime. Apache 2.0. 3 proven theorems (2 Coq-verified). Real CUDA kernels.
 
 **What you can use today:**
 
@@ -30,7 +30,7 @@ from constraint_theory import PythagoreanManifold
 
 manifold = PythagoreanManifold(200)
 x, y, noise = manifold.snap(0.577, 0.816)
-# → (0.6, 0.8, ~0.0)  — exact 3/5, 4/5 triangle
+# → closest Pythagorean triple, noise = sqrt(best_dist)
 ```
 
 **2. Embedded C runtime (the killer feature)**
@@ -53,11 +53,11 @@ We publish an [honest errata](https://github.com/SuperInstance/constraint-theory
 We'd rather you trust us because we're honest about limitations than because we oversold capabilities.
 
 **What we know we need:**
-- `snap_from_angle()` API and WASM demo for game devs
-- Cortex-M4 benchmarks and MISRA compliance for embedded
-- Full constraint checking in the Python package
+- WASM demo (`wasm-pack build` + npm package) for game devs
+- Cortex-M4 cycle benchmarks and MISRA compliance for embedded
+- Full constraint checking in the Python package (currently Rust-only)
 - Struct returns instead of tuples (game dev ergonomics)
 
-**Repos:** [github.com/SuperInstance](https://github.com/SuperInstance?q=constraint) · [Math + Proofs](https://github.com/SuperInstance/constraint-theory-math) · [CUDA Benchmarks](https://github.com/SuperInstance/constraint-theory-ecosystem) · [Interactive Demo](https://htmlpreview.github.io/?https://raw.githubusercontent.com/SuperInstance/cocapn-ai-web/main/demo-divergence-tolerance.html)
+**Repos:** [github.com/SuperInstance](https://github.com/SuperInstance?q=constraint) · [Math + Proofs](https://github.com/SuperInstance/constraint-theory-math) · [CUDA Benchmarks](https://github.com/SuperInstance/constraint-theory-ecosystem) · [Live Demo](https://superinstance.github.io/cocapn-ai-web/demo-divergence-tolerance.html)
 
 We're particularly interested in feedback from: embedded engineers doing WCET analysis, game devs fighting deterministic lockstep desyncs, and anyone who thinks Coq proofs for $2 microcontrollers is either brilliant or insane.
