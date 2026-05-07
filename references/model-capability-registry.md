@@ -26,6 +26,50 @@ This is how you build a fleet: greenhorns show up, you hand them a wrench, and y
 | **OpenAI** | (no key) | — | — | — |
 | **Kimi** | kimi CLI | Configured | Paid | Medium |
 
+## Cost Tiers (Fleet Economics)
+
+Price matters. A cheap model that works great is worth more than an expensive model that works perfectly.
+
+### 🟢 Tier 1: Penny-Class ($0.01-0.05/query) — THE FLEET WORKHORSES
+
+| Model | What It's Best At | Quality/Cost Ratio |
+|-------|------------------|--------------------|
+| **Seed-2.0-mini** | Statistical physics, info theory, reliability, bulk parallel | ⭐⭐⭐⭐⭐ BEST VALUE |
+| **Seed-2.0-code** | Code generation, focused modules | ⭐⭐⭐⭐ |
+| **DeepSeek v4-flash** | Focused proofs, materials science (when output fits) | ⭐⭐⭐⭐ |
+| **Qwen3-30B** | Correct reasoning, needs larger token budgets | ⭐⭐⭐⭐ (promising — verify with more tokens) |
+
+**Fleet rule:** Use Tier 1 for 90% of work. Only escalate when they can't handle it.
+
+### 🟡 Tier 2: Dime-Class ($0.05-0.20/query) — THE SPECIALISTS
+
+| Model | What It's Best At | When to Pay Extra |
+|-------|------------------|------------------|
+| **Qwen3.6-35B** | Creative, skeptical, cross-domain, long-form | Round tables, novel insights, developer docs |
+| **Qwen3-235B** | (needs re-testing with correct model ID) | TBD |
+
+**Fleet rule:** Use Tier 2 for the 10% that needs creative/skeptical depth. Worth it for round tables and cross-domain work.
+
+### 🔴 Tier 3: Dollar-Class ($0.20+/query) — THE ORACLES
+
+| Model | What It's Best At | When to Pay |
+|-------|------------------|-------------|
+| **Nemotron-120B** | Deep structural math, isomorphisms, first principles | ONLY for mathematical breakthroughs |
+| **Hermes-405B** | General prose, creative (but NOT math) | When Qwen3.6 is unavailable |
+| **DeepSeek v4-pro** | Deep reasoning (when it doesn't timeout) | Very specific proof tasks |
+
+**Fleet rule:** Use Tier 3 for <1% of work. The toric code isomorphism was worth the cost. Most calls are not.
+
+### The Ideal Pattern
+
+```
+Tier 1 (Seed-2.0-mini): 90% of queries — mining, testing, building, iterating
+Tier 2 (Qwen3.6-35B):   9% of queries  — creative leaps, skeptical checks, cross-domain
+Tier 3 (Nemotron-120B):  1% of queries  — mathematical breakthroughs only
+```
+
+**Goal:** Find more Tier 1 models. Seed-2.0-mini is the gold standard — cheap AND reliable AND smart.
+
 ---
 
 ## Model-by-Model Ratings
@@ -157,7 +201,25 @@ This is how you build a fleet: greenhorns show up, you hand them a wrench, and y
 
 ---
 
-### ⚠️ DeepInfra / Qwen3.5-397B-A17B — The Creative-Only Specialist
+### ⚠️ DeepInfra / Qwen3-30B-A3B — Promising but Token-Starved
+
+| Task | Rating | Notes |
+|------|--------|-------|
+| Mathematical reasoning | ⭐⭐⭐⭐ | Correct reasoning on Burnside — identified identity=64, 60°=2 correctly. Ran out of tokens before finishing. |
+| Reliability | ⭐⭐⭐ | Responds consistently but needs larger max_tokens |
+| Cost | ⭐⭐⭐⭐⭐ | Very cheap (penny-class MoE) |
+
+**Strengths:** Shows correct mathematical reasoning. Cheap. MoE architecture.
+
+**Weaknesses:** Needs generous token budgets (2000+) even for short answers. CoT is verbose.
+
+**Best for:** Math tasks with large token budgets. Re-test with max_tokens=4000.
+
+---
+
+### ❌ DeepInfra / Gemma-3-27B — Wrong on Group Theory
+
+Got Burnside's lemma WRONG (answer 34/3, not 11). Confused cycle structure of D6 elements. The reasoning *looks* plausible but contains fundamental errors. Not trustworthy for mathematical work.
 
 | Task | Rating | Notes |
 |------|--------|-------|
