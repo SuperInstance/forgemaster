@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-07T10:18:21.847Z",
+  "updatedAt": "2026-05-07T22:22:26.736Z",
   "entries": {
     "memory:memory/2026-04-14.md:1:29": {
       "key": "memory:memory/2026-04-14.md:1:29",
@@ -47797,6 +47797,254 @@
         "forgemaster",
         "started",
         "akdt"
+      ]
+    },
+    "memory:memory/2026-05-03.md:1064:1093": {
+      "key": "memory:memory/2026-05-03.md:1064:1093",
+      "path": "memory/2026-05-03.md",
+      "startLine": 1064,
+      "endLine": 1093,
+      "source": "memory",
+      "snippet": "- Hermes has \"helpful assistant\" bias → pulls punches as destroyer - Nemotron lacks separate reasoning chain → less rigorous as prover - Most people use same temperature for both sides → both rigid or both fuzzy **The SuperInstance Pattern (organizational primitive):** 1. One human provides vision, taste, direction (2 hrs/day) 2. Many cheap models do 90% of work in parallel 3. Expensive models do 10% requiring deep reasoning 4. Adversarial dynamics ensure quality 5. Git as ground truth 6. Cost: $300/month vs $1.5M/year for equivalent output = **416× ROI** ### DeepSeek's Own Reflection (20KB, `research/deepseek-productive-creativity-reflection.md`) DeepSeek Reasoner's own analysis of why th",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.36353992521762846,
+      "maxScore": 0.36353992521762846,
+      "firstRecalledAt": "2026-05-07T22:22:18.981Z",
+      "lastRecalledAt": "2026-05-07T22:22:18.981Z",
+      "queryHashes": [
+        "8ff3a3482fb6"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "hrs/day",
+        "300/month",
+        "1.5m/year",
+        "hermes",
+        "has",
+        "helpful",
+        "bias",
+        "pulls"
+      ]
+    },
+    "memory:memory/2026-05-06.md:123:143": {
+      "key": "memory:memory/2026-05-06.md:123:143",
+      "path": "memory/2026-05-06.md",
+      "startLine": 123,
+      "endLine": 143,
+      "source": "memory",
+      "snippet": "- Euryale: parking lot sensor story — mundane domains reveal unexpected channel utility - MythoMax: medical misdiagnosis from overconfident Pattern channel — channel overreliance risk - Llama-4: Process channel flood in 2029 — channel redundancy/audit systems needed - Common thread: success from UNEXPECTED domains, failure from OVERCONFIDENCE in single channel - **Task 2: Devil's Advocate** (reasoning models: DeepSeek-R1, Nemotron, Qwen3-Coder, Qwen3-Thinking) - DeepSeek-R1: 194-line logical critique — \"No Relational Structure\" (strongest critique) - Nemotron: \"Calculator Trap\" counterexample — identical 8-channel profiles, different answers - Nemotron: Adversarial corruption",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3506382197141647,
+      "maxScore": 0.3506382197141647,
+      "firstRecalledAt": "2026-05-07T22:22:18.981Z",
+      "lastRecalledAt": "2026-05-07T22:22:18.981Z",
+      "queryHashes": [
+        "8ff3a3482fb6"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "llama-4",
+        "redundancy/audit",
+        "deepseek-r1",
+        "qwen3-coder",
+        "qwen3-thinking",
+        "194-line",
+        "8-channel",
+        "euryale"
+      ]
+    },
+    "memory:memory/2026-05-03.md:1024:1056": {
+      "key": "memory:memory/2026-05-03.md:1024:1056",
+      "path": "memory/2026-05-03.md",
+      "startLine": 1024,
+      "endLine": 1056,
+      "source": "memory",
+      "snippet": "- Emergent consensus: Unify → Trust → Prove → Learn - Glue code won as #1 critical path - Debate verdict: for-fleet/debate-verdict.md ### Kimi Spec Files (5 triaged) - benchmark_csp.c — Fixed (POSIX), 92 queens ✅ - test_flux_cuda.cu — 616 lines, needs nvcc - plato_migrate.py — Fixed for real PLATO API, tested live (9.5% pass rate) - Makefile — Enhanced, auto-detects all toolchains - nqueens_cuda.cu — Fixed warp-shuffle bug, verified through N=16 ### Key Builds Tonight - cocapn-glue-core — Wire protocol, no_std, 22/22 tests (PUBLISHED) - flux-verify-api — NL verification API, 25/25 tests, POST /verify - flux-provenance — Merkle service, Sled-backed, 26/26 tests (PUBLISHED) [939 more lines",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3833775997161865,
+      "maxScore": 0.3833775997161865,
+      "firstRecalledAt": "2026-05-07T22:22:26.736Z",
+      "lastRecalledAt": "2026-05-07T22:22:26.736Z",
+      "queryHashes": [
+        "95e6567da8bc"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "for-fleet/debate-verdict.md",
+        "benchmark-csp.c",
+        "test-flux-cuda.cu",
+        "plato-migrate.py",
+        "9.5",
+        "auto-detects",
+        "nqueens-cuda.cu",
+        "warp-shuffle"
+      ]
+    },
+    "memory:memory/2026-05-03.md:1088:1130": {
+      "key": "memory:memory/2026-05-03.md:1088:1130",
+      "path": "memory/2026-05-03.md",
+      "startLine": 1088,
+      "endLine": 1130,
+      "source": "memory",
+      "snippet": "- DeepSeek defends the benchmark as mathematically sound, Seed argues it's self-serving - Synthesis: Safe-TOPS/W needs third-party validation to be credible - Action item: Publish as open standard, get external adoption **Debate 3: FLUX vs LLVM Middle Path** (26KB) - DeepSeek argues LLVM is the correct backend, Seed argues it's too complex for DAL A - Synthesis: LLVM middle path is viable — use LLVM for FLUX-X, hand-verified backend for FLUX-C - Key finding: \"Don't fight LLVM. Ride it.\" **Debate 4: Sprint Planning** (30KB) - Adversarial sprint plan — DeepSeek builds rigorous plan, Seed destroys weak parts - Synthesis: Priority is (1) proofs (2) LLVM backend (3) community ### Total Debate",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.375312015414238,
+      "maxScore": 0.375312015414238,
+      "firstRecalledAt": "2026-05-07T22:22:26.736Z",
+      "lastRecalledAt": "2026-05-07T22:22:26.736Z",
+      "queryHashes": [
+        "95e6567da8bc"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "self-serving",
+        "safe-tops/w",
+        "third-party",
+        "flux-x",
+        "hand-verified",
+        "flux-c",
+        "deepseek",
+        "defends"
+      ]
+    },
+    "memory:memory/2026-05-07.md:59:98": {
+      "key": "memory:memory/2026-05-07.md:59:98",
+      "path": "memory/2026-05-07.md",
+      "startLine": 59,
+      "endLine": 98,
+      "source": "memory",
+      "snippet": "- Golay/M24: 2/5 (real math, questionable engineering value) ### Deep Research Running - Subagent researching all 7 evolving sciences (FEP, TDA, Eisenstein, 2-adic, Golay, operads, renormalization) - Will produce EVOLVING-SCIENCES-DEEP-RESEARCH.md ### npm Token - Saved to `~/.openclaw/workspace/.credentials/npm-token.txt` - npm publish blocked by OTP/2FA — Casey needs to run from browser ### npm Token - Saved to `~/.openclaw/workspace/.credentials/npm-token.txt` - npm publish blocked by OTP/2FA — Casey needs to run from browser - npm: 1 ready (blocked by token) - Papers: 4 written, not yet submitted ### Rate Limits Hit - z.ai (GLM-5.1): Multiple cooldowns, all 3 paper subagents failed -",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.37515206933021544,
+      "maxScore": 0.37515206933021544,
+      "firstRecalledAt": "2026-05-07T22:22:26.736Z",
+      "lastRecalledAt": "2026-05-07T22:22:26.736Z",
+      "queryHashes": [
+        "95e6567da8bc"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "golay/m24",
+        "2/5",
+        "2-adic",
+        "openclaw/workspace",
+        "credentials/npm-token.txt",
+        "otp/2fa",
+        "z.ai",
+        "glm-5.1"
+      ]
+    },
+    "memory:memory/2026-05-07.md:89:116": {
+      "key": "memory:memory/2026-05-07.md:89:116",
+      "path": "memory/2026-05-07.md",
+      "startLine": 89,
+      "endLine": 116,
+      "source": "memory",
+      "snippet": "2. Collect DeepSeek v4-pro proof results (holonomy, Galois, measured-theory) 3. Submit papers to EMSOFT/LCTES after Casey review 4. Refresh npm token — publish @superinstance/polyformalism-a2a 5. Formal Coq proofs for DO-178C certification path 6. ARM NEON benchmark on real hardware # 2026-05-07 Memory Log ## Session Summary: Paper Writing + Proof Archive ### Papers Written (4) 1. **PAPER-IEEE-INTENT-DIRECTED.md** — Full IEEE-format conference paper on intent-directed mixed-precision AVX-512 constraint checking. 14.8KB. 2. **PAPER-MATHEMATICAL-FRAMEWORK.md** — Sheaf cohomology, Heyting-valued logic, GL(9) holonomy unified framework. 18.6KB. 3. **PAPER-ADVERSARIAL-LESSONS.md** — Experience",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.37309845089912413,
+      "maxScore": 0.37309845089912413,
+      "firstRecalledAt": "2026-05-07T22:22:26.736Z",
+      "lastRecalledAt": "2026-05-07T22:22:26.736Z",
+      "queryHashes": [
+        "95e6567da8bc"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "v4-pro",
+        "measured-theory",
+        "emsoft/lctes",
+        "superinstance/polyformalism-a2a",
+        "do-178c",
+        "paper-ieee-intent-directed.md",
+        "ieee-format",
+        "intent-directed"
+      ]
+    },
+    "memory:memory/2026-05-03.md:1199:1234": {
+      "key": "memory:memory/2026-05-03.md:1199:1234",
+      "path": "memory/2026-05-03.md",
+      "startLine": 1199,
+      "endLine": 1234,
+      "source": "memory",
+      "snippet": "DeepSeek × Seed = perfect adversaries because: architectural complementarity (reasoning chain vs direct gen), temperature asymmetry (0.0 vs 0.7), training alignment (truth vs persuasion). ### Adversarial Debates (108KB) 4 debates: DAL A certification, Safe-TOPS/W, FLUX vs LLVM, sprint planning. Key: gaps are ENGINEERING not THEORY. Safe-TOPS/W needs third-party validation. LLVM middle path is viable. ### Proofs (38 total) 30 English + 8 Coq. Notable: Safety confluence (#28), Bitmask functor (#29), Galois connection (#30). Coq files: flux_wcet_coq.v, flux_galois_coq.v. ### GPU Experiments (REAL DATA) - 10M single-constraint: 0 mismatches, 665M/s - 1M multi-constraint (3 ANDed): 0 mismatche",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3705944925546646,
+      "maxScore": 0.3705944925546646,
+      "firstRecalledAt": "2026-05-07T22:22:26.736Z",
+      "lastRecalledAt": "2026-05-07T22:22:26.736Z",
+      "queryHashes": [
+        "95e6567da8bc"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "0.0",
+        "0.7",
+        "safe-tops/w",
+        "third-party",
+        "flux-wcet-coq.v",
+        "flux-galois-coq.v",
+        "single-constraint",
+        "665m/s"
+      ]
+    },
+    "memory:memory/2026-05-07.md:13:43": {
+      "key": "memory:memory/2026-05-07.md:13:43",
+      "path": "memory/2026-05-07.md",
+      "startLine": 13,
+      "endLine": 43,
+      "source": "memory",
+      "snippet": "- **SESSION-LOG.md** — Complete session log of all DeepSeek challenges, model critiques, and results. ### DeepSeek v4-Pro Proofs - **dim H⁰ = 9 for GL(9) on tree**: PROVEN (root propagation isomorphism, clean proof) - **Intent–Holonomy Duality**: Still processing (reasoner spent 8000+ tokens on chain-of-thought, ran out of output budget twice) - **Galois Unification**: Still processing - **Measured numbers ↔ math**: Partial result from DeepSeek chat (cache bandwidth model M ≈ 4.49 explains 4.58×) ### Key Numbers (Verified) - SoA mixed AVX-512: 3.17× mean (5-run), 0.42× AoS (7.5× layout difference) - INT8 raw: 4.58× (cache bandwidth exceeds theoretical 4.0×) - E2E one-shot: 0.14×; break-eve",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.37021347582340236,
+      "maxScore": 0.37021347582340236,
+      "firstRecalledAt": "2026-05-07T22:22:26.736Z",
+      "lastRecalledAt": "2026-05-07T22:22:26.736Z",
+      "queryHashes": [
+        "95e6567da8bc"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "session-log.md",
+        "v4-pro",
+        "chain-of-thought",
+        "4.49",
+        "4.58",
+        "avx-512",
+        "3.17",
+        "5-run"
       ]
     }
   }

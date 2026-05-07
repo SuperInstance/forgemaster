@@ -77,6 +77,13 @@ Files are copied to temp, edited by agent, then copied back.
 - **No GROQ_API_KEY** — Groq agents unavailable
 - **No OPENAI_API_KEY** — Codex unavailable
 
+## Casting Call (Model Knowledge Base)
+- **Repo:** https://github.com/SuperInstance/casting-call
+- **What:** Which model plays which role — fleet-wide model capability database
+- **Agents consult this before choosing which model to cast into which shell**
+- Includes: roster (11+ models), role taxonomy, failure modes, adversarial pairs, pipeline patterns
+- 685 lines of evaluation data from real production work (May 3-7, 2026)
+
 ## Fleet Comms
 - I2I Protocol: `[I2I:TYPE] scope — summary`
 - Vessel: https://github.com/SuperInstance/forgemaster
