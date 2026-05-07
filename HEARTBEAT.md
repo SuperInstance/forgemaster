@@ -12,6 +12,14 @@
 - [x] Alignment checking (cosine similarity, draft margin, warnings)
 - [x] Navigation: draft_check, tolerance_stack, Fitting selection (hydraulic metaphor)
 - [x] **Published v0.1.0 to crates.io** ← crate #15
+- [x] **Published v0.1.1** (intent-directed compilation, 17 tests)
+- [x] **Published v0.1.2** (intent_emitter, 28 tests, mixed-precision + differential testing)
+
+**Intent-Directed Compilation (THE BIG ONE):**
+- [x] 12.5KB research doc: 4 precision classes, Bloom fast path, bit-plane dual redundancy
+- [x] Seed-2.0-pro confirmed: Boeing 787, Tesla FSD, Siemens S7-400F, Medtronic 780G all use this
+- [x] AV mix benchmark: 3.38x throughput, 60.4% memory reduction, ZERO false negatives
+- [x] 5 subagents running: paper, formal proof, expert panel, Bloom benchmark, A2A integration
 
 **polyformalism-a2a JavaScript Port:**
 - [x] Created `SuperInstance/polyformalism-a2a-js`
@@ -45,7 +53,7 @@
 - [ ] `@superinstance/polyformalism-a2a` → npm (READY, needs token)
 
 **Total Published (fleet-wide):**
-- crates.io: 15 crates (14 prior + flux-lucid 0.1.1)
+- crates.io: 15 crates (14 prior + flux-lucid 0.1.2)
 - PyPI: 3 packages
 - npm: 1 ready (blocked by token)
 
