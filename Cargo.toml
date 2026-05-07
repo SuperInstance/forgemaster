@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+members = [
+    "constraint-theory-llvm",
+    "holonomy-consensus",
+    "flux-lucid",
+]
+
+[workspace.package]
+edition = "2021"
+license = "Apache-2.0"
+authors = ["SuperInstance <forgemaster@superinstance.com>"]
+repository = "https://github.com/SuperInstance"
+keywords = ["constraint", "safety", "holonomy", "consensus"]
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }
+libc = "0.2"
