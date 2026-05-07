@@ -27,6 +27,13 @@
 - [x] "Overstated universal" problem identified on C5, C6, C7
 - [x] CROSS-MODEL-REPLICATION.md pushed
 
+**LLM Encoder (Python + JS):**
+- [x] Model-driven 9-channel intent extraction replaces heuristic keyword matching
+- [x] Works with any OpenAI-compatible API (DeepInfra, DeepSeek, etc.)
+- [x] Python: `LLMEncoder`, `create_deepinfra_encoder()` — 7/7 tests passing
+- [x] JS: `LLMEncoder` class, `fetch()`-based — exported from index.js
+- [x] Validated against Seed-2.0-mini: C9 delta=0.8 correctly discriminates urgent vs casual
+
 **Architecture Doc:**
 - [x] FLUX-LUCID-ARCHITECTURE.md — full stack, 16 repos, integration points
 - [x] 9-channel ↔ Oracle1 fleet service mapping
