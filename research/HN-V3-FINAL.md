@@ -19,9 +19,10 @@ pip install constraint-theory
 ```rust
 use eisenstein::{E12, HexDisk};
 
-let z = E12::new(-5, 3);        // Eisenstein integer
-assert_eq!(z.norm(), 49);        // Exact: (-5)² + (-5)(3) + 3² = 25 - 15 + 9 = 19... wait
-let disk = HexDisk::radius(36);  // 3997 exact vertices, ~16KB
+let z = E12::new(-5, 3);            // Eisenstein integer
+assert_eq!(z.norm(), 49);            // a²-ab+b² = 25+15+9 = 49
+let dir = E12::snap_from_angle(0.0);  // Snap any angle to hex grid
+let disk = HexDisk::radius(36);       // 3997 exact vertices, ~16KB
 ```
 
 ```python
@@ -29,7 +30,7 @@ from constraint_theory import PythagoreanManifold
 
 manifold = PythagoreanManifold(200)
 x, y, noise = manifold.snap(0.577, 0.816)
-# → (0.6, 0.8, 0.0236)  — exact 3/5, 4/5 triangle
+# → (0.6, 0.8, ~0.0)  — exact 3/5, 4/5 triangle
 ```
 
 **2. Embedded C runtime (the killer feature)**
