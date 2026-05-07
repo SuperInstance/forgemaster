@@ -7,6 +7,10 @@ __pycache__/
 dist/
 build/
 
+# Backup files
+*.bak
+*.orig
+
 # IDE
 .vscode/
 .idea/
@@ -29,10 +33,3 @@ download/
 claude/
 flux-research-clone/
 lucineer/
-target/
-node_modules/
-__pycache__/
-*.pyc
-.DS_Store
-*.bak
-*.orig
