@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-05-07T13:40:09-08:00",
+  "timestamp": "2026-05-07T14:05:07-08:00",
   "gateway": "stopped",
   "gateway_pid": "none",
   "cpu_pct": 0,
   "mem_used_gb": 1,
   "mem_total_gb": 15,
   "disk_free_gb": 858,
-  "load_1m": 0.51,
+  "load_1m": 0.74,
   "active_processes": {
     "claude": 0
 0,
