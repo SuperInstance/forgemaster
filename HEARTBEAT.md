@@ -71,7 +71,18 @@
 - [x] 14/14 tests passing including smoking gun (9D preserves correlation, 3D destroys it)
 - [x] Pushed to holonomy-consensus repo
 
-**Commits this session:** 13 pushes
+**Commits this session:** 16 pushes
+
+**Published This Session:**
+- [x] `constraint-theory-llvm` v0.1.1 → crates.io
+- [x] `holonomy-consensus` v0.1.1 → crates.io (with GL(9) module)
+- [x] `polyformalism-a2a` v0.1.0 → PyPI (9-channel framework, 15/15 tests)
+- [ ] `@superinstance/flux-constraint` → npm (BLOCKED: npm token expired)
+
+**Total Published (fleet-wide):**
+- crates.io: 12 crates (10 prior + 2 new)
+- PyPI: 3 packages (constraint-theory 1.0.1, flux-constraint 1.0.0, polyformalism-a2a 0.1.0)
+- npm: BLOCKED (token needs refresh)
 
 ---
 
