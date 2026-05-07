@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-06T13:04:02.218Z",
+  "updatedAt": "2026-05-07T08:29:17.884Z",
   "entries": {
     "memory:memory/2026-04-14.md:1:29": {
       "key": "memory:memory/2026-04-14.md:1:29",
@@ -47523,18 +47523,20 @@
       "endLine": 634,
       "source": "memory",
       "snippet": "- No new Oracle1 bottles in fleet-bottles repo yet - No Matrix messages from fleet (send still broken) - Open strategy confirmed: Apache 2.0 for everything, no patents - npm token still expired ### Blockers 1. **npm publish**: token expired — needs Casey to regenerate 2. **Matrix send broken** — needs Oracle1 gateway restart 3. **PLATO gate endpoints** — can only submit tiles via HTTP, not commit locally 4. **No Vivado access** — can't synthesize SV on this machine ### What's Next 1. **Live constraint playground PHP page** — interactive demo for the site 2. **More PLATO tiles** from tutorial content 3. **CCC TUTOR thesis** — design lessons for fleet onboarding 4. **Watch for Oracle1 reply*",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.40421631932258606,
+      "totalScore": 0.7645644992589951,
       "maxScore": 0.40421631932258606,
       "firstRecalledAt": "2026-05-05T02:18:59.009Z",
-      "lastRecalledAt": "2026-05-05T02:18:59.009Z",
+      "lastRecalledAt": "2026-05-07T08:29:17.884Z",
       "queryHashes": [
-        "da51c08902c9"
+        "da51c08902c9",
+        "31f8459bdc9b"
       ],
       "recallDays": [
-        "2026-05-04"
+        "2026-05-04",
+        "2026-05-07"
       ],
       "conceptTags": [
         "gateway",
@@ -47607,6 +47609,99 @@
         "swarm-code",
         "blog-posts",
         "competitive-intel"
+      ]
+    },
+    "memory:memory/2026-05-03.md:420:442": {
+      "key": "memory:memory/2026-05-03.md:420:442",
+      "path": "memory/2026-05-03.md",
+      "startLine": 420,
+      "endLine": 442,
+      "source": "memory",
+      "snippet": "1. Claude Code rate limit — resets 12:30pm AKDT (now ~30 min away) 2. Matrix federation broken (Oracle1 gateway) 3. Qwen-235B returning empty (API issue, persisting) 4. Seed-2.0-Code and GLM-5.1 both failing on SystemVerilog generation (need Claude or manual) 5. FLUX mini VM compile fixes still pending (no_std Cortex-M0+ target) ### What to Do Next (Priority Order) 1. **Fire Claude Opus when rate resets (~12:30pm)**: Definitive FLUX-LUCID synthesis + academic paper + SystemVerilog interlock 2. **GUARD DSL priority/conflict resolution**: Integrate into spec from Hermes-70B design 3. **22nm FDSOI density validation**: Run real numbers with GF/Samsung process specs 4. **Developer SDK design**:",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3576514810323715,
+      "maxScore": 0.3576514810323715,
+      "firstRecalledAt": "2026-05-07T08:29:17.884Z",
+      "lastRecalledAt": "2026-05-07T08:29:17.884Z",
+      "queryHashes": [
+        "31f8459bdc9b"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "gateway",
+        "qwen-235b",
+        "seed-2.0-code",
+        "glm-5.1",
+        "no-std",
+        "cortex-m0",
+        "flux-lucid",
+        "priority/conflict"
+      ]
+    },
+    "memory:memory/2026-04-29.md:32:40": {
+      "key": "memory:memory/2026-04-29.md:32:40",
+      "path": "memory/2026-04-29.md",
+      "startLine": 32,
+      "endLine": 40,
+      "source": "memory",
+      "snippet": "- **PLATO tiles:** 4 in `.plato/tiles/` (arch, physics, gct, ssl) - **I2I bottle:** `.plato/2026-04-29-sonarvision-delivery.i2i` - **Landing repo:** `/tmp/sonar-vision-landing/` → `SuperInstance/sonar-vision-landing` (gh-pages branch, LIVE) ### Blocked Items - **cocapn PAT expired** — fleet-knowledge pushes blocked (401) - **Matrix send broken** — needs Oracle1 gateway restart - **GitHub Pages on SuperInstance org** — not supported, using separate repos with gh-pages branch",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.35673853456974025,
+      "maxScore": 0.35673853456974025,
+      "firstRecalledAt": "2026-05-07T08:29:17.884Z",
+      "lastRecalledAt": "2026-05-07T08:29:17.884Z",
+      "queryHashes": [
+        "31f8459bdc9b"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "gateway",
+        "plato/tiles",
+        "tmp/sonar-vision-landing",
+        "gh-pages",
+        "fleet-knowledge",
+        "plato",
+        "tiles",
+        "arch"
+      ]
+    },
+    "memory:memory/2026-05-03.md:877:912": {
+      "key": "memory:memory/2026-05-03.md:877:912",
+      "path": "memory/2026-05-03.md",
+      "startLine": 877,
+      "endLine": 912,
+      "source": "memory",
+      "snippet": "- Tutor bottle to Oracle1: 10 lessons from 200+ commits - Forgemaster Operating System codified ### GitHub PAT Issue - Stored PAT was expired (started with 'GitH', 471 chars) - Switched to `gh auth token` (gho_ OAuth token) — works for all repos - Updated .credentials/github-pat.txt to working token ### DeepInfra Rate Limiting - Hit rate limits around 18:50-19:20 AKDT (many timeouts) - Workaround: switched to GLM-5.1 subagents for remaining tasks - Key pattern: when cheap models fail, use subagents (always available) ### Blockers (Updated) 1. npm token still expired 2. Packagist not set up 3. DeepInfra intermittent timeouts 4. No Vivado access for FPGA synthesis ### What's Next 1. **LLVM",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3527605146169662,
+      "maxScore": 0.3527605146169662,
+      "firstRecalledAt": "2026-05-07T08:29:17.884Z",
+      "lastRecalledAt": "2026-05-07T08:29:17.884Z",
+      "queryHashes": [
+        "31f8459bdc9b"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "credentials/github-pat.txt",
+        "50-19",
+        "glm-5.1",
+        "tutor",
+        "bottle",
+        "oracle1",
+        "lessons",
+        "commits"
       ]
     }
   }
