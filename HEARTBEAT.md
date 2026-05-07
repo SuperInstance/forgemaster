@@ -50,11 +50,34 @@
 **Published This Session:**
 - [x] `flux-lucid` v0.1.0 → crates.io
 - [x] `flux-lucid` v0.1.1 → crates.io (intent-directed compilation)
+- [x] `flux-lucid` v0.1.2 → crates.io (intent_emitter, 28 tests)
+- [x] `flux-lucid` v0.1.3 → crates.io (corrected throughput formula)
+- [x] `flux-lucid` v0.1.4 → crates.io (beam_tolerance + SoA emitter, 46 tests)
+- [x] `polyformalism-a2a` v0.1.1 → PyPI (fleet-constraint bridge)
 - [ ] `@superinstance/polyformalism-a2a` → npm (READY, needs token)
 
+**Real Hardware Numbers (cycle-accurate, 5-run):**
+- SoA mixed: **3.17x** mean (3.09-3.52 range)
+- AoS mixed: **0.42x** (layout is 7.5x difference!)
+- INT8 raw: **4.58x** (exceeds 4.0x theoretical — cache bandwidth)
+- DUAL cost: **1.32x** (not 2.0x — CPU pipelines sub+cmp)
+- Differential: **100M constraints, ZERO mismatches**
+- Multi-core: **3.37x** single-core, zero mismatches all cores
+- RARS-IMU: 127 AUV constraints in 20 cycles
+
+**New Research:**
+- Beam-intent equivalence (H⁰≠∅ math)
+- Oracle1 integration deep dive
+- Fleet-constraint bridge (Python)
+- Multi-core AVX-512 benchmark
+- RARS-IMU proof of concept
+
+**New Repos:**
+- `SuperInstance/polyformalism-a2a-python` (fleet-bridge)
+
 **Total Published (fleet-wide):**
-- crates.io: 15 crates (14 prior + flux-lucid 0.1.2)
-- PyPI: 3 packages
+- crates.io: 16 crates (14 prior + flux-lucid 0.1.3 + 0.1.4)
+- PyPI: 4 packages (constraint-theory, flux-constraint, polyformalism-a2a 0.1.0 + 0.1.1)
 - npm: 1 ready (blocked by token)
 
 ---
