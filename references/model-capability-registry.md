@@ -125,6 +125,51 @@
 
 ---
 
+### ⚠️ DeepInfra / Hermes-3-Llama-3.1-405B — The Confident Bullshitter
+
+| Task | Rating | Notes |
+|------|--------|-------|
+| Structural math | ⭐⭐ | Confident-sounding but WRONG on Burnside (answer 8, correct is 11) |
+| Creative scenario | ⭐⭐⭐⭐ | Decent narrative, specific numbers |
+| Skeptical analysis | ⭐⭐⭐ | Correct entropy conclusion but fuzzy math reasoning |
+| Cross-domain | ⭐⭐ | Smooth prose but "stricking resemblance" — hand-wavy, not precise |
+| Reliability | ⭐⭐⭐⭐⭐ | 5/5 responses, 100% uptime |
+| Mathematical accuracy | ⭐ | Gets group theory WRONG every time — hallucinates plausible fixed points |
+
+**Strengths:** Always responds. Smooth, professional prose. Good at creative tasks and general reasoning. 100% reliability.
+
+**Weaknesses:** CONFIDENTLY WRONG on mathematical details. The Burnside lemma calculation looks correct at first glance (lists 12 group elements, shows work) but the fixed point counts are fabricated. This is the most dangerous failure mode — outputs that look right to a non-expert.
+
+**Critical warning:** Do NOT trust Hermes-405B for mathematical proofs or group theory. It produces plausible-looking work with fabricated details. Fine for prose and creative tasks.
+
+**Best for:** Creative writing, general prose, brainstorming. NEVER use for math proofs.
+
+---
+
+### ⚠️ DeepInfra / Qwen3.5-397B-A17B — The Creative-Only Specialist
+
+| Task | Rating | Notes |
+|------|--------|-------|
+| Creative scenario | ⭐⭐⭐⭐ | Strong narrative with specific details (Flight 892, Dr. Novak, Vertex Dynamics, $42B) |
+| Structural math | ⭐ | EMPTY response (thinking tokens consume budget) |
+| Skeptical analysis | ⭐ | EMPTY response |
+| Cross-domain | ⭐ | EMPTY response |
+| Reliability | ⭐ | 0/5 on reliability test — all empty |
+
+**Strengths:** When it works (creative tasks only), the quality is strong. Named specific people, products, and revenue figures.
+
+**Weaknesses:** Only works for creative tasks. Returns empty on 4/5 task types. Likely a thinking-token model that consumes all output budget on analytical tasks.
+
+**Best for:** Creative writing ONLY. Avoid for anything analytical.
+
+---
+
+### ❌ DeepInfra / Qwen3-235B-A22B-Instruct — Not Available
+
+All 5 test calls returned FAILED. This model ID may not be available on DeepInfra, or may require a different endpoint. Needs investigation.
+
+---
+
 ### z.ai / GLM-5.1 — The Fleet Model (Rate-Limited)
 
 | Task | Rating | Notes |
@@ -162,7 +207,8 @@
 | **Nemotron-120B** | JSON loop fixation | Creative prompts, persona work, >1500 tokens | Technical prompts only, temp 0.3, token cap 3000 |
 | **DeepSeek v4-flash** | Reasoning overflow (0 content) | Broad analysis, >200 reasoning tokens | Very short prompts, 1-2 specific results |
 | **DeepSeek v4-pro** | Timeout on everything | Complex tasks (>8000 reasoning tokens) | Only for very short proofs |
-| **z.ai GLM-5.1** | Rate limit (503/429) | Subagent spawning, parallel calls | Serialize calls, use as orchestrator not worker |
+| **Hermes-405B** | General prose, creative | — | Reliable output but mathematically unreliable |
+| **Qwen3.5-397B** | Creative writing only | — | Only 1/5 task types work |
 
 ---
 
