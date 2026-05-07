@@ -40,11 +40,12 @@
 - [x] 3-layer architecture: Semantic → Trust+Intent → Topological
 
 **Published This Session:**
-- [x] `flux-lucid` v0.1.0 → crates.io ← NEW
+- [x] `flux-lucid` v0.1.0 → crates.io
+- [x] `flux-lucid` v0.1.1 → crates.io (intent-directed compilation)
 - [ ] `@superinstance/polyformalism-a2a` → npm (READY, needs token)
 
 **Total Published (fleet-wide):**
-- crates.io: 15 crates
+- crates.io: 15 crates (14 prior + flux-lucid 0.1.1)
 - PyPI: 3 packages
 - npm: 1 ready (blocked by token)
 
