@@ -714,8 +714,38 @@ All live at github.com/SuperInstance/{name}
 - [x] 9 reverse-actualization experiments running (Qwen3-235B, 3 problems × 3 languages)
 
 **Subagents running:**
-- [ ] Reverse-actualization experiments (9 calls, Qwen3-235B)
-- [ ] Experiment infrastructure (protocol, problem library, evaluation framework, quick-start)
+- [ ] Reverse-actualization experiments (9 calls, Qwen3-235B) — PARTIAL: B1 Safe Navigation done (Navajo 48/50, Chinese 50/50 via Seed-2.0-mini)
+- [x] Experiment infrastructure (protocol, problem library, evaluation framework, quick-start) — already exists in polyformalism-languages repo
+
+**Phase 15: Fleet Audit + Honest Framework + Cross-Language Parity (2026-05-07 Night)**
+
+*Crates Published (2):*
+- [x] eisenstein v0.2.0 — Euclidean division, GCD, complete number theory (25 tests)
+- [x] flux-lucid v0.1.6 — DivergenceAwareTolerance, runtime→compile feedback loop (93 tests)
+- Total fleet crates: 19
+
+*Audit Documents (4):*
+- [x] audit-oracle1-infrastructure.md — 12 repos graded, 3 wrong READMEs found
+- [x] audit-fleet-synergy.md — 19 pair analysis, 6 HIGH synergy
+- [x] audit-level-suggestions.md — 16 prioritized improvements
+- [x] RED-TEAM-RESPONSE.md — 10 attack response, 2 CRITICAL concessions
+
+*Honest Framework Corrections:*
+- [x] ERRATA.md — 5 claims corrected
+- [x] Intent-Holonomy duality → open problem
+- [x] Galois Unification → unified recognition
+- [x] sheaf-constraint-synthesis → proven vs conjectured
+
+*Cross-Language Parity:*
+- [x] DivergenceAwareTolerance: Rust (93 tests) + JS (9 tests) + Python (9 tests) = 111 tests
+- [x] End-to-end demo working
+
+*Research:*
+- [x] XOR Lean 4 proof sketch
+- [x] Reverse-actualization B1: Navajo 48/50, Chinese 50/50
+- [x] Fleet audit synthesis for Casey
+
+*Git: 20+ commits, 8 repos, 2 crates, 2 I2I bottles*
 
 **All 9 Reverse-Actualization Experiments COMPLETE:**
 - 3 problems × 3 linguistic modes (Greek, Chinese, Navajo) — Seed-2.0-pro
