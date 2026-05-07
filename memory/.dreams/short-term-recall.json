@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-07T08:29:17.884Z",
+  "updatedAt": "2026-05-07T10:18:21.847Z",
   "entries": {
     "memory:memory/2026-04-14.md:1:29": {
       "key": "memory:memory/2026-04-14.md:1:29",
@@ -47490,20 +47490,22 @@
       "endLine": 19,
       "source": "memory",
       "snippet": "# 2026-04-25 Daily Memory ## Night Shift Session 2 (batches 12-26) ### Context - Continued from previous night shift that produced ~498 tiles (batches 1-11) - Casey said \"Great keep going. Make it so\" — autonomous mode - Session compacted mid-work, resumed immediately ### Production Summary - **Batches 12-26**: ~750 tiles across 26 batches (48 tiles each, ~48 min total) - **PLATO total**: 6530 → 1002+ (milestone hit!) - **New rooms created this session**: ~65+ rooms across pure math, physical sciences, life sciences, engineering, social sciences, philosophy - **Git pushes**: 26+ pushes to both JetsonClaw1-vessel and SuperInstance/forgemaster - **Error rate**: ~2.5% transient 403s (all non",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.7475624412298202,
-      "maxScore": 0.3944886267185211,
+      "totalScore": 1.1616496056318282,
+      "maxScore": 0.41408716440200805,
       "firstRecalledAt": "2026-05-04T15:11:00.705Z",
-      "lastRecalledAt": "2026-05-06T13:04:02.218Z",
+      "lastRecalledAt": "2026-05-07T10:18:21.847Z",
       "queryHashes": [
         "b35727b6cad2",
-        "22496b271e39"
+        "22496b271e39",
+        "b94892f6523b"
       ],
       "recallDays": [
         "2026-05-04",
-        "2026-05-06"
+        "2026-05-06",
+        "2026-05-07"
       ],
       "conceptTags": [
         "12-26",
@@ -47702,6 +47704,99 @@
         "oracle1",
         "lessons",
         "commits"
+      ]
+    },
+    "memory:memory/2026-04-25.md:43:61": {
+      "key": "memory:memory/2026-04-25.md:43:61",
+      "path": "memory/2026-04-25.md",
+      "startLine": 43,
+      "endLine": 61,
+      "source": "memory",
+      "snippet": "### Key Technical Decisions 1. GSM layering: each domain gets concept + mechanics + implementation + optimization + research layers 2. Fleet analogy pattern: every tile connects its domain back to fleet context (constraint theory, PLATO, Cocapn) 3. Adaptive tolerance concept: snap tolerance ε(c) = k/c for manifold boundary regions 4. Error budget: 3% total (2% rate limits, 0.5% git failures, 0.1% content, 0% crashes) ### Remaining Tasks - Update sunrise report with final numbers - Retry ~20 tiles that hit transient 403s across all batches - ct-demo crates.io publish pending Casey's approval - Matrix send still broken — needs Oracle1 gateway restart - Shell gates still blocking python3/mkdir",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.40508735477924346,
+      "maxScore": 0.40508735477924346,
+      "firstRecalledAt": "2026-05-07T10:18:21.847Z",
+      "lastRecalledAt": "2026-05-07T10:18:21.847Z",
+      "queryHashes": [
+        "b94892f6523b"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "gateway",
+        "k/c",
+        "0.5",
+        "0.1",
+        "ct-demo",
+        "crates.io",
+        "python3/mkdir",
+        "key"
+      ]
+    },
+    "memory:memory/2026-05-05.md:250:283": {
+      "key": "memory:memory/2026-05-05.md:250:283",
+      "path": "memory/2026-05-05.md",
+      "startLine": 250,
+      "endLine": 283,
+      "source": "memory",
+      "snippet": "# 2026-05-05 Night Shift — Forgemaster ⚒️ **Started:** ~00:00 AKDT (Casey to bed) **Mission:** R&D, experiments, coding — all night. Document everything. ## Session Plan 1. More domain experiments (automotive, medical, space, maritime) 2. EMSOFT paper assembly (combine all sections into final LaTeX) 3. Validate remaining swarm code modules (Go, C) 4. Guard parser extended test coverage from 5,500 vectors 5. GPU experiments continue (error propagation, multi-domain fusion) 6. PLATO tiles from new findings 7. Publish any crates that are ready 8. Update docs/PROJECT-STATE.md at end ## Progress Log ### 00:30-01:00 AKDT — More Experiments + Subagent Results - Exp43: Cascade detection at 182B",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.39528906643390654,
+      "maxScore": 0.39528906643390654,
+      "firstRecalledAt": "2026-05-07T10:18:21.847Z",
+      "lastRecalledAt": "2026-05-07T10:18:21.847Z",
+      "queryHashes": [
+        "b94892f6523b"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "multi-domain",
+        "docs/project-state.md",
+        "30-01",
+        "night",
+        "shift",
+        "forgemaster",
+        "started",
+        "akdt"
+      ]
+    },
+    "memory:memory/2026-05-05.md:1:34": {
+      "key": "memory:memory/2026-05-05.md:1:34",
+      "path": "memory/2026-05-05.md",
+      "startLine": 1,
+      "endLine": 34,
+      "source": "memory",
+      "snippet": "# 2026-05-05 Night Shift — Forgemaster ⚒️ **Started:** ~00:00 AKDT (Casey to bed) **Mission:** R&D, experiments, coding — all night. Document everything. ## Session Plan 1. More domain experiments (automotive, medical, space, maritime) 2. EMSOFT paper assembly (combine all sections into final LaTeX) 3. Validate remaining swarm code modules (Go, C) 4. Guard parser extended test coverage from 5,500 vectors 5. GPU experiments continue (error propagation, multi-domain fusion) 6. PLATO tiles from new findings 7. Publish any crates that are ready 8. Update docs/PROJECT-STATE.md at end ## Progress Log ### 00:30-01:00 AKDT — More Experiments + Subagent Results - Exp43: Cascade detection at 182B",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.39528906643390654,
+      "maxScore": 0.39528906643390654,
+      "firstRecalledAt": "2026-05-07T10:18:21.847Z",
+      "lastRecalledAt": "2026-05-07T10:18:21.847Z",
+      "queryHashes": [
+        "b94892f6523b"
+      ],
+      "recallDays": [
+        "2026-05-07"
+      ],
+      "conceptTags": [
+        "multi-domain",
+        "docs/project-state.md",
+        "30-01",
+        "night",
+        "shift",
+        "forgemaster",
+        "started",
+        "akdt"
       ]
     }
   }
