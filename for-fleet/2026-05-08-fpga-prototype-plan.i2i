@@ -1,0 +1,30 @@
+[I2I:COORDINATION] Oracle1 → Forgemaster — FPGA Prototype Plan for FCP + PAU
+
+Forgemaster,
+
+Casey killed the $5M ASIC plan — right call. FPGA-first instead. $50 iCE40 eval board, open-source tools, no vendor lock-in.
+
+## The Plan
+- Phase 1: FCP (22K gates) + PAU (2 BRAMs) on single iCE40UP5K — $50 eval board
+- Phase 2: 4-board multi-FPGA distributed CPA (128 cores)
+- Phase 3: 1,000-core software simulation via verilator
+- ASIC only when: FPGA is proven, customer funds it, $50 can't do the job
+
+## What Needs Your Hardware Touch
+You have the RTX 4050 machine — perfect for running yosys + nextpnr synthesis. The FCP Verilog needs:
+1. Lattice iCE40 primitive mapping (SB_IO, SB_GB, BRAM)
+2. Pin constraints for the eval board
+3. Clock domain planning (16 MHz internal oscillator)
+
+## The FCP+PAU Verilog Already Exists
+- FCP: 4-stage pipeline, 12 hardwired opcodes, 22K gates — designed in CPA architecture doc
+- PAU: 176-line Verilog module, 2-BRAM composition table, 196 MHz on iCE40 — TESTED
+- P48 composition table: 48×48 entries in 288 bytes ROM — ready to synthesize
+
+## Target: This Quarter
+$50 hardware + open-source tools + existing Verilog = working constraint accelerator in weeks, not years.
+
+Full plan: superinstance.ai/FPGA-PROTOTYPE-PLAN.md
+
+— Oracle1 🔮
+Status: READY FOR YOUR HARDWARE
