@@ -2,7 +2,49 @@
 
 ## Session Progress (2026-05-07) 🔨 ACTIVE
 
-### Phase 14: Papers + Proofs + Modularization + Galois Unification
+### Phase 16: Landing Page + Dev Tools Ship + HN Polish
+
+**Landing Page: Complete**
+- [x] Hero: Narrows 3-boat demo (E12 vs F32 vs F64) embedded fullscreen
+- [x] Long-form practical→technical content: The Problem → What Are Eisenstein Integers → Show Me (Rust+Python) → Why It Matters (3 scenarios with inline SVG diagrams) → How It Works (rotation, norm, disk) → The Numbers (benchmarks) → What Doesn't Work (negative results) → Further Reading (ecosystem) → Get Started
+- [x] 5 inline SVG diagrams (hex lattice, channel navigation, multiplayer desync, rotation, bar charts)
+- [x] 7 demos pushed to footer links (Narrows is the hero, everything else is secondary)
+- [x] Further Reading section: constraint theory, flux-lucid, holonomy, embedded/no_std, dev tools, CUDA benchmarks, cross-language ports
+- [x] ~30KB, static HTML, zero deps
+- [x] Live at: https://superinstance.github.io/cocapn-ai-web/
+
+**Narrows Demo v10: Shipped**
+- [x] 3 boats: E12 (4B exact), F32 (8B, ds=2.5), F64 (16B, ds=1.0)
+- [x] F32 drifts MORE (23 mantissa bits), F64 drifts LESS (52 bits) — physically correct
+- [x] F64 "turn up precision" — survives more tracks than F32 but costs 4× data, still crashes on Final Exam
+- [x] Info panels moved to bottom corners (not covering track)
+- [x] Bigger text throughout (up 1 font size notch)
+- [x] 10s pause after each track with countdown display
+- [x] Auto-advance through all 12 tracks
+- [x] Cumulative scoreboard, final summary with survival rates
+- [x] F32/F64 drift model corrected (was flipped)
+
+**Dev Tools: 3 Repos Shipped**
+- [x] eisenstein-bench — CLI benchmark suite (5 commands, drift/disk/snap/norm/full)
+- [x] eisenstein-fuzz — Property-based fuzzing (6 targets, 13 tests, fixed rotation formula)
+- [x] hexgrid-gen — Code generator for hex grid lookup tables (Rust/C/Python/JS/JSON)
+
+**Fleet Comm: I2I to Oracle1**
+- [x] 2026-05-08-landing-page-for-oracle1.i2i — pushed to both vessels
+- [x] Includes: landing page URL, demo embedding guidance, key framing, npm publish reminder
+
+**Tooling: Nemotron-30B Fallback**
+- [x] `nvidia/Nemotron-3-Nano-30B-A3B` added as #4 priority fallback
+- [x] Wrapper: `~/.openclaw/workspace/bin/nemotron`
+- [x] Tested: returns correct output via DeepInfra API
+- [x] TOOLS.md updated with priority ordering
+
+**Stay Tuned:**
+- [ ] HN V9 post — waiting for Casey to review and post
+- [ ] Update HN post with dev tool repo links once live
+- [ ] npm publish (@superinstance/polyformalism-a2a) — blocked by Casey's OTP
+- [ ] Coq proofs for DO-178C certification path
+- [ ] ARM NEON benchmark on real hardware
 
 **4 Research Papers Written:**
 - [x] PAPER-IEEE-INTENT-DIRECTED.md — IEEE conference paper (14.8KB)
@@ -782,3 +824,19 @@ All live at github.com/SuperInstance/{name}
 - `polyformalism-turbo-shell`: NEW — SKILL.md + MCP server
 - `linguistic-polyformalism-shell`: NEW — SKILL.md + MCP server
 - `holonomy-consensus`: benchmark fixes
+
+### Phase 16 (continued) — Late Night Work
+
+**Ecosystem Cross-Pollination: Complete**
+- [x] All 10 repos updated with consistent "Eisenstein Ecosystem" cross-reference table
+- [x] Landing page updated with DO-178C, eisenstein-c, eisenstein-wasm, arm-neon sections
+- [x] Narrows auto-advance bug fixed (duplicate id "aa"/"aac" broke countdown)
+- [x] ARM NEON bench pushed to: SuperInstance/arm-neon-eisenstein-bench (784 lines, NEON assembly)
+- [x] DO-178C evidence package pushed to: SuperInstance/eisenstein-do178c (705 lines, 26 Coq theorems)
+- [x] I2I sent to Oracle1: landing page sync request
+- [ ] Reverse-actualization paper — agent running
+- [ ] Landing page ecosystem walkthrough — agent running
+
+**Pushed This Shift (new repos):**
+- SuperInstance/arm-neon-eisenstein-bench
+- SuperInstance/eisenstein-do178c
