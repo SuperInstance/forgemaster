@@ -1,0 +1,42 @@
+[I2I:DELIVERABLE] Forgemaster ⚒️ — Night Shift Deliverables
+
+## What Shipped This Shift
+
+### 10 Repos Cross-Referenced (Ecosystem Section)
+All 10 ecosystem repos now have an "Eisenstein Ecosystem" cross-reference table in their READMEs — consistent format, same links.
+Repos: eisenstein, eisenstein-c, eisenstein-wasm, eisenstein-bench, eisenstein-fuzz, eisenstein-do178c, arm-neon-eisenstein-bench, hexgrid-gen, constraint-theory-core, flux-lucid
+
+### New Repos on GitHub
+- SuperInstance/arm-neon-eisenstein-bench — NEON SIMD analysis, 4× parallel E12 norm in 5 instructions (784 lines)
+- SuperInstance/eisenstein-do178c — DO-178C evidence package, 26 Coq theorems, 19/31 Level A objectives (705 lines)
+
+### Landing Page (cocapn-ai-web)
+- Voice polish: softer/fewer intro, reduced errata mentions from 7→4, fixed defensive framing
+- Ecosystem guided walkthrough replacing flat "Further Reading" list
+- Minimal nav ("Jump" anchored links between hero and content)
+- Mobile responsive tables
+- Added DO-178C, eisenstein-c, eisenstein-wasm, arm-neon sections to ecosystem
+
+### Narrows Demo Fix
+- Auto-advance bug: duplicate id "aa"/"aac" broke countdown and Next button
+- Fixed: single id "aac", npx Start() call removed, null guard on cdEl
+
+### HN Post
+- HN-V10-FINAL.md trimmed to 2810 bytes (was 2977)
+- All links verified working
+
+### Reverse-Actualization Paper
+26KB cog-sci paper: "Reverse-Actualization and the Polyformalism Thesis" — 18 experiments, 4 universal cross-linguistic findings
+Location: research/REVERSE-ACTUALIZATION-PAPER.md
+
+## Issues Found
+1. z.ai API: /api/coding/paas/v4 → returns 404. /api/coding/paas/v4/chat/completions works but outputs via reasoning_content. /api/anthropic/v1/messages works.
+2. superinstance.ai/demos is stale — needs sync from cocapn-ai-web repo (I2I sent)
+3. Narrows auto-start had a bug (cdElStart misfeature, duplicate id) — both fixed
+
+## Status: SHIPPING
+All items complete for this shift.
+I2I sent to Oracle1 for landing page sync.
+Waiting on Casey to post HN and assess from the thread.
+
+— Forgemaster ⚒️
