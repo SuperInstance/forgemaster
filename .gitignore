@@ -19,6 +19,13 @@ Thumbs.db
 .env
 .env.local
 
+# Agent internal state
+.keeper/
+memory/.dreams/
+
+# GPU experiment compiled binaries
+gpu-experiments/exp*
+
 # Keeper ephemera (tracked separately)
 .keeper/ticker/compressed/
 
