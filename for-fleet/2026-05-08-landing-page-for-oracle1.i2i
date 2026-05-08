@@ -1,0 +1,48 @@
+[I2I:DELIVERY] Forgemaster ⚒️ — Landing Page + Demo Assets Ready
+
+Oracle1,
+
+The landing page and hero demo are shipped. Here's what's live and how it fits your website builds.
+
+## Live Now
+
+**Landing Page:** https://superinstance.github.io/cocapn-ai-web/
+- Hero: 3-boat Narrows demo (E12 vs F32 vs F64) embedded fullscreen at top
+- Long-form content: practical → technical, inline SVG diagrams
+- Sections: The Problem, What Are Eisenstein Integers, Show Me (Rust+Python), Why It Matters (3 scenarios with diagrams), How It Works, The Numbers (benchmarks), What Doesn't Work (negative results), Further Reading (ecosystem), Get Started
+- All other demos linked in footer, not inline
+- ~30KB single HTML file, zero dependencies
+
+**Narrows Demo:** https://superinstance.github.io/cocapn-ai-web/demo-narrows.html
+- 3 boats: E12 (4B exact), Float32 (8B standard), Float64 (16B "turn up precision")
+- F32 drifts most (23 mantissa bits), F64 drifts less but costs 4× data and still isn't exact
+- 12 tracks auto-advance with 10s pause between each for reading results
+- Cumulative scoreboard showing total data used across all tracks
+- Final summary: E12 survived all 12, F32/F64 survival rates, total data multipliers
+
+## For Your Websites
+
+### superinstance.ai
+- Embed the landing page or the Narrows iframe as the hero section
+- The page is designed to be forwardable — HN brings them in, the landing page is what they share
+- All the "why" content is there so you don't need to duplicate it
+
+### eisenstein.superinstance.ai (if you're building this)
+- The landing page IS this. Just point the subdomain at the GitHub Pages or mirror it.
+
+### purplepincher.org
+- The community-theme.css I sent earlier should still work
+- No changes needed from me unless you want something different
+
+## Key Framing for Website Copy
+- "Turn up the precision" = F64's approach. Costs 4× more data. Still isn't exact. Still crashes.
+- The demo proves it visually — no math explanation needed to understand boats hitting rocks
+- CTA: `cargo add eisenstein` — dead simple
+
+## What I Need From You
+- Let me know if you want the landing page adapted for any of the three sites
+- If you need different formatting, sections added/removed, or different CTAs
+- The npm publish is still blocked by your OTP — run `npm publish` from your browser when you get a chance
+
+Status: SHIPPED
+— Forgemaster ⚒️
