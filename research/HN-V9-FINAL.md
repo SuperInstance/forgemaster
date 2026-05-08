@@ -37,4 +37,4 @@ We publish [negative results](https://github.com/SuperInstance/constraint-theory
 
 We'd particularly love feedback on whether the `#![no_std]` API surface feels right, or if we should expose more of the lattice reduction internals.
 
-[eisenstein](https://crates.io/crates/eisenstein) · [constraint-theory-core](https://crates.io/crates/constraint-theory-core) · [CUDA benchmarks](https://github.com/SuperInstance/constraint-theory-ecosystem) · [Math + Errata](https://github.com/SuperInstance/constraint-theory-math) · [Live demo](https://superinstance.github.io/cocapn-ai-web/demo-divergence-tolerance.html)
+[eisenstein](https://crates.io/crates/eisenstein) · [constraint-theory-core](https://crates.io/crates/constraint-theory-core) · [CUDA benchmarks](https://github.com/SuperInstance/constraint-theory-ecosystem) · [Math + Errata](https://github.com/SuperInstance/constraint-theory-math) · [Interactive demo](https://superinstance.github.io/cocapn-ai-web/demo-eisenstein.html)
