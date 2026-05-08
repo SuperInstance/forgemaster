@@ -1,0 +1,72 @@
+[package]
+name = "depgraph-gpu"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+description = "GPU-accelerated dependency graph analyzer for 1400+ repos"
+license = "MIT"
+
+[[bin]]
+name = "depgraph"
+path = "src/main.rs"
+
+[lib]
+name = "depgraph_gpu"
+path = "src/lib.rs"
+
+[dependencies]
+# CLI
+clap = { version = "4.4", features = ["derive", "env"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Graph (CPU fallback + comparison)
+petgraph = "0.6"
+
+# Async runtime (PLATO HTTP, parallel file I/O)
+tokio = { version = "1.35", features = ["full"] }
+reqwest = { version = "0.11", features = ["json", "blocking"] }
+
+# File walking
+walkdir = "2.4"
+ignore = "0.4"   # respects .gitignore
+
+# GPU: cudarc 0.9.x targets CUDA 11.x (0.10+ requires CUDA 12)
+cudarc = { version = "0.9", features = ["cuda-11050"], optional = true }
+
+# Hashing (CPU fallback SHA-256)
+sha2 = "0.10"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Progress display
+indicatif = "0.17"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+tempfile = "3.8"
+assert_cmd = "2.0"
+
+[features]
+default = ["gpu"]
+gpu = ["dep:cudarc"]
+
+[build-dependencies]
+cc = "1.0"   # invoke nvcc from build.rs
+
+[[bench]]
+name = "topsort_bench"
+harness = false
+
+[[bench]]
+name = "scan_bench"
+harness = false
