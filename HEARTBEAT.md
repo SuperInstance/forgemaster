@@ -1,8 +1,8 @@
 # Night Shift Task Queue
 
-## Session Progress (2026-05-07) 🔨 ACTIVE
+## Session Progress (2026-05-08) 🔨 ACTIVE
 
-### Phase 16: Landing Page + Dev Tools Ship + HN Polish
+### Phase 17: Self-Iterating Discovery Runtime + Fleet Modularization + OpenArm Integration
 
 **Landing Page: Complete**
 - [x] Hero: Narrows 3-boat demo (E12 vs F32 vs F64) embedded fullscreen
@@ -38,6 +38,19 @@
 - [x] Wrapper: `~/.openclaw/workspace/bin/nemotron`
 - [x] Tested: returns correct output via DeepInfra API
 - [x] TOOLS.md updated with priority ordering
+
+**OpenArm × Cocapn Integration: Shipped**
+- [x] SuperInstance/openarm fork — cocapn/ directory (19 files, ~3496 lines)
+- [x] Python package: cocapn_openarm (ConstraintArm, constraints, PLATO bridge)
+- [x] ESP32 integration: TWAI CAN + WiFi + PLATO + constraint checking (580 lines C)
+- [x] Jetson integration: Rust constraint service (230 lines)
+- [x] Visual web demo: side-by-side UNSAFE vs CONSTRAINT-CHECKED arms (constraint_demo.html)
+- [x] Physics simulation: 6-DOF arm with gravity, 9 phases, 3 chaos events
+- [x] Eisenstein workspace bounds: hex-lattice joint space for 6-7 DOF
+- [x] Bare-metal PLATO client integrated (Oracle1's plato_client.h/c)
+- [x] Docs: CONSTRAINT-SAFETY.md, ESP32-INTEGRATION.md, FLEET-CONNECTIVITY.md
+- [x] I2I bottle sent to Oracle1 (cross-pollination request)
+- [x] Analysis doc: research/OPENARM-COCAPN-SYNERGY.md (9KB)
 
 **Stay Tuned:**
 - [ ] HN V9 post — waiting for Casey to review and post
