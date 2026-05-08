@@ -840,3 +840,18 @@ All live at github.com/SuperInstance/{name}
 **Pushed This Shift (new repos):**
 - SuperInstance/arm-neon-eisenstein-bench
 - SuperInstance/eisenstein-do178c
+
+### Voice Polish — 17 READMEs Rewritten
+- All HN-facing repos now read as crafted, not generated
+- Opening hooks: "The proof runs on your hardware," "How do you know the fleet agrees?", "Forty-eight exact directions"
+- Casting-call rewritten as captain's crew manifest (boat/voyage voice)
+- Landing page: voice polish, errata mentions reduced 7→4, ecosystem guided walkthrough
+- Narrows auto-advance fixed (duplicate id bug)
+- HN V10 trimmed to 2810 bytes
+- Reverse-actualization paper: 26KB cog-sci document (18 experiments, 4 universal findings)
+- 2 new repos pushed: arm-neon-eisenstein-bench, eisenstein-do178c
+- All 10 ecosystem repos cross-referenced
+
+**Published this shift:** arm-neon-eisenstein-bench, eisenstein-do178c (new repos)
+**Voice-polished:** 17 repos (eisenstein, -bench, -fuzz, -c, -wasm, -do178c, arm-neon, hexgrid-gen, pythagorean48-codes, constraint-theory-core, constraint-theory-ecosystem, constraint-theory-math, flux-lucid, holonomy-consensus, fleet-coordinate, polyformalism-a2a-python, polyformalism-a2a-js)
+

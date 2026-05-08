@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eisenstein — Interactive Demos</title>
+<style>
+:root{--bg:#060a0f;--ok:#00ff88;--dim:#556;--card:#0a1218;--gold:#ffcc33}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:#ccd;font-family:'SF Mono','Fira Code',monospace;min-height:100vh;padding:40px 20px}
+h1{font-size:1.8em;color:var(--ok);text-align:center;margin-bottom:8px}
+.sub{text-align:center;color:var(--dim);font-size:.7em;margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6}
+.grid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:18px;transition:border-color .2s}
+.card:hover{border-color:rgba(0,255,136,.2)}
+.card h2{font-size:.95em;color:var(--ok);margin-bottom:6px}
+.card p{font-size:.62em;color:var(--dim);line-height:1.5;margin-bottom:10px}
+.card a{display:inline-block;background:rgba(0,255,136,.1);color:var(--ok);padding:5px 12px;border-radius:5px;font-size:.65em;text-decoration:none;transition:background .2s}
+.card a:hover{background:rgba(0,255,136,.2)}
+.tag{display:inline-block;font-size:.48em;padding:1px 5px;border-radius:3px;margin-left:4px;vertical-align:middle}
+.t-game{background:rgba(255,200,50,.12);color:var(--gold)}
+.t-2d{background:rgba(100,100,255,.12);color:#88f}
+.t-3d{background:rgba(255,100,100,.12);color:#f88}
+.t-tool{background:rgba(0,255,136,.08);color:var(--ok)}
+.footer{text-align:center;margin-top:40px;font-size:.55em;color:var(--dim)}
+.footer span{color:var(--ok);font-weight:700}
+.footer a{color:var(--ok)}
+.hero{text-align:center;margin-bottom:30px;padding:20px;background:var(--card);border:1px solid rgba(0,255,136,.1);border-radius:12px}
+.hero h2{font-size:1em;color:var(--gold);margin-bottom:6px}
+.hero p{font-size:.65em;color:var(--dim);margin-bottom:10px;line-height:1.5}
+.hero a{font-size:.8em;padding:8px 20px}
+</style>
+</head>
+<body>
+<h1>⚒️ Eisenstein Demos</h1>
+<p class="sub">
+Exact arithmetic on integer lattices. Zero drift. 4 bytes per fix instead of 16.
+Every demo runs in your browser with zero dependencies.
+</p>
+
+<div class="hero">
+<h2>⚓ Start Here: Navigate the Narrows</h2>
+<p>Two autopilots. Same channel. E12 uses integer math (4B/fix). Float uses IEEE 754 (16B/fix). 12 tracks, dual compasses, cumulative scoreboard. The trails don't lie.</p>
+<a href="demo-narrows.html">Play Now →</a>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h2>🧊 Drift Erosion <span class="tag t-3d">3D</span> <span class="tag t-game">GAME</span></h2>
+<p>Build on a hex grid. Float blocks drift apart and collapse. Only lattice-accurate (Shift+Click) blocks survive. 5 levels: tower, bridge, drift storm.</p>
+<a href="demo-voxel-v2.html">Play →</a>
+</div>
+
+<div class="card">
+<h2>💻 Live Playground <span class="tag t-tool">INTERACTIVE</span></h2>
+<p>Run Eisenstein integers in your browser. Drift race (10K rotations), hex lattice visualizer, live code editor. Pure JS, zero deps.</p>
+<a href="demo-playground.html">Try It →</a>
+</div>
+
+<div class="card">
+<h2>🔍 2D Hex Explorer <span class="tag t-2d">2D</span></h2>
+<p>3,997 lattice points. Drift race: float vs E12 side-by-side. Angle snapping, norm calculator, disk calculator. Click any point to explore.</p>
+<a href="demo-eisenstein.html">Explore →</a>
+</div>
+
+<div class="card">
+<h2>🌐 3D Crystal Visualizer <span class="tag t-3d">3D</span></h2>
+<p>Three.js hex prisms with bloom. 6 crystallography presets (Graphene, HCP, Wurtzite, Snowflake). Rotation demo: exact vs float drift.</p>
+<a href="demo-eisenstein-3d.html">View →</a>
+</div>
+
+<div class="card">
+<h2>📊 Divergence Tolerance</h2>
+<p>Watch the runtime-to-compile feedback loop. Tolerance adapts as error accumulates. Shows how DivergenceAwareTolerance prevents runaway drift.</p>
+<a href="demo-divergence-tolerance.html">Watch →</a>
+</div>
+
+<div class="card">
+<h2>📄 What We Got Wrong</h2>
+<p>Honest errata: retracted theorems, corrected claims, negative results documented as features. If you find something wrong that isn't here, file an issue.</p>
+<a href="errata.html">Read →</a>
+</div>
+
+</div>
+
+<div class="footer">
+<p><span>37 tests</span> passing · <span>zero dependencies</span> in core · <span>~600 lines</span> · <span>7 demos</span> live</p>
+<p style="margin-top:8px">
+<a href="https://github.com/SuperInstance/eisenstein">GitHub</a> ·
+<a href="https://docs.rs/eisenstein">docs.rs</a> ·
+<a href="https://crates.io/crates/eisenstein">crates.io</a> ·
+<a href="https://pypi.org/project/constraint-theory/">PyPI</a> ·
+<a href="quickstart.py">Python quickstart</a>
+</p>
+</div>
+
+</body>
+</html>

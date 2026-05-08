@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eisenstein — Errata</title>
+<style>
+:root{--bg:#060a0f;--ok:#00ff88;--warn:#ffcc33;--bad:#ff4444;--dim:#556}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:#ccd;font-family:'SF Mono','Fira Code',monospace;padding:40px 20px;max-width:700px;margin:0 auto}
+h1{font-size:1.4em;color:var(--ok);margin-bottom:4px}
+.sub{font-size:.6em;color:var(--dim);margin-bottom:30px}
+h2{font-size:1em;color:var(--warn);margin:24px 0 8px;border-bottom:1px solid rgba(255,204,51,.15);padding-bottom:4px}
+.item{background:#0a1218;border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:14px;margin-bottom:10px}
+.item .title{font-size:.75em;font-weight:700;color:#ccd;margin-bottom:4px}
+.item .status{font-size:.55em;padding:2px 6px;border-radius:3px;display:inline-block;margin-bottom:6px}
+.status-fixed{background:rgba(0,255,136,.1);color:var(--ok)}
+.status-open{background:rgba(255,68,68,.1);color:var(--bad)}
+.status-retracted{background:rgba(255,204,51,.1);color:var(--warn)}
+.item .detail{font-size:.65em;color:var(--dim);line-height:1.6}
+.item .detail code{background:#151a20;padding:1px 5px;border-radius:3px;color:#88f;font-size:.9em}
+a{color:var(--ok)}
+.principle{background:#0a1218;border:1px solid rgba(0,255,136,.1);border-radius:8px;padding:16px;margin:20px 0;font-size:.7em;line-height:1.7;color:var(--dim)}
+.principle strong{color:#ccd}
+</style>
+</head>
+<body>
+<h1>⚒️ Errata</h1>
+<p class="sub">What we got wrong, what we fixed, what we learned. Updated 2026-05-07.</p>
+
+<div class="principle">
+<strong>Our principle:</strong> Negative results are structural, not buried. Every claim that didn't hold is listed here with what we did about it. If you find something wrong that isn't listed, that's a bug in our errata process — please <a href="https://github.com/SuperInstance/eisenstein/issues">file an issue</a>.
+</div>
+
+<h2>Retracted Claims</h2>
+
+<div class="item">
+<div class="title">Intent-Holonomy Duality — not a theorem</div>
+<span class="status status-retracted">RETRACTED</span>
+<div class="detail">
+Originally claimed as a proven theorem relating intent vector alignment to holonomy group structure. After adversarial review (4 models, including Claude Opus and Hermes-405B), the proof has a gap: interval preservation ≠ trivial holonomy. Direction (A)⟹(B) is partially proven; direction (B)⟹(A) needs fixed-point strengthening.<br><br>
+<b>Action:</b> Demoted to "open problem" in all repos. Papers updated to say "conjectured" not "proven." Documented in <code>OPEN-PROBLEMS-ROADMAP.md</code>.
+</div>
+</div>
+
+<div class="item">
+<div class="title">Galois Unification — "proven" overstated</div>
+<span class="status status-retracted">RETRACTED</span>
+<div class="detail">
+Six parts were individually verified but calling them a "unified theorem" implied a single coherent proof. The six parts are better described as "recognitions" — each shows a Galois connection exists in a specific domain (XOR, INT8, Bloom, quantization, intent, holonomy), but they don't compose into a single theorem.<br><br>
+<b>Action:</b> Relabeled as "Galois Unification Principle" — a recognition pattern, not a theorem. All repos updated.
+</div>
+</div>
+
+<h2>Corrected Claims</h2>
+
+<div class="item">
+<div class="title">eisenstein crate — "zero dependencies" scope</div>
+<span class="status status-fixed">CORRECTED v0.3.1</span>
+<div class="detail">
+The core type (<code>EisensteinInt</code>, <code>E12</code>, norms, D6 operations) is genuinely zero-dependency and zero-float — ~600 lines of pure integer arithmetic. But the <code>snap</code> feature (angle snapping) uses <code>libm</code> for <code>atan2</code>/<code>cos</code>/<code>sin</code>.<br><br>
+<b>Action:</b> Feature-gated behind <code>features = ["snap"]</code> in v0.3.1. Default build is pure integer, no floats, no deps. Snap is opt-in.
+</div>
+</div>
+
+<div class="item">
+<div class="title">Test count — "100+ tests" was imprecise</div>
+<span class="status status-fixed">CORRECTED</span>
+<div class="detail">
+README originally said "100+ tests passing." Actual count varies by feature set: 25 core tests (no deps), 37 with snap feature, 93 in flux-lucid meta-crate, 184 in constraint-theory-core.<br><br>
+<b>Action:</b> Each crate now lists exact test count with feature breakdown.
+</div>
+</div>
+
+<div class="item">
+<div class="title">Fabricated arXiv reference in constraint-theory-research</div>
+<span class="status status-fixed">REMOVED</span>
+<div class="detail">
+A literature review section cited an arXiv paper that doesn't exist. This was generated content not caught during review.<br><br>
+<b>Action:</b> Removed. All references now verified. Added citation verification step to review process.
+</div>
+</div>
+
+<h2>Negative Results (These Are Features)</h2>
+
+<div class="item">
+<div class="title">FP16 is unsafe for values > 2048</div>
+<span class="status status-fixed">DOCUMENTED</span>
+<div class="detail">
+76% precision mismatches at values > 2048 in FP16. This is not a bug in our code — it's a fundamental limitation of half-precision floats. The constraint library correctly rejects FP16 for constraint checking.<br><br>
+<b>Lesson:</b> If your values can exceed 2048, don't use FP16. Use INT8 (our benchmark: 341B constraints/sec, zero mismatches at 50M elements).
+</div>
+</div>
+
+<div class="item">
+<div class="title">Tensor cores: marginal benefit (1.05–1.19×)</div>
+<span class="status status-fixed">DOCUMENTED</span>
+<div class="detail">
+Workload is memory-bound at ~187 GB/s, not compute-bound. Tensor cores can't help when you're waiting on memory. INT8 without tensor cores (341B constr/s) beats FP16 with tensor cores (322B constr/s) because INT8 moves 2× less data per element.
+</div>
+</div>
+
+<div class="item">
+<div class="title">Bank conflict padding: counterproductive on Ada (0.96×)</div>
+<span class="status status-fixed">DOCUMENTED</span>
+<div class="detail">
+Adding padding to avoid shared memory bank conflicts actually slowed things down on the RTX 4050 (Ada architecture). The Ada L2 cache handles bank conflicts better than manual padding, and padding wastes cache lines.
+</div>
+</div>
+
+<h2>Open Issues</h2>
+
+<div class="item">
+<div class="title">Temporal snap: "lockstep multiplayer" claim needs real benchmark</div>
+<span class="status status-open">OPEN</span>
+<div class="detail">
+We claim Eisenstein snapping enables deterministic lockstep multiplayer by eliminating float desync. The math is sound (integer coordinates → identical results on all clients), but we haven't benchmarked this on an actual multiplayer framework.<br><br>
+<b>Need:</b> Lockstep demo with 2+ clients, 10K+ frames, verify byte-identical state.
+</div>
+</div>
+
+<div class="item">
+<div class="title">Cortex-M4 benchmarks not yet measured</div>
+<span class="status status-open">OPEN</span>
+<div class="detail">
+The core type compiles for <code>thumbv7em-none-eabi</code> (no_std, no floats), but we don't have cycle-accurate numbers from real hardware. The 4KB C runtime should fit in Cortex-M4 flash, but we need to prove it.
+</div>
+</div>
+
+<p style="margin-top:30px;font-size:.55em;color:var(--dim);text-align:center">
+<a href="https://superinstance.github.io/cocapn-ai-web/">← Back to demos</a> · <a href="https://github.com/SuperInstance/eisenstein">GitHub</a> · <a href="https://crates.io/crates/eisenstein">crates.io</a>
+</p>
+
+</body>
+</html>

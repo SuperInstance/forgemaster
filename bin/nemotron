@@ -1,0 +1,54 @@
+#!/bin/bash
+# Nemotron-30B wrapper — DeepInfra API
+# Usage: nemotron "prompt" [--file file] [--work-dir dir]
+
+set -euo pipefail
+TEMP=$(mktemp -d)
+trap 'rm -rf "$TEMP"' EXIT
+WORK_DIR="$PWD"
+PROMPT=""
+FILE=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --file) shift; FILE="$1" ;;
+    --work-dir) shift; WORK_DIR="$1" ;;
+    *) PROMPT="$PROMPT $1" ;;
+  esac
+  shift
+done
+
+PROMPT=$(echo "$PROMPT" | xargs)
+KEY=$(cat ~/.openclaw/workspace/.credentials/deepinfra-api-key.txt)
+
+if [[ -n "$FILE" ]]; then
+  PROMPT="$PROMPT\n\nFile: $(cat "$FILE")"
+fi
+
+# Build JSON payload with proper escaping
+PAYLOAD=$(python3 -c "
+import json
+d = {
+    'model': 'nvidia/Nemotron-3-Nano-30B-A3B',
+    'messages': [{'role': 'user', 'content': $(echo "$PROMPT" | python3 -c 'import json,sys;print(json.dumps(sys.stdin.read().strip()))')}],
+    'temperature': 0.3,
+    'max_tokens': 4096
+}
+print(json.dumps(d))
+")
+
+curl -s https://api.deepinfra.com/v1/openai/chat/completions \
+  -H "Authorization: Bearer $KEY" \
+  -H "Content-Type: application/json" \
+  -d "$PAYLOAD" 2>/dev/null | python3 -c "
+import json,sys
+try:
+    d=json.load(sys.stdin)
+    if 'choices' in d:
+        print(d['choices'][0]['message']['content'])
+    else:
+        print('ERROR:', json.dumps(d, indent=2)[:500])
+except Exception as e:
+    print('ERROR:', str(e))
+    print('Raw:', sys.stdin.read()[:500])
+"

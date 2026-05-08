@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eisenstein Voxel — Drift & Collapse</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060a0f;color:#ccd;font-family:'SF Mono','Fira Code',monospace;overflow:hidden;height:100vh}
+canvas{display:block}
+#hud{position:absolute;top:10px;left:10px;pointer-events:none;font-size:.6em}
+#hud .row{margin-bottom:3px}
+.val{font-weight:700;color:#00ff88}
+.bad{color:#ff4444}
+.dim{color:#556}
+.gold{color:#ffcc33}
+#lvl{position:absolute;top:10px;right:10px;pointer-events:auto;background:rgba(0,0,0,.85);padding:8px 12px;border-radius:8px;font-size:.6em;max-width:220px;border:1px solid rgba(255,255,255,.06)}
+#lvl h3{color:#ffcc33;font-size:1em;margin-bottom:4px}
+#lvl .obj{color:#aab;font-size:.85em;line-height:1.4}
+#lvl .timer{color:#ff8844;font-weight:700;font-size:1.1em;margin-top:4px}
+#lvl .integrity{margin-top:3px}
+#controls{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-size:.48em;color:#556;text-align:center;pointer-events:none}
+#controls kbd{background:#151a20;padding:1px 5px;border-radius:3px;border:1px solid #333}
+#overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:none;text-align:center;z-index:30;background:rgba(0,0,0,.93);padding:20px 30px;border-radius:12px;border:1px solid rgba(255,255,255,.08)}
+#overlay h2{font-size:1.2em;margin-bottom:6px}
+#overlay p{font-size:.65em;color:#889;line-height:1.5;max-width:300px}
+#overlay .stats{margin:8px 0;font-size:.6em}
+#overlay button{margin-top:8px;background:#00ff88;color:#060a0f;border:none;padding:6px 18px;border-radius:4px;font-family:inherit;font-size:.9em;font-weight:600;cursor:pointer}
+#overlay button.sec{background:#333;color:#ccd;margin-left:6px}
+</style>
+</head>
+<body>
+<div id="hud">
+  <div class="row">Blocks: <span class="val" id="total">0</span> (<span class="val" id="exact">0</span> lattice / <span class="bad" id="approx">0</span> float)</div>
+  <div class="row">Integrity: <span class="val" id="integrity">100%</span></div>
+  <div class="row">Erosion: <span class="dim" id="erosion">0.0%</span></div>
+  <div class="row">Time: <span class="dim" id="time">0s</span></div>
+</div>
+<div id="lvl">
+  <h3 id="lvlName">Level 1</h3>
+  <div class="obj" id="lvlObj">Free Build — Place blocks. Watch what happens.</div>
+  <div class="timer" id="lvlTimer" style="display:none"></div>
+  <div class="integrity" id="lvlInt"></div>
+</div>
+<div id="controls">
+  <kbd>Click</kbd> place · <kbd>Shift</kbd> lattice snap · <kbd>Right-click</kbd> remove · <kbd>Scroll</kbd> zoom · <kbd>Drag</kbd> orbit
+</div>
+<div id="overlay"><h2 id="ovTitle"></h2><p id="ovMsg"></p><div class="stats" id="ovStats"></div><button id="ovBtn" onclick="nextLevel()">Next Level →</button><button class="sec" onclick="restartLevel()">Retry</button></div>
+<canvas id="c"></canvas>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"}}
+</script>
+<script type="module">
+import*as THREE from'three';
+import{OrbitControls}from'three/addons/controls/OrbitControls.js';
+
+const S3=Math.sqrt(3)/2;
+const HEX=0.45, HGT=1.0, ZS=1.1;
+const DRIFT_THRESHOLD=0.35;
+const GRAVITY=12;
+
+function e12w(a,b,z){return new THREE.Vector3(a-b/2,z*ZS,b*S3)}
+function w2e(x,y,z){const b=Math.round(z/S3),a=Math.round(x+b/2);return{a,b,z:Math.round(y/ZS)}}
+function key(a,b,z){return a+','+b+','+z}
+const D6=[[1,0],[-1,0],[0,1],[0,-1],[1,-1],[-1,1]];
+
+// Scene
+const canvas=document.getElementById('c');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setSize(innerWidth,innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true;
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x060a0f);
+scene.fog=new THREE.FogExp2(0x060a0f,0.012);
+const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,0.1,200);
+camera.position.set(15,12,15);
+const ctrl=new OrbitControls(camera,canvas);
+ctrl.enableDamping=true;ctrl.dampingFactor=0.08;ctrl.maxPolarAngle=Math.PI*0.45;ctrl.minDistance=5;ctrl.maxDistance=60;
+
+// Lighting
+scene.add(new THREE.AmbientLight(0x334455,0.6));
+const dir=new THREE.DirectionalLight(0xffeedd,1.2);
+dir.position.set(10,20,5);dir.castShadow=true;dir.shadow.mapSize.set(1024,1024);scene.add(dir);
+
+// Ground hex grid
+const gridG=new THREE.Group();scene.add(gridG);
+const gridMat=new THREE.LineBasicMaterial({color:0x0a1a1a,transparent:true,opacity:0.3});
+for(let a=-10;a<=10;a++)for(let b=-10;b<=10;b++){
+  const p=e12w(a,b,0);
+  for(const[da,db]of D6){const na=a+da,nb=b+db;if(na>=-10&&na<=10&&nb>=-10&&nb<=10){
+    const np=e12w(na,nb,0);const g=new THREE.BufferGeometry().setFromPoints([p,np]);
+    gridG.add(new THREE.Line(g,gridMat));
+  }}
+}
+
+// Materials
+const hexG=new THREE.CylinderGeometry(HEX,HEX,HGT,6);
+const matLat=new THREE.MeshStandardMaterial({color:0x33dd77,roughness:0.3,metalness:0.5,emissive:0x0a3322,emissiveIntensity:0.3});
+const matFloat=new THREE.MeshStandardMaterial({color:0xff6644,roughness:0.5,metalness:0.2});
+const matGhostL=new THREE.MeshStandardMaterial({color:0x33dd77,transparent:true,opacity:0.3});
+const matGhostF=new THREE.MeshStandardMaterial({color:0xff6644,transparent:true,opacity:0.3});
+const matPillar=new THREE.MeshStandardMaterial({color:0x5588aa,roughness:0.4,metalness:0.4});
+
+// Particles
+const particles=[];
+const partGeom=new THREE.SphereGeometry(0.06,4,4);
+const partMat=new THREE.MeshBasicMaterial({color:0xff8844});
+function spawnParticles(pos,color,n=8){
+  for(let i=0;i<n;i++){
+    const m=new THREE.Mesh(partGeom,new THREE.MeshBasicMaterial({color}));
+    m.position.copy(pos);
+    const v=new THREE.Vector3((Math.random()-.5)*3,Math.random()*3+1,(Math.random()-.5)*3);
+    scene.add(m);
+    particles.push({mesh:m,vel:v,life:1.0+Math.random()*0.5});
+  }
+}
+
+// Block storage
+const blocks=new Map();
+let fallingBlocks=[];
+let ghostMesh=null;
+let inputEnabled=true;
+
+// Level definitions
+const levels=[
+  {name:"Free Build",desc:"Place 10 blocks. Watch what happens.",
+   driftRate:1.0,onlyLattice:false,timer:0,winCheck:null,
+   prePlace:[]},
+  {name:"Tower",desc:"Build a tower 8 blocks tall that survives 30s.",
+   driftRate:1.0,onlyLattice:false,timer:30,winCheck:'tower8',
+   prePlace:[]},
+  {name:"Bridge",desc:"Span the gap (width 6). Only lattice blocks connect.",
+   driftRate:1.0,onlyLattice:false,timer:0,winCheck:'bridge',
+   prePlace:'bridge'},
+  {name:"Drift Storm",desc:"Erosion rate 3x. Build a house with walls.",
+   driftRate:3.0,onlyLattice:false,timer:45,winCheck:'house',
+   prePlace:[]},
+  {name:"Zero Drift",desc:"No float blocks allowed. Build anything ≥ 8 blocks.",
+   driftRate:0,onlyLattice:true,timer:0,winCheck:'zerodrift',
+   prePlace:[]}
+];
+
+let curLevel=0, lvlState='playing', timerStart=0, lastPlaceTime=0;
+
+function loadLevel(idx){
+  curLevel=idx;
+  lvlState='playing';
+  timerStart=0;
+  lastPlaceTime=0;
+  inputEnabled=true;
+  // Clear blocks
+  for(const[,b]of blocks)scene.remove(b.mesh);
+  blocks.clear();
+  fallingBlocks.forEach(f=>scene.remove(f.mesh));
+  fallingBlocks=[];
+  particles.forEach(p=>scene.remove(p.mesh));
+  particles.length=0;
+  document.getElementById('overlay').style.display='none';
+
+  const lv=levels[idx];
+  document.getElementById('lvlName').textContent=`Level ${idx+1}: ${lv.name}`;
+  document.getElementById('lvlObj').textContent=lv.desc;
+  const te=document.getElementById('lvlTimer');
+  te.style.display=lv.timer>0?'block':'none';
+  te.textContent='';
+
+  // Pre-placed blocks
+  if(lv.prePlace==='bridge') placeBridge();
+}
+
+function placeBridge(){
+  // Two pillars, 6 apart, gap in between
+  const cx=0;
+  for(let z=0;z<=3;z++){
+    placeBlock(cx-3,0,z,true,true);
+    placeBlock(cx+3,0,z,true,true);
+  }
+}
+
+function checkWin(){
+  const lv=levels[curLevel];
+  if(lv.winCheck==='tower8'){
+    let maxZ=0;
+    for(const[,b]of blocks)if(b.connected!==false)maxZ=Math.max(maxZ,b.z);
+    return maxZ>=7; // 0-indexed, so z=7 = 8 blocks tall
+  }
+  if(lv.winCheck==='bridge'){
+    // Check for a connected path from (-3,0) side to (+3,0) side
+    const has=(a,b,z)=>blocks.has(key(a,b,z))&&blocks.get(key(a,b,z)).connected!==false;
+    // Simple check: any block at x>=+3 connected to a block at x<=-3
+    for(const[,bl]of blocks){
+      if(bl.a>=3&&bl.connected!==false){
+        // BFS back to left pillar
+        const visited=new Set();
+        const q=[key(bl.a,bl.b,bl.z)];
+        visited.add(q[0]);
+        while(q.length){
+          const k=q.shift();const bb=blocks.get(k);if(!bb)continue;
+          if(bb.a<=-3)return true;
+          for(const[da,db]of D6){
+            for(let dz=-1;dz<=1;dz++){
+              if(dz!==0&&(da!==0||db!==0))continue; // only vertical or horizontal neighbors
+              const nk=key(bb.a+da,bb.b+db,bb.z+dz);
+              if(!visited.has(nk)&&blocks.has(nk)&&blocks.get(nk).connected!==false){visited.add(nk);q.push(nk);}
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
+  if(lv.winCheck==='house'){
+    // 4+ connected float/lattice blocks forming walls (not all in a line)
+    let count=0;let hasCorners=false;
+    for(const[,b]of blocks){if(b.connected!==false){
+      count++;
+      // Check if blocks span both a and b axes
+    }}
+    return count>=8;
+  }
+  if(lv.winCheck==='zerodrift'){
+    let count=0;
+    for(const[,b]of blocks)if(b.exact)count++;
+    return count>=8;
+  }
+  return false;
+}
+
+function checkFail(){
+  const lv=levels[curLevel];
+  if(lv.winCheck==='zerodrift'){
+    for(const[,b]of blocks)if(!b.exact)return true;
+  }
+  return false;
+}
+
+window.nextLevel=function(){
+  if(curLevel<levels.length-1)loadLevel(curLevel+1);
+};
+window.restartLevel=function(){loadLevel(curLevel)};
+
+function showOverlay(title,msg,stats,isLast){
+  const o=document.getElementById('overlay');
+  o.style.display='block';
+  document.getElementById('ovTitle').textContent=title;
+  document.getElementById('ovMsg').textContent=msg;
+  document.getElementById('ovStats').textContent=stats||'';
+  document.getElementById('ovBtn').textContent=isLast?'You Win!':'Next Level →';
+  document.getElementById('ovBtn').style.display=isLast?'none':'inline-block';
+  inputEnabled=false;
+}
+
+// Block placement
+function placeBlock(a,b,z,exact,isFoundation=false){
+  const k=key(a,b,z);
+  if(blocks.has(k))return;
+  const mat=isFoundation?matPillar:(exact?matLat:matFloat);
+  const mesh=new THREE.Mesh(hexG,mat);
+  mesh.castShadow=true;mesh.receiveShadow=true;
+  const p=e12w(a,b,z);
+  mesh.position.copy(p);
+  // Scale-up animation
+  mesh.scale.set(0.01,0.01,0.01);
+  scene.add(mesh);
+  const lv=levels[curLevel];
+  blocks.set(k,{a,b,z,mesh,exact,foundation:!!isFoundation,
+    drift:exact?null:{x:(Math.random()-.5)*.02,y:(Math.random()-.5)*.01,z:(Math.random()-.5)*.02,phase:Math.random()*Math.PI*2,freq:0.5+Math.random()*1.5},
+    placed:performance.now()/1000,scaleAnim:1.0,connected:true});
+  lastPlaceTime=performance.now()/1000;
+}
+
+function removeBlockAt(a,b,z){
+  const k=key(a,b,z);
+  const bl=blocks.get(k);
+  if(!bl||bl.foundation)return;
+  spawnParticles(bl.mesh.position.clone(),0xff8844,10);
+  scene.remove(bl.mesh);
+  blocks.delete(k);
+}
+
+// Ghost
+function updateGhost(a,b,z,exact){
+  if(ghostMesh)scene.remove(ghostMesh);
+  ghostMesh=new THREE.Mesh(hexG,exact?matGhostL:matGhostF);
+  ghostMesh.position.copy(e12w(a,b,z));
+  scene.add(ghostMesh);
+}
+function hideGhost(){if(ghostMesh){scene.remove(ghostMesh);ghostMesh=null}}
+
+// Raycasting
+const raycaster=new THREE.Raycaster();
+const mouse=new THREE.Vector2();
+
+canvas.addEventListener('mousemove',e=>{
+  if(!inputEnabled)return;
+  mouse.x=(e.clientX/innerWidth)*2-1;
+  mouse.y=-(e.clientY/innerHeight)*2+1;
+  raycaster.setFromCamera(mouse,camera);
+  const plane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+  const pt=new THREE.Vector3();
+  raycaster.ray.intersectPlane(plane,pt);
+  if(!pt)return;
+  const e12=w2e(pt.x,pt.y,pt.z);
+  let h=0;
+  for(let z=20;z>=0;z--)if(blocks.has(key(e12.a,e12.b,z))){h=z+1;break;}
+  const snap=e.shift;
+  const lv=levels[curLevel];
+  const isExact=snap||(lv&&lv.onlyLattice);
+  updateGhost(e12.a,e12.b,h,isExact);
+});
+
+canvas.addEventListener('click',e=>{
+  if(!inputEnabled||!ghostMesh)return;
+  const gp=ghostMesh.position;
+  const e12=w2e(gp.x,gp.y,gp.z);
+  const snap=e.shift;
+  const lv=levels[curLevel];
+  const isExact=snap||(lv&&lv.onlyLattice);
+  placeBlock(e12.a,e12.b,e12.z,isExact);
+});
+
+canvas.addEventListener('contextmenu',e=>{
+  e.preventDefault();
+  if(!inputEnabled)return;
+  raycaster.setFromCamera(mouse,camera);
+  const meshes=[...blocks.values()].filter(b=>!b.foundation).map(b=>b.mesh);
+  const hits=raycaster.intersectObjects(meshes);
+  if(hits.length>0){
+    for(const[k,bl]of blocks){
+      if(bl.mesh===hits[0].object){removeBlockAt(bl.a,bl.b,bl.z);break;}
+    }
+  }
+});
+
+// Structural integrity
+function computeIntegrity(){
+  let connected=0,total=0;
+  for(const[,b]of blocks){
+    if(b.foundation)continue;
+    total++;if(b.connected!==false)connected++;
+  }
+  return total>0?connected/total:1;
+}
+
+function checkStructuralCollapse(){
+  const lv=levels[curLevel];
+  const driftRate=lv?lv.driftRate:1;
+  const toFall=[];
+
+  for(const[k,b]of blocks){
+    if(b.exact||b.foundation){b.connected=true;continue;}
+    if(b.connected===false)continue;
+    // Compute drift amount based on age
+    const t=performance.now()/1000;
+    const age=t-b.placed;
+    const amplitude=Math.min(age*0.003*driftRate,0.5);
+    if(amplitude>DRIFT_THRESHOLD){
+      // Check if any neighbor is lattice or connected
+      let supported=false;
+      for(const[da,db]of D6){
+        for(let dz=-1;dz<=1;dz++){
+          if(dz!==0&&da!==0&&db!==0)continue;
+          const nk=key(b.a+da,b.b+db,b.z+dz);
+          const nb=blocks.get(nk);
+          if(nb&&(nb.exact||nb.foundation||(nb.connected===true))){
+            // Check if this neighbor is below or same level
+            if(dz<=0){supported=true;break;}
+          }
+        }
+        if(supported)break;
+      }
+      if(!supported)b.connected=false;
+    }
+  }
+  // Mark unsupported blocks for falling
+  let changed=true;
+  while(changed){
+    changed=false;
+    for(const[k,b]of blocks){
+      if(b.exact||b.foundation||b.connected===false)continue;
+      // Check if has support from below (lattice or connected block at z-1 or same z neighbor that's lattice)
+      let supported=false;
+      // Direct support below
+      const below=blocks.get(key(b.a,b.b,b.z-1));
+      if(below&&(below.exact||below.foundation||below.connected===true))supported=true;
+      // Adjacent support at same level connected to lattice below
+      if(!supported){
+        for(const[da,db]of D6){
+          const nk=key(b.a+da,b.b+db,b.z);
+          const nb=blocks.get(nk);
+          if(nb&&(nb.exact||nb.foundation||(nb.connected===true))){
+            // This neighbor must itself be supported
+            const nbBelow=blocks.get(key(nb.a,nb.b,nb.z-1));
+            if(nb.z===0||(nbBelow&&(nbBelow.exact||nbBelow.foundation||nbBelow.connected===true))){
+              supported=true;break;
+            }
+          }
+        }
+      }
+      if(!supported){b.connected=false;changed=true;}
+    }
+  }
+  // Trigger falls
+  for(const[k,b]of blocks){
+    if(b.connected===false&&!b.falling&&!b.exact&&!b.foundation){
+      b.falling=true;
+      spawnParticles(b.mesh.position.clone(),0xff4422,6);
+      fallingBlocks.push({mesh:b.mesh,vel:new THREE.Vector3((Math.random()-.5)*0.5,1,(Math.random()-.5)*0.5),life:2});
+      blocks.delete(k);
+    }
+  }
+}
+
+function updateStats(){
+  let total=0,exact=0,approx=0;
+  for(const[,b]of blocks){if(b.foundation)continue;total++;if(b.exact)exact++;else approx++;}
+  document.getElementById('total').textContent=total;
+  document.getElementById('exact').textContent=exact;
+  document.getElementById('approx').textContent=approx;
+  const pct=total>0?(approx/total*100).toFixed(1):'0.0';
+  document.getElementById('erosion').textContent=pct+'%';
+  const integ=(computeIntegrity()*100).toFixed(0);
+  const ie=document.getElementById('integrity');
+  ie.textContent=integ+'%';
+  ie.className=integ<50?'bad':'val';
+}
+
+// Game loop
+const clock=new THREE.Clock();
+let lastCollapseCheck=0;
+
+function animate(){
+  requestAnimationFrame(animate);
+  const t=clock.getElapsedTime();
+  const dt=Math.min(clock.getDelta(),0.05);
+  ctrl.update();
+  const now=performance.now()/1000;
+  const lv=levels[curLevel];
+
+  // Scale-up animations
+  for(const[,b]of blocks){
+    if(b.scaleAnim<1){
+      b.scaleAnim=Math.min(b.scaleAnim+0.08,1);
+      const s=b.scaleAnim;
+      b.mesh.scale.set(s,s,s);
+    }
+  }
+
+  // Drift animation
+  for(const[,b]of blocks){
+    if(!b.exact&&!b.foundation&&b.drift){
+      const age=now-b.placed;
+      const amp=Math.min(age*0.003*(lv?lv.driftRate:1),0.5);
+      const d=b.drift;
+      const base=e12w(b.a,b.b,b.z);
+      b.mesh.position.x=base.x+Math.sin(now*d.freq+d.phase)*amp*d.x*50;
+      b.mesh.position.y=base.y+Math.cos(now*d.freq*0.7+d.phase)*amp*d.y*50;
+      b.mesh.position.z=base.z+Math.sin(now*d.freq*1.3+d.phase)*amp*d.z*50;
+      // Color shift
+      const dp=Math.min(amp/0.5,1);
+      b.mesh.material.color.setRGB(1,0.4*(1-dp),0.27*(1-dp));
+      // Wobble
+      b.mesh.rotation.y=Math.sin(now*2+d.phase)*amp*0.3;
+    }
+    // Lattice glow pulse
+    if(b.exact&&!b.foundation){
+      b.mesh.material.emissiveIntensity=0.3+Math.sin(now*2+b.a+b.b)*0.15;
+    }
+  }
+
+  // Structural check every 0.5s
+  if(now-lastCollapseCheck>0.5&&lvlState==='playing'){
+    lastCollapseCheck=now;
+    checkStructuralCollapse();
+    updateStats();
+  }
+
+  // Falling blocks
+  for(let i=fallingBlocks.length-1;i>=0;i--){
+    const f=fallingBlocks[i];
+    f.vel.y-=GRAVITY*0.016;
+    f.mesh.position.add(f.vel.clone().multiplyScalar(0.016));
+    f.mesh.rotation.x+=0.05;f.mesh.rotation.z+=0.03;
+    f.life-=0.016;
+    f.mesh.material.opacity=Math.max(0,f.life);
+    f.mesh.material.transparent=true;
+    if(f.life<=0||f.mesh.position.y<-20){
+      scene.remove(f.mesh);fallingBlocks.splice(i,1);
+    }
+  }
+
+  // Particles
+  for(let i=particles.length-1;i>=0;i--){
+    const p=particles[i];
+    p.vel.y-=8*0.016;
+    p.mesh.position.add(p.vel.clone().multiplyScalar(0.016));
+    p.life-=0.016*2;
+    p.mesh.material.opacity=Math.max(0,p.life);
+    p.mesh.material.transparent=true;
+    if(p.life<=0){scene.remove(p.mesh);particles.splice(i,1);}
+  }
+
+  // Level timer logic
+  if(lvlState==='playing'&&lv.timer>0&&lastPlaceTime>0){
+    const elapsed=now-lastPlaceTime;
+    if(elapsed>3){// grace period after last placement
+      const remaining=lv.timer-(elapsed-3);
+      const te=document.getElementById('lvlTimer');
+      if(remaining>0){
+        te.textContent='Survival: '+remaining.toFixed(1)+'s';
+      }else{
+        // Time's up — check win
+        if(checkWin()){
+          lvlState='won';
+          const integ=computeIntegrity()*100;
+          showOverlay('✓ Structure Survived!','Integrity: '+integ.toFixed(0)+'%',
+            `Blocks: ${blocks.size} | Time: ${lv.timer}s`,curLevel>=levels.length-1);
+        }else{
+          lvlState='lost';
+          showOverlay('✗ Collapsed','Your structure didn\'t survive.','',false);
+        }
+      }
+    }
+  }
+
+  // Non-timer win checks
+  if(lvlState==='playing'&&lv.timer===0){
+    if(checkWin()&&!lv.winCheck===null){
+      // Only for non-freebuild levels
+    }
+    if(curLevel>0&&checkWin()){
+      lvlState='won';
+      showOverlay('✓ Level Complete!',lv.name+' cleared.',
+        `Blocks: ${[...blocks.values()].filter(b=>!b.foundation).length} | Integrity: ${(computeIntegrity()*100).toFixed(0)}%`,
+        curLevel>=levels.length-1);
+    }
+    if(checkFail()){
+      lvlState='lost';
+      showOverlay('✗ Float Block Detected','Only lattice blocks allowed in Zero Drift.','',false);
+    }
+    // Level 1: just show encouragement
+    if(curLevel===0){
+      const count=[...blocks.values()].filter(b=>!b.foundation).length;
+      if(count>=10&&document.getElementById('lvlTimer').style.display==='none'){
+        document.getElementById('lvlTimer').style.display='block';
+        document.getElementById('lvlTimer').textContent='✓ 10 blocks placed! Try Level 2 →';
+        document.getElementById('lvlTimer').style.color='#00ff88';
+      }
+    }
+  }
+
+  document.getElementById('time').textContent=t.toFixed(0)+'s';
+  renderer.render(scene,camera);
+}
+animate();
+
+addEventListener('resize',()=>{
+  camera.aspect=innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
+});
+
+// Init
+loadLevel(0);
+</script>
+</body>
+</html>

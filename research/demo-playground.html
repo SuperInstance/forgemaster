@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eisenstein — Live Playground</title>
+<style>
+:root{--bg:#060a0f;--ok:#00ff88;--bad:#ff4444;--dim:#556;--card:#0a1218}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:#ccd;font-family:'SF Mono','Fira Code',monospace;padding:30px;max-width:800px;margin:0 auto}
+h1{font-size:1.3em;color:var(--ok);margin-bottom:4px}
+.sub{font-size:.6em;color:var(--dim);margin-bottom:24px}
+h2{font-size:.9em;color:var(--ok);margin:20px 0 8px}
+pre{background:var(--card);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:14px;font-size:.7em;overflow-x:auto;margin-bottom:12px;color:#ccd}
+.output{color:var(--ok)}
+.output .bad{color:var(--bad)}
+.editor{width:100%;min-height:100px;background:var(--card);border:1px solid rgba(0,255,136,.15);border-radius:8px;padding:12px;font-family:inherit;font-size:.7em;color:#ccd;resize:vertical;outline:none}
+.editor:focus{border-color:rgba(0,255,136,.3)}
+.btn{background:rgba(0,255,136,.1);color:var(--ok);border:1px solid rgba(0,255,136,.2);padding:6px 16px;border-radius:6px;font-family:inherit;font-size:.7em;cursor:pointer;margin:8px 4px 4px 0}
+.btn:hover{background:rgba(0,255,136,.2)}
+.btn:active{background:rgba(0,255,136,.3)}
+.race{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.race .col{background:var(--card);border-radius:8px;padding:12px;border:1px solid rgba(255,255,255,.04)}
+.race h3{font-size:.7em;margin-bottom:6px}
+.race .val{font-size:1.4em;font-weight:700}
+.canvas-wrap{text-align:center;margin:16px 0}
+canvas{background:var(--card);border-radius:8px;border:1px solid rgba(255,255,255,.04)}
+a{color:var(--ok)}
+</style>
+</head>
+<body>
+<h1>⚒️ Eisenstein Playground</h1>
+<p class="sub">Run it in your browser. Zero dependencies. Pure integer arithmetic.</p>
+
+<h2>E12 Integers</h2>
+<pre class="output" id="basics"></pre>
+
+<h2>D6 Rotation — 60° Steps</h2>
+<pre class="output" id="rotation"></pre>
+
+<h2>The Drift Race: 10,000 Rotations</h2>
+<div class="race">
+<div class="col" style="border-left:3px solid var(--ok)">
+<h3 class="ok">E12 (integer)</h3>
+<div class="val ok" id="e12-norm">—</div>
+<div style="font-size:.55em;color:var(--dim)" id="e12-detail"></div>
+</div>
+<div class="col" style="border-left:3px solid var(--bad)">
+<h3 class="bad">Float (F64)</h3>
+<div class="val bad" id="float-norm">—</div>
+<div style="font-size:.55em;color:var(--dim)" id="float-detail"></div>
+</div>
+</div>
+<button class="btn" onclick="runDriftRace()">Run Drift Race (10K rotations)</button>
+<span id="race-time" style="font-size:.55em;color:var(--dim);margin-left:8px"></span>
+
+<h2>Hex Lattice Visualizer</h2>
+<div class="canvas-wrap">
+<canvas id="hex" width="760" height="400"></canvas>
+</div>
+<div style="font-size:.55em;color:var(--dim);text-align:center">
+Green = lattice points (norm ≤ <span id="max-norm">49</span>) · D6 neighbors shown in blue · Click to highlight neighbors
+</div>
+<input type="range" id="norm-slider" min="1" max="100" value="49" style="width:100%;margin:8px 0" oninput="drawHexLattice(+this.value)">
+<button class="btn" onclick="drawHexLattice(+document.getElementById('norm-slider').value)">Redraw</button>
+
+<h2>Try It</h2>
+<textarea class="editor" id="editor" spellcheck="false">// Eisenstein integers — try your own code
+const a = E12(3, 1);
+const b = E12(1, 2);
+console.log("a + b =", a.add(b).toString());
+console.log("a × b =", a.mul(b).toString());
+console.log("norm(a) =", a.norm());
+console.log("D6 neighbors of (1,1):", E12(1,1).neighbors().map(n => n.toString()));
+</textarea>
+<br>
+<button class="btn" onclick="runEditor()">▶ Run</button>
+<pre class="output" id="editor-out" style="margin-top:8px"></pre>
+
+<p style="margin-top:30px;font-size:.55em;color:var(--dim);text-align:center">
+<a href="https://crates.io/crates/eisenstein">Rust crate</a> · <a href="https://pypi.org/project/constraint-theory/">Python package</a> · <a href="https://superinstance.github.io/cocapn-ai-web/">Demos</a> · <a href="https://superinstance.github.io/cocapn-ai-web/errata.html">Errata</a>
+</p>
+
+<script>
+// Eisenstein integer implementation — pure JS, zero deps
+class E12 {
+  constructor(a,b){this.a=a;this.b=b}
+  toString(){return this.b===0?`E12(${this.a})`:this.a===0?`E12(${this.b}ω)`:`E12(${this.a} ${this.b>0?'+':'-'} ${Math.abs(this.b)}ω)`}
+  add(o){return new E12(this.a+o.a,this.b+o.b)}
+  sub(o){return new E12(this.a-o.a,this.b-o.b)}
+  mul(o){return new E12(this.a*o.a-this.b*o.d,this.a*o.b+this.b*o.a+this.b*o.b)}
+  norm(){return this.a*this.a-this.a*this.b+this.b*this.b}
+  conj(){return new E12(this.a-this.b,-this.b)}
+  rot(){return new E12(-this.b,this.a+this.b)} // D6 60°
+  neighbors(){return[[1,0],[-1,0],[0,1],[0,-1],[1,-1],[-1,1]].map(([da,db])=>new E12(this.a+da,this.b+db))}
+  xy(){return[this.a-this.b/2,this.b*Math.sqrt(3)/2]}
+}
+
+// Basics
+let s='';
+const z1=new E12(3,1),z2=new E12(1,2);
+s+=`z1 = ${z1}  (norm = ${z1.norm()})\n`;
+s+=`z2 = ${z2}  (norm = ${z2.norm()})\n`;
+s+=`z1 + z2 = ${z1.add(z2)}\n`;
+s+=`z1 × z2 = ${z1.mul(z2)}\n`;
+s+=`conj(z2) = ${z2.conj()}\n`;
+s+=`z1 × conj(z2) = ${z1.mul(z2.conj())}  (norm = ${z1.mul(z2.conj()).norm()})\n`;
+document.getElementById('basics').textContent=s;
+
+// Rotation
+s='';
+let z=new E12(5,0);
+s+=`Start: ${z} → (${z.xy()[0].toFixed(2)}, ${z.xy()[1].toFixed(2)})\n`;
+for(let i=0;i<6;i++){z=z.rot();s+=`  Rotate ${i+1}: ${z} → (${z.xy()[0].toFixed(2)}, ${z.xy()[1].toFixed(2)})  norm=${z.norm()}\n`}
+s+=`After 6 rotations: back to E12(5,0). Exact.`;
+document.getElementById('rotation').textContent=s;
+
+// Drift race
+function runDriftRace(){
+  const N=10000;
+  const t0=performance.now();
+  
+  // E12 path
+  let ez=new E12(5,0);
+  for(let i=0;i<N;i++)ez=ez.rot();
+  const eNorm=ez.norm();
+  const[eX,eY]=ez.xy();
+  
+  // Float path
+  let fx=5,fy=0,angle=0;
+  for(let i=0;i<N;i++){
+    angle+=Math.PI/3;
+    const c=Math.cos(angle),sn=Math.sin(angle);
+    const nx=fx*c-fy*sn,ny=fx*sn+fy*c;
+    fx=nx;fy=ny;
+  }
+  const fDist=Math.sqrt((fx-5)**2+fy*fy);
+  const fR=Math.sqrt(fx*fx+fy*fy);
+  
+  const dt=performance.now()-t0;
+  
+  document.getElementById('e12-norm').textContent=`norm = ${eNorm}`;
+  document.getElementById('e12-detail').textContent=`Position: (${eX.toFixed(4)}, ${eY.toFixed(4)}) — norm should be 25, is ${eNorm}. Exact.`;
+  document.getElementById('float-norm').textContent=`drift = ${fDist.toFixed(6)}`;
+  document.getElementById('float-detail').textContent=`Position: (${fx.toFixed(4)}, ${fy.toFixed(4)}) — radius ${fR.toFixed(6)} vs 5.000000. Drifted ${fDist.toFixed(6)} from expected.`;
+  document.getElementById('race-time').textContent=`${dt.toFixed(1)}ms for ${N} rotations each`;
+}
+
+// Hex lattice canvas
+const cvs=document.getElementById('hex'),cx=cvs.getContext('2d');
+function drawHexLattice(maxNorm){
+  document.getElementById('max-norm').textContent=maxNorm;
+  cx.fillStyle='#060a0f';cx.fillRect(0,0,760,400);
+  const cxo=380,cyo=200,scale=18;
+  const pts=[];
+  for(let a=-20;a<=20;a++){
+    for(let b=-20;b<=20;b++){
+      const n=a*a-a*b+b*b;
+      if(n<=maxNorm&&n>0){pts.push({a,b,n})}
+    }
+  }
+  // Draw neighbors (edges)
+  cx.strokeStyle='rgba(0,100,200,.08)';cx.lineWidth=.5;
+  for(const p of pts){
+    const[x1,y1]=[cxo+(p.a-p.b/2)*scale,cyo+(p.b*Math.sqrt(3)/2)*scale];
+    for(const[da,db]of[[1,0],[-1,0],[0,1],[0,-1],[1,-1],[-1,1]]){
+      const na=p.a+da,nb=p.b+db;
+      if(na*na-na*nb+nb*nb<=maxNorm){
+        const[x2,y2]=[cxo+(na-nb/2)*scale,cyo+(nb*Math.sqrt(3)/2)*scale];
+        cx.beginPath();cx.moveTo(x1,y1);cx.lineTo(x2,y2);cx.stroke();
+      }
+    }
+  }
+  // Draw points
+  for(const p of pts){
+    const[x,y]=[cxo+(p.a-p.b/2)*scale,cyo+(p.b*Math.sqrt(3)/2)*scale];
+    const bright=1-Math.sqrt(p.n)/Math.sqrt(maxNorm);
+    cx.fillStyle=`rgba(0,255,136,${.2+bright*.6})`;
+    cx.beginPath();cx.arc(x,y,1.5+bright*1.5,0,Math.PI*2);cx.fill();
+  }
+  // Origin
+  cx.fillStyle='#fff';cx.beginPath();cx.arc(cxo,cyo,3,0,Math.PI*2);cx.fill();
+  // Count
+  cx.fillStyle='rgba(0,255,136,.4)';cx.font='10px monospace';
+  cx.fillText(`${pts.length+1} lattice points (norm ≤ ${maxNorm})`,10,15);
+}
+drawHexLattice(49);
+
+// Interactive editor
+function runEditor(){
+  const code=document.getElementById('editor').value;
+  const log=[];
+  const fakeConsole={log:(...args)=>{log.push(args.map(a=>typeof a==='object'?JSON.stringify(a):String(a)).join(' '))}};
+  try{
+    const fn=new Function('E12','console',code);
+    fn(E12,fakeConsole);
+    document.getElementById('editor-out').textContent=log.join('\n')||'(no output)';
+  }catch(e){
+    document.getElementById('editor-out').innerHTML='<span class="bad">'+e.message+'</span>';
+  }
+}
+runEditor();
+</script>
+</body>
+</html>
