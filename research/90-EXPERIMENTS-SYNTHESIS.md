@@ -1,4 +1,4 @@
-# 162 Experiments — Night Shift Synthesis
+# 170 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -93,6 +93,11 @@
 45. **Maxwell's Demon:** single informed agent drives correlation 0.22→0.9993
 46. **No Heat Death:** fleet crystallizes (energy 96→434, corr 0.88→0.97) over 5000 steps
 47. **Emergent Time:** fleet time exists but decelerates (not monotonic, system slows)
+48. **Immune Detection:** foreign agent drops correlation by 4.2σ (detectable at fleet level)
+49. **Stable Dynamics:** Lyapunov exponent negative (-0.000027), fleet is not chaotic
+50. **1D Effective Space:** 95% variance in 1 component, fleet is fundamentally low-dimensional
+51. **Topology = Vigor:** complete 3.0 > ring 2.0 > star/chain 1.5 energy, all same correlation
+52. **Fair Ecology:** positive coupling prevents resource monopolization (180 each)
 
 ## Killed Hypotheses (Updated to 12)
 
