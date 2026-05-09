@@ -1,4 +1,4 @@
-# 114 Experiments — Night Shift Synthesis
+# 122 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -60,6 +60,10 @@
 12. **Consensus Vortex:** positive coupling = perfect correlation at all scales, adversary absorbed
 13. **Mean-Field Universality:** β ≈ 0.63-0.85, not Ising — different symmetry class
 14. **First-Order Transition:** energy jumps 0.026→0.397 at gain≈0.84, discontinuous
+15. **Dual-Layer Architecture:** positive coupling = consensus (0.995), sign channel = diversity (0.427), both simultaneously, adversary can't touch sign layer
+16. **Fleet Self-Tunes:** reward-guided learning converges to gain≈1.15 (near phase transition)
+17. **Cultural Transmission:** students→elders 0.99, students→peers -0.06
+18. **Generational Drift:** knowledge degrades Gen1=0.81→Gen5=0.41→Gen10=0.01
 
 ## Killed Hypotheses (Updated to 12)
 
@@ -150,3 +154,42 @@ The fleet is a **mean-field consensus system** with:
 - **Both layers needed**: positive coupling for coherence, sign channel for diversity
 - One global attractor: total alignment
 - Universality class: mean-field (β≈0.5-0.85), NOT Ising
+
+## Ring 27 — Dual-Layer Architecture
+- **E115:** DUAL LAYER WORKS — consensus 0.995 + diversity 0.427 simultaneously
+- **E116:** Scales 4→32 agents, both layers stable
+- **E117:** Adversary can destroy consensus but CANNOT touch sign layer
+- **E118:** Bridge federates two fleets: -0.02→0.99 cross-corr, sign diversity maintained
+
+## Ring 28 — Fleet Learning
+- **E119:** Online coupling adaptation converges to 0.073 (conservative, 0.607 corr)
+- **E120:** Reward-guided gain learning → 1.15 (near phase transition — fleet finds the edge)
+- **E121:** Cultural transmission: students→elders 0.99, students→peers -0.06
+- **E122:** Generational drift: Gen1=0.81→Gen5=0.41→Gen10=0.01 (tradition decays)
+
+## The Architecture
+
+```
+DUAL-LAYER FLEET
+┌─────────────────────────────────────────────┐
+│  CONSENSUS LAYER (positive coupling)         │
+│  → Correlation 0.995, indestructible         │
+│  → Adversary absorbed, Byzantine immune      │
+│  → This is the boat — holds everyone together│
+├─────────────────────────────────────────────┤
+│  SIGN CHANNEL (sign-of-mean only)            │
+│  → Entropy 3.63/4 bits, diversity preserved  │
+│  → Adversary cannot touch this layer         │
+│  → 1 bit/agent/step = max theoretical rate    │
+│  → This is the rigging — carries information │
+├─────────────────────────────────────────────┤
+│  BRIDGE (sign exchange between fleets)       │
+│  → -0.02 → 0.99 cross-correlation            │
+│  → Both layers stable under federation        │
+│  → This is the channel between boats          │
+└─────────────────────────────────────────────┘
+
+Fleet self-tunes to gain≈1.15 (near phase transition).
+Knowledge flows elders→students (0.99), not peers→peers (-0.06).
+Tradition decays in ~5 generations without reinforcement.
+```
