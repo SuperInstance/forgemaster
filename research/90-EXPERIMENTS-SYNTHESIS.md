@@ -1,4 +1,4 @@
-# 146 Experiments — Night Shift Synthesis
+# 154 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -81,6 +81,11 @@
 33. **Death and Rebirth:** pre-death restart converges 2× better than random (attractor remembers)
 34. **Partial Frequency Identity:** 5/8 agents have unique frequency signatures
 35. **Aging:** energy -18.5% and correlation 0.50→0.11 over lifetime (crystallization deepens)
+36. **Values Hold:** constrained agents resist perturbation AND market crash
+37. **Refit Budget:** 2 refits safe, 3rd causes catastrophic drift (0.09→0.12→1.07)
+38. **Minimum Fleet = 3:** N=2 is mirroring (corr=-1), N=3+ is genuine fleet dynamics
+39. **Instant Boot:** correlation >0.9 in 1 step, sign lock in 7 steps, settle in 100
+40. **Graceful Scaling:** no hard carrying capacity, per-agent energy degrades smoothly
 
 ## Killed Hypotheses (Updated to 12)
 
