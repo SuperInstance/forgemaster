@@ -1,4 +1,4 @@
-# 138 Experiments — Night Shift Synthesis
+# 146 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -76,6 +76,11 @@
 28. **Safe at Any Gain:** tanh prevents divergence, architecture safe to gain=10.0
 29. **Indirect Vision:** agents see through intermediaries at 43% efficiency (57% attenuation)
 30. **Strong Dominance:** gain=3.0 agent gets 48.6% energy but can't overwhelm 3 weak agents
+31. **Schrödinger's Fleet:** genuine bifurcation at phase boundary — 60/40 split across 10 runs
+32. **Wisdom of Crowds:** fleet average 74.8% better than best individual
+33. **Death and Rebirth:** pre-death restart converges 2× better than random (attractor remembers)
+34. **Partial Frequency Identity:** 5/8 agents have unique frequency signatures
+35. **Aging:** energy -18.5% and correlation 0.50→0.11 over lifetime (crystallization deepens)
 
 ## Killed Hypotheses (Updated to 12)
 
