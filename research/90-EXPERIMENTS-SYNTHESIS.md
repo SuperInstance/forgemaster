@@ -1,4 +1,4 @@
-# 90 Experiments — Night Shift Synthesis
+# 106 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -54,6 +54,9 @@
 6. **Single Attractor:** 13/16 patterns reachable, +--+ most stable
 7. **Common Enemy Unification:** adversary increases honest-agent correlation
 8. **Band Effect:** coupled fleets produce intermodulation frequencies (28.2× SNR)
+9. **Crystallization:** fleet variance collapses 0.32→0.01 over long timescales (maintains 0.988 correlation)
+10. **Re-sync Speed:** 7.4 steps after coupling restoration (internal dynamics persist)
+11. **Coalition Multiplier:** coordinated adversaries 2× more damaging than uncoordinated
 
 ## Killed Hypotheses (Updated to 12)
 
@@ -63,6 +66,35 @@
 13. Role persistence under perturbation
 14. Hierarchical > flat composition
 15. Cascade monotonic with coupling (non-monotonic — peak at 0.5)
+
+## Ring 21 — Corrected Scaling
+- **E91:** Fixed coupling 0.15 → near-zero mean correlation at all scales, but variance drops 0.38→0.02
+- **E92:** No clean phase transition across random matrices at coupling 0.25
+- **E93:** No clear living-zone sweet spot with random-sign coupling
+- **E94:** Per-agent energy degrades 40× from N=4→64, no sharp carrying capacity
+
+## Ring 22 — Deep Adversarial
+- **E95:** Noise injection effect marginal (system already noisy at low coupling)
+- **E96:** Slow poison undetected (adversary ramp invisible)
+- **E97:** Stronger coupling (0.30) doesn't fix Byzantine resilience with random signs
+- **E98:** Coalition attack: coordinated 2× worse than uncoordinated — COORDINATION MATTERS
+
+## Ring 23 — Temporal Dynamics
+- **E99:** Memory >500 steps (double perturbation never fully recovered)
+- **E100:** Entrainment peaks at f=0.05; f=0.5 drives perfect sync but ignores driver
+- **E101:** Crystallization — correlation 0.988, variance 0.32→0.01 over 5000 steps
+- **E102:** Only 3 sign epochs in 2000 steps — too synchronized for criticality
+
+## Ring 24 — Novel Phenomena
+- **E103:** Echo chamber collapsed — homophily drives universal sync
+- **E104:** Punctuated coupling: OFF→0.04 corr, re-sync in 7.4 steps
+- **E105:** Self-tuning gain converges to 1.299 across all agents
+- **E106:** Symbiosis: complementary Cs → 0.57 cross-type corr, 3D representational space
+
+## Critical Negative Result (Rings 20-22)
+Random-sign coupling at 0.15-0.30 produces near-zero mean correlation regardless of configuration.
+The fleet's coherent dynamics require **positive coupling matrices**.
+The sign channel works for information transport; the coupling medium needs positive values for coherent dynamics.
 
 ## Key Constants
 
