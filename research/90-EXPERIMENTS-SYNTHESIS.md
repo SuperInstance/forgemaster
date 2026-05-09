@@ -1,4 +1,4 @@
-# 154 Experiments — Night Shift Synthesis
+# 162 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -86,6 +86,13 @@
 38. **Minimum Fleet = 3:** N=2 is mirroring (corr=-1), N=3+ is genuine fleet dynamics
 39. **Instant Boot:** correlation >0.9 in 1 step, sign lock in 7 steps, settle in 100
 40. **Graceful Scaling:** no hard carrying capacity, per-agent energy degrades smoothly
+41. **Curved Manifold:** constraint manifold is 44.7% larger than flat space, geodesics curve
+42. **33× Compression:** intrinsic dim=24 vs 800 ambient, coupling compresses state space
+43. **Identity in Manifold:** 99.4% accuracy decoding agent identity from manifold position
+44. **Arrow of Time:** forward entropy decreases, reverse increases — thermodynamic direction
+45. **Maxwell's Demon:** single informed agent drives correlation 0.22→0.9993
+46. **No Heat Death:** fleet crystallizes (energy 96→434, corr 0.88→0.97) over 5000 steps
+47. **Emergent Time:** fleet time exists but decelerates (not monotonic, system slows)
 
 ## Killed Hypotheses (Updated to 12)
 
