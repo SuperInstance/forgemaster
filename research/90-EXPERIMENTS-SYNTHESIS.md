@@ -1,4 +1,4 @@
-# 122 Experiments — Night Shift Synthesis
+# 130 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -64,6 +64,11 @@
 16. **Fleet Self-Tunes:** reward-guided learning converges to gain≈1.15 (near phase transition)
 17. **Cultural Transmission:** students→elders 0.99, students→peers -0.06
 18. **Generational Drift:** knowledge degrades Gen1=0.81→Gen5=0.41→Gen10=0.01
+19. **Transitive Federation:** information propagates through relay nodes at 93% efficiency
+20. **Deterministic Hierarchy:** rank ordering is a function of Cs matrix only (ρ=1.0)
+21. **Universal Attractors:** same Cs → same attractor basin, initial conditions irrelevant
+22. **50% Redundancy:** evolutionary pruning removes half the agents, 4× energy gain
+23. **Mass Death < Single Death:** killing 4/8 less disruptive than killing 1/8 (faster rebalance)
 
 ## Killed Hypotheses (Updated to 12)
 
