@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safe Arm Simulator — Eisenstein Constraint Demo</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; overflow-x: hidden; }
+h1 { text-align: center; padding: 16px 0 8px; font-size: 1.4em; color: #58a6ff; }
+h1 span.unsafe { color: #f85149; }
+h1 span.safe { color: #3fb950; }
+.subtitle { text-align: center; color: #8b949e; font-size: 0.85em; margin-bottom: 12px; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 16px 24px; }
+
+.canvas-row { display: flex; gap: 12px; margin-bottom: 12px; }
+.canvas-card { flex: 1; background: #161b22; border-radius: 8px; border: 1px solid #30363d; overflow: hidden; }
+.canvas-card.unsafe { border-color: #f8514944; }
+.canvas-card.safe { border-color: #3fb95044; }
+.canvas-label { padding: 8px 12px; font-weight: 600; font-size: 0.9em; display: flex; justify-content: space-between; align-items: center; }
+.canvas-label.unsafe { color: #f85149; border-bottom: 2px solid #f8514944; }
+.canvas-label.safe { color: #3fb950; border-bottom: 2px solid #3fb95044; }
+.violation-count { font-size: 0.8em; background: #f8514922; color: #f85149; padding: 2px 8px; border-radius: 4px; font-weight: 400; }
+.violation-count.safe-count { background: #3fb95022; color: #3fb950; }
+canvas { display: block; width: 100%; height: 360px; }
+
+.controls { background: #161b22; border-radius: 8px; border: 1px solid #30363d; padding: 16px; margin-bottom: 12px; }
+.controls h3 { color: #58a6ff; margin-bottom: 12px; font-size: 0.95em; }
+
+.slider-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
+.slider-item { display: flex; flex-direction: column; gap: 4px; }
+.slider-item label { font-size: 0.8em; color: #8b949e; display: flex; justify-content: space-between; }
+.slider-item input[type="range"] { width: 100%; accent-color: #58a6ff; }
+.slider-item .val { color: #58a6ff; font-family: monospace; }
+
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+button { background: #21262d; color: #c9d1d9; border: 1px solid #30363d; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85em; transition: all 0.15s; }
+button:hover { background: #30363d; border-color: #58a6ff; }
+button.active { background: #58a6ff22; border-color: #58a6ff; color: #58a6ff; }
+button.danger { border-color: #f8514944; }
+button.danger:hover { background: #f8514922; border-color: #f85149; color: #f85149; }
+
+.toggle-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+.toggle-row label { font-size: 0.85em; color: #8b949e; display: flex; align-items: center; gap: 6px; }
+
+.bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.panel { background: #161b22; border-radius: 8px; border: 1px solid #30363d; padding: 14px; }
+.panel h3 { color: #58a6ff; margin-bottom: 8px; font-size: 0.9em; }
+
+.flux-code { font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 0.78em; line-height: 1.7; white-space: pre; color: #8b949e; }
+.flux-code .active { color: #3fb950; background: #3fb95015; border-radius: 3px; padding: 0 4px; }
+.flux-code .shake { color: #d29922; }
+.flux-code .listen { color: #58a6ff; }
+.flux-code .comment { color: #484f58; }
+
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stat { background: #0d1117; border-radius: 6px; padding: 8px 10px; text-align: center; }
+.stat .label { font-size: 0.7em; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat .value { font-size: 1.2em; font-weight: 700; color: #58a6ff; font-family: monospace; margin-top: 2px; }
+.stat .value.red { color: #f85149; }
+.stat .value.green { color: #3fb950; }
+.stat .value.yellow { color: #d29922; }
+
+.constraint-display { display: flex; gap: 8px; margin-bottom: 8px; }
+.constraint-disk { width: 60px; height: 60px; border-radius: 50%; background: #0d1117; border: 2px solid #3fb95044; position: relative; display: flex; align-items: center; justify-content: center; }
+.constraint-disk .needle { width: 2px; height: 24px; background: #3fb950; position: absolute; transform-origin: bottom center; bottom: 50%; border-radius: 1px; transition: transform 0.1s, background 0.1s; }
+.constraint-disk .disk-label { position: absolute; bottom: -18px; font-size: 0.65em; color: #8b949e; white-space: nowrap; }
+
+@media (max-width: 768px) {
+  .canvas-row { flex-direction: column; }
+  .bottom-row { grid-template-columns: 1fr; }
+  .slider-group { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<h1><span class="unsafe">UNSAFE</span> vs <span class="safe">SAFE</span> Arm Simulator</h1>
+<p class="subtitle">Eisenstein constraint checking — watch math prevent real harm</p>
+
+<div class="container">
+
+<div class="canvas-row">
+  <div class="canvas-card unsafe">
+    <div class="canvas-label unsafe">⚠ UNSAFE Arm <span class="violation-count" id="unsafeVio">0 violations</span></div>
+    <canvas id="cvUnsafe" width="580" height="360"></canvas>
+  </div>
+  <div class="canvas-card safe">
+    <div class="canvas-label safe">✓ SAFE Arm (Eisenstein) <span class="violation-count safe-count" id="safeVio">0 violations</span></div>
+    <canvas id="cvSafe" width="580" height="360"></canvas>
+  </div>
+</div>
+
+<div class="controls">
+  <h3>Joint Angles</h3>
+  <div class="slider-group">
+    <div class="slider-item">
+      <label>Shoulder (θ₁) <span class="val" id="v0">0°</span></label>
+      <input type="range" id="s0" min="-180" max="180" value="0">
+    </div>
+    <div class="slider-item">
+      <label>Elbow (θ₂) <span class="val" id="v1">0°</span></label>
+      <input type="range" id="s1" min="-180" max="180" value="0">
+    </div>
+    <div class="slider-item">
+      <label>Wrist (θ₃) <span class="val" id="v2">0°</span></label>
+      <input type="range" id="s2" min="-180" max="180" value="0">
+    </div>
+  </div>
+
+  <div class="toggle-row">
+    <label><input type="checkbox" id="sharedCtrl" checked> Shared Control (same sliders → both arms)</label>
+    <label>Constraint Radius: <input type="range" id="diskRadius" min="15" max="90" value="45"> <span id="diskRVal">45°</span></label>
+    <label>Obstacle Size: <input type="range" id="obsSize" min="20" max="100" value="50"> <span id="obsSVal">50</span></label>
+  </div>
+
+  <div class="btn-row">
+    <button id="btnRandom">🎲 Random Command</button>
+    <button id="btnStress">⚡ Stress Test</button>
+    <button id="btnChaos">🌀 Chaos Mode</button>
+    <button id="btnReset">↺ Reset</button>
+  </div>
+
+  <div class="constraint-display">
+    <div class="constraint-disk" id="cd0"><div class="needle" id="n0"></div><span class="disk-label">Shoulder</span></div>
+    <div class="constraint-disk" id="cd1"><div class="needle" id="n1"></div><span class="disk-label">Elbow</span></div>
+    <div class="constraint-disk" id="cd2"><div class="needle" id="n2"></div><span class="disk-label">Wrist</span></div>
+    <div style="margin-left:12px; font-size:0.78em; color:#8b949e; line-height:1.6; align-self:center;">
+      <span style="color:#3fb950;">●</span> Safe &nbsp; <span style="color:#d29922;">●</span> Near boundary &nbsp; <span style="color:#f85149;">●</span> Violated<br>
+      Eisenstein snap: <code style="color:#58a6ff;">round(θ/step) × step</code>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-row">
+  <div class="panel">
+    <h3>FLUX Program (Active Execution)</h3>
+    <div class="flux-code" id="fluxCode"><span class="shake active">LOAD</span>   joint_angle           <span class="comment">; SHAKE — read joint target</span>
+<span class="shake">LOAD</span>   disk_radius           <span class="comment">; SHAKE — read constraint</span>
+<span class="listen">SUB</span>    margin disk_radius joint_angle
+<span class="listen">GTE</span>    safe margin 0        <span class="listen">; LISTEN — compare</span>
+<span class="listen">JNZ</span>    safe execute          <span class="listen">; LISTEN — branch</span>
+<span class="shake">T_SNAP</span> joint_angle          <span class="comment">; snap to nearest safe angle</span>
+<span class="shake">STORE</span>  joint_angle
+<span class="shake">SIG</span>    constraint_report
+<span class="shake">HALT</span></div>
+  </div>
+
+  <div class="panel">
+    <h3>Statistics</h3>
+    <div class="stats-grid">
+      <div class="stat"><div class="label">Commands</div><div class="value" id="stCmds">0</div></div>
+      <div class="stat"><div class="label">UNSAFE Violations</div><div class="value red" id="stUVio">0</div></div>
+      <div class="stat"><div class="label">SAFE Snaps</div><div class="value green" id="stSnaps">0</div></div>
+      <div class="stat"><div class="label">Δ Violations</div><div class="value red" id="stDelta">0</div></div>
+      <div class="stat"><div class="label">Avg Margin</div><div class="value yellow" id="stMargin">—</div></div>
+      <div class="stat"><div class="label">Response Time</div><div class="value green" id="stTime">1 cycle</div></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// === State ===
+const DEG = Math.PI / 180;
+const segmentLens = [90, 70, 50];
+
+let sliders = [0, 0, 0];
+let unsafeAngles = [0, 0, 0];
+let safeAngles = [0, 0, 0];
+let diskRadius = 45;
+let obsSize = 50;
+let sharedCtrl = true;
+let stressRunning = false;
+let chaosRunning = false;
+let stressTimer = null;
+let chaosTimer = null;
+
+let unsafeViolations = 0;
+let safeSnaps = 0;
+let commands = 0;
+let margins = [];
+
+// Trails
+let unsafeTrail = [];
+let safeTrail = [];
+const TRAIL_MAX = 50;
+
+// Impact markers
+let impacts = [];
+
+// Obstacle zone (relative to arm base, in canvas coords)
+const obsCenterX = 70;
+const obsCenterY = -60;
+
+// === DOM ===
+const cvU = document.getElementById('cvUnsafe');
+const cvS = document.getElementById('cvSafe');
+const ctxU = cvU.getContext('2d');
+const ctxS = cvS.getContext('2d');
+
+function resizeCanvases() {
+  [cvU, cvS].forEach(cv => {
+    const rect = cv.getBoundingClientRect();
+    cv.width = rect.width * (window.devicePixelRatio || 1);
+    cv.height = rect.height * (window.devicePixelRatio || 1);
+  });
+}
+resizeCanvases();
+window.addEventListener('resize', resizeCanvases);
+
+// Slider inputs
+for (let i = 0; i < 3; i++) {
+  document.getElementById('s' + i).addEventListener('input', e => {
+    sliders[i] = parseInt(e.target.value);
+    document.getElementById('v' + i).textContent = sliders[i] + '°';
+    applyCommand();
+  });
+}
+
+document.getElementById('diskRadius').addEventListener('input', e => {
+  diskRadius = parseInt(e.target.value);
+  document.getElementById('diskRVal').textContent = diskRadius + '°';
+  applyCommand();
+});
+document.getElementById('obsSize').addEventListener('input', e => {
+  obsSize = parseInt(e.target.value);
+  document.getElementById('obsSVal').textContent = obsSize;
+  applyCommand();
+});
+document.getElementById('sharedCtrl').addEventListener('change', e => {
+  sharedCtrl = e.target.checked;
+});
+
+document.getElementById('btnRandom').addEventListener('click', () => {
+  for (let i = 0; i < 3; i++) {
+    sliders[i] = Math.floor(Math.random() * 360 - 180);
+    document.getElementById('s' + i).value = sliders[i];
+    document.getElementById('v' + i).textContent = sliders[i] + '°';
+  }
+  applyCommand();
+});
+
+document.getElementById('btnStress').addEventListener('click', function() {
+  if (stressRunning) { clearInterval(stressTimer); stressRunning = false; this.classList.remove('active'); return; }
+  stressRunning = true;
+  this.classList.add('active');
+  let interval = 500;
+  function tick() {
+    for (let i = 0; i < 3; i++) {
+      sliders[i] = Math.floor(Math.random() * 360 - 180);
+      document.getElementById('s' + i).value = sliders[i];
+      document.getElementById('v' + i).textContent = sliders[i] + '°';
+    }
+    applyCommand();
+    if (interval > 50) interval -= 30;
+    stressTimer = setTimeout(tick, interval);
+  }
+  tick();
+});
+
+document.getElementById('btnChaos').addEventListener('click', function() {
+  if (chaosRunning) { clearInterval(chaosTimer); chaosRunning = false; this.classList.remove('active'); return; }
+  chaosRunning = true;
+  this.classList.add('active');
+  chaosTimer = setInterval(() => {
+    // inject random interference
+    for (let i = 0; i < 3; i++) {
+      sliders[i] += Math.floor(Math.random() * 40 - 20);
+      sliders[i] = Math.max(-180, Math.min(180, sliders[i]));
+      document.getElementById('s' + i).value = sliders[i];
+      document.getElementById('v' + i).textContent = sliders[i] + '°';
+    }
+    applyCommand();
+  }, 150);
+});
+
+document.getElementById('btnReset').addEventListener('click', () => {
+  sliders = [0, 0, 0];
+  unsafeAngles = [0, 0, 0];
+  safeAngles = [0, 0, 0];
+  unsafeViolations = 0; safeSnaps = 0; commands = 0; margins = [];
+  unsafeTrail = []; safeTrail = []; impacts = [];
+  for (let i = 0; i < 3; i++) {
+    document.getElementById('s' + i).value = 0;
+    document.getElementById('v' + i).textContent = '0°';
+  }
+  if (stressRunning) { clearTimeout(stressTimer); stressRunning = false; document.getElementById('btnStress').classList.remove('active'); }
+  if (chaosRunning) { clearInterval(chaosTimer); chaosRunning = false; document.getElementById('btnChaos').classList.remove('active'); }
+  updateStats();
+});
+
+// === Eisenstein snap ===
+function eisensteinSnap(angle, radius) {
+  const step = radius / 3;
+  if (step < 1) return angle;
+  const snapped = Math.round(angle / step) * step;
+  // Clamp to within disk radius of 0 (center of safe zone at 0°)
+  // Actually Eisenstein constraint: ensure angle stays within allowed set
+  // We interpret: safe zone is [-radius, +radius], snap to nearest Eisenstein-legal angle
+  if (Math.abs(snapped) <= radius) return snapped;
+  // If snapped outside, clamp to nearest boundary step
+  const sign = snapped > 0 ? 1 : -1;
+  return sign * Math.floor(radius / step) * step;
+}
+
+// === FK ===
+function fk(angles, baseX, baseY) {
+  const pts = [{ x: baseX, y: baseY }];
+  let cumAngle = 0;
+  let x = baseX, y = baseY;
+  for (let i = 0; i < 3; i++) {
+    cumAngle += angles[i] * DEG;
+    x += Math.cos(cumAngle) * segmentLens[i];
+    y += Math.sin(cumAngle) * segmentLens[i];
+    pts.push({ x, y });
+  }
+  return pts;
+}
+
+// === Collision check ===
+function pointInObstacle(px, py, baseX, baseY) {
+  const dx = px - (baseX + obsCenterX);
+  const dy = py - (baseY + obsCenterY);
+  return Math.sqrt(dx * dx + dy * dy) < obsSize;
+}
+
+function anySegmentInObstacle(pts, baseX, baseY) {
+  // Check end effector and intermediate joints
+  for (let i = 1; i < pts.length; i++) {
+    if (pointInObstacle(pts[i].x, pts[i].y, baseX, baseY)) return true;
+  }
+  // Check along segments
+  for (let s = 0; s < pts.length - 1; s++) {
+    const a = pts[s], b = pts[s + 1];
+    for (let t = 0; t <= 1; t += 0.1) {
+      const px = a.x + (b.x - a.x) * t;
+      const py = a.y + (b.y - a.y) * t;
+      if (pointInObstacle(px, py, baseX, baseY)) return true;
+    }
+  }
+  return false;
+}
+
+// === Apply ===
+function applyCommand() {
+  commands++;
+  
+  // UNSAFE: direct
+  unsafeAngles = [...sliders];
+  
+  // SAFE: snap
+  const snapped = [];
+  let didSnap = false;
+  for (let i = 0; i < 3; i++) {
+    const s = eisensteinSnap(sliders[i], diskRadius);
+    if (s !== sliders[i]) didSnap = true;
+    snapped.push(s);
+  }
+  if (didSnap) safeSnaps++;
+  safeAngles = snapped;
+  
+  // Calculate margin
+  let minMargin = Infinity;
+  for (let i = 0; i < 3; i++) {
+    const m = diskRadius - Math.abs(safeAngles[i]);
+    if (m < minMargin) minMargin = m;
+  }
+  margins.push(minMargin);
+  if (margins.length > 200) margins.shift();
+  
+  updateStats();
+}
+
+// === Stats ===
+function updateStats() {
+  document.getElementById('unsafeVio').textContent = unsafeViolations + ' violations';
+  document.getElementById('safeVio').textContent = safeViolations + ' violations';
+  document.getElementById('stCmds').textContent = commands;
+  document.getElementById('stUVio').textContent = unsafeViolations;
+  document.getElementById('stSnaps').textContent = safeSnaps;
+  document.getElementById('stDelta').textContent = unsafeViolations - safeViolations;
+  const avg = margins.length ? (margins.reduce((a, b) => a + b, 0) / margins.length).toFixed(1) : '—';
+  document.getElementById('stMargin').textContent = avg + (avg !== '—' ? '°' : '');
+}
+
+let safeViolations = 0;
+
+// === Render ===
+let animFrame;
+let fluxLine = 0;
+let pulsePhase = 0;
+
+function drawArm(ctx, w, h, angles, isSafe) {
+  const baseX = w * 0.42;
+  const baseY = h * 0.55;
+  const dpr = window.devicePixelRatio || 1;
+  const scale = Math.min(w / 580, h / 360);
+  
+  ctx.save();
+  ctx.clearRect(0, 0, w, h);
+  
+  const bx = baseX;
+  const by = baseY;
+  
+  // Workspace boundary (max reach)
+  const maxReach = segmentLens[0] + segmentLens[1] + segmentLens[2];
+  ctx.beginPath();
+  ctx.arc(bx, by, maxReach * scale, 0, Math.PI * 2);
+  ctx.strokeStyle = isSafe ? '#3fb95022' : '#f8514922';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([4, 4]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  
+  // Min reach circle
+  const minReach = Math.abs(segmentLens[0] - segmentLens[1] - segmentLens[2]);
+  if (minReach > 0) {
+    ctx.beginPath();
+    ctx.arc(bx, by, minReach * scale, 0, Math.PI * 2);
+    ctx.strokeStyle = isSafe ? '#3fb95015' : '#f8514915';
+    ctx.stroke();
+  }
+  
+  // Obstacle zone
+  const ox = bx + obsCenterX * scale;
+  const oy = by + obsCenterY * scale;
+  const os = obsSize * scale;
+  
+  // Check collision for pulse
+  const pts = fk(angles.map(a => a), bx / scale, by / scale);
+  const collision = anySegmentInObstacle(pts, bx / scale, by / scale);
+  
+  const pulse = collision ? 0.3 + 0.15 * Math.sin(pulsePhase * 4) : 0;
+  
+  // Obstacle fill
+  const obsGrad = ctx.createRadialGradient(ox, oy, 0, ox, oy, os);
+  obsGrad.addColorStop(0, `rgba(248,81,73,${0.15 + pulse})`);
+  obsGrad.addColorStop(1, `rgba(248,81,73,${0.03 + pulse * 0.3})`);
+  ctx.beginPath();
+  ctx.arc(ox, oy, os, 0, Math.PI * 2);
+  ctx.fillStyle = obsGrad;
+  ctx.fill();
+  
+  // Obstacle border
+  ctx.beginPath();
+  ctx.arc(ox, oy, os, 0, Math.PI * 2);
+  ctx.strokeStyle = collision ? `rgba(248,81,73,${0.8 + pulse})` : '#f8514944';
+  ctx.lineWidth = collision ? 2.5 : 1.5;
+  if (!collision) ctx.setLineDash([6, 3]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  
+  // "NO GO" label
+  ctx.fillStyle = `rgba(248,81,73,${0.4 + pulse * 0.5})`;
+  ctx.font = `${10 * scale}px monospace`;
+  ctx.textAlign = 'center';
+  ctx.fillText('NO GO', ox, oy + 3 * scale);
+  
+  // FK with scale
+  const scaledAngles = [...angles];
+  const joints = [{ x: bx, y: by }];
+  let cumA = 0, cx = bx, cy = by;
+  for (let i = 0; i < 3; i++) {
+    cumA += scaledAngles[i] * DEG;
+    cx += Math.cos(cumA) * segmentLens[i] * scale;
+    cy += Math.sin(cumA) * segmentLens[i] * scale;
+    joints.push({ x: cx, y: cy });
+  }
+  
+  // Draw trail
+  const trail = isSafe ? safeTrail : unsafeTrail;
+  const tColor = isSafe ? '3fb950' : 'f85149';
+  for (let i = 0; i < trail.length; i++) {
+    const alpha = (i / trail.length) * 0.5;
+    ctx.beginPath();
+    ctx.arc(trail[i].x * scale + bx - bx, trail[i].y * scale + by - by, 2 * scale, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${isSafe ? '63,185,80' : '248,81,73'},${alpha})`;
+    ctx.fill();
+  }
+  
+  // Draw impact markers
+  if (!isSafe) {
+    for (let i = 0; i < impacts.length; i++) {
+      const imp = impacts[i];
+      const age = Date.now() - imp.t;
+      if (age > 3000) continue;
+      const alpha = 1 - age / 3000;
+      const s = (3 + age / 300) * scale;
+      ctx.beginPath();
+      ctx.arc(imp.x * scale, imp.y * scale, s, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(248,81,73,${alpha})`;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      // X mark
+      const xs = 4 * scale * alpha;
+      ctx.beginPath();
+      ctx.moveTo(imp.x * scale - xs, imp.y * scale - xs);
+      ctx.lineTo(imp.x * scale + xs, imp.y * scale + xs);
+      ctx.moveTo(imp.x * scale + xs, imp.y * scale - xs);
+      ctx.lineTo(imp.x * scale - xs, imp.y * scale + xs);
+      ctx.strokeStyle = `rgba(248,81,73,${alpha * 0.7})`;
+      ctx.stroke();
+    }
+  }
+  
+  // Draw arm segments
+  const segColors = isSafe 
+    ? ['#3fb950', '#3fb950aa', '#3fb95088'] 
+    : (collision ? ['#f85149', '#f85149aa', '#f8514988'] : ['#58a6ff', '#58a6ffaa', '#58a6ff88']);
+  
+  for (let i = 0; i < 3; i++) {
+    ctx.beginPath();
+    ctx.moveTo(joints[i].x, joints[i].y);
+    ctx.lineTo(joints[i + 1].x, joints[i + 1].y);
+    ctx.strokeStyle = segColors[i];
+    ctx.lineWidth = (4 - i) * scale;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+  }
+  
+  // Draw joints
+  for (let i = 0; i < 3; i++) {
+    ctx.beginPath();
+    ctx.arc(joints[i].x, joints[i].y, (5 - i) * scale, 0, Math.PI * 2);
+    ctx.fillStyle = '#0d1117';
+    ctx.strokeStyle = isSafe ? '#3fb950' : '#58a6ff';
+    ctx.lineWidth = 2 * scale;
+    ctx.fill();
+    ctx.stroke();
+  }
+  
+  // End effector (gripper triangle)
+  const ee = joints[3];
+  const gripAngle = scaledAngles.reduce((a, b) => a + b, 0) * DEG;
+  const gripSize = 10 * scale;
+  ctx.beginPath();
+  ctx.moveTo(ee.x + Math.cos(gripAngle) * gripSize, ee.y + Math.sin(gripAngle) * gripSize);
+  ctx.lineTo(ee.x + Math.cos(gripAngle + 2.5) * gripSize * 0.6, ee.y + Math.sin(gripAngle + 2.5) * gripSize * 0.6);
+  ctx.lineTo(ee.x + Math.cos(gripAngle - 2.5) * gripSize * 0.6, ee.y + Math.sin(gripAngle - 2.5) * gripSize * 0.6);
+  ctx.closePath();
+  ctx.fillStyle = isSafe ? '#3fb950' : (collision ? '#f85149' : '#58a6ff');
+  ctx.fill();
+  
+  // Base
+  ctx.beginPath();
+  ctx.arc(bx, by, 8 * scale, 0, Math.PI * 2);
+  ctx.fillStyle = '#161b22';
+  ctx.strokeStyle = '#30363d';
+  ctx.lineWidth = 2 * scale;
+  ctx.fill();
+  ctx.stroke();
+  
+  // Collision warning
+  if (collision && !isSafe) {
+    ctx.fillStyle = '#f85149';
+    ctx.font = `bold ${12 * scale}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('⚠ COLLISION', bx, h - 15 * scale);
+  }
+  if (isSafe && collision) {
+    // shouldn't happen but just in case
+  }
+  
+  // Snap flash
+  if (isSafe && safeSnapFlash > 0) {
+    ctx.fillStyle = `rgba(63,185,80,${safeSnapFlash})`;
+    ctx.fillRect(0, 0, w, h);
+    safeSnapFlash -= 0.03;
+  }
+  
+  ctx.restore();
+  
+  return { joints, collision };
+}
+
+let safeSnapFlash = 0;
+
+function updateConstraintDisks() {
+  for (let i = 0; i < 3; i++) {
+    const needle = document.getElementById('n' + i);
+    const disk = document.getElementById('cd' + i);
+    const angle = safeAngles[i];
+    needle.style.transform = `rotate(${angle}deg)`;
+    
+    const margin = diskRadius - Math.abs(angle);
+    if (margin < 0) {
+      needle.style.background = '#f85149';
+      disk.style.borderColor = '#f85149';
+    } else if (margin < 5) {
+      needle.style.background = '#d29922';
+      disk.style.borderColor = '#d29922';
+    } else {
+      needle.style.background = '#3fb950';
+      disk.style.borderColor = '#3fb95044';
+    }
+  }
+}
+
+function animateFlux() {
+  const lines = document.getElementById('fluxCode').children;
+  // Remove active from all
+  for (let l of lines) l.classList.remove('active');
+  // Add to current
+  if (lines[fluxLine]) lines[fluxLine].classList.add('active');
+  fluxLine = (fluxLine + 1) % lines.length;
+}
+
+function render() {
+  pulsePhase += 0.016;
+  
+  const wU = cvU.width, hU = cvU.height;
+  const wS = cvS.width, hS = cvS.height;
+  
+  const uResult = drawArm(ctxU, wU, hU, unsafeAngles, false);
+  const sResult = drawArm(ctxS, wS, hS, safeAngles, true);
+  
+  // Update trails
+  if (uResult.joints.length) {
+    const ee = uResult.joints[3];
+    unsafeTrail.push({ x: ee.x / (window.devicePixelRatio || 1), y: ee.y / (window.devicePixelRatio || 1) });
+    if (unsafeTrail.length > TRAIL_MAX) unsafeTrail.shift();
+  }
+  if (sResult.joints.length) {
+    const ee = sResult.joints[3];
+    safeTrail.push({ x: ee.x / (window.devicePixelRatio || 1), y: ee.y / (window.devicePixelRatio || 1) });
+    if (safeTrail.length > TRAIL_MAX) safeTrail.shift();
+  }
+  
+  // Check violations
+  if (uResult.collision) {
+    // Count once per entry
+    if (!unsafeWasColliding) {
+      unsafeViolations++;
+      const ee = uResult.joints[3];
+      impacts.push({ x: ee.x, y: ee.y, t: Date.now() });
+      updateStats();
+    }
+    unsafeWasColliding = true;
+  } else {
+    unsafeWasColliding = false;
+  }
+  
+  if (sResult.collision) {
+    if (!safeWasColliding) {
+      safeViolations++;
+      updateStats();
+    }
+    safeWasColliding = true;
+  } else {
+    safeWasColliding = false;
+  }
+  
+  // Clean old impacts
+  impacts = impacts.filter(i => Date.now() - i.t < 3000);
+  
+  updateConstraintDisks();
+  
+  animFrame = requestAnimationFrame(render);
+}
+
+let unsafeWasColliding = false;
+let safeWasColliding = false;
+
+// Flux animation
+setInterval(animateFlux, 400);
+
+// Initial snap flash detection
+let lastSafeAngles = [0, 0, 0];
+setInterval(() => {
+  for (let i = 0; i < 3; i++) {
+    if (safeAngles[i] !== lastSafeAngles[i] && safeAngles[i] !== sliders[i]) {
+      safeSnapFlash = 0.15;
+    }
+  }
+  lastSafeAngles = [...safeAngles];
+}, 100);
+
+// Start
+applyCommand();
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLUX VM Simulator</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #0d1117; --card: #161b22; --border: #30363d; --accent: #58a6ff;
+  --green: #3fb950; --yellow: #d29922; --red: #f85149; --text: #e6edf3;
+  --muted: #8b949e; --dim: #484f58;
+}
+body { background: var(--bg); color: var(--text); font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+h1 { font-size: 14px; padding: 8px 16px; background: var(--card); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+h1 .badge { background: var(--accent); color: var(--bg); padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 700; }
+
+/* Toolbar */
+.toolbar { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--card); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.toolbar button { background: var(--dim); color: var(--text); border: 1px solid var(--border); padding: 4px 12px; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 12px; }
+.toolbar button:hover { background: var(--accent); color: var(--bg); }
+.toolbar button.run { background: var(--green); color: var(--bg); font-weight: 700; }
+.toolbar button.run:hover { filter: brightness(1.2); }
+.toolbar button.step { background: var(--yellow); color: var(--bg); font-weight: 700; }
+.toolbar button.step:hover { filter: brightness(1.2); }
+.toolbar button.reset { background: var(--red); color: var(--bg); font-weight: 700; }
+.toolbar select { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 4px 8px; border-radius: 4px; font-family: inherit; font-size: 12px; }
+.toolbar label { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.toolbar input[type=range] { width: 80px; }
+.speed-display { font-size: 11px; color: var(--accent); min-width: 30px; }
+
+/* Main layout */
+.main { display: flex; flex: 1; overflow: hidden; }
+.panel { display: flex; flex-direction: column; border-right: 1px solid var(--border); }
+.panel:last-child { border-right: none; }
+.panel-left { width: 30%; min-width: 280px; }
+.panel-center { width: 35%; min-width: 300px; }
+.panel-right { width: 35%; min-width: 300px; }
+.panel-header { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); padding: 6px 10px; background: var(--card); border-bottom: 1px solid var(--border); }
+
+/* Editor */
+#editor { flex: 1; background: var(--bg); color: var(--text); border: none; padding: 10px; font-family: inherit; font-size: 12px; line-height: 1.6; resize: none; outline: none; tab-size: 2; }
+.opcode-ref { max-height: 0; overflow: hidden; transition: max-height 0.3s; background: var(--card); border-top: 1px solid var(--border); }
+.opcode-ref.open { max-height: 350px; overflow-y: auto; }
+.opcode-ref table { width: 100%; font-size: 10px; border-collapse: collapse; }
+.opcode-ref th { text-align: left; padding: 3px 8px; color: var(--accent); border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--card); }
+.opcode-ref td { padding: 2px 8px; border-bottom: 1px solid var(--border); }
+.opcode-ref td:first-child { color: var(--accent); font-weight: 600; }
+.ref-toggle { font-size: 10px; color: var(--muted); padding: 4px 10px; cursor: pointer; background: none; border: none; width: 100%; text-align: left; font-family: inherit; }
+.ref-toggle:hover { color: var(--text); }
+
+/* Center: execution */
+.exec-area { flex: 1; overflow-y: auto; padding: 8px; }
+.section-label { font-size: 10px; color: var(--muted); text-transform: uppercase; margin: 8px 0 4px; letter-spacing: 0.5px; }
+.reg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 4px; }
+.reg-box { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 4px 8px; font-size: 11px; transition: all 0.3s; }
+.reg-box .reg-name { color: var(--muted); font-size: 10px; }
+.reg-box .reg-val { color: var(--text); font-size: 13px; font-weight: 600; }
+.reg-box.glow { border-color: var(--accent); box-shadow: 0 0 12px rgba(88,166,255,0.4); }
+.var-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 4px; }
+.var-box { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 4px 8px; font-size: 11px; }
+.var-box .var-name { color: var(--yellow); font-size: 10px; }
+.var-box .var-val { color: var(--text); font-size: 12px; }
+.current-op { background: var(--card); border: 1px solid var(--green); border-radius: 4px; padding: 6px 10px; font-size: 12px; color: var(--green); margin: 4px 0; }
+.trace-log { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 6px; max-height: 180px; overflow-y: auto; font-size: 10px; line-height: 1.5; }
+.trace-log .trace-entry { border-bottom: 1px solid var(--border); padding: 2px 0; }
+.trace-log .shake { color: var(--accent); }
+.trace-log .listen { color: var(--yellow); }
+.trace-log .sig { color: var(--green); }
+
+/* Canvas */
+.canvas-wrap { flex: 1; position: relative; background: var(--bg); }
+#latticeCanvas { width: 100%; height: 100%; display: block; }
+
+/* Stats bar */
+.stats-bar { display: flex; gap: 16px; padding: 6px 12px; background: var(--card); border-top: 1px solid var(--border); font-size: 11px; flex-wrap: wrap; }
+.stat { display: flex; align-items: center; gap: 4px; }
+.stat-label { color: var(--muted); }
+.stat-val { color: var(--accent); font-weight: 600; }
+
+/* Ripple animation */
+@keyframes ripple { 0% { box-shadow: 0 0 0 0 rgba(88,166,255,0.5); } 100% { box-shadow: 0 0 0 8px rgba(88,166,255,0); } }
+@keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+@keyframes snapAnim { 0% { transform: scale(1); } 50% { transform: scale(1.5); } 100% { transform: scale(1); } }
+
+/* Line highlight in editor */
+.line-highlight { position: absolute; left: 0; right: 0; height: 19px; background: rgba(88,166,255,0.15); border-left: 2px solid var(--accent); pointer-events: none; display: none; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<h1>⚒️ FLUX VM Simulator <span class="badge">LIVE</span></h1>
+
+<div class="toolbar">
+  <button class="run" onclick="runProgram()">▶ Run</button>
+  <button class="step" onclick="stepProgram()">⏭ Step</button>
+  <button class="reset" onclick="resetVM()">⏹ Reset</button>
+  <label>Speed: <input type="range" id="speedSlider" min="0" max="3" value="0" oninput="updateSpeed()"><span class="speed-display" id="speedLabel">1x</span></label>
+  <select id="presets" onchange="loadPreset()">
+    <option value="">— Preset Programs —</option>
+    <option value="constraint">Simple Constraint Check</option>
+    <option value="shake">Shake and Listen</option>
+    <option value="fleet">Fleet Consensus</option>
+    <option value="snap">Snap to Safety</option>
+    <option value="temporal">Temporal Prediction</option>
+  </select>
+  <span style="flex:1"></span>
+  <span style="font-size:10px;color:var(--muted)">FLUX Bytecode VM v0.1</span>
+</div>
+
+<div class="main">
+  <!-- Left: Editor -->
+  <div class="panel panel-left">
+    <div class="panel-header">📝 Code Editor</div>
+    <textarea id="editor" spellcheck="false">; FLUX Program — Simple Constraint Check
+LOAD r0 5.0          ; constraint_radius = 5.0
+LOAD r1 3.2          ; current_position = 3.2
+SUB r2 r0 r1         ; delta = constraint - position
+GTE r3 r2 0          ; is delta >= 0?
+STORE satisfied r3    ; store result
+SIG report            ; emit signature
+HALT</textarea>
+    <button class="ref-toggle" onclick="toggleRef()">▸ Opcode Reference (click to expand)</button>
+    <div class="opcode-ref" id="opcodeRef">
+      <table>
+        <tr><th>Opcode</th><th>Args</th><th>Description</th></tr>
+        <tr><td>LOAD</td><td>reg val</td><td>Load value into register</td></tr>
+        <tr><td>STORE</td><td>var reg</td><td>Store register to variable</td></tr>
+        <tr><td>MOV</td><td>dest src</td><td>Copy register to register</td></tr>
+        <tr><td>ADD</td><td>dest src1 src2</td><td>Addition</td></tr>
+        <tr><td>SUB</td><td>dest src1 src2</td><td>Subtraction</td></tr>
+        <tr><td>MUL</td><td>dest src1 src2</td><td>Multiplication</td></tr>
+        <tr><td>EQ</td><td>dest src1 src2</td><td>Equal? (1/0)</td></tr>
+        <tr><td>GT</td><td>dest src1 src2</td><td>Greater than? (1/0)</td></tr>
+        <tr><td>GTE</td><td>dest src1 src2</td><td>Greater or equal? (1/0)</td></tr>
+        <tr><td>JNZ</td><td>reg label</td><td>Jump if not zero</td></tr>
+        <tr><td>JMP</td><td>label</td><td>Unconditional jump</td></tr>
+        <tr><td>CALL</td><td>label</td><td>Call subroutine</td></tr>
+        <tr><td>RET</td><td></td><td>Return from subroutine</td></tr>
+        <tr><td>SIG</td><td>label</td><td>Emit signature</td></tr>
+        <tr><td>HALT</td><td></td><td>Stop execution</td></tr>
+        <tr><td>NOP</td><td></td><td>No operation</td></tr>
+        <tr><td>T_WAIT</td><td>ms</td><td>Temporal wait</td></tr>
+        <tr><td>T_WITHIN</td><td>reg min max</td><td>Check if in range</td></tr>
+        <tr><td>T_PARITY</td><td>reg1 reg2</td><td>Compare two paths</td></tr>
+        <tr><td>T_SNAP</td><td>reg</td><td>Snap to nearest Eisenstein integer</td></tr>
+        <tr><td>T_TICK</td><td>reg</td><td>Read physics clock</td></tr>
+        <tr><td>T_PREDICT</td><td>reg steps</td><td>Extrapolate trajectory</td></tr>
+        <tr><td>T_DECAY</td><td>reg</td><td>Measure resonance decay</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Center: Execution -->
+  <div class="panel panel-center">
+    <div class="panel-header">⚡ Execution State</div>
+    <div class="exec-area" id="execArea">
+      <div class="section-label">Current Opcode</div>
+      <div class="current-op" id="currentOp">— idle —</div>
+      <div class="section-label">Registers</div>
+      <div class="reg-grid" id="regGrid"></div>
+      <div class="section-label">Variables</div>
+      <div class="var-grid" id="varGrid"></div>
+      <div class="section-label">Execution Trace</div>
+      <div class="trace-log" id="traceLog"></div>
+    </div>
+  </div>
+
+  <!-- Right: Canvas -->
+  <div class="panel panel-right">
+    <div class="panel-header">🔷 Eisenstein Lattice</div>
+    <div class="canvas-wrap">
+      <canvas id="latticeCanvas"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="stat"><span class="stat-label">Opcodes:</span><span class="stat-val" id="statOps">0</span></div>
+  <div class="stat"><span class="stat-label">Shake:</span><span class="stat-val" id="statShake">0</span></div>
+  <div class="stat"><span class="stat-label">Listen:</span><span class="stat-val" id="statListen">0</span></div>
+  <div class="stat"><span class="stat-label">S/L Ratio:</span><span class="stat-val" id="statRatio">—</span></div>
+  <div class="stat"><span class="stat-label">Constraints Met:</span><span class="stat-val" id="statConstraints">—</span></div>
+  <div class="stat"><span class="stat-label">Clock:</span><span class="stat-val" id="statClock">0</span></div>
+  <div class="stat"><span class="stat-label">Status:</span><span class="stat-val" id="statStatus">IDLE</span></div>
+</div>
+
+<script>
+// ─── VM State ───
+const VM = {
+  regs: {}, vars: {}, pc: 0, running: false, halted: false,
+  program: [], labels: {}, callStack: [],
+  opsCount: 0, shakeCount: 0, listenCount: 0, clock: 0, signatures: [],
+  gridPoints: [], trajectoryPoints: [], decayAmp: 1.0, parityPaths: [[], []],
+  animEffects: []
+};
+const speeds = [50, 5, 1, 0]; // ms per step
+let runTimer = null;
+
+// ─── Parser ───
+function parse(code) {
+  const lines = code.split('\n');
+  const program = [];
+  const labels = {};
+  let idx = 0;
+  for (let raw of lines) {
+    const line = raw.replace(/;.*$/, '').trim();
+    if (!line) { idx++; continue; }
+    if (line.endsWith(':')) { labels[line.slice(0, -1).trim()] = program.length; idx++; continue; }
+    const parts = line.split(/\s+/);
+    program.push({ op: parts[0].toUpperCase(), args: parts.slice(1), line: idx });
+    idx++;
+  }
+  return { program, labels };
+}
+
+function resolveVal(v) {
+  if (v === undefined) return 0;
+  if (v.startsWith('r')) { const r = parseFloat(VM.regs[v] || 0); return isNaN(r) ? 0 : r; }
+  const n = parseFloat(v);
+  return isNaN(n) ? (VM.vars[v] !== undefined ? VM.vars[v] : 0) : n;
+}
+
+function isReg(v) { return v && v.startsWith('r'); }
+
+// ─── Opcodes ───
+const SHAKE_OPS = new Set(['LOAD', 'ADD', 'SUB', 'MUL', 'MOV']);
+const LISTEN_OPS = new Set(['EQ', 'GT', 'GTE', 'T_PARITY', 'T_WITHIN']);
+
+function executeStep() {
+  if (VM.halted || VM.pc >= VM.program.length) {
+    VM.running = false;
+    VM.halted = true;
+    clearInterval(runTimer);
+    document.getElementById('statStatus').textContent = VM.halted ? 'HALTED' : 'DONE';
+    return false;
+  }
+  const instr = VM.program[VM.pc];
+  const { op, args } = instr;
+  VM.opsCount++;
+  VM.clock++;
+  const isShake = SHAKE_OPS.has(op);
+  const isListen = LISTEN_OPS.has(op);
+
+  if (isShake) VM.shakeCount++;
+  if (isListen) VM.listenCount++;
+
+  let traceClass = isShake ? 'shake' : isListen ? 'listen' : (op === 'SIG' ? 'sig' : '');
+
+  // Grid point for canvas
+  let gp = null;
+
+  switch (op) {
+    case 'LOAD':
+      VM.regs[args[0]] = parseFloat(args[1]) || 0;
+      gp = { x: VM.regs[args[0]], y: 0 };
+      break;
+    case 'STORE':
+      VM.vars[args[0]] = VM.regs[args[1]] !== undefined ? VM.regs[args[1]] : 0;
+      break;
+    case 'MOV':
+      VM.regs[args[0]] = resolveVal(args[1]);
+      break;
+    case 'ADD':
+      VM.regs[args[0]] = resolveVal(args[1]) + resolveVal(args[2]);
+      gp = { x: VM.regs[args[0]], y: 0 };
+      break;
+    case 'SUB':
+      VM.regs[args[0]] = resolveVal(args[1]) - resolveVal(args[2]);
+      gp = { x: VM.regs[args[0]], y: 0 };
+      break;
+    case 'MUL':
+      VM.regs[args[0]] = resolveVal(args[1]) * resolveVal(args[2]);
+      gp = { x: VM.regs[args[0]], y: 0 };
+      break;
+    case 'EQ':
+      VM.regs[args[0]] = resolveVal(args[1]) === resolveVal(args[2]) ? 1 : 0;
+      break;
+    case 'GT':
+      VM.regs[args[0]] = resolveVal(args[1]) > resolveVal(args[2]) ? 1 : 0;
+      break;
+    case 'GTE':
+      VM.regs[args[0]] = resolveVal(args[1]) >= resolveVal(args[2]) ? 1 : 0;
+      break;
+    case 'JNZ': {
+      const val = isReg(args[0]) ? (VM.regs[args[0]] || 0) : resolveVal(args[0]);
+      if (val !== 0) { VM.pc = VM.labels[args[isReg(args[0]) ? 1 : 0]] || VM.pc; updateUI(instr); addTrace(op, args, traceClass); return true; }
+      break;
+    }
+    case 'JMP':
+      VM.pc = VM.labels[args[0]] || VM.pc;
+      updateUI(instr); addTrace(op, args, traceClass); return true;
+    case 'CALL':
+      VM.callStack.push(VM.pc + 1);
+      VM.pc = VM.labels[args[0]] || VM.pc;
+      updateUI(instr); addTrace(op, args, traceClass); return true;
+    case 'RET':
+      if (VM.callStack.length > 0) VM.pc = VM.callStack.pop();
+      break;
+    case 'SIG':
+      VM.signatures.push({ label: args[0] || 'anon', tick: VM.clock });
+      break;
+    case 'HALT':
+      VM.halted = true; VM.running = false;
+      clearInterval(runTimer);
+      break;
+    case 'NOP': break;
+    case 'T_WAIT': break; // visual only
+    case 'T_WITHIN': {
+      const v = resolveVal(args[0]);
+      const lo = parseFloat(args[1]) || 0;
+      const hi = parseFloat(args[2]) || 0;
+      const reg = args[0];
+      VM.regs[reg] = (v >= lo && v <= hi) ? 1 : 0;
+      break;
+    }
+    case 'T_PARITY': {
+      const v1 = resolveVal(args[0]);
+      const v2 = resolveVal(args[1]);
+      const r = args[0]; // store result in first reg
+      VM.regs[r] = Math.abs(v1 - v2) < 0.001 ? 1 : 0;
+      // Record paths for canvas
+      VM.parityPaths = [[v1, 0], [v2, 0]];
+      break;
+    }
+    case 'T_SNAP': {
+      const v = resolveVal(args[0]);
+      const snapped = Math.round(v);
+      VM.regs[args[0]] = snapped;
+      VM.animEffects.push({ type: 'snap', from: v, to: snapped, t: 0 });
+      gp = { x: snapped, y: 0 };
+      break;
+    }
+    case 'T_TICK':
+      VM.regs[args[0]] = VM.clock;
+      break;
+    case 'T_PREDICT': {
+      const v = resolveVal(args[0]);
+      const steps = parseInt(args[1]) || 3;
+      const pts = [];
+      for (let i = 0; i <= steps; i++) pts.push({ x: v + i * 0.7, y: i * 0.5 });
+      VM.trajectoryPoints = pts;
+      VM.regs[args[0]] = v + steps * 0.7;
+      break;
+    }
+    case 'T_DECAY': {
+      const v = resolveVal(args[0]);
+      VM.decayAmp = Math.exp(-v * 0.3);
+      VM.regs[args[0]] = VM.decayAmp;
+      break;
+    }
+    default: break;
+  }
+
+  if (gp) VM.gridPoints.push(gp);
+  if (isShake) addRipple(args[0] || 'r0');
+
+  VM.pc++;
+  updateUI(instr);
+  addTrace(op, args, traceClass);
+  return true;
+}
+
+// ─── UI ───
+function updateUI(instr) {
+  // Current opcode
+  const cur = document.getElementById('currentOp');
+  cur.textContent = instr ? `${instr.op} ${instr.args.join(' ')}` : '— idle —';
+
+  // Registers
+  const rg = document.getElementById('regGrid');
+  rg.innerHTML = '';
+  const regKeys = Object.keys(VM.regs).sort();
+  for (const k of regKeys) {
+    const d = document.createElement('div');
+    d.className = 'reg-box';
+    d.id = 'reg-' + k;
+    d.innerHTML = `<div class="reg-name">${k}</div><div class="reg-val">${fmtNum(VM.regs[k])}</div>`;
+    rg.appendChild(d);
+  }
+
+  // Variables
+  const vg = document.getElementById('varGrid');
+  vg.innerHTML = '';
+  for (const k of Object.keys(VM.vars)) {
+    const d = document.createElement('div');
+    d.className = 'var-box';
+    d.innerHTML = `<div class="var-name">${k}</div><div class="var-val">${fmtNum(VM.vars[k])}</div>`;
+    vg.appendChild(d);
+  }
+
+  // Stats
+  document.getElementById('statOps').textContent = VM.opsCount;
+  document.getElementById('statShake').textContent = VM.shakeCount;
+  document.getElementById('statListen').textContent = VM.listenCount;
+  document.getElementById('statRatio').textContent = VM.listenCount > 0 ? (VM.shakeCount / VM.listenCount).toFixed(2) : '∞';
+  const satisfied = Object.values(VM.vars).filter(v => v === 1).length;
+  const total = Object.keys(VM.vars).length;
+  document.getElementById('statConstraints').textContent = total > 0 ? `${satisfied}/${total}` : '—';
+  document.getElementById('statClock').textContent = VM.clock;
+  document.getElementById('statStatus').textContent = VM.halted ? 'HALTED' : VM.running ? 'RUNNING' : 'PAUSED';
+
+  drawCanvas();
+}
+
+function fmtNum(n) {
+  if (typeof n !== 'number') return String(n);
+  return Number.isInteger(n) ? String(n) : n.toFixed(4);
+}
+
+function addTrace(op, args, cls) {
+  const log = document.getElementById('traceLog');
+  const e = document.createElement('div');
+  e.className = 'trace-entry ' + cls;
+  e.textContent = `[${String(VM.clock).padStart(3, '0')}] ${op} ${args.join(' ')}`;
+  log.appendChild(e);
+  log.scrollTop = log.scrollHeight;
+}
+
+function addRipple(reg) {
+  const el = document.getElementById('reg-' + reg);
+  if (el) {
+    el.classList.add('glow');
+    setTimeout(() => el.classList.remove('glow'), 500);
+  }
+}
+
+function updateSpeed() {
+  const v = document.getElementById('speedSlider').value;
+  const labels = ['1x', '10x', '100x', 'max'];
+  document.getElementById('speedLabel').textContent = labels[v];
+  if (VM.running) {
+    clearInterval(runTimer);
+    runTimer = setInterval(() => { if (!executeStep()) clearInterval(runTimer); }, speeds[v]);
+  }
+}
+
+// ─── Controls ───
+function resetVM() {
+  clearInterval(runTimer);
+  VM.regs = {}; VM.vars = {}; VM.pc = 0; VM.running = false; VM.halted = false;
+  VM.opsCount = 0; VM.shakeCount = 0; VM.listenCount = 0; VM.clock = 0;
+  VM.signatures = []; VM.gridPoints = []; VM.trajectoryPoints = [];
+  VM.decayAmp = 1.0; VM.parityPaths = [[], []]; VM.animEffects = [];
+  VM.callStack = [];
+  const code = document.getElementById('editor').value;
+  const parsed = parse(code);
+  VM.program = parsed.program; VM.labels = parsed.labels;
+  document.getElementById('traceLog').innerHTML = '';
+  document.getElementById('regGrid').innerHTML = '';
+  document.getElementById('varGrid').innerHTML = '';
+  document.getElementById('currentOp').textContent = '— idle —';
+  document.getElementById('statOps').textContent = '0';
+  document.getElementById('statShake').textContent = '0';
+  document.getElementById('statListen').textContent = '0';
+  document.getElementById('statRatio').textContent = '—';
+  document.getElementById('statConstraints').textContent = '—';
+  document.getElementById('statClock').textContent = '0';
+  document.getElementById('statStatus').textContent = 'IDLE';
+  drawCanvas();
+}
+
+function runProgram() {
+  if (VM.halted) resetVM();
+  if (!VM.program.length || VM.pc === 0) {
+    const code = document.getElementById('editor').value;
+    const parsed = parse(code);
+    VM.program = parsed.program; VM.labels = parsed.labels;
+    VM.pc = 0;
+  }
+  VM.running = true;
+  clearInterval(runTimer);
+  const sp = speeds[document.getElementById('speedSlider').value];
+  runTimer = setInterval(() => { if (!executeStep()) clearInterval(runTimer); }, sp);
+  document.getElementById('statStatus').textContent = 'RUNNING';
+}
+
+function stepProgram() {
+  if (VM.halted) return;
+  if (!VM.program.length || VM.pc === 0) {
+    const code = document.getElementById('editor').value;
+    const parsed = parse(code);
+    VM.program = parsed.program; VM.labels = parsed.labels;
+    VM.pc = 0;
+  }
+  executeStep();
+}
+
+// ─── Presets ───
+const presets = {
+  constraint: `; Simple Constraint Check
+LOAD r0 5.0          ; constraint_radius
+LOAD r1 3.2          ; current_position
+SUB r2 r0 r1         ; delta = constraint - position
+GTE r3 r2 0          ; is delta >= 0?
+STORE satisfied r3   ; store result
+SIG report           ; emit signature
+HALT`,
+
+  shake: `; Shake and Listen — identify load-bearing params
+LOAD r0 0.0          ; accumulator
+LOAD r1 1.0          ; perturbation magnitude
+loop:
+  ADD r0 r0 r1       ; shake: perturb
+  T_DECAY r0          ; listen: measure decay
+  GTE r2 r0 0.1      ; still significant?
+  JNZ r2 loop         ; keep shaking
+STORE final r0
+SIG shake_complete
+HALT`,
+
+  fleet: `; Fleet Consensus — three paths, parity check
+LOAD r0 1.0
+LOAD r1 1.0
+LOAD r2 2.0
+LOAD r3 2.1
+T_PARITY r0 r1       ; compare path A
+STORE parity_ab r0
+T_PARITY r2 r3       ; compare path B
+STORE parity_bc r2
+ADD r4 r0 r2          ; consensus score
+GTE r5 r4 1
+STORE consensus r5
+SIG fleet_vote
+HALT`,
+
+  snap: `; Snap to Safety
+LOAD r0 3.7          ; random position
+T_SNAP r0             ; snap to Eisenstein integer
+STORE snapped r0
+LOAD r1 5.0
+LOAD r2 3.0
+SUB r3 r0 r2          ; offset from ideal
+T_WITHIN r3 -1 1     ; within safety zone?
+STORE safe r3
+SIG safety_check
+HALT`,
+
+  temporal: `; Temporal Prediction
+T_TICK r0             ; baseline tick
+LOAD r1 2.5           ; initial value
+LOAD r2 0.7           ; perturbation
+MUL r3 r1 r2          ; perturbed value
+T_PREDICT r3 5        ; predict 5 steps
+T_DECAY r3            ; measure decay
+STORE prediction r3
+T_PARITY r1 r3        ; compare original vs predicted
+STORE parity r1
+SIG temporal_report
+HALT`
+};
+
+function loadPreset() {
+  const sel = document.getElementById('presets').value;
+  if (!sel) return;
+  document.getElementById('editor').value = presets[sel];
+  resetVM();
+}
+
+function toggleRef() {
+  document.getElementById('opcodeRef').classList.toggle('open');
+}
+
+// ─── Canvas ───
+const canvas = document.getElementById('latticeCanvas');
+const ctx = canvas.getContext('2d');
+let animFrame;
+
+function resizeCanvas() {
+  const wrap = canvas.parentElement;
+  canvas.width = wrap.clientWidth * window.devicePixelRatio;
+  canvas.height = wrap.clientHeight * window.devicePixelRatio;
+  canvas.style.width = wrap.clientWidth + 'px';
+  canvas.style.height = wrap.clientHeight + 'px';
+  ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+  drawCanvas();
+}
+window.addEventListener('resize', resizeCanvas);
+
+function drawCanvas() {
+  const W = canvas.width / window.devicePixelRatio;
+  const H = canvas.height / window.devicePixelRatio;
+  ctx.clearRect(0, 0, W, H);
+
+  const cx = W / 2, cy = H / 2;
+  const scale = Math.min(W, H) / 14;
+
+  // Draw Eisenstein lattice (hex grid)
+  const omega = { x: 1, y: 0 };
+  const omega2 = { x: -0.5, y: Math.sqrt(3) / 2 };
+
+  ctx.globalAlpha = 0.15;
+  for (let a = -5; a <= 5; a++) {
+    for (let b = -5; b <= 5; b++) {
+      const px = cx + (a * omega.x + b * omega2.x) * scale;
+      const py = cy - (a * omega.y + b * omega2.y) * scale;
+      ctx.beginPath();
+      ctx.arc(px, py, 3, 0, Math.PI * 2);
+      ctx.fillStyle = '#58a6ff';
+      ctx.fill();
+    }
+  }
+  ctx.globalAlpha = 1;
+
+  // Constraint disk
+  const radius = 5.0 * scale;
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(88,166,255,0.3)';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4, 4]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(88,166,255,0.04)';
+  ctx.fill();
+
+  // Grid points from VM
+  for (const gp of VM.gridPoints) {
+    const px = cx + gp.x * scale;
+    const py = cy - gp.y * scale;
+    ctx.beginPath();
+    ctx.arc(px, py, 6, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(63,185,80,0.7)';
+    ctx.fill();
+    ctx.strokeStyle = '#3fb950';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    // ripple
+    const age = VM.gridPoints.length - VM.gridPoints.indexOf(gp);
+    if (age < 3) {
+      ctx.beginPath();
+      ctx.arc(px, py, 6 + age * 8, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(63,185,80,${0.5 - age * 0.15})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  }
+
+  // Trajectory points
+  if (VM.trajectoryPoints.length > 1) {
+    ctx.beginPath();
+    for (let i = 0; i < VM.trajectoryPoints.length; i++) {
+      const p = VM.trajectoryPoints[i];
+      const px = cx + p.x * scale;
+      const py = cy - p.y * scale;
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = '#d29922';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([3, 3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // dots at trajectory points
+    for (const p of VM.trajectoryPoints) {
+      const px = cx + p.x * scale;
+      const py = cy - p.y * scale;
+      ctx.beginPath();
+      ctx.arc(px, py, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#d29922';
+      ctx.fill();
+    }
+  }
+
+  // Parity paths
+  if (VM.parityPaths[0].length) {
+    for (let i = 0; i < 2; i++) {
+      const p = VM.parityPaths[i];
+      const px = cx + p[0] * scale;
+      const py = cy - p[1] * scale;
+      ctx.beginPath();
+      ctx.arc(px, py, 5, 0, Math.PI * 2);
+      ctx.fillStyle = i === 0 ? 'rgba(88,166,255,0.8)' : 'rgba(248,81,73,0.8)';
+      ctx.fill();
+      ctx.strokeStyle = i === 0 ? '#58a6ff' : '#f85149';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    // connection line
+    ctx.beginPath();
+    ctx.moveTo(cx + VM.parityPaths[0][0] * scale, cy - VM.parityPaths[0][1] * scale);
+    ctx.lineTo(cx + VM.parityPaths[1][0] * scale, cy - VM.parityPaths[1][1] * scale);
+    ctx.strokeStyle = 'rgba(210,153,34,0.5)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Decay visualization — pulsing ring
+  if (VM.decayAmp < 1.0) {
+    const amp = VM.decayAmp;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius * 0.7 * amp, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(210,153,34,${amp})`;
+    ctx.lineWidth = 2 * amp;
+    ctx.stroke();
+  }
+
+  // Snap animation effects
+  for (let i = VM.animEffects.length - 1; i >= 0; i--) {
+    const e = VM.animEffects[i];
+    e.t += 0.05;
+    if (e.type === 'snap') {
+      const fromX = cx + e.from * scale;
+      const toX = cx + e.to * scale;
+      const x = fromX + (toX - fromX) * Math.min(e.t, 1);
+      ctx.beginPath();
+      ctx.arc(x, cy, 8, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(63,185,80,${1 - e.t})`;
+      ctx.fill();
+      // line from->to
+      ctx.beginPath();
+      ctx.moveTo(fromX, cy);
+      ctx.lineTo(toX, cy);
+      ctx.strokeStyle = `rgba(63,185,80,${0.5 - e.t * 0.5})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    if (e.t >= 1) VM.animEffects.splice(i, 1);
+  }
+
+  // Center marker
+  ctx.beginPath();
+  ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+  ctx.fillStyle = '#58a6ff';
+  ctx.fill();
+
+  // Legend
+  ctx.font = '10px monospace';
+  ctx.fillStyle = '#8b949e';
+  ctx.fillText('● Lattice points', 8, H - 48);
+  ctx.fillStyle = '#3fb950';
+  ctx.fillText('● VM state', 8, H - 34);
+  ctx.fillStyle = '#d29922';
+  ctx.fillText('— Trajectory', 8, H - 20);
+}
+
+// Animation loop for canvas effects
+function animateCanvas() {
+  if (VM.animEffects.length > 0 || VM.running) drawCanvas();
+  animFrame = requestAnimationFrame(animateCanvas);
+}
+
+// ─── Init ───
+setTimeout(() => { resizeCanvas(); animateCanvas(); resetVM(); }, 50);
+</script>
+</body>
+</html>

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constraint Playground</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d1117; --card: #161b22; --border: #30363d;
+  --accent: #58a6ff; --green: #3fb950; --yellow: #d29922; --red: #f85149;
+  --text: #e6edf3; --muted: #8b949e;
+}
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; min-height: 100vh; }
+h1 { font-size: 1.1rem; font-weight: 600; letter-spacing: .05em; color: var(--accent); padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; max-width: 1400px; margin: 0 auto; }
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+.panel { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
+.panel-header { font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.panel-body { padding: 12px; flex: 1; position: relative; }
+canvas { display: block; width: 100%; height: 100%; background: transparent; cursor: crosshair; }
+.stats-bar { display: flex; flex-wrap: wrap; gap: 16px; padding: 10px 16px; background: var(--card); border-top: 1px solid var(--border); font-size: .75rem; color: var(--muted); }
+.stat-item span { color: var(--text); font-weight: 600; }
+
+/* Knobs */
+.knobs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+@media (max-width: 600px) { .knobs-grid { grid-template-columns: repeat(2, 1fr); } }
+.knob-unit { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.knob-label { font-size: .65rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; text-align: center; max-width: 90px; }
+.knob-container { position: relative; width: 64px; height: 64px; cursor: grab; }
+.knob-container:active { cursor: grabbing; }
+.knob-ring { fill: none; stroke: var(--border); stroke-width: 4; }
+.knob-value-arc { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset .1s, stroke .2s; }
+.knob-dot { fill: var(--text); transition: cx .1s, cy .1s; }
+.response-canvas { width: 90px; height: 30px; }
+
+/* Perturbation */
+.perturb-body { display: flex; flex-direction: column; gap: 10px; }
+.btn { padding: 8px 16px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer; font-size: .8rem; font-weight: 500; transition: all .15s; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn:active { transform: scale(.97); }
+.btn-primary { border-color: var(--accent); color: var(--accent); }
+.btn-green { border-color: var(--green); color: var(--green); }
+.btn-yellow { border-color: var(--yellow); color: var(--yellow); }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.heatmap-canvas { width: 100%; max-width: 240px; aspect-ratio: 1; align-self: center; }
+
+/* Fleet */
+.fleet-body { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.fleet-canvas { width: 100%; max-width: 280px; aspect-ratio: 1; }
+.fleet-stats { font-size: .75rem; color: var(--muted); text-align: center; }
+.fleet-stats span { color: var(--text); font-weight: 600; }
+
+/* Animations */
+@keyframes pulse { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
+@keyframes snap { 0% { transform: scale(1.5); } 100% { transform: scale(1); } }
+.pulse { animation: pulse 1.5s infinite; }
+</style>
+</head>
+<body>
+<h1>⚡ CONSTRAINT PLAYGROUND</h1>
+<div class="grid">
+  <!-- Panel 1: Eisenstein Lattice -->
+  <div class="panel">
+    <div class="panel-header">Eisenstein Lattice</div>
+    <div class="panel-body">
+      <canvas id="latticeCanvas"></canvas>
+    </div>
+  </div>
+
+  <!-- Panel 2: Knob Twister -->
+  <div class="panel">
+    <div class="panel-header">Knob Twister</div>
+    <div class="panel-body">
+      <div class="knobs-grid" id="knobsGrid"></div>
+    </div>
+  </div>
+
+  <!-- Panel 3: Perturbation Shake -->
+  <div class="panel">
+    <div class="panel-header">Perturbation Shake</div>
+    <div class="panel-body perturb-body">
+      <div class="btn-row">
+        <button class="btn btn-primary" id="shakeBtn">🌀 Shake</button>
+        <button class="btn btn-green" id="extraStaysBtn">🔒 Extra Stays</button>
+        <button class="btn btn-yellow" id="tireInBtn">🔩 Tire In</button>
+      </div>
+      <canvas id="heatmapCanvas" class="heatmap-canvas"></canvas>
+      <div style="font-size:.7rem;color:var(--muted);text-align:center;" id="shakeInfo">Shake to reveal coupling structure</div>
+    </div>
+  </div>
+
+  <!-- Panel 4: Fleet Agreement -->
+  <div class="panel">
+    <div class="panel-header">Fleet Agreement Simulator</div>
+    <div class="panel-body fleet-body">
+      <canvas id="fleetCanvas" class="fleet-canvas"></canvas>
+      <button class="btn btn-primary" id="consensusBtn">🛰 Check Consensus</button>
+      <div class="fleet-stats" id="fleetStats">Accuracy: <span>—</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Bar -->
+<div class="stats-bar" id="statsBar">
+  <div class="stat-item">State: <span id="statState">—</span></div>
+  <div class="stat-item">Margin: <span id="statMargin">—</span></div>
+  <div class="stat-item">Shakes: <span id="statShakes">0</span></div>
+  <div class="stat-item">Load-bearing: <span id="statLoadBearing">—</span></div>
+  <div class="stat-item">Fleet accuracy: <span id="statFleet">—</span></div>
+  <div class="stat-item">FLUX ops: <span id="statFlux">0</span></div>
+</div>
+
+<script>
+// ─── State ────────────────────────────────────────────
+const S = {
+  params: {
+    diskRadius:     { val: 150, min: 10, max: 500,  label: 'Disk Radius',        color: '#58a6ff' },
+    snapMargin:     { val: 10,  min: 0,  max: 50,   label: 'Snap Margin',        color: '#3fb950' },
+    perturbation:   { val: 0.1, min: 0.001, max: 1,  label: 'Perturbation Scale', color: '#d29922' },
+    coupling:       { val: 0.3, min: 0,  max: 1,    label: 'Coupling Strength',   color: '#f778ba' },
+    convergence:    { val: 0.1, min: 0.01, max: 0.5, label: 'Convergence Speed',  color: '#a5d6ff' },
+    stress:         { val: 0.2, min: 0,  max: 1,    label: 'Stress Level',        color: '#f85149' },
+  },
+  paramNames: ['diskRadius','snapMargin','perturbation','coupling','convergence','stress'],
+  placedPoints: [],       // { x, y, snapped, animT }
+  shakeCount: 0,
+  heatmap: null,          // 6x6 coupling matrix
+  shakeDeltas: [],        // history of deltas per shake
+  loadBearing: [],
+  fluxOps: 0,
+  // Fleet
+  devices: [],
+  spoofedIdx: -1,
+  fleetCorrect: 0,
+  fleetTotal: 0,
+  checkingConsensus: false,
+  consensusPhase: 0,
+  // Response curves
+  responseHistory: {},
+  // Mouse
+  mouseX: 0, mouseY: 0,
+  latticeHover: null,     // nearest Eisenstein int
+  activeKnob: null,
+};
+
+// Init response history
+S.paramNames.forEach(n => S.responseHistory[n] = []);
+
+// ─── Eisenstein Math ──────────────────────────────────
+// ω = e^(2πi/3), lattice: a + bω where a,b ∈ Z
+// In Cartesian: point = (a - b/2, b * √3/2)
+const SQRT3_2 = Math.sqrt(3) / 2;
+
+function eisToCart(a, b) { return { x: a - b * 0.5, y: b * SQRT3_2 }; }
+function cartToEis(x, y) {
+  const b = y / SQRT3_2;
+  const a = x + b * 0.5;
+  return { a: Math.round(a), b: Math.round(b) };
+}
+function eisNorm(a, b) { return a * a - a * b + b * b; }
+
+// ─── Panel 1: Lattice Canvas ──────────────────────────
+const latticeCanvas = document.getElementById('latticeCanvas');
+const lCtx = latticeCanvas.getContext('2d');
+let lW, lH, lCx, lCy;
+
+function resizeLattice() {
+  const rect = latticeCanvas.parentElement.getBoundingClientRect();
+  lW = latticeCanvas.width = rect.width * devicePixelRatio;
+  lH = latticeCanvas.height = rect.height * devicePixelRatio;
+  latticeCanvas.style.width = rect.width + 'px';
+  latticeCanvas.style.height = rect.height + 'px';
+  lCtx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  lCx = rect.width / 2;
+  lCy = rect.height / 2;
+}
+
+const GRID_SCALE = 18; // pixels per lattice unit
+
+function worldToScreen(a, b) {
+  const c = eisToCart(a, b);
+  return { x: lCx + c.x * GRID_SCALE, y: lCy - c.y * GRID_SCALE };
+}
+function screenToWorld(sx, sy) {
+  return cartToEis((sx - lCx) / GRID_SCALE, (lCy - sy) / GRID_SCALE);
+}
+
+function drawLattice(t) {
+  const w = lW / devicePixelRatio, h = lH / devicePixelRatio;
+  lCtx.clearRect(0, 0, w, h);
+
+  const R = S.params.diskRadius.val;
+  const rLattice = R / GRID_SCALE + 2;
+  const margin = S.params.snapMargin.val;
+
+  // Determine visible range
+  const halfA = Math.ceil(w / (2 * GRID_SCALE)) + 2;
+  const halfB = Math.ceil(h / (2 * GRID_SCALE * SQRT3_2)) + 2;
+
+  // Draw constraint disk
+  lCtx.beginPath();
+  lCtx.arc(lCx, lCy, R, 0, Math.PI * 2);
+  lCtx.strokeStyle = 'rgba(88,166,255,0.3)';
+  lCtx.lineWidth = 1.5;
+  lCtx.stroke();
+  lCtx.fillStyle = 'rgba(88,166,255,0.04)';
+  lCtx.fill();
+
+  // Draw lattice points
+  for (let a = -halfA; a <= halfA; a++) {
+    for (let b = -halfB; b <= halfB; b++) {
+      const p = worldToScreen(a, b);
+      if (p.x < -10 || p.x > w + 10 || p.y < -10 || p.y > h + 10) continue;
+      const norm = eisNorm(a, b);
+      const rNorm = Math.sqrt(norm) * GRID_SCALE;
+      const dist = Math.abs(rNorm - R);
+
+      let color, alpha;
+      if (rNorm < R) {
+        color = dist < margin ? '#3fb950' : 'rgba(63,185,80,0.5)';
+        alpha = 1;
+      } else if (dist < margin) {
+        color = '#d29922';
+        alpha = 1;
+      } else {
+        color = 'rgba(139,148,158,0.2)';
+        alpha = 0.5;
+      }
+
+      lCtx.beginPath();
+      lCtx.arc(p.x, p.y, rNorm < R ? 2.5 : 1.5, 0, Math.PI * 2);
+      lCtx.fillStyle = color;
+      lCtx.globalAlpha = alpha;
+      lCtx.fill();
+    }
+  }
+  lCtx.globalAlpha = 1;
+
+  // Draw hover snap
+  if (S.latticeHover) {
+    const h = S.latticeHover;
+    const p = worldToScreen(h.a, h.b);
+    const norm = eisNorm(h.a, h.b);
+    const rNorm = Math.sqrt(norm) * GRID_SCALE;
+    const dist = R - rNorm;
+
+    let col = dist > margin ? '#3fb950' : dist > 0 ? '#d29922' : '#f85149';
+    lCtx.beginPath();
+    lCtx.arc(p.x, p.y, 6 + Math.sin(t * 3) * 1.5, 0, Math.PI * 2);
+    lCtx.strokeStyle = col;
+    lCtx.lineWidth = 1.5;
+    lCtx.stroke();
+
+    // Norm / margin label
+    lCtx.font = '10px monospace';
+    lCtx.fillStyle = col;
+    lCtx.fillText(`N=${norm} d=${dist.toFixed(1)}`, p.x + 10, p.y - 6);
+  }
+
+  // Draw placed points with snap animation
+  S.placedPoints.forEach((pt, i) => {
+    const age = (t - pt.birth) * 1000;
+    const snapT = Math.min(age / 300, 1);
+    const ease = 1 - Math.pow(1 - snapT, 3);
+    const sx = pt.rawX + (pt.snapX - pt.rawX) * ease;
+    const sy = pt.rawY + (pt.snapY - pt.rawY) * ease;
+    const scale = snapT < 1 ? 1.5 - ease * 0.5 : 1;
+
+    const norm = eisNorm(pt.a, pt.b);
+    const rNorm = Math.sqrt(norm) * GRID_SCALE;
+    const dist = R - rNorm;
+    let col = dist > margin ? '#3fb950' : dist > 0 ? '#d29922' : '#f85149';
+
+    lCtx.beginPath();
+    lCtx.arc(sx, sy, 4 * scale, 0, Math.PI * 2);
+    lCtx.fillStyle = col;
+    lCtx.fill();
+
+    // Ripple
+    if (snapT < 1) {
+      lCtx.beginPath();
+      lCtx.arc(sx, sy, 12 * snapT, 0, Math.PI * 2);
+      lCtx.strokeStyle = col;
+      lCtx.globalAlpha = 1 - snapT;
+      lCtx.lineWidth = 1;
+      lCtx.stroke();
+      lCtx.globalAlpha = 1;
+    }
+  });
+
+  // Update stats
+  if (S.latticeHover) {
+    const norm = eisNorm(S.latticeHover.a, S.latticeHover.b);
+    const rNorm = Math.sqrt(norm) * GRID_SCALE;
+    const dist = R - rNorm;
+    const margin = S.params.snapMargin.val;
+    document.getElementById('statState').textContent = dist > 0 ? 'Satisfied' : 'Violated';
+    document.getElementById('statState').style.color = dist > 0 ? 'var(--green)' : 'var(--red)';
+    document.getElementById('statMargin').textContent = dist.toFixed(1) + 'px';
+    document.getElementById('statMargin').style.color = dist > margin ? 'var(--green)' : dist > 0 ? 'var(--yellow)' : 'var(--red)';
+  }
+}
+
+latticeCanvas.addEventListener('mousemove', e => {
+  const rect = latticeCanvas.getBoundingClientRect();
+  const sx = e.clientX - rect.left, sy = e.clientY - rect.top;
+  const eis = screenToWorld(sx, sy);
+  S.latticeHover = { a: eis.a, b: eis.b };
+});
+latticeCanvas.addEventListener('mouseleave', () => { S.latticeHover = null; });
+latticeCanvas.addEventListener('click', e => {
+  const rect = latticeCanvas.getBoundingClientRect();
+  const sx = e.clientX - rect.left, sy = e.clientY - rect.top;
+  const eis = screenToWorld(sx, sy);
+  const snap = worldToScreen(eis.a, eis.b);
+  S.placedPoints.push({ a: eis.a, b: eis.b, rawX: sx, rawY: sy, snapX: snap.x, snapY: snap.y, birth: performance.now() / 1000 });
+  S.fluxOps++;
+  updateFlux();
+});
+
+// ─── Panel 2: Knob Twister ────────────────────────────
+const knobsGrid = document.getElementById('knobsGrid');
+const knobEls = {};
+const knobCanvases = {};
+
+S.paramNames.forEach(name => {
+  const p = S.params[name];
+  const unit = document.createElement('div');
+  unit.className = 'knob-unit';
+
+  const container = document.createElement('div');
+  container.className = 'knob-container';
+  const svgNS = 'http://www.w3.org/2000/svg';
+
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('viewBox', '0 0 64 64');
+  svg.style.width = '64px'; svg.style.height = '64px';
+
+  const circumference = 2 * Math.PI * 26;
+  // Arc from 225° to -45° (270° range)
+  const arcLen = circumference * 0.75;
+
+  const ring = document.createElementNS(svgNS, 'circle');
+  ring.setAttribute('cx', 32); ring.setAttribute('cy', 32); ring.setAttribute('r', 26);
+  ring.setAttribute('class', 'knob-ring');
+  ring.setAttribute('stroke-dasharray', `${arcLen} ${circumference - arcLen}`);
+  ring.setAttribute('transform', 'rotate(135 32 32)');
+
+  const valArc = document.createElementNS(svgNS, 'circle');
+  valArc.setAttribute('cx', 32); valArc.setAttribute('cy', 32); valArc.setAttribute('r', 26);
+  valArc.setAttribute('class', 'knob-value-arc');
+  valArc.setAttribute('stroke-dasharray', `${arcLen} ${circumference - arcLen}`);
+  valArc.setAttribute('stroke-dashoffset', arcLen);
+  valArc.setAttribute('transform', 'rotate(135 32 32)');
+  valArc.style.stroke = p.color;
+
+  const dot = document.createElementNS(svgNS, 'circle');
+  dot.setAttribute('cx', 32); dot.setAttribute('cy', 8);
+  dot.setAttribute('r', 3); dot.setAttribute('class', 'knob-dot');
+
+  svg.append(ring, valArc, dot);
+  container.appendChild(svg);
+
+  // Response curve canvas
+  const rc = document.createElement('canvas');
+  rc.className = 'response-canvas';
+  rc.width = 90 * devicePixelRatio;
+  rc.height = 30 * devicePixelRatio;
+  rc.style.width = '90px'; rc.style.height = '30px';
+  knobCanvases[name] = rc;
+
+  const label = document.createElement('div');
+  label.className = 'knob-label';
+  label.textContent = p.label;
+
+  unit.append(container, rc, label);
+  knobsGrid.appendChild(unit);
+
+  knobEls[name] = { valArc, dot, container, circumference, arcLen };
+
+  // Drag interaction
+  let dragging = false, startY, startVal;
+  container.addEventListener('mousedown', e => {
+    dragging = true; startY = e.clientY; startVal = p.val;
+    e.preventDefault();
+  });
+  container.addEventListener('touchstart', e => {
+    dragging = true; startY = e.touches[0].clientY; startVal = p.val;
+    e.preventDefault();
+  }, { passive: false });
+
+  const onMove = (cy) => {
+    if (!dragging) return;
+    const dy = startY - cy;
+    const range = p.max - p.min;
+    const sensitivity = range / 100;
+    const newVal = Math.max(p.min, Math.min(p.max, startVal + dy * sensitivity));
+    const delta = newVal - p.val;
+    p.val = newVal;
+    S.responseHistory[name].push(delta);
+    if (S.responseHistory[name].length > 50) S.responseHistory[name].shift();
+    updateKnob(name);
+    S.fluxOps++;
+    updateFlux();
+  };
+  window.addEventListener('mousemove', e => onMove(e.clientY));
+  window.addEventListener('touchmove', e => onMove(e.touches[0].clientY));
+  window.addEventListener('mouseup', () => { dragging = false; });
+  window.addEventListener('touchend', () => { dragging = false; });
+
+  updateKnob(name);
+});
+
+function updateKnob(name) {
+  const p = S.params[name];
+  const el = knobEls[name];
+  const frac = (p.val - p.min) / (p.max - p.min);
+  const offset = el.arcLen * (1 - frac);
+  el.valArc.setAttribute('stroke-dashoffset', offset);
+
+  // Dot position: rotate around center
+  const angle = (135 + frac * 270) * Math.PI / 180;
+  const dx = 32 + 26 * Math.cos(angle);
+  const dy = 32 + 26 * Math.sin(angle);
+  el.dot.setAttribute('cx', dx);
+  el.dot.setAttribute('cy', dy);
+}
+
+function drawResponseCurves() {
+  S.paramNames.forEach(name => {
+    const canvas = knobCanvases[name];
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = 90, h = 30;
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    const hist = S.responseHistory[name];
+    if (hist.length < 2) return;
+
+    const p = S.params[name];
+    const range = p.max - p.min;
+    ctx.beginPath();
+    ctx.strokeStyle = p.color;
+    ctx.lineWidth = 1;
+    hist.forEach((d, i) => {
+      const x = (i / (hist.length - 1)) * w;
+      const y = h / 2 - (d / range) * h * 2;
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    // Zero line
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(139,148,158,0.3)';
+    ctx.moveTo(0, h / 2);
+    ctx.lineTo(w, h / 2);
+    ctx.stroke();
+  });
+}
+
+// ─── Panel 3: Perturbation Shake ──────────────────────
+const heatmapCanvas = document.getElementById('heatmapCanvas');
+const hmCtx = heatmapCanvas.getContext('2d');
+let hmW, hmH;
+
+function resizeHeatmap() {
+  const rect = heatmapCanvas.getBoundingClientRect();
+  hmW = heatmapCanvas.width = rect.width * devicePixelRatio;
+  hmH = heatmapCanvas.height = rect.height * devicePixelRatio;
+  heatmapCanvas.style.width = rect.width + 'px';
+  heatmapCanvas.style.height = rect.height + 'px';
+  hmCtx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+}
+
+if (!S.heatmap) {
+  S.heatmap = Array.from({ length: 6 }, () => Array(6).fill(0));
+  S.accumHeat = Array.from({ length: 6 }, () => Array(6).fill(0));
+}
+
+function applyShake() {
+  const scale = S.params.perturbation.val;
+  const deltas = [];
+  S.paramNames.forEach(name => {
+    const p = S.params[name];
+    const range = p.max - p.min;
+    const delta = (Math.random() - 0.5) * range * scale;
+    p.val = Math.max(p.min, Math.min(p.max, p.val + delta));
+    deltas.push(delta);
+    updateKnob(name);
+    S.responseHistory[name].push(delta);
+    if (S.responseHistory[name].length > 50) S.responseHistory[name].shift();
+  });
+
+  // Record deltas
+  S.shakeDeltas.push(deltas);
+
+  // Update coupling heatmap using correlation
+  S.shakeCount++;
+  for (let i = 0; i < 6; i++) {
+    for (let j = 0; j < 6; j++) {
+      // Simple accumulated absolute correlation
+      S.accumHeat[i][j] += Math.abs(deltas[i] * deltas[j]);
+    }
+  }
+
+  // Normalize heatmap
+  let maxVal = 0;
+  for (let i = 0; i < 6; i++) for (let j = 0; j < 6; j++) maxVal = Math.max(maxVal, S.accumHeat[i][j]);
+  for (let i = 0; i < 6; i++) for (let j = 0; j < 6; j++) S.heatmap[i][j] = maxVal > 0 ? S.accumHeat[i][j] / maxVal : 0;
+
+  // Identify load-bearing params (highest row sum = most sensitive)
+  const sensitivities = S.paramNames.map((_, i) => S.heatmap[i].reduce((a, v) => a + v, 0));
+  const sorted = sensitivities.map((s, i) => ({ s, i })).sort((a, b) => b.s - a.s);
+  S.loadBearing = sorted.slice(0, 2).map(x => S.paramNames[x.i]);
+
+  S.fluxOps += 6;
+  updateFlux();
+  document.getElementById('statShakes').textContent = S.shakeCount;
+  document.getElementById('statLoadBearing').textContent = S.loadBearing.join(', ') || '—';
+
+  const info = document.getElementById('shakeInfo');
+  if (S.shakeCount >= 5) {
+    info.textContent = `Load-bearing: ${S.loadBearing.join(', ')}`;
+    info.style.color = 'var(--yellow)';
+  } else {
+    info.textContent = `Shake ${S.shakeCount}/5 to reveal load-bearing params`;
+  }
+
+  drawHeatmap();
+}
+
+function drawHeatmap() {
+  const w = hmW / devicePixelRatio, h = hmH / devicePixelRatio;
+  hmCtx.clearRect(0, 0, w, h);
+  const cell = Math.min(w, h) / 6;
+  const ox = (w - cell * 6) / 2, oy = (h - cell * 6) / 2;
+  const colors = ['#0d1117', '#1a3a5c', '#2a6ab0', '#58a6ff', '#79c0ff'];
+
+  for (let i = 0; i < 6; i++) {
+    for (let j = 0; j < 6; j++) {
+      const v = S.heatmap[i][j];
+      const ci = Math.min(4, Math.floor(v * 4.99));
+      hmCtx.fillStyle = colors[ci];
+      hmCtx.fillRect(ox + j * cell + 1, oy + i * cell + 1, cell - 2, cell - 2);
+
+      // Highlight load-bearing rows
+      if (S.shakeCount >= 5 && S.loadBearing.includes(S.paramNames[i])) {
+        hmCtx.strokeStyle = 'var(--yellow)';
+        hmCtx.lineWidth = 1.5;
+        hmCtx.strokeRect(ox + j * cell, oy + i * cell, cell, cell);
+      }
+    }
+  }
+
+  // Labels
+  hmCtx.font = '8px monospace';
+  hmCtx.fillStyle = '#8b949e';
+  S.paramNames.forEach((n, i) => {
+    hmCtx.fillText(n[0].toUpperCase(), ox - 10, oy + i * cell + cell / 2 + 3);
+    hmCtx.fillText(n[0].toUpperCase(), ox + i * cell + cell / 2 - 3, oy + 6 * cell + 10);
+  });
+}
+
+document.getElementById('shakeBtn').addEventListener('click', applyShake);
+
+document.getElementById('extraStaysBtn').addEventListener('click', () => {
+  if (S.loadBearing.length === 0) return;
+  S.loadBearing.forEach(name => {
+    const p = S.params[name];
+    // Add backup: tighten by reducing range around current value
+    const center = p.val;
+    const halfRange = (p.max - p.min) * 0.1;
+    p.min = Math.max(p.min, center - halfRange);
+    p.max = Math.min(p.max, center + halfRange);
+  });
+  S.fluxOps += S.loadBearing.length;
+  updateFlux();
+  document.getElementById('shakeInfo').textContent = 'Extra stays applied to load-bearing params';
+});
+
+document.getElementById('tireInBtn').addEventListener('click', () => {
+  if (S.loadBearing.length === 0) return;
+  S.loadBearing.forEach(name => {
+    const p = S.params[name];
+    // Tighten: reduce snap margin for load-bearing
+    p.val = p.min + (p.val - p.min) * 0.5;
+    updateKnob(name);
+  });
+  S.fluxOps += S.loadBearing.length;
+  updateFlux();
+  document.getElementById('shakeInfo').textContent = 'Constraints tightened on load-bearing params';
+});
+
+// ─── Panel 4: Fleet Agreement ─────────────────────────
+const fleetCanvas = document.getElementById('fleetCanvas');
+const fCtx = fleetCanvas.getContext('2d');
+let fW, fH;
+
+function resizeFleet() {
+  const rect = fleetCanvas.getBoundingClientRect();
+  fW = fleetCanvas.width = rect.width * devicePixelRatio;
+  fH = fleetCanvas.height = rect.height * devicePixelRatio;
+  fleetCanvas.style.width = rect.width + 'px';
+  fleetCanvas.style.height = rect.height + 'px';
+  fCtx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+}
+
+function initFleet() {
+  const R = S.params.diskRadius.val;
+  S.devices = Array.from({ length: 5 }, (_, i) => {
+    const angle = (i / 5) * Math.PI * 2 - Math.PI / 2;
+    const r = 0.3;
+    // Random Eisenstein point
+    const a = Math.floor(Math.random() * 10) - 5;
+    const b = Math.floor(Math.random() * 10) - 5;
+    const norm = eisNorm(a, b);
+    const inside = Math.sqrt(norm) * GRID_SCALE < R;
+    return { a, b, inside, actualInside: inside, x: 0.5 + r * Math.cos(angle), y: 0.5 + r * Math.sin(angle), flagged: false };
+  });
+  // Spoof one device
+  S.spoofedIdx = Math.floor(Math.random() * 5);
+  S.devices[S.spoofedIdx].inside = !S.devices[S.spoofedIdx].actualInside;
+  S.devices.forEach(d => d.flagged = false);
+}
+
+initFleet();
+
+function drawFleet(t) {
+  const w = fW / devicePixelRatio, h = fH / devicePixelRatio;
+  fCtx.clearRect(0, 0, w, h);
+  const sz = Math.min(w, h);
+
+  S.devices.forEach((d, i) => {
+    const cx = d.x * sz, cy = d.y * sz;
+    const r = sz * 0.08;
+
+    // Connection lines during consensus check
+    if (S.checkingConsensus) {
+      S.devices.forEach((d2, j) => {
+        if (j <= i) return;
+        fCtx.beginPath();
+        fCtx.moveTo(cx, cy);
+        fCtx.lineTo(d2.x * sz, d2.y * sz);
+        fCtx.strokeStyle = `rgba(88,166,255,${0.1 + S.consensusPhase * 0.05})`;
+        fCtx.lineWidth = 1;
+        fCtx.stroke();
+      });
+    }
+
+    // Device circle
+    let color;
+    if (d.flagged) color = '#f85149';
+    else if (d.inside) color = '#3fb950';
+    else color = '#d29922';
+
+    if (i === S.spoofedIdx && !S.checkingConsensus) color = '#8b949e'; // hidden
+
+    fCtx.beginPath();
+    fCtx.arc(cx, cy, r, 0, Math.PI * 2);
+    fCtx.fillStyle = color;
+    fCtx.globalAlpha = 0.3;
+    fCtx.fill();
+    fCtx.globalAlpha = 1;
+    fCtx.strokeStyle = color;
+    fCtx.lineWidth = 2;
+    fCtx.stroke();
+
+    // Label
+    fCtx.font = '10px monospace';
+    fCtx.fillStyle = '#e6edf3';
+    fCtx.textAlign = 'center';
+    fCtx.fillText(`D${i}`, cx, cy + r + 14);
+    fCtx.fillText(d.inside ? 'IN' : 'OUT', cx, cy - r - 6);
+
+    // Spoofed indicator after reveal
+    if (d.flagged && i === S.spoofedIdx) {
+      fCtx.font = 'bold 10px monospace';
+      fCtx.fillStyle = '#f85149';
+      fCtx.fillText('SPOOFED', cx, cy + r + 26);
+    }
+  });
+
+  // Parity check animation
+  if (S.checkingConsensus && S.consensusPhase < 10) {
+    const phase = S.consensusPhase;
+    S.devices.forEach((d, i) => {
+      const cx = d.x * sz, cy = d.y * sz;
+      const waveR = sz * 0.08 + phase * sz * 0.02;
+      fCtx.beginPath();
+      fCtx.arc(cx, cy, waveR, 0, Math.PI * 2);
+      fCtx.strokeStyle = `rgba(88,166,255,${1 - phase / 10})`;
+      fCtx.lineWidth = 1;
+      fCtx.stroke();
+    });
+  }
+}
+
+document.getElementById('consensusBtn').addEventListener('click', () => {
+  if (S.checkingConsensus) return;
+  S.checkingConsensus = true;
+  S.consensusPhase = 0;
+  S.fluxOps += 5;
+  updateFlux();
+
+  const phaseInterval = setInterval(() => {
+    S.consensusPhase++;
+    if (S.consensusPhase >= 10) {
+      clearInterval(phaseInterval);
+      // Run consensus: majority vote
+      const inCount = S.devices.filter(d => d.inside).length;
+      const majorityInside = inCount > 2;
+      // Flag devices that disagree with majority
+      S.devices.forEach(d => {
+        d.flagged = (d.inside !== majorityInside);
+      });
+
+      const correct = S.devices[S.spoofedIdx].flagged;
+      if (correct) S.fleetCorrect++;
+      S.fleetTotal++;
+
+      const acc = ((S.fleetCorrect / S.fleetTotal) * 100).toFixed(0);
+      document.getElementById('fleetStats').innerHTML = `Accuracy: <span>${acc}%</span> (${S.fleetCorrect}/${S.fleetTotal})`;
+      document.getElementById('statFleet').textContent = `${acc}%`;
+
+      setTimeout(() => {
+        S.checkingConsensus = false;
+        // Reset for next round
+        setTimeout(() => {
+          initFleet();
+        }, 1500);
+      }, 1000);
+    }
+  }, 150);
+});
+
+// ─── Stats ────────────────────────────────────────────
+function updateFlux() {
+  document.getElementById('statFlux').textContent = S.fluxOps;
+}
+
+// ─── Main Loop ────────────────────────────────────────
+function resize() {
+  resizeLattice();
+  resizeHeatmap();
+  resizeFleet();
+  drawHeatmap();
+}
+window.addEventListener('resize', resize);
+
+let startTime = performance.now() / 1000;
+function loop() {
+  const t = performance.now() / 1000 - startTime;
+  drawLattice(t);
+  drawResponseCurves();
+  drawFleet(t);
+  requestAnimationFrame(loop);
+}
+
+// Initial
+setTimeout(() => { resize(); loop(); }, 100);
+</script>
+</body>
+</html>

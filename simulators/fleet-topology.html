@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleet Topology Simulator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;display:flex;height:100vh;overflow:hidden}
+.sidebar{width:260px;background:#161b22;border-right:1px solid #30363d;padding:14px;overflow-y:auto;flex-shrink:0}
+.sidebar.right{border-right:none;border-left:1px solid #30363d}
+.sidebar h3{color:#58a6ff;font-size:13px;text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px;padding-bottom:4px;border-bottom:1px solid #21262d}
+.sidebar h3:first-child{margin-top:0}
+.ctrl-group{margin-bottom:10px}
+.ctrl-group label{display:block;font-size:11px;color:#8b949e;margin-bottom:3px}
+.btn-row{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+button{background:#21262d;color:#c9d1d9;border:1px solid #30363d;padding:5px 10px;border-radius:6px;font-size:11px;cursor:pointer;transition:all .15s}
+button:hover{background:#30363d;border-color:#58a6ff}
+button.active{background:#1f6feb;border-color:#58a6ff;color:#fff}
+button.danger{border-color:#f85149}
+button.danger:hover{background:#da3633;color:#fff}
+input[type=range]{width:100%;accent-color:#58a6ff;background:transparent}
+.val-display{float:right;color:#58a6ff;font-size:11px;font-weight:600}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.stat-card{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:8px;text-align:center}
+.stat-card .val{font-size:18px;font-weight:700;color:#58a6ff}
+.stat-card .lbl{font-size:9px;color:#8b949e;text-transform:uppercase;margin-top:2px}
+.stat-card.green .val{color:#3fb950}
+.stat-card.yellow .val{color:#d29922}
+.stat-card.red .val{color:#f85149}
+.stat-list{font-size:11px;color:#8b949e;max-height:120px;overflow-y:auto}
+.stat-list div{padding:2px 0;border-bottom:1px solid #21262d}
+.stat-list span{color:#3fb950}
+.center{flex:1;position:relative;display:flex;align-items:center;justify-content:center}
+canvas{display:block}
+#holonomy-overlay{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(22,27,34,.9);border:1px solid #30363d;border-radius:8px;padding:8px 16px;font-size:12px;color:#8b949e;pointer-events:none;opacity:0;transition:opacity .3s}
+#holonomy-overlay.show{opacity:1}
+.preset-row{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px}
+.preset-row button{font-size:10px;padding:3px 8px}
+</style>
+</head>
+<body>
+
+<!-- Left Sidebar: Controls -->
+<div class="sidebar" id="left-panel">
+<h3>Topology</h3>
+<div class="ctrl-group">
+  <label>Devices <span class="val-display" id="dev-count-val">12</span></label>
+  <input type="range" id="dev-count" min="3" max="50" value="12">
+</div>
+<div class="btn-row">
+  <button id="btn-add">+ Add</button>
+  <button id="btn-remove" class="danger">− Remove</button>
+</div>
+<div class="btn-row">
+  <button id="btn-randomize">Randomize</button>
+</div>
+<div class="preset-row">
+  <button data-topo="ring">Ring</button>
+  <button data-topo="star">Star</button>
+  <button data-topo="mesh">Mesh</button>
+  <button data-topo="tree">Tree</button>
+  <button data-topo="random">Random</button>
+</div>
+
+<h3>Constraints</h3>
+<div class="ctrl-group">
+  <label>Disk Radius <span class="val-display" id="disk-val">200</span></label>
+  <input type="range" id="disk-radius" min="50" max="500" value="200">
+</div>
+<div class="ctrl-group">
+  <label>Perturbation <span class="val-display" id="perturb-val">20</span></label>
+  <input type="range" id="perturb-mag" min="1" max="50" value="20">
+</div>
+<div class="btn-row">
+  <button id="btn-shake">🫨 Shake Variable</button>
+  <button id="btn-shake-all">💥 Shake All</button>
+</div>
+
+<h3>Attack Simulator</h3>
+<div class="btn-row">
+  <button id="btn-spoof" class="danger">🎭 Spoof Device</button>
+</div>
+<div class="ctrl-group">
+  <label>Spoof Magnitude <span class="val-display" id="spoof-val">80</span></label>
+  <input type="range" id="spoof-mag" min="10" max="200" value="80">
+</div>
+<div class="ctrl-group">
+  <label style="display:flex;align-items:center;gap:6px">
+    <input type="checkbox" id="adversarial"> Adversarial Mode
+  </label>
+</div>
+
+<h3>Simulation</h3>
+<div class="btn-row">
+  <button id="btn-play" class="active">▶ Play</button>
+  <button id="btn-pause">⏸ Pause</button>
+  <button id="btn-step">⏭ Step</button>
+  <button id="btn-reset">↺ Reset</button>
+</div>
+<div class="ctrl-group">
+  <label>Speed <span class="val-display" id="speed-val">1.0x</span></label>
+  <input type="range" id="speed" min="1" max="100" value="10">
+</div>
+</div>
+
+<!-- Center: Canvas -->
+<div class="center">
+  <canvas id="canvas"></canvas>
+  <div id="holonomy-overlay">Holonomy Check: <span id="holonomy-text">—</span></div>
+</div>
+
+<!-- Right Sidebar: Stats -->
+<div class="sidebar right" id="right-panel">
+<h3>Fleet Stats</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="val" id="s-fleet">12</div><div class="lbl">Fleet Size</div></div>
+  <div class="stat-card green"><div class="val" id="s-consensus">100%</div><div class="lbl">Consensus</div></div>
+  <div class="stat-card"><div class="val" id="s-holonomy">100%</div><div class="lbl">Holonomy</div></div>
+  <div class="stat-card"><div class="val" id="s-parity">100%</div><div class="lbl">Parity Pass</div></div>
+  <div class="stat-card yellow"><div class="val" id="s-spoof-det">—</div><div class="lbl">Spoof Detect</div></div>
+  <div class="stat-card"><div class="val" id="s-conv-time">0</div><div class="lbl">Avg Conv.</div></div>
+</div>
+
+<h3>Betti Numbers</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="val" id="s-beta0">1</div><div class="lbl">β₀ Components</div></div>
+  <div class="stat-card"><div class="val" id="s-beta1">0</div><div class="lbl">β₁ Cycles</div></div>
+</div>
+
+<h3>Load-Bearing Devices</h3>
+<div class="stat-list" id="load-bearing-list"><div style="color:#8b949e">Running simulation…</div></div>
+
+<h3>Spoofed Device</h3>
+<div class="stat-list" id="spoof-list"><div style="color:#8b949e">None</div></div>
+</div>
+
+<script>
+// ===== GLOBALS =====
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+const EPS = 0.001;
+
+function resize() {
+  const c = canvas.parentElement;
+  W = canvas.width = c.clientWidth;
+  H = canvas.height = c.clientHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ===== DATA =====
+let devices = [];
+let edges = [];
+let ripples = [];
+let holonomyPaths = [];
+let holonomyCheckPhase = 0;
+let holonomyTimer = 0;
+
+let playing = true;
+let speed = 1.0;
+let round = 0;
+let spoofedId = -1;
+let adversarialMode = false;
+let spoofMag = 80;
+let perturbMag = 20;
+let diskRadius = 200;
+let consensusThreshold = 30;
+
+// Stats
+let totalRounds = 0;
+let spoofDetectCount = 0;
+let spoofTotalRounds = 0;
+let convergenceTimes = [];
+let currentConvergenceStart = 0;
+
+class Device {
+  constructor(id, x, y) {
+    this.id = id;
+    this.x = x; this.y = y;
+    this.vx = 0; this.vy = 0;
+    // Eisenstein state (2D)
+    this.sx = (Math.random() - 0.5) * 100;
+    this.sy = (Math.random() - 0.5) * 100;
+    // Target state (for convergence)
+    this.tx = this.sx; this.ty = this.sy;
+    // Timing fingerprint
+    this.clock = Math.random() * 1000;
+    // Sensitivity (load-bearing metric)
+    this.sensitivity = 0;
+    // Status: 'agreed','uncertain','disagree'
+    this.status = 'agreed';
+    // Pulse phase for breathing animation
+    this.pulse = Math.random() * Math.PI * 2;
+    // Is spoofed
+    this.spoofed = false;
+    // Glow intensity for status
+    this.glowIntensity = 0;
+    // Ripple response
+    this.rippleResponse = 0;
+  }
+}
+
+class Edge {
+  constructor(a, b) {
+    this.a = a; this.b = b;
+    this.coupling = 0.5 + Math.random() * 0.5;
+    this.pulse = Math.random() * Math.PI * 2;
+  }
+}
+
+class Ripple {
+  constructor(x, y, deviceId, magnitude) {
+    this.x = x; this.y = y;
+    this.deviceId = deviceId;
+    this.radius = 0;
+    this.maxRadius = 200 + magnitude * 3;
+    this.magnitude = magnitude;
+    this.alpha = 1.0;
+    this.speed = 3 + magnitude * 0.5;
+  }
+}
+
+// ===== INIT =====
+function initFleet(n) {
+  devices = [];
+  edges = [];
+  ripples = [];
+  holonomyPaths = [];
+  spoofedId = -1;
+  round = 0;
+  convergenceTimes = [];
+  currentConvergenceStart = 0;
+
+  for (let i = 0; i < n; i++) {
+    const angle = (i / n) * Math.PI * 2;
+    const r = Math.min(W, H) * 0.3;
+    const x = W/2 + Math.cos(angle) * r + (Math.random()-0.5)*60;
+    const y = H/2 + Math.sin(angle) * r + (Math.random()-0.5)*60;
+    devices.push(new Device(i, x, y));
+  }
+  setTopology('random');
+  updateConsensus();
+}
+
+// ===== TOPOLOGY =====
+function setTopology(type) {
+  edges = [];
+  const n = devices.length;
+  const addEdge = (a, b) => {
+    if (a >= 0 && a < n && b >= 0 && b < n && a !== b) {
+      if (!edges.find(e => (e.a===a&&e.b===b)||(e.a===b&&e.b===a))) {
+        edges.push(new Edge(a, b));
+      }
+    }
+  };
+
+  if (type === 'ring') {
+    for (let i = 0; i < n; i++) addEdge(i, (i+1) % n);
+  } else if (type === 'star') {
+    for (let i = 1; i < n; i++) addEdge(0, i);
+  } else if (type === 'mesh') {
+    for (let i = 0; i < n; i++)
+      for (let j = i+1; j < n; j++) addEdge(i, j);
+  } else if (type === 'tree') {
+    for (let i = 1; i < n; i++) addEdge(Math.floor((i-1)/2), i);
+  } else { // random
+    const m = Math.max(n, Math.floor(n * 1.5 + Math.random() * n));
+    for (let k = 0; k < m; k++) {
+      addEdge(Math.floor(Math.random()*n), Math.floor(Math.random()*n));
+    }
+    // ensure connected
+    for (let i = 1; i < n; i++) addEdge(i-1, i);
+  }
+  computeBetti();
+}
+
+function computeBetti() {
+  // β₀: connected components via union-find
+  const parent = devices.map((_,i)=>i);
+  function find(x){while(parent[x]!==x){parent[x]=parent[parent[x]];x=parent[x]}return x}
+  function union(a,b){parent[find(a)]=find(b)}
+  edges.forEach(e=>union(e.a,e.b));
+  const roots = new Set(devices.map((_,i)=>find(i)));
+  const b0 = roots.size;
+  // β₁: cycles = edges - vertices + components
+  const b1 = Math.max(0, edges.length - devices.length + b0);
+  document.getElementById('s-beta0').textContent = b0;
+  document.getElementById('s-beta1').textContent = b1;
+}
+
+// ===== SIMULATION =====
+function updateConsensus() {
+  if (devices.length === 0) return;
+  // Compute fleet center of state
+  let cx = 0, cy = 0;
+  devices.forEach(d => { cx += d.sx; cy += d.sy; });
+  cx /= devices.length; cy /= devices.length;
+
+  devices.forEach(d => {
+    const dist = Math.sqrt((d.sx-cx)**2 + (d.sy-cy)**2);
+    if (dist < consensusThreshold) d.status = 'agreed';
+    else if (dist < consensusThreshold * 2) d.status = 'uncertain';
+    else d.status = 'disagree';
+  });
+}
+
+function simulationStep() {
+  round++;
+  totalRounds++;
+  const dt = 0.02 * speed;
+
+  // Force-directed layout (gentle)
+  const k_repel = 5000;
+  const k_attract = 0.005;
+  const k_center = 0.001;
+  const damping = 0.9;
+
+  devices.forEach(d => {
+    d.fx = 0; d.fy = 0;
+  });
+
+  // Repulsion between all pairs
+  for (let i = 0; i < devices.length; i++) {
+    for (let j = i+1; j < devices.length; j++) {
+      const dx = devices[j].x - devices[i].x;
+      const dy = devices[j].y - devices[i].y;
+      const dist = Math.max(10, Math.sqrt(dx*dx+dy*dy));
+      const f = k_repel / (dist * dist);
+      const fx = (dx/dist)*f, fy = (dy/dist)*f;
+      devices[i].fx -= fx; devices[i].fy -= fy;
+      devices[j].fx += fx; devices[j].fy += fy;
+    }
+  }
+
+  // Attraction along edges
+  edges.forEach(e => {
+    const a = devices[e.a], b = devices[e.b];
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const dist = Math.max(10, Math.sqrt(dx*dx+dy*dy));
+    const ideal = 120;
+    const f = k_attract * (dist - ideal) * e.coupling;
+    const fx = (dx/dist)*f, fy = (dy/dist)*f;
+    a.fx += fx; a.fy += fy;
+    b.fx -= fx; b.fy -= fy;
+  });
+
+  // Center gravity
+  devices.forEach(d => {
+    d.fx += (W/2 - d.x) * k_center;
+    d.fy += (H/2 - d.y) * k_center;
+  });
+
+  // Apply forces
+  devices.forEach(d => {
+    d.vx = (d.vx + d.fx * dt) * damping;
+    d.vy = (d.vy + d.fy * dt) * damping;
+    d.x += d.vx;
+    d.y += d.vy;
+    // Bounds
+    d.x = Math.max(40, Math.min(W-40, d.x));
+    d.y = Math.max(40, Math.min(H-40, d.y));
+  });
+
+  // State convergence: devices pull toward coupled neighbors
+  const stateDamp = 0.02 * speed;
+  devices.forEach(d => {
+    if (d.spoofed) return;
+    let avgSx = d.sx, avgSy = d.sy, count = 1;
+    edges.forEach(e => {
+      let neighbor = -1;
+      if (e.a === d.id) neighbor = e.b;
+      else if (e.b === d.id) neighbor = e.a;
+      if (neighbor >= 0) {
+        avgSx += devices[neighbor].sx * e.coupling;
+        avgSy += devices[neighbor].sy * e.coupling;
+        count += e.coupling;
+      }
+    });
+    d.sx += (avgSx/count - d.sx) * stateDamp;
+    d.sy += (avgSy/count - d.sy) * stateDamp;
+  });
+
+  // Adversarial spoofing
+  if (adversarialMode && spoofedId >= 0) {
+    const d = devices[spoofedId];
+    // drift away
+    d.sx += (Math.random()-0.5) * spoofMag * 0.1;
+    d.sy += (Math.random()-0.5) * spoofMag * 0.1;
+  }
+
+  // Spoof detection
+  if (spoofedId >= 0) {
+    spoofTotalRounds++;
+    // Simple detection: device far from fleet median
+    let cx = 0, cy = 0;
+    devices.forEach(d => { if (!d.spoofed) { cx += d.sx; cy += d.sy; }});
+    const honest = devices.filter(d => !d.spoofed);
+    cx /= Math.max(1, honest.length); cy /= Math.max(1, honest.length);
+    const sd = devices[spoofedId];
+    const sdist = Math.sqrt((sd.sx-cx)**2 + (sd.sy-cy)**2);
+    // detection if far enough
+    if (sdist > consensusThreshold * 2) spoofDetectCount++;
+  }
+
+  // Update clocks
+  devices.forEach(d => {
+    d.clock += 0.1 * speed;
+    d.pulse += 0.03 * speed;
+  });
+
+  // Edge pulses
+  edges.forEach(e => { e.pulse += 0.02 * speed; });
+
+  // Sensitivity computation
+  devices.forEach(d => {
+    const neighbors = edges.filter(e => e.a===d.id || e.b===d.id).length;
+    d.sensitivity = neighbors;
+  });
+
+  updateConsensus();
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('s-fleet').textContent = devices.length;
+  const agreed = devices.filter(d => d.status==='agreed').length;
+  const pct = Math.round(agreed / Math.max(1,devices.length) * 100);
+  const el = document.getElementById('s-consensus');
+  el.textContent = pct + '%';
+  el.parentElement.className = 'stat-card ' + (pct > 80 ? 'green' : pct > 50 ? 'yellow' : 'red');
+
+  // Holonomy: higher when fewer disagreements and cycles consistent
+  const disagree = devices.filter(d => d.status==='disagree').length;
+  const holo = Math.max(0, Math.round(100 - disagree * 15));
+  document.getElementById('s-holonomy').textContent = holo + '%';
+
+  // Parity
+  document.getElementById('s-parity').textContent = Math.round(100 - disagree * 10) + '%';
+
+  // Spoof detection
+  if (spoofedId >= 0 && spoofTotalRounds > 0) {
+    document.getElementById('s-spoof-det').textContent = Math.round(spoofDetectCount / spoofTotalRounds * 100) + '%';
+  } else {
+    document.getElementById('s-spoof-det').textContent = '—';
+  }
+
+  // Convergence time
+  if (agreed === devices.length && currentConvergenceStart > 0) {
+    convergenceTimes.push(round - currentConvergenceStart);
+    currentConvergenceStart = 0;
+  }
+  const avgConv = convergenceTimes.length > 0 ? Math.round(convergenceTimes.reduce((a,b)=>a+b,0)/convergenceTimes.length) : '—';
+  document.getElementById('s-conv-time').textContent = avgConv;
+
+  // Load-bearing
+  const sorted = [...devices].sort((a,b) => b.sensitivity - a.sensitivity).slice(0, 8);
+  const lbList = document.getElementById('load-bearing-list');
+  lbList.innerHTML = sorted.map(d => `<div>Device ${d.id} <span>(σ=${d.sensitivity})</span></div>`).join('');
+
+  // Spoof list
+  const spList = document.getElementById('spoof-list');
+  if (spoofedId >= 0) {
+    spList.innerHTML = `<div style="color:#f85149">Device ${spoofedId} 🎭 SPOOFED</div>`;
+  } else {
+    spList.innerHTML = '<div style="color:#8b949e">None</div>';
+  }
+}
+
+// ===== DRAWING =====
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  const time = Date.now() / 1000;
+
+  // Draw edges
+  edges.forEach(e => {
+    if (e.a >= devices.length || e.b >= devices.length) return;
+    const a = devices[e.a], b = devices[e.b];
+    const pulse = 0.4 + 0.3 * Math.sin(e.pulse);
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = `rgba(88,166,255,${pulse * e.coupling * 0.5})`;
+    ctx.lineWidth = e.coupling * 3;
+    ctx.stroke();
+  });
+
+  // Holonomy paths
+  if (holonomyTimer > 0) {
+    holonomyPaths.forEach((path, idx) => {
+      if (idx > holonomyCheckPhase) return;
+      const isLast = idx === Math.min(holonomyCheckPhase, holonomyPaths.length-1);
+      for (let i = 0; i < path.length - 1; i++) {
+        const a = devices[path[i]], b = devices[path[i+1]];
+        if (!a || !b) continue;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = isLast && holonomyTimer < 30 ? '#f85149' : '#3fb950';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      }
+    });
+  }
+
+  // Ripples
+  ripples = ripples.filter(r => r.alpha > 0.01);
+  ripples.forEach(r => {
+    r.radius += r.speed;
+    r.alpha = Math.max(0, 1 - r.radius / r.maxRadius);
+    ctx.beginPath();
+    ctx.arc(r.x, r.y, Math.max(EPS, r.radius), 0, Math.PI*2);
+    ctx.strokeStyle = `rgba(88,166,255,${r.alpha * 0.6})`;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  });
+
+  // Draw devices
+  devices.forEach(d => {
+    const baseR = 18 + Math.sin(d.pulse) * 2;
+    const r = Math.max(EPS, baseR);
+
+    // Status glow
+    let glowColor, glowR;
+    if (d.status === 'agreed') { glowColor = '63,185,80'; glowR = r + 12; }
+    else if (d.status === 'uncertain') { glowColor = '210,153,34'; glowR = r + 10; }
+    else { glowColor = '248,81,73'; glowR = r + 14; }
+
+    const glowGrad = ctx.createRadialGradient(d.x, d.y, r, d.x, d.y, glowR + 8);
+    glowGrad.addColorStop(0, `rgba(${glowColor},0.4)`);
+    glowGrad.addColorStop(1, `rgba(${glowColor},0)`);
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, glowR + 8, 0, Math.PI*2);
+    ctx.fillStyle = glowGrad;
+    ctx.fill();
+
+    // Spoofed pulsing border
+    if (d.spoofed) {
+      const spoofPulse = Math.abs(Math.sin(time * 4));
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, r + 4 + spoofPulse * 4, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(248,81,73,${0.5 + spoofPulse * 0.5})`;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    // Device body
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, r, 0, Math.PI*2);
+    const bodyGrad = ctx.createRadialGradient(d.x-3, d.y-3, 0, d.x, d.y, r);
+    bodyGrad.addColorStop(0, '#2d333b');
+    bodyGrad.addColorStop(1, '#1c2128');
+    ctx.fillStyle = bodyGrad;
+    ctx.fill();
+    ctx.strokeStyle = d.spoofed ? '#f85149' : d.status === 'agreed' ? '#3fb950' : d.status === 'uncertain' ? '#d29922' : '#f85149';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // State dot (Eisenstein coordinate visualized)
+    const stateAngle = Math.atan2(d.sy, d.sx);
+    const stateMag = Math.min(r * 0.6, Math.sqrt(d.sx*d.sx + d.sy*d.sy) * 0.1);
+    const dotX = d.x + Math.cos(stateAngle) * stateMag;
+    const dotY = d.y + Math.sin(stateAngle) * stateMag;
+    ctx.beginPath();
+    ctx.arc(dotX, dotY, 3, 0, Math.PI*2);
+    ctx.fillStyle = '#58a6ff';
+    ctx.fill();
+
+    // ID label
+    ctx.fillStyle = '#c9d1d9';
+    ctx.font = '9px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(d.id, d.x, d.y + r + 14);
+  });
+
+  // Holonomy overlay
+  const overlay = document.getElementById('holonomy-overlay');
+  if (holonomyTimer > 0) {
+    overlay.classList.add('show');
+    document.getElementById('holonomy-text').textContent = 
+      `Checking cycle ${Math.min(holonomyCheckPhase+1, holonomyPaths.length)}/${holonomyPaths.length}`;
+  } else {
+    overlay.classList.remove('show');
+  }
+}
+
+// ===== HOLONYMY CHECK =====
+function runHolonomyCheck() {
+  // Find cycles in the graph (simple: triangles and short loops)
+  holonomyPaths = [];
+  const adj = devices.map(() => []);
+  edges.forEach(e => { adj[e.a].push(e.b); adj[e.b].push(e.a); });
+
+  // Find some cycles (BFS-based, limited)
+  for (let start = 0; start < devices.length && holonomyPaths.length < 8; start++) {
+    for (let next of adj[start]) {
+      for (let end of adj[next]) {
+        if (end !== start && adj[end].includes(start)) {
+          const path = [start, next, end, start];
+          const key = [...path].sort().join(',');
+          if (!holonomyPaths.find(p => [...p].sort().join(',') === key)) {
+            holonomyPaths.push(path);
+          }
+        }
+      }
+    }
+  }
+
+  // If not enough cycles, make paths along edges
+  if (holonomyPaths.length === 0) {
+    for (let i = 0; i < Math.min(5, edges.length); i++) {
+      const e = edges[i];
+      holonomyPaths.push([e.a, e.b, e.a]);
+    }
+  }
+
+  holonomyCheckPhase = 0;
+  holonomyTimer = 60;
+}
+
+// ===== ANIMATION LOOP =====
+let lastTime = 0;
+let animFrame;
+function loop(ts) {
+  animFrame = requestAnimationFrame(loop);
+  if (playing) {
+    simulationStep();
+  }
+  draw();
+
+  // Holonomy animation
+  if (holonomyTimer > 0) {
+    holonomyTimer--;
+    if (holonomyTimer % 8 === 0 && holonomyCheckPhase < holonomyPaths.length - 1) {
+      holonomyCheckPhase++;
+    }
+  }
+}
+requestAnimationFrame(loop);
+
+// ===== CONTROLS =====
+// Device count slider
+const devCountSlider = document.getElementById('dev-count');
+devCountSlider.addEventListener('input', () => {
+  document.getElementById('dev-count-val').textContent = devCountSlider.value;
+});
+devCountSlider.addEventListener('change', () => {
+  initFleet(parseInt(devCountSlider.value));
+});
+
+// Add/Remove
+document.getElementById('btn-add').addEventListener('click', () => {
+  const n = devices.length;
+  const d = new Device(n, W/2 + (Math.random()-0.5)*200, H/2 + (Math.random()-0.5)*200);
+  devices.push(d);
+  // connect to random existing
+  if (n > 0) {
+    const target = Math.floor(Math.random() * n);
+    edges.push(new Edge(n, target));
+  }
+  devCountSlider.value = devices.length;
+  document.getElementById('dev-count-val').textContent = devices.length;
+  computeBetti();
+});
+
+document.getElementById('btn-remove').addEventListener('click', () => {
+  if (devices.length <= 3) return;
+  const id = devices.length - 1;
+  edges = edges.filter(e => e.a !== id && e.b !== id);
+  devices.pop();
+  if (spoofedId >= devices.length) spoofedId = -1;
+  devCountSlider.value = devices.length;
+  document.getElementById('dev-count-val').textContent = devices.length;
+  computeBetti();
+});
+
+// Randomize
+document.getElementById('btn-randomize').addEventListener('click', () => setTopology('random'));
+
+// Topology presets
+document.querySelectorAll('[data-topo]').forEach(btn => {
+  btn.addEventListener('click', () => setTopology(btn.dataset.topo));
+});
+
+// Disk radius
+document.getElementById('disk-radius').addEventListener('input', (e) => {
+  diskRadius = parseInt(e.target.value);
+  document.getElementById('disk-val').textContent = diskRadius;
+  consensusThreshold = diskRadius / 8;
+});
+
+// Perturbation
+document.getElementById('perturb-mag').addEventListener('input', (e) => {
+  perturbMag = parseInt(e.target.value);
+  document.getElementById('perturb-val').textContent = perturbMag;
+});
+
+// Shake
+document.getElementById('btn-shake').addEventListener('click', () => {
+  if (devices.length === 0) return;
+  const idx = Math.floor(Math.random() * devices.length);
+  const d = devices[idx];
+  d.sx += (Math.random()-0.5) * perturbMag * 4;
+  d.sy += (Math.random()-0.5) * perturbMag * 4;
+  ripples.push(new Ripple(d.x, d.y, d.id, perturbMag));
+  // Secondary ripples on neighbors
+  edges.forEach(e => {
+    let neighbor = -1;
+    if (e.a === idx) neighbor = e.b;
+    else if (e.b === idx) neighbor = e.a;
+    if (neighbor >= 0) {
+      const nd = devices[neighbor];
+      const responseMag = perturbMag * 0.3 * e.coupling;
+      nd.sx += (Math.random()-0.5) * responseMag;
+      nd.sy += (Math.random()-0.5) * responseMag;
+      setTimeout(() => {
+        ripples.push(new Ripple(nd.x, nd.y, nd.id, responseMag));
+      }, 200);
+    }
+  });
+  currentConvergenceStart = round;
+  runHolonomyCheck();
+});
+
+document.getElementById('btn-shake-all').addEventListener('click', () => {
+  devices.forEach(d => {
+    d.sx += (Math.random()-0.5) * perturbMag * 4;
+    d.sy += (Math.random()-0.5) * perturbMag * 4;
+    ripples.push(new Ripple(d.x, d.y, d.id, perturbMag * 0.5));
+  });
+  currentConvergenceStart = round;
+  runHolonomyCheck();
+});
+
+// Spoof
+document.getElementById('btn-spoof').addEventListener('click', () => {
+  if (devices.length === 0) return;
+  // Un-spoof current
+  if (spoofedId >= 0 && spoofedId < devices.length) {
+    devices[spoofedId].spoofed = false;
+  }
+  const idx = Math.floor(Math.random() * devices.length);
+  spoofedId = idx;
+  devices[idx].spoofed = true;
+  devices[idx].sx += (Math.random()-0.5) * spoofMag * 2;
+  devices[idx].sy += (Math.random()-0.5) * spoofMag * 2;
+  spoofDetectCount = 0;
+  spoofTotalRounds = 0;
+  runHolonomyCheck();
+});
+
+document.getElementById('spoof-mag').addEventListener('input', (e) => {
+  spoofMag = parseInt(e.target.value);
+  document.getElementById('spoof-val').textContent = spoofMag;
+});
+
+document.getElementById('adversarial').addEventListener('change', (e) => {
+  adversarialMode = e.target.checked;
+  if (adversarialMode && spoofedId < 0) {
+    // Auto-spoof a device
+    const idx = Math.floor(Math.random() * devices.length);
+    spoofedId = idx;
+    devices[idx].spoofed = true;
+    spoofDetectCount = 0;
+    spoofTotalRounds = 0;
+  }
+});
+
+// Sim controls
+document.getElementById('btn-play').addEventListener('click', () => {
+  playing = true;
+  document.getElementById('btn-play').classList.add('active');
+  document.getElementById('btn-pause').classList.remove('active');
+});
+document.getElementById('btn-pause').addEventListener('click', () => {
+  playing = false;
+  document.getElementById('btn-pause').classList.add('active');
+  document.getElementById('btn-play').classList.remove('active');
+});
+document.getElementById('btn-step').addEventListener('click', () => {
+  playing = false;
+  document.getElementById('btn-pause').classList.add('active');
+  document.getElementById('btn-play').classList.remove('active');
+  simulationStep();
+  draw();
+});
+document.getElementById('btn-reset').addEventListener('click', () => {
+  initFleet(parseInt(devCountSlider.value));
+});
+
+document.getElementById('speed').addEventListener('input', (e) => {
+  speed = parseInt(e.target.value) / 10;
+  document.getElementById('speed-val').textContent = speed.toFixed(1) + 'x';
+});
+
+// ===== INIT =====
+initFleet(12);
+</script>
+</body>
+</html>
