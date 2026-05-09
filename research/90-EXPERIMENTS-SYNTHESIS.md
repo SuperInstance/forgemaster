@@ -1,4 +1,4 @@
-# 130 Experiments — Night Shift Synthesis
+# 138 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -69,6 +69,13 @@
 21. **Universal Attractors:** same Cs → same attractor basin, initial conditions irrelevant
 22. **50% Redundancy:** evolutionary pruning removes half the agents, 4× energy gain
 23. **Mass Death < Single Death:** killing 4/8 less disruptive than killing 1/8 (faster rebalance)
+24. **Fleet Dreams:** circadian coupling oscillation → entropy 0.9999 (dream/consolidate cycle)
+25. **Memory Palace:** fleet stores discrete attractors with sharp boundaries, no blending
+26. **Emergent Composition:** bridged fleets produce 10 novel frequency components
+27. **History-Dependent Identity:** same Cs ≠ same attractor from random ICs (mirror test fails)
+28. **Safe at Any Gain:** tanh prevents divergence, architecture safe to gain=10.0
+29. **Indirect Vision:** agents see through intermediaries at 43% efficiency (57% attenuation)
+30. **Strong Dominance:** gain=3.0 agent gets 48.6% energy but can't overwhelm 3 weak agents
 
 ## Killed Hypotheses (Updated to 12)
 
