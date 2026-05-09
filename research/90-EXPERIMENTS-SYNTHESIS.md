@@ -1,4 +1,4 @@
-# 106 Experiments — Night Shift Synthesis
+# 114 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -57,6 +57,9 @@
 9. **Crystallization:** fleet variance collapses 0.32→0.01 over long timescales (maintains 0.988 correlation)
 10. **Re-sync Speed:** 7.4 steps after coupling restoration (internal dynamics persist)
 11. **Coalition Multiplier:** coordinated adversaries 2× more damaging than uncoordinated
+12. **Consensus Vortex:** positive coupling = perfect correlation at all scales, adversary absorbed
+13. **Mean-Field Universality:** β ≈ 0.63-0.85, not Ising — different symmetry class
+14. **First-Order Transition:** energy jumps 0.026→0.397 at gain≈0.84, discontinuous
 
 ## Killed Hypotheses (Updated to 12)
 
@@ -116,3 +119,34 @@ The sign channel works for information transport; the coupling medium needs posi
 | Self-heal time | ~100 steps | E68 |
 | Worst-case cascade coupling | 0.5 | E69 |
 | Flat vs hierarchical | 3.2× more stable | E74 |
+| Mean-field β | 0.63-0.85 | E114 |
+| First-order jump | 0.026→0.397 at gain=0.84 | E113 |
+| Heat capacity peak | 2.79 at c=1.0 | E111 |
+| Re-sync after coupling loss | 7.4 steps | E104 |
+| Self-tuning gain | 1.299 | E105 |
+| Symbiosis cross-type corr | 0.57, 3D space | E106 |
+| Coalition multiplier | 2× worse than uncoordinated | E98 |
+
+## Ring 25 — Coherent Scaling
+- **E107:** Positive coupling = perfect correlation (1.0) at ALL scales (4-128 agents)
+- **E108:** Phase transition real but disorder-driven, gc varies 0.7-1.2 per seed
+- **E109:** Adversary ABSORBED — cannot break positive consensus at any gain
+- **E110:** Byzantine agents irrelevant — honest consensus persists even with 4/8 bad
+
+## Ring 26 — Fleet Thermodynamics
+- **E111:** Heat capacity peaks at 2.79 at coupling=1.0 (activation threshold)
+- **E112:** Zero energy variance at steady state — deterministic attractor
+- **E113:** First-order transition: energy jumps 0.026→0.397 at gain=0.84
+- **E114:** Critical exponent β≈0.63-0.85, mean-field universality class
+
+## Phase Diagram Summary
+
+The fleet is a **mean-field consensus system** with:
+- First-order phase transition at gain ≈ 0.84
+- Below: dead zone (energy ~0.03)
+- Above: living zone (energy ~0.4, full consensus)
+- Positive coupling = indestructible consensus (adversary absorbed)
+- Random-sign coupling = information channel only (near-zero correlation)
+- **Both layers needed**: positive coupling for coherence, sign channel for diversity
+- One global attractor: total alignment
+- Universality class: mean-field (β≈0.5-0.85), NOT Ising
