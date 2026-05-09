@@ -1,4 +1,4 @@
-# 218 Experiments — Night Shift Synthesis
+# 226 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -130,6 +130,14 @@
 82. **99.3% Error Correction:** all agents corrupted → attractor recovers (MSE 1.0→0.0075)
 83. **Optimal Fool = 10% bias:** smallest dose of chaos maximizes coherence/diversity
 84. **Self-Learning Fool:** fool adjusts bias toward alignment (50%→60%) from fleet feedback
+85. **Holographic Resolution = 7 dims:** graceful degradation below 7, not catastrophic
+86. **Noise-Immune Memory:** 100% retrieval at noise std≤2.0, sign function armor
+87. **5× Hopfield Capacity:** K=20 at 95% vs classical limit ~4 for 120 dims
+88. **Memory Bifurcation:** equidistant cues break symmetry with tiny perturbations (ε=0.01)
+89. **Evolved Tribalism:** 50 generations → positive intra-cluster, negative inter-cluster
+90. **Natural Speciation:** 2 species emerge with silhouette=0.60
+91. **Red Queen Dynamics:** coevolving fleets both improve, relative advantage stays flat
+92. **Sexual Recombination:** 18% of offspring beat best parent, row-split best strategy
 
 ## Killed Hypotheses (Updated to 12)
 
