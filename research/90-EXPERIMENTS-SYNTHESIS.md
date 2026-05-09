@@ -1,4 +1,4 @@
-# 226 Experiments — Night Shift Synthesis
+# 234 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -138,6 +138,12 @@
 90. **Natural Speciation:** 2 species emerge with silhouette=0.60
 91. **Red Queen Dynamics:** coevolving fleets both improve, relative advantage stays flat
 92. **Sexual Recombination:** 18% of offspring beat best parent, row-split best strategy
+93. **Division of Labor:** memory agents cluster strongest (0.86), genuine specialization
+94. **Coupling IS Trade:** all agents diversify beyond specialty through coupling alone
+95. **Revolution Works:** fleet finds new stable order after governance overthrow (0.41→0.34)
+96. **History Matters:** same coupling + different ICs = correlation 0.22 (different civilizations)
+97. **60% Habitable Universes:** most random coupling matrices produce stable fleets
+98. **No Heat Death at 10K:** confirmed stable indefinitely (corr 0.999 at step 10000)
 
 ## Killed Hypotheses (Updated to 12)
 
