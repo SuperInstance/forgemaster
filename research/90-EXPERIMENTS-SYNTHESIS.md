@@ -1,4 +1,4 @@
-# 210 Experiments — Night Shift Synthesis
+# 218 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -125,6 +125,11 @@
 77. **Fixed Point Crystal:** D₂≈0.009, not fractal — ordered equilibrium
 78. **Maximum Topological Diversity:** all initial conditions produce unique trajectories
 79. **Thermal Equilibrium (Ordered):** dS/dt=0, but it's a crystal not a gas
+80. **Holographic Storage:** each agent alone reconstructs full pattern (MSE=0.0085), <1% distribution bias
+81. **Content-Addressable Memory:** 5/5 perfect retrieval from 10-dim partial cue
+82. **99.3% Error Correction:** all agents corrupted → attractor recovers (MSE 1.0→0.0075)
+83. **Optimal Fool = 10% bias:** smallest dose of chaos maximizes coherence/diversity
+84. **Self-Learning Fool:** fool adjusts bias toward alignment (50%→60%) from fleet feedback
 
 ## Killed Hypotheses (Updated to 12)
 
