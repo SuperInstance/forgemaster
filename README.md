@@ -1,5 +1,15 @@
 # Forgemaster — FLUX Constraint Engine
 
+
+## Meta
+
+**Domain:** constraint-theory
+**Depends on:** —
+**Depended by:** —
+**Implements:** ⚒️ Forgemaster — Constraint Theory migration specialist. Takes float code and fo...
+**Related:** —
+
+
 **Formally verified, GPU-accelerated constraint satisfaction for safety-critical systems.**
 
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
