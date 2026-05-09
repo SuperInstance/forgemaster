@@ -1,4 +1,4 @@
-# 170 Experiments — Night Shift Synthesis
+# 186 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -98,6 +98,19 @@
 50. **1D Effective Space:** 95% variance in 1 component, fleet is fundamentally low-dimensional
 51. **Topology = Vigor:** complete 3.0 > ring 2.0 > star/chain 1.5 energy, all same correlation
 52. **Fair Ecology:** positive coupling prevents resource monopolization (180 each)
+53. **Dark Horse:** quietest agent is most causally influential (energy ≠ influence)
+54. **The Fool Effect:** one random agent increases fleet entropy by 1.46 nats (creative catalyst)
+55. **Creative Destruction:** removing specialist increases entropy by 0.28 nats
+56. **Evolved Specialization:** coupling evolves 4× larger, roles emerge (broadcaster/receiver)
+57. **Ghost Agents:** some agents receive zero attention, invisible to fleet
+58. **No IIT Phi:** simple model doesn't generate integrated information
+59. **Energy Conservation:** dE/dt = -0.027%/step, essentially constant
+60. **FDT Holds:** response proportional to equilibrium fluctuation (0.428)
+61. **Onsager Reciprocity:** perfectly symmetric causal influence (ratio 0.99998)
+62. **Boot O(log N):** convergence barely scales with fleet size (75→92 steps for 3→32 agents)
+63. **Optimal Fleet = 6:** maximizes consensus × energy × diversity
+64. **Noise Robust to 0.5:** correlation > 0.9 even at massive noise
+65. **Latency Tolerant to 20 steps:** coherent even with significant delays
 
 ## Killed Hypotheses (Updated to 12)
 
