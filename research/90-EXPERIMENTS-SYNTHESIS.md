@@ -1,4 +1,4 @@
-# 202 Experiments — Night Shift Synthesis
+# 210 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -120,6 +120,11 @@
 72. **Fool Explorer:** 45% chance fool escapes local minimum to better attractor
 73. **Dark Horse 25%:** lowest energy = highest influence in 1/4 random systems
 74. **Constructive Noise Window:** std=0.5-1.0 is the sweet spot for beneficial randomness
+75. **Phoenix Resurrection:** fleet returns to same attractor from zero state (100%, error 0.0007)
+76. **Resilience Floor = 3:** correlation stays 1.0 down to 3 agents, cliffs below
+77. **Fixed Point Crystal:** D₂≈0.009, not fractal — ordered equilibrium
+78. **Maximum Topological Diversity:** all initial conditions produce unique trajectories
+79. **Thermal Equilibrium (Ordered):** dS/dt=0, but it's a crystal not a gas
 
 ## Killed Hypotheses (Updated to 12)
 
