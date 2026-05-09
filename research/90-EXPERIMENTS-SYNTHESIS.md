@@ -1,4 +1,4 @@
-# 194 Experiments — Night Shift Synthesis
+# 202 Experiments — Night Shift Synthesis
 
 ## Rings 1-14 (Earlier Tonight)
 - 6 laws verified, 10 hypotheses killed
@@ -116,6 +116,10 @@
 68. **1-Bit Coherent:** attractor survives quantization to 1-bit (cos sim >0.999)
 69. **Distributed Attractor Memory:** coupling perfectly recovers corrupted data (error=0)
 70. **Temporal Encoding:** fleet state encodes signal 20× better than any single agent
+71. **Wise Fool:** 70/30 random/aligned beats pure deterministic by 3.4× (creativity + coherence)
+72. **Fool Explorer:** 45% chance fool escapes local minimum to better attractor
+73. **Dark Horse 25%:** lowest energy = highest influence in 1/4 random systems
+74. **Constructive Noise Window:** std=0.5-1.0 is the sweet spot for beneficial randomness
 
 ## Killed Hypotheses (Updated to 12)
 
