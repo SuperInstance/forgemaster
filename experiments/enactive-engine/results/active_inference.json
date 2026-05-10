@@ -1,0 +1,624 @@
+{
+  "experiment": "active_vs_passive",
+  "parameters": {
+    "epsilon": 0.5,
+    "a": 1.0,
+    "b": 1.0,
+    "noise_sigma": 0.1,
+    "dt": 0.005,
+    "phi_0": 1.0,
+    "action_strength": 0.5
+  },
+  "final_state": {
+    "passive_drift": 2.0,
+    "active_drift": 0.040305909206749715,
+    "drift_reduction_ratio": 49.620515685205675,
+    "passive_final_satisfaction": 1.0,
+    "active_final_satisfaction": 1.0
+  },
+  "passive_time_series": [
+    {
+      "time": 0.005,
+      "free_energy": 349.82184440125206,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 0.5050000000000003,
+      "free_energy": 654.3634387657007,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 1.0050000000000006,
+      "free_energy": 2260.8710563512677,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 1.50499999999999,
+      "free_energy": 32169.282856217018,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 2.0049999999999795,
+      "free_energy": 93377.27165954426,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 2.504999999999969,
+      "free_energy": 129858.59200767278,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 3.004999999999958,
+      "free_energy": 139696.62116009174,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 3.5049999999999475,
+      "free_energy": 142375.26944254615,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 4.004999999999937,
+      "free_energy": 144072.11921127263,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 4.504999999999926,
+      "free_energy": 143505.81080646446,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 5.0049999999999155,
+      "free_energy": 143954.60396484024,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 5.504999999999905,
+      "free_energy": 144120.95858238274,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 6.004999999999894,
+      "free_energy": 144315.75058097,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 6.5049999999998835,
+      "free_energy": 144057.1172259461,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 7.004999999999873,
+      "free_energy": 144453.2595287357,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 7.504999999999862,
+      "free_energy": 144647.14918108797,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 8.004999999999852,
+      "free_energy": 144512.17937794412,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 8.50499999999993,
+      "free_energy": 144671.65611245367,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 9.005000000000008,
+      "free_energy": 145149.09881831738,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 9.505000000000086,
+      "free_energy": 144072.77725312897,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 10.005000000000164,
+      "free_energy": 144546.7667837901,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 10.505000000000242,
+      "free_energy": 144618.07774873817,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 11.00500000000032,
+      "free_energy": 144240.90237965115,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 11.505000000000399,
+      "free_energy": 145257.99266724364,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 12.005000000000477,
+      "free_energy": 144549.71490089037,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 12.505000000000555,
+      "free_energy": 145270.88329385428,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 13.005000000000633,
+      "free_energy": 144426.92612626732,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 13.505000000000711,
+      "free_energy": 144990.61002549742,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 14.00500000000079,
+      "free_energy": 145364.44636231384,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 14.505000000000868,
+      "free_energy": 144352.18238634715,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 15.005000000000946,
+      "free_energy": 144265.39266292524,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 15.505000000001024,
+      "free_energy": 145362.8800161274,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 16.0050000000011,
+      "free_energy": 144324.33609403227,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 16.505000000001,
+      "free_energy": 144084.6258339455,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 17.0050000000009,
+      "free_energy": 144860.63841407245,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 17.505000000000802,
+      "free_energy": 145335.68806654023,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 18.005000000000702,
+      "free_energy": 144786.94265242564,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 18.505000000000603,
+      "free_energy": 144883.82738325297,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 19.005000000000503,
+      "free_energy": 144064.03719685765,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 19.505000000000404,
+      "free_energy": 145322.03535268034,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 20.005000000000305,
+      "free_energy": 143518.40376596287,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 20.505000000000205,
+      "free_energy": 144738.31304881562,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 21.005000000000106,
+      "free_energy": 144269.21556333883,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 21.505000000000006,
+      "free_energy": 144458.16822074325,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 22.004999999999907,
+      "free_energy": 145126.38802547983,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 22.504999999999807,
+      "free_energy": 144239.34961849317,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 23.004999999999708,
+      "free_energy": 143958.7465271658,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 23.504999999999608,
+      "free_energy": 143456.94213515765,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 24.00499999999951,
+      "free_energy": 144465.4350047915,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 24.50499999999941,
+      "free_energy": 144426.4442158611,
+      "action_magnitude": 0.0,
+      "satisfaction": 1.0
+    }
+  ],
+  "active_time_series": [
+    {
+      "time": 0.005,
+      "free_energy": 348.8805136727333,
+      "action_magnitude": 4.675990877180302,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 0.5050000000000003,
+      "free_energy": 399.5152468433152,
+      "action_magnitude": 4.977551333292739,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 1.0050000000000006,
+      "free_energy": 388.93473614047633,
+      "action_magnitude": 4.912395573073552,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 1.50499999999999,
+      "free_energy": 410.79965340062233,
+      "action_magnitude": 5.088863517618492,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 2.0049999999999795,
+      "free_energy": 411.9394517652814,
+      "action_magnitude": 5.044006330480799,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 2.504999999999969,
+      "free_energy": 368.21849425972266,
+      "action_magnitude": 4.806821022921383,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 3.004999999999958,
+      "free_energy": 413.2246245971124,
+      "action_magnitude": 5.053727013232738,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 3.5049999999999475,
+      "free_energy": 397.23103436471024,
+      "action_magnitude": 4.985614656658309,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 4.004999999999937,
+      "free_energy": 442.1674208124782,
+      "action_magnitude": 5.138764113769689,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 4.504999999999926,
+      "free_energy": 424.2550659030721,
+      "action_magnitude": 5.11350710982547,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 5.0049999999999155,
+      "free_energy": 378.4797207743432,
+      "action_magnitude": 4.954102909060095,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 5.504999999999905,
+      "free_energy": 442.68688612869937,
+      "action_magnitude": 5.1513629684870015,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 6.004999999999894,
+      "free_energy": 424.5126160017031,
+      "action_magnitude": 5.063839458950726,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 6.5049999999998835,
+      "free_energy": 374.9402673871293,
+      "action_magnitude": 4.916623628718257,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 7.004999999999873,
+      "free_energy": 399.2412169205048,
+      "action_magnitude": 4.994253118108076,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 7.504999999999862,
+      "free_energy": 391.7722547616443,
+      "action_magnitude": 4.957122041734607,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 8.004999999999852,
+      "free_energy": 394.0137306342909,
+      "action_magnitude": 4.988747269662976,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 8.50499999999993,
+      "free_energy": 415.29967924946357,
+      "action_magnitude": 5.0512959665611,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 9.005000000000008,
+      "free_energy": 440.94616234171787,
+      "action_magnitude": 5.125522668223578,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 9.505000000000086,
+      "free_energy": 429.3276593128363,
+      "action_magnitude": 5.184813810480018,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 10.005000000000164,
+      "free_energy": 416.89519028673857,
+      "action_magnitude": 5.087639728934535,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 10.505000000000242,
+      "free_energy": 414.30050478417445,
+      "action_magnitude": 5.029396655247902,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 11.00500000000032,
+      "free_energy": 390.55233196878453,
+      "action_magnitude": 4.951182844608113,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 11.505000000000399,
+      "free_energy": 436.7750762387823,
+      "action_magnitude": 5.250204896443123,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 12.005000000000477,
+      "free_energy": 405.55934539763734,
+      "action_magnitude": 5.033379596073259,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 12.505000000000555,
+      "free_energy": 409.28483690256496,
+      "action_magnitude": 5.073658794593003,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 13.005000000000633,
+      "free_energy": 425.50664862494557,
+      "action_magnitude": 5.170442993256085,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 13.505000000000711,
+      "free_energy": 428.3689096347897,
+      "action_magnitude": 5.128891610483764,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 14.00500000000079,
+      "free_energy": 420.28216051697154,
+      "action_magnitude": 5.047967224301516,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 14.505000000000868,
+      "free_energy": 427.8502379891035,
+      "action_magnitude": 5.177144482354311,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 15.005000000000946,
+      "free_energy": 394.6981942218697,
+      "action_magnitude": 5.034677551226447,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 15.505000000001024,
+      "free_energy": 431.5927190312084,
+      "action_magnitude": 5.1356036890731,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 16.0050000000011,
+      "free_energy": 395.26901352539585,
+      "action_magnitude": 4.893572496388264,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 16.505000000001,
+      "free_energy": 430.3280534747898,
+      "action_magnitude": 5.130402902455897,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 17.0050000000009,
+      "free_energy": 361.12548399579487,
+      "action_magnitude": 4.801156651410041,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 17.505000000000802,
+      "free_energy": 408.45655802416854,
+      "action_magnitude": 5.030206604116492,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 18.005000000000702,
+      "free_energy": 368.74356183010076,
+      "action_magnitude": 4.813751581707228,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 18.505000000000603,
+      "free_energy": 417.0808718845284,
+      "action_magnitude": 5.0717448892943455,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 19.005000000000503,
+      "free_energy": 453.86600777048153,
+      "action_magnitude": 5.259444031794451,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 19.505000000000404,
+      "free_energy": 410.3302500713967,
+      "action_magnitude": 5.080180678059861,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 20.005000000000305,
+      "free_energy": 440.930662693162,
+      "action_magnitude": 5.197858519119962,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 20.505000000000205,
+      "free_energy": 402.69744865394324,
+      "action_magnitude": 4.953322067658539,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 21.005000000000106,
+      "free_energy": 386.5046749287516,
+      "action_magnitude": 4.985665230728623,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 21.505000000000006,
+      "free_energy": 382.24694539729165,
+      "action_magnitude": 4.890567037705872,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 22.004999999999907,
+      "free_energy": 414.8234520093298,
+      "action_magnitude": 5.053544022207726,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 22.504999999999807,
+      "free_energy": 408.6461926428646,
+      "action_magnitude": 5.014930991983631,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 23.004999999999708,
+      "free_energy": 471.5994401698048,
+      "action_magnitude": 5.3254153717830235,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 23.504999999999608,
+      "free_energy": 426.0698053226043,
+      "action_magnitude": 5.192101540841709,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 24.00499999999951,
+      "free_energy": 409.3483375653649,
+      "action_magnitude": 5.069518905426869,
+      "satisfaction": 1.0
+    },
+    {
+      "time": 24.50499999999941,
+      "free_energy": 387.68051291819785,
+      "action_magnitude": 4.912301484466187,
+      "satisfaction": 1.0
+    }
+  ],
+  "conclusion": "Active inference maintains drift at 0.0403 while passive system drifts to 2.0000. Drift reduction: 49.6x. Active system maintains 100.0% satisfaction. This is enactive constraint maintenance: continuous intervention maintains zero drift, exactly as the GPU kernel does at 341B evaluations/second."
+}

@@ -1,0 +1,33 @@
+{
+  "experiment": "1_arbitrage_as_holonomy",
+  "predictions": {
+    "holonomy_magnitude_predicts_profit": {
+      "pearson_r": 0.9843559389196633,
+      "pearson_p": 0.0,
+      "spearman_rho": 0.9449750035836594,
+      "spearman_p": 0.0,
+      "confirmed": true
+    },
+    "holonomy_closes_with_arbitrage": {
+      "pre_shock_holonomy": 0.12541115447030463,
+      "post_shock_holonomy": 0.10517032812666363,
+      "converged_holonomy": 0.08602161549702413,
+      "halflife_timesteps": 73,
+      "confirmed": false
+    },
+    "holonomy_detection_advantage": {
+      "holonomy_detection_threshold_bps": 1.0,
+      "standard_detection_threshold_bps": 1.0,
+      "advantage_factor": 1.0,
+      "confirmed": false
+    }
+  },
+  "experiment_parameters": {
+    "n_currencies": 5,
+    "n_timesteps": 5000,
+    "n_triangular_cycles": 10,
+    "spread_bps": 2.0,
+    "shock_magnitude_pct": 0.49999999999998934,
+    "relaxation_tau_timesteps": 20
+  }
+}

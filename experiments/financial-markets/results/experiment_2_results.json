@@ -1,0 +1,35 @@
+{
+  "experiment": "2_market_regime_via_H1",
+  "predictions": {
+    "H1_predicts_regime_transitions": {
+      "early_warning_rate": 0.625,
+      "avg_lead_time_timesteps": 10.6,
+      "max_lead_time_timesteps": 24.0,
+      "n_transitions_detected": 5,
+      "n_transitions_total": 8,
+      "confirmed": true
+    },
+    "H1_predicts_volatility": {
+      "vol_prediction_accuracy": 0.19534883720930232,
+      "vol_spikes_detected": 42,
+      "vol_spikes_total": 215,
+      "confirmed": false
+    },
+    "H1_vs_standard_methods": {
+      "hmm_accuracy": 0.8269423141047015,
+      "h1_transition_accuracy": 0.375,
+      "h1_advantage": -0.45194231410470154
+    }
+  },
+  "experiment_parameters": {
+    "n_timesteps": 3000,
+    "n_assets": 8,
+    "window_size": 60,
+    "regimes": [
+      "bull",
+      "bear",
+      "crash",
+      "sideways"
+    ]
+  }
+}

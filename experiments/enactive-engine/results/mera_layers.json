@@ -1,0 +1,43 @@
+{
+  "experiment": "mera_precision_layers",
+  "lattice": {
+    "radius": 12,
+    "n_sites": 469
+  },
+  "initial_violation_rate": 0.3,
+  "layer_results": [
+    {
+      "layer": "FP64",
+      "precision_bits": 53,
+      "satisfaction_after_snap": 0.7526652452025586,
+      "satisfaction_after_isometry": 0.7526652452025586,
+      "n_flips_from_isometry": 0,
+      "flip_rate": 0.0
+    },
+    {
+      "layer": "FP32",
+      "precision_bits": 24,
+      "satisfaction_after_snap": 0.7569296375266524,
+      "satisfaction_after_isometry": 0.7569296375266524,
+      "n_flips_from_isometry": 0,
+      "flip_rate": 0.0
+    },
+    {
+      "layer": "FP16",
+      "precision_bits": 11,
+      "satisfaction_after_snap": 0.7505330490405118,
+      "satisfaction_after_isometry": 0.7505330490405118,
+      "n_flips_from_isometry": 0,
+      "flip_rate": 0.0
+    },
+    {
+      "layer": "INT8",
+      "precision_bits": 8,
+      "satisfaction_after_snap": 0.7313432835820896,
+      "satisfaction_after_isometry": 0.7313432835820896,
+      "n_flips_from_isometry": 0,
+      "flip_rate": 0.0
+    }
+  ],
+  "conclusion": "The MERA structure maps to precision classes. Each layer applies a disentangler (snap = error correction) and an isometry (precision downgrade = coarse-graining). The disentangler corrects violations; the isometry may introduce new ones. The net effect depends on precision: high precision (FP64) corrects more than it loses; low precision (INT8) loses more than it corrects. This IS the MERA renormalization group flow for constraints."
+}

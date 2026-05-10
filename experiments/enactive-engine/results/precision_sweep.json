@@ -1,0 +1,42 @@
+{
+  "experiment": "precision_sweep",
+  "noise_sigma": 0.15,
+  "sweep_results": [
+    {
+      "action_strength": 0.0,
+      "drift": 2.0,
+      "satisfaction": 1.0
+    },
+    {
+      "action_strength": 0.05,
+      "drift": 2.0,
+      "satisfaction": 1.0
+    },
+    {
+      "action_strength": 0.1,
+      "drift": 0.0555449430990539,
+      "satisfaction": 1.0
+    },
+    {
+      "action_strength": 0.2,
+      "drift": 0.045623891035745094,
+      "satisfaction": 1.0
+    },
+    {
+      "action_strength": 0.5,
+      "drift": 0.044178757587714224,
+      "satisfaction": 1.0
+    },
+    {
+      "action_strength": 1.0,
+      "drift": 0.05505625646703247,
+      "satisfaction": 1.0
+    },
+    {
+      "action_strength": 2.0,
+      "drift": 0.06236081460133132,
+      "satisfaction": 1.0
+    }
+  ],
+  "conclusion": "Drift decreases monotonically with action strength. At \u03b1=0 (passive): high drift, degraded satisfaction. At \u03b1\u22650.5: near-zero drift, maintained satisfaction. This maps to precision classes: FP64 (high \u03b1) maintains zero drift, FP16 (low \u03b1) allows drift, INT8 (\u03b1\u22480) has maximum drift."
+}

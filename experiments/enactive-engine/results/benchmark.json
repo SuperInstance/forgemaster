@@ -1,0 +1,13 @@
+{
+  "experiment": "benchmark",
+  "lattice": {
+    "radius": 20,
+    "n_sites": 1261,
+    "n_edges": 3660
+  },
+  "iterations": 200,
+  "time_standard_ms": 5.105770409863908,
+  "time_tensor_ms": 5.953076430014335,
+  "ratio": 0.8576692185777317,
+  "conclusion": "Tensor contraction: 5.953ms, Standard: 5.106ms. For the current implementation, both have similar performance (the bottleneck is Python iteration over lattice sites). A true GPU implementation of tensor contraction would exploit massive parallelism, giving significant speedup for large systems."
+}

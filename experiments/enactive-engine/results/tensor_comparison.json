@@ -1,0 +1,51 @@
+{
+  "experiment": "tensor_network_comparison",
+  "results": [
+    {
+      "radius": 5,
+      "n_sites": 91,
+      "n_edges": 240,
+      "time_standard_ms": 0.3375368705019355,
+      "time_tensor_ms": 0.41652271000202745,
+      "results_match": true,
+      "satisfaction_rate": 0.5274725274725275
+    },
+    {
+      "radius": 8,
+      "n_sites": 217,
+      "n_edges": 600,
+      "time_standard_ms": 0.8349978900514543,
+      "time_tensor_ms": 1.0063519101822749,
+      "results_match": true,
+      "satisfaction_rate": 0.43317972350230416
+    },
+    {
+      "radius": 10,
+      "n_sites": 331,
+      "n_edges": 930,
+      "time_standard_ms": 1.5186497702961788,
+      "time_tensor_ms": 2.6350926200393587,
+      "results_match": true,
+      "satisfaction_rate": 0.6042296072507553
+    },
+    {
+      "radius": 12,
+      "n_sites": 469,
+      "n_edges": 1332,
+      "time_standard_ms": 1.817646519630216,
+      "time_tensor_ms": 2.2490132402163,
+      "results_match": true,
+      "satisfaction_rate": 0.4690831556503198
+    },
+    {
+      "radius": 15,
+      "n_sites": 721,
+      "n_edges": 2070,
+      "time_standard_ms": 5.105187779990956,
+      "time_tensor_ms": 4.21813776018098,
+      "results_match": true,
+      "satisfaction_rate": 0.4590846047156727
+    }
+  ],
+  "conclusion": "Standard evaluation and tensor contraction produce identical results (verified for all lattice sizes). For the binary constraint system, both approaches compute the same function. The tensor network formulation makes the structure explicit: each constraint is a tensor, shared indices are neighbor relationships, and the full evaluation is network contraction."
+}

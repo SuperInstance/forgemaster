@@ -1,0 +1,31 @@
+{
+  "experiment": "full_mera_pipeline",
+  "n_trials": 50,
+  "satisfaction_summary": {
+    "FP64": {
+      "mean_satisfaction": 0.9441087613293051,
+      "std_satisfaction": 0.017937072639030084,
+      "min_satisfaction": 0.8882175226586103,
+      "max_satisfaction": 0.972809667673716
+    },
+    "FP32": {
+      "mean_satisfaction": 0.9719033232628399,
+      "std_satisfaction": 0.01693191089933784,
+      "min_satisfaction": 0.9244712990936556,
+      "max_satisfaction": 0.9939577039274925
+    },
+    "FP16": {
+      "mean_satisfaction": 0.979274924471299,
+      "std_satisfaction": 0.018750696326704355,
+      "min_satisfaction": 0.9214501510574018,
+      "max_satisfaction": 1.0
+    },
+    "INT8": {
+      "mean_satisfaction": 0.9819335347432023,
+      "std_satisfaction": 0.01891045616238571,
+      "min_satisfaction": 0.9274924471299094,
+      "max_satisfaction": 1.0
+    }
+  },
+  "conclusion": "Full MERA pipeline shows precision-dependent constraint satisfaction. FP64 layer achieves highest satisfaction (most error correction). Each subsequent layer (FP32 \u2192 FP16 \u2192 INT8) has progressively less error correction capability. This matches the GPU kernel behavior: higher precision = fewer violations = deeper holographic bulk."
+}

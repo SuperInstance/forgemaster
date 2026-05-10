@@ -1,0 +1,31 @@
+{
+  "experiment": "4_flash_crash_propagation",
+  "predictions": {
+    "cascade_size_resistance": {
+      "eisenstein_best": true,
+      "eisenstein_mean_cascade_pct": 32.4,
+      "random_mean_cascade_pct": 33.92,
+      "scale_free_mean_cascade_pct": 33.92
+    },
+    "propagation_speed_resistance": {
+      "eisenstein_slowest": true
+    },
+    "recovery_speed": {
+      "eisenstein_fastest": false
+    },
+    "topological_analysis": {
+      "eisenstein_H1": 0,
+      "random_H1": 0,
+      "scale_free_H1": 0,
+      "eisenstein_fiedler": 0.443295980014614,
+      "random_fiedler": 0.7157834746225447,
+      "scale_free_fiedler": 0.6635387024277922
+    }
+  },
+  "experiment_parameters": {
+    "n_nodes": 50,
+    "n_timesteps": 2000,
+    "n_shock_magnitudes": 5,
+    "n_runs_per_config": 5
+  }
+}

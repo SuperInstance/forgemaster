@@ -1,0 +1,32 @@
+{
+  "experiment": "3_portfolio_constraint_optimization",
+  "predictions": {
+    "sharpe_preservation": {
+      "continuous_mean_sharpe": -0.19361695907974016,
+      "eisenstein_mean_sharpe": -0.09334775794269853,
+      "rounding_mean_sharpe": -0.18028188530060776,
+      "eisenstein_sharpe_deviation": 0.15493519836303182,
+      "rounding_sharpe_deviation": 0.10582957034475901,
+      "confirmed": false
+    },
+    "constraint_violation_reduction": {
+      "continuous_violations": 474,
+      "eisenstein_violations": 449,
+      "rounding_violations": 453,
+      "eisenstein_reduction_pct": 0.8830022075055187,
+      "confirmed": true
+    },
+    "topological_protection": {
+      "eisenstein_rank_correlation": 0.8766917293233082,
+      "rounding_rank_correlation": 0.8696240601503759,
+      "confirmed": true
+    }
+  },
+  "experiment_parameters": {
+    "n_assets": 20,
+    "resolution": 0.02,
+    "position_limit": 0.15,
+    "turnover_limit": 0.2,
+    "n_portfolios": 10
+  }
+}
