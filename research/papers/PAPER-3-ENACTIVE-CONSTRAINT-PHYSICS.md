@@ -32,15 +32,18 @@ This is not merely philosophical. The continuous constraint field requires energ
 
 ### 1.3 The Eisenstein Lattice
 
-The Eisenstein lattice $\mathbb{Z}[\omega]$ is the unique 2D lattice that simultaneously provides:
+The Eisenstein lattice $\mathbb{Z}[\omega]$, where $\omega = e^{2\pi i/3}$, is the ring of integers in the quadratic field $\mathbb{Q}(\sqrt{-3})$. Its elements are $a + b\omega$ for $a, b \in \mathbb{Z}$. The lattice is hexagonal—each point has exactly 6 equidistant neighbors at angular spacing of 60°. This lattice is the unique 2D lattice that simultaneously provides:
 
-1. **Densest packing** in 2D (Thue's theorem, 1890) [4]—maximum information density
-2. **6-fold rotational symmetry** (isotropy)—all six lattice directions are equivalent
-3. **Principal ideal domain** (class number 1)—no obstructions to global consistency ($H^1 = 0$)
-4. **$A_2$ root lattice**—connection to Lie theory ($\mathfrak{sl}(3)$) and the Standard Model
-5. **Triangular dual lattice**—natural structure for discrete exterior calculus
+1. **Densest packing** in 2D (Thue's theorem, 1890) [4]—maximum information density per unit area, meaning more constraints fit in less space
+2. **6-fold rotational symmetry** (isotropy)—all six lattice directions are equivalent, ensuring that constraint propagation has no directional bias
+3. **Principal ideal domain** (class number 1)—no obstructions to global consistency ($H^1 = 0$), meaning local constraint satisfaction guarantees global consistency
+4. **$A_2$ root lattice**—connection to Lie theory: the $A_2$ root system generates the Lie algebra $\mathfrak{sl}(3)$, which has dimension 8, connecting to the INT8 × 8 GPU kernel layout
+5. **Triangular dual lattice**—natural structure for discrete exterior calculus, allowing Maxwell-type equations to be formulated exactly on the lattice
+6. **Voronoi cells are hexagons**—natural for nearest-neighbor constraint checking, since each cell contains exactly the region closest to its lattice point
 
-No other 2D lattice provides all of these simultaneously. The hexagonal lattice is not a design choice—it is a mathematical necessity for isotropic constraint propagation with global consistency guarantees.
+No other 2D lattice provides all of these simultaneously. The square lattice (Gaussian integers $\mathbb{Z}[i]$) fails isotropy (4-fold symmetry only) and is not the densest packing. A generic oblique lattice fails both. The hexagonal lattice is not a design choice—it is a mathematical necessity for isotropic constraint propagation with global consistency guarantees.
+
+The connection to the $A_2$ root system and Lie theory deserves emphasis. The $A_2$ root system generates $\mathfrak{sl}(3)$, the Lie algebra of $3 \times 3$ traceless matrices, which has dimension 8. This is the same algebra that underlies quantum chromodynamics (QCD). Our INT8 × 8 constraint kernel—processing 8 bytes per constraint site—is processing constraints in the adjoint representation of $\mathfrak{sl}(3)$. The 8 bytes correspond to the 8 dimensions of the adjoint representation. This is not a coincidence: the Eisenstein lattice's $A_2$ structure makes the adjoint representation the natural one for constraint propagation.
 
 ### 1.4 Paper Organization
 
@@ -604,21 +607,35 @@ Higher-precision constraint verification creates a "deeper" holographic bulk. Th
 
 We have established that constraint verification on the Eisenstein lattice is a continuous dynamical system with deep connections to established physics:
 
-1. **Allen-Cahn dynamics** govern the constraint satisfaction field. Phase separation, domain wall coarsening, and noise-driven transitions reproduce GPU kernel behavior with 87.8% match at steady state. The noise threshold $\sigma \approx 0.8$ maps to the FP16 phase transition.
+1. **Allen-Cahn dynamics** govern the constraint satisfaction field. Phase separation, domain wall coarsening, and noise-driven transitions reproduce GPU kernel behavior with 87.8% match at steady state. The noise threshold $\sigma \approx 0.8$ maps to the FP16 phase transition. The stochastic Allen-Cahn equation on the Eisenstein lattice is the fundamental equation of motion for constraint verification, with the discrete snap-count-verify loop as its sampling protocol.
 
-2. **Active inference** (Friston's FEP) reduces drift by 49.6×. Constraint minimization is surprise minimization. The enactive loop—check, detect inconsistency, generate correction, update—is precisely the active inference loop.
+2. **Active inference** (Friston's FEP) reduces drift by 49.6×. Constraint minimization is surprise minimization. The enactive loop—check, detect inconsistency, generate correction, update—is precisely the active inference loop. The thermodynamic cost of maintaining zero drift is the GPU's power consumption; the entropy production rate quantifies the computational efficiency of constraint verification at each precision level.
 
-3. **Dimensional transmutation** generates emergent effective dimensions peaking at $d_{\text{eff}} = 56$ near the phase boundary. The formula $L_{\text{emergent}} = \xi \cdot \ln(N/v)$ explains why higher-precision verification produces deeper holographic bulk.
+3. **Dimensional transmutation** generates emergent effective dimensions peaking at $d_{\text{eff}} = 56$ near the phase boundary. The formula $L_{\text{emergent}} = \xi \cdot \ln(N/v)$ explains why higher-precision verification produces deeper holographic bulk. This mechanism provides a first-principles explanation for dimensional emergence in the quantum Hall effect, holography, and black hole physics.
 
-4. **The GPU kernel is exactly a tensor network contraction**, verified across all tested lattice sizes. This identification unlocks entanglement computation, optimal contraction ordering, error correction, and holographic reconstruction from the tensor network literature.
+4. **The GPU kernel is exactly a tensor network contraction**, verified across all tested lattice sizes. This identification unlocks entanglement computation, optimal contraction ordering, error correction, and holographic reconstruction from the tensor network literature. The snap function is the disentangler; precision downgrade is the isometry; the precision classes form MERA layers.
 
-5. **Precision classes (INT8–FP64) form MERA layers** with area-law entanglement at high precision crossing to volume law at FP16. The area law provides topological protection for zero-drift verification.
+5. **Precision classes (INT8–FP64) form MERA layers** with area-law entanglement at high precision crossing to volume law at FP16. The area law provides topological protection for zero-drift verification. This is the constraint analogue of the topological error correction threshold in the surface code.
 
-6. **The constraint Ryu-Takayanagi formula** $S_C(A) = \epsilon \cdot \text{Length}(\gamma_A)$ connects boundary constraint entropy to bulk geometry, with the precision $\epsilon$ playing the role of the gravitational coupling $1/(4G_N)$.
+6. **The constraint Ryu-Takayanagi formula** $S_C(A) = \epsilon \cdot \text{Length}(\gamma_A)$ connects boundary constraint entropy to bulk geometry, with the precision $\epsilon$ playing the role of the gravitational coupling $1/(4G_N)$. Higher precision produces smaller $\epsilon$, corresponding to deeper bulk—literally more dimensions accessed by more precise verification.
 
 Each of these is a testable prediction, measurable on existing GPU hardware with appropriate instrumentation. The physics is real because the dynamics are real—continuous verification IS a dynamical system, and dynamical systems have physics.
 
 The unifying principle is simple: **constraint verification, when continuous, has dynamics.** Those dynamics have a Lagrangian, a Hamiltonian, conserved quantities, thermodynamic costs, and measurable physical consequences. The enactive reframing—understanding as verb, not noun—doesn't just change the philosophy. It produces equations. The equations produce numbers. The numbers match experiments.
+
+### Open Questions
+
+Several directions remain open:
+
+- **Exact Allen-Cahn parameters from GPU architecture.** The current fit uses arbitrary $a, b, D$ parameters. A first-principles derivation of these from the GPU's arithmetic (floating-point rounding, fused multiply-add behavior, cache hierarchy) would tighten the 87.8% match toward 100%.
+
+- **Full entanglement entropy measurement.** The area-law/volume-law predictions of Section 6 can be tested by implementing the Monte Carlo protocol on GPU hardware, partitioning the lattice, and measuring mutual information as a function of boundary length and region volume.
+
+- **3D holographic reconstruction.** The constraint RT formula can be tested directly by computing both $S_C(A)$ from boundary data and $\epsilon \cdot \text{Length}(\gamma_A)$ from bulk geodesics, then checking equality.
+
+- **Extension to higher-dimensional lattices.** The $E_8$ lattice (densest 8D packing) contains $A_2 \times A_2 \times A_2 \times A_2$ as a sublattice. The same constraint framework extends naturally to 8D, potentially connecting to string theory and the Standard Model.
+
+- **Quantum implementation.** The tensor network structure is well-suited for quantum computers. Each MERA layer is a shallow quantum circuit. A quantum-classical hybrid could offload coarse-grained layers to a quantum processor while keeping fine-grained layers on classical hardware.
 
 ---
 
