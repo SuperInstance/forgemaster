@@ -1,0 +1,448 @@
+{
+  "constraint_theory": {
+    "topic": "constraint_theory",
+    "n_rooms": 4,
+    "h0": 0,
+    "h1": 0,
+    "avg_cosine_sim": 0.6762392147527407,
+    "room_pairs_agree": 3,
+    "room_pairs_disagree": 3,
+    "agreements": [
+      {
+        "room_a": "forge",
+        "room_b": "constraint-theory",
+        "cosine_sim": 0.4338125985996411,
+        "euclidean_dist": 2.649878553783767,
+        "agree": "False"
+      },
+      {
+        "room_a": "forge",
+        "room_b": "fleet_research",
+        "cosine_sim": 0.9993918215201083,
+        "euclidean_dist": 0.10768263823834798,
+        "agree": "True"
+      },
+      {
+        "room_a": "forge",
+        "room_b": "fleet_rust",
+        "cosine_sim": 0.7802600814156981,
+        "euclidean_dist": 1.999351850073264,
+        "agree": "True"
+      },
+      {
+        "room_a": "constraint-theory",
+        "room_b": "fleet_research",
+        "cosine_sim": 0.454799645616422,
+        "euclidean_dist": 2.591255704822975,
+        "agree": "False"
+      },
+      {
+        "room_a": "constraint-theory",
+        "room_b": "fleet_rust",
+        "cosine_sim": 0.5962847939643884,
+        "euclidean_dist": 1.224744871391589,
+        "agree": "False"
+      },
+      {
+        "room_a": "fleet_research",
+        "room_b": "fleet_rust",
+        "cosine_sim": 0.792886347400187,
+        "euclidean_dist": 1.9402592939547056,
+        "agree": "True"
+      }
+    ],
+    "consistent": true,
+    "interpretation": "No global understanding (H\u2070 = 0)\nNo obstruction (H\u00b9 = 0) \u2014 local understandings glue perfectly",
+    "room_profiles": {
+      "forge": {
+        "match_ratio": 0.9411764705882353,
+        "avg_confidence": 0.965625,
+        "entropy": 1.673794939974051,
+        "engagement": 2.0
+      },
+      "constraint-theory": {
+        "match_ratio": 1.0,
+        "avg_confidence": 0.5,
+        "entropy": -1.4426951601859516e-10,
+        "engagement": 0.0
+      },
+      "fleet_research": {
+        "match_ratio": 1.0,
+        "avg_confidence": 0.9500000000000001,
+        "entropy": 1.5849625002883474,
+        "engagement": 2.0
+      },
+      "fleet_rust": {
+        "match_ratio": 0.5,
+        "avg_confidence": 1.0,
+        "entropy": -1.4426951601859516e-10,
+        "engagement": 1.0
+      }
+    }
+  },
+  "keel_ttl": {
+    "topic": "keel_ttl",
+    "n_rooms": 3,
+    "h0": 0,
+    "h1": 0,
+    "avg_cosine_sim": 0.8253579235352376,
+    "room_pairs_agree": 3,
+    "room_pairs_disagree": 0,
+    "agreements": [
+      {
+        "room_a": "forge",
+        "room_b": "oracle1_history",
+        "cosine_sim": 0.9566283484057928,
+        "euclidean_dist": 1.0118875162925414,
+        "agree": "True"
+      },
+      {
+        "room_a": "forge",
+        "room_b": "oracle1_briefing",
+        "cosine_sim": 0.7902339412038002,
+        "euclidean_dist": 1.9635507344058385,
+        "agree": "True"
+      },
+      {
+        "room_a": "oracle1_history",
+        "room_b": "oracle1_briefing",
+        "cosine_sim": 0.72921148099612,
+        "euclidean_dist": 1.5430458258589348,
+        "agree": "True"
+      }
+    ],
+    "consistent": true,
+    "interpretation": "No global understanding (H\u2070 = 0)\nNo obstruction (H\u00b9 = 0) \u2014 local understandings glue perfectly",
+    "room_profiles": {
+      "forge": {
+        "match_ratio": 1.0,
+        "avg_confidence": 0.9617647058823531,
+        "entropy": 1.613712969646035,
+        "engagement": 2.0
+      },
+      "oracle1_history": {
+        "match_ratio": 1.0,
+        "avg_confidence": 0.9566666666666667,
+        "entropy": 1.459147916594436,
+        "engagement": 1.0
+      },
+      "oracle1_briefing": {
+        "match_ratio": 0.5,
+        "avg_confidence": 1.0,
+        "entropy": -1.4426951601859516e-10,
+        "engagement": 1.0
+      }
+    }
+  },
+  "fleet_health": {
+    "topic": "fleet_health",
+    "n_rooms": 3,
+    "h0": 0,
+    "h1": 0,
+    "avg_cosine_sim": 0.8243800820918512,
+    "room_pairs_agree": 2,
+    "room_pairs_disagree": 1,
+    "agreements": [
+      {
+        "room_a": "fleet_health",
+        "room_b": "oracle1",
+        "cosine_sim": 0.9747059457686748,
+        "euclidean_dist": 0.3882224511396192,
+        "agree": "True"
+      },
+      {
+        "room_a": "fleet_health",
+        "room_b": "forge",
+        "cosine_sim": 0.8030120369291195,
+        "euclidean_dist": 1.6787893363352882,
+        "agree": "True"
+      },
+      {
+        "room_a": "oracle1",
+        "room_b": "forge",
+        "cosine_sim": 0.6954222635777594,
+        "euclidean_dist": 1.9533138563280035,
+        "agree": "False"
+      }
+    ],
+    "consistent": true,
+    "interpretation": "No global understanding (H\u2070 = 0)\nNo obstruction (H\u00b9 = 0) \u2014 local understandings glue perfectly",
+    "room_profiles": {
+      "fleet_health": {
+        "match_ratio": 1.0,
+        "avg_confidence": 0.8999999999999907,
+        "entropy": 0.3751222087008642,
+        "engagement": 1.0
+      },
+      "oracle1": {
+        "match_ratio": 1.0,
+        "avg_confidence": 1.0,
+        "entropy": -1.4426951601859516e-10,
+        "engagement": 1.0
+      },
+      "forge": {
+        "match_ratio": 0.29411764705882354,
+        "avg_confidence": 0.97,
+        "entropy": 1.5219280944545537,
+        "engagement": 2.0
+      }
+    }
+  },
+  "security": {
+    "topic": "security",
+    "n_rooms": 3,
+    "h0": 0,
+    "h1": 0,
+    "avg_cosine_sim": 0.8729128944421854,
+    "room_pairs_agree": 3,
+    "room_pairs_disagree": 0,
+    "agreements": [
+      {
+        "room_a": "fleet_security",
+        "room_b": "zeroclaw_warden",
+        "cosine_sim": 0.9403589922979858,
+        "euclidean_dist": 0.9268659143203748,
+        "agree": "True"
+      },
+      {
+        "room_a": "fleet_security",
+        "room_b": "energy_flux",
+        "cosine_sim": 0.7869346135547539,
+        "euclidean_dist": 1.1256454993322882,
+        "agree": "True"
+      },
+      {
+        "room_a": "zeroclaw_warden",
+        "room_b": "energy_flux",
+        "cosine_sim": 0.8914450774738165,
+        "euclidean_dist": 1.3922000564815598,
+        "agree": "True"
+      }
+    ],
+    "consistent": true,
+    "interpretation": "No global understanding (H\u2070 = 0)\nNo obstruction (H\u00b9 = 0) \u2014 local understandings glue perfectly",
+    "room_profiles": {
+      "fleet_security": {
+        "match_ratio": 1.0,
+        "avg_confidence": 0.775,
+        "entropy": 0.8112781241705938,
+        "engagement": 1.0
+      },
+      "zeroclaw_warden": {
+        "match_ratio": 1.0,
+        "avg_confidence": 0.8412499999999999,
+        "entropy": 1.7357733164939202,
+        "engagement": 1.0
+      },
+      "energy_flux": {
+        "match_ratio": 0.5,
+        "avg_confidence": 0.6999999999999998,
+        "entropy": 0.9182958337659504,
+        "engagement": 0.0
+      }
+    }
+  },
+  "agent_coordination": {
+    "topic": "agent_coordination",
+    "n_rooms": 5,
+    "h0": 0,
+    "h1": 0,
+    "avg_cosine_sim": 0.8729254746782132,
+    "room_pairs_agree": 9,
+    "room_pairs_disagree": 1,
+    "agreements": [
+      {
+        "room_a": "fleet_agent",
+        "room_b": "fleet_communication",
+        "cosine_sim": 0.833333333317578,
+        "euclidean_dist": 1.1180339886208561,
+        "agree": "True"
+      },
+      {
+        "room_a": "fleet_agent",
+        "room_b": "fleet_protocol",
+        "cosine_sim": 0.999999999975,
+        "euclidean_dist": 0.0,
+        "agree": "True"
+      },
+      {
+        "room_a": "fleet_agent",
+        "room_b": "zeroclaw_bard",
+        "cosine_sim": 0.964053010526144,
+        "euclidean_dist": 0.6344287566395956,
+        "agree": "True"
+      },
+      {
+        "room_a": "fleet_agent",
+        "room_b": "forge",
+        "cosine_sim": 0.8983835488742242,
+        "euclidean_dist": 1.3374803062582397,
+        "agree": "True"
+      },
+      {
+        "room_a": "fleet_communication",
+        "room_b": "fleet_protocol",
+        "cosine_sim": 0.833333333317578,
+        "euclidean_dist": 1.1180339886208561,
+        "agree": "True"
+      },
+      {
+        "room_a": "fleet_communication",
+        "room_b": "zeroclaw_bard",
+        "cosine_sim": 0.6705375098745664,
+        "euclidean_dist": 1.6876960584864302,
+        "agree": "False"
+      },
+      {
+        "room_a": "fleet_communication",
+        "room_b": "forge",
+        "cosine_sim": 0.7533643104610886,
+        "euclidean_dist": 1.9441228955121534,
+        "agree": "True"
+      },
+      {
+        "room_a": "fleet_protocol",
+        "room_b": "zeroclaw_bard",
+        "cosine_sim": 0.964053010526144,
+        "euclidean_dist": 0.6344287566395956,
+        "agree": "True"
+      },
+      {
+        "room_a": "fleet_protocol",
+        "room_b": "forge",
+        "cosine_sim": 0.8983835488742242,
+        "euclidean_dist": 1.3374803062582397,
+        "agree": "True"
+      },
+      {
+        "room_a": "zeroclaw_bard",
+        "room_b": "forge",
+        "cosine_sim": 0.913813141035584,
+        "euclidean_dist": 1.1754071032116722,
+        "agree": "True"
+      }
+    ],
+    "consistent": true,
+    "interpretation": "No global understanding (H\u2070 = 0)\nNo obstruction (H\u00b9 = 0) \u2014 local understandings glue perfectly",
+    "room_profiles": {
+      "fleet_agent": {
+        "match_ratio": 1.0,
+        "avg_confidence": 1.0,
+        "entropy": 0.9999999997114609,
+        "engagement": 1.0
+      },
+      "fleet_communication": {
+        "match_ratio": 0.5,
+        "avg_confidence": 1.0,
+        "entropy": -1.4426951601859516e-10,
+        "engagement": 1.0
+      },
+      "fleet_protocol": {
+        "match_ratio": 1.0,
+        "avg_confidence": 1.0,
+        "entropy": 0.9999999997114609,
+        "engagement": 1.0
+      },
+      "zeroclaw_bard": {
+        "match_ratio": 1.0,
+        "avg_confidence": 0.7878571428571429,
+        "entropy": 1.5979090692316753,
+        "engagement": 1.0
+      },
+      "forge": {
+        "match_ratio": 0.4117647058823529,
+        "avg_confidence": 0.9642857142857143,
+        "entropy": 1.6644977786233834,
+        "engagement": 2.0
+      }
+    }
+  },
+  "infrastructure": {
+    "topic": "infrastructure",
+    "n_rooms": 2,
+    "h0": 0,
+    "h1": 0,
+    "avg_cosine_sim": 0.836237477199643,
+    "room_pairs_agree": 1,
+    "room_pairs_disagree": 0,
+    "agreements": [
+      {
+        "room_a": "oracle1_infrastructure",
+        "room_b": "fleet_infrastructure",
+        "cosine_sim": 0.836237477199643,
+        "euclidean_dist": 1.45382636887029,
+        "agree": "True"
+      }
+    ],
+    "consistent": true,
+    "interpretation": "No global understanding (H\u2070 = 0)\nNo obstruction (H\u00b9 = 0) \u2014 local understandings glue perfectly",
+    "room_profiles": {
+      "oracle1_infrastructure": {
+        "match_ratio": 1.0,
+        "avg_confidence": 0.95,
+        "entropy": -1.4426951601859516e-10,
+        "engagement": 1.0
+      },
+      "fleet_infrastructure": {
+        "match_ratio": 0.6666666666666666,
+        "avg_confidence": 1.0,
+        "entropy": 0.9999999997114609,
+        "engagement": 2.0
+      }
+    }
+  },
+  "model_quality": {
+    "topic": "model_quality",
+    "n_rooms": 3,
+    "h0": 0,
+    "h1": 0,
+    "avg_cosine_sim": 0.7975448548246442,
+    "room_pairs_agree": 1,
+    "room_pairs_disagree": 2,
+    "agreements": [
+      {
+        "room_a": "casting_call",
+        "room_b": "forge",
+        "cosine_sim": 0.6981583089095473,
+        "euclidean_dist": 2.03019103967692,
+        "agree": "False"
+      },
+      {
+        "room_a": "casting_call",
+        "room_b": "oracle1",
+        "cosine_sim": 0.9988130559271206,
+        "euclidean_dist": 0.09999999999999998,
+        "agree": "True"
+      },
+      {
+        "room_a": "forge",
+        "room_b": "oracle1",
+        "cosine_sim": 0.6956631996372648,
+        "euclidean_dist": 2.0291352698375578,
+        "agree": "False"
+      }
+    ],
+    "consistent": true,
+    "interpretation": "No global understanding (H\u2070 = 0)\nNo obstruction (H\u00b9 = 0) \u2014 local understandings glue perfectly",
+    "room_profiles": {
+      "casting_call": {
+        "match_ratio": 1.0,
+        "avg_confidence": 0.9,
+        "entropy": -1.4426951601859516e-10,
+        "engagement": 1.0
+      },
+      "forge": {
+        "match_ratio": 0.4117647058823529,
+        "avg_confidence": 0.9714285714285714,
+        "entropy": 1.6644977786233834,
+        "engagement": 2.0
+      },
+      "oracle1": {
+        "match_ratio": 1.0,
+        "avg_confidence": 1.0,
+        "entropy": -1.4426951601859516e-10,
+        "engagement": 1.0
+      }
+    }
+  }
+}

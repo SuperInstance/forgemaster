@@ -1,0 +1,335 @@
+{
+  "experiment1": {
+    "experiment": "h1_consensus_detection",
+    "config": {
+      "n_nodes": 7,
+      "quorum_size": 4
+    },
+    "phases": {
+      "normal": {
+        "h1_values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_h1": 0.0,
+        "max_h1": 0.0,
+        "all_zero": true,
+        "description": "All nodes agree \u2014 H\u00b9 should be ~0"
+      },
+      "partition": {
+        "h1_values": [
+          4.898979485566356,
+          9.797958971132712,
+          14.696938456699069,
+          19.595917942265423,
+          24.49489742783178,
+          29.393876913398138,
+          34.292856398964496,
+          39.191835884530846,
+          44.090815370097204,
+          48.98979485566356
+        ],
+        "mean_h1": 26.94438717061496,
+        "max_h1": 48.98979485566356,
+        "h1_detected_round": 1,
+        "timeout_detected_round": 4,
+        "detection_advantage": 3,
+        "description": "Network partition \u2014 H\u00b9 should spike immediately"
+      },
+      "healed": {
+        "h1_values": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_h1": 0.0,
+        "description": "Partition healed \u2014 H\u00b9 should return to ~0"
+      },
+      "byzantine": {
+        "h1_values": [
+          93.80134606435294,
+          96.81244798321086,
+          99.85293007978942,
+          102.92018852750282,
+          106.01189917907388,
+          109.12598374617995,
+          112.2605803013192,
+          115.41401756548613,
+          118.58479249728335,
+          121.77155075238696
+        ],
+        "mean_h1": 107.65557366965857,
+        "max_h1": 121.77155075238696,
+        "h1_detected_round": 1,
+        "timeout_detected_round": null,
+        "description": "Byzantine node \u2014 H\u00b9 detects equivocation immediately"
+      },
+      "early_detection": {
+        "h1_values": [
+          27.121443545652212,
+          27.121443545652212,
+          27.121443545652212,
+          31.18616116164348,
+          31.18616116164348,
+          31.18616116164348,
+          38.073358086725165,
+          38.073358086725165,
+          38.073358086725165,
+          46.54658466525767,
+          46.54658466525767,
+          46.54658466525767,
+          55.88907310020448,
+          55.88907310020448,
+          55.88907310020448
+        ],
+        "first_detection_0.1": 1,
+        "first_detection_0.5": 1,
+        "first_detection_1.0": 1,
+        "timeout_detection": 4,
+        "description": "Slow divergence \u2014 H\u00b9 detects before timeout at multiple thresholds"
+      }
+    },
+    "summary": {
+      "normal_max_h1": 0.0,
+      "partition_mean_h1": 26.94438717061496,
+      "partition_max_h1": 48.98979485566356,
+      "byzantine_mean_h1": 107.65557366965857,
+      "healed_mean_h1": 0.0,
+      "partition_h1_detection_round": 1,
+      "partition_timeout_detection_round": 4,
+      "detection_advantage_rounds": 3,
+      "byzantine_h1_detection_round": 1,
+      "snr_partition": 269443871706.1496,
+      "snr_byzantine": 1076555736696.5856,
+      "partition_detected": true,
+      "byzantine_detected": true,
+      "partition_advantage": true,
+      "verdict": "STRONG PASS"
+    }
+  },
+  "experiment2": {
+    "experiment": "gossip_holonomy",
+    "config": {
+      "n_nodes": 16,
+      "state_dim": 8,
+      "n_rounds": 200,
+      "mixing_rate": 0.3
+    },
+    "topologies": {
+      "eisenstein": {
+        "initial_convergence": 1.7672972485906997,
+        "final_convergence": 6.842991454003423e-06,
+        "convergence_round_10pct": 24,
+        "convergence_round_1pct": 64,
+        "berry_phase_drift": 0.146363956438439,
+        "mean_h1": 0.40826993134231965,
+        "final_h1": 2.7277634658241203e-05,
+        "mean_holonomy": 2.6825854281680623,
+        "final_holonomy": 2.741487094893463,
+        "h1_decrease_ratio": 567007.7783487976,
+        "triangles_per_edge": 0.65
+      },
+      "ring": {
+        "initial_convergence": 1.7134107478298763,
+        "final_convergence": 0.008360345274134522,
+        "convergence_round_10pct": 70,
+        "convergence_round_1pct": 169,
+        "berry_phase_drift": 0.16462262277711695,
+        "mean_h1": 0.41039004237374443,
+        "final_h1": 0.013251507986122627,
+        "mean_holonomy": 2.661700301800667,
+        "final_holonomy": 2.6380276134978033,
+        "h1_decrease_ratio": 656.800918621018,
+        "triangles_per_edge": 0.0
+      },
+      "random": {
+        "initial_convergence": 1.7764060395590269,
+        "final_convergence": 1.4601861596857753e-16,
+        "convergence_round_10pct": 10,
+        "convergence_round_1pct": 20,
+        "berry_phase_drift": 0.1335016391558354,
+        "mean_h1": 0.36884800011983193,
+        "final_h1": 1.2478294149644905e-15,
+        "mean_holonomy": 2.605766015172725,
+        "final_holonomy": 2.6402321516604,
+        "h1_decrease_ratio": 200877001692.21576,
+        "triangles_per_edge": 1.21875
+      },
+      "grid": {
+        "initial_convergence": 1.675823690092741,
+        "final_convergence": 1.1295823773491115e-06,
+        "convergence_round_10pct": 25,
+        "convergence_round_1pct": 59,
+        "berry_phase_drift": 0.16611899905718217,
+        "mean_h1": 0.30768168258601425,
+        "final_h1": 3.575964918089793e-06,
+        "mean_holonomy": 2.635378641576068,
+        "final_holonomy": 2.6366556037679345,
+        "h1_decrease_ratio": 3273665.3993416987,
+        "triangles_per_edge": 0.0
+      },
+      "complete": {
+        "initial_convergence": 1.7324802964490522,
+        "final_convergence": 1.231759766786298e-16,
+        "convergence_round_10pct": 7,
+        "convergence_round_1pct": 13,
+        "berry_phase_drift": 0.13176158600442928,
+        "mean_h1": 0.44471919568580714,
+        "final_h1": 1.1200565573441104e-15,
+        "mean_holonomy": 2.6072323830626454,
+        "final_holonomy": 2.6352317200885857,
+        "h1_decrease_ratio": 284620285238.9163,
+        "triangles_per_edge": 4.666666666666667
+      }
+    },
+    "topology_stats": {
+      "eisenstein": {
+        "n_nodes": 16,
+        "n_edges": 40,
+        "avg_degree": 5.0,
+        "max_degree": 7,
+        "min_degree": 2,
+        "n_triangles": 26,
+        "edge_to_node_ratio": 2.5
+      },
+      "ring": {
+        "n_nodes": 16,
+        "n_edges": 16,
+        "avg_degree": 2.0,
+        "max_degree": 2,
+        "min_degree": 2,
+        "n_triangles": 0,
+        "edge_to_node_ratio": 1.0
+      },
+      "random": {
+        "n_nodes": 16,
+        "n_edges": 64,
+        "avg_degree": 8.0,
+        "max_degree": 11,
+        "min_degree": 6,
+        "n_triangles": 78,
+        "edge_to_node_ratio": 4.0
+      },
+      "grid": {
+        "n_nodes": 16,
+        "n_edges": 24,
+        "avg_degree": 3.0,
+        "max_degree": 4,
+        "min_degree": 2,
+        "n_triangles": 0,
+        "edge_to_node_ratio": 1.5
+      },
+      "complete": {
+        "n_nodes": 16,
+        "n_edges": 120,
+        "avg_degree": 15.0,
+        "max_degree": 15,
+        "min_degree": 15,
+        "n_triangles": 560,
+        "edge_to_node_ratio": 7.5
+      }
+    },
+    "winner": "complete",
+    "correlation_triangles_convergence": -0.5968752243541563,
+    "correlation_triangles_berry": -0.763231505127497,
+    "ring_vs_winner_ratio": 10.0,
+    "verdict": "PASS"
+  },
+  "experiment3": {
+    "experiment": "crdt_precision",
+    "config": {
+      "n_nodes": 16,
+      "n_rounds": 200
+    },
+    "precisions": {
+      "fp64": {
+        "final_precision_error": 14.944880412773308,
+        "max_precision_error": 22.649491564032544,
+        "final_value_spread": 0.009123411477074572,
+        "max_value_spread": 0.8880714363527304,
+        "total_bandwidth_kb": 1436.0,
+        "final_h1": 53.118803740312934,
+        "mean_h1": 56.81876327383825,
+        "h1_decrease_ratio": 0.5310041266888876,
+        "bytes_per_entry": 8,
+        "error_trend": "increasing"
+      },
+      "fp32": {
+        "final_precision_error": 14.944880375208262,
+        "max_precision_error": 22.64949110908799,
+        "final_value_spread": 0.009123416724261606,
+        "max_value_spread": 0.8880714352136191,
+        "total_bandwidth_kb": 718.0,
+        "final_h1": 53.118847655035324,
+        "mean_h1": 56.81876247860231,
+        "h1_decrease_ratio": 0.5310036993906331,
+        "bytes_per_entry": 4,
+        "error_trend": "increasing"
+      },
+      "fp16": {
+        "final_precision_error": 14.942848131856657,
+        "max_precision_error": 22.64627804645449,
+        "final_value_spread": 0.009186864738076622,
+        "max_value_spread": 0.8880689826714203,
+        "total_bandwidth_kb": 359.0,
+        "final_h1": 53.473124090518596,
+        "mean_h1": 56.8151599530287,
+        "h1_decrease_ratio": 0.5274860293035253,
+        "bytes_per_entry": 2,
+        "error_trend": "increasing"
+      },
+      "int8": {
+        "final_precision_error": 15.001466167844253,
+        "max_precision_error": 23.034562117345473,
+        "final_value_spread": 0.009091250265053566,
+        "max_value_spread": 0.9166666666666666,
+        "total_bandwidth_kb": 179.5,
+        "final_h1": 53.11880374031295,
+        "mean_h1": 57.08148495540961,
+        "h1_decrease_ratio": 0.5403999745391391,
+        "bytes_per_entry": 1,
+        "error_trend": "increasing"
+      }
+    },
+    "baseline": {
+      "precision": "fp64",
+      "bandwidth_kb": 1436.0,
+      "error": 14.944880412773308
+    },
+    "crossover_analysis": {
+      "fp32": {
+        "bandwidth_savings_pct": 50.0,
+        "error_ratio": 0.9999999974864271,
+        "spread_ratio": 1.0000005751343175,
+        "favorable": true
+      },
+      "fp16": {
+        "bandwidth_savings_pct": 75.0,
+        "error_ratio": 0.9998640149094191,
+        "spread_ratio": 1.0069549927854833,
+        "favorable": true
+      },
+      "int8": {
+        "bandwidth_savings_pct": 87.5,
+        "error_ratio": 1.003786296946383,
+        "spread_ratio": 0.9964748699429132,
+        "favorable": true
+      }
+    },
+    "efficiency_scores": {
+      "fp64": 21460.84827274247,
+      "fp32": 10730.424109399532,
+      "fp16": 5364.48247933654,
+      "int8": 2692.7631771280435
+    },
+    "verdict": "PASS"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "experiment": "h1_consensus_detection",
+  "config": {
+    "n_nodes": 7,
+    "quorum_size": 4
+  },
+  "phases": {
+    "normal": {
+      "h1_values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean_h1": 0.0,
+      "max_h1": 0.0,
+      "all_zero": true,
+      "description": "All nodes agree \u2014 H\u00b9 should be ~0"
+    },
+    "partition": {
+      "h1_values": [
+        4.898979485566356,
+        9.797958971132712,
+        14.696938456699069,
+        19.595917942265423,
+        24.49489742783178,
+        29.393876913398138,
+        34.292856398964496,
+        39.191835884530846,
+        44.090815370097204,
+        48.98979485566356
+      ],
+      "mean_h1": 26.94438717061496,
+      "max_h1": 48.98979485566356,
+      "h1_detected_round": 1,
+      "timeout_detected_round": 4,
+      "detection_advantage": 3,
+      "description": "Network partition \u2014 H\u00b9 should spike immediately"
+    },
+    "healed": {
+      "h1_values": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean_h1": 0.0,
+      "description": "Partition healed \u2014 H\u00b9 should return to ~0"
+    },
+    "byzantine": {
+      "h1_values": [
+        93.80134606435294,
+        96.81244798321086,
+        99.85293007978942,
+        102.92018852750282,
+        106.01189917907388,
+        109.12598374617995,
+        112.2605803013192,
+        115.41401756548613,
+        118.58479249728335,
+        121.77155075238696
+      ],
+      "mean_h1": 107.65557366965857,
+      "max_h1": 121.77155075238696,
+      "h1_detected_round": 1,
+      "timeout_detected_round": null,
+      "description": "Byzantine node \u2014 H\u00b9 detects equivocation immediately"
+    },
+    "early_detection": {
+      "h1_values": [
+        27.121443545652212,
+        27.121443545652212,
+        27.121443545652212,
+        31.18616116164348,
+        31.18616116164348,
+        31.18616116164348,
+        38.073358086725165,
+        38.073358086725165,
+        38.073358086725165,
+        46.54658466525767,
+        46.54658466525767,
+        46.54658466525767,
+        55.88907310020448,
+        55.88907310020448,
+        55.88907310020448
+      ],
+      "first_detection_0.1": 1,
+      "first_detection_0.5": 1,
+      "first_detection_1.0": 1,
+      "timeout_detection": 4,
+      "description": "Slow divergence \u2014 H\u00b9 detects before timeout at multiple thresholds"
+    }
+  },
+  "summary": {
+    "normal_max_h1": 0.0,
+    "partition_mean_h1": 26.94438717061496,
+    "partition_max_h1": 48.98979485566356,
+    "byzantine_mean_h1": 107.65557366965857,
+    "healed_mean_h1": 0.0,
+    "partition_h1_detection_round": 1,
+    "partition_timeout_detection_round": 4,
+    "detection_advantage_rounds": 3,
+    "byzantine_h1_detection_round": 1,
+    "snr_partition": 269443871706.1496,
+    "snr_byzantine": 1076555736696.5856,
+    "partition_detected": true,
+    "byzantine_detected": true,
+    "partition_advantage": true,
+    "verdict": "STRONG PASS"
+  }
+}

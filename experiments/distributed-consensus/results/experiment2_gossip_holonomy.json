@@ -1,0 +1,128 @@
+{
+  "experiment": "gossip_holonomy",
+  "config": {
+    "n_nodes": 16,
+    "state_dim": 8,
+    "n_rounds": 200,
+    "mixing_rate": 0.3
+  },
+  "topologies": {
+    "eisenstein": {
+      "initial_convergence": 1.7672972485906997,
+      "final_convergence": 6.842991454003423e-06,
+      "convergence_round_10pct": 24,
+      "convergence_round_1pct": 64,
+      "berry_phase_drift": 0.146363956438439,
+      "mean_h1": 0.40826993134231965,
+      "final_h1": 2.7277634658241203e-05,
+      "mean_holonomy": 2.6825854281680623,
+      "final_holonomy": 2.741487094893463,
+      "h1_decrease_ratio": 567007.7783487976,
+      "triangles_per_edge": 0.65
+    },
+    "ring": {
+      "initial_convergence": 1.7134107478298763,
+      "final_convergence": 0.008360345274134522,
+      "convergence_round_10pct": 70,
+      "convergence_round_1pct": 169,
+      "berry_phase_drift": 0.16462262277711695,
+      "mean_h1": 0.41039004237374443,
+      "final_h1": 0.013251507986122627,
+      "mean_holonomy": 2.661700301800667,
+      "final_holonomy": 2.6380276134978033,
+      "h1_decrease_ratio": 656.800918621018,
+      "triangles_per_edge": 0.0
+    },
+    "random": {
+      "initial_convergence": 1.7764060395590269,
+      "final_convergence": 1.4601861596857753e-16,
+      "convergence_round_10pct": 10,
+      "convergence_round_1pct": 20,
+      "berry_phase_drift": 0.1335016391558354,
+      "mean_h1": 0.36884800011983193,
+      "final_h1": 1.2478294149644905e-15,
+      "mean_holonomy": 2.605766015172725,
+      "final_holonomy": 2.6402321516604,
+      "h1_decrease_ratio": 200877001692.21576,
+      "triangles_per_edge": 1.21875
+    },
+    "grid": {
+      "initial_convergence": 1.675823690092741,
+      "final_convergence": 1.1295823773491115e-06,
+      "convergence_round_10pct": 25,
+      "convergence_round_1pct": 59,
+      "berry_phase_drift": 0.16611899905718217,
+      "mean_h1": 0.30768168258601425,
+      "final_h1": 3.575964918089793e-06,
+      "mean_holonomy": 2.635378641576068,
+      "final_holonomy": 2.6366556037679345,
+      "h1_decrease_ratio": 3273665.3993416987,
+      "triangles_per_edge": 0.0
+    },
+    "complete": {
+      "initial_convergence": 1.7324802964490522,
+      "final_convergence": 1.231759766786298e-16,
+      "convergence_round_10pct": 7,
+      "convergence_round_1pct": 13,
+      "berry_phase_drift": 0.13176158600442928,
+      "mean_h1": 0.44471919568580714,
+      "final_h1": 1.1200565573441104e-15,
+      "mean_holonomy": 2.6072323830626454,
+      "final_holonomy": 2.6352317200885857,
+      "h1_decrease_ratio": 284620285238.9163,
+      "triangles_per_edge": 4.666666666666667
+    }
+  },
+  "topology_stats": {
+    "eisenstein": {
+      "n_nodes": 16,
+      "n_edges": 40,
+      "avg_degree": 5.0,
+      "max_degree": 7,
+      "min_degree": 2,
+      "n_triangles": 26,
+      "edge_to_node_ratio": 2.5
+    },
+    "ring": {
+      "n_nodes": 16,
+      "n_edges": 16,
+      "avg_degree": 2.0,
+      "max_degree": 2,
+      "min_degree": 2,
+      "n_triangles": 0,
+      "edge_to_node_ratio": 1.0
+    },
+    "random": {
+      "n_nodes": 16,
+      "n_edges": 64,
+      "avg_degree": 8.0,
+      "max_degree": 11,
+      "min_degree": 6,
+      "n_triangles": 78,
+      "edge_to_node_ratio": 4.0
+    },
+    "grid": {
+      "n_nodes": 16,
+      "n_edges": 24,
+      "avg_degree": 3.0,
+      "max_degree": 4,
+      "min_degree": 2,
+      "n_triangles": 0,
+      "edge_to_node_ratio": 1.5
+    },
+    "complete": {
+      "n_nodes": 16,
+      "n_edges": 120,
+      "avg_degree": 15.0,
+      "max_degree": 15,
+      "min_degree": 15,
+      "n_triangles": 560,
+      "edge_to_node_ratio": 7.5
+    }
+  },
+  "winner": "complete",
+  "correlation_triangles_convergence": -0.5968752243541563,
+  "correlation_triangles_berry": -0.763231505127497,
+  "ring_vs_winner_ratio": 10.0,
+  "verdict": "PASS"
+}

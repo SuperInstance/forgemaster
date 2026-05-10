@@ -1,0 +1,150 @@
+{
+  "title": "Sensor Fusion: Constraint Theory",
+  "experiments": [
+    {
+      "experiment": "1_sheaf_failure_detection",
+      "cases": {
+        "normal": {
+          "h1_dim": 1,
+          "h1_mag": 0.1324298692503688,
+          "agreements": {
+            "accel_gyro": 0.0027103922488936334,
+            "accel_gps": 0.47663577346493796,
+            "gyro_gps": 0.6894600700739136,
+            "overall": 0.0027103922488936334
+          },
+          "is_failure": true,
+          "correct": false,
+          "avg_ekf_error": 4.8636172019123025,
+          "avg_imu_error": 11.544008027121649
+        },
+        "bias": {
+          "h1_dim": 1,
+          "h1_mag": 0.13240170463170123,
+          "agreements": {
+            "accel_gyro": 0.0027948861048963758,
+            "accel_gps": 0.4801924598105194,
+            "gyro_gps": 0.6894600700739136,
+            "overall": 0.0027948861048963758
+          },
+          "is_failure": true,
+          "correct": true,
+          "avg_ekf_error": 4.863617201927636,
+          "avg_imu_error": 11.54400802712165
+        },
+        "delay": {
+          "h1_dim": 0,
+          "h1_mag": 0.0,
+          "agreements": {
+            "accel_gyro": 0.5016748524643015,
+            "accel_gps": 0.48346669595655023,
+            "gyro_gps": 0.6909432667435514,
+            "overall": 0.48346669595655023
+          },
+          "is_failure": false,
+          "correct": false,
+          "avg_ekf_error": 4.903640931879908,
+          "avg_imu_error": 11.272719290036742
+        },
+        "gps_fail": {
+          "h1_dim": 2,
+          "h1_mag": 0.13253554560431724,
+          "agreements": {
+            "accel_gyro": 0.0027103922488936334,
+            "accel_gps": 0.5705517687898541,
+            "gyro_gps": 0.38412532801351484,
+            "overall": 0.0027103922488936334
+          },
+          "is_failure": true,
+          "correct": true,
+          "avg_ekf_error": 142.76454014301714,
+          "avg_imu_error": 80.3096778031503
+        }
+      },
+      "all_passed": false,
+      "interpretation": "Sheaf H\u00b9 measures pairwise sensor agreement. Normal: H\u00b9=0. Bias/disagreement: one or more pairs drop below threshold \u2192 H\u00b9>0."
+    },
+    {
+      "experiment": "2_holonomy_in_loops",
+      "imu_holonomy": 17.394365375502254,
+      "ekf_holonomy": 15.77195295579323,
+      "holonomy_reduced": true,
+      "constraint_extra": 5,
+      "constraint_useful": true
+    },
+    {
+      "experiment": "3_precision_phase_transition",
+      "results_by_precision": {
+        "fp64": [
+          8.371358547608203,
+          8.371726763662418,
+          8.37228664565232,
+          8.37313813915624,
+          8.374433540337531,
+          8.376405220456398,
+          8.379408425783184,
+          8.383987849557785,
+          8.390982300673485,
+          8.401691750882879,
+          8.41814929961398,
+          8.443575145250794
+        ],
+        "fp32": [
+          8.371358547698273,
+          8.37172675847742,
+          8.372286648558198,
+          8.373138134367652,
+          8.374433535561845,
+          8.376405222201223,
+          8.379408425165915,
+          8.383987845983388,
+          8.39098229866975,
+          8.401691748026265,
+          8.41814929866805,
+          8.443575146287985
+        ],
+        "fp16": [
+          8.37134238400544,
+          8.371727047415972,
+          8.372301923941471,
+          8.373126272895854,
+          8.374390760279946,
+          8.376419579297924,
+          8.379372663976222,
+          8.383939386293742,
+          8.390966523390043,
+          8.401676864689419,
+          8.418186937632449,
+          8.443613339843276
+        ]
+      },
+      "transition_noise": 1.0,
+      "transition_confirmed": false,
+      "worst_fp16_ratio": 1.0000045233748298,
+      "noise_levels": [
+        0.01,
+        0.01519911082952934,
+        0.023101297000831605,
+        0.03511191734215131,
+        0.0533669923120631,
+        0.08111308307896872,
+        0.12328467394420659,
+        0.1873817422860384,
+        0.2848035868435802,
+        0.43287612810830595,
+        0.6579332246575682,
+        1.0
+      ]
+    },
+    {
+      "experiment": "4_eisenstein_stability",
+      "n_gps_points": 30,
+      "violation_rate": 0.9666666666666667,
+      "mean_remainder": 67.26267155278671,
+      "std_first_half": 21.954371550080438,
+      "std_last_half": 21.399621489852862,
+      "bounded_variance": true
+    }
+  ],
+  "overall_pass": true
+}

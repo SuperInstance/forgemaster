@@ -1,0 +1,1487 @@
+{
+  "by_type": {
+    "technical": {
+      "A\u2192B\u2192A": {
+        "msg_type": "technical",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "forgemaster"
+        ],
+        "chain_length": 5.0,
+        "original_intent": [
+          0.6285192710014624,
+          0.19918207189417755,
+          0.08996858880122006,
+          0.08573268056944783,
+          0.19592375638432835,
+          0.5357248138537086,
+          0.4614223298783569,
+          0.0940375703556054,
+          0.05200733682985653
+        ],
+        "final_intent": [
+          0.5446319531413396,
+          0.24712638302496115,
+          0.06891108289150247,
+          0.013567480541874701,
+          0.0793742927555168,
+          0.6646769675873506,
+          0.42060448148854807,
+          0.10060067628010634,
+          0.04740671945089604
+        ],
+        "holonomy_cosine": 0.9765351269377198,
+        "holonomy_euclidean": 0.21663274436071256,
+        "holonomy_angle_rad": 0.21705860200740074,
+        "holonomy_angle_deg": 12.43654180203392,
+        "channel_drift": {
+          "technical": -0.08388731786012282,
+          "strategic": 0.047944311130783596,
+          "social": -0.021057505909717597,
+          "emotional": -0.07216520002757312,
+          "creative": -0.11654946362881155,
+          "analytical": 0.128952153733642,
+          "operational": -0.04081784838980884,
+          "philosophical": 0.006563105924500948,
+          "existential": -0.004600617378960489
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9943784779160444
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999998,
+            "cosine_sim": 0.991424179291172
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "cosine_sim": 0.9936782461233041
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9935390446751825
+          }
+        ]
+      },
+      "A\u2192B\u2192C\u2192A": {
+        "msg_type": "technical",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "zeroclaw_bard",
+          "forgemaster"
+        ],
+        "chain_length": 7.0,
+        "original_intent": [
+          0.6285192710014624,
+          0.19918207189417755,
+          0.08996858880122006,
+          0.08573268056944783,
+          0.19592375638432835,
+          0.5357248138537086,
+          0.4614223298783569,
+          0.0940375703556054,
+          0.05200733682985653
+        ],
+        "final_intent": [
+          0.6754975382546592,
+          0.3065065543956759,
+          0.1444429775476492,
+          0.0242316145812425,
+          0.22150474803682535,
+          0.29677942138732927,
+          0.5216684224743957,
+          0.12477326896082847,
+          0.0587977295513161
+        ],
+        "holonomy_cosine": 0.9585774927664924,
+        "holonomy_euclidean": 0.28782809848119467,
+        "holonomy_angle_rad": 0.2888310213176202,
+        "holonomy_angle_deg": 16.548798513952747,
+        "channel_drift": {
+          "technical": 0.04697826725319676,
+          "strategic": 0.10732448250149837,
+          "social": 0.05447438874642914,
+          "emotional": -0.06150106598820533,
+          "creative": 0.025580991652496998,
+          "analytical": -0.23894539246637936,
+          "operational": 0.0602460925960388,
+          "philosophical": 0.030735698605223072,
+          "existential": 0.006790392721459565
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9943784779160444
+          },
+          {
+            "from": "oracle1",
+            "to": "zeroclaw_bard",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9711454270619706
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 1.0,
+            "cosine_sim": 0.9873493676131484
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "zeroclaw_bard",
+            "cosine_sim": 0.9802228530032872
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "oracle1",
+            "cosine_sim": 0.9916056641774184
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9886738092552902
+          }
+        ]
+      },
+      "A\u2192B\u2192C\u2192D\u2192E\u2192A": {
+        "msg_type": "technical",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "zeroclaw_bard",
+          "zeroclaw_healer",
+          "zeroclaw_warden",
+          "forgemaster"
+        ],
+        "chain_length": 11.0,
+        "original_intent": [
+          0.6285192710014624,
+          0.19918207189417755,
+          0.08996858880122006,
+          0.08573268056944783,
+          0.19592375638432835,
+          0.5357248138537086,
+          0.4614223298783569,
+          0.0940375703556054,
+          0.05200733682985653
+        ],
+        "final_intent": [
+          0.4374887305491259,
+          0.26063081970479196,
+          0.19895421175451714,
+          0.015693703828579944,
+          0.024905981214380823,
+          0.10219519988017367,
+          0.8248551696473282,
+          0.08768437020926294,
+          0.04132008344720285
+        ],
+        "holonomy_cosine": 0.7967575221992971,
+        "holonomy_euclidean": 0.6375617267700866,
+        "holonomy_angle_rad": 0.6488859336387518,
+        "holonomy_angle_deg": 37.17842538290649,
+        "channel_drift": {
+          "technical": -0.19103054045233653,
+          "strategic": 0.06144874781061441,
+          "social": 0.10898562295329707,
+          "emotional": -0.07003897674086788,
+          "creative": -0.17101777516994754,
+          "analytical": -0.43352961397353496,
+          "operational": 0.3634328397689713,
+          "philosophical": -0.006353200146342455,
+          "existential": -0.01068725338265368
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9943784779160444
+          },
+          {
+            "from": "oracle1",
+            "to": "zeroclaw_bard",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9711454270619706
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "zeroclaw_healer",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9853979473946639
+          },
+          {
+            "from": "zeroclaw_healer",
+            "to": "zeroclaw_warden",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9559608451838584
+          },
+          {
+            "from": "zeroclaw_warden",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999998,
+            "cosine_sim": 0.9938260935682202
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "zeroclaw_warden",
+            "cosine_sim": 0.9884805668251848
+          },
+          {
+            "from": "zeroclaw_warden",
+            "to": "zeroclaw_healer",
+            "cosine_sim": 0.9926551793644622
+          },
+          {
+            "from": "zeroclaw_healer",
+            "to": "zeroclaw_bard",
+            "cosine_sim": 0.9969309521768958
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "oracle1",
+            "cosine_sim": 0.9945658988789883
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9967674641242714
+          }
+        ]
+      }
+    },
+    "strategic": {
+      "A\u2192B\u2192A": {
+        "msg_type": "strategic",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "forgemaster"
+        ],
+        "chain_length": 5.0,
+        "original_intent": [
+          0.2683863484574028,
+          0.5641999877824493,
+          0.2099810374096995,
+          0.11128220882100186,
+          0.18212623064117298,
+          0.37164920011522246,
+          0.3657534653515232,
+          0.4664600705245291,
+          0.17469312817626229
+        ],
+        "final_intent": [
+          0.2146524008003506,
+          0.6460895979865138,
+          0.14844618897715806,
+          0.01625434042357792,
+          0.06810140603540717,
+          0.42559143476451317,
+          0.3077191661048039,
+          0.46057969030207774,
+          0.14697447548439252
+        ],
+        "holonomy_cosine": 0.9787538066486426,
+        "holonomy_euclidean": 0.20613681502090808,
+        "holonomy_angle_rad": 0.206503539854812,
+        "holonomy_angle_deg": 11.831781288192317,
+        "channel_drift": {
+          "technical": -0.05373394765705217,
+          "strategic": 0.08188961020406449,
+          "social": -0.06153484843254145,
+          "emotional": -0.09502786839742394,
+          "creative": -0.11402482460576581,
+          "analytical": 0.05394223464929071,
+          "operational": -0.05803429924671932,
+          "philosophical": -0.0058803802224513535,
+          "existential": -0.027718652691869766
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 0.9999999999999998,
+            "cosine_sim": 0.9881480733304473
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999998,
+            "after_norm": 0.9999999999999997,
+            "cosine_sim": 0.9904045171449303
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "cosine_sim": 0.9887059034222274
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9915817797862816
+          }
+        ]
+      },
+      "A\u2192B\u2192C\u2192A": {
+        "msg_type": "strategic",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "zeroclaw_bard",
+          "forgemaster"
+        ],
+        "chain_length": 7.0,
+        "original_intent": [
+          0.2683863484574028,
+          0.5641999877824493,
+          0.2099810374096995,
+          0.11128220882100186,
+          0.18212623064117298,
+          0.37164920011522246,
+          0.3657534653515232,
+          0.4664600705245291,
+          0.17469312817626229
+        ],
+        "final_intent": [
+          0.225965874164667,
+          0.6801424081602089,
+          0.2640966321351469,
+          0.024639900461808063,
+          0.16130420997308167,
+          0.1612881592965829,
+          0.3239378181042026,
+          0.4848550118868766,
+          0.15472091487862794
+        ],
+        "holonomy_cosine": 0.9635756677846331,
+        "holonomy_euclidean": 0.2699049170319407,
+        "holonomy_angle_rad": 0.27073096416944437,
+        "holonomy_angle_deg": 15.511741630416674,
+        "channel_drift": {
+          "technical": -0.042420474292735766,
+          "strategic": 0.11594242037775959,
+          "social": 0.054115594725447386,
+          "emotional": -0.08664230835919379,
+          "creative": -0.0208220206680913,
+          "analytical": -0.21036104081863954,
+          "operational": -0.04181564724732062,
+          "philosophical": 0.018394941362347483,
+          "existential": -0.01997221329763435
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 0.9999999999999998,
+            "cosine_sim": 0.9881480733304473
+          },
+          {
+            "from": "oracle1",
+            "to": "zeroclaw_bard",
+            "before_norm": 0.9999999999999998,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.987798887728743
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999998,
+            "cosine_sim": 0.9920249487570039
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "zeroclaw_bard",
+            "cosine_sim": 0.9889689788708329
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "oracle1",
+            "cosine_sim": 0.9897509919987354
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9951950291855083
+          }
+        ]
+      },
+      "A\u2192B\u2192C\u2192D\u2192E\u2192A": {
+        "msg_type": "strategic",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "zeroclaw_bard",
+          "zeroclaw_healer",
+          "zeroclaw_warden",
+          "forgemaster"
+        ],
+        "chain_length": 11.0,
+        "original_intent": [
+          0.2683863484574028,
+          0.5641999877824493,
+          0.2099810374096995,
+          0.11128220882100186,
+          0.18212623064117298,
+          0.37164920011522246,
+          0.3657534653515232,
+          0.4664600705245291,
+          0.17469312817626229
+        ],
+        "final_intent": [
+          0.15581548899845854,
+          0.6157586621002736,
+          0.3872970947010008,
+          0.01699052192514783,
+          0.01931038755005138,
+          0.059132177302125374,
+          0.5453426643435371,
+          0.36277486909217993,
+          0.11576421458960233
+        ],
+        "holonomy_cosine": 0.8868430957891491,
+        "holonomy_euclidean": 0.4757245087698691,
+        "holonomy_angle_rad": 0.48032868325097444,
+        "holonomy_angle_deg": 27.52080632935699,
+        "channel_drift": {
+          "technical": -0.11257085945894424,
+          "strategic": 0.05155867431782435,
+          "social": 0.17731605729130132,
+          "emotional": -0.09429168689585403,
+          "creative": -0.1628158430911216,
+          "analytical": -0.31251702281309707,
+          "operational": 0.17958919899201387,
+          "philosophical": -0.10368520143234916,
+          "existential": -0.058928913586659956
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 0.9999999999999998,
+            "cosine_sim": 0.9881480733304473
+          },
+          {
+            "from": "oracle1",
+            "to": "zeroclaw_bard",
+            "before_norm": 0.9999999999999998,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.987798887728743
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "zeroclaw_healer",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9910017394449656
+          },
+          {
+            "from": "zeroclaw_healer",
+            "to": "zeroclaw_warden",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999997,
+            "cosine_sim": 0.9792826935196502
+          },
+          {
+            "from": "zeroclaw_warden",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999997,
+            "after_norm": 0.9999999999999993,
+            "cosine_sim": 0.994246776719801
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "zeroclaw_warden",
+            "cosine_sim": 0.9858029505738101
+          },
+          {
+            "from": "zeroclaw_warden",
+            "to": "zeroclaw_healer",
+            "cosine_sim": 0.9930935205087666
+          },
+          {
+            "from": "zeroclaw_healer",
+            "to": "zeroclaw_bard",
+            "cosine_sim": 0.9946207122430111
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "oracle1",
+            "cosine_sim": 0.9891030439763776
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9960753802177963
+          }
+        ]
+      }
+    },
+    "emotional": {
+      "A\u2192B\u2192A": {
+        "msg_type": "emotional",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "forgemaster"
+        ],
+        "chain_length": 5.0,
+        "original_intent": [
+          0.07957004428968757,
+          0.12307315205478149,
+          0.530560261654285,
+          0.6221971179478832,
+          0.24749679861225385,
+          0.0562778884301234,
+          0.11406917444219702,
+          0.21567750576365002,
+          0.43121657362153953
+        ],
+        "final_intent": [
+          0.10437472784204614,
+          0.23114974980221614,
+          0.6151685463263402,
+          0.14905345132530418,
+          0.15178316077031098,
+          0.1056982746670025,
+          0.15740003452912818,
+          0.34927346269640913,
+          0.5950205558115669
+        ],
+        "holonomy_cosine": 0.849260011326222,
+        "holonomy_euclidean": 0.5490719235015606,
+        "holonomy_angle_rad": 0.5562141773653676,
+        "holonomy_angle_deg": 31.868724868376567,
+        "channel_drift": {
+          "technical": 0.02480468355235857,
+          "strategic": 0.10807659774743465,
+          "social": 0.08460828467205517,
+          "emotional": -0.47314366662257906,
+          "creative": -0.09571363784194287,
+          "analytical": 0.0494203862368791,
+          "operational": 0.043330860086931156,
+          "philosophical": 0.1335959569327591,
+          "existential": 0.16380398219002734
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.995882851942791
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9615363672503519
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "cosine_sim": 0.996024889564406
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9879189308183842
+          }
+        ]
+      },
+      "A\u2192B\u2192C\u2192A": {
+        "msg_type": "emotional",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "zeroclaw_bard",
+          "forgemaster"
+        ],
+        "chain_length": 7.0,
+        "original_intent": [
+          0.07957004428968757,
+          0.12307315205478149,
+          0.530560261654285,
+          0.6221971179478832,
+          0.24749679861225385,
+          0.0562778884301234,
+          0.11406917444219702,
+          0.21567750576365002,
+          0.43121657362153953
+        ],
+        "final_intent": [
+          0.07757836956864322,
+          0.17180615544208347,
+          0.7727270552634431,
+          0.15953273861321454,
+          0.25383494035357035,
+          0.028282362928177332,
+          0.11699037019092386,
+          0.25960370225431534,
+          0.4422595922793286
+        ],
+        "holonomy_cosine": 0.8610170648678509,
+        "holonomy_euclidean": 0.5272246865351568,
+        "holonomy_angle_rad": 0.5335301985698807,
+        "holonomy_angle_deg": 30.569028620830913,
+        "channel_drift": {
+          "technical": -0.001991674721044348,
+          "strategic": 0.04873300338730198,
+          "social": 0.24216679360915805,
+          "emotional": -0.4626643793346687,
+          "creative": 0.0063381417413165,
+          "analytical": -0.02799552550194607,
+          "operational": 0.002921195748726832,
+          "philosophical": 0.043926196490665315,
+          "existential": 0.011043018657789061
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.995882851942791
+          },
+          {
+            "from": "oracle1",
+            "to": "zeroclaw_bard",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9924238256583928
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999998,
+            "cosine_sim": 0.9614471493985493
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "zeroclaw_bard",
+            "cosine_sim": 0.9913389495434727
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "oracle1",
+            "cosine_sim": 0.9970146285104364
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9868773837586914
+          }
+        ]
+      },
+      "A\u2192B\u2192C\u2192D\u2192E\u2192A": {
+        "msg_type": "emotional",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "zeroclaw_bard",
+          "zeroclaw_healer",
+          "zeroclaw_warden",
+          "forgemaster"
+        ],
+        "chain_length": 11.0,
+        "original_intent": [
+          0.07957004428968757,
+          0.12307315205478149,
+          0.530560261654285,
+          0.6221971179478832,
+          0.24749679861225385,
+          0.0562778884301234,
+          0.11406917444219702,
+          0.21567750576365002,
+          0.43121657362153953
+        ],
+        "final_intent": [
+          0.043528071611317304,
+          0.12656406154683783,
+          0.9220797893510262,
+          0.08951145157235116,
+          0.024726218258835413,
+          0.008437194955685914,
+          0.160257715182457,
+          0.15805098073281346,
+          0.26925487460793773
+        ],
+        "holonomy_cosine": 0.7390229884127054,
+        "holonomy_euclidean": 0.7224638558618588,
+        "holonomy_angle_rad": 0.7391773846223875,
+        "holonomy_angle_deg": 42.35174445038116,
+        "channel_drift": {
+          "technical": -0.03604197267837027,
+          "strategic": 0.0034909094920563405,
+          "social": 0.39151952769674114,
+          "emotional": -0.532685666375532,
+          "creative": -0.22277058035341843,
+          "analytical": -0.047840693474437486,
+          "operational": 0.046188540740259965,
+          "philosophical": -0.05762652503083657,
+          "existential": -0.1619616990136018
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.995882851942791
+          },
+          {
+            "from": "oracle1",
+            "to": "zeroclaw_bard",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9924238256583928
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "zeroclaw_healer",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9832326699549313
+          },
+          {
+            "from": "zeroclaw_healer",
+            "to": "zeroclaw_warden",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999997,
+            "cosine_sim": 0.9639089749050896
+          },
+          {
+            "from": "zeroclaw_warden",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999997,
+            "after_norm": 0.9999999999999998,
+            "cosine_sim": 0.9702029380116501
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "zeroclaw_warden",
+            "cosine_sim": 0.9891322652996383
+          },
+          {
+            "from": "zeroclaw_warden",
+            "to": "zeroclaw_healer",
+            "cosine_sim": 0.9889384978068801
+          },
+          {
+            "from": "zeroclaw_healer",
+            "to": "zeroclaw_bard",
+            "cosine_sim": 0.9958107698829024
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "oracle1",
+            "cosine_sim": 0.9988359991845501
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9956295829591124
+          }
+        ]
+      }
+    },
+    "creative": {
+      "A\u2192B\u2192A": {
+        "msg_type": "creative",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "forgemaster"
+        ],
+        "chain_length": 5.0,
+        "original_intent": [
+          0.2165819382050904,
+          0.26208786706727555,
+          0.2216149940194425,
+          0.31747068061010747,
+          0.5922627047048612,
+          0.25889174590198716,
+          0.18599505792958365,
+          0.42562989450062994,
+          0.31772056781207414
+        ],
+        "final_intent": [
+          0.2322476410282607,
+          0.4024021939569143,
+          0.2100592753416047,
+          0.062172879769728566,
+          0.29692838193441473,
+          0.39749496119007266,
+          0.2098076159620545,
+          0.5634769823620321,
+          0.35839766721112876
+        ],
+        "holonomy_cosine": 0.8935496380179228,
+        "holonomy_euclidean": 0.4614116641194114,
+        "holonomy_angle_rad": 0.46560604291215785,
+        "holonomy_angle_deg": 26.677261174653744,
+        "channel_drift": {
+          "technical": 0.015665702823170313,
+          "strategic": 0.14031432688963874,
+          "social": -0.011555718677837806,
+          "emotional": -0.2552978008403789,
+          "creative": -0.29533432277044647,
+          "analytical": 0.1386032152880855,
+          "operational": 0.023812558032470843,
+          "philosophical": 0.1378470878614022,
+          "existential": 0.04067709939905462
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 1.0,
+            "cosine_sim": 0.9911306934828017
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "before_norm": 1.0,
+            "after_norm": 1.0,
+            "cosine_sim": 0.9777676857554557
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "cosine_sim": 0.9904049914851148
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9868128053731696
+          }
+        ]
+      },
+      "A\u2192B\u2192C\u2192A": {
+        "msg_type": "creative",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "zeroclaw_bard",
+          "forgemaster"
+        ],
+        "chain_length": 7.0,
+        "original_intent": [
+          0.2165819382050904,
+          0.26208786706727555,
+          0.2216149940194425,
+          0.31747068061010747,
+          0.5922627047048612,
+          0.25889174590198716,
+          0.18599505792958365,
+          0.42562989450062994,
+          0.31772056781207414
+        ],
+        "final_intent": [
+          0.2031716699975686,
+          0.35202392323529924,
+          0.3105563447333489,
+          0.07832047536777728,
+          0.5844482581628789,
+          0.1251831764589605,
+          0.18354099755111028,
+          0.49293314241996505,
+          0.31352849160546403
+        ],
+        "holonomy_cosine": 0.9520679577849277,
+        "holonomy_euclidean": 0.3096192568942236,
+        "holonomy_angle_rad": 0.3108695119434791,
+        "holonomy_angle_deg": 17.811511013653092,
+        "channel_drift": {
+          "technical": -0.01341026820752178,
+          "strategic": 0.08993605616802369,
+          "social": 0.08894135071390641,
+          "emotional": -0.2391502052423302,
+          "creative": -0.007814446541982267,
+          "analytical": -0.13370856944302667,
+          "operational": -0.0024540603784733717,
+          "philosophical": 0.06730324791933512,
+          "existential": -0.004192076206610107
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 1.0,
+            "cosine_sim": 0.9911306934828017
+          },
+          {
+            "from": "oracle1",
+            "to": "zeroclaw_bard",
+            "before_norm": 1.0,
+            "after_norm": 1.0,
+            "cosine_sim": 0.9765380472336851
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "forgemaster",
+            "before_norm": 1.0,
+            "after_norm": 1.0,
+            "cosine_sim": 0.9808662173585655
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "zeroclaw_bard",
+            "cosine_sim": 0.9777197137630156
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "oracle1",
+            "cosine_sim": 0.9918377693789957
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9885693272973145
+          }
+        ]
+      },
+      "A\u2192B\u2192C\u2192D\u2192E\u2192A": {
+        "msg_type": "creative",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "zeroclaw_bard",
+          "zeroclaw_healer",
+          "zeroclaw_warden",
+          "forgemaster"
+        ],
+        "chain_length": 11.0,
+        "original_intent": [
+          0.2165819382050904,
+          0.26208786706727555,
+          0.2216149940194425,
+          0.31747068061010747,
+          0.5922627047048612,
+          0.25889174590198716,
+          0.18599505792958365,
+          0.42562989450062994,
+          0.31772056781207414
+        ],
+        "final_intent": [
+          0.17720204979101006,
+          0.403107310141093,
+          0.5760492328871333,
+          0.0683094684211757,
+          0.08849712787809268,
+          0.058050394068969696,
+          0.39082175511965805,
+          0.46649945836535933,
+          0.29671543446645965
+        ],
+        "holonomy_cosine": 0.7263376419081623,
+        "holonomy_euclidean": 0.7398139739410222,
+        "holonomy_angle_rad": 0.7578178089975847,
+        "holonomy_angle_deg": 43.41976209541274,
+        "channel_drift": {
+          "technical": -0.03937988841408033,
+          "strategic": 0.14101944307381747,
+          "social": 0.35443423886769077,
+          "emotional": -0.24916121218893178,
+          "creative": -0.5037655768267685,
+          "analytical": -0.20084135183301746,
+          "operational": 0.2048266971900744,
+          "philosophical": 0.0408695638647294,
+          "existential": -0.02100513334561449
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 1.0,
+            "after_norm": 1.0,
+            "cosine_sim": 0.9911306934828017
+          },
+          {
+            "from": "oracle1",
+            "to": "zeroclaw_bard",
+            "before_norm": 1.0,
+            "after_norm": 1.0,
+            "cosine_sim": 0.9765380472336851
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "zeroclaw_healer",
+            "before_norm": 1.0,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.983822769194012
+          },
+          {
+            "from": "zeroclaw_healer",
+            "to": "zeroclaw_warden",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999997,
+            "cosine_sim": 0.9199707601461539
+          },
+          {
+            "from": "zeroclaw_warden",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999997,
+            "after_norm": 0.9999999999999997,
+            "cosine_sim": 0.9803868027234055
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "zeroclaw_warden",
+            "cosine_sim": 0.972816417028559
+          },
+          {
+            "from": "zeroclaw_warden",
+            "to": "zeroclaw_healer",
+            "cosine_sim": 0.9862245378709538
+          },
+          {
+            "from": "zeroclaw_healer",
+            "to": "zeroclaw_bard",
+            "cosine_sim": 0.9910506764651452
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "oracle1",
+            "cosine_sim": 0.9929445511948385
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.994440328742401
+          }
+        ]
+      }
+    },
+    "mixed": {
+      "A\u2192B\u2192A": {
+        "msg_type": "mixed",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "forgemaster"
+        ],
+        "chain_length": 5.0,
+        "original_intent": [
+          0.33442275335546917,
+          0.31419249464082505,
+          0.33923276045024003,
+          0.3671209214048914,
+          0.3111374921394169,
+          0.3111380152056981,
+          0.3689108967819267,
+          0.3430478448977883,
+          0.30364022210380237
+        ],
+        "final_intent": [
+          0.32478430002574205,
+          0.43689730282028444,
+          0.29121292227804074,
+          0.06511433793210024,
+          0.141273207819913,
+          0.43264992629318894,
+          0.376887263623918,
+          0.4113096375089029,
+          0.3102053461503152
+        ],
+        "holonomy_cosine": 0.9214756667640137,
+        "holonomy_euclidean": 0.39629366167991875,
+        "holonomy_angle_rad": 0.398933803794301,
+        "holonomy_angle_deg": 22.857223262513514,
+        "channel_drift": {
+          "technical": -0.009638453329727126,
+          "strategic": 0.12270480817945939,
+          "social": -0.04801983817219929,
+          "emotional": -0.30200658347279113,
+          "creative": -0.16986428431950387,
+          "analytical": 0.12151191108749082,
+          "operational": 0.007976366841991323,
+          "philosophical": 0.06826179261111465,
+          "existential": 0.006565124046512827
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9902801295969642
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9740167533854741
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "cosine_sim": 0.9889808653569973
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9870181424652131
+          }
+        ]
+      },
+      "A\u2192B\u2192C\u2192A": {
+        "msg_type": "mixed",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "zeroclaw_bard",
+          "forgemaster"
+        ],
+        "chain_length": 7.0,
+        "original_intent": [
+          0.33442275335546917,
+          0.31419249464082505,
+          0.33923276045024003,
+          0.3671209214048914,
+          0.3111374921394169,
+          0.3111380152056981,
+          0.3689108967819267,
+          0.3430478448977883,
+          0.30364022210380237
+        ],
+        "final_intent": [
+          0.31250768818721975,
+          0.4203829004935805,
+          0.47354693039657375,
+          0.0902204107380821,
+          0.30584966097179744,
+          0.14986658582275714,
+          0.3626411974131222,
+          0.39576243044027337,
+          0.2984798082329342
+        ],
+        "holonomy_cosine": 0.9323239683785189,
+        "holonomy_euclidean": 0.3679022466043092,
+        "holonomy_angle_rad": 0.3700093391668557,
+        "holonomy_angle_deg": 21.19997351468546,
+        "channel_drift": {
+          "technical": -0.021915065168249426,
+          "strategic": 0.10619040585275547,
+          "social": 0.13431416994633372,
+          "emotional": -0.2769005106668093,
+          "creative": -0.005287831167619439,
+          "analytical": -0.16127142938294098,
+          "operational": -0.006269699368804504,
+          "philosophical": 0.05271458554248509,
+          "existential": -0.005160413870868186
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9902801295969642
+          },
+          {
+            "from": "oracle1",
+            "to": "zeroclaw_bard",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999997,
+            "cosine_sim": 0.9814967241840806
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999997,
+            "after_norm": 0.9999999999999997,
+            "cosine_sim": 0.972996984220474
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "zeroclaw_bard",
+            "cosine_sim": 0.982623053760136
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "oracle1",
+            "cosine_sim": 0.9908311789742651
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9876007212358994
+          }
+        ]
+      },
+      "A\u2192B\u2192C\u2192D\u2192E\u2192A": {
+        "msg_type": "mixed",
+        "chain": [
+          "forgemaster",
+          "oracle1",
+          "zeroclaw_bard",
+          "zeroclaw_healer",
+          "zeroclaw_warden",
+          "forgemaster"
+        ],
+        "chain_length": 11.0,
+        "original_intent": [
+          0.33442275335546917,
+          0.31419249464082505,
+          0.33923276045024003,
+          0.3671209214048914,
+          0.3111374921394169,
+          0.3111380152056981,
+          0.3689108967819267,
+          0.3430478448977883,
+          0.30364022210380237
+        ],
+        "final_intent": [
+          0.19737006481664704,
+          0.34858486288279905,
+          0.636058716689964,
+          0.05698038476574033,
+          0.03353560128943402,
+          0.050324446287351,
+          0.5591621546205161,
+          0.271214357210907,
+          0.20454697844935263
+        ],
+        "holonomy_cosine": 0.799739667555398,
+        "holonomy_euclidean": 0.6328670197831897,
+        "holonomy_angle_rad": 0.6439348707815833,
+        "holonomy_angle_deg": 36.89475037708675,
+        "channel_drift": {
+          "technical": -0.13705268853882213,
+          "strategic": 0.034392368241974,
+          "social": 0.296825956239724,
+          "emotional": -0.3101405366391511,
+          "creative": -0.2776018908499829,
+          "analytical": -0.2608135689183471,
+          "operational": 0.19025125783858943,
+          "philosophical": -0.0718334876868813,
+          "existential": -0.09909324365444974
+        },
+        "forward_log": [
+          {
+            "from": "forgemaster",
+            "to": "oracle1",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999999,
+            "cosine_sim": 0.9902801295969642
+          },
+          {
+            "from": "oracle1",
+            "to": "zeroclaw_bard",
+            "before_norm": 0.9999999999999999,
+            "after_norm": 0.9999999999999997,
+            "cosine_sim": 0.9814967241840806
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "zeroclaw_healer",
+            "before_norm": 0.9999999999999997,
+            "after_norm": 0.9999999999999998,
+            "cosine_sim": 0.9758671886473603
+          },
+          {
+            "from": "zeroclaw_healer",
+            "to": "zeroclaw_warden",
+            "before_norm": 0.9999999999999998,
+            "after_norm": 0.9999999999999997,
+            "cosine_sim": 0.947509356885069
+          },
+          {
+            "from": "zeroclaw_warden",
+            "to": "forgemaster",
+            "before_norm": 0.9999999999999997,
+            "after_norm": 0.9999999999999996,
+            "cosine_sim": 0.9797311519441095
+          }
+        ],
+        "reverse_log": [
+          {
+            "from": "forgemaster",
+            "to": "zeroclaw_warden",
+            "cosine_sim": 0.9783694246315128
+          },
+          {
+            "from": "zeroclaw_warden",
+            "to": "zeroclaw_healer",
+            "cosine_sim": 0.9847339975427617
+          },
+          {
+            "from": "zeroclaw_healer",
+            "to": "zeroclaw_bard",
+            "cosine_sim": 0.9911826972226908
+          },
+          {
+            "from": "zeroclaw_bard",
+            "to": "oracle1",
+            "cosine_sim": 0.9938099642154644
+          },
+          {
+            "from": "oracle1",
+            "to": "forgemaster",
+            "cosine_sim": 0.9939187409345082
+          }
+        ]
+      }
+    }
+  },
+  "length_analysis": [
+    {
+      "chain_length": 3,
+      "n_agents": 2,
+      "msg_type": "technical",
+      "holonomy": 0.9765351269377198,
+      "angle_deg": 12.43654180203392,
+      "euclidean": 0.21663274436071256
+    },
+    {
+      "chain_length": 3,
+      "n_agents": 2,
+      "msg_type": "emotional",
+      "holonomy": 0.849260011326222,
+      "angle_deg": 31.868724868376567,
+      "euclidean": 0.5490719235015606
+    },
+    {
+      "chain_length": 3,
+      "n_agents": 2,
+      "msg_type": "mixed",
+      "holonomy": 0.9214756667640137,
+      "angle_deg": 22.857223262513514,
+      "euclidean": 0.39629366167991875
+    },
+    {
+      "chain_length": 5,
+      "n_agents": 3,
+      "msg_type": "technical",
+      "holonomy": 0.9585774927664924,
+      "angle_deg": 16.548798513952747,
+      "euclidean": 0.28782809848119467
+    },
+    {
+      "chain_length": 5,
+      "n_agents": 3,
+      "msg_type": "emotional",
+      "holonomy": 0.8610170648678509,
+      "angle_deg": 30.569028620830913,
+      "euclidean": 0.5272246865351568
+    },
+    {
+      "chain_length": 5,
+      "n_agents": 3,
+      "msg_type": "mixed",
+      "holonomy": 0.9323239683785189,
+      "angle_deg": 21.19997351468546,
+      "euclidean": 0.3679022466043092
+    },
+    {
+      "chain_length": 7,
+      "n_agents": 4,
+      "msg_type": "technical",
+      "holonomy": 0.8687844975029854,
+      "angle_deg": 29.682303957122333,
+      "euclidean": 0.5122802014720779
+    },
+    {
+      "chain_length": 7,
+      "n_agents": 4,
+      "msg_type": "emotional",
+      "holonomy": 0.8354447907052798,
+      "angle_deg": 33.337818716458955,
+      "euclidean": 0.573681460762287
+    },
+    {
+      "chain_length": 7,
+      "n_agents": 4,
+      "msg_type": "mixed",
+      "holonomy": 0.8492498536479256,
+      "angle_deg": 31.869827161602398,
+      "euclidean": 0.5490904229125644
+    },
+    {
+      "chain_length": 9,
+      "n_agents": 5,
+      "msg_type": "technical",
+      "holonomy": 0.7967575221992971,
+      "angle_deg": 37.17842538290649,
+      "euclidean": 0.6375617267700866
+    },
+    {
+      "chain_length": 9,
+      "n_agents": 5,
+      "msg_type": "emotional",
+      "holonomy": 0.7390229884127054,
+      "angle_deg": 42.35174445038116,
+      "euclidean": 0.7224638558618588
+    },
+    {
+      "chain_length": 9,
+      "n_agents": 5,
+      "msg_type": "mixed",
+      "holonomy": 0.799739667555398,
+      "angle_deg": 36.89475037708675,
+      "euclidean": 0.6328670197831897
+    }
+  ],
+  "technical_vs_emotional": {
+    "tech_avg_angle": 23.961517414003872,
+    "emotion_avg_angle": 34.531829164011896,
+    "ratio": 1.441136993428905
+  }
+}

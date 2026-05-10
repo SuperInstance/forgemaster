@@ -1,0 +1,106 @@
+{
+  "experiment": "phonon_propagation_constraint_wave",
+  "hexagonal_lattice_atoms": 289,
+  "square_lattice_atoms": 289,
+  "energy_conservation": {
+    "E_initial": 0.6749999999999998,
+    "E_final": 0.6745009894810996,
+    "drift_fraction": -0.0007392748428151447
+  },
+  "wave_speed": {
+    "hexagonal": 4.306950455849739,
+    "square": 4.189758553514077
+  },
+  "isotropy": {
+    "hexagonal": 0.5149972071798898,
+    "square": 0.2400767200122354,
+    "ratio": 0.4661709163956223
+  },
+  "snap_functions": {
+    "eisenstein_round": {
+      "mean_residual": 0.37761552169697993,
+      "std_residual": 0.16562655544023797,
+      "isotropy": 0.06147273036311675,
+      "angular_residuals": [
+        0.38620407212293295,
+        0.35024630365102555,
+        0.4132811438417426,
+        0.3734676088373442,
+        0.34164169201743017,
+        0.36547670845374425,
+        0.37730615489566627,
+        0.41377694408383564,
+        0.3904581793287676,
+        0.36152526759334414,
+        0.3535612891267463,
+        0.40202923371157534
+      ]
+    },
+    "eisenstein_floor": {
+      "mean_residual": 0.6097548381230042,
+      "std_residual": 0.22141744165873553,
+      "isotropy": 0.19025709764615373,
+      "angular_residuals": [
+        0.7766541521242499,
+        0.5924972180002014,
+        0.586529445448451,
+        0.760755834297613,
+        0.5007535096758581,
+        0.7408530866472234,
+        0.4789152663530666,
+        0.5223438485245261,
+        0.54536538391222,
+        0.46805173764000163,
+        0.7571675219965509,
+        0.5219452783354107
+      ]
+    },
+    "square_round": {
+      "mean_residual": 0.3812020825651125,
+      "std_residual": 0.13885140509515354,
+      "isotropy": 0.1204807693180032,
+      "angular_residuals": [
+        0.33049300080992594,
+        0.43679594727543997,
+        0.3563678935787745,
+        0.3475689689728292,
+        0.4425546493004275,
+        0.36359395451671356,
+        0.36402273424915876,
+        0.4557910037623779,
+        0.3638268164785192,
+        0.33518136817660815,
+        0.4558140304380768,
+        0.35887739958207093
+      ]
+    },
+    "square_floor": {
+      "mean_residual": 0.7760668818241888,
+      "std_residual": 0.27981830570781147,
+      "isotropy": 0.24620630544327352,
+      "angular_residuals": [
+        1.0037444258388075,
+        0.8179334264796969,
+        1.0241898012338293,
+        0.5502242713648481,
+        0.739946087199907,
+        1.008927773922862,
+        0.5466420231793784,
+        0.6646089116690358,
+        0.5423003503208906,
+        1.0009363774508067,
+        0.769159965508635,
+        0.5758649616857375
+      ]
+    }
+  },
+  "conclusions": [
+    "Energy conservation (holonomy=0): drift = -0.0739% over 2000 steps",
+    "Wave speed: hexagonal = 4.31, square = 4.19 lattice units/time",
+    "Hexagonal lattice is 0.5x more isotropic than square lattice",
+    "Eisenstein snap (round) preserves hexagonal symmetry \u2192 isotropic restoring force",
+    "Square snap produces anisotropic restoring force \u2192 directional wave propagation",
+    "snap = floor vs round changes the 'crystal symmetry' of the restoring potential",
+    "Phonon propagation IS constraint relaxation: snap function = restoring force"
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "experiment": "crdt_precision",
+  "config": {
+    "n_nodes": 16,
+    "n_rounds": 200
+  },
+  "precisions": {
+    "fp64": {
+      "final_precision_error": 14.944880412773308,
+      "max_precision_error": 22.649491564032544,
+      "final_value_spread": 0.009123411477074572,
+      "max_value_spread": 0.8880714363527304,
+      "total_bandwidth_kb": 1436.0,
+      "final_h1": 53.118803740312934,
+      "mean_h1": 56.81876327383825,
+      "h1_decrease_ratio": 0.5310041266888876,
+      "bytes_per_entry": 8,
+      "error_trend": "increasing"
+    },
+    "fp32": {
+      "final_precision_error": 14.944880375208262,
+      "max_precision_error": 22.64949110908799,
+      "final_value_spread": 0.009123416724261606,
+      "max_value_spread": 0.8880714352136191,
+      "total_bandwidth_kb": 718.0,
+      "final_h1": 53.118847655035324,
+      "mean_h1": 56.81876247860231,
+      "h1_decrease_ratio": 0.5310036993906331,
+      "bytes_per_entry": 4,
+      "error_trend": "increasing"
+    },
+    "fp16": {
+      "final_precision_error": 14.942848131856657,
+      "max_precision_error": 22.64627804645449,
+      "final_value_spread": 0.009186864738076622,
+      "max_value_spread": 0.8880689826714203,
+      "total_bandwidth_kb": 359.0,
+      "final_h1": 53.473124090518596,
+      "mean_h1": 56.8151599530287,
+      "h1_decrease_ratio": 0.5274860293035253,
+      "bytes_per_entry": 2,
+      "error_trend": "increasing"
+    },
+    "int8": {
+      "final_precision_error": 15.001466167844253,
+      "max_precision_error": 23.034562117345473,
+      "final_value_spread": 0.009091250265053566,
+      "max_value_spread": 0.9166666666666666,
+      "total_bandwidth_kb": 179.5,
+      "final_h1": 53.11880374031295,
+      "mean_h1": 57.08148495540961,
+      "h1_decrease_ratio": 0.5403999745391391,
+      "bytes_per_entry": 1,
+      "error_trend": "increasing"
+    }
+  },
+  "baseline": {
+    "precision": "fp64",
+    "bandwidth_kb": 1436.0,
+    "error": 14.944880412773308
+  },
+  "crossover_analysis": {
+    "fp32": {
+      "bandwidth_savings_pct": 50.0,
+      "error_ratio": 0.9999999974864271,
+      "spread_ratio": 1.0000005751343175,
+      "favorable": true
+    },
+    "fp16": {
+      "bandwidth_savings_pct": 75.0,
+      "error_ratio": 0.9998640149094191,
+      "spread_ratio": 1.0069549927854833,
+      "favorable": true
+    },
+    "int8": {
+      "bandwidth_savings_pct": 87.5,
+      "error_ratio": 1.003786296946383,
+      "spread_ratio": 0.9964748699429132,
+      "favorable": true
+    }
+  },
+  "efficiency_scores": {
+    "fp64": 21460.84827274247,
+    "fp32": 10730.424109399532,
+    "fp16": 5364.48247933654,
+    "int8": 2692.7631771280435
+  },
+  "verdict": "PASS"
+}
