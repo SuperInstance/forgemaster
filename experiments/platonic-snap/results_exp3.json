@@ -1,0 +1,59 @@
+{
+  "experiment": "3_constraint_h1_by_ade",
+  "results": {
+    "A2_eisenstein": {
+      "ade_type": "A\u2082",
+      "simply_laced": true,
+      "crystallographic": true,
+      "coxeter_number": 3,
+      "dim": 2,
+      "n_roots": 6,
+      "mean_h1_fraction": 1.0,
+      "mean_h1_rank": 0.0,
+      "mean_holonomy": 1.139663,
+      "trials": 10
+    },
+    "A3_tetrahedral": {
+      "ade_type": "A\u2083",
+      "simply_laced": true,
+      "crystallographic": true,
+      "coxeter_number": 4,
+      "dim": 3,
+      "n_roots": 6,
+      "mean_h1_fraction": 1.0,
+      "mean_h1_rank": 0.0,
+      "mean_holonomy": 2.319461,
+      "trials": 10
+    },
+    "B3_cubic": {
+      "ade_type": "B\u2083",
+      "simply_laced": false,
+      "crystallographic": true,
+      "coxeter_number": 6,
+      "dim": 3,
+      "n_roots": 18,
+      "mean_h1_fraction": 1.0,
+      "mean_h1_rank": 0.0,
+      "mean_holonomy": 1.853345,
+      "trials": 10
+    },
+    "H3_icosahedral": {
+      "ade_type": "H\u2083",
+      "simply_laced": false,
+      "crystallographic": false,
+      "coxeter_number": 10,
+      "dim": 3,
+      "n_roots": 32,
+      "mean_h1_fraction": 0.999983,
+      "mean_h1_rank": 0.0,
+      "mean_holonomy": 2.542981,
+      "trials": 10
+    }
+  },
+  "ranking_by_h1": [
+    "H3_icosahedral",
+    "A2_eisenstein",
+    "A3_tetrahedral",
+    "B3_cubic"
+  ]
+}

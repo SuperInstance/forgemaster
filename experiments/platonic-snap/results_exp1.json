@@ -1,0 +1,147 @@
+{
+  "experiment": "1_3d_snap_topology",
+  "n_samples": 1000000,
+  "snap_quality": {
+    "tetrahedron": {
+      "n_vertices": 4,
+      "mean_angular_error_rad": 0.690783,
+      "mean_angular_error_deg": 39.5789,
+      "max_angular_error_rad": 1.230239,
+      "max_angular_error_deg": 70.4875,
+      "isotropy_cv": 0.001031,
+      "coverage": 1.0,
+      "snap_counts_per_vertex": {
+        "v0": 250155,
+        "v1": 250188,
+        "v2": 249557,
+        "v3": 250100
+      }
+    },
+    "cube": {
+      "n_vertices": 6,
+      "mean_angular_error_rad": 0.556544,
+      "mean_angular_error_deg": 31.8876,
+      "max_angular_error_rad": 0.955084,
+      "max_angular_error_deg": 54.7223,
+      "isotropy_cv": 0.001126,
+      "coverage": 1.0,
+      "snap_counts_per_vertex": {
+        "v0": 166496,
+        "v1": 166701,
+        "v2": 166608,
+        "v3": 166919,
+        "v4": 166401,
+        "v5": 166875
+      }
+    },
+    "octahedron": {
+      "n_vertices": 8,
+      "mean_angular_error_rad": 0.4909,
+      "mean_angular_error_deg": 28.1265,
+      "max_angular_error_rad": 0.954658,
+      "max_angular_error_deg": 54.6979,
+      "isotropy_cv": 0.001577,
+      "coverage": 1.0,
+      "snap_counts_per_vertex": {
+        "v0": 124702,
+        "v1": 124958,
+        "v2": 125404,
+        "v3": 124893,
+        "v4": 125140,
+        "v5": 125031,
+        "v6": 125028,
+        "v7": 124844
+      }
+    },
+    "dodecahedron": {
+      "n_vertices": 20,
+      "mean_angular_error_rad": 0.314643,
+      "mean_angular_error_deg": 18.0277,
+      "max_angular_error_rad": 0.652199,
+      "max_angular_error_deg": 37.3683,
+      "isotropy_cv": 0.004823,
+      "coverage": 1.0,
+      "snap_counts_per_vertex": {
+        "v0": 49459,
+        "v1": 49828,
+        "v2": 50298,
+        "v3": 50242,
+        "v4": 50149,
+        "v5": 50155,
+        "v6": 50236,
+        "v7": 49719,
+        "v8": 49989,
+        "v9": 50297,
+        "v10": 49741,
+        "v11": 50220,
+        "v12": 50216,
+        "v13": 49839,
+        "v14": 49751,
+        "v15": 50202,
+        "v16": 50123,
+        "v17": 49688,
+        "v18": 49992,
+        "v19": 49856
+      }
+    },
+    "icosahedron": {
+      "n_vertices": 12,
+      "mean_angular_error_rad": 0.389587,
+      "mean_angular_error_deg": 22.3217,
+      "max_angular_error_rad": 0.652184,
+      "max_angular_error_deg": 37.3674,
+      "isotropy_cv": 0.002623,
+      "coverage": 1.0,
+      "snap_counts_per_vertex": {
+        "v0": 83085,
+        "v1": 83270,
+        "v2": 83462,
+        "v3": 83766,
+        "v4": 83276,
+        "v5": 83537,
+        "v6": 83185,
+        "v7": 83321,
+        "v8": 83581,
+        "v9": 83220,
+        "v10": 82931,
+        "v11": 83366
+      }
+    }
+  },
+  "eisenstein_composition": {
+    "tetrahedron": {
+      "composition_mismatch_rate": 0.229151,
+      "composition_error_increase_rad": 0.096915
+    },
+    "cube": {
+      "composition_mismatch_rate": 0.256756,
+      "composition_error_increase_rad": 0.078937
+    },
+    "octahedron": {
+      "composition_mismatch_rate": 0.284204,
+      "composition_error_increase_rad": 0.126355
+    },
+    "dodecahedron": {
+      "composition_mismatch_rate": 0.379962,
+      "composition_error_increase_rad": 0.101667
+    },
+    "icosahedron": {
+      "composition_mismatch_rate": 0.251531,
+      "composition_error_increase_rad": 0.072551
+    }
+  },
+  "ranking_by_mean_error": [
+    "dodecahedron",
+    "icosahedron",
+    "octahedron",
+    "cube",
+    "tetrahedron"
+  ],
+  "ranking_by_isotropy": [
+    "tetrahedron",
+    "cube",
+    "octahedron",
+    "icosahedron",
+    "dodecahedron"
+  ]
+}

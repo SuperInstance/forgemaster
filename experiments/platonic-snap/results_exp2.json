@@ -1,0 +1,55 @@
+{
+  "experiment": "2_tensor_consistency",
+  "n_matrices": 100000,
+  "results": {
+    "tetrahedron": {
+      "coxeter_number": 4,
+      "snap_vs_snap_contraction_rel_error": 1.100441,
+      "snap_vs_snap_contraction_frob_error": 5.079726,
+      "contraction_preservation_rate": 0.0,
+      "snap_contraction_vs_original_rel_error": 0.984017
+    },
+    "cube": {
+      "coxeter_number": 6,
+      "snap_vs_snap_contraction_rel_error": 0.752796,
+      "snap_vs_snap_contraction_frob_error": 3.414686,
+      "contraction_preservation_rate": 0.0,
+      "snap_contraction_vs_original_rel_error": 0.808026
+    },
+    "octahedron": {
+      "coxeter_number": 6,
+      "snap_vs_snap_contraction_rel_error": 0.800779,
+      "snap_vs_snap_contraction_frob_error": 3.645833,
+      "contraction_preservation_rate": 0.0,
+      "snap_contraction_vs_original_rel_error": 0.739944
+    },
+    "dodecahedron": {
+      "coxeter_number": 10,
+      "snap_vs_snap_contraction_rel_error": 0.545553,
+      "snap_vs_snap_contraction_frob_error": 2.494072,
+      "contraction_preservation_rate": 0.0,
+      "snap_contraction_vs_original_rel_error": 0.489332
+    },
+    "icosahedron": {
+      "coxeter_number": 10,
+      "snap_vs_snap_contraction_rel_error": 0.658342,
+      "snap_vs_snap_contraction_frob_error": 3.008522,
+      "contraction_preservation_rate": 0.0,
+      "snap_contraction_vs_original_rel_error": 0.593929
+    }
+  },
+  "ranking_by_preservation": [
+    "tetrahedron",
+    "cube",
+    "octahedron",
+    "dodecahedron",
+    "icosahedron"
+  ],
+  "ranking_by_rel_error": [
+    "dodecahedron",
+    "icosahedron",
+    "cube",
+    "octahedron",
+    "tetrahedron"
+  ]
+}

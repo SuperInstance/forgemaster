@@ -1,0 +1,59 @@
+{
+  "experiment": "4_eisenstein_golden_ratio_incompatibility_v2",
+  "results": {
+    "field_extension": {
+      "phi_in_eisenstein": false,
+      "closest_eisenstein_to_phi": {
+        "a": 2,
+        "b": 0,
+        "value": "(2+0j)",
+        "distance_to_phi": 0.381966
+      },
+      "conclusion": "\u03c6 \u2209 \u2124[\u03c9] \u2014 fields \u211a(\u03c9) and \u211a(\u03c6) are linearly disjoint over \u211a"
+    },
+    "ring_closure": {
+      "cubic_Z3": {
+        "mean_closure_error": 0.0,
+        "zero_fraction": 1.0,
+        "p99_error": 0.0,
+        "n_tests": 200000
+      },
+      "icosahedral_H3": {
+        "mean_closure_error": 1.71663186331555,
+        "zero_fraction": 0.16742,
+        "p99_error": 4.237633068933856,
+        "n_tests": 200000
+      }
+    },
+    "addition_consistency": {
+      "eisenstein_x_cubic": {
+        "mean_error": 0.9504560461304916,
+        "median_error": 1.0,
+        "p95_error": 1.7320508075688772,
+        "max_error": 2.4494897427831788,
+        "zero_fraction": 0.236,
+        "n_tests": 100000
+      },
+      "eisenstein_x_icosahedral": {
+        "mean_error": 3.592283364903792,
+        "median_error": 3.393880333450526,
+        "p95_error": 7.21208420896044,
+        "max_error": 17.682643500708437,
+        "zero_fraction": 0.0,
+        "n_tests": 100000
+      }
+    },
+    "multiplication_consistency": {
+      "eisenstein_x_cubic": {
+        "mean_error": 1.1072774047305853,
+        "zero_fraction": 0.34312,
+        "n_tests": 50000
+      },
+      "eisenstein_x_icosahedral": {
+        "mean_error": 0.6313918682742052,
+        "zero_fraction": 0.45316,
+        "n_tests": 50000
+      }
+    }
+  }
+}
