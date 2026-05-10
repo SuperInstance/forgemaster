@@ -255,3 +255,61 @@ Not a better constraint checker. **An attention allocation engine.**
 *The Platonic solids aren't shapes. They're the flavors of randomness that determine what kind of snap works for what kind of uncertainty. And the finite number of them means there are only so many ways to compress reality into something a mind can hold.*
 
 *Everything else — the sheaves, the cohomology, the lattices — is just the plumbing. The snap is the faucet. The delta is the water. Attention is the thirst.* ⚒️
+
+---
+
+## Addendum: Cross-Domain Feel Transfer
+
+### The Core Insight
+
+A coin flip and a true/false question feel the same. Not similar — THE SAME FEEL.
+
+A d20 roll and spinning a category wheel feel the same. A 2d6 armor roll and summing two grading rubrics feel the same.
+
+**The feel transfers across domains because it's not the content that determines the feel. It's the shape of the possibility space.**
+
+| Shape | Outcomes | Examples across domains | THE FEEL |
+|-------|----------|------------------------|----------|
+| Coin (binary) | 2 | True/false, yes/no, heads/tails, on/off, alive/dead | "It either is or it isn't" |
+| Tetrahedron | 4 | Cardinal directions, seasons, elements, MBTI pairs | "Pick a quadrant" |
+| Cube (d6) | 6 | Standard die, rating scales 1-6, six sigma bands | "Uniform spread, every slot equal" |
+| Octahedron | 8 | Byte values, compass + diagonals, chess queens | "Eight ways to move" |
+| Dodecahedron (d20) | 20 | Scattergories die, D&D check, alphabet minus 6 | "Rich but bounded, springboard energy" |
+| Icosahedron | 12 | Hours on clock, months, tones, jury | "Clustered complexity, golden spacing" |
+| 2d6 | 11 (bell) | D&D armor, craps, two-factor grading | "The middle pulls, extremes are rare" |
+| d100 | 100 | Percentile, percentages, grading | "Smooth gradient, near-infinite resolution" |
+
+### Why Cross-Domain Transfer Works
+
+The poker player who feels a delta on the river card can feel THE SAME QUALITY OF DELTA when:
+- A patient's vitals shift unexpectedly (medical)
+- A market's bid-ask spread widens (finance)
+- A conversation partner's tone changes (social)
+- A code review comment hints at a deeper bug (engineering)
+
+Different domain. Same feel. Because the snap topology of the delta is the same — something moved from "within tolerance" to "outside tolerance" in a possibility space with the same shape.
+
+**The mind doesn't track domain content. It tracks snap topology.** When the topology matches, the feel matches, regardless of what the tokens actually represent.
+
+### This Is Why Experts Transfer Skills They Don't Know They Have
+
+A poker player becomes a good negotiator. Not because they study negotiation — because the snap topologies overlap:
+- Reading the table → reading the room (tetrahedral: ally/adversary/neutral/unknown)
+- Feeling the river shift → feeling the negotiation pivot (binary: improved/worsened)
+- Tracking betting patterns → tracking concession patterns (directional: toward/away from deal)
+
+They're not transferring knowledge. They're transferring CALIBRATED SNAP FUNCTIONS. The tolerance settings that work at the poker table work at the negotiating table because the underlying randomness shapes are isomorphic.
+
+### The Implication For AI
+
+If we want AI to generalize across domains, we shouldn't train it on domain content. We should train it on snap topologies.
+
+An AI that has learned the "feel" of binary randomness (the coin snap) should recognize that feel in ANY binary context — true/false questions, alive/dead decisions, pass/fail tests. Not because it maps the content, but because the snap function is the same.
+
+**The snap topology is the invariant across domain transfer.** The content changes. The tolerance settings don't.
+
+This is what makes our constraint system potentially general: the snap function on the Eisenstein lattice isn't tuned for constraints specifically. It's tuned for a SHAPE of randomness (hexagonal, 6-fold, densest packing). Any domain with that shape of randomness would benefit from the same snap.
+
+---
+
+*The feel is the fingerprint of the shape. The shape is finite (Platonic). Therefore the feels are finite. And they transfer.*
