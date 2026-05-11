@@ -5,6 +5,7 @@ import sys, os, time, math, random, struct, traceback
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from snapkit import *
+from snapkit.spectral import spectral_batch
 from snapkit.eisenstein_voronoi import (
     eisenstein_snap_voronoi, eisenstein_snap_naive, snap_distance,
     eisenstein_snap_batch as voronoi_batch
