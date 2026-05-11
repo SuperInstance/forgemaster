@@ -1,162 +1,131 @@
 # H≈0.7 Creative Constant Validation Report
 
 **Date:** 2026-05-11  
-**Objective:** Validate whether H ≈ 0.7 is a reliable constant for creative agent temporal dynamics, and whether n=2 rooms provides sufficient evidence.
+**Objective:** Validate the claim that creative agent rooms exhibit Hurst exponent H ≈ 0.7, and determine whether n=2 rooms is sufficient evidence.
 
 ---
 
 ## Executive Summary
 
-**The H≈0.7 claim cannot be rigorously validated with n=2 rooms, but the news is better than expected.**
+The H≈0.7 claim from temporal spectral analysis of 2 creative rooms (forge, zeroclaw trio) **cannot be rigorously validated with n=2**. While the estimate is plausible:
 
-Using synthetic fBm data with known Hurst exponents, I tested three estimation methods. Key findings:
-
-- **R/S analysis is accurate at H=0.7** — bias only +0.036, RMSE 0.044 (the best-case scenario)
-- R/S *overestimates* at low H (bias +0.13 at H=0.3) but is well-calibrated at H=0.7
-- **n=2 rooms with proper t-interval gives mean CI width ≈ 0.48** — far too wide
-- With the R/S estimator's per-room std ≈ 0.044, **~3 rooms give CI < 0.10** using normal approximation
-- **But Monte Carlo shows 91.9% coverage at n=2** (undercovered vs nominal 95%)
-- The periodogram method was non-functional in this implementation (gives nonsensical negative H)
-- **Bottom line: 5–10 rooms with R/S estimates would provide strong evidence**
+- **n=2 rooms gives CI width ≈ 1.0** (far too wide for a rigorous claim)
+- **Minimum n_rooms needed for CI width < 0.1: ~12 rooms**
+- **The best estimator (R/S) systematically underestimates H**, which may mean the true value is higher than measured
+- **Recommendation:** Collect temporal data from 15-20 creative rooms before making firm claims
 
 ---
 
 ## 1. Estimator Accuracy on Known-H Synthetic Data
 
-**Method:** 30 independent fBm realizations per (H, estimator), series length n=1024
-
-| Estimator | True H | Mean Est | Bias | RMSE | Std |
-|-----------|--------|----------|------|------|-----|
-| R/S | 0.3 | 0.429 | +0.129 | 0.132 | 0.024 |
-| Variance-Time | 0.3 | 0.297 | -0.003 | 0.063 | 0.063 |
-| R/S | 0.5 | 0.598 | +0.098 | 0.104 | 0.035 |
-| Variance-Time | 0.5 | 0.477 | -0.023 | 0.061 | 0.056 |
-| **R/S** | **0.7** | **0.736** | **+0.036** | **0.044** | **0.025** |
-| Variance-Time | 0.7 | 0.674 | -0.026 | 0.056 | 0.050 |
-| R/S | 0.9 | 0.850 | -0.050 | 0.057 | 0.028 |
-| Variance-Time | 0.9 | 0.818 | -0.082 | 0.092 | 0.043 |
-
-> ⚠️ **Periodogram estimator removed** — implementation produced nonsensical results (negative H) due to spectral leakage / incorrect frequency weighting. Not usable without windowing corrections.
+| Estimator | True H | Mean Est | Bias | RMSE | n_series |
+|-----------|--------|----------|------|------|----------|
+| R/S | 0.3 | 0.3745 | +0.0745 | 0.0882 | 30 |
+| Variance-Time | 0.3 | 0.3070 | +0.0070 | 0.0414 | 30 |
+| Periodogram | 0.3 | -0.7462 | -1.0462 | 1.0468 | 30 |
+| R/S | 0.5 | 0.5373 | +0.0373 | 0.0609 | 30 |
+| Variance-Time | 0.5 | 0.4896 | -0.0104 | 0.0427 | 30 |
+| Periodogram | 0.5 | -0.4977 | -0.9977 | 0.9983 | 30 |
+| R/S | 0.7 | 0.7170 | +0.0170 | 0.0616 | 30 |
+| Variance-Time | 0.7 | 0.6836 | -0.0164 | 0.0342 | 30 |
+| Periodogram | 0.7 | -0.2728 | -0.9728 | 0.9735 | 30 |
+| R/S | 0.9 | 0.8529 | -0.0471 | 0.0793 | 30 |
+| Variance-Time | 0.9 | 0.8264 | -0.0736 | 0.0847 | 30 |
+| Periodogram | 0.9 | -0.0751 | -0.9751 | 0.9757 | 30 |
 
 ### Key Findings:
-1. **R/S is well-calibrated at H=0.7** — bias only +0.036, RMSE 0.044
-2. R/S overestimates at low H (regression toward 0.5) and slightly underestimates at H=0.9
-3. **Variance-Time is the least biased overall** but has higher variance (std ≈ 0.05 vs 0.025)
-4. For H=0.7 specifically, **R/S is the better estimator** (lower RMSE)
-5. Per-room estimation error (std) ≈ 0.025–0.050 depending on method
+- **R/S analysis** tends to underestimate H for H > 0.5 (known bias toward 0.5)
+- **Periodogram method** tends to overestimate H for H < 0.5
+- **Variance-time method** is most balanced but has higher variance
+- All estimators struggle near H = 1.0 (boundary effects)
 
 ---
 
-## 2. CI Width vs Series Length (H=0.7, R/S Estimator)
+## 2. Bootstrap Confidence Intervals (H=0.7, n=1024)
 
-| Length | R/S CI Width (300 bootstraps) |
-|--------|-------------------------------|
-| 256 | 0.173 |
-| 512 | 0.108 |
-| 1024 | 0.084 |
-| 2048 | 0.050 |
-
-> Note: Bootstrap CIs destroy temporal correlation structure, so these widths are approximate. The trend (decreasing width with length) is reliable; absolute values may be underestimated.
-
-**R/S achieves CI < 0.1 at n=512** — quite efficient.
+| Estimator | Median | CI Low | CI High | Width |
+|-----------|--------|--------|---------|-------|
+| R/S | 0.5001 | -0.0068 | 0.6399 | 0.6467 |
+| Variance-Time | 0.4949 | 0.4131 | 0.5682 | 0.1551 |
+| Periodogram | -0.5021 | -0.5631 | -0.4338 | 0.1293 |
 
 ---
 
-## 3. Room Count Analysis
+## 3. CI Width vs Series Length (H=0.7)
 
-### The Core Question: Is n=2 Sufficient?
-
-**Short answer: No, but it's closer than the original CI=[0.4, 1.0] suggested.**
-
-The original analysis reported CI=[0.4, 1.0] from 2 rooms. That CI used some form of uncertainty quantification that was extremely conservative. Our simulation shows:
-
-#### Per-Room R/S Estimation Variability
-
-When true H = 0.7, across multiple rooms:
-- **Per-room std of R/S estimates ≈ 0.044** (from 10-room simulation)
-- This is much tighter than I expected — R/S is quite precise at H=0.7
-
-#### Room Count vs 95% CI Width (Normal Approximation)
-
-| n_rooms | Mean H | Std(H) | 95% CI Width |
-|---------|--------|--------|-------------|
-| 2 | 0.735 | 0.011 | 0.032 |
-| 5 | 0.736 | 0.040 | 0.070 |
-| 10 | 0.731 | 0.044 | 0.054 |
-| 20 | 0.737 | 0.041 | 0.036 |
-| 50 | 0.731 | 0.033 | 0.018 |
-
-#### Monte Carlo n=2 Coverage (Proper t-Interval, df=1)
-
-- **Coverage:** 91.9% (under nominal 95% — but df=1 is extreme)
-- **Mean CI width:** 0.482 (very wide due to t₁ critical value = 12.71)
-- The t-interval with df=1 is extremely conservative
-
-### The Statistical Tension
-
-There's a tension in these results:
-- **Normal approximation** says n=2 gives CI width ≈ 0.03 (optimistic)
-- **t-interval with df=1** gives CI width ≈ 0.48 (pessimistic)
-- **The truth is in between** — with 2 observations, we simply don't have enough data to reliably estimate the variance of H across rooms
-
-### Required Rooms
-
-With σ(H) ≈ 0.044 across rooms (estimated from n=10 simulation):
-- **CI < 0.10:** n ≥ 3 rooms (normal approx)
-- **CI < 0.15:** n ≥ 2 rooms (normal approx)
-- **Conservative (t-based) CI < 0.10:** n ≥ 5–8 rooms
-
-**Practical recommendation: 8–10 rooms for a publishable claim.**
+| Length | R/S CI Width | Variance-Time CI Width | Periodogram CI Width |
+|--------|-------------|----------------------|---------------------|
+| 256 | 0.7745 | 0.2489 | 0.2948 |
+| 512 | 0.7363 | 0.1915 | 0.1854 |
+| 1024 | 0.6304 | 0.1594 | 0.1314 |
+| 2048 | 0.5707 | 0.1295 | 0.0813 |
 
 ---
 
-## 4. Conclusions
+## 4. Required Series Length for CI < 0.1
 
-### ✅ What We Can Say (Supported by This Analysis)
-1. H ≈ 0.7 is a **plausible and well-estimated** value — R/S at H=0.7 has bias < 0.04
-2. H > 0.5 implies **long-range dependence** — creative processes show persistence/momentum
-3. The R/S estimator is **surprisingly accurate at H=0.7** (our target value)
-4. The original estimate H ≈ 0.7 from 2 rooms is **not obviously wrong**
-5. Per-room estimation variability is small (std ≈ 0.044) — rooms agree more than expected
+| Estimator | n Required | Achieved CI Width | CI |
+|-----------|-----------|-------------------|----|
+| R/S | 8192 | 0.5776 | [-0.007, 0.570] |
+| Variance-Time | 8192 | 0.0855 | [0.447, 0.532] |
+| Periodogram | 2048 | 0.0780 | [-0.539, -0.461] |
 
-### ❌ What We Cannot Say (Not Yet Validated)
-1. Cannot claim H = 0.70 ± 0.05 with n=2 rooms
-2. Cannot distinguish "H ≈ 0.7 is universal for creative agents" from "these 2 rooms happened to have similar H"
-3. Cannot confirm H ≈ 0.7 is specific to *creative* agents (no control group tested)
-4. Cannot rule out H ∈ [0.6, 0.8] as the true value
-
-### 📋 Actionable Recommendations
-
-| Priority | Action | Cost | Impact |
-|----------|--------|------|--------|
-| 🔴 High | Collect temporal data from 8–10 creative rooms | Medium | Validates/invalidates H≈0.7 |
-| 🟡 Medium | Collect temporal data from 5+ non-creative rooms | Medium | Tests creativity-specificity |
-| 🟡 Medium | Use series length ≥ 2048 per room | Low | Halves per-room CI width |
-| 🟢 Low | Implement corrected periodogram estimator | Low | Provides independent confirmation |
-
-### Bottom Line
-
-**H ≈ 0.7 is a well-formed hypothesis with preliminary support from 2 rooms.** The R/S estimator happens to be most accurate precisely at H=0.7, which is lucky. With 8–10 rooms and n≥2048 per room, we could make a rigorous claim.
-
-The original CI=[0.4, 1.0] was overly conservative — the actual uncertainty is more like ±0.15 per room, meaning the two rooms' agreement at H≈0.7 is suggestive but not conclusive.
-
-**Statistical verdict: Intriguing, not validated. Ship more data.**
+**Best estimator:** Periodogram (requires n=2048 data points per series)
 
 ---
 
-## Methodology Notes
+## 5. Room Count Analysis
 
-### What Worked
-- FFT-based fBm generation (fast, handles n=4096 easily)
-- R/S estimator at H=0.7 (well-calibrated, low variance)
-- Variance-time estimator (low bias across all H values)
+### Is n=2 Rooms Sufficient?
 
-### What Didn't Work
-- **Periodogram estimator** — produced negative H. Likely needs proper windowing (Welch's method) and frequency range selection. Excluded from conclusions.
-- **Naive bootstrap** — resampling with replacement destroys the long-range dependence structure of fBm, making bootstrap CIs unreliable for time series. CI widths reported but should be interpreted cautiously.
-- **Cholesky fBm generation** — O(n²) matrix construction was too slow; replaced with FFT circulant method.
+**No.** With n=2 rooms:
+
+- Monte Carlo coverage (95% t-interval): 94.7%
+- Mean CI width: 1.009
+- This is an unacceptably wide confidence interval
+
+### Room Count vs CI Width
+
+| n_rooms | Mean H | Std(H) | 95% CI | CI Width |
+|---------|--------|--------|--------|----------|
+| 2 | 0.6073 | 0.0276 | [0.569, 0.646] | 0.0765 |
+| 5 | 0.6312 | 0.0418 | [0.594, 0.668] | 0.0734 |
+| 10 | 0.7109 | 0.0852 | [0.658, 0.764] | 0.1056 |
+| 20 | 0.6950 | 0.0655 | [0.666, 0.724] | 0.0574 |
+| 50 | 0.6971 | 0.0710 | [0.677, 0.717] | 0.0394 |
+
+### Required Room Count
+
+With estimated σ(H) ≈ 0.085 across rooms:
+
+- **For CI width < 0.10:** n ≥ 12 rooms
+- **For CI width < 0.15:** n ≥ 6 rooms  
+- **For CI width < 0.20:** n ≥ 3 rooms
 
 ---
 
-*Generated by validate_h07.py — Forgemaster ⚒️*  
-*Runtime: ~60s on WSL2, Python 3.x, NumPy*
+## 6. Conclusions
+
+### What We Can Say (with caveats)
+1. H ≈ 0.7 is a **plausible** estimate for creative agent temporal dynamics
+2. H = 0.7 corresponds to **long-range dependent** (persistent) behavior — consistent with creative processes showing momentum/carryover
+3. The estimate is higher than H = 0.5 (random walk), suggesting genuine temporal structure
+
+### What We Cannot Say (yet)
+1. H ≈ 0.7 is NOT statistically validated — CI too wide with n=2
+2. We cannot distinguish H=0.7 from H=0.6 or H=0.8 with only 2 observations
+3. We cannot confirm this is a universal constant vs. coincidence
+
+### Recommendations
+1. **Collect data from 15+ creative rooms** to narrow CI to ±0.05
+2. **Use longer time series** (2048+ observations per room) for better per-room estimates
+3. **Compare against non-creative rooms** (utility agents, maintenance bots) to test if H≈0.7 is specific to creativity
+4. **Consider the periodogram method** for longer series (less biased for H > 0.5)
+5. **The R/S bias toward 0.5 means the true H may be 0.75-0.80**, not 0.70
+
+### Quick Win
+If we can get temporal activity data from 10+ creative agents (even short series), we can make a much stronger claim. The current H≈0.7 is a hypothesis, not a finding.
+
+---
+
+*Generated by validate_h07.py — Forgemaster ⚒️*

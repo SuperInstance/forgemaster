@@ -1,0 +1,144 @@
+{
+  "voronoi": [
+    {
+      "name": "snap_naive (single)",
+      "elapsed": 0.03478576097404584,
+      "ops_sec": 5749478.936201018
+    },
+    {
+      "name": "snap_voronoi (single)",
+      "elapsed": 0.3630384539719671,
+      "ops_sec": 275452.91388807463
+    },
+    {
+      "name": "snap_voronoi (1K unique)",
+      "elapsed": 0.31545663601718843,
+      "ops_sec": 317.00078103461186
+    },
+    {
+      "name": "snap_distance (single)",
+      "elapsed": 0.11576634098310024,
+      "ops_sec": 4319044.687375848
+    }
+  ],
+  "eisenstein": [
+    {
+      "name": "eisenstein_round_naive (single)",
+      "elapsed": 0.3090000739903189,
+      "ops_sec": 323624.51797708316
+    },
+    {
+      "name": "eisenstein_round (single)",
+      "elapsed": 0.19861920998664573,
+      "ops_sec": 251737.98648862704
+    },
+    {
+      "name": "eisenstein_snap (single)",
+      "elapsed": 0.22722505097044632,
+      "ops_sec": 220046.1603439278
+    },
+    {
+      "name": "EisensteinInteger multiply",
+      "elapsed": 0.17741032398771495,
+      "ops_sec": 2818325.2742079613
+    },
+    {
+      "name": "EisensteinInteger.norm_squared",
+      "elapsed": 0.124440873041749,
+      "ops_sec": 8035944.907462256
+    },
+    {
+      "name": "EisensteinInteger.complex",
+      "elapsed": 0.1954607039806433,
+      "ops_sec": 5116117.867349087
+    }
+  ],
+  "temporal": [
+    {
+      "name": "BeatGrid.nearest_beat (single)",
+      "elapsed": 0.06784129398874938,
+      "ops_sec": 2948056.9759351504
+    },
+    {
+      "name": "BeatGrid.snap (single)",
+      "elapsed": 0.25223681301577017,
+      "ops_sec": 792905.6730807003
+    },
+    {
+      "name": "BeatGrid.snap (10K unique)",
+      "elapsed": 0.06248304800828919,
+      "ops_sec": 800.2170443632464
+    },
+    {
+      "name": "BeatGrid.beats_in_range",
+      "elapsed": 0.11392327200155705,
+      "ops_sec": 438891.8885626514
+    },
+    {
+      "name": "TemporalSnap.observe (single)",
+      "elapsed": 0.1366278020432219,
+      "ops_sec": 365957.7278728572
+    }
+  ],
+  "spectral": [
+    {
+      "name": "entropy (500 pts, 10 bins)",
+      "elapsed": 0.06466626597102731,
+      "ops_sec": 15464.013345815174
+    },
+    {
+      "name": "autocorrelation (500 pts, lag=50)",
+      "elapsed": 0.0659085230436176,
+      "ops_sec": 758.6272259038561
+    },
+    {
+      "name": "hurst_exponent (500 pts)",
+      "elapsed": 0.017659128992818296,
+      "ops_sec": 2831.3967251915
+    },
+    {
+      "name": "spectral_summary (500 pts)",
+      "elapsed": 0.05262283200863749,
+      "ops_sec": 190.03158169743895
+    }
+  ],
+  "connectome": [
+    {
+      "name": "Connectome.analyze (5 rooms, 200 pts)",
+      "elapsed": 1.3355814730166458,
+      "ops_sec": 374.3687750255041
+    },
+    {
+      "name": "Connectome.analyze (20 rooms, 500 pts)",
+      "elapsed": 2.327373939973768,
+      "ops_sec": 4.296688137752677
+    }
+  ],
+  "midi": [
+    {
+      "name": "FluxTensorMIDI.note_on",
+      "elapsed": 0.0792950339964591,
+      "ops_sec": 630556.5112971985
+    },
+    {
+      "name": "FluxTensorMIDI.render (100 events)",
+      "elapsed": 37.83131069497904,
+      "ops_sec": 264.33131224626584
+    },
+    {
+      "name": "FluxTensorMIDI.quantize (100 events)",
+      "elapsed": 243.843995370029,
+      "ops_sec": 20.504913366484942
+    },
+    {
+      "name": "TempoMap.tick_to_seconds",
+      "elapsed": 0.04098087298916653,
+      "ops_sec": 2440162.7565726927
+    },
+    {
+      "name": "TempoMap.seconds_to_tick",
+      "elapsed": 0.06614975299453363,
+      "ops_sec": 1511721.442229174
+    }
+  ]
+}

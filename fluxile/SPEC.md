@@ -1,10 +1,10 @@
 # Fluxile Language Specification
 
-**Version:** 0.1.0 (Proof of Concept)
-**Status:** Draft
+**Version:** 0.2.0
+**Status:** Active
 **Author:** Forgemaster ⚒️ (Cocapn Fleet)
 **Date:** 2026-05-11
-**Compiles to:** FLUX ISA v3 bytecode (FLUX-X layer)
+**Compiles to:** FLUX ISA v3 bytecode (FLUX-X / FLUX-C layers)
 
 ---
 
@@ -128,11 +128,13 @@ constraint fn check_bounds(val: i32, min: i32, max: i32) {
 ### 5.1 Let Binding
 
 ```fluxile
-let x = expr;
-let y: f32 = expr;
+let x = expr;          // immutable
+let y: f32 = expr;     // immutable with type annotation
+let mut z = expr;      // mutable
+let mut w: i32 = expr; // mutable with type annotation
 ```
 
-Compiles to: evaluate expr, store in allocated register or stack slot.
+Compiles to: evaluate expr, store in allocated register or stack slot. `mut` is tracked at compile time for future mutability checks.
 
 ### 5.2 Assignment
 
@@ -237,17 +239,32 @@ while condition {
 
 Compiles to: label, evaluate condition, `JumpIfNot` to end, body, `Jump` back to label.
 
-### 7.3 Match Expression (future)
+### 7.3 For Loop (Range)
 
 ```fluxile
-match value {
-    pattern => expr,
-    pattern => expr,
-    _ => default,
+for i in range(n) {
+    body
+}
+for i in range(start, end) {
+    body
 }
 ```
 
-Planned for v0.2. Compiles to chained comparison + conditional jumps.
+Compiles to a `while` loop with a counter variable:
+1. `i = start` (or `0`)
+2. `while i < end { body; i = i + 1; }`
+
+### 7.4 Match Expression
+
+```fluxile
+match value {
+    0 => { return 1; },
+    1 => { return 2; },
+    _ => { return 3; },
+}
+```
+
+Compiles to chained `ICmpEq` + `JumpIfNot` comparisons. Wildcard `_` arm is unconditional (always matches).
 
 ---
 
@@ -409,17 +426,51 @@ fn cosine_similarity(a: vec9, b: vec9) -> f32 {
 
 ---
 
-## 13. Future Work (v0.2+)
+## 13. Compilation Pipeline
 
-- [ ] `match` expressions with pattern matching
-- [ ] Struct types for structured agent messages
-- [ ] `for` loops with range iterators
-- [ ] String literals and print operations
-- [ ] Module system with `use`/`mod`
-- [ ] Compile-time constraint verification (formal proofs)
-- [ ] Direct bytecode emission (skip text assembly)
-- [ ] Debug info (source maps, variable names)
-- [ ] FLUX-C layer integration for safety-critical code
+```
+Fluxile Source (.fx)
+       ↓
+   Lexer (tokens)
+       ↓
+   Parser (AST)
+       ↓
+   IR Builder (FLAT IR)
+       ↓
+   Optimization Passes:
+     - Constant Folding
+     - Strength Reduction (x*2 → x<<1, x*4 → x<<2, x/2 → x>>1)
+     - Dead Code Elimination
+     - Peephole Optimization
+       ↓
+   Register Allocation (graph coloring + coalescing)
+       ↓
+   Code Emission (FLUX assembly, FLUX-X or FLUX-C layer)
+       ↓
+   FLUX ISA v3 Assembly (.fluxasm)
+```
+
+### Optimization Levels
+
+- **Level 0:** No optimization — direct lowering
+- **Level 1:** Basic constant folding + DCE
+- **Level 2 (default):** Full pipeline — folding, strength reduction, DCE, peephole, multi-pass
+
+### Register Allocation
+
+- Chaitin-Briggs graph coloring with copy coalescing
+- 8 GP registers (R0–R7), 8 FP registers (F0–F7)
+- Interference graph built via backward liveness analysis
+- Move coalescing merges non-interfering copy pairs
+- Automatic stack spilling when all registers are live
+
+### Constraint Compilation (FLUX-C)
+
+`constraint fn` functions compile to the FLUX-C layer:
+- Stack-based evaluation for deterministic verification
+- `require` violations compile to `PANIC`
+- Can be independently verified without executing function body
+- Separately emitted bytecode for safety-critical auditing
 
 ---
 

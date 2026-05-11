@@ -1,55 +1,54 @@
 """
-Spectral analysis — entropy, Hurst exponent, autocorrelation.
+Spectral analysis — entropy, Hurst exponent, autocorrelation — OPTIMIZED.
 
-All implementations use only the Python standard library.
-These are temporal spectral analysis tools that complement the
-Eisenstein spatial snap and the temporal beat grid.
-
-References:
-  - Shannon entropy: H = -Σ p_i log2(p_i)
-  - Hurst exponent: R/S analysis (rescaled range method)
-  - Autocorrelation: biased estimator, normalized
+Changes from baseline:
+  - Autocorrelation: local variable caching, pre-computed inv_n and inv_r0
+  - Hurst exponent: reduced allocation, inline min/max in cumulative deviations
+  - Added __slots__ to SpectralSummary
+  - Batch operations
+  - Type hints on signatures only (not in hot body — CPython 3.10 overhead)
+  - Precomputed constants (1/e, log(2))
 """
 
 import math
-from typing import List, Optional, Tuple
+from typing import List, Optional
 from dataclasses import dataclass
 
 
 def entropy(data: List[float], bins: int = 10) -> float:
-    """Compute Shannon entropy of a 1D signal via histogram binning.
-
-    Args:
-        data: Input signal values.
-        bins: Number of histogram bins.
-
-    Returns:
-        Shannon entropy in bits (base-2 logarithm).
-        Returns 0.0 for constant signals or empty data.
-    """
-    if len(data) < 2:
+    """Compute Shannon entropy via histogram binning."""
+    n = len(data)
+    if n < 2:
         return 0.0
 
-    min_val = min(data)
-    max_val = max(data)
+    # Inline min/max for speed
+    min_val = data[0]
+    max_val = data[0]
+    for x in data:
+        if x < min_val:
+            min_val = x
+        elif x > max_val:
+            max_val = x
+
     if max_val == min_val:
         return 0.0
 
-    bin_width = (max_val - min_val) / bins
+    inv_range = bins / (max_val - min_val)
     counts = [0] * bins
 
     for x in data:
-        idx = int((x - min_val) / bin_width)
+        idx = int((x - min_val) * inv_range)
         if idx >= bins:
             idx = bins - 1
         counts[idx] += 1
 
-    n = len(data)
+    inv_n = 1.0 / n
+    inv_log2 = 1.0 / math.log(2)
     h = 0.0
     for c in counts:
         if c > 0:
-            p = c / n
-            h -= p * math.log2(p)
+            p = c * inv_n
+            h -= p * math.log(p) * inv_log2
 
     return h
 
@@ -58,17 +57,9 @@ def autocorrelation(
     data: List[float],
     max_lag: Optional[int] = None,
 ) -> List[float]:
-    """Compute normalized autocorrelation of a signal.
+    """Compute normalized autocorrelation.
 
-    Uses the biased estimator: R(k) = (1/N) Σ x(t)·x(t+k)
-    Normalized: ρ(k) = R(k) / R(0)
-
-    Args:
-        data: Input signal values.
-        max_lag: Maximum lag to compute. Defaults to len(data) // 2.
-
-    Returns:
-        List of autocorrelation values for lags 0, 1, ..., max_lag.
+    OPTIMIZED: Single-pass centering, local variable caching, pre-computed inv_r0.
     """
     n = len(data)
     if n < 2:
@@ -78,62 +69,67 @@ def autocorrelation(
         max_lag = n // 2
     max_lag = min(max_lag, n - 1)
 
-    mean = sum(data) / n
-    centered = [x - mean for x in data]
+    inv_n = 1.0 / n
+    mean = sum(data) * inv_n
 
-    # Variance (R(0))
-    r0 = sum(x * x for x in centered) / n
+    # Center and compute variance in one pass
+    centered = [x - mean for x in data]
+    r0 = 0.0
+    for x in centered:
+        r0 += x * x
+    r0 *= inv_n
+
     if r0 == 0:
         return [1.0] + [0.0] * max_lag
 
-    result = []
+    inv_r0 = 1.0 / r0
+    result = [0.0] * (max_lag + 1)
+
+    c = centered  # local reference avoids global lookup
     for lag in range(max_lag + 1):
-        rk = sum(centered[t] * centered[t + lag] for t in range(n - lag)) / n
-        result.append(rk / r0)
+        rk = 0.0
+        limit = n - lag
+        for t in range(limit):
+            rk += c[t] * c[t + lag]
+        result[lag] = rk * inv_n * inv_r0
 
     return result
 
 
 def hurst_exponent(data: List[float]) -> float:
-    """Estimate the Hurst exponent using R/S (rescaled range) analysis.
+    """Estimate Hurst exponent via R/S analysis.
 
-    The Hurst exponent H characterizes the long-range correlation:
-      H < 0.5: mean-reverting (anti-persistent)
-      H ≈ 0.5: random walk (Brownian motion)
-      H > 0.5: trending (persistent)
-
-    Method:
-      1. Split data into subseries of length n.
-      2. For each subseries, compute R/S = (range of cumulative deviations) / std.
-      3. Regress log(R/S) on log(n) to get H.
-
-    Args:
-        data: Input signal. Should have ≥ 100 points for reliable estimates.
-
-    Returns:
-        Estimated Hurst exponent, clamped to [0, 1].
+    OPTIMIZED: Inline min/max in cumulative deviations, geometric size progression.
     """
     n = len(data)
     if n < 20:
-        return 0.5  # insufficient data, assume random walk
+        return 0.5
 
-    mean_val = sum(data) / n
+    inv_n = 1.0 / n
+    mean_val = sum(data) * inv_n
     centered = [x - mean_val for x in data]
 
-    # Compute R/S for multiple subseries sizes
-    sizes = []
-    rs_values = []
-
-    # Use powers of 2 and some intermediate sizes
+    # Geometric progression of test sizes
     test_sizes = []
     s = 16
     while s <= n // 2:
         test_sizes.append(s)
-        s = int(s * 1.5) if s * 2 > n // 2 else s * 2
+        s = s * 2 if s * 2 <= n // 2 else int(s * 1.5)
+        if s == test_sizes[-1]:
+            break
 
     if not test_sizes:
-        test_sizes = [n // 4] if n >= 8 else [n]
+        if n >= 8:
+            test_sizes = [n // 4]
+        else:
+            test_sizes = [n]
         test_sizes = [s for s in test_sizes if s >= 4]
+
+    sizes = []
+    rs_values = []
+
+    _log = math.log
+    _sqrt = math.sqrt
 
     for size in test_sizes:
         if size < 4 or size > n:
@@ -143,30 +139,40 @@ def hurst_exponent(data: List[float]) -> float:
         if num_subseries < 1:
             continue
 
-        rs_list = []
-        for i in range(num_subseries):
-            sub = centered[i * size: (i + 1) * size]
-            sub_mean = sum(sub) / size
+        inv_size = 1.0 / size
+        rs_sum = 0.0
+        rs_count = 0
 
-            # Cumulative deviations
-            cum_dev = []
+        for i in range(num_subseries):
+            start = i * size
+            sub = centered[start: start + size]
+            sub_mean = sum(sub) * inv_size
+
+            # Inline cumulative deviations with min/max tracking
             running = 0.0
+            cum_min = 0.0
+            cum_max = 0.0
             for x in sub:
                 running += x - sub_mean
-                cum_dev.append(running)
+                if running < cum_min:
+                    cum_min = running
+                elif running > cum_max:
+                    cum_max = running
 
-            # Range of cumulative deviations
-            r = max(cum_dev) - min(cum_dev)
+            r = cum_max - cum_min
 
-            # Standard deviation
-            var = sum((x - sub_mean) ** 2 for x in sub) / size
-            s = math.sqrt(var) if var > 0 else 1e-10
+            var = 0.0
+            for x in sub:
+                d = x - sub_mean
+                var += d * d
+            var *= inv_size
 
-            if s > 1e-10:
-                rs_list.append(r / s)
+            if var > 1e-20:
+                rs_sum += r / _sqrt(var)
+                rs_count += 1
 
-        if rs_list:
-            avg_rs = sum(rs_list) / len(rs_list)
+        if rs_count > 0:
+            avg_rs = rs_sum / rs_count
             if avg_rs > 0:
                 sizes.append(size)
                 rs_values.append(avg_rs)
@@ -174,15 +180,23 @@ def hurst_exponent(data: List[float]) -> float:
     if len(sizes) < 2:
         return 0.5
 
-    # Linear regression on log-log: log(R/S) = log(c) + H·log(n)
-    log_n = [math.log(s) for s in sizes]
-    log_rs = [math.log(r) for r in rs_values]
+    # Linear regression on log-log
+    n_pts = len(sizes)
+    log_n = [_log(s) for s in sizes]
+    log_rs = [_log(r) for r in rs_values]
 
-    n_pts = len(log_n)
-    sum_x = sum(log_n)
-    sum_y = sum(log_rs)
-    sum_xy = sum(a * b for a, b in zip(log_n, log_rs))
-    sum_x2 = sum(a * a for a in log_n)
+    sum_x = 0.0
+    sum_y = 0.0
+    sum_xy = 0.0
+    sum_x2 = 0.0
+
+    for i in range(n_pts):
+        lx = log_n[i]
+        ly = log_rs[i]
+        sum_x += lx
+        sum_y += ly
+        sum_xy += lx * ly
+        sum_x2 += lx * lx
 
     denom = n_pts * sum_x2 - sum_x * sum_x
     if denom == 0:
@@ -195,11 +209,14 @@ def hurst_exponent(data: List[float]) -> float:
 @dataclass
 class SpectralSummary:
     """Summary of spectral analysis on a signal."""
+    __slots__ = ('entropy_bits', 'hurst', 'autocorr_lag1',
+                 'autocorr_decay', 'is_stationary')
+
     entropy_bits: float
     hurst: float
     autocorr_lag1: float
-    autocorr_decay: float  # lag where autocorrelation drops below 1/e
-    is_stationary: bool    # Hurst ≈ 0.5 and low autocorrelation
+    autocorr_decay: float
+    is_stationary: bool
 
 
 def spectral_summary(
@@ -207,31 +224,21 @@ def spectral_summary(
     bins: int = 10,
     max_lag: Optional[int] = None,
 ) -> SpectralSummary:
-    """Compute a complete spectral summary of a signal.
-
-    Args:
-        data: Input signal.
-        bins: Number of bins for entropy calculation.
-        max_lag: Maximum lag for autocorrelation.
-
-    Returns:
-        SpectralSummary with all metrics.
-    """
+    """Compute a complete spectral summary of a signal."""
     h = entropy(data, bins)
     hurst_val = hurst_exponent(data)
     acf = autocorrelation(data, max_lag)
 
     acf_lag1 = acf[1] if len(acf) > 1 else 0.0
 
-    # Find decay point (where |acf| drops below 1/e)
+    # Precomputed 1/e
     decay_lag = float(len(acf))
-    threshold = 1.0 / math.e
-    for i, val in enumerate(acf):
-        if i > 0 and abs(val) < threshold:
+    threshold = 0.36787944117144233
+    for i in range(1, len(acf)):
+        if abs(acf[i]) < threshold:
             decay_lag = float(i)
             break
 
-    # Stationarity heuristic: H near 0.5 and low autocorrelation
     is_stationary = (0.4 <= hurst_val <= 0.6) and abs(acf_lag1) < 0.3
 
     return SpectralSummary(
@@ -241,3 +248,12 @@ def spectral_summary(
         autocorr_decay=decay_lag,
         is_stationary=is_stationary,
     )
+
+
+def spectral_batch(
+    series_list: List[List[float]],
+    bins: int = 10,
+    max_lag: Optional[int] = None,
+) -> List[SpectralSummary]:
+    """Compute spectral summary for multiple time series."""
+    return [spectral_summary(data, bins, max_lag) for data in series_list]
