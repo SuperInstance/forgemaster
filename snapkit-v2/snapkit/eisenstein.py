@@ -86,54 +86,16 @@ def _to_eisenstein_coords(z: complex) -> Tuple[float, float]:
     return a_float, b_float
 
 
-def _resolve_overlap(
-    a_floor: int, b_floor: int,
-    a_ceil: int, b_ceil: int,
-    z: complex,
-) -> Tuple[int, int]:
-    """Resolve overlapping Voronoi cell boundaries.
+def eisenstein_round_naive(z: complex) -> EisensteinInteger:
+    """Naive rounding (legacy, kept for comparison).
 
-    At boundaries where the nearest lattice point is ambiguous (equidistant
-    from 2+ Eisenstein integers), prefer the canonical representative:
-    smallest |a|, then smallest |b|. This is the falsification fix —
-    without this, boundary points non-deterministically snap to different
-    cells depending on floating-point rounding direction.
-    """
-    candidates = []
-    for da in (0, 1):
-        for db in (0, 1):
-            a = a_floor + da
-            b = b_floor + db
-            cand = EisensteinInteger(a, b)
-            dist = abs(z - cand.complex)
-            candidates.append((dist, abs(a), abs(b), a, b))
-
-    candidates.sort()
-    min_dist = candidates[0][0]
-
-    # Collect all candidates within epsilon of the minimum distance
-    eps = 1e-9
-    tied = [(c[1], c[2], c[3], c[4]) for c in candidates if c[0] <= min_dist + eps]
-
-    # Canonical resolution: smallest |a|, then smallest |b|
-    tied.sort()
-    return tied[0][2], tied[0][3]
-
-
-def eisenstein_round(z: complex) -> EisensteinInteger:
-    """Round a complex number to the nearest Eisenstein integer.
-
-    Uses the canonical overlap resolution to ensure deterministic
-    snapping at Voronoi cell boundaries.
+    Checks only the 4 lattice points in the unit cell surrounding z.
+    Known to fail at A₂ Voronoï cell boundaries.
     """
     a_float, b_float = _to_eisenstein_coords(z)
-
     a_floor = math.floor(a_float)
     b_floor = math.floor(b_float)
-    a_ceil = a_floor + 1
-    b_ceil = b_floor + 1
 
-    # Check the 4 nearest lattice points: (a_floor/b_floor) + {0,1}×{0,1}
     best = None
     best_dist = float("inf")
     tied = []
@@ -150,9 +112,24 @@ def eisenstein_round(z: complex) -> EisensteinInteger:
             elif abs(dist - best_dist) < 1e-9:
                 tied.append((abs(a), abs(b), a, b))
 
-    # Resolve ties canonically
     tied.sort()
     return EisensteinInteger(tied[0][2], tied[0][3])
+
+
+def eisenstein_round(z: complex) -> EisensteinInteger:
+    """Round a complex number to the nearest Eisenstein integer.
+
+    Uses proper A₂ Voronoï cell geometry: checks a 3×3 neighborhood
+    of candidates around the naive estimate, guaranteeing snap distance
+    ≤ 1/√3 (the A₂ covering radius).
+
+    This fixes the boundary bug where naive coordinate rounding missed
+    the true nearest neighbor at hexagonal cell edges.
+    """
+    from snapkit.eisenstein_voronoi import eisenstein_snap_voronoi
+
+    a, b = eisenstein_snap_voronoi(z.real, z.imag)
+    return EisensteinInteger(a, b)
 
 
 def eisenstein_snap(
