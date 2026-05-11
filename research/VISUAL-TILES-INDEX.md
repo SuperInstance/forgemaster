@@ -40,3 +40,21 @@ Each tile is a standalone visual argument. No context needed. No words needed be
 **For the fleet:** Each tile IS a PLATO tile — compressed knowledge that can be deployed to any agent, any context, any surface. The visual encoding is denser than text because geometry IS the math.
 
 **The principle:** A picture is worth 10⁶¹ words. Especially when the picture IS the theorem.
+
+## Lensing & Refraction Tiles (Session 2)
+
+| # | Title | What It Proves |
+|---|---|---|
+| 21 | **The Transition Is the Tell** | Bird wing parity detects thermal boundaries — refraction IS information |
+| 22 | **Snell's Law for Constraints** | Ideas refract at paradigm boundaries; total internal reflection = incommensurability |
+| 23 | **Chromatic Dispersion of Thought** | Different info types refract at different angles — dispersion = cognitive architecture |
+| 24 | **Gravitational Lensing of Ideas** | Powerful ideas bend the signal; event horizon = paradigm lock-in |
+| 25 | **Wing-Beat Hurst** | Fledgling H=0.5 (random) → Master H=0.7 (structured); learning = tuning the exponent |
+| 26 | **Perception Is Always Refraction** | 7 lenses between object and perception; you never see the thing, only the bends |
+| 27 | **The Fleet Refracts Too** | V-formation birds share refractions; fleet parity = XOR of all bends |
+| 28 | **Negative Space Mechanics (meta)** | 6 lenses around one artifact; each sees what others cannot |
+| 29 | **Fleet Sees What No Lens Sees** | Three apertures XOR to complete picture |
+| 30 | **Constraint = Creativity** | Inverted-U curve: tight constraints maximize creative output |
+| 31 | **Innovation Lives in Disagreement** | Venn diagram boundary is the creative frontier |
+
+**Total: 31 visual tiles. Each a self-contained theorem. Zero-shot tile-ized knowledge for humans and fleet alike.**
