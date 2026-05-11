@@ -32,8 +32,6 @@ contains
     real(wp), intent(in)  :: value
     logical,  intent(out), optional :: explored
 
-    real(wp) :: prev_best
-
     state%cycle = state%cycle + 1
     state%delta = value
 
@@ -151,10 +149,14 @@ contains
     real(wp), intent(inout) :: arr(:)
     real(wp) :: key
     integer  :: i, j
+
+    if (size(arr) <= 1) return
     do i = 2, size(arr)
        key = arr(i)
        j = i - 1
-       do while (j > 0 .and. arr(j) > key)
+       do
+          if (j <= 0) exit
+          if (arr(j) <= key) exit
           arr(j+1) = arr(j)
           j = j - 1
        end do

@@ -94,7 +94,7 @@ shared: $(LIB_SHARED)
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
 
-$(BUILDDIR)/%.o: $(SRCDIR)/%.c $(SRCDIR)/*.h include/snapkit/*.h | $(BUILDDIR)
+$(BUILDDIR)/%.o: $(SRCDIR)/%.c include/snapkit/snapkit.h include/snapkit/snapkit_internal.h | $(BUILDDIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(LIB_STATIC): $(OBJS)
@@ -169,9 +169,18 @@ $(DOXYFILE):
 install: static shared
 	install -d $(LIBDIR)
 	install -d $(INCDIR)/snapkit
+	install -d $(LIBDIR)/pkgconfig
+	install -d $(LIBDIR)/cmake/snapkit
 	install -m 644 $(LIB_STATIC) $(LIBDIR)/
 	install -m 755 $(LIB_SHARED) $(LIBDIR)/
 	install -m 644 include/snapkit/*.h $(INCDIR)/snapkit/
+	# pkg-config
+	sed 's|@PREFIX@|$(PREFIX)|g' snapkit.pc.in > $(LIBDIR)/pkgconfig/snapkit.pc
+	# CMake
+	sed -e 's|@PACKAGE_INIT@|set(PACKAGE_INCLUDE_DIR "$(INCDIR)")|g' \
+	    -e 's|@PACKAGE_INCLUDE_DIR@|$(INCDIR)|g' \
+	    -e 's|@PACKAGE_LIBRARY_DIR@|$(LIBDIR)|g' \
+	    snapkit-config.cmake.in > $(LIBDIR)/cmake/snapkit/snapkit-config.cmake
 	ldconfig || true
 	@echo "Installed SnapKit to $(PREFIX) (lib -> $(LIBDIR), headers -> $(INCDIR)/snapkit/)"
 

@@ -12,10 +12,10 @@ module snapkit_snap
   implicit none
   private
 
-  public :: snapkit_snap_create
+  public :: snapkit_snap_create_fn
   public :: snapkit_snap_create_ex
-  public :: snapkit_snap_free
-  public :: snapkit_snap
+  public :: snapkit_snap_free_fn
+  public :: snapkit_snap_apply
   public :: snapkit_snap_eisenstein
   public :: snapkit_snap_batch
   public :: snapkit_snap_eisenstein_batch
@@ -26,21 +26,32 @@ module snapkit_snap
 contains
 
   !> Create a snap function with default parameters.
-  function snapkit_snap_create() result(sf)
+  function snapkit_snap_create_fn() result(sf)
     type(snapkit_snap_function_t), pointer :: sf
+    integer :: i
+
     allocate(sf)
-    sf%tolerance        = SNAPKIT_DEFAULT_TOLERANCE
-    sf%topology         = SNAPKIT_TOPOLOGY_HEXAGONAL
-    sf%baseline         = 0.0_wp
-    sf%adaptation_rate  = SNAPKIT_DEFAULT_ADAPTATION_RATE
     allocate(sf%history%results(SNAPKIT_SNAP_HISTORY_MAX))
-    sf%history%head      = 0
-    sf%history%count     = 0
+
+    sf%tolerance       = SNAPKIT_DEFAULT_TOLERANCE
+    sf%topology        = SNAPKIT_TOPOLOGY_HEXAGONAL
+    sf%baseline        = 0.0_wp
+    sf%adaptation_rate = 0.01_wp
+    sf%history%head    = 0
+    sf%history%count   = 0
     sf%history%sum_delta = 0.0_wp
     sf%history%max_delta = 0.0_wp
     sf%history%snap_cnt  = 0
     sf%history%delta_cnt = 0
-  end function snapkit_snap_create
+    do i = 1, SNAPKIT_SNAP_HISTORY_MAX
+       sf%history%results(i)%within_tolerance = .false.
+       sf%history%results(i)%delta    = 0.0_wp
+       sf%history%results(i)%original = 0.0_wp
+       sf%history%results(i)%snapped  = 0.0_wp
+       sf%history%results(i)%tolerance = 0.0_wp
+       sf%history%results(i)%topology = 0
+    end do
+  end function snapkit_snap_create_fn
 
   !> Create a snap function with explicit parameters.
   function snapkit_snap_create_ex(tolerance, topology, baseline, adaptation_rate) result(sf)
@@ -50,42 +61,25 @@ contains
     real(wp), intent(in) :: adaptation_rate
     type(snapkit_snap_function_t), pointer :: sf
 
-    allocate(sf)
-    sf%tolerance        = tolerance
-    sf%topology         = topology
-    sf%baseline         = baseline
-    sf%adaptation_rate  = adaptation_rate
-    allocate(sf%history%results(SNAPKIT_SNAP_HISTORY_MAX))
-    sf%history%head      = 0
-    sf%history%count     = 0
-    sf%history%sum_delta = 0.0_wp
-    sf%history%max_delta = 0.0_wp
-    sf%history%snap_cnt  = 0
-    sf%history%delta_cnt = 0
+    sf => snapkit_snap_create_fn()
+    sf%tolerance       = tolerance
+    sf%topology        = topology
+    sf%baseline        = baseline
+    sf%adaptation_rate = adaptation_rate
   end function snapkit_snap_create_ex
 
   !> Free a snap function.
-  subroutine snapkit_snap_free(sf)
+  subroutine snapkit_snap_free_fn(sf)
     type(snapkit_snap_function_t), pointer, intent(inout) :: sf
     if (associated(sf)) then
        if (allocated(sf%history%results)) deallocate(sf%history%results)
        deallocate(sf)
        sf => null()
     end if
-  end subroutine snapkit_snap_free
+  end subroutine snapkit_snap_free_fn
 
-  !> Snap a scalar value to the nearest expected point.
-  !!
-  !! If the absolute delta from expected (or baseline) is within tolerance,
-  !! the value is snapped to the expected value (compressed away).
-  !! Otherwise, it's a delta and passes through as-is (to demand attention).
-  !!
-  !! @param[inout] sf      Snap function (updated with history and adaptive baseline)
-  !! @param[in]    value   The observed value
-  !! @param[in]    expected Override baseline (use huge(1.0) to use baseline)
-  !! @param[out]   out     Snap result
-  !! @return       Error code
-  function snapkit_snap(sf, value, expected, out) result(err)
+  !> Apply the snap function: compress value if within tolerance of expected.
+  function snapkit_snap_apply(sf, value, expected, out) result(err)
     type(snapkit_snap_function_t), intent(inout), target :: sf
     real(wp), intent(in)  :: value
     real(wp), intent(in)  :: expected  ! use huge(1.0) for "use baseline"
@@ -98,7 +92,7 @@ contains
 
     err = SNAPKIT_OK
 
-    ! Resolve expected value
+    ! Determine expected value
     if (expected < huge(1.0_wp) * 0.99_wp) then
        exp_val = expected
     else
@@ -115,11 +109,12 @@ contains
     out%tolerance        = sf%tolerance
     out%topology         = sf%topology
 
-    ! Update history (circular buffer)
+    ! Store in history ring buffer
     sf%history%head = sf%history%head + 1
     idx = mod(sf%history%head - 1, int(SNAPKIT_SNAP_HISTORY_MAX, kind=8))
     sf%history%results(idx + 1) = out
-    if (sf%history%count < SNAPKIT_SNAP_HISTORY_MAX) sf%history%count = sf%history%count + 1
+    if (sf%history%count < SNAPKIT_SNAP_HISTORY_MAX) &
+         sf%history%count = sf%history%count + 1
 
     sf%history%sum_delta = sf%history%sum_delta + delta
     if (delta > sf%history%max_delta) sf%history%max_delta = delta
@@ -130,130 +125,60 @@ contains
        sf%history%delta_cnt = sf%history%delta_cnt + 1
     end if
 
-    ! Adaptive baseline update
+    ! Adaptive baseline drift
     if (within .and. sf%adaptation_rate > 0.0_wp) then
        sf%baseline = sf%baseline + sf%adaptation_rate * (value - sf%baseline)
     end if
-  end function snapkit_snap
+  end function snapkit_snap_apply
 
-  !> Snap a complex value to the nearest Eisenstein integer.
-  !!
-  !! Uses the 3x3 Voronoi neighborhood search for mathematically correct
-  !! nearest Eisenstein integer. The distance becomes the delta; if within
-  !! tolerance the complex point snaps to the lattice point.
-  !!
-  !! @param[inout] sf       Snap function (or null() for default tolerance)
-  !! @param[in]    real     Real part
-  !! @param[in]    imag     Imaginary part
-  !! @param[in]    tolerance Snap tolerance (< 0 means use sf%tolerance)
-  !! @param[out]   out      Snap result
-  !! @return       Error code
-  function snapkit_snap_eisenstein(sf, real, imag, tolerance, out) result(err)
-    type(snapkit_snap_function_t), intent(inout), optional, target :: sf
-    real(wp), intent(in)  :: real, imag
-    real(wp), intent(in)  :: tolerance
+  !> Snap an Eisenstein value to this snap function's tolerance.
+  function snapkit_snap_eisenstein(sf, rx, iy, out) result(err)
+    type(snapkit_snap_function_t), intent(inout), target :: sf
+    real(wp), intent(in)  :: rx, iy
     type(snapkit_snap_result_t), intent(out) :: out
     integer :: err
 
-    real(wp) :: tol, snapped_re, snapped_im, dist
+    real(wp) :: sr, si, dist
     integer  :: a, b
 
-    err = SNAPKIT_OK
-
-    ! Resolve tolerance
-    if (tolerance >= 0.0_wp) then
-       tol = tolerance
-    else if (present(sf)) then
-       tol = sf%tolerance
-    else
-       tol = SNAPKIT_DEFAULT_TOLERANCE
-    end if
-
-    call snapkit_nearest_eisenstein(real, imag, a, b, snapped_re, snapped_im, dist)
-
-    out%original = sqrt(real * real + imag * imag)
-    out%snapped  = sqrt(snapped_re * snapped_re + snapped_im * snapped_im)
-    out%delta    = dist
-    out%within_tolerance = dist <= tol
-    out%tolerance = tol
-    out%topology = SNAPKIT_TOPOLOGY_HEXAGONAL
-
-    if (present(sf)) then
-       sf%history%head = sf%history%head + 1
-       associate(idx => mod(sf%history%head - 1, int(SNAPKIT_SNAP_HISTORY_MAX, kind=8)))
-         sf%history%results(idx + 1) = out
-       end associate
-       if (sf%history%count < SNAPKIT_SNAP_HISTORY_MAX) sf%history%count = sf%history%count + 1
-       sf%history%sum_delta = sf%history%sum_delta + dist
-       if (dist > sf%history%max_delta) sf%history%max_delta = dist
-       if (out%within_tolerance) then
-          sf%history%snap_cnt = sf%history%snap_cnt + 1
-       else
-          sf%history%delta_cnt = sf%history%delta_cnt + 1
-       end if
-    end if
+    call snapkit_nearest_eisenstein(rx, iy, a, b, sr, si, dist)
+    err = snapkit_snap_apply(sf, dist, sf%tolerance, out)
   end function snapkit_snap_eisenstein
 
-  !> Batch snap an array of scalar values.
-  !!
-  !! Fortran array operations make this naturally vectorized.
-  !! Each element is snapped against the same baseline and tolerance.
-  !!
-  !! @param[inout] sf      Snap function
-  !! @param[in]    values  Array of values
-  !! @param[out]   out     Array of snap results
-  function snapkit_snap_batch(sf, values, out) result(err)
+  !> Batch snap — apply snap to an array of values.
+  subroutine snapkit_snap_batch(sf, values, expected, results, n)
     type(snapkit_snap_function_t), intent(inout) :: sf
     real(wp), intent(in)  :: values(:)
-    type(snapkit_snap_result_t), intent(out) :: out(:)
-    integer :: err
-    integer :: i, n
+    real(wp), intent(in)  :: expected
+    type(snapkit_snap_result_t), intent(out) :: results(:)
+    integer, intent(out) :: n
+    integer :: i, err
 
-    err = SNAPKIT_OK
-    n = min(size(values), size(out))
-
-    do i = 1, n
-       err = snapkit_snap(sf, values(i), huge(1.0_wp), out(i))
-       if (err /= SNAPKIT_OK) exit
+    n = 0
+    do i = 1, size(values)
+       err = snapkit_snap_apply(sf, values(i), expected, results(i))
+       if (err == SNAPKIT_OK) n = n + 1
     end do
-  end function snapkit_snap_batch
+  end subroutine snapkit_snap_batch
 
-  !> Batch snap Eisenstein complex values.
-  !!
-  !! @param[inout] sf        Snap function (optional — for history tracking)
-  !! @param[in]    real_vals Array of real components
-  !! @param[in]    imag_vals Array of imag components
-  !! @param[out]   out       Array of snap results
-  function snapkit_snap_eisenstein_batch(sf, real_vals, imag_vals, out) result(err)
-    type(snapkit_snap_function_t), intent(inout), optional :: sf
-    real(wp), intent(in)  :: real_vals(:), imag_vals(:)
-    type(snapkit_snap_result_t), intent(out) :: out(:)
-    integer :: err
-    integer :: i, n
-
-    err = SNAPKIT_OK
-    n = min(size(real_vals), size(imag_vals), size(out))
-
-    do i = 1, n
-       if (present(sf)) then
-          err = snapkit_snap_eisenstein(sf, real_vals(i), imag_vals(i), -1.0_wp, out(i))
-       else
-          err = snapkit_snap_eisenstein(tolerance=-1.0_wp, out=out(i), &
-               real=real_vals(i), imag=imag_vals(i))
-       end if
-       if (err /= SNAPKIT_OK) exit
-    end do
-  end function snapkit_snap_eisenstein_batch
-
-  !> Reset snap function state.
-  !!
-  !! @param[inout] sf       Snap function
-  !! @param[in]    baseline New baseline value (use huge(1.0) to keep current)
-  subroutine snapkit_snap_reset(sf, baseline)
+  !> Batch Eisenstein snap.
+  subroutine snapkit_snap_eisenstein_batch(sf, reals, imags, results, n)
     type(snapkit_snap_function_t), intent(inout) :: sf
-    real(wp), intent(in) :: baseline
+    real(wp), intent(in)  :: reals(:), imags(:)
+    type(snapkit_snap_result_t), intent(out) :: results(:)
+    integer, intent(out) :: n
+    integer :: i, err
 
-    if (baseline < huge(1.0_wp) * 0.99_wp) sf%baseline = baseline
+    n = 0
+    do i = 1, min(size(reals), size(imags))
+       err = snapkit_snap_eisenstein(sf, reals(i), imags(i), results(i))
+       if (err == SNAPKIT_OK) n = n + 1
+    end do
+  end subroutine snapkit_snap_eisenstein_batch
+
+  !> Reset snap function history.
+  subroutine snapkit_snap_reset(sf)
+    type(snapkit_snap_function_t), intent(inout) :: sf
     sf%history%head      = 0
     sf%history%count     = 0
     sf%history%sum_delta = 0.0_wp
@@ -262,95 +187,82 @@ contains
     sf%history%delta_cnt = 0
   end subroutine snapkit_snap_reset
 
-  !> Auto-calibrate tolerance to achieve a target snap rate.
-  !!
-  !! Sets baseline to the sample mean, then chooses tolerance at the
-  !! target_rate percentile of distances from the mean.
-  !! A well-calibrated snap function snaps ~90% of observations (0.9 rate),
-  !! leaving 10% as deltas demanding attention.
-  !!
-  !! @param[inout] sf          Snap function
-  !! @param[in]    values      Sample values for calibration
-  !! @param[in]    target_rate Desired snap rate [0..1] (0.9 recommended)
-  function snapkit_snap_calibrate(sf, values, target_rate) result(err)
+  !> Auto-calibrate tolerance from sample data.
+  function snapkit_snap_calibrate(sf, samples, percentile) result(err)
     type(snapkit_snap_function_t), intent(inout) :: sf
-    real(wp), intent(in)  :: values(:)
-    real(wp), intent(in)  :: target_rate
+    real(wp), intent(in) :: samples(:)
+    real(wp), intent(in) :: percentile  ! e.g. 0.80
     integer :: err
 
-    real(wp) :: sum_vals, mean_val
-    real(wp), allocatable :: distances(:)
+    real(wp) :: mean
+    real(wp) :: dists(size(samples))
+    real(wp) :: sorted(size(samples))
     integer  :: i, n, idx
 
     err = SNAPKIT_OK
-    n = size(values)
-    if (n == 0 .or. target_rate <= 0.0_wp) return
+    n = size(samples)
+    if (n < 2) then
+       err = SNAPKIT_ERR_STATE
+       return
+    end if
 
-    ! Set baseline to mean
-    sum_vals = sum(values)
-    mean_val = sum_vals / real(n, wp)
-    sf%baseline = mean_val
+    ! Compute mean
+    mean = sum(samples) / real(n, wp)
+    sf%baseline = mean
 
-    ! Compute distances from baseline
-    allocate(distances(n))
+    ! Compute distances from mean
     do i = 1, n
-       distances(i) = abs(values(i) - mean_val)
+       dists(i) = abs(samples(i) - mean)
     end do
 
-    ! Sort distances (simple insertion sort)
-    call insertion_sort(distances)
+    ! Sort distances (insertion sort, n is small)
+    sorted = dists
+    call insertion_sort(sorted)
 
-    ! Set tolerance at target_rate percentile
-    idx = nint(real(n, wp) * target_rate)
-    if (idx < 1) idx = 1
-    if (idx > n) idx = n
-    sf%tolerance = distances(idx)
-
-    deallocate(distances)
+    ! Pick the percentile-th distance as tolerance
+    idx = max(1, min(n, int(percentile * real(n, wp) + 1.0_wp)))
+    sf%tolerance = sorted(idx) + 1.0e-12_wp  ! epsilon to avoid zero
   end function snapkit_snap_calibrate
 
-  !> Get statistics from a snap function.
-  !!
-  !! @param[in]  sf           Snap function
-  !! @param[out] snap_count   Number of observations that snapped
-  !! @param[out] delta_count  Number that exceeded tolerance
-  !! @param[out] mean_delta   Mean delta magnitude
-  !! @param[out] max_delta    Maximum delta observed
-  !! @param[out] snap_rate    Fraction of snaps [0..1]
-  subroutine snapkit_snap_statistics(sf, snap_count, delta_count, mean_delta, max_delta, snap_rate)
+  !> Get snap statistics.
+  subroutine snapkit_snap_statistics(sf, snap_cnt, delta_cnt, mean_delta, &
+       max_delta, snap_rate)
     type(snapkit_snap_function_t), intent(in) :: sf
-    integer(kind=8), intent(out), optional :: snap_count, delta_count
-    real(wp),        intent(out), optional :: mean_delta, max_delta, snap_rate
-
+    integer(kind=8), intent(out) :: snap_cnt, delta_cnt
+    real(wp), intent(out) :: mean_delta, max_delta, snap_rate
     integer(kind=8) :: total
 
-    if (present(snap_count))  snap_count  = sf%history%snap_cnt
-    if (present(delta_count)) delta_count = sf%history%delta_cnt
-    total = sf%history%snap_cnt + sf%history%delta_cnt
-    if (present(mean_delta)) then
-       mean_delta = merge(sf%history%sum_delta / real(total, wp), 0.0_wp, total > 0)
-    end if
-    if (present(max_delta)) max_delta = sf%history%max_delta
-    if (present(snap_rate)) then
-       snap_rate = merge(real(sf%history%snap_cnt, wp) / real(total, wp), 0.0_wp, total > 0)
+    snap_cnt  = sf%history%snap_cnt
+    delta_cnt = sf%history%delta_cnt
+    max_delta = sf%history%max_delta
+    total = snap_cnt + delta_cnt
+    if (total > 0) then
+       mean_delta = sf%history%sum_delta / real(total, wp)
+       snap_rate  = real(snap_cnt, wp) / real(total, wp)
+    else
+       mean_delta = 0.0_wp
+       snap_rate  = 0.0_wp
     end if
   end subroutine snapkit_snap_statistics
 
-  !===========================================================================
-  ! Internal: insertion sort
-  !===========================================================================
-  pure subroutine insertion_sort(arr)
+  !> Insertion sort (simple, for small n).
+  subroutine insertion_sort(arr)
     real(wp), intent(inout) :: arr(:)
+    integer :: i, j
     real(wp) :: key
-    integer  :: i, j
+
+    if (size(arr) <= 1) return
+
     do i = 2, size(arr)
        key = arr(i)
        j = i - 1
-       do while (j > 0 .and. arr(j) > key)
-          arr(j+1) = arr(j)
+       do
+          if (j <= 0) exit
+          if (arr(j) <= key) exit
+          arr(j + 1) = arr(j)
           j = j - 1
        end do
-       arr(j+1) = key
+       arr(j + 1) = key
     end do
   end subroutine insertion_sort
 

@@ -10,7 +10,9 @@ keywords = ["attention", "snap", "tolerance", "compression", "cognitive"]
 categories = ["algorithms", "mathematics", "science"]
 readme = "README.md"
 repository = "https://github.com/SuperInstance/snapkit-rust"
+homepage = "https://github.com/SuperInstance/snapkit-rust"
 documentation = "https://docs.rs/snapkit"
+include = ["src/**/*", "README.md", "LICENSE-APACHE", "LICENSE-MIT", "benches/**/*", "examples/**/*"]
 
 [dependencies]
 num-traits = "0.2"

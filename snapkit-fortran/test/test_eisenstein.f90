@@ -80,8 +80,8 @@ contains
     ! Boundary between them: (0.25, sqrt3/4) = 0.25, 0.433
     call snapkit_nearest_eisenstein(0.25_wp, SNAPKIT_SQRT3_2 * 0.5_wp, a, b, sr, si, dist)
     ! Should be close to either (1,0) or (0,1)
-    if (dist > 0.3_wp) then
-       write(*, '(a, f10.6)') "  FAIL: boundary test, dist too large: ", dist
+    if (dist > SNAPKIT_INV_SQRT3 + 0.001_wp) then
+       write(*, '(a, f10.6)') "  FAIL: boundary test Voronoi radius: ", dist
        pass = .false.
     end if
 

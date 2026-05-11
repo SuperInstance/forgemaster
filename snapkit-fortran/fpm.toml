@@ -1,8 +1,12 @@
 name = "snapkit"
 version = "0.2.0"
 license = "MIT"
-author = "Forgemaster"
-description = "SnapKit — Tolerance-Compressed Attention Allocation Library (Fortran 2008)"
+author = "Forgemaster ⚒️ / Casey Digennaro"
+maintainer = "casey@superinstance.com"
+copyright = "2026 Casey Digennaro"
+description = "Tolerance-compressed attention allocation — snaps as gatekeepers of finite cognition (Fortran 2008)"
+keywords = ["attention", "snap", "tolerance", "compression", "cognitive", "delta", "allocation"]
+categories = ["math", "numerical", "science"]
 
 [install]
 library = true
@@ -11,6 +15,7 @@ library = true
 source-form = "free"
 
 [build]
+auto-executables = false
 targets = [
     { name = "snapkit", type = "library" },
     { name = "demo_poker", type = "app", source-dir = "app" },
@@ -18,3 +23,6 @@ targets = [
     { name = "benchmark", type = "app", source-dir = "app" },
     { name = "test_snapkit", type = "test", source-dir = "test" }
 ]
+
+[extra]
+snapkit-version = "0.2.0"

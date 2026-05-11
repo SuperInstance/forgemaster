@@ -1,0 +1,7 @@
+include README.md
+include LICENSE
+graft tests
+graft examples
+recursive-include snapkit *.py
+global-exclude *.pyc
+global-exclude __pycache__

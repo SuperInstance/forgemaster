@@ -97,16 +97,16 @@ program benchmark
      call random_number(values(i))
   end do
 
-  sf => snapkit_snap_create()
+  sf => snapkit_snap_create_fn()
   call system_clock(t_start)
   do i = 1, N_SCALAR
-     err = snapkit_snap(sf, values(i), huge(1.0_wp), results(i))
+     err = snapkit_snap_apply(sf, values(i), huge(1.0_wp), results(i))
   end do
   call system_clock(t_end)
   t_scalar = real(t_end - t_start, wp) / real(t_rate, wp)
 
   deallocate(values, results)
-  call snapkit_snap_free(sf)
+  call snapkit_snap_free_fn(sf)
 
   !-------------------------------------------------------------------------
   ! 4. Delta detection (batch)

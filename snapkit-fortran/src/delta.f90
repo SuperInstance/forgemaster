@@ -23,6 +23,22 @@ module snapkit_delta
 
 contains
 
+  !> Find a stream index by ID. Returns -1 if not found.
+  pure function find_stream_idx(dd, stream_id) result(idx)
+    type(snapkit_delta_detector_t), intent(in) :: dd
+    character(*), intent(in) :: stream_id
+    integer :: idx
+    integer :: i
+
+    idx = -1
+    do i = 1, dd%num_streams
+       if (trim(dd%streams(i)%stream_id) == trim(stream_id)) then
+          idx = i
+          return
+       end if
+    end do
+  end function find_stream_idx
+
   !> Create a delta detector with default state.
   function snapkit_detector_create() result(dd)
     type(snapkit_delta_detector_t), pointer :: dd
@@ -77,8 +93,8 @@ contains
     real(wp),     intent(in) :: urgency
     integer :: err
 
-    type(snapkit_delta_stream_t), pointer :: s
     integer :: idx
+    integer :: i
 
     err = SNAPKIT_OK
 
@@ -88,44 +104,35 @@ contains
     end if
 
     idx = dd%num_streams + 1
-    s => dd%streams(idx)
 
-    s%stream_id = stream_id
+    dd%streams(idx)%stream_id = stream_id
 
-    s%snap%tolerance       = tolerance
-    s%snap%topology        = topology
-    s%snap%baseline        = 0.0_wp
-    s%snap%adaptation_rate = SNAPKIT_DEFAULT_ADAPTATION_RATE
-    allocate(s%snap%history%results(SNAPKIT_SNAP_HISTORY_MAX))
-    s%snap%history%head      = 0
-    s%snap%history%count     = 0
-    s%snap%history%sum_delta = 0.0_wp
-    s%snap%history%max_delta = 0.0_wp
-    s%snap%history%snap_cnt  = 0
-    s%snap%history%delta_cnt = 0
+    dd%streams(idx)%snap%tolerance       = tolerance
+    dd%streams(idx)%snap%topology        = topology
+    dd%streams(idx)%snap%baseline        = 0.0_wp
+    dd%streams(idx)%snap%adaptation_rate = SNAPKIT_DEFAULT_ADAPTATION_RATE
+    allocate(dd%streams(idx)%snap%history%results(SNAPKIT_SNAP_HISTORY_MAX))
+    dd%streams(idx)%snap%history%head      = 0
+    dd%streams(idx)%snap%history%count     = 0
+    dd%streams(idx)%snap%history%sum_delta = 0.0_wp
+    dd%streams(idx)%snap%history%max_delta = 0.0_wp
+    dd%streams(idx)%snap%history%snap_cnt  = 0
+    dd%streams(idx)%snap%history%delta_cnt = 0
+    do i = 1, SNAPKIT_SNAP_HISTORY_MAX
+       dd%streams(idx)%snap%history%results(i)%within_tolerance = .false.
+       dd%streams(idx)%snap%history%results(i)%delta    = 0.0_wp
+       dd%streams(idx)%snap%history%results(i)%original = 0.0_wp
+       dd%streams(idx)%snap%history%results(i)%snapped  = 0.0_wp
+       dd%streams(idx)%snap%history%results(i)%tolerance = 0.0_wp
+       dd%streams(idx)%snap%history%results(i)%topology  = 0
+    end do
 
-    s%actionability = actionability
-    s%urgency       = urgency
-    s%has_current   = .false.
+    dd%streams(idx)%actionability = actionability
+    dd%streams(idx)%urgency       = urgency
+    dd%streams(idx)%has_current   = .false.
 
     dd%num_streams = dd%num_streams + 1
   end function snapkit_detector_add_stream
-
-  !> Find a stream by ID.
-  function find_stream(dd, stream_id) result(s)
-    type(snapkit_delta_detector_t), intent(in) :: dd
-    character(*), intent(in) :: stream_id
-    type(snapkit_delta_stream_t), pointer :: s
-    integer :: i
-
-    s => null()
-    do i = 1, dd%num_streams
-       if (trim(dd%streams(i)%stream_id) == trim(stream_id)) then
-          s => dd%streams(i)
-          return
-       end if
-    end do
-  end function find_stream
 
   !> Observe a value on a specific stream.
   !!
@@ -145,34 +152,34 @@ contains
     type(snapkit_delta_t), intent(out), optional :: out
     integer :: err
 
-    type(snapkit_delta_stream_t), pointer :: s
+    integer :: s_idx
     type(snapkit_snap_result_t) :: snap_res
     type(snapkit_delta_t) :: delta
 
     err = SNAPKIT_OK
-    s => find_stream(dd, stream_id)
-    if (.not. associated(s)) then
+    s_idx = find_stream_idx(dd, stream_id)
+    if (s_idx < 0) then
        err = SNAPKIT_ERR_NULL
        return
     end if
 
     dd%tick = dd%tick + 1
 
-    err = snapkit_snap(s%snap, value, huge(1.0_wp), snap_res)
+    err = snapkit_snap_apply(dd%streams(s_idx)%snap, value, huge(1.0_wp), snap_res)
     if (err /= SNAPKIT_OK) return
 
     delta%value     = value
-    delta%expected  = s%snap%baseline
+    delta%expected  = dd%streams(s_idx)%snap%baseline
     delta%magnitude = snap_res%delta
-    delta%tolerance = s%snap%tolerance
-    delta%severity  = snapkit_compute_severity(snap_res%delta, s%snap%tolerance)
+    delta%tolerance = dd%streams(s_idx)%snap%tolerance
+    delta%severity  = snapkit_compute_severity(snap_res%delta, dd%streams(s_idx)%snap%tolerance)
     delta%timestamp = dd%tick
     delta%stream_id = stream_id
-    delta%actionability = s%actionability
-    delta%urgency       = s%urgency
+    delta%actionability = dd%streams(s_idx)%actionability
+    delta%urgency       = dd%streams(s_idx)%urgency
 
-    s%current     = delta
-    s%has_current = .true.
+    dd%streams(s_idx)%current     = delta
+    dd%streams(s_idx)%has_current = .true.
 
     if (present(out)) out = delta
   end function snapkit_detector_observe
@@ -217,15 +224,15 @@ contains
     type(snapkit_delta_t), intent(out) :: out
     integer :: err
 
-    type(snapkit_delta_stream_t), pointer :: s
+    integer :: s_idx
 
     err = SNAPKIT_OK
-    s => find_stream(dd, stream_id)
-    if (.not. associated(s) .or. .not. s%has_current) then
+    s_idx = find_stream_idx(dd, stream_id)
+    if (s_idx < 0 .or. .not. dd%streams(s_idx)%has_current) then
        err = SNAPKIT_ERR_NULL
        return
     end if
-    out = s%current
+    out = dd%streams(s_idx)%current
   end function snapkit_detector_current_delta
 
   !> Get aggregate statistics across all streams.

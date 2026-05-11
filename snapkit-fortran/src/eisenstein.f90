@@ -95,19 +95,19 @@ contains
   !! @param[out] snapped_re  Output snapped real parts
   !! @param[out] snapped_im  Output snapped imaginary parts
   !! @param[out] dist_out    Output distances
-  pure subroutine snapkit_nearest_eisenstein_batch(reals, imags, a_out, b_out, &
+  pure subroutine snapkit_nearest_eisenstein_batch(re_x, im_y, a_out, b_out, &
        snapped_re, snapped_im, dist_out)
-    real(wp), intent(in)  :: reals(:), imags(:)
+    real(wp), intent(in)  :: re_x(:), im_y(:)
     integer,  intent(out) :: a_out(:), b_out(:)
     real(wp), intent(out) :: snapped_re(:), snapped_im(:), dist_out(:)
 
     integer :: i, n
 
-    n = min(size(reals), size(imags), size(a_out), size(b_out), &
+    n = min(size(re_x), size(im_y), size(a_out), size(b_out), &
          size(snapped_re), size(snapped_im), size(dist_out))
 
     do i = 1, n
-       call snapkit_nearest_eisenstein(reals(i), imags(i), &
+       call snapkit_nearest_eisenstein(re_x(i), im_y(i), &
             a_out(i), b_out(i), snapped_re(i), snapped_im(i), dist_out(i))
     end do
   end subroutine snapkit_nearest_eisenstein_batch

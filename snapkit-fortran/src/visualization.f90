@@ -7,6 +7,9 @@
 
 module snapkit_visualization
   use snapkit
+  use snapkit_snap, only: snapkit_snap_statistics
+  use snapkit_delta, only: snapkit_detector_statistics
+  use snapkit_attention, only: snapkit_budget_status
   implicit none
   private
 

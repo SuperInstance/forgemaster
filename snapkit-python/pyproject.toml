@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "snapkit"
+version = "0.1.0"
+description = "Tolerance-compressed attention allocation — snaps as gatekeepers of finite cognition"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "Forgemaster ⚒️ / Casey Digennaro", email = "casey@superinstance.com"},
+]
+keywords = [
+    "attention", "snap", "tolerance", "compression", "cognitive",
+    "delta", "allocation", "machine-learning", "neuroscience",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "numpy>=1.20.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/SuperInstance/snapkit-python"
+Repository = "https://github.com/SuperInstance/snapkit-python"
+Documentation = "https://github.com/SuperInstance/snapkit-python#readme"
+
+[project.optional-dependencies]
+visualization = ["matplotlib>=3.0"]
+serial = ["numpy>=1.20.0"]
+integration = ["sympy>=1.9"]
+all = ["matplotlib>=3.0", "sympy>=1.9"]
+
+[project.scripts]
+snapkit = "snapkit.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["snapkit*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

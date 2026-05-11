@@ -9,13 +9,19 @@
     "compression",
     "cognitive",
     "delta",
-    "allocation"
+    "allocation",
+    "eisenstein",
+    "ade"
   ],
   "license": "MIT",
-  "author": "Forgemaster ⚒️ / Casey Digennaro",
+  "author": "Forgemaster ⚒️ / Casey Digennaro <casey@superinstance.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/SuperInstance/snapkit-js"
+  },
+  "homepage": "https://github.com/SuperInstance/snapkit-js#readme",
+  "bugs": {
+    "url": "https://github.com/SuperInstance/snapkit-js/issues"
   },
   "type": "module",
   "main": "./dist/index.js",
@@ -30,7 +36,8 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsc && node -e \"console.log('Building CJS fallback...'); require('fs').writeFileSync('dist/index.cjs', 'module.exports = require('./index.js');\n');\"",
@@ -40,7 +47,7 @@
     "test:attention": "node --experimental-vm-modules --test test/attention.test.mjs",
     "test:scripts": "node --experimental-vm-modules --test test/scripts.test.mjs",
     "test:integration": "node --experimental-vm-modules --test test/integration.test.mjs",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build && npm test",
     "lint": "tsc --noEmit"
   },
   "engines": {

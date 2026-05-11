@@ -43,16 +43,16 @@ program demo_poker
        baseline=0.33_wp, adaptation_rate=0.02_wp)
 
   write(*, '(a)') "--- Preflop Snap Snap: pot_odds ---"
-  err = snapkit_snap(sf, 0.35_wp, huge(1.0_wp), sr)
+  err = snapkit_snap_apply(sf, 0.35_wp, huge(1.0_wp), sr)
   write(*, '(a, f6.3, a, f6.3, a, l1)') "  Value=0.35 → snapped=", sr%snapped, &
        " delta=", sr%delta, " within=", sr%within_tolerance
 
-  err = snapkit_snap(sf, 0.55_wp, huge(1.0_wp), sr)
+  err = snapkit_snap_apply(sf, 0.55_wp, huge(1.0_wp), sr)
   write(*, '(a, f6.3, a, f6.3, a, l1)') "  Value=0.55 → snapped=", sr%snapped, &
        " delta=", sr%delta, " within=", sr%within_tolerance
 
   call snapkit_visualize_snap(sf)
-  call snapkit_snap_free(sf)
+  call snapkit_snap_free_fn(sf)
 
   !-------------------------------------------------------------------------
   ! 2. Create delta detector with multiple streams

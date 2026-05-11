@@ -112,8 +112,8 @@ contains
     end if
 
     idx = sheaf%num_dependencies + 1
-    sheaf%depedencies(idx)%source = source
-    sheaf%depedencies(idx)%target = target
+    sheaf%dependencies(idx)%source = source
+    sheaf%dependencies(idx)%target = target
     sheaf%num_dependencies = idx
   end function snapkit_sheaf_add_dependency
 
@@ -133,7 +133,7 @@ contains
     integer :: err
 
     real(wp), allocatable :: deltas(:)
-    integer  :: i, j, num_d
+    integer  :: i, num_d
     real(wp) :: s_val, t_val, s_exp, t_exp, d, max_d, sum_d
     integer  :: h1
 
@@ -164,8 +164,8 @@ contains
     do i = 1, sheaf%num_dependencies
        s_val = 0.0_wp; t_val = 0.0_wp
        s_exp = 0.0_wp; t_exp = 0.0_wp
-       call find_constraint(sheaf, sheaf%depedencies(i)%source, s_val, s_exp)
-       call find_constraint(sheaf, sheaf%depedencies(i)%target, t_val, t_exp)
+       call find_constraint(sheaf, sheaf%dependencies(i)%source, s_val, s_exp)
+       call find_constraint(sheaf, sheaf%dependencies(i)%target, t_val, t_exp)
        ! If both found, compute compatibility delta
        if (abs(s_val) > 0.0_wp .or. abs(s_exp) > 0.0_wp .or. &
             abs(t_val) > 0.0_wp .or. abs(t_exp) > 0.0_wp) then

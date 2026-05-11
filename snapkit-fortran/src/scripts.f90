@@ -63,7 +63,6 @@ contains
     integer :: err
 
     integer :: idx, i
-    type(snapkit_script_t), pointer :: s
 
     err = SNAPKIT_OK
     if (lib%num_scripts >= SNAPKIT_MAX_SCRIPTS) then
@@ -76,26 +75,25 @@ contains
     end if
 
     idx = lib%num_scripts + 1
-    s => lib%scripts(idx)
 
-    s%id   = trim(adjustl(id))
-    s%name = trim(adjustl(name))
+    lib%scripts(idx)%id   = trim(adjustl(id))
+    lib%scripts(idx)%name = trim(adjustl(name))
 
     ! Copy trigger pattern
-    s%trigger_dim = size(trigger)
-    do i = 1, s%trigger_dim
-       s%trigger(i) = trigger(i)
+    lib%scripts(idx)%trigger_dim = size(trigger)
+    do i = 1, lib%scripts(idx)%trigger_dim
+       lib%scripts(idx)%trigger(i) = trigger(i)
     end do
 
-    s%response        = response
-    s%match_threshold = lib%match_threshold
-    s%status          = SNAPKIT_SCRIPT_ACTIVE
-    s%use_count       = 0
-    s%success_count   = 0
-    s%fail_count      = 0
-    s%last_used       = 0
-    s%created_at      = lib%tick
-    s%confidence      = 1.0_wp
+    lib%scripts(idx)%response        = response
+    lib%scripts(idx)%match_threshold = lib%match_threshold
+    lib%scripts(idx)%status          = SNAPKIT_SCRIPT_ACTIVE
+    lib%scripts(idx)%use_count       = 0
+    lib%scripts(idx)%success_count   = 0
+    lib%scripts(idx)%fail_count      = 0
+    lib%scripts(idx)%last_used       = 0
+    lib%scripts(idx)%created_at      = lib%tick
+    lib%scripts(idx)%confidence      = 1.0_wp
 
     lib%num_scripts = idx
   end function snapkit_script_library_add
@@ -126,27 +124,26 @@ contains
     best_delta = 0.0_wp
 
     do i = 1, lib%num_scripts
-       associate(s => lib%scripts(i))
-         if (s%status /= SNAPKIT_SCRIPT_ACTIVE) cycle
-         if (s%trigger_dim /= size(observation)) cycle
+       if (lib%scripts(i)%status /= SNAPKIT_SCRIPT_ACTIVE) cycle
+       if (lib%scripts(i)%trigger_dim /= size(observation)) cycle
 
-         ! Cosine similarity
-         sim = snapkit_cosine_similarity(observation, s%trigger(:s%trigger_dim))
-         conf = (sim + 1.0_wp) / 2.0_wp  ! map [-1,1] → [0,1]
+       ! Cosine similarity
+       sim = snapkit_cosine_similarity(observation, &
+            lib%scripts(i)%trigger(:lib%scripts(i)%trigger_dim))
+       conf = (sim + 1.0_wp) / 2.0_wp  ! map [-1,1] → [0,1]
 
-         ! Euclidean distance
-         delta = 0.0_wp
-         do j = 1, s%trigger_dim
-            delta = delta + (observation(j) - s%trigger(j))**2
-         end do
-         delta = sqrt(delta)
+       ! Euclidean distance
+       delta = 0.0_wp
+       do j = 1, lib%scripts(i)%trigger_dim
+          delta = delta + (observation(j) - lib%scripts(i)%trigger(j))**2
+       end do
+       delta = sqrt(delta)
 
-         if (conf > best_confidence) then
-            best_confidence = conf
-            best_idx = i
-            best_delta = delta
-         end if
-       end associate
+       if (conf > best_confidence) then
+          best_confidence = conf
+          best_idx = i
+          best_delta = delta
+       end if
     end do
 
     if (best_idx < 0 .or. best_confidence < lib%match_threshold) then
@@ -184,23 +181,23 @@ contains
 
     do i = 1, lib%num_scripts
        if (trim(lib%scripts(i)%id) == trim(script_id)) then
-          associate(s => lib%scripts(i))
-            s%use_count = s%use_count + 1
-            s%last_used = lib%tick
-            if (success) then
-               s%success_count = s%success_count + 1
-            else
-               s%fail_count = s%fail_count + 1
-            end if
+          lib%scripts(i)%use_count = lib%scripts(i)%use_count + 1
+          lib%scripts(i)%last_used = lib%tick
+          if (success) then
+             lib%scripts(i)%success_count = lib%scripts(i)%success_count + 1
+          else
+             lib%scripts(i)%fail_count = lib%scripts(i)%fail_count + 1
+          end if
 
-            if (s%use_count > 0) then
-               success_rate = real(s%success_count, wp) / real(s%use_count, wp)
-               s%confidence = success_rate * min(1.0_wp, real(s%success_count, wp) / 5.0_wp)
-               if (s%use_count > 5 .and. success_rate < 0.5_wp) then
-                  s%status = SNAPKIT_SCRIPT_DEGRADED
-               end if
-            end if
-          end associate
+          if (lib%scripts(i)%use_count > 0) then
+             success_rate = real(lib%scripts(i)%success_count, wp) / &
+                  real(lib%scripts(i)%use_count, wp)
+             lib%scripts(i)%confidence = success_rate * &
+                  min(1.0_wp, real(lib%scripts(i)%success_count, wp) / 5.0_wp)
+             if (lib%scripts(i)%use_count > 5 .and. success_rate < 0.5_wp) then
+                lib%scripts(i)%status = SNAPKIT_SCRIPT_DEGRADED
+             end if
+          end if
           return
        end if
     end do

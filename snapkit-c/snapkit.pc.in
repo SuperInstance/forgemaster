@@ -1,0 +1,12 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: snapkit
+Description: Tolerance-compressed attention allocation library
+Version: 0.2.0
+URL: https://github.com/SuperInstance/snapkit-c
+Libs: -L${libdir} -lsnapkit
+Libs.private: -lm
+Cflags: -I${includedir}

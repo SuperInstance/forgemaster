@@ -20,7 +20,7 @@ contains
 
     pass = .true.
 
-    sf => snapkit_snap_create()
+    sf => snapkit_snap_create_fn()
     if (.not. associated(sf)) then
        write(*, '(a)') "  FAIL: snapkit_snap_create returned null"
        pass = .false.
@@ -37,7 +37,7 @@ contains
        pass = .false.
     end if
 
-    call snapkit_snap_free(sf)
+    call snapkit_snap_free_fn(sf)
     if (associated(sf)) then
        write(*, '(a)') "  FAIL: snap_free didn't nullify pointer"
        pass = .false.
@@ -56,7 +56,7 @@ contains
     pass = .true.
 
     sf => snapkit_snap_create_ex(0.1_wp, SNAPKIT_TOPOLOGY_BINARY, 0.5_wp, 0.0_wp)
-    err = snapkit_snap(sf, 0.52_wp, huge(1.0_wp), sr)
+    err = snapkit_snap_apply(sf, 0.52_wp, huge(1.0_wp), sr)
 
     if (err /= SNAPKIT_OK) then
        write(*, '(a)') "  FAIL: snap returned error"
@@ -79,7 +79,7 @@ contains
        pass = .false.
     end if
 
-    call snapkit_snap_free(sf)
+    call snapkit_snap_free_fn(sf)
     if (pass) write(*, '(a)') "  PASS: snap within tolerance"
   end function test_snap_within
 
@@ -93,7 +93,7 @@ contains
     pass = .true.
 
     sf => snapkit_snap_create_ex(0.1_wp, SNAPKIT_TOPOLOGY_BINARY, 0.5_wp, 0.0_wp)
-    err = snapkit_snap(sf, 0.75_wp, huge(1.0_wp), sr)
+    err = snapkit_snap_apply(sf, 0.75_wp, huge(1.0_wp), sr)
 
     ! 0.75 is 0.25 from baseline 0.5 → exceeds 0.1 tolerance
     if (sr%within_tolerance) then
@@ -106,7 +106,7 @@ contains
        pass = .false.
     end if
 
-    call snapkit_snap_free(sf)
+    call snapkit_snap_free_fn(sf)
     if (pass) write(*, '(a)') "  PASS: snap outside tolerance"
   end function test_snap_outside
 
@@ -141,7 +141,7 @@ contains
        pass = .false.
     end if
 
-    call snapkit_snap_free(sf)
+    call snapkit_snap_free_fn(sf)
     if (pass) write(*, '(a)') "  PASS: snap create_ex"
   end function test_snap_create_ex
 
@@ -159,7 +159,7 @@ contains
        samples(i) = 0.5_wp + real(i - 10, wp) * 0.05_wp
     end do
 
-    sf => snapkit_snap_create()
+    sf => snapkit_snap_create_fn()
     err = snapkit_snap_calibrate(sf, samples, 0.80_wp)
 
     if (err /= SNAPKIT_OK) then
@@ -178,7 +178,7 @@ contains
        pass = .false.
     end if
 
-    call snapkit_snap_free(sf)
+    call snapkit_snap_free_fn(sf)
     if (pass) write(*, '(a)') "  PASS: snap calibrate"
   end function test_snap_calibrate
 

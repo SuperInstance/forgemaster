@@ -71,12 +71,12 @@ program test_snapkit
      write(*, '(a)') "╔══════════════════════════════════════════════════════╗"
      write(*, '(a)') "║           ALL TESTS PASSED                          ║"
      write(*, '(a)') "╚══════════════════════════════════════════════════════╝"
-     call exit(0)
+     stop 0
   else
      write(*, '(a)') "╔══════════════════════════════════════════════════════╗"
      write(*, '(a)') "║           SOME TESTS FAILED                         ║"
      write(*, '(a)') "╚══════════════════════════════════════════════════════╝"
-     call exit(1)
+     stop 1
   end if
 
 end program test_snapkit

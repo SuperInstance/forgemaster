@@ -19,7 +19,6 @@ program demo_learning
 
   integer  :: i, cycle
   real(wp) :: perf, noise, trend
-  real(wp) :: plateau_values(100)
   real(wp) :: initial_samples(20)
   logical  :: explored
 
@@ -85,12 +84,12 @@ program demo_learning
         write(*, '(a, i5, f10.4, f10.4, f10.4, l5, a)') "  ", &
              cycle, perf, state%tolerance, state%curiosity_rate, &
              state%plateau_detected, &
-             merge(" ← PLATEAU!", "", state%plateau_detected)
+             merge(" ← PLATEAU!" , "             " , state%plateau_detected)
      end if
   end do
 
   call snapkit_visualize_snap(sf)
-  call snapkit_snap_free(sf)
+  call snapkit_snap_free_fn(sf)
 
   write(*, '(a)')
   write(*, '(a, f8.4)') "Final tolerance:  ", state%tolerance
