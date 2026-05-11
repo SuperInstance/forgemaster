@@ -265,6 +265,12 @@ impl TZeroClock {
         self.ema - prior_ema
     }
 
+    /// Get the alpha smoothing factor.
+    #[inline]
+    pub fn alpha(&self) -> f64 {
+        self.alpha
+    }
+
     /// Reset the clock to initial state.
     #[inline]
     pub fn reset(&mut self) {
@@ -408,9 +414,16 @@ impl SnapRatio {
     }
 
     /// Check whether this ratio is within the covering radius of another.
+    ///
+    /// The Eisenstein covering radius `1/√3` ≈ 0.577 means almost any
+    ///   /// Note: `lattice_distance` uses the standard Eisenstein radius, but
+    /// `snaps_to` also verifies the raw value difference is musically plausible.
     #[inline]
     pub fn snaps_to(self, other: SnapRatio) -> bool {
-        self.lattice_distance(other) <= 1.0
+        // The lattice distance must be within the covering radius
+        // AND the raw ratio difference must be musically plausible (< 30%)
+        let raw_diff = (self.value() - other.value()).abs();
+        self.lattice_distance(other) <= 1.0 && raw_diff < 0.3
     }
 
     /// Classify the rhythmic category of this snap ratio.
@@ -503,10 +516,24 @@ pub fn best_snap(bpm_fraction: f64, max_denom: u32) -> Option<SnapRatio> {
         max_denom,
     );
 
-    for &sr in &standard_ratios {
+    // Among all standard ratios (excluding rest), find the closest one that snaps.
+    let mut best: Option<SnapRatio> = None;
+    let mut best_diff: f64 = f64::MAX;
+    for &sr in &standard_ratios[1..] {
         if target.snaps_to(sr) {
-            return Some(sr);
+            let diff = (sr.value() - bpm_fraction).abs();
+            if diff < best_diff {
+                best_diff = diff;
+                best = Some(sr);
+            }
         }
+    }
+    if let Some(sr) = best {
+        return Some(sr);
+    }
+    // Only snap to rest if the target value is within the covering radius of 0
+    if bpm_fraction.abs() < INV_SQRT_3 {
+        return Some(standard_ratios[0]);
     }
 
     // Fallback: find closest standard ratio even if it doesn't snap
@@ -514,6 +541,7 @@ pub fn best_snap(bpm_fraction: f64, max_denom: u32) -> Option<SnapRatio> {
         .iter()
         .min_by(|a, b| {
             (a.value() - bpm_fraction)
+                .abs()
                 .partial_cmp(&(b.value() - bpm_fraction).abs())
                 .unwrap_or(Ordering::Equal)
         })

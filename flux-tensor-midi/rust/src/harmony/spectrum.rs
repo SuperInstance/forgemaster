@@ -9,7 +9,7 @@
 ///
 /// The result size is 9 (same as input).
 pub fn flux_dct(intensities: &[i8; 9]) -> [f64; 9] {
-    let n = intensities.len() as f64;
+    let n_channels = intensities.len() as f64;
     let mut result = [0.0f64; 9];
 
     for k in 0..9 {
@@ -17,7 +17,7 @@ pub fn flux_dct(intensities: &[i8; 9]) -> [f64; 9] {
         let mut sum = 0.0;
         for (n, &val) in intensities.iter().enumerate() {
             let nf = n as f64;
-            sum += val as f64 * (core::f64::consts::PI * kf * (nf + 0.5) / n).cos();
+            sum += val as f64 * (core::f64::consts::PI * kf * (nf + 0.5) / n_channels).cos();
         }
         result[k] = sum;
     }

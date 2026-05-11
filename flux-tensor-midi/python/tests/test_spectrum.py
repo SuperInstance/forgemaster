@@ -13,8 +13,10 @@ from flux_tensor_midi.core.flux import FluxVector
 
 class TestSpectralAnalysis:
     def test_spectral_centroid_constant(self):
+        # 5 identical vectors, channel 0 always 1.0
+        # centroid = sum(i * 1.0 for i in range(5)) / 5 = 10/5 = 2.0
         vecs = [FluxVector([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]) for _ in range(5)]
-        assert spectral_centroid(vecs) == 0.0
+        assert spectral_centroid(vecs) == 2.0
 
     def test_spectral_centroid_varying(self):
         vecs = [

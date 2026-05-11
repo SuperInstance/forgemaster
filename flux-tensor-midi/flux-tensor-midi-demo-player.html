@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLUX-Tensor-MIDI — flux-tensor-midi-demo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { 
+    background: #0f172a; color: #e2e8f0; 
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    overflow-x: hidden;
+  }
+  
+  .header {
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-bottom: 1px solid #334155;
+  }
+  .header h1 { font-size: 1.4rem; color: #3B82F6; }
+  .header .meta { font-size: 0.8rem; color: #64748b; margin-top: 4px; }
+  
+  .stats {
+    display: flex; gap: 20px; padding: 15px 30px;
+    background: #1e293b; border-bottom: 1px solid #334155;
+  }
+  .stat { text-align: center; }
+  .stat .value { font-size: 1.5rem; color: #3B82F6; font-weight: bold; }
+  .stat .label { font-size: 0.7rem; color: #64748b; text-transform: uppercase; }
+  
+  .timeline-container {
+    position: relative;
+    padding: 20px 30px;
+    overflow-x: auto;
+  }
+  
+  .playback-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: #1e293b; padding: 10px 30px;
+    border-bottom: 1px solid #334155;
+    display: flex; align-items: center; gap: 15px;
+  }
+  .play-btn {
+    background: #3B82F6; color: white; border: none;
+    padding: 8px 20px; border-radius: 6px; cursor: pointer;
+    font-family: inherit; font-size: 0.9rem;
+  }
+  .play-btn:hover { background: #2563EB; }
+  .time-display { color: #94a3b8; font-size: 0.9rem; }
+  .tempo-badge { 
+    background: #1e1b4b; color: #818cf8; padding: 2px 8px; 
+    border-radius: 4px; font-size: 0.75rem; 
+  }
+  
+  .track-labels {
+    position: sticky; left: 0; z-index: 50;
+    width: 80px; float: left;
+  }
+  .track-label {
+    height: 48px; line-height: 48px;
+    font-size: 0.7rem; color: #64748b;
+    text-transform: uppercase;
+  }
+  
+  .tracks-scroll { margin-left: 80px; position: relative; }
+  
+  .track-row {
+    height: 48px; position: relative;
+    border-bottom: 1px solid #1e293b;
+  }
+  
+  .event-block {
+    position: absolute; top: 6px; bottom: 6px;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    transition: transform 0.1s, box-shadow 0.1s;
+    overflow: hidden; white-space: nowrap;
+  }
+  .event-block:hover {
+    transform: scaleY(1.1);
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+    z-index: 10;
+  }
+  
+  .grid-line {
+    position: absolute; top: 0; bottom: 0; width: 1px;
+    background: #1e293b;
+  }
+  .grid-line.major { background: #334155; }
+  
+  .playhead {
+    position: absolute; top: 0; bottom: 0; width: 2px;
+    background: #ef4444; z-index: 20;
+    transition: left 0.05s linear;
+  }
+  
+  .side-channel-block {
+    border: 2px dashed;
+    opacity: 0.8;
+  }
+  
+  .side-nod { border-color: #10B981; background: rgba(16, 185, 129, 0.1); }
+  .side-smile { border-color: #F59E0B; background: rgba(245, 158, 11, 0.1); }
+  .side-frown { border-color: #EF4444; background: rgba(239, 68, 68, 0.1); }
+  .side-breath { border-color: #8B5CF6; background: rgba(139, 92, 246, 0.1); }
+  
+  .tooltip {
+    display: none; position: fixed; z-index: 1000;
+    background: #1e293b; border: 1px solid #475569;
+    border-radius: 8px; padding: 12px; max-width: 300px;
+    font-size: 0.75rem; line-height: 1.5;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .tooltip.visible { display: block; }
+  .tooltip .tt-title { color: #3B82F6; font-weight: bold; margin-bottom: 4px; }
+  .tooltip .tt-key { color: #64748b; }
+  .tooltip .tt-val { color: #e2e8f0; }
+  
+  .legend {
+    padding: 15px 30px; display: flex; gap: 15px; flex-wrap: wrap;
+    border-top: 1px solid #334155; margin-top: 20px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+  
+  .current-scene {
+    position: fixed; bottom: 20px; right: 20px;
+    background: #1e293b; border: 1px solid #334155;
+    border-radius: 12px; padding: 16px 20px;
+    min-width: 200px; z-index: 100;
+  }
+  .current-scene .cs-title { font-size: 0.7rem; color: #64748b; text-transform: uppercase; }
+  .current-scene .cs-value { font-size: 1rem; color: #e2e8f0; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="playback-bar">
+  <button class="play-btn" id="playBtn">▶ Play</button>
+  <span class="time-display" id="timeDisplay">0:00.000 / 17.917s</span>
+  <span class="tempo-badge">♩ 72.0 BPM</span>
+  <span class="tempo-badge">E12</span>
+  <span class="tempo-badge">Entropy: 2.17 bits</span>
+  <span class="tempo-badge">groovy</span>
+</div>
+
+<div class="header">
+  <h1>🎵 flux-tensor-midi-demo</h1>
+  <div class="meta">
+    16 events · 21.5 beats · 17.9s · 
+    Eisenstein E12 lattice · 6 channels
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="value">72.0</div><div class="label">BPM</div></div>
+  <div class="stat"><div class="value">17.9s</div><div class="label">Duration</div></div>
+  <div class="stat"><div class="value">16</div><div class="label">Events</div></div>
+  <div class="stat"><div class="value">5</div><div class="label">Scenes</div></div>
+  <div class="stat"><div class="value">2.17</div><div class="label">Entropy</div></div>
+  <div class="stat"><div class="value" style="color:#10B981">groovy</div><div class="label">Feel</div></div>
+</div>
+
+<div class="timeline-container" id="timeline">
+  <div class="track-labels" id="trackLabels"></div>
+  <div class="tracks-scroll" id="tracksScroll">
+    <div class="playhead" id="playhead"></div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#3B82F6"></div>Visual</div><div class="legend-item"><div class="legend-dot" style="background:#10B981"></div>Text</div><div class="legend-item"><div class="legend-dot" style="background:#F59E0B"></div>Audio</div><div class="legend-item"><div class="legend-dot" style="background:#EC4899"></div>Color</div><div class="legend-item"><div class="legend-dot" style="background:#8B5CF6"></div>Motion</div><div class="legend-item"><div class="legend-dot" style="background:#EF4444"></div>Side</div>
+</div>
+
+<div class="tooltip" id="tooltip">
+  <div class="tt-title" id="ttTitle"></div>
+  <div id="ttBody"></div>
+</div>
+
+<div class="current-scene" id="currentScene">
+  <div class="cs-title">Now Playing</div>
+  <div class="cs-value" id="csValue">—</div>
+</div>
+
+<script>
+const events = [{"beat": 0.0, "time": 0.0, "channel": 1, "channelName": "Visual", "color": "#3B82F6", "sceneType": "PRODUCT_CLOSEUP", "icon": "\ud83c\udfac", "velocity": 100, "durationBeats": 4, "durationSeconds": 3.333, "text": "", "motion": "", "mood": "", "effect": "", "meta": {"name": "Hero product shot", "description": "FLUX-Tensor-MIDI logo reveal"}}, {"beat": 0.0, "time": 0.0, "channel": 3, "channelName": "Audio", "color": "#F59E0B", "sceneType": "ANIMATION", "icon": "\u2728", "velocity": 30, "durationBeats": 16, "durationSeconds": 13.333, "text": "", "motion": "", "mood": "", "effect": "", "meta": {"name": "Music bed", "type": "ambient_electronic"}}, {"beat": 0.5, "time": 0.417, "channel": 2, "channelName": "Text", "color": "#10B981", "sceneType": "TITLE_CARD", "icon": "\ud83d\udcdd", "velocity": 70, "durationBeats": 3, "durationSeconds": 2.5, "text": "FLUX-Tensor-MIDI", "motion": "", "mood": "", "effect": ""}, {"beat": 4.0, "time": 3.333, "channel": 1, "channelName": "Visual", "color": "#3B82F6", "sceneType": "USER_INTERACTION", "icon": "\ud83d\udc64", "velocity": 80, "durationBeats": 8, "durationSeconds": 6.667, "text": "", "motion": "", "mood": "", "effect": "", "meta": {"name": "Room musician demo", "description": "Rooms snapping to each other"}}, {"beat": 4.0, "time": 3.333, "channel": 5, "channelName": "Motion", "color": "#8B5CF6", "sceneType": "ANIMATION", "icon": "\u2728", "velocity": 60, "durationBeats": 8, "durationSeconds": 6.667, "text": "", "motion": "push_in", "mood": "", "effect": ""}, {"beat": 5.0, "time": 4.167, "channel": 2, "channelName": "Text", "color": "#10B981", "sceneType": "TITLE_CARD", "icon": "\ud83d\udcdd", "velocity": 40, "durationBeats": 6, "durationSeconds": 5.0, "text": "Rooms snap to Eisenstein lattice", "motion": "", "mood": "", "effect": ""}, {"beat": 9.0, "time": 7.5, "channel": 8, "channelName": "Side", "color": "#EF4444", "sceneType": "TRANSITION", "icon": "\u26a1", "velocity": 10, "durationBeats": 0.5, "durationSeconds": 0.417, "text": "", "motion": "", "mood": "", "effect": "", "meta": {"type": "nod", "from": "visual", "to": "text", "meaning": "ready_for_next"}}, {"beat": 12.0, "time": 10.0, "channel": 1, "channelName": "Visual", "color": "#3B82F6", "sceneType": "RESULT_DISPLAY", "icon": "\ud83d\udcca", "velocity": 50, "durationBeats": 4, "durationSeconds": 3.333, "text": "", "motion": "", "mood": "", "effect": "", "meta": {"name": "Harmony visualization", "description": "Temporal connectome rendering"}}, {"beat": 12.0, "time": 10.0, "channel": 4, "channelName": "Color", "color": "#EC4899", "sceneType": "ANIMATION", "icon": "\u2728", "velocity": 60, "durationBeats": 4, "durationSeconds": 3.333, "text": "", "motion": "", "mood": "warm_confident", "effect": ""}, {"beat": 12.0, "time": 10.0, "channel": 2, "channelName": "Text", "color": "#10B981", "sceneType": "TITLE_CARD", "icon": "\ud83d\udcdd", "velocity": 40, "durationBeats": 3, "durationSeconds": 2.5, "text": "33-37% fleet harmony", "motion": "", "mood": "", "effect": ""}, {"beat": 14.0, "time": 11.667, "channel": 3, "channelName": "Audio", "color": "#F59E0B", "sceneType": "ANIMATION", "icon": "\u2728", "velocity": 80, "durationBeats": 2, "durationSeconds": 1.667, "text": "", "motion": "", "mood": "", "effect": "", "meta": {"name": "Crescendo", "volume_start": 30, "volume_end": 90}}, {"beat": 16.0, "time": 13.333, "channel": 1, "channelName": "Visual", "color": "#3B82F6", "sceneType": "CALL_TO_ACTION", "icon": "\ud83c\udfaf", "velocity": 127, "durationBeats": 3, "durationSeconds": 2.5, "text": "", "motion": "", "mood": "", "effect": "", "meta": {"name": "CTA", "description": "Get started with FLUX-Tensor-MIDI"}}, {"beat": 16.0, "time": 13.333, "channel": 2, "channelName": "Text", "color": "#10B981", "sceneType": "TITLE_CARD", "icon": "\ud83d\udcdd", "velocity": 100, "durationBeats": 3, "durationSeconds": 2.5, "text": "github.com/SuperInstance/flux-tensor-midi", "motion": "", "mood": "", "effect": ""}, {"beat": 19.0, "time": 15.833, "channel": 1, "channelName": "Visual", "color": "#3B82F6", "sceneType": "PRODUCT_CLOSEUP", "icon": "\ud83c\udfac", "velocity": 30, "durationBeats": 2, "durationSeconds": 1.667, "text": "", "motion": "", "mood": "", "effect": "", "meta": {"name": "Fermata", "description": "Hold. Let it breathe."}}, {"beat": 20.0, "time": 16.667, "channel": 8, "channelName": "Side", "color": "#EF4444", "sceneType": "TRANSITION", "icon": "\u26a1", "velocity": 10, "durationBeats": 0.1, "durationSeconds": 0.083, "text": "", "motion": "", "mood": "", "effect": "", "meta": {"type": "smile", "meaning": "good_take"}}, {"beat": 21.0, "time": 17.5, "channel": 8, "channelName": "Side", "color": "#EF4444", "sceneType": "TRANSITION", "icon": "\u26a1", "velocity": 1, "durationBeats": 0.5, "durationSeconds": 0.417, "text": "", "motion": "", "mood": "", "effect": "", "meta": {"type": "breath", "meaning": "end"}}];
+const grid = [{"beat": 0.0, "time": 0.0, "major": true}, {"beat": 0.0833, "time": 0.0694, "major": false}, {"beat": 0.1667, "time": 0.1389, "major": false}, {"beat": 0.25, "time": 0.2083, "major": false}, {"beat": 0.3333, "time": 0.2778, "major": false}, {"beat": 0.4167, "time": 0.3472, "major": false}, {"beat": 0.5, "time": 0.4167, "major": false}, {"beat": 0.5833, "time": 0.4861, "major": false}, {"beat": 0.6667, "time": 0.5556, "major": false}, {"beat": 0.75, "time": 0.625, "major": false}, {"beat": 0.8333, "time": 0.6944, "major": false}, {"beat": 0.9167, "time": 0.7639, "major": false}, {"beat": 1.0, "time": 0.8333, "major": true}, {"beat": 1.0833, "time": 0.9028, "major": false}, {"beat": 1.1667, "time": 0.9722, "major": false}, {"beat": 1.25, "time": 1.0417, "major": false}, {"beat": 1.3333, "time": 1.1111, "major": false}, {"beat": 1.4167, "time": 1.1806, "major": false}, {"beat": 1.5, "time": 1.25, "major": false}, {"beat": 1.5833, "time": 1.3194, "major": false}, {"beat": 1.6667, "time": 1.3889, "major": false}, {"beat": 1.75, "time": 1.4583, "major": false}, {"beat": 1.8333, "time": 1.5278, "major": false}, {"beat": 1.9167, "time": 1.5972, "major": false}, {"beat": 2.0, "time": 1.6667, "major": true}, {"beat": 2.0833, "time": 1.7361, "major": false}, {"beat": 2.1667, "time": 1.8056, "major": false}, {"beat": 2.25, "time": 1.875, "major": false}, {"beat": 2.3333, "time": 1.9444, "major": false}, {"beat": 2.4167, "time": 2.0139, "major": false}, {"beat": 2.5, "time": 2.0833, "major": false}, {"beat": 2.5833, "time": 2.1528, "major": false}, {"beat": 2.6667, "time": 2.2222, "major": false}, {"beat": 2.75, "time": 2.2917, "major": false}, {"beat": 2.8333, "time": 2.3611, "major": false}, {"beat": 2.9167, "time": 2.4306, "major": false}, {"beat": 3.0, "time": 2.5, "major": true}, {"beat": 3.0833, "time": 2.5694, "major": false}, {"beat": 3.1667, "time": 2.6389, "major": false}, {"beat": 3.25, "time": 2.7083, "major": false}, {"beat": 3.3333, "time": 2.7778, "major": false}, {"beat": 3.4167, "time": 2.8472, "major": false}, {"beat": 3.5, "time": 2.9167, "major": false}, {"beat": 3.5833, "time": 2.9861, "major": false}, {"beat": 3.6667, "time": 3.0556, "major": false}, {"beat": 3.75, "time": 3.125, "major": false}, {"beat": 3.8333, "time": 3.1944, "major": false}, {"beat": 3.9167, "time": 3.2639, "major": false}, {"beat": 4.0, "time": 3.3333, "major": true}, {"beat": 4.0833, "time": 3.4028, "major": false}, {"beat": 4.1667, "time": 3.4722, "major": false}, {"beat": 4.25, "time": 3.5417, "major": false}, {"beat": 4.3333, "time": 3.6111, "major": false}, {"beat": 4.4167, "time": 3.6806, "major": false}, {"beat": 4.5, "time": 3.75, "major": false}, {"beat": 4.5833, "time": 3.8194, "major": false}, {"beat": 4.6667, "time": 3.8889, "major": false}, {"beat": 4.75, "time": 3.9583, "major": false}, {"beat": 4.8333, "time": 4.0278, "major": false}, {"beat": 4.9167, "time": 4.0972, "major": false}, {"beat": 5.0, "time": 4.1667, "major": true}, {"beat": 5.0833, "time": 4.2361, "major": false}, {"beat": 5.1667, "time": 4.3056, "major": false}, {"beat": 5.25, "time": 4.375, "major": false}, {"beat": 5.3333, "time": 4.4444, "major": false}, {"beat": 5.4167, "time": 4.5139, "major": false}, {"beat": 5.5, "time": 4.5833, "major": false}, {"beat": 5.5833, "time": 4.6528, "major": false}, {"beat": 5.6667, "time": 4.7222, "major": false}, {"beat": 5.75, "time": 4.7917, "major": false}, {"beat": 5.8333, "time": 4.8611, "major": false}, {"beat": 5.9167, "time": 4.9306, "major": false}, {"beat": 6.0, "time": 5.0, "major": true}, {"beat": 6.0833, "time": 5.0694, "major": false}, {"beat": 6.1667, "time": 5.1389, "major": false}, {"beat": 6.25, "time": 5.2083, "major": false}, {"beat": 6.3333, "time": 5.2778, "major": false}, {"beat": 6.4167, "time": 5.3472, "major": false}, {"beat": 6.5, "time": 5.4167, "major": false}, {"beat": 6.5833, "time": 5.4861, "major": false}, {"beat": 6.6667, "time": 5.5556, "major": false}, {"beat": 6.75, "time": 5.625, "major": false}, {"beat": 6.8333, "time": 5.6944, "major": false}, {"beat": 6.9167, "time": 5.7639, "major": false}, {"beat": 7.0, "time": 5.8333, "major": true}, {"beat": 7.0833, "time": 5.9028, "major": false}, {"beat": 7.1667, "time": 5.9722, "major": false}, {"beat": 7.25, "time": 6.0417, "major": false}, {"beat": 7.3333, "time": 6.1111, "major": false}, {"beat": 7.4167, "time": 6.1806, "major": false}, {"beat": 7.5, "time": 6.25, "major": false}, {"beat": 7.5833, "time": 6.3194, "major": false}, {"beat": 7.6667, "time": 6.3889, "major": false}, {"beat": 7.75, "time": 6.4583, "major": false}, {"beat": 7.8333, "time": 6.5278, "major": false}, {"beat": 7.9167, "time": 6.5972, "major": false}, {"beat": 8.0, "time": 6.6667, "major": true}, {"beat": 8.0833, "time": 6.7361, "major": false}, {"beat": 8.1667, "time": 6.8056, "major": false}, {"beat": 8.25, "time": 6.875, "major": false}, {"beat": 8.3333, "time": 6.9444, "major": false}, {"beat": 8.4167, "time": 7.0139, "major": false}, {"beat": 8.5, "time": 7.0833, "major": false}, {"beat": 8.5833, "time": 7.1528, "major": false}, {"beat": 8.6667, "time": 7.2222, "major": false}, {"beat": 8.75, "time": 7.2917, "major": false}, {"beat": 8.8333, "time": 7.3611, "major": false}, {"beat": 8.9167, "time": 7.4306, "major": false}, {"beat": 9.0, "time": 7.5, "major": true}, {"beat": 9.0833, "time": 7.5694, "major": false}, {"beat": 9.1667, "time": 7.6389, "major": false}, {"beat": 9.25, "time": 7.7083, "major": false}, {"beat": 9.3333, "time": 7.7778, "major": false}, {"beat": 9.4167, "time": 7.8472, "major": false}, {"beat": 9.5, "time": 7.9167, "major": false}, {"beat": 9.5833, "time": 7.9861, "major": false}, {"beat": 9.6667, "time": 8.0556, "major": false}, {"beat": 9.75, "time": 8.125, "major": false}, {"beat": 9.8333, "time": 8.1944, "major": false}, {"beat": 9.9167, "time": 8.2639, "major": false}, {"beat": 10.0, "time": 8.3333, "major": true}, {"beat": 10.0833, "time": 8.4028, "major": false}, {"beat": 10.1667, "time": 8.4722, "major": false}, {"beat": 10.25, "time": 8.5417, "major": false}, {"beat": 10.3333, "time": 8.6111, "major": false}, {"beat": 10.4167, "time": 8.6806, "major": false}, {"beat": 10.5, "time": 8.75, "major": false}, {"beat": 10.5833, "time": 8.8194, "major": false}, {"beat": 10.6667, "time": 8.8889, "major": false}, {"beat": 10.75, "time": 8.9583, "major": false}, {"beat": 10.8333, "time": 9.0278, "major": false}, {"beat": 10.9167, "time": 9.0972, "major": false}, {"beat": 11.0, "time": 9.1667, "major": true}, {"beat": 11.0833, "time": 9.2361, "major": false}, {"beat": 11.1667, "time": 9.3056, "major": false}, {"beat": 11.25, "time": 9.375, "major": false}, {"beat": 11.3333, "time": 9.4444, "major": false}, {"beat": 11.4167, "time": 9.5139, "major": false}, {"beat": 11.5, "time": 9.5833, "major": false}, {"beat": 11.5833, "time": 9.6528, "major": false}, {"beat": 11.6667, "time": 9.7222, "major": false}, {"beat": 11.75, "time": 9.7917, "major": false}, {"beat": 11.8333, "time": 9.8611, "major": false}, {"beat": 11.9167, "time": 9.9306, "major": false}, {"beat": 12.0, "time": 10.0, "major": true}, {"beat": 12.0833, "time": 10.0694, "major": false}, {"beat": 12.1667, "time": 10.1389, "major": false}, {"beat": 12.25, "time": 10.2083, "major": false}, {"beat": 12.3333, "time": 10.2778, "major": false}, {"beat": 12.4167, "time": 10.3472, "major": false}, {"beat": 12.5, "time": 10.4167, "major": false}, {"beat": 12.5833, "time": 10.4861, "major": false}, {"beat": 12.6667, "time": 10.5556, "major": false}, {"beat": 12.75, "time": 10.625, "major": false}, {"beat": 12.8333, "time": 10.6944, "major": false}, {"beat": 12.9167, "time": 10.7639, "major": false}, {"beat": 13.0, "time": 10.8333, "major": true}, {"beat": 13.0833, "time": 10.9028, "major": false}, {"beat": 13.1667, "time": 10.9722, "major": false}, {"beat": 13.25, "time": 11.0417, "major": false}, {"beat": 13.3333, "time": 11.1111, "major": false}, {"beat": 13.4167, "time": 11.1806, "major": false}, {"beat": 13.5, "time": 11.25, "major": false}, {"beat": 13.5833, "time": 11.3194, "major": false}, {"beat": 13.6667, "time": 11.3889, "major": false}, {"beat": 13.75, "time": 11.4583, "major": false}, {"beat": 13.8333, "time": 11.5278, "major": false}, {"beat": 13.9167, "time": 11.5972, "major": false}, {"beat": 14.0, "time": 11.6667, "major": true}, {"beat": 14.0833, "time": 11.7361, "major": false}, {"beat": 14.1667, "time": 11.8056, "major": false}, {"beat": 14.25, "time": 11.875, "major": false}, {"beat": 14.3333, "time": 11.9444, "major": false}, {"beat": 14.4167, "time": 12.0139, "major": false}, {"beat": 14.5, "time": 12.0833, "major": false}, {"beat": 14.5833, "time": 12.1528, "major": false}, {"beat": 14.6667, "time": 12.2222, "major": false}, {"beat": 14.75, "time": 12.2917, "major": false}, {"beat": 14.8333, "time": 12.3611, "major": false}, {"beat": 14.9167, "time": 12.4306, "major": false}, {"beat": 15.0, "time": 12.5, "major": true}, {"beat": 15.0833, "time": 12.5694, "major": false}, {"beat": 15.1667, "time": 12.6389, "major": false}, {"beat": 15.25, "time": 12.7083, "major": false}, {"beat": 15.3333, "time": 12.7778, "major": false}, {"beat": 15.4167, "time": 12.8472, "major": false}, {"beat": 15.5, "time": 12.9167, "major": false}, {"beat": 15.5833, "time": 12.9861, "major": false}, {"beat": 15.6667, "time": 13.0556, "major": false}, {"beat": 15.75, "time": 13.125, "major": false}, {"beat": 15.8333, "time": 13.1944, "major": false}, {"beat": 15.9167, "time": 13.2639, "major": false}, {"beat": 16.0, "time": 13.3333, "major": true}, {"beat": 16.0833, "time": 13.4028, "major": false}, {"beat": 16.1667, "time": 13.4722, "major": false}, {"beat": 16.25, "time": 13.5417, "major": false}, {"beat": 16.3333, "time": 13.6111, "major": false}, {"beat": 16.4167, "time": 13.6806, "major": false}, {"beat": 16.5, "time": 13.75, "major": false}, {"beat": 16.5833, "time": 13.8194, "major": false}, {"beat": 16.6667, "time": 13.8889, "major": false}, {"beat": 16.75, "time": 13.9583, "major": false}, {"beat": 16.8333, "time": 14.0278, "major": false}, {"beat": 16.9167, "time": 14.0972, "major": false}, {"beat": 17.0, "time": 14.1667, "major": true}, {"beat": 17.0833, "time": 14.2361, "major": false}, {"beat": 17.1667, "time": 14.3056, "major": false}, {"beat": 17.25, "time": 14.375, "major": false}, {"beat": 17.3333, "time": 14.4444, "major": false}, {"beat": 17.4167, "time": 14.5139, "major": false}, {"beat": 17.5, "time": 14.5833, "major": false}, {"beat": 17.5833, "time": 14.6528, "major": false}, {"beat": 17.6667, "time": 14.7222, "major": false}, {"beat": 17.75, "time": 14.7917, "major": false}, {"beat": 17.8333, "time": 14.8611, "major": false}, {"beat": 17.9167, "time": 14.9306, "major": false}, {"beat": 18.0, "time": 15.0, "major": true}, {"beat": 18.0833, "time": 15.0694, "major": false}, {"beat": 18.1667, "time": 15.1389, "major": false}, {"beat": 18.25, "time": 15.2083, "major": false}, {"beat": 18.3333, "time": 15.2778, "major": false}, {"beat": 18.4167, "time": 15.3472, "major": false}, {"beat": 18.5, "time": 15.4167, "major": false}, {"beat": 18.5833, "time": 15.4861, "major": false}, {"beat": 18.6667, "time": 15.5556, "major": false}, {"beat": 18.75, "time": 15.625, "major": false}, {"beat": 18.8333, "time": 15.6944, "major": false}, {"beat": 18.9167, "time": 15.7639, "major": false}, {"beat": 19.0, "time": 15.8333, "major": true}, {"beat": 19.0833, "time": 15.9028, "major": false}, {"beat": 19.1667, "time": 15.9722, "major": false}, {"beat": 19.25, "time": 16.0417, "major": false}, {"beat": 19.3333, "time": 16.1111, "major": false}, {"beat": 19.4167, "time": 16.1806, "major": false}, {"beat": 19.5, "time": 16.25, "major": false}, {"beat": 19.5833, "time": 16.3194, "major": false}, {"beat": 19.6667, "time": 16.3889, "major": false}, {"beat": 19.75, "time": 16.4583, "major": false}, {"beat": 19.8333, "time": 16.5278, "major": false}, {"beat": 19.9167, "time": 16.5972, "major": false}, {"beat": 20.0, "time": 16.6667, "major": true}, {"beat": 20.0833, "time": 16.7361, "major": false}, {"beat": 20.1667, "time": 16.8056, "major": false}, {"beat": 20.25, "time": 16.875, "major": false}, {"beat": 20.3333, "time": 16.9444, "major": false}, {"beat": 20.4167, "time": 17.0139, "major": false}, {"beat": 20.5, "time": 17.0833, "major": false}, {"beat": 20.5833, "time": 17.1528, "major": false}, {"beat": 20.6667, "time": 17.2222, "major": false}, {"beat": 20.75, "time": 17.2917, "major": false}, {"beat": 20.8333, "time": 17.3611, "major": false}, {"beat": 20.9167, "time": 17.4306, "major": false}, {"beat": 21.0, "time": 17.5, "major": true}, {"beat": 21.0833, "time": 17.5694, "major": false}, {"beat": 21.1667, "time": 17.6389, "major": false}, {"beat": 21.25, "time": 17.7083, "major": false}, {"beat": 21.3333, "time": 17.7778, "major": false}, {"beat": 21.4167, "time": 17.8472, "major": false}, {"beat": 21.5, "time": 17.9167, "major": false}];
+const totalBeats = 21.5;
+const bps = 1.2000;
+const pxPerBeat = 100;
+const trackLabels = document.getElementById('trackLabels');
+const tracksScroll = document.getElementById('tracksScroll');
+const playhead = document.getElementById('playhead');
+const playBtn = document.getElementById('playBtn');
+const timeDisplay = document.getElementById('timeDisplay');
+const tooltip = document.getElementById('tooltip');
+const channelsUsed = [1, 2, 3, 4, 5, 8];
+
+// Build tracks
+const channelColors = {"Channel.VISUAL": "#3B82F6", "Channel.TEXT": "#10B981", "Channel.AUDIO": "#F59E0B", "Channel.COLOR": "#EC4899", "Channel.MOTION": "#8B5CF6", "Channel.EFFECTS": "#6366F1", "Channel.DATA": "#14B8A6", "Channel.SIDECHANNEL": "#EF4444", "Channel.META": "#6B7280"};
+const channelNames = {"Channel.VISUAL": "Visual", "Channel.TEXT": "Text", "Channel.AUDIO": "Audio", "Channel.COLOR": "Color", "Channel.MOTION": "Motion", "Channel.EFFECTS": "Effects", "Channel.DATA": "Data", "Channel.SIDECHANNEL": "Side", "Channel.META": "Meta"};
+
+const sideTypes = {'nod': 'side-nod', 'smile': 'side-smile', 'frown': 'side-frown', 'breath': 'side-breath'};
+
+channelsUsed.forEach(ch => {
+  const label = document.createElement('div');
+  label.className = 'track-label';
+  label.textContent = channelNames[ch] || 'Ch' + ch;
+  label.style.color = channelColors[ch];
+  trackLabels.appendChild(label);
+  
+  const row = document.createElement('div');
+  row.className = 'track-row';
+  row.dataset.channel = ch;
+  
+  // Add grid lines
+  grid.forEach(g => {
+    const line = document.createElement('div');
+    line.className = 'grid-line' + (g.major ? ' major' : '');
+    line.style.left = (g.beat * pxPerBeat) + 'px';
+    row.appendChild(line);
+  });
+  
+  // Add events
+  events.filter(e => e.channel === ch).forEach(e => {
+    const block = document.createElement('div');
+    block.className = 'event-block';
+    const isSide = ch === 8;
+    if (isSide && e.meta && e.meta.type) {
+      block.classList.add('side-channel-block', sideTypes[e.meta.type] || '');
+    }
+    block.style.left = (e.beat * pxPerBeat) + 'px';
+    block.style.width = Math.max(e.durationBeats * pxPerBeat, 8) + 'px';
+    const alpha = Math.max(0.2, e.velocity / 127);
+    const color = channelColors[ch] || '#888';
+    block.style.background = isSide ? '' : color + Math.round(alpha * 255).toString(16).padStart(2, '0');
+    block.style.borderLeft = '3px solid ' + color;
+    block.textContent = e.icon;
+    block.title = e.sceneType;
+    
+    // Tooltip
+    block.addEventListener('mouseenter', ev => {
+      document.getElementById('ttTitle').textContent = e.icon + ' ' + e.sceneType;
+      let body = '<div><span class="tt-key">Beat:</span> <span class="tt-val">' + e.beat.toFixed(2) + '</span></div>';
+      body += '<div><span class="tt-key">Time:</span> <span class="tt-val">' + e.time.toFixed(3) + 's</span></div>';
+      body += '<div><span class="tt-key">Velocity:</span> <span class="tt-val">' + e.velocity + '</span></div>';
+      body += '<div><span class="tt-key">Duration:</span> <span class="tt-val">' + e.durationBeats.toFixed(1) + ' beats (' + e.durationSeconds.toFixed(2) + 's)</span></div>';
+      if (e.text) body += '<div><span class="tt-key">Text:</span> <span class="tt-val">"' + e.text + '"</span></div>';
+      if (e.motion) body += '<div><span class="tt-key">Motion:</span> <span class="tt-val">' + e.motion + '</span></div>';
+      if (e.mood) body += '<div><span class="tt-key">Mood:</span> <span class="tt-val">' + e.mood + '</span></div>';
+      if (e.effect) body += '<div><span class="tt-key">Effect:</span> <span class="tt-val">' + e.effect + '</span></div>';
+      if (e.meta) body += '<div><span class="tt-key">Meta:</span> <span class="tt-val">' + JSON.stringify(e.meta) + '</span></div>';
+      document.getElementById('ttBody').innerHTML = body;
+      tooltip.style.left = (ev.clientX + 15) + 'px';
+      tooltip.style.top = (ev.clientY - 10) + 'px';
+      tooltip.classList.add('visible');
+    });
+    block.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+    
+    row.appendChild(block);
+  });
+  
+  tracksScroll.appendChild(row);
+});
+
+// Set width
+tracksScroll.style.width = (totalBeats * pxPerBeat + 100) + 'px';
+
+// Playback
+let playing = false;
+let startTime = 0;
+let elapsed = 0;
+
+function updatePlayhead() {
+  if (!playing) return;
+  const now = performance.now();
+  elapsed = (now - startTime) / 1000;
+  const beat = elapsed * bps;
+  
+  if (beat > totalBeats) {
+    playing = false;
+    playBtn.textContent = '▶ Play';
+    playhead.style.left = '0px';
+    elapsed = 0;
+    document.getElementById('csValue').textContent = '—';
+    return;
+  }
+  
+  playhead.style.left = (beat * pxPerBeat) + 'px';
+  timeDisplay.textContent = elapsed.toFixed(3) + 's / 17.917s';
+  
+  // Find active visual scene
+  const activeVisual = events.filter(e => 
+    e.channel === 1 && e.beat <= beat && (e.beat + e.durationBeats) > beat
+  );
+  if (activeVisual.length > 0) {
+    const scene = activeVisual[activeVisual.length - 1];
+    document.getElementById('csValue').textContent = scene.icon + ' ' + scene.sceneType + ' (vel ' + scene.velocity + ')';
+  }
+  
+  requestAnimationFrame(updatePlayhead);
+}
+
+playBtn.addEventListener('click', () => {
+  if (playing) {
+    playing = false;
+    playBtn.textContent = '▶ Play';
+  } else {
+    playing = true;
+    startTime = performance.now() - (elapsed * 1000);
+    playBtn.textContent = '⏸ Pause';
+    requestAnimationFrame(updatePlayhead);
+  }
+});
+</script>
+
+</body>
+</html>

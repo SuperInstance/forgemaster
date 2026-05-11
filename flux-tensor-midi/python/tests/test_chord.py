@@ -71,12 +71,13 @@ class TestHarmonyState:
         assert hs.quality() == ChordQuality.UNKNOWN
 
     def test_chord_quality_seventh(self):
-        # Ninth chord: 5+ active channels -> NINTH
-        a = FluxVector([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
-        b = FluxVector([0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0])
-        c = FluxVector([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0])
-        d = FluxVector([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
-        e = FluxVector([0.5] + [0.0]*8)
+        # 5+ active channels -> NINTH
+        # Use {0, 1, 2, 3, 8} — doesn't match major/minor/dim/aug/sus
+        a = FluxVector([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # 0
+        b = FluxVector([0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # 1
+        c = FluxVector([0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # 2
+        d = FluxVector([0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # 3
+        e = FluxVector([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])  # 8
         hs = HarmonyState([a, b, c, d, e])
         assert hs.quality() == ChordQuality.NINTH
 

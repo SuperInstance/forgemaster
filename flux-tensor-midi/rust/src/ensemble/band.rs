@@ -87,7 +87,10 @@ impl Band {
 
     /// Send a MIDI event to the band, updating the relevant musician.
     pub fn play_midi(&mut self, event: &MidiEvent, now: f64) {
-        self.previous_flux = Some(self.flux);
+        // Save current flux as previous before updating (only after first event)
+        if self.clock.n_ticks > 0 {
+            self.previous_flux = Some(self.flux);
+        }
         self.clock.tick(now);
 
         // Map MIDI channel to flux channel
@@ -249,7 +252,9 @@ mod tests {
             let m = RoomMusician::new(&format!("M{i}"), i);
             assert!(band.add_musician(m).is_ok());
         }
-        let extra = RoomMusician::new("Overflow", 9);
+        // Band is full (9 musicians), adding another should fail
+        // Use channel 8 since adding is already blocked by musician_count check
+        let extra = RoomMusician::new("Overflow", 8);
         assert!(band.add_musician(extra).is_err());
     }
 

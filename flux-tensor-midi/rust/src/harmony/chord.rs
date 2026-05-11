@@ -118,7 +118,7 @@ impl ChordQuality {
         match self {
             ChordQuality::Root => 1.0,
             ChordQuality::NoChord => 0.0,
-            quality => {
+            _quality => {
                 // More active channels = more data = higher confidence
                 (active_count as f64).min(9.0) / 9.0
             }

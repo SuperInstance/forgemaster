@@ -78,7 +78,7 @@ impl Score {
     ) -> Self {
         let mut scored = Vec::with_capacity(events.len());
         let dur_default = 0.25; // sixteenth note default
-        let mut max_beat = 0.0;
+        let mut max_beat: f64 = 0.0;
 
         for (i, event) in events.iter().enumerate() {
             let beat = position_beats.get(i).copied().unwrap_or(0.0);

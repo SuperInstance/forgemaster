@@ -64,7 +64,7 @@ impl serde::Serialize for crate::core::TZeroClock {
         let mut s = serializer.serialize_struct("TZeroClock", 4)?;
         s.serialize_field("tick", &self.tick)?;
         s.serialize_field("ema", &self.ema)?;
-        s.serialize_field("alpha", &self.alpha)?;
+        s.serialize_field("alpha", &self.alpha())?;
         s.serialize_field("n_ticks", &self.n_ticks)?;
         s.end()
     }

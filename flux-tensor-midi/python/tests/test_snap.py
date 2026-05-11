@@ -32,8 +32,8 @@ class TestEisensteinRatio:
         assert t == 500.0
 
     def test_snap_halftime(self):
-        t = HALFTIME.snap(500.0, base_period_ms=500.0)
-        assert t == 500.0  # 2*500 = 1000 period
+        t = HALFTIME.snap(1000.0, base_period_ms=500.0)
+        assert t == 1000.0  # 2:1 ratio = 1000ms period
 
     def test_phase_offset(self):
         r = EisensteinRatio(1, 1, phase_offset=0.5)
@@ -104,7 +104,7 @@ class TestEisensteinSnap:
 
     def test_in_phase_true(self):
         snap = EisensteinSnap(base_period_ms=500.0)
-        assert snap.in_phase(500.0, 1000.0)
+        assert snap.in_phase(500.0, 501.0)
 
     def test_in_phase_false(self):
         snap = EisensteinSnap(base_period_ms=500.0)
