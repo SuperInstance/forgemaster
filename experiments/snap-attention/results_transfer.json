@@ -1,0 +1,287 @@
+{
+  "num_trials": 49980,
+  "summary": {
+    "total_transfers": 49980,
+    "avg_transfer_efficiency_matching": 1.0,
+    "avg_transfer_efficiency_mismatching": 1.0,
+    "avg_convergence_matching": 1.0,
+    "avg_convergence_mismatching": 1.0,
+    "avg_deltas_matching": 237.88,
+    "avg_deltas_mismatching": 237.68,
+    "matching_count": 13260,
+    "mismatching_count": 36720
+  },
+  "per_flavor": {
+    "coin": {
+      "avg_transfer_efficiency": 1.0,
+      "avg_convergence": 1.0
+    },
+    "d6": {
+      "avg_transfer_efficiency": 1.0,
+      "avg_convergence": 1.0
+    },
+    "d20": {
+      "avg_transfer_efficiency": 1.0,
+      "avg_convergence": 1.0
+    },
+    "2d6": {
+      "avg_transfer_efficiency": 1.0,
+      "avg_convergence": 1.0
+    },
+    "categorical": {
+      "avg_transfer_efficiency": 1.0,
+      "avg_convergence": 1.0
+    },
+    "directional": {
+      "avg_transfer_efficiency": 1.0,
+      "avg_convergence": 1.0
+    },
+    "gaussian": {
+      "avg_transfer_efficiency": 1.0,
+      "avg_convergence": 1.0
+    }
+  },
+  "sample_transfers": [
+    {
+      "source": "coin",
+      "target": "coin",
+      "shapes_match": true,
+      "trained_tolerance": 0.4948,
+      "transferred_final_error": 0.0778,
+      "fresh_final_error": 0.0778,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 235,
+      "fresh_deltas_detected": 215,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "coin",
+      "target": "d6",
+      "shapes_match": false,
+      "trained_tolerance": 0.4956,
+      "transferred_final_error": 0.0765,
+      "fresh_final_error": 0.0765,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 25,
+      "fresh_deltas_detected": 225,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "coin",
+      "target": "d20",
+      "shapes_match": false,
+      "trained_tolerance": 0.5089,
+      "transferred_final_error": 0.0472,
+      "fresh_final_error": 0.0472,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 19,
+      "fresh_deltas_detected": 242,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "coin",
+      "target": "2d6",
+      "shapes_match": false,
+      "trained_tolerance": 0.4703,
+      "transferred_final_error": 0.0414,
+      "fresh_final_error": 0.0414,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 8,
+      "fresh_deltas_detected": 236,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "coin",
+      "target": "categorical",
+      "shapes_match": false,
+      "trained_tolerance": 0.5119,
+      "transferred_final_error": 0.0702,
+      "fresh_final_error": 0.0702,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 3,
+      "fresh_deltas_detected": 240,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "coin",
+      "target": "directional",
+      "shapes_match": false,
+      "trained_tolerance": 0.4939,
+      "transferred_final_error": 0.0505,
+      "fresh_final_error": 0.0505,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 19,
+      "fresh_deltas_detected": 298,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "coin",
+      "target": "gaussian",
+      "shapes_match": false,
+      "trained_tolerance": 0.4901,
+      "transferred_final_error": 0.0235,
+      "fresh_final_error": 0.0235,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 0,
+      "fresh_deltas_detected": 228,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d6",
+      "target": "coin",
+      "shapes_match": false,
+      "trained_tolerance": 0.2903,
+      "transferred_final_error": 0.0722,
+      "fresh_final_error": 0.0722,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 481,
+      "fresh_deltas_detected": 244,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d6",
+      "target": "d6",
+      "shapes_match": true,
+      "trained_tolerance": 0.2586,
+      "transferred_final_error": 0.0879,
+      "fresh_final_error": 0.0879,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 238,
+      "fresh_deltas_detected": 251,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d6",
+      "target": "d20",
+      "shapes_match": true,
+      "trained_tolerance": 0.2936,
+      "transferred_final_error": 0.0564,
+      "fresh_final_error": 0.0564,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 216,
+      "fresh_deltas_detected": 302,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d6",
+      "target": "2d6",
+      "shapes_match": false,
+      "trained_tolerance": 0.2712,
+      "transferred_final_error": 0.0235,
+      "fresh_final_error": 0.0235,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 106,
+      "fresh_deltas_detected": 204,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d6",
+      "target": "categorical",
+      "shapes_match": false,
+      "trained_tolerance": 0.2729,
+      "transferred_final_error": 0.0521,
+      "fresh_final_error": 0.0521,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 257,
+      "fresh_deltas_detected": 260,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d6",
+      "target": "directional",
+      "shapes_match": false,
+      "trained_tolerance": 0.2311,
+      "transferred_final_error": 0.0528,
+      "fresh_final_error": 0.0528,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 266,
+      "fresh_deltas_detected": 228,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d6",
+      "target": "gaussian",
+      "shapes_match": false,
+      "trained_tolerance": 0.2648,
+      "transferred_final_error": 0.031,
+      "fresh_final_error": 0.031,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 35,
+      "fresh_deltas_detected": 161,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d20",
+      "target": "coin",
+      "shapes_match": false,
+      "trained_tolerance": 0.259,
+      "transferred_final_error": 0.08,
+      "fresh_final_error": 0.08,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 486,
+      "fresh_deltas_detected": 229,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d20",
+      "target": "d6",
+      "shapes_match": true,
+      "trained_tolerance": 0.2822,
+      "transferred_final_error": 0.0577,
+      "fresh_final_error": 0.0577,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 228,
+      "fresh_deltas_detected": 240,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d20",
+      "target": "d20",
+      "shapes_match": true,
+      "trained_tolerance": 0.2549,
+      "transferred_final_error": 0.0641,
+      "fresh_final_error": 0.0641,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 255,
+      "fresh_deltas_detected": 251,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d20",
+      "target": "2d6",
+      "shapes_match": false,
+      "trained_tolerance": 0.2848,
+      "transferred_final_error": 0.0405,
+      "fresh_final_error": 0.0405,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 108,
+      "fresh_deltas_detected": 280,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d20",
+      "target": "categorical",
+      "shapes_match": false,
+      "trained_tolerance": 0.27,
+      "transferred_final_error": 0.0428,
+      "fresh_final_error": 0.0428,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 233,
+      "fresh_deltas_detected": 254,
+      "convergence_ratio": 1.0
+    },
+    {
+      "source": "d20",
+      "target": "directional",
+      "shapes_match": false,
+      "trained_tolerance": 0.2805,
+      "transferred_final_error": 0.0523,
+      "fresh_final_error": 0.0523,
+      "transfer_efficiency": 1.0,
+      "transferred_deltas_detected": 202,
+      "fresh_deltas_detected": 260,
+      "convergence_ratio": 1.0
+    }
+  ],
+  "insight": "Matching shapes (e.g., coin\u2192coin, d6\u2192d20) should transfer better than mismatching shapes (e.g., coin\u2192gaussian, 2d6\u2192directional). Transfer efficiency > 1.0 means the transferred snap calibrates FASTER than a fresh snap \u2014 supporting the theory that snap topologies are domain-invariant."
+}

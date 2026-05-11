@@ -1,0 +1,41 @@
+{
+  "timesteps": 100000,
+  "budget": 3,
+  "num_streams": 10,
+  "strategies": {
+    "uniform": {
+      "total_utility": 43170.8,
+      "missed_opportunities": 47342,
+      "attention_waste": 22899.2,
+      "total_deltas_detected": 491141,
+      "correct_attends": 67542,
+      "false_attends": 228992,
+      "true_anomalies_missed": 47342,
+      "precision": 0.2278,
+      "net_value": 20271.6
+    },
+    "reactive": {
+      "total_utility": 55012.45,
+      "missed_opportunities": 28487,
+      "attention_waste": 21013.7,
+      "total_deltas_detected": 491141,
+      "correct_attends": 86397,
+      "false_attends": 210137,
+      "true_anomalies_missed": 28487,
+      "precision": 0.2914,
+      "net_value": 33998.75
+    },
+    "smart": {
+      "total_utility": 63618.55,
+      "missed_opportunities": 18458,
+      "attention_waste": 20010.8,
+      "total_deltas_detected": 491141,
+      "correct_attends": 96426,
+      "false_attends": 200108,
+      "true_anomalies_missed": 18458,
+      "precision": 0.3252,
+      "net_value": 43607.75
+    }
+  },
+  "insight": "Smart strategy (actionability-weighted) should outperform because it directs attention to deltas where thinking can actually change outcomes. Reactive wastes attention on large deltas from low-actionability streams. Uniform wastes attention randomly."
+}

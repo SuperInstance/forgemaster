@@ -1,0 +1,24 @@
+{
+  "num_solves": 500,
+  "solvers": {
+    "brute_force": {
+      "avg_moves": 500.0,
+      "solve_rate": 0.0,
+      "avg_cognitive_load": 500.0
+    },
+    "script_executor": {
+      "avg_moves": 299.4,
+      "solve_rate": 0.002,
+      "avg_cognitive_load": 299.4,
+      "avg_script_ratio": 3.939
+    },
+    "planning": {
+      "avg_moves": 1097.6,
+      "solve_rate": 0.002,
+      "avg_cognitive_load": 299.4,
+      "avg_script_ratio": 0.8258,
+      "avg_plans": 110.0
+    }
+  },
+  "insight": "The planning solver should use MORE total moves but LOWER cognitive load, because scripts execute without thinking while the mind plans ahead. The planning solver's advantage is not fewer moves but more FREED COGNITION."
+}
