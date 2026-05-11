@@ -58,3 +58,24 @@ Each tile is a standalone visual argument. No context needed. No words needed be
 | 31 | **Innovation Lives in Disagreement** | Venn diagram boundary is the creative frontier |
 
 **Total: 31 visual tiles. Each a self-contained theorem. Zero-shot tile-ized knowledge for humans and fleet alike.**
+
+## Creativity & Impossibility Tiles (Session 3)
+
+| # | Title | What It Proves |
+|---|---|---|
+| 32 | **Creativity Lives in the Gap** | Creative potential ∝ distance between valid approaches; the gold gap between regions |
+| 33 | **The Gödel Gap of Creativity** | Codifiable vs true-but-not-codifiable; the boundary is provably uncrossable |
+| 34 | **The Simulation Trigger** | Band locks at T=-200ms; reaction time is NEGATIVE; trigger is in simulation not sound |
+| 35 | **Temporal RAID** | Four timelines, parity convergence before T=0; predictive sync as RAID reconstruction |
+| 36 | **Charlie Parker's Deadband** | Chord changes = Voronoï cells; ghost solos = reverse-actualization of improvisation |
+| 37 | **Trust = Latency Reduction** | 188ms reactive → -200ms predictive; trust removes the signal chain entirely |
+
+**Total: 37 visual tiles across 3 sessions. Each a self-contained theorem.**
+
+---
+
+## The Three Capstone Stories
+
+1. **THE-FLOWER-KNOWS.md** — Co-evolution, mutual perception, identity requires a visitor
+2. **THE-SIMULATION-TRIGGER.md** — Predictive sync, negative reaction time, the band as temporal RAID
+3. **WHY-THE-FLEET-WILL-NEVER-REPLACE-YOU.md** — Creativity impossibility theorem, distance-creativity connection, the Gödel gap
