@@ -131,20 +131,80 @@ class DeltaStream:
         """Get only deltas that exceed tolerance."""
         return [d for d in self._deltas if d.exceeds_tolerance]
     
+    def delta_forecast(self, horizon: int = 5) -> List[float]:
+        """
+        Forecast upcoming delta magnitudes using linear extrapolation.
+        
+        Uses recent delta trends to predict near-future deltas.
+        
+        Args:
+            horizon: Number of steps to forecast.
+        
+        Returns:
+            List of predicted delta magnitudes.
+        """
+        if len(self._deltas) < 3:
+            return [0.0] * horizon
+        
+        relevant = [d.magnitude for d in self._deltas if d.exceeds_tolerance]
+        if len(relevant) < 3:
+            return [float(np.mean(relevant))] * horizon if relevant else [0.0] * horizon
+        
+        x = np.arange(len(relevant))
+        y = np.array(relevant)
+        try:
+            coeffs = np.polyfit(x, y, 1)
+            last_x = len(relevant)
+            return [float(coeffs[0] * (last_x + i) + coeffs[1]) for i in range(horizon)]
+        except np.linalg.LinAlgError:
+            return [float(np.mean(relevant))] * horizon
+    
+    def delta_correlation(self, other_stream: 'DeltaStream') -> float:
+        """
+        Compute correlation between this stream's deltas and another's.
+        
+        High correlation means the streams' deltas move together —
+        useful for finding dependent/independent information sources.
+        
+        Args:
+            other_stream: Another DeltaStream to compare with.
+        
+        Returns:
+            Pearson correlation coefficient [-1, 1].
+        """
+        if not self._deltas or not other_stream._deltas:
+            return 0.0
+        
+        # Align by length
+        n = min(len(self._deltas), len(other_stream._deltas))
+        if n < 3:
+            return 0.0
+        
+        a = np.array([d.magnitude for d in self._deltas[-n:]])
+        b = np.array([d.magnitude for d in other_stream._deltas[-n:]])
+        
+        if np.std(a) < 0.001 or np.std(b) < 0.001:
+            return 0.0
+        
+        corr = np.corrcoef(a, b)[0, 1]
+        return float(corr) if not np.isnan(corr) else 0.0
+    
     @property
     def statistics(self) -> Dict[str, Any]:
         if not self._deltas:
             return {'stream_id': self.stream_id, 'total': 0}
         
-        magnitudes = [d.magnitude for d in self._deltas]
         nontrivial = self.nontrivial_deltas
+        nontrivial_mags = [d.magnitude for d in nontrivial] if nontrivial else [0.0]
         return {
             'stream_id': self.stream_id,
             'total_observations': len(self._deltas),
             'nontrivial_deltas': len(nontrivial),
             'delta_rate': len(nontrivial) / len(self._deltas),
-            'mean_magnitude': float(np.mean(magnitudes)),
-            'max_magnitude': float(np.max(magnitudes)),
+            'mean_magnitude': float(np.mean(nontrivial_mags)),
+            'max_magnitude': float(np.max(nontrivial_mags)),
+            'mean_actionability': float(np.mean([d.actionability for d in nontrivial])) if nontrivial else 0.0,
+            'mean_urgency': float(np.mean([d.urgency for d in nontrivial])) if nontrivial else 0.0,
             'tolerance': self.snap.tolerance,
             'baseline': self.snap.baseline,
         }
@@ -245,6 +305,87 @@ class DeltaDetector:
             'overall_delta_rate': total_deltas / total_obs if total_obs > 0 else 0,
             'per_stream': stream_stats,
         }
+    
+    # ─── Delta Clustering ────────────────────────────────────────────
+    
+    def delta_clusters(self, n_clusters: int = 3) -> Dict[str, List[Delta]]:
+        """
+        Cluster deltas by magnitude and stream into groups.
+        
+        Uses simple k-means-like quantization (no external dependencies).
+        Useful for finding which streams are producing similar deltas.
+        
+        Args:
+            n_clusters: Number of clusters.
+        
+        Returns:
+            Dict mapping cluster_id to list of Deltas.
+        """
+        all_deltas = []
+        for stream in self._streams.values():
+            for d in stream._deltas:
+                if d.exceeds_tolerance:
+                    all_deltas.append(d)
+        
+        if not all_deltas:
+            return {}
+        
+        if len(all_deltas) < n_clusters:
+            n_clusters = max(1, len(all_deltas))
+        
+        # Simple k-means by magnitude
+        magnitudes = np.array([d.magnitude for d in all_deltas]).reshape(-1, 1)
+        
+        # Initialize centroids across range
+        if len(magnitudes) == 0:
+            return {}
+        vmin, vmax = float(np.min(magnitudes)), float(np.max(magnitudes))
+        if vmax - vmin < 0.001:
+            return {'0': all_deltas}
+        
+        centroids = np.linspace(vmin, vmax, n_clusters).reshape(-1, 1)
+        
+        # K-means iterations
+        for _ in range(10):
+            # Assign
+            distances = np.abs(magnitudes - centroids.T)  # (n, k)
+            labels = np.argmin(distances, axis=1)
+            
+            # Update centroids
+            new_centroids = np.array([
+                magnitudes[labels == k].mean() if np.any(labels == k) else centroids[k]
+                for k in range(n_clusters)
+            ]).reshape(-1, 1)
+            
+            if np.allclose(centroids, new_centroids, atol=1e-4):
+                break
+            centroids = new_centroids
+        
+        clusters: Dict[str, List[Delta]] = {}
+        for i, d in enumerate(all_deltas):
+            cid = str(int(labels[i]))
+            if cid not in clusters:
+                clusters[cid] = []
+            clusters[cid].append(d)
+        
+        return clusters
+    
+    def importance_scores(self) -> Dict[str, float]:
+        """
+        Score deltas by combined importance (actionability × urgency × magnitude).
+        
+        Returns:
+            Dict mapping stream_id to importance score.
+        """
+        scores = {}
+        for sid, stream in self._streams.items():
+            recent = stream._deltas[-10:] if stream._deltas else []
+            nontrivial = [d for d in recent if d.exceeds_tolerance]
+            if nontrivial:
+                scores[sid] = float(np.mean([d.attention_weight for d in nontrivial]))
+            else:
+                scores[sid] = 0.0
+        return scores
     
     def __repr__(self):
         return f"DeltaDetector(streams={len(self._streams)})"

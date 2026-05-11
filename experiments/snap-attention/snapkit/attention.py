@@ -13,7 +13,7 @@ to deltas where cognition can affect outcomes."
 
 import numpy as np
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional, Set
+from typing import List, Dict, Optional, Set, Any
 from collections import defaultdict
 
 from snapkit.delta import Delta, DeltaSeverity
@@ -248,6 +248,170 @@ class AttentionBudget:
             'exhaustion_rate': self.exhaustion_rate,
             'allocation_cycles': len(self._history),
             'strategy': self.strategy,
+        }
+    
+    # ─── Multi-Level Attention ────────────────────────────────────
+    
+    def multi_level_allocate(
+        self,
+        macro_deltas: List[Delta],
+        micro_deltas: Dict[str, List[Delta]],
+        macro_budget: float = 40.0,
+        micro_budget: float = 60.0,
+    ) -> Dict[str, List[AttentionAllocation]]:
+        """
+        Two-level attention allocation.
+        
+        Macro: which streams to attend to.
+        Micro: which deltas within a stream deserve attention.
+        
+        This models the poker pro: first decide WHICH player to watch
+        (macro), then what to look for in that player (micro).
+        
+        Args:
+            macro_deltas: Deltas determining stream-level attention.
+            micro_deltas: Dict of stream_id → deltas for within-stream allocation.
+            macro_budget: Budget for macro allocation.
+            micro_budget: Budget for micro allocation.
+        
+        Returns:
+            Dict with 'macro' and 'micro' allocation lists.
+        """
+        old_total = self.total_budget
+        
+        self.total_budget = macro_budget
+        macro_allocs = self.allocate(macro_deltas)
+        
+        micro_allocs: Dict[str, List[AttentionAllocation]] = {}
+        self.total_budget = micro_budget / max(len(micro_deltas), 1)
+        
+        for stream_id, deltas in micro_deltas.items():
+            micro_allocs[stream_id] = self.allocate(deltas)
+        
+        self.total_budget = old_total
+        
+        return {
+            'macro': macro_allocs,
+            'micro': micro_allocs,
+        }
+    
+    # ─── Attention Decay ──────────────────────────────────────────
+    
+    def apply_decay(self, decay_rate: float = 0.1):
+        """
+        Apply exponential decay to recent allocations.
+        
+        Older allocations lose weight, ensuring recent deltas
+        get more attention than old ones.
+        """
+        for i, cycle in enumerate(self._history):
+            age_factor = np.exp(-decay_rate * (len(self._history) - i))
+            for alloc in cycle:
+                alloc.allocated *= age_factor
+    
+    # ─── Attention Reserve ─────────────────────────────────────────
+    
+    def allocate_with_reserve(
+        self,
+        deltas: List[Delta],
+        reserve_fraction: float = 0.2,
+    ) -> List[AttentionAllocation]:
+        """
+        Allocate attention keeping a reserve for truly novel deltas.
+        
+        The reserve ensures that unexpected, high-actionability deltas
+        always get some attention, even when budget is nearly exhausted.
+        
+        Args:
+            deltas: Prioritized list of deltas.
+            reserve_fraction: Fraction of budget to reserve for surprises.
+        
+        Returns:
+            List of allocations.
+        """
+        reserve = self.total_budget * reserve_fraction
+        available = self.total_budget - reserve
+        
+        old_total = self.total_budget
+        self.total_budget = available
+        
+        primary = self.allocate(deltas)
+        
+        # After primary allocation, check if any novel deltas need reserve
+        novel_deltas = [d for d in deltas if d.severity == DeltaSeverity.CRITICAL]
+        if novel_deltas:
+            self.total_budget = reserve
+            reserve_allocs = self.allocate(novel_deltas)
+            primary.extend(reserve_allocs)
+        
+        self.total_budget = old_total
+        return primary
+    
+    # ─── Attention Insight ───────────────────────────────────────────
+    
+    def attention_insight(self) -> Dict[str, Any]:
+        """
+        Generate insights about attention patterns.
+        
+        Detects fixation (too much attention to one stream),
+        ignoring (attention never allocated to important streams),
+        and imbalance (attention skewed from actionability).
+        
+        Returns:
+            Dict with insight type, severity, and description.
+        """
+        if not self._history:
+            return {'insight': 'No data yet', 'severity': 'info'}
+        
+        stream_attention: Dict[str, float] = {}
+        for cycle in self._history:
+            for alloc in cycle:
+                sid = alloc.delta.stream_id
+                stream_attention[sid] = stream_attention.get(sid, 0.0) + alloc.allocated
+        
+        if not stream_attention:
+            return {'insight': 'Nothing demanded attention', 'severity': 'info'}
+        
+        total = sum(stream_attention.values())
+        top_stream = max(stream_attention, key=stream_attention.get)
+        top_share = stream_attention[top_stream] / max(total, 1)
+        
+        insights = []
+        if top_share > 0.8:
+            insights.append({
+                'type': 'fixation',
+                'severity': 'warning',
+                'message': f"You're spending {top_share:.0%} of attention on '{top_stream}'.",
+            })
+        
+        if self.exhaustion_rate > 0.5:
+            insights.append({
+                'type': 'overload',
+                'severity': 'critical',
+                'message': f"Budget exhausted {self._exhaustion_count} times ({self.exhaustion_rate:.0%} of cycles).",
+            })
+        
+        if self.utilization < 0.2:
+            insights.append({
+                'type': 'underload',
+                'severity': 'info',
+                'message': 'Low attention utilization. Tolerance may be too loose.',
+            })
+        
+        if not insights:
+            insights.append({
+                'type': 'balanced',
+                'severity': 'good',
+                'message': 'Attention allocation is balanced and efficient.',
+            })
+        
+        return {
+            'insights': insights,
+            'top_stream': top_stream,
+            'top_stream_share': top_share,
+            'stream_allocation': stream_attention,
+            'exhaustion_rate': self.exhaustion_rate,
+            'utilization': self.utilization,
         }
     
     def __repr__(self):

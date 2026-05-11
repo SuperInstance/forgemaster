@@ -1,0 +1,48 @@
+{
+  "name": "@snapkit/core",
+  "version": "0.1.0",
+  "description": "Tolerance-compressed attention allocation library — snap information into expected patterns and focus cognition on what matters",
+  "keywords": [
+    "attention",
+    "snap",
+    "tolerance",
+    "compression",
+    "cognitive",
+    "delta",
+    "allocation"
+  ],
+  "license": "MIT",
+  "author": "Forgemaster ⚒️ / Casey Digennaro",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SuperInstance/snapkit-js"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "node --experimental-vm-modules --test test/snap.test.mjs && node --experimental-vm-modules --test test/delta.test.mjs && node --experimental-vm-modules --test test/attention.test.mjs && node --experimental-vm-modules --test test/scripts.test.mjs && node --experimental-vm-modules --test test/integration.test.mjs",
+    "prepublishOnly": "npm run build",
+    "lint": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "sideEffects": false
+}

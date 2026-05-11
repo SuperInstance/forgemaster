@@ -14,29 +14,91 @@ Core concepts:
   - SnapTopology: Platonic/ADE classification of snap shapes
   - LearningCycle: experience → pattern → script → automation
 
-Based on: SNAP-ATTENTION-INTELLIGIBLE.md (Forgemaster & Digennaro, 2026)
+Advanced modules:
+  - adversarial: Adversarial snap calibration (real vs fake deltas)
+  - crossdomain: Cross-domain feel transfer
+  - streaming: Real-time stream processing
+  - visualization: Terminal + HTML visualization
+  - integration: External library integration (PySheaf, SymPy, Numpy)
+  - serial: Serialization & persistence
+  - pipeline: Composable processing pipelines
 
-Usage:
-    from snapkit import SnapFunction, DeltaDetector, AttentionBudget
-    
-    snap = SnapFunction(tolerance=0.1, topology='hexagonal')
-    detector = DeltaDetector(snap)
-    budget = AttentionBudget(total=100.0)
-    
-    # Process information stream
-    for value in data_stream:
-        delta = detector.observe(value)
-        if delta.exceeds_tolerance:
-            budget.allocate(delta, actionability=0.8)
+Based on: SNAPS-AS-ATTENTION.md (Forgemaster & Digennaro, 2026)
+
+"The snap doesn't tell you what's true. The snap tells you what you can
+SAFELY IGNORE so you can think about what matters."
 """
 
-from snapkit.snap import SnapFunction, SnapResult
-from snapkit.delta import DeltaDetector, Delta, DeltaStream
+from snapkit.snap import SnapFunction, SnapResult, SnapTopologyType
+from snapkit.delta import DeltaDetector, Delta, DeltaStream, DeltaSeverity
 from snapkit.attention import AttentionBudget, AttentionAllocation
-from snapkit.scripts import ScriptLibrary, Script, ScriptMatch
-from snapkit.topology import SnapTopology, ADEType
-from snapkit.learning import LearningCycle, LearningPhase
+from snapkit.scripts import ScriptLibrary, Script, ScriptMatch, ScriptStatus
+from snapkit.topology import (
+    SnapTopology, ADEType, ADE_DATA,
+    binary_topology, hexagonal_topology, tetrahedral_topology,
+    triality_topology, exceptional_e6, exceptional_e7, exceptional_e8,
+    all_topologies, recommend_topology,
+)
+from snapkit.learning import LearningCycle, LearningPhase, LearningState
 from snapkit.cohomology import ConstraintSheaf, ConsistencyReport
 
-__version__ = "0.1.0"
+# Optional advanced modules (always importable)
+try:
+    from snapkit import adversarial
+except ImportError:
+    adversarial = None  # type: ignore
+
+try:
+    from snapkit import crossdomain
+except ImportError:
+    crossdomain = None  # type: ignore
+
+try:
+    from snapkit import streaming
+except ImportError:
+    streaming = None  # type: ignore
+
+try:
+    from snapkit import visualization
+except ImportError:
+    visualization = None  # type: ignore
+
+try:
+    from snapkit import integration
+except ImportError:
+    integration = None  # type: ignore
+
+try:
+    from snapkit import serial
+except ImportError:
+    serial = None  # type: ignore
+
+try:
+    from snapkit import pipeline
+except ImportError:
+    pipeline = None  # type: ignore
+
+try:
+    from snapkit import cli
+except ImportError:
+    cli = None  # type: ignore
+
+
+__version__ = "0.2.0"
 __author__ = "Forgemaster ⚒️ / Casey Digennaro"
+__all__ = [
+    # Core
+    "SnapFunction", "SnapResult", "SnapTopologyType",
+    "DeltaDetector", "Delta", "DeltaStream", "DeltaSeverity",
+    "AttentionBudget", "AttentionAllocation",
+    "ScriptLibrary", "Script", "ScriptMatch", "ScriptStatus",
+    "SnapTopology", "ADEType", "ADE_DATA",
+    "binary_topology", "hexagonal_topology", "tetrahedral_topology",
+    "triality_topology", "exceptional_e6", "exceptional_e7", "exceptional_e8",
+    "all_topologies", "recommend_topology",
+    "LearningCycle", "LearningPhase", "LearningState",
+    "ConstraintSheaf", "ConsistencyReport",
+    # Advanced modules
+    "adversarial", "crossdomain", "streaming", "visualization",
+    "integration", "serial", "pipeline", "cli",
+]
