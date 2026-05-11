@@ -514,6 +514,56 @@ The game isn't in the cards. The game is in the space between minds — where ea
 
 *God's number is 20. Human speedcubers use 150. And they're faster. Because intelligence isn't the optimal path through permutation space. It's the construction of scripts that free the mind to plan the next three moves while the hands execute the current one.*
 
+### The Shipwright: Knowing Which Variable Matters
+
+A shipwright knows the waterline length determines top speed. It's the x-factor. Everything else — beam, draft, displacement, engine power — is secondary. The hull speed formula is trivial: v = 1.34 × √(LWL). Any naval architect can calculate it.
+
+But the shipwright also knows: if the skipper wants more speed AND more weight, you need a bulbous bow. The bulb changes the wave interference pattern, effectively increasing the virtual waterline length without adding physical length. It's an intervention at exactly the right point in the system.
+
+The shipwright doesn't recalculate everything from scratch for each boat. They know THE variable that matters (waterline length) and THE intervention that moves it (bulbous bow). Everything else is construction scripts — planking, fastening, rigging. The intelligence is focused on the one constraint that dominates the outcome.
+
+**Professional expertise = knowing which variable is the bottleneck and keeping your attention there.** All other variables get scripted.
+
+### The Blackjack Counter: Intelligence as Camouflage
+
+The professional blackjack player has the same structure:
+
+1. **What matters:** Only specific cards determine the count and table hotness. High cards (10, J, Q, K, A) and low cards (2-6). That's it. The 7, 8, 9 are neutral — they SNAP to "irrelevant" and never reach attention.
+
+2. **What's scripted:** Basic strategy (when to hit, stand, double, split) is fully memorized. No thinking required. The counter executes perfect basic strategy on autopilot while their cognition tracks the count.
+
+3. **Where intelligence is needed:** NOT in the counting. The counting is a script — every competent counter can do it. The intelligence is in **not looking like you're counting.**
+
+```
+Scripts:              Basic strategy, bet sizing, count tracking
+Freed cognition:      Camouflage — betting patterns that look recreational
+                      Conversation that looks casual
+                      Body language that looks like a tourist
+                      Session timing that avoids heat
+```
+
+The counter's actual intelligence is the PERFORMANCE of normalcy. They're running a complex adversarial optimization: maximize expected value while minimizing the probability that pit bosses detect the count.
+
+The count itself is the bulbous bow — the one intervention that changes the odds. Everything the counter does with their freed cognition is about protecting their ability to keep using that intervention.
+
+### The Universal Pattern
+
+```
+Domain          | The variable that matters  | The script layer        | Where intelligence lives
+Shipwright      | Waterline length            | Construction techniques | Knowing when to bulb
+Blackjack       | Hi-Lo count                 | Basic strategy          | Camouflage performance
+Poker           | Opponent delta detection    | Pot odds, outs          | Adversarial snap calibration
+Rubik's cube    | Current pattern → algorithm | Algorithm execution     | Planning 3 scripts ahead
+```
+
+**In every domain, the professional compresses most of the work into scripts and focuses freed cognition on the ONE thing that can't be scripted — because it's adversarial, because it's novel, or because detecting it IS the advantage.**
+
+The blackjack counter who gets caught wasn't out-calculated. They were out-camouflaged. Their scripts were fine. Their count was accurate. But their freed cognition wasn't deployed on the right problem — masking the intelligence itself.
+
+---
+
+*The highest form of intelligence is knowing where to put your attention AND making sure nobody notices where you're putting it. The count is a script. The camouflage is the intelligence.*
+
 *In poker, the river card is already scripted. The intelligence is watching the other players watch the river — and knowing they're watching you watch them. The game is in the adversarial snap, not the cards.*
 
 *The snap is the handoff. The script is the offload. The freed mind is the intelligence.* ⚒️
