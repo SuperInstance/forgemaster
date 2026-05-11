@@ -9,6 +9,7 @@ use crate::eisenstein::fabs;
 ///
 /// ```
 /// # use snapkit::connectome::TemporalConnectome;
+/// # use snapkit::CouplingType;
 /// let mut tc = TemporalConnectome::new(0.3, 5, 10);
 /// tc.add_room(&[1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]);
 /// tc.add_room(&[2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0]);
