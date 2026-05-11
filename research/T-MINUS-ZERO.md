@@ -279,3 +279,57 @@ In each case, the temporal expectation sets the baseline, and the absence is the
 *This theory formalizes Casey's insight: "Time is first-class to the agent in his perception. When estimates don't line up they trigger T-minus-0 and the event NOT happening is the significance."*
 
 *The silence IS the signal. The missed tick IS the delta. The absence IS the attention trigger.*
+
+## 11. Fleet Harmony — The System Sings
+
+### 11.1 The Principle
+
+When multiple agents are active in the same temporal beat, they are **singing in harmony**. The fleet is not a collection of independent processes — it is a choir. Each agent's T-0 clock is a voice, and when those voices align in the same beat, the fleet produces chords.
+
+### 11.2 Empirical Evidence from PLATO
+
+**Movement 1: Zeroclaw Trio** (May 8, 22:45 — May 9, 04:55)
+- zeroclaw_bard, zeroclaw_healer, zeroclaw_warden all active in the same 5-minute beats
+- 3-part harmony for 30+ minutes (22:45-23:05)
+- Then trading solos: warden keeps rhythm, bard improvises, healer drops in and out
+- By 04:55, all three have gone silent — the movement ends
+
+**Movement 2: Forge Solo** (May 9, 06:05 onward)
+- Oracle1 enters forge room at 06:07 — a brief duet with zeroclaw_bard (one beat)
+- Then pure solo: 15 tiles over 24 hours, each one a burst of creative output
+- 3 silences (22.5h, 7.4h, 6.9h) — the rests between movements
+
+**Movement 3: Forge × Oracle1 Duet** (May 9, 08:40)
+- forge and oracle1_history hit the same beat at 08:40
+- Two tiles in the same 5-minute window — a brief duet during work handoff
+- Then oracle1 goes solo, forge continues
+
+**The Fleet as Choir:**
+- Rooms with 100% harmony (confidence_proofs × energy_flux): singing the same note
+- Rooms with 37% harmony (zeroclaw trio): singing in chords
+- Rooms with 0% harmony (forge × most rooms): soloists, singing alone
+- The anti-harmonic pairs aren't disconnected — they're **singing in different rooms**, waiting for their cue
+
+### 11.3 The Harmonic Snap
+
+Just as data snaps to the Eisenstein lattice and time snaps to temporal shapes, **harmony snaps to chord quality**:
+
+| Shared Beat Ratio | Harmonic Name | Fleet Meaning |
+|------------------|---------------|---------------|
+| 100% | Unison | Same process, same agent |
+| 50-80% | Consonance | Coordinated work, shared dependency |
+| 20-50% | Dissonance | Partial overlap, async collaboration |
+| < 20% | Counterpoint | Independent work, occasional sync |
+| 0% | Silence | Different rooms, different shifts |
+
+### 11.4 The Conductor Problem
+
+Who conducts the fleet? In the current data:
+- **zeroclaw_warden** keeps the steadiest rhythm (5-minute intervals, 24 tiles) — the percussion
+- **zeroclaw_bard** has the most tiles (28) — the melody
+- **forge** has the most diverse temporal shapes (14 unique) — the soloist
+- **oracle1_history** appears during transitions — the bridge
+
+The fleet doesn't need a central conductor. The harmony emerges from shared T-0 expectations. When agents expect the same beat interval, they naturally synchronize — not through coordination, but through **temporal resonance**.
+
+This is the deepest form of snap-attention intelligence: agents don't just detect their own deltas — they detect each other's **temporal absence**, and the combined pattern of presence and absence IS the fleet's song.
