@@ -10,7 +10,7 @@
 #include <float.h>
 
 /* ===========================================================================
- * Delta Detector — Implementation
+ * Delta Detector -- Implementation
  * ========================================================================= */
 
 snapkit_delta_detector_t* snapkit_detector_create(void) {
@@ -159,7 +159,7 @@ void snapkit_detector_statistics(const snapkit_delta_detector_t* dd,
 }
 
 /* ===========================================================================
- * Attention Budget — Implementation
+ * Attention Budget -- Implementation
  * ========================================================================= */
 
 snapkit_attention_budget_t* snapkit_budget_create(double total_budget,
@@ -179,6 +179,14 @@ void snapkit_budget_free(snapkit_attention_budget_t* ab) {
     free(ab);
 }
 
+/* Helper: copy reason string safely */
+static void set_reason(char* dest, size_t dest_size, const char* src) {
+    size_t len = strlen(src);
+    if (len >= dest_size) len = dest_size - 1;
+    memcpy(dest, src, len);
+    dest[len] = '\0';
+}
+
 snapkit_error_t snapkit_budget_allocate(snapkit_attention_budget_t* ab,
                                          const snapkit_delta_t* deltas,
                                          size_t n,
@@ -194,7 +202,7 @@ snapkit_error_t snapkit_budget_allocate(snapkit_attention_budget_t* ab,
 
     switch (ab->strategy) {
     case SNAPKIT_STRATEGY_ACTIONABILITY: {
-        /* Weight = magnitude × actionability × urgency */
+        /* Weight = magnitude * actionability * urgency */
         double* weights = (double*)malloc(n * sizeof(double));
         if (!weights) return SNAPKIT_ERR_NULL;
         double total_weight = 0.0;
@@ -210,7 +218,7 @@ snapkit_error_t snapkit_budget_allocate(snapkit_attention_budget_t* ab,
             return SNAPKIT_OK;
         }
 
-        /* Allocate proportionally, sorted by weight descending */
+        /* Sort indices by weight descending (simple bubble sort) */
         size_t* indices = (size_t*)malloc(n * sizeof(size_t));
         if (!indices) { free(weights); return SNAPKIT_ERR_NULL; }
         for (size_t i = 0; i < n; i++) indices[i] = i;
@@ -230,9 +238,8 @@ snapkit_error_t snapkit_budget_allocate(snapkit_attention_budget_t* ab,
                 allocs[allocated_count].delta = deltas[idx];
                 allocs[allocated_count].allocated = 0.0;
                 allocs[allocated_count].priority = (int)pi + 1;
-                strncpy(allocs[allocated_count].reason, "BUDGET_EXHAUSTED",
-                        sizeof(allocs[allocated_count].reason) - 1);
-                allocs[allocated_count].reason[sizeof(allocs[allocated_count].reason)-1] = '\0';
+                set_reason(allocs[allocated_count].reason,
+                           sizeof(allocs[allocated_count].reason), "BUDGET_EXHAUSTED");
                 allocated_count++;
                 continue;
             }
@@ -244,27 +251,28 @@ snapkit_error_t snapkit_budget_allocate(snapkit_attention_budget_t* ab,
             allocs[allocated_count].allocated = alloc_amount;
             allocs[allocated_count].priority = (int)pi + 1;
 
-            /* Reason string */
+            /* Build reason string */
             char reason[48];
-            int pos = 0;
+            reason[0] = '\0';
             if (deltas[idx].actionability > 0.7) {
-                pos += snprintf(reason + pos, sizeof(reason) - (size_t)pos,
-                                "actionable=%.2f", deltas[idx].actionability);
+                snprintf(reason, sizeof(reason), "act=%.2f", deltas[idx].actionability);
             }
             if (deltas[idx].urgency > 0.7) {
-                pos += snprintf(reason + pos, sizeof(reason) - (size_t)pos,
-                                "%surgent=%.2f", pos > 0 ? "; " : "", deltas[idx].urgency);
+                size_t off = strlen(reason);
+                snprintf(reason + off, sizeof(reason) - off,
+                         "%surg=%.2f", reason[0] ? ";" : "", deltas[idx].urgency);
             }
             if (deltas[idx].magnitude > 3.0 * deltas[idx].tolerance) {
-                pos += snprintf(reason + pos, sizeof(reason) - (size_t)pos,
-                                "%slarge Δ=%.2f", pos > 0 ? "; " : "", deltas[idx].magnitude);
+                size_t off = strlen(reason);
+                snprintf(reason + off, sizeof(reason) - off,
+                         "%sbig=%.1f", reason[0] ? ";" : "", deltas[idx].magnitude);
             }
-            if (pos == 0) {
-                snprintf(reason, sizeof(reason), "weighted alloc");
+            if (reason[0] == '\0') {
+                snprintf(reason, sizeof(reason), "weighted");
             }
-            strncpy(allocs[allocated_count].reason, reason,
-                    sizeof(allocs[allocated_count].reason) - 1);
-            allocs[allocated_count].reason[sizeof(allocs[allocated_count].reason)-1] = '\0';
+            reason[sizeof(reason) - 1] = '\0';
+            set_reason(allocs[allocated_count].reason,
+                       sizeof(allocs[allocated_count].reason), reason);
             allocated_count++;
         }
 
@@ -294,9 +302,8 @@ snapkit_error_t snapkit_budget_allocate(snapkit_attention_budget_t* ab,
                 allocs[allocated_count].delta = deltas[idx];
                 allocs[allocated_count].allocated = 0.0;
                 allocs[allocated_count].priority = (int)pi + 1;
-                strncpy(allocs[allocated_count].reason, "BUDGET_EXHAUSTED",
-                        sizeof(allocs[allocated_count].reason) - 1);
-                allocs[allocated_count].reason[sizeof(allocs[allocated_count].reason)-1] = '\0';
+                set_reason(allocs[allocated_count].reason,
+                           sizeof(allocs[allocated_count].reason), "BUDGET_EXHAUSTED");
                 allocated_count++;
                 continue;
             }
@@ -306,9 +313,8 @@ snapkit_error_t snapkit_budget_allocate(snapkit_attention_budget_t* ab,
             allocs[allocated_count].delta = deltas[idx];
             allocs[allocated_count].allocated = alloc_amount;
             allocs[allocated_count].priority = (int)pi + 1;
-            strncpy(allocs[allocated_count].reason, "REACTIVE_LARGEST_FIRST",
-                    sizeof(allocs[allocated_count].reason) - 1);
-            allocs[allocated_count].reason[sizeof(allocs[allocated_count].reason)-1] = '\0';
+            set_reason(allocs[allocated_count].reason,
+                       sizeof(allocs[allocated_count].reason), "REACTIVE");
             allocated_count++;
         }
         ab->remaining = budget_remaining;
@@ -322,16 +328,14 @@ snapkit_error_t snapkit_budget_allocate(snapkit_attention_budget_t* ab,
             if (deltas[i].severity != SNAPKIT_SEVERITY_NONE) actionable++;
         }
         if (actionable == 0) { *n_allocated = 0; return SNAPKIT_OK; }
-
         double per_delta = ab->total_budget / (double)actionable;
         for (size_t i = 0; i < n; i++) {
             if (deltas[i].severity != SNAPKIT_SEVERITY_NONE) {
                 allocs[allocated_count].delta = deltas[i];
                 allocs[allocated_count].allocated = per_delta;
                 allocs[allocated_count].priority = (int)i + 1;
-                strncpy(allocs[allocated_count].reason, "UNIFORM_EQUAL",
-                        sizeof(allocs[allocated_count].reason) - 1);
-                allocs[allocated_count].reason[sizeof(allocs[allocated_count].reason)-1] = '\0';
+                set_reason(allocs[allocated_count].reason,
+                           sizeof(allocs[allocated_count].reason), "UNIFORM");
                 allocated_count++;
             }
         }
@@ -358,7 +362,7 @@ void snapkit_budget_status(const snapkit_attention_budget_t* ab,
 }
 
 /* ===========================================================================
- * Script Library — Implementation
+ * Script Library -- Implementation
  * ========================================================================= */
 
 snapkit_script_library_t* snapkit_script_library_create(double match_threshold) {
@@ -411,8 +415,8 @@ snapkit_error_t snapkit_script_library_add(snapkit_script_library_t* lib,
     return SNAPKIT_OK;
 }
 
-static snapkit_script_t* find_script(snapkit_script_library_t* lib,
-                                      const char* script_id) {
+static snapkit_script_t* find_script_int(snapkit_script_library_t* lib,
+                                          const char* script_id) {
     for (int i = 0; i < lib->num_scripts; i++) {
         if (strcmp(lib->scripts[i].id, script_id) == 0)
             return &lib->scripts[i];
@@ -438,7 +442,7 @@ snapkit_error_t snapkit_script_library_match(snapkit_script_library_t* lib,
         if (s->trigger_dim != obs_dim) continue;
 
         double sim = snapkit_cosine_similarity(observation, s->trigger, obs_dim);
-        double confidence = (sim + 1.0) / 2.0; /* cos ∈ [-1,1] → conf ∈ [0,1] */
+        double confidence = (sim + 1.0) / 2.0; /* cos in [-1,1] -> conf in [0,1] */
         double delta = 0.0;
         for (size_t j = 0; j < obs_dim; j++) {
             double d = observation[j] - s->trigger[j];
@@ -475,7 +479,7 @@ void snapkit_script_library_record_use(snapkit_script_library_t* lib,
                                         const char* script_id,
                                         bool success) {
     if (!lib || !script_id) return;
-    snapkit_script_t* s = find_script(lib, script_id);
+    snapkit_script_t* s = find_script_int(lib, script_id);
     if (!s) return;
 
     s->use_count++;
@@ -483,10 +487,10 @@ void snapkit_script_library_record_use(snapkit_script_library_t* lib,
     if (success) s->success_count++;
     else         s->fail_count++;
 
-    /* Update confidence: exponential moving average */
     if (s->use_count > 0) {
         double success_rate = (double)s->success_count / (double)s->use_count;
-        s->confidence = success_rate * fmin(1.0, (double)s->success_count / 5.0);
+        double min_uses = fmin(1.0, (double)s->success_count / 5.0);
+        s->confidence = success_rate * min_uses;
         if (s->use_count > 5 && success_rate < 0.5) {
             s->status = SNAPKIT_SCRIPT_DEGRADED;
         }
@@ -496,7 +500,7 @@ void snapkit_script_library_record_use(snapkit_script_library_t* lib,
 snapkit_error_t snapkit_script_library_forget(snapkit_script_library_t* lib,
                                                const char* script_id) {
     if (!lib || !script_id) return SNAPKIT_ERR_NULL;
-    snapkit_script_t* s = find_script(lib, script_id);
+    snapkit_script_t* s = find_script_int(lib, script_id);
     if (!s) return SNAPKIT_ERR_NULL;
     s->status = SNAPKIT_SCRIPT_ARCHIVED;
     return SNAPKIT_OK;
@@ -521,7 +525,7 @@ void snapkit_script_library_statistics(const snapkit_script_library_t* lib,
 }
 
 /* ===========================================================================
- * Constraint Sheaf — Implementation
+ * Constraint Sheaf -- Implementation
  * ========================================================================= */
 
 snapkit_constraint_sheaf_t* snapkit_sheaf_create(snapkit_topology_t topology,
@@ -591,23 +595,22 @@ snapkit_error_t snapkit_sheaf_check(snapkit_constraint_sheaf_t* sheaf,
         report->h1_analog = 0;
         report->delta_detected = false;
         report->tolerance = sheaf->tolerance;
-        report->topology = sheaf->topology;
+        report->topology = (int)sheaf->topology;
         return SNAPKIT_OK;
     }
 
-    /* We'll store deltas temporarily to compute stats */
-    double* deltas = (double*)calloc(sheaf->num_constraints + sheaf->num_dependencies,
-                                     sizeof(double));
+    int max_deltas = sheaf->num_constraints + sheaf->num_dependencies;
+    double* deltas = (double*)calloc((size_t)max_deltas, sizeof(double));
     if (!deltas) return SNAPKIT_ERR_NULL;
     int num_deltas = 0;
 
-    /* Check individual constraints */
+    /* Check individual constraint deltas */
     for (int i = 0; i < sheaf->num_constraints; i++) {
         double d = fabs(sheaf->constraints[i].value - sheaf->constraints[i].expected);
         deltas[num_deltas++] = d;
     }
 
-    /* Check dependencies (compatibility) */
+    /* Check dependency compatibility */
     for (int i = 0; i < sheaf->num_dependencies; i++) {
         const char* src = sheaf->dependencies[i].source;
         const char* tgt = sheaf->dependencies[i].target;
@@ -647,11 +650,11 @@ snapkit_error_t snapkit_sheaf_check(snapkit_constraint_sheaf_t* sheaf,
 
     report->num_constraints = sheaf->num_constraints;
     report->max_delta = max_d;
-    report->mean_delta = sum_d / (double)num_deltas;
+    report->mean_delta = num_deltas > 0 ? sum_d / (double)num_deltas : 0.0;
     report->h1_analog = h1;
     report->delta_detected = max_d > sheaf->tolerance;
     report->tolerance = sheaf->tolerance;
-    report->topology = sheaf->topology;
+    report->topology = (int)sheaf->topology;
 
     free(deltas);
     return SNAPKIT_OK;

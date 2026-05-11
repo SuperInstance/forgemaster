@@ -198,15 +198,13 @@ impl LearningCycle {
         let hit_rate = self.library.hit_rate();
         let active = self.library.active_scripts();
 
-        self.phase = if active == 0 {
-            LearningPhase::DeltaFlood
+        self.phase = if self.consecutive_deltas >= self.novelty_threshold * 2 {
+            LearningPhase::Rebuilding
         } else if self.consecutive_deltas >= self.novelty_threshold {
-            if self.consecutive_deltas >= self.novelty_threshold * 2 {
-                LearningPhase::Rebuilding
-            } else {
-                LearningPhase::Disruption
-            }
-        } else if hit_rate > 0.7 && active > 0 {
+            LearningPhase::Disruption
+        } else if active == 0 {
+            LearningPhase::DeltaFlood
+        } else if hit_rate > 0.7 {
             LearningPhase::SmoothRunning
         } else {
             LearningPhase::ScriptBurst
@@ -353,6 +351,8 @@ mod tests {
         snap.set_tolerance(0.01);
         let mut cycle = LearningCycle::new(snap);
         cycle.set_novelty_threshold(3);
+        // Don't auto-create scripts from deltas
+        cycle.set_script_creation_threshold(usize::MAX);
 
         // 6 consecutive deltas (2x threshold) → Rebuilding
         for i in 0..6 {

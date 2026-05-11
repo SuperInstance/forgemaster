@@ -121,6 +121,9 @@ impl AttentionBudget {
             AllocationStrategy::Uniform => self.allocate_uniform(deltas),
         };
 
+        let allocated_sum: f64 = allocations.iter().map(|a| a.allocated).sum();
+        self.remaining = self.total_budget - allocated_sum;
+
         self.history.push(allocations.clone());
 
         if self.remaining <= 0.0 {

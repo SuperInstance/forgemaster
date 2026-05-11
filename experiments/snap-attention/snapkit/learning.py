@@ -19,7 +19,7 @@ from enum import Enum
 
 from snapkit.snap import SnapFunction
 from snapkit.delta import DeltaDetector, Delta
-from snapkit.scripts import ScriptLibrary, Script
+from snapkit.scripts import ScriptLibrary, Script, ScriptStatus
 
 
 class LearningPhase(Enum):
@@ -242,9 +242,239 @@ class LearningCycle:
             'snap_stats': self.snap.statistics,
         }
     
+    # ─── Phase Transition Detection ──────────────────────────────────
+    
+    def detect_phase_transition(self, lookback: int = 10) -> Optional[Dict[str, Any]]:
+        """
+        Detect phase transitions with details about the trigger/cause.
+        
+        Args:
+            lookback: Number of recent states to check for transitions.
+        
+        Returns:
+            Dict with transition details, or None if no transition.
+        """
+        if len(self._history) < 2:
+            return None
+        
+        recent = self._history[-lookback:]
+        if len(recent) < 2:
+            return None
+        
+        transitions = []
+        for i in range(1, len(recent)):
+            if recent[i].phase != recent[i - 1].phase:
+                transitions.append({
+                    'from': recent[i - 1].phase.value,
+                    'to': recent[i].phase.value,
+                    'at_experience': recent[i].total_experiences,
+                    'load_before': recent[i - 1].cognitive_load,
+                    'load_after': recent[i].cognitive_load,
+                    'delta_rate_before': 1 - recent[i - 1].snap_hit_rate,
+                    'delta_rate_after': 1 - recent[i].snap_hit_rate,
+                })
+        
+        if transitions:
+            return transitions[-1]
+        return None
+    
+    # ─── Learning Rate Adaptation ─────────────────────────────────────
+    
+    def adapt_learning_rate(self) -> float:
+        """
+        Adapt the snap's adaptation rate based on current cognitive load.
+        
+        High load → fast learning (tighter tolerance, more attention)
+        Low load → slow learning (looser tolerance, less attention)
+        
+        Returns:
+            The new adaptation rate.
+        """
+        load = self._compute_cognitive_load()
+        new_rate = 0.001 + load * 0.099
+        self.snap.adaptation_rate = new_rate
+        return new_rate
+    
+    # ─── Forgetting Curve ────────────────────────────────────────────
+    
+    def apply_forgetting(self, decay_rate: float = 0.01):
+        """
+        Apply forgetting: scripts decay in confidence if not used.
+        
+        Borrowed from Ebbinghaus: unused scripts lose strength.
+        This prevents the library from filling with stale patterns.
+        
+        Args:
+            decay_rate: How fast scripts decay per experience.
+        """
+        for script in self.library._scripts.values():
+            if script.status != ScriptStatus.ACTIVE:
+                continue
+            
+            uses_ago = self._total_experiences - script.last_used
+            if uses_ago > 100:
+                decay = decay_rate * (uses_ago / 100)
+                script.confidence = max(0.1, script.confidence - decay)
+                
+                if script.confidence < 0.2:
+                    script.status = ScriptStatus.DEGRADED
+    
+    # ─── Transfer Learning ───────────────────────────────────────────
+    
+    def transfer_knowledge(
+        self,
+        other_cycle: 'LearningCycle',
+        script_ids: Optional[List[str]] = None,
+    ) -> int:
+        """
+        Transfer learned scripts from another LearningCycle.
+        
+        Enables cross-domain learning: scripts learned in one
+        domain can be imported to bootstrap learning in another.
+        
+        Args:
+            other_cycle: LearningCycle to import from.
+            script_ids: Specific scripts to transfer (None = all active).
+        
+        Returns:
+            Number of scripts transferred.
+        """
+        if script_ids:
+            scripts_to_transfer = [
+                other_cycle.library.get(sid)
+                for sid in script_ids
+                if other_cycle.library.get(sid) is not None
+            ]
+        else:
+            scripts_to_transfer = [
+                s for s in other_cycle.library._scripts.values()
+                if s.status == ScriptStatus.ACTIVE
+            ]
+        
+        count = 0
+        for script in scripts_to_transfer:
+            imported = Script(
+                id=f"imported_{script.id}",
+                name=f"[imported] {script.name}",
+                trigger_pattern=script.trigger_pattern.copy(),
+                response=script.response,
+                context={
+                    'source_domain': 'cross_domain_transfer',
+                    'original_id': script.id,
+                    'original_name': script.name,
+                    'imported_at': self._total_experiences,
+                },
+                status=ScriptStatus.DRAFT,
+            )
+            self.library.add_script(imported)
+            count += 1
+        
+        return count
+
     def __repr__(self):
         state = self.current_state
         return (f"LearningCycle({state.phase.value}, "
                 f"exp={state.total_experiences}, "
                 f"scripts={state.scripts_active}, "
                 f"load={state.cognitive_load:.2f})")
+
+
+# ─── ExperienceBuffer ─────────────────────────────────────────────────
+
+@dataclass
+class Experience:
+    """A single experience record for the buffer."""
+    observation: float
+    delta: float
+    was_scripted: bool
+    script_id: Optional[str]
+    timestamp: int
+    outcome: Optional[float] = None
+
+
+class ExperienceBuffer:
+    """
+    Stores and replays experiences for learning.
+    
+    Like rehearsal in memory consolidation: the buffer stores
+    recent experiences and replays them during quiet periods
+    to strengthen scripts.
+    
+    Usage:
+        buffer = ExperienceBuffer(capacity=1000)
+        buffer.store(observation=0.42, delta=0.05, was_scripted=True, script_id=None)
+        
+        for experience in buffer.sample(32):
+            print(f"Replaying: {experience.observation}")
+    """
+    
+    def __init__(self, capacity: int = 1000):
+        self.capacity = capacity
+        self._buffer: List[Experience] = []
+        self._position = 0
+        self._full = False
+    
+    def store(
+        self,
+        observation: float,
+        delta: float,
+        was_scripted: bool,
+        script_id: Optional[str] = None,
+        outcome: Optional[float] = None,
+    ):
+        """Store an experience in the buffer."""
+        experience = Experience(
+            observation=observation,
+            delta=delta,
+            was_scripted=was_scripted,
+            script_id=script_id,
+            timestamp=len(self._buffer),
+            outcome=outcome,
+        )
+        
+        if len(self._buffer) < self.capacity:
+            self._buffer.append(experience)
+        else:
+            self._buffer[self._position] = experience
+            self._position = (self._position + 1) % self.capacity
+            self._full = True
+    
+    def sample(self, n: int) -> List[Experience]:
+        """Sample n random experiences from the buffer."""
+        available = len(self._buffer)
+        if available == 0:
+            return []
+        n = min(n, available)
+        indices = np.random.choice(available, size=n, replace=False)
+        return [self._buffer[i] for i in indices]
+    
+    def replay(self, cycle: LearningCycle, n: int = 32):
+        """Replay experiences through a LearningCycle."""
+        samples = self.sample(n)
+        for exp in samples:
+            cycle.experience(exp.observation)
+            if exp.was_scripted and exp.script_id:
+                script = cycle.library.get(exp.script_id)
+                if script:
+                    script.record_use(success=True)
+    
+    @property
+    def size(self) -> int:
+        return len(self._buffer)
+    
+    @property
+    def is_full(self) -> bool:
+        return self._full or len(self._buffer) >= self.capacity
+    
+    @property
+    def statistics(self) -> Dict[str, Any]:
+        return {
+            'capacity': self.capacity,
+            'size': len(self._buffer),
+            'is_full': self._full or len(self._buffer) >= self.capacity,
+            'scripted_fraction': sum(1 for e in self._buffer if e.was_scripted) / max(len(self._buffer), 1),
+            'delta_fraction': sum(1 for e in self._buffer if e.delta > 0) / max(len(self._buffer), 1),
+        }
+    
+    def __repr__(self):
+        return f"ExperienceBuffer(size={len(self._buffer)}/{self.capacity})"

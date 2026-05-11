@@ -436,7 +436,8 @@ mod tests {
     #[test]
     fn test_script_match_no_match() {
         let script = make_test_script("no_match");
-        let observation = vec![10.0, 20.0, 30.0];
+        // Orthogonal vector — should not match
+        let observation = vec![1.0, -2.0, 1.0]; // dot = 1-4+3 = 0
         let match_result = script.match_observation(&observation);
         assert!(!match_result.is_match);
     }
@@ -460,7 +461,7 @@ mod tests {
         assert!(result.is_some());
         assert!(result.unwrap().is_match);
 
-        let result = library.find_best_match(&[10.0, 20.0, 30.0]);
+        let result = library.find_best_match(&[1.0, -2.0, 1.0]);
         // Should still return the best match but with is_match = false
         assert!(result.is_some());
         assert!(!result.unwrap().is_match);
@@ -480,7 +481,7 @@ mod tests {
 
         // Two lookups: hit + miss = 50% hit rate
         library.find_best_match(&[1.0, 2.0, 3.0]);
-        library.find_best_match(&[10.0, 20.0, 30.0]);
+        library.find_best_match(&[1.0, -2.0, 1.0]);
 
         // 50% hit rate (one hit, one miss)
         assert!((library.hit_rate() - 0.5).abs() < 1e-10);

@@ -33,8 +33,13 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc",
-    "test": "node --experimental-vm-modules --test test/snap.test.mjs && node --experimental-vm-modules --test test/delta.test.mjs && node --experimental-vm-modules --test test/attention.test.mjs && node --experimental-vm-modules --test test/scripts.test.mjs && node --experimental-vm-modules --test test/integration.test.mjs",
+    "build": "tsc && node -e \"console.log('Building CJS fallback...'); require('fs').writeFileSync('dist/index.cjs', 'module.exports = require('./index.js');\n');\"",
+    "test": "node --experimental-vm-modules --test test/snap.test.mjs test/delta.test.mjs test/attention.test.mjs test/scripts.test.mjs test/integration.test.mjs",
+    "test:snap": "node --experimental-vm-modules --test test/snap.test.mjs",
+    "test:delta": "node --experimental-vm-modules --test test/delta.test.mjs",
+    "test:attention": "node --experimental-vm-modules --test test/attention.test.mjs",
+    "test:scripts": "node --experimental-vm-modules --test test/scripts.test.mjs",
+    "test:integration": "node --experimental-vm-modules --test test/integration.test.mjs",
     "prepublishOnly": "npm run build",
     "lint": "tsc --noEmit"
   },

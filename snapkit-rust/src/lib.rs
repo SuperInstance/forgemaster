@@ -61,7 +61,7 @@
 //!
 //! // Snap a point to the nearest Eisenstein integer
 //! let nearest = eisenstein_snap((1.2, 0.7));
-//! assert_eq!(nearest, EisensteinInt::new(1, 1));
+//! assert_eq!(nearest, EisensteinInt::new(2, 1));
 //!
 //! // Compute the norm: a² - ab + b² (multiplicative)
 //! let e = EisensteinInt::new(3, 2);

@@ -299,6 +299,317 @@ class ScriptLibrary:
             'status_distribution': statuses,
         }
     
+    # ─── Script Composition ────────────────────────────────────────
+    
+    def compose(self, script_ids: List[str]) -> Optional['Script']:
+        """
+        Compose multiple scripts into a sequence.
+        
+        Useful when a single observation matches multiple scripts:
+        compose them into a multi-step response.
+        
+        Args:
+            script_ids: Ordered list of script IDs to compose.
+        
+        Returns:
+            A new composite Script, or None if any script not found.
+        """
+        scripts = []
+        for sid in script_ids:
+            s = self._scripts.get(sid)
+            if s is None:
+                return None
+            scripts.append(s)
+        
+        if not scripts:
+            return None
+        
+        # Create composite trigger pattern (average)
+        patterns = [s.trigger_pattern for s in scripts]
+        composite_pattern = np.mean(patterns, axis=0)
+        
+        # Create composite response (dict of individual responses)
+        composite_response = {
+            'sequence': [s.name for s in scripts],
+            'responses': {s.id: s.response for s in scripts},
+        }
+        
+        composite_id = hashlib.md5('+'.join(script_ids).encode()).hexdigest()[:12]
+        
+        return Script(
+            id=composite_id,
+            name=f"compose_{'+'.join(script_ids[:3])}",
+            trigger_pattern=composite_pattern,
+            response=composite_response,
+            context={'composed_from': script_ids},
+            status=ScriptStatus.ACTIVE,
+        )
+    
+    # ─── Conflict Resolution ─────────────────────────────────────────
+    
+    def resolve_conflicts(
+        self, observation: np.ndarray
+    ) -> Optional[ScriptMatch]:
+        """
+        Resolve when multiple scripts match the same observation.
+        
+        Uses: confidence first, then success rate, then recency.
+        
+        Args:
+            observation: Input pattern to match.
+        
+        Returns:
+            The best single match after conflict resolution.
+        """
+        matches = self.find_all_matches(observation)
+        active_matches = [
+            m for m in matches
+            if self._scripts.get(m.script_id, Script(None, '', np.array([]), None)).status == ScriptStatus.ACTIVE
+        ]
+        
+        if not active_matches:
+            return None
+        
+        # Score: confidence * success_rate
+        scored = []
+        for m in active_matches:
+            s = self._scripts.get(m.script_id)
+            if s is None:
+                continue
+            score = m.confidence * s.confidence
+            scored.append((score, m, s))
+        
+        # Sort by score descending
+        scored.sort(key=lambda x: x[0], reverse=True)
+        return scored[0][1]  # Return the match with best score
+    
+    # ─── Script Inheritance ──────────────────────────────────────────
+    
+    def extend(self, parent_id: str, new_name: str, new_response: Any) -> Optional[Script]:
+        """
+        Create a child script that inherits from a parent.
+        
+        Child scripts extend parent scripts: same trigger pattern
+        but different response (specialized variant).
+        
+        Args:
+            parent_id: ID of parent script to extend.
+            new_name: Name for the child script.
+            new_response: Override response for the child.
+        
+        Returns:
+            New child Script, or None if parent not found.
+        """
+        parent = self._scripts.get(parent_id)
+        if parent is None:
+            return None
+        
+        child_id = hashlib.md5(
+            (parent_id + new_name + str(new_response)).encode()
+        ).hexdigest()[:12]
+        
+        child = Script(
+            id=child_id,
+            name=new_name,
+            trigger_pattern=parent.trigger_pattern.copy(),
+            response=new_response,
+            context={
+                'parent_id': parent_id,
+                'inherits_from': parent.name,
+                **parent.context,
+            },
+            match_threshold=parent.match_threshold,
+            status=ScriptStatus.DRAFT,
+            created_at=parent.created_at,
+        )
+        
+        self.add_script(child)
+        return child
+    
+    # ─── Script Versioning ───────────────────────────────────────────
+    
+    def update(self, script_id: str, updated_script: Script) -> bool:
+        """
+        Update a script, versioning the old one.
+        
+        Old version is archived, new version becomes active.
+        Version ID is stored in context.
+        
+        Args:
+            script_id: ID of script to update.
+            updated_script: New version (keeping same ID but
+                           version appended to name).
+        
+        Returns:
+            True if update succeeded.
+        """
+        old = self._scripts.get(script_id)
+        if old is None:
+            return False
+        
+        # Archive old version
+        old.status = ScriptStatus.ARCHIVED
+        old.context['replaced_by'] = updated_script.name
+        old.context['version'] = old.context.get('version', 0) + 1
+        
+        # Add new version
+        version = old.context.get('version', 0) + 1
+        updated_script.context['version'] = version
+        updated_script.context['replaces'] = script_id
+        updated_script.name = f"{old.name}_v{version}"
+        
+        self._scripts[script_id] = updated_script
+        return True
+    
+    def version_history(self, script_id: str) -> List[Script]:
+        """Get version history for a script family."""
+        versions = []
+        for sid, s in self._scripts.items():
+            v = s.context.get('version', 0)
+            if sid == script_id or s.context.get('replaces') == script_id or v > 0:
+                versions.append((v, s))
+        versions.sort(key=lambda x: x[0])
+        return [s for v, s in versions]
+
+
+# ─── ScriptPlan ───────────────────────────────────────────────────────
+
+@dataclass
+class ScriptStep:
+    """A single step in a script plan."""
+    script_id: str
+    script_name: str
+    conditions: Dict[str, Any] = field(default_factory=dict)
+    fallback_script: Optional[str] = None
+
+
+class ScriptPlan:
+    """
+    A planned sequence of scripts (like a Rubik's cube strategy).
+    
+    ScriptPlans organize multiple scripts into a sequence with:
+    - Conditional branching (if A then B else C)
+    - Fallback scripts (if main script fails)
+    - Progress tracking (how far through the plan)
+    
+    This turns a script library into a strategy:
+    not just individual moves, but a complete game plan.
+    
+    Usage:
+        plan = ScriptPlan(name="CFOP Cross", library=lib)
+        plan.add_step("cross_solved", fallback="cross_partial")
+        plan.add_step("f2l_pair_1")
+        plan.add_step("oll_standard", conditions={'edge_parity': False})
+        plan.set_exit_condition(lambda ctx: ctx.get('solved', False))
+    """
+    
+    def __init__(
+        self,
+        name: str,
+        library: ScriptLibrary,
+    ):
+        self.name = name
+        self.library = library
+        self.steps: List[ScriptStep] = []
+        self.current_step: int = 0
+        self._exit_condition: Optional[Callable[[Dict], bool]] = None
+        self._context: Dict[str, Any] = {}
+        self._completed: bool = False
+    
+    def add_step(
+        self,
+        script_id: str,
+        conditions: Optional[Dict[str, Any]] = None,
+        fallback: Optional[str] = None,
+    ) -> 'ScriptPlan':
+        """Add a step to the plan."""
+        script = self.library.get(script_id)
+        name = script.name if script else script_id
+        
+        self.steps.append(ScriptStep(
+            script_id=script_id,
+            script_name=name,
+            conditions=conditions or {},
+            fallback_script=fallback,
+        ))
+        return self
+    
+    def set_exit_condition(self, condition_fn: Callable[[Dict], bool]) -> 'ScriptPlan':
+        """Set a condition that exits the plan early."""
+        self._exit_condition = condition_fn
+        return self
+    
+    def execute(self, observation: np.ndarray) -> Optional[Any]:
+        """
+        Execute the next step in the plan.
+        
+        Returns the script's response, or None if plan is complete.
+        """
+        if self._completed:
+            return None
+        
+        if self._exit_condition and self._exit_condition(self._context):
+            self._completed = True
+            return None
+        
+        if self.current_step >= len(self.steps):
+            self._completed = True
+            return None
+        
+        step = self.steps[self.current_step]
+        
+        # Check conditions
+        if step.conditions:
+            for key, expected in step.conditions.items():
+                actual = self._context.get(key)
+                if actual != expected:
+                    if step.fallback_script:
+                        fallback = self.library.get(step.fallback_script)
+                        if fallback:
+                            self._context['used_fallback'] = step.fallback_script
+                            return fallback.response
+                    return None
+        
+        # Find and execute the script
+        match = self.library.find_best_match(observation)
+        if match and match.script_id == step.script_id:
+            script = self.library.get(step.script_id)
+            if script:
+                self.current_step += 1
+                self._context['last_executed'] = step.script_id
+                script.record_use(success=True)
+                return script.response
+        
+        # Try fallback
+        if step.fallback_script:
+            fallback = self.library.get(step.fallback_script)
+            if fallback:
+                self.current_step += 1
+                return fallback.response
+        
+        return None
+    
+    @property
+    def progress(self) -> float:
+        """Progress through the plan [0, 1]."""
+        if not self.steps:
+            return 1.0
+        return self.current_step / len(self.steps)
+    
+    @property
+    def context(self) -> Dict[str, Any]:
+        return dict(self._context)
+    
+    @property
+    def is_complete(self) -> bool:
+        return self._completed or self.current_step >= len(self.steps)
+    
+    def reset(self):
+        """Reset the plan to the beginning."""
+        self.current_step = 0
+        self._context.clear()
+        self._completed = False
+    
     def __repr__(self):
-        return (f"ScriptLibrary(active={self.active_scripts}, "
-                f"hit_rate={self.hit_rate:.1%})")
+        return (f"ScriptPlan({self.name}, {self.current_step}/{len(self.steps)} steps, "
+                f"progress={self.progress:.0%}, complete={self.is_complete})")

@@ -276,14 +276,14 @@ mod tests {
 
         assert!(buf.is_full());
         assert_eq!(buf.len(), 3);
-        let last_val: f64 = *buf.last().unwrap();
-        assert!((last_val - 3.0).abs() < 1e-10);
+        let last_val = buf.last().unwrap();
+        assert!((last_val - 3.0_f64).abs() < 1e-10);
 
         // Overwrite oldest
         buf.push(4.0);
         assert_eq!(buf.len(), 3);
-        let last_val: f64 = *buf.last().unwrap();
-        assert!((last_val - 4.0).abs() < 1e-10);
+        let last_val = buf.last().unwrap();
+        assert!((last_val - 4.0_f64).abs() < 1e-10);
     }
 
     #[test]

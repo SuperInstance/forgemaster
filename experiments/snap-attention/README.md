@@ -1,182 +1,369 @@
-# Snap-as-Attention: Simulation Suite
+# snapkit ⚡ — Tolerance-Compressed Attention Allocation
 
-**Testing the hypothesis that snap functions (tolerance-based compression) are the fundamental mechanism of attention.**
+**snapkit** is a production-ready Python library implementing *snap-attention theory*: the insight that cognition is a **finite budget of attention** gated by **tolerance-compressed snap functions**.
 
-Five simulators explore different aspects of snap-based attention — from poker to Rubik's cubes to cross-domain transfer.
+> *"The snap doesn't tell you what's true. The snap tells you what you can SAFELY IGNORE so you can think about what matters."*
+> — SNAPS-AS-ATTENTION.md
 
 ## Quick Start
 
 ```bash
-# Run individual simulators with defaults
-python poker_sim.py
-python learning_cycle_sim.py
-python attention_budget_sim.py
-python rubik_sim.py
-python transfer_sim.py
-
-# Run all at once
-python run_all.py
-
-# Quick test mode (fast, reduced counts)
-python poker_sim.py --quick
-python run_all.py --quick
-
-# With progress bars
-python poker_sim.py --hands 50000 --verbose
-python learning_cycle_sim.py --experiences 200000 --verbose
+pip install snapkit
 ```
 
-## CLI Usage
+```python
+from snapkit import SnapFunction, SnapTopologyType
 
-Every simulator accepts the same set of flags:
+# Create a snap function — the gatekeeper of attention
+snap = SnapFunction(tolerance=0.1, topology=SnapTopologyType.HEXAGONAL)
 
-| Flag | Description |
-|------|-------------|
-| `--quick` | Fast mode with reduced counts for testing |
-| `--verbose`, `-v` | Show progress bar during execution |
-| `--csv FILE` | Export results to CSV |
-| `--html FILE` | Generate a self-contained HTML report |
-| `--json-out FILE` | JSON output file (default: `results_*.json`) |
+# Values within tolerance are compressed away
+result = snap.observe(0.05)
+print(result)  # ✅ SNAP — compressed to baseline
 
-### Simulator-specific flags
+# Values outside tolerance demand attention
+result = snap.observe(0.3)
+print(result)  # ⚠️ DELTA — demands cognitive attention
+```
 
-| Simulator | Flag | Default | Description |
-|-----------|------|---------|-------------|
-| `poker_sim.py` | `--hands N` | 10000 | Number of poker hands |
-| `learning_cycle_sim.py` | `--experiences N` | 100000 | Learning experiences |
-| `attention_budget_sim.py` | `--timesteps N` | 100000 | Simulation timesteps |
-| `rubik_sim.py` | `--solves N` | 500 | Cube solves per solver |
-| `transfer_sim.py` | `--trials N` | 50000 | Transfer trials |
+## Architecture
 
-### Examples
+```
+                       ┌──────────────────┐
+                       │  Observation     │
+                       │  (value)         │
+                       └────────┬─────────┘
+                                │
+                                ▼
+                    ┌───────────────────────┐
+                    │   SnapFunction        │
+                    │   (tolerance gate)    │
+                    └──┬────────────┬───────┘
+                       │            │
+                       ▼            ▼
+                 ┌──────────┐  ┌──────────┐
+                 │  SNAP    │  │  DELTA   │
+                 │(compress)│  │(demand   │
+                 │          │  │attention)│
+                 └──────────┘  └────┬─────┘
+                                     │
+                                     ▼
+                    ┌───────────────────────┐
+                    │   AttentionBudget     │
+                    │  allocate(Δ×A×U×C)   │
+                    └──────────┬────────────┘
+                               │
+                               ▼
+                    ┌───────────────────────┐
+                    │   ScriptLibrary       │
+                    │  match→execute       │
+                    └───────────────────────┘
+```
+
+## Core Concepts
+
+### 1. SnapFunction (`snapkit.snap`)
+The fundamental compression operator. Maps incoming values to "expected" (lattice point) if within tolerance. Flags as delta if outside.
+
+```python
+snap = SnapFunction(tolerance=0.1)
+
+# Multi-dimensional snap
+results = snap.snap_nd(np.array([0.42, 0.05, 0.31]))
+
+# Adaptive tolerance — auto-adjusts based on delta rate
+snap.enable_adaptive_tolerance(window=50)
+
+# Hierarchical snap — check at multiple tolerance levels
+profile = snap.hierarchical_profile(0.42)
+print(profile['transition_tolerance'])  # At what tolerance this becomes a delta
+```
+
+### 2. DeltaDetector (`snapkit.delta`)
+Tracks what exceeds snap tolerance, with multi-stream awareness.
+
+```python
+detector = DeltaDetector()
+detector.add_stream('market', SnapFunction(tolerance=0.05))
+detector.add_stream('risk', SnapFunction(tolerance=0.15))
+
+results = detector.observe({'market': 0.42, 'risk': 0.05})
+prioritized = detector.prioritize(top_k=3)
+
+# Delta clustering
+clusters = detector.delta_clusters(n_clusters=3)
+
+# Delta forecasting
+stream = detector._streams['market']
+forecast = stream.delta_forecast(horizon=5)
+```
+
+### 3. AttentionBudget (`snapkit.attention`)
+Finite cognitive resource allocation based on delta magnitude × actionability × urgency.
+
+```python
+budget = AttentionBudget(total=100.0, strategy='actionability')
+allocations = budget.allocate(prioritized_deltas)
+for alloc in allocations:
+    print(f"  {alloc.delta.stream_id}: {alloc.allocated:.1f} au — {alloc.reason}")
+
+# Multi-level: macro (which streams) + micro (which deltas)
+result = budget.multi_level_allocate(macro_deltas, micro_deltas)
+
+# Attention insights
+print(budget.attention_insight())
+```
+
+### 4. ScriptLibrary (`snapkit.scripts`)
+Learned patterns that execute automatically, freeing cognition.
+
+```python
+library = ScriptLibrary()
+
+# Learn a new script
+script = library.learn(
+    trigger_pattern=np.array([0.4, 0.3, 0.2]),
+    response={'action': 'buy', 'confidence': 0.85},
+    name='buy_signal',
+)
+
+# Match against observation
+match = library.find_best_match(np.array([0.42, 0.31, 0.21]))
+if match and match.is_match:
+    print(f"Executing: {match.script_id}")
+
+# Compose scripts into sequences
+composite = library.compose(['buy_signal', 'hedge_logic'])
+
+# Script planning (Rubik's cube strategy)
+plan = ScriptPlan('market_strategy', library)
+plan.add_step('assess_volatility', fallback='wait')
+plan.add_step('execute_entry', conditions={'signal': 'buy'})
+```
+
+### 5. SnapTopology (`snapkit.topology`)
+The ADE classification of snap functions — which lattice determines the compression topology.
+
+```python
+from snapkit.topology import (
+    hexagonal_topology, triality_topology,
+    exceptional_e8, recommend_topology,
+)
+
+# Get recommended topology for data
+topo = recommend_topology(data, ade_type=ADE_DATA.E8_HEXAGONAL)
+print(f"Recommended: {topo.name}")
+
+# Compare all topologies
+results = {t.name: t.snap_rate(data) for t in all_topologies()}
+```
+
+### 6. LearningCycle (`snapkit.learning`)
+The expertise cycle: experience → pattern → script → automation.
+
+```python
+cycle = LearningCycle()
+for value in data_stream:
+    state = cycle.experience(value)
+    if state.phase.value == 'disruption':
+        print("⚠️ Novelty detected — rebuilding scripts")
+    
+    if len(data_stream) % 100 == 0:
+        # Replay experiences to strengthen scripts
+        buffer.replay(cycle, n=50)
+        # Apply forgetting for unused scripts
+        cycle.apply_forgetting()
+```
+
+## Advanced Modules
+
+### Adversarial Snap (`snapkit.adversarial`)
+Real vs fake delta detection with recursive theory-of-mind.
+
+```python
+from snapkit.adversarial import AdversarialDetector, BluffCalibration
+
+detector = AdversarialDetector()
+result = detector.observe_signal('player_1', 0.42, 1.2)
+print(f"Fake: {result['classified_as_fake']}, Confidence: {result['confidence']:.2f}")
+
+calibrator = BluffCalibration(max_depth=5)
+response = calibrator.optimize_response(my_level=2, adversary_id='opponent')
+```
+
+### Real-Time Streaming (`snapkit.streaming`)
+Sliding window stream processing with backpressure.
+
+```python
+from snapkit.streaming import StreamProcessor, StreamMonitor
+
+monitor = StreamMonitor(total_budget=100.0)
+monitor.add_stream('trades', snap=SnapFunction(tolerance=0.05))
+
+for value in market_data_stream:
+    monitor.observe('trades', value)
+    alerts = monitor.check_alerts()
+    for alert in alerts:
+        print(f"⚠️ {alert.message}")
+
+print(f"Utilization: {monitor.utilization:.1%}")
+```
+
+### Cross-Domain Transfer (`snapkit.crossdomain`)
+Transfer snap topologies between domains.
+
+```python
+from snapkit.crossdomain import FeelTransfer
+
+transfer = FeelTransfer()
+poker_feel = transfer.domain_profile('poker')
+driving_feel = transfer.calibrate(poker_feel, 'driving')
+```
+
+### Pipelines (`snapkit.pipeline`)
+Composable processing pipelines with fluent builder.
+
+```python
+from snapkit.pipeline import PipelineBuilder
+
+pipeline = (PipelineBuilder()
+    .snap(tolerance=0.1)
+    .detect()
+    .prioritize(top_k=3)
+    .allocate(budget_total=100.0)
+    .execute()
+    .build()
+)
+
+# Run values through the pipeline
+for value in data_stream:
+    ctx = pipeline.run(value)
+    if ctx.deltas:
+        print(f"Delta: {ctx.deltas[0].magnitude:.4f}")
+```
+
+### Visualization (`snapkit.visualization`)
+Terminal and HTML reports with zero external dependencies.
+
+```python
+from snapkit.visualization import terminal_table, ascii_chart, html_report
+
+# Tabular output
+table = terminal_table(
+    ['Stream', 'Deltas', 'Rate', 'Util'],
+    [['stream_1', '12', '0.24', '0.31']],
+    title="Snap Monitor Report",
+)
+
+# ASCII chart for terminal
+chart = ascii_chart([0.1, 0.3, 0.2, 0.5, 0.4], width=40, height=10)
+
+# Self-contained HTML report
+with open('report.html', 'w') as f:
+    f.write(html_report(data, title="SnapKit Analysis"))
+```
+
+### Serialization (`snapkit.serial`)
+Save and load full library state.
+
+```python
+from snapkit.serial import save, load
+
+# Save all state
+save_all = {
+    'snap': snap.to_dict(),
+    'detector_state': {...},
+    'budget_state': budget.statistics,
+}
+save(save_all, 'snap_state.json')
+
+# Load state
+loaded = load('snap_state.json')
+restored = SnapFunction.from_dict(loaded['snap'])
+```
+
+## CLI
 
 ```bash
-# Big poker run with all exports
-python poker_sim.py --hands 100000 --verbose --csv poker.csv --html poker_report.html
+# Monitor streams in real-time
+snapkit monitor --streams 5 --budget 100 --topology hexagonal
 
-# Quick learning cycle test
-python learning_cycle_sim.py --quick --verbose
+# Analyze results and generate HTML report
+snapkit analyze results.json --html report.html
 
-# Full suite with HTML reports
-python run_all.py --html --verbose
+# Run demos
+snapkit demo poker --hands 1000
+snapkit demo learning --experiences 10000
+snapkit demo adversarial
 
-# Just CSV exports
-python run_all.py --quick --csv
+# Calibrate snap tolerance from data
+snapkit calibrate data.json --target-rate 0.9 --output config.json
+
+# Show version
+snapkit status
 ```
 
-## The Five Simulators
+## Installation
 
-### 1. 🎰 Poker Attention Engine (`poker_sim.py`)
+```bash
+# From PyPI (once published)
+pip install snapkit
 
-**Tests:** Whether well-calibrated snap functions improve decision-making.
+# From source
+git clone https://github.com/SuperInstance/snapkit.git
+cd snapkit
+pip install -e .
 
-Four poker players with different snap tolerance profiles:
-- **Novice:** Tight on cards (notices every card shift), loose on behavior (misses tells)
-- **Intermediate:** Uniform tolerances across all layers
-- **Expert:** Loose on cards (ignores noise), tight on behavior+emotion (catches tells)
-- **Baseline:** No snap filtering — everything gets attention
-
-**Key insight:** Expert wins because it attends to the RIGHT deltas (behavior, emotion) not the wrong ones (card probability noise).
-
-**Output includes:** Win rates, deltas per hand, attention efficiency, layer breakdown.
-
-```
-╔═══════════════════════════════════════════════════════╗
-║  🎰 POKER ATTENTION ENGINE RESULTS                  ║
-╠═══════════════════════════════════════════════════════╣
-║  10,000 hands played                                 ║
-║  Player       Win%    Δ/H   Efficiency  Distribution ║
-║  novice       37.7%   2.8      13.3     █░░░░░░░░░░ ║
-║  intermediate 25.9%   4.6       5.6     ████░░░░░░░ ║
-║  expert       19.6%   7.0       2.8     ██████░░░░░ ║
-║  baseline     16.8%  11.4       1.5     █████████░░ ║
-╚═══════════════════════════════════════════════════════╝
+# With optional dependencies
+pip install snapkit[sympy]    # SymPy integration
+pip install snapkit[pysheaf]  # PySheaf integration
+pip install snapkit[all]      # All extras
 ```
 
-### 2. 🧠 Delta-to-Script Learning Cycle (`learning_cycle_sim.py`)
+**Dependencies:** NumPy (required). SymPy and PySheaf are optional.
 
-**Tests:** How snap functions enable learning automation through phase transitions.
+## Theory
 
-An agent starts with no knowledge, encounters situations, and builds "scripts" (automated responses) from repeated patterns. Shows three phases:
+snapkit implements the framework described in **[SNAPS-AS-ATTENTION.md](/research/SNAPS-AS-ATTENTION.md)** (Forgemaster & Digennaro, 2026).
 
-1. **Delta Flood:** No scripts exist → everything is novel → high cognitive load
-2. **Script Burst:** Repeated patterns get encoded → rapid script creation
-3. **Smooth Running:** Most situations snap to scripts → low cognitive load
+Key theoretical results:
+- **Tolerance-Compressed Attention Theorem:** Finite attention budget allocated to deltas exceeding tolerance
+- **ADE Classification of Snap Topologies:** Aₙ, Dₙ, E₆/₇/₈ determine lattice geometry
+- **Script Capacity Theorem:** Novelty rate determines maximum script capacity
+- **Coarse-Graining Lemma:** H¹ vanishing implies snap functions are consistent sheaves
 
-**Key insight:** The snap function automates what was once novel, freeing cognition for truly new situations.
-
-**Output includes:** Epoch-by-epoch performance, cognitive load, script hit rate, phase transitions, ASCII charts.
-
-### 3. 📡 Multi-Flavor Attention Budget (`attention_budget_sim.py`)
-
-**Tests:** Whether actionability-weighted attention beats reactive or uniform allocation.
-
-An agent monitors 10 information streams with different randomness flavors (coin, d6, d20, gaussian, spike, etc.) but can only attend to 3 at a time. Three strategies compete:
-
-- **Uniform:** Equal attention to all streams with deltas
-- **Reactive:** Attend to biggest deltas regardless of stream
-- **Smart:** Weight deltas by actionability (how much thinking changes outcomes)
-
-**Key insight:** Smart strategy wins because it directs attention to deltas where thinking matters (spike/burst streams), not just where deltas are large (coin/noise streams).
-
-### 4. 🧊 Rubik's Cube Script Engine (`rubik_sim.py`)
-
-**Tests:** Whether scripts reduce cognitive load even when they don't reduce total moves.
-
-Three solvers tackle scrambled cubes:
-- **Brute Force:** Random moves, no memory — every move is a decision
-- **Script Executor:** Has known move sequences, snaps to nearest match
-- **Planning Solver:** Scripts + evaluates which script to chain next
-
-**Key insight:** Scripts don't reduce MOVES, they reduce COGNITIVE LOAD. The planning solver may use more total moves but THINKS less because scripts execute automatically.
-
-### 5. 🔄 Cross-Domain Transfer (`transfer_sim.py`)
-
-**Tests:** Whether snap calibrations transfer across domains with matching randomness shapes.
-
-Snap functions calibrated on one randomness flavor (e.g., d6) are tested on another (e.g., d20). Shape groups:
-
-- **Binary:** coin
-- **Uniform:** d6, d20
-- **Bell:** 2d6, gaussian
-- **Categorical:** categorical, directional
-
-**Key insight:** Matching shapes (d6→d20) transfer better than mismatching (coin→gaussian), supporting the theory that snap topologies are domain-invariant.
-
-## Output Formats
-
-All simulators produce:
-1. **Rich terminal output** — box-drawn tables, ASCII bar charts, interpretation text
-2. **JSON file** — machine-readable results (always)
-3. **CSV file** — with `--csv` flag
-4. **HTML report** — with `--html` flag (self-contained, dark theme)
-
-## Interpreting Results
-
-Each simulator prints an **INTERPRETATION** section explaining:
-- What the numbers mean in plain English
-- Whether the theory's predictions were confirmed
-- What's surprising or interesting
-- Caveats and limitations
-
-## Dependencies
-
-- Python 3.7+
-- No external dependencies (stdlib only)
-- `numpy` available but not required
-
-## File Structure
+## Project Structure
 
 ```
-snap-attention/
-├── poker_sim.py              # 🎰 Poker attention engine
-├── learning_cycle_sim.py     # 🧠 Learning phase transitions
-├── attention_budget_sim.py   # 📡 Budget allocation strategies
-├── rubik_sim.py              # 🧊 Cube script engine
-├── transfer_sim.py           # 🔄 Cross-domain transfer
-├── run_all.py                # Run all simulators
-├── README.md                 # This file
-├── results_*.json            # JSON output files
-├── results_*.csv             # CSV exports (--csv flag)
-└── report_*.html             # HTML reports (--html flag)
+snapkit/
+├── __init__.py         # Package init, version, exports
+├── snap.py             # SnapFunction — tolerance-compressed attention gate
+├── delta.py            # DeltaDetector — tracks what exceeds tolerance
+├── attention.py        # AttentionBudget — finite cognition allocation
+├── scripts.py          # ScriptLibrary — learned automatic patterns
+├── topology.py         # SnapTopology — ADE classification
+├── learning.py         # LearningCycle — expertise cycle
+├── cohomology.py       # ConstraintSheaf — consistency verification
+├── adversarial.py      # Adversarial snap calibration
+├── crossdomain.py      # Cross-domain feel transfer
+├── streaming.py        # Real-time stream processing
+├── visualization.py    # Terminal + HTML visualization
+├── integration.py      # PySheaf/SymPy/Numpy integration
+├── serial.py           # Serialization & persistence
+├── pipeline.py         # Composable processing pipelines
+├── cli.py              # Command-line interface
+tests/
+├── test_core.py        # Core module tests
+├── test_advanced.py    # Advanced module tests
+├── test_pipeline.py    # Pipeline tests
+└── __init__.py
 ```
+
+## License
+
+MIT
+
+## Credits
+
+**Forgemaster ⚒️** — constraint theory specialist, Cocapn fleet
+**Casey Digennaro** — creator, SuperInstance / PurplePincher.org

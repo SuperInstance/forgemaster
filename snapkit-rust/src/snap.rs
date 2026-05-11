@@ -54,7 +54,7 @@ impl<T: Float + Default> SnapResult<T> {
 /// ```
 /// use snapkit::{SnapFunction, SnapTopology};
 ///
-/// let snap = SnapFunction::builder()
+/// let mut snap = SnapFunction::<f64>::builder()
 ///     .tolerance(0.1)
 ///     .topology(SnapTopology::Hexagonal)
 ///     .build();

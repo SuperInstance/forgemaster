@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapKit Browser Demo</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #0a0a0f; color: #c0c0c0; padding: 20px; max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 1.4rem; margin-bottom: 4px; color: #00ff88; display: flex; align-items: center; gap: 10px; }
+h1 small { color: #666; font-weight: 400; font-size: 0.85rem; }
+.subtitle { color: #666; font-size: 0.85rem; margin-bottom: 20px; }
+h2 { font-size: 1rem; color: #88ccff; margin: 20px 0 10px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.card { background: #14141f; border: 1px solid #2a2a3f; border-radius: 8px; padding: 14px; }
+.card h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #666; margin-bottom: 8px; }
+.row { display: flex; gap: 8px; margin: 4px 0; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+.badge.snap { background: rgba(0,255,136,0.15); color: #00ff88; }
+.badge.delta { background: rgba(255,136,68,0.15); color: #ff8844; }
+.badge.critical { background: rgba(255,51,68,0.15); color: #ff3344; }
+.stream-bar { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+.bar-track { flex: 1; height: 14px; background: #1a1a2f; border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; transition: width 0.2s; border-radius: 3px; }
+.bar-fill.snap { background: #00ff88; }
+.bar-fill.delta { background: #ff8844; }
+.bar-fill.critical { background: #ff3344; }
+.stream-label { width: 60px; font-size: 0.75rem; color: #888; text-align: right; }
+.stream-value { width: 50px; font-size: 0.78rem; font-weight: 600; text-align: right; }
+.controls { display: flex; gap: 10px; margin: 16px 0; align-items: center; flex-wrap: wrap; }
+button { background: #2a2a4f; border: none; color: #c0c0c0; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+button:hover { background: #3a3a6f; }
+button.primary { background: #0055aa; color: white; }
+button.primary:hover { background: #0077dd; }
+input[type="range"] { width: 120px; accent-color: #00ff88; }
+label { font-size: 0.8rem; color: #888; }
+canvas { width: 100%; height: 160px; border-radius: 6px; background: #0e0e18; }
+.delta-log { max-height: 200px; overflow-y: auto; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.75rem; }
+.delta-log div { padding: 3px 0; border-bottom: 1px solid #1a1a2f; }
+.delta-log .n { color: #00ff88; }
+.delta-log .d { color: #ff8844; }
+.delta-log .c { color: #ff3344; }
+#live-bar { margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<h1>
+  ⚒️ SnapKit
+  <small>Tolerance-Compressed Attention</small>
+</h1>
+<p class="subtitle">Move the slider or click "Simulate" — watch deltas trigger attention allocation</p>
+
+<div class="controls">
+  <button class="primary" id="simBtn">▶ Simulate</button>
+  <button id="resetBtn">↺ Reset</button>
+  <label>Tolerance: <input type="range" id="toleranceSlider" min="1" max="50" value="10"></label>
+  <span id="toleranceLabel">0.10</span>
+  <label>Input: <span id="inputLabel">0.50</span></label>
+</div>
+
+<div class="grid">
+  <div class="card" style="grid-column: 1 / -1;">
+    <h3>Live Snapped Value (Canvas)</h3>
+    <canvas id="chart"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>Streams & Deltas</h3>
+    <div id="streams"></div>
+  </div>
+
+  <div class="card">
+    <h3>Attention Allocation</h3>
+    <div id="allocation"></div>
+  </div>
+
+  <div class="card" style="grid-column: 1 / -1;">
+    <h3>Delta Log</h3>
+    <div class="delta-log" id="deltaLog"><div style="color:#555">— waiting for input —</div></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // ─── SnapKit Implementation (inlined, zero deps) ───────────────────────
+
+  class SnapFunction {
+    constructor(opts = {}) {
+      this.tolerance = opts.tolerance ?? 0.1;
+      this.baseline = opts.baseline ?? 0;
+      this.adaptationRate = opts.adaptationRate ?? 0.01;
+      this._history = [];
+    }
+
+    snap(value) {
+      const delta = Math.abs(value - this.baseline);
+      const within = delta <= this.tolerance;
+      const snapped = within ? this.baseline : value;
+
+      if (within) {
+        this.baseline += (value - this.baseline) * this.adaptationRate;
+      }
+
+      this._history.push({ value, snapped, delta, within, tolerance: this.tolerance });
+      return { original: value, snapped, delta, withinTolerance: within, tolerance: this.tolerance };
+    }
+
+    get statistics() {
+      if (this._history.length === 0) return { totalObservations: 0 };
+      const snaps = this._history.filter(h => h.within).length;
+      const deltas = this._history.length - snaps;
+      const meanDelta = this._history.reduce((s, h) => s + h.delta, 0) / this._history.length;
+      return {
+        totalObservations: this._history.length,
+        snapCount: snaps,
+        deltaCount: deltas,
+        snapRate: this._history.length > 0 ? snaps / this._history.length : 0,
+        meanDelta,
+        currentBaseline: this.baseline,
+      };
+    }
+
+    reset(baseline) {
+      this._history = [];
+      if (baseline !== undefined) this.baseline = baseline;
+    }
+  }
+
+  class DeltaDetector {
+    constructor() { this._streams = new Map(); }
+
+    addStream(id, snap, opts = {}) {
+      this._streams.set(id, { snap, opts });
+    }
+
+    observe(values) {
+      const result = {};
+      for (const [id, stream] of this._streams) {
+        const v = values[id];
+        if (v !== undefined) {
+          const snapResult = stream.snap.snap(v);
+          const actionability = stream.opts.actionabilityFn ? stream.opts.actionabilityFn(snapResult) : Math.min(1, snapResult.delta / snapResult.tolerance * 0.5);
+          const urgency = stream.opts.urgencyFn ? stream.opts.urgencyFn(snapResult) : snapResult.delta * 5;
+
+          let severity = 'none';
+          if (!snapResult.withinTolerance) {
+            const ratio = snapResult.delta / snapResult.tolerance;
+            severity = ratio > 5 ? 'critical' : ratio > 3 ? 'high' : ratio > 2 ? 'medium' : 'low';
+          }
+
+          result[id] = {
+            value: v,
+            expected: stream.snap.baseline,
+            magnitude: snapResult.delta,
+            tolerance: snapResult.tolerance,
+            severity,
+            timestamp: Date.now(),
+            streamId: id,
+            actionability,
+            urgency,
+          };
+        }
+      }
+      return result;
+    }
+
+    getStream(id) { return this._streams.get(id); }
+
+    prioritize(k) {
+      const all = [];
+      for (const [id, stream] of this._streams) {
+        if (stream.snap._history.length > 0) {
+          const last = stream.snap._history[stream.snap._history.length - 1];
+          if (!last.within) {
+            const actionability = stream.opts.actionabilityFn ? stream.opts.actionabilityFn(last) : 0.5;
+            const urgency = stream.opts.urgencyFn ? stream.opts.urgencyFn(last) : last.delta * 5;
+            const weight = actionability * 0.7 + urgency * 0.3;
+            all.push({
+              value: last.value,
+              expected: last.snapped,
+              magnitude: last.delta,
+              tolerance: last.tolerance,
+              severity: last.delta / last.tolerance > 3 ? 'critical' : last.delta / last.tolerance > 2 ? 'high' : 'medium',
+              timestamp: Date.now(),
+              streamId: id,
+              actionability,
+              urgency,
+              _weight: weight,
+            });
+          }
+        }
+      }
+      all.sort((a, b) => b._weight - a._weight);
+      return all.slice(0, k);
+    }
+  }
+
+  class AttentionBudget {
+    constructor(opts = {}) {
+      this.totalBudget = opts.totalBudget ?? 100;
+      this.strategy = opts.strategy ?? 'actionability';
+      this._remaining = this.totalBudget;
+      this._totalAllocated = 0;
+      this._exhaustionCount = 0;
+    }
+
+    get remaining() { return this._remaining; }
+    get utilization() { return this.totalBudget > 0 ? this._totalAllocated / this.totalBudget : 0; }
+    get exhaustionRate() { return this.totalBudget > 0 ? this._exhaustionCount / Math.max(1, this._exhaustionCount + 1) : 0; }
+
+    allocate(deltas) {
+      if (deltas.length === 0) return [];
+
+      let effective = deltas;
+      if (this.strategy === 'actionability') {
+        const totalWeight = deltas.reduce((s, d) => s + d.actionability, 0);
+        effective = deltas.map(d => ({ ...d, _weight: totalWeight > 0 ? d.actionability / totalWeight : 1 / deltas.length }));
+      } else if (this.strategy === 'reactive') {
+        effective = deltas.map((d, i) => ({ ...d, _weight: i === 0 ? 1 : 0 }));
+      }
+
+      const results = [];
+      for (let i = 0; i < effective.length; i++) {
+        const d = effective[i];
+        const alloc = d._weight !== undefined ? this._remaining * d._weight : this._remaining / effective.length;
+        results.push({ delta: d, allocated: alloc, priority: i + 1, reason: this.strategy === 'actionability' ? 'actionability-weighted' : 'uniform' });
+        this._remaining -= alloc;
+        this._totalAllocated += alloc;
+      }
+
+      if (this._remaining <= 0) this._exhaustionCount++;
+      return results;
+    }
+  }
+
+  // ─── UI Setup ─────────────────────────────────────────────────────────
+
+  const snap = new SnapFunction({ tolerance: 0.1 });
+  const detector = new DeltaDetector();
+
+  detector.addStream('CPU', new SnapFunction({ tolerance: 0.08 }), {
+    actionabilityFn: (r) => Math.min(1, r.delta / r.tolerance * 0.6),
+    urgencyFn: (r) => r.delta * 8,
+  });
+  detector.addStream('Memory', new SnapFunction({ tolerance: 0.05 }), {
+    actionabilityFn: (r) => Math.min(1, r.delta / r.tolerance * 0.4),
+    urgencyFn: (r) => r.delta * 6,
+  });
+  detector.addStream('Latency', new SnapFunction({ tolerance: 12 }), {
+    actionabilityFn: (r) => Math.min(1, r.delta / r.tolerance * 0.5),
+    urgencyFn: (r) => r.delta * 3,
+  });
+  detector.addStream('Error', new SnapFunction({ tolerance: 0.003 }), {
+    actionabilityFn: (r) => Math.min(1, r.delta / r.tolerance * 0.9),
+    urgencyFn: (r) => r.delta * 20,
+  });
+
+  const budget = new AttentionBudget({ totalBudget: 100, strategy: 'actionability' });
+
+  // ─── Chart ────────────────────────────────────────────────────────────
+
+  const canvas = document.getElementById('chart');
+  const ctx = canvas.getContext('2d');
+  let chartData = [];
+
+  function resizeCanvas() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width - 4;
+    canvas.height = 160;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function drawChart() {
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    // Grid
+    ctx.strokeStyle = '#1a1a2f';
+    ctx.lineWidth = 1;
+    for (let y = 0; y < h; y += 30) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.stroke();
+    }
+
+    if (chartData.length < 2) return;
+
+    // Normalize to fit
+    const maxVal = Math.max(...chartData.map(d => Math.abs(d.snapped)), 1);
+
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.strokeStyle = '#00ff88';
+    for (let i = 0; i < chartData.length; i++) {
+      const x = (i / (chartData.length - 1)) * w;
+      const y = h / 2 - (chartData[i].snapped / maxVal) * (h / 2 - 10);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Delta points
+    for (let i = 0; i < chartData.length; i++) {
+      if (!chartData[i].within) {
+        const x = (i / (chartData.length - 1)) * w;
+        const y = h / 2 - (chartData[i].snapped / maxVal) * (h / 2 - 10);
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#ff8844';
+        ctx.fill();
+      }
+    }
+  }
+
+  // ─── Update UI ────────────────────────────────────────────────────────
+
+  function updateUI(value) {
+    // Snap
+    const snapResult = snap.snap(value);
+
+    // Detect
+    const deltas = detector.observe({
+      CPU: Math.random() * 0.3,
+      Memory: 0.5 + Math.random() * 0.1,
+      Latency: Math.random() * 30,
+      Error: Math.random() * 0.008,
+    });
+
+    // Chart
+    chartData.push({ ...snapResult });
+    if (chartData.length > 100) chartData.shift();
+    drawChart();
+
+    // Streams
+    const streamsDiv = document.getElementById('streams');
+    let streamsHtml = '';
+    for (const [id, d] of Object.entries(deltas)) {
+      const cls = d.magnitude > d.tolerance ? (d.severity === 'critical' ? 'critical' : 'delta') : 'snap';
+      const pct = Math.min(100, (d.magnitude / Math.max(d.tolerance, 0.001)) * 20);
+
+      streamsHtml += `
+        <div class="stream-bar">
+          <span class="stream-label">${id}</span>
+          <div class="bar-track">
+            <div class="bar-fill ${cls}" style="width:${Math.min(100, pct)}%"></div>
+          </div>
+          <span class="stream-value ${cls}">${d.magnitude > d.tolerance ? 'Δ' : '·'} ${d.magnitude.toFixed(3)}</span>
+        </div>
+      `;
+    }
+    streamsDiv.innerHTML = streamsHtml || '<div style="color:#555">No data</div>';
+
+    // Allocate
+    const prioritized = detector.prioritize(3);
+    const allocations = budget.allocate(prioritized);
+
+    const allocDiv = document.getElementById('allocation');
+    if (allocations.length > 0) {
+      allocDiv.innerHTML = allocations.map(a =>
+        `<div class="row"><span class="badge delta">#${a.priority}</span><span>${a.delta.streamId}: ${a.allocated.toFixed(1)} units</span></div>`
+      ).join('');
+    } else {
+      allocDiv.innerHTML = '<div style="color:#555">No deltas to allocate</div>';
+    }
+
+    // Log
+    const log = document.getElementById('deltaLog');
+    const hasDelta = Object.values(deltas).some(d => d.magnitude > d.tolerance);
+    if (hasDelta) {
+      const entry = Object.entries(deltas).filter(([, d]) => d.magnitude > d.tolerance)[0];
+      const cls = entry[1].severity === 'critical' ? 'c' : 'd';
+      const first = log.querySelector('div');
+      if (first && first.textContent === '— waiting for input —') {
+        log.innerHTML = '';
+      }
+      const div = document.createElement('div');
+      div.className = cls;
+      div.textContent = `Δ ${entry[0]}: ${entry[1].magnitude.toFixed(4)} | alloc: ${(allocations[0]?.allocated ?? 0).toFixed(1)} | tol: ${entry[1].tolerance}`;
+      log.insertBefore(div, log.firstChild);
+      if (log.children.length > 50) log.removeChild(log.lastChild);
+    }
+
+    // Status bar
+    document.getElementById('live-bar').textContent =
+      `snap: ${snap.snapped.toFixed(3)} | δ: ${snapResult.delta.toFixed(3)} | buf: ${budget.remaining.toFixed(0)}`;
+  }
+
+  // ─── Controls ─────────────────────────────────────────────────────────
+
+  function simulateRandom() {
+    const val = Math.random() * 2 - 0.5 + 0.5; // 0-1 range
+    document.getElementById('inputLabel').textContent = val.toFixed(2);
+    updateUI(val);
+  }
+
+  document.getElementById('simBtn').addEventListener('click', simulateRandom);
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    snap.reset();
+    chartData = [];
+    budget._remaining = budget.totalBudget;
+    budget._totalAllocated = 0;
+    document.getElementById('streams').innerHTML = '<div style="color:#555">No data</div>';
+    document.getElementById('allocation').innerHTML = '<div style="color:#555">No deltas to allocate</div>';
+    document.getElementById('deltaLog').innerHTML = '<div style="color:#555">— waiting for input —</div>';
+    document.getElementById('live-bar').textContent = '';
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  document.getElementById('toleranceSlider').addEventListener('input', function() {
+    const val = this.value / 100;
+    document.getElementById('toleranceLabel').textContent = val.toFixed(2);
+    snap.tolerance = val;
+  });
+
+  // Auto-simulate on load
+  for (let i = 0; i < 10; i++) {
+    setTimeout(() => {
+      simulateRandom();
+    }, i * 200);
+  }
+
+  // Auto-run every 2 seconds
+  setInterval(simulateRandom, 2000);
+})();
+</script>
+
+<div id="live-bar" style="margin-top:16px;font-family:monospace;font-size:0.8rem;color:#888"></div>
+</body>
+</html>

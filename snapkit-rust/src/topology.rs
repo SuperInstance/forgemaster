@@ -148,7 +148,7 @@ pub fn ade_lookup(name: &str) -> Option<&'static ADEData> {
 /// ```
 /// use snapkit::{recommend_topology, SnapTopology};
 ///
-/// let topo = recommend_topology(None, Some(2), None);
+/// let topo = recommend_topology(None, Some(2));
 /// assert_eq!(topo, SnapTopology::Hexagonal); // A₂ optimal in 2D
 /// ```
 pub fn recommend_topology(

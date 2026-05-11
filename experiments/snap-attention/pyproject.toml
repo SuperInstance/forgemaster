@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "snapkit"
+version = "0.2.0"
+description = "Tolerance-Compressed Attention Allocation Engine"
+readme = "README.md"
+authors = [
+    {name = "Forgemaster ⚒️ / Casey Digennaro"},
+]
+license = {text = "MIT"}
+keywords = [
+    "attention", "snap", "compression", "tolerance",
+    "cognition", "delta", "poker", "ADE", "constraint-satisfaction",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.19.0",
+]
+
+[project.optional-dependencies]
+sympy = ["sympy>=1.9"]
+pysheaf = ["pysheaf>=0.1"]
+viz = ["jinja2>=3.0"]
+all = ["sympy>=1.9", "pysheaf>=0.1", "jinja2>=3.0"]
+
+[project.urls]
+Homepage = "https://github.com/SuperInstance/snapkit"
+Repository = "https://github.com/SuperInstance/snapkit"
+Documentation = "https://github.com/SuperInstance/snapkit#readme"
+
+[project.scripts]
+snapkit = "snapkit.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["snapkit*"]
+
+[tool.setuptools.package-data]
+snapkit = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.coverage.run]
+source = ["snapkit"]
+omit = ["snapkit/tests/*"]
+
+[tool.coverage.report]
+show_missing = true
