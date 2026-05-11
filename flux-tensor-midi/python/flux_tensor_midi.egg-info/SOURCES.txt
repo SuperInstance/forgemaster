@@ -5,9 +5,11 @@ flux_tensor_midi.egg-info/PKG-INFO
 flux_tensor_midi.egg-info/SOURCES.txt
 flux_tensor_midi.egg-info/dependency_links.txt
 flux_tensor_midi.egg-info/top_level.txt
+flux_tensor_midi/adapters/daw_bridge.py
 flux_tensor_midi/core/__init__.py
 flux_tensor_midi/core/clock.py
 flux_tensor_midi/core/flux.py
+flux_tensor_midi/core/prerender.py
 flux_tensor_midi/core/room.py
 flux_tensor_midi/core/snap.py
 flux_tensor_midi/ensemble/__init__.py

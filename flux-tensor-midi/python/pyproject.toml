@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flux-tensor-midi"
-version = "0.1.0"
+version = "0.1.1"
 description = "PLATO rooms as musicians — flux tensor MIDI ensemble coordination"
 readme = "README.md"
 requires-python = ">=3.10"
