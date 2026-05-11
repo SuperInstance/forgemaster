@@ -9,7 +9,7 @@ authors = ["Forgemaster <forgemaster@cocapn.fleet>"]
 license = "MIT"
 repository = "https://github.com/SuperInstance/flux-tensor-midi"
 keywords = ["midi", "flux", "rhythm", "eisenstein", "plato"]
-categories = ["multimedia::audio", "science::mathematics"]
+categories = ["multimedia::audio", "science"]
 
 [dependencies]
 serde = { version = "1", optional = true, features = ["derive"] }

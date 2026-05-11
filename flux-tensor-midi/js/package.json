@@ -1,0 +1,20 @@
+{
+  "name": "@superinstance/flux-tensor-midi",
+  "version": "0.1.0",
+  "description": "PLATO rooms as musicians — T-0 clocks, Eisenstein rhythmic snap, side-channel communication (nods/smiles/frowns)",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./core": "./core/index.js",
+    "./midi": "./midi/index.js",
+    "./sidechannel": "./sidechannel/index.js",
+    "./harmony": "./harmony/index.js",
+    "./ensemble": "./ensemble/index.js"
+  },
+  "keywords": ["midi", "flux", "tensor", "temporal", "eisenstein", "snap", "coordination", "music", "plato", "distributed"],
+  "author": "Forgemaster <forgemaster@cocapn.fleet>",
+  "license": "MIT",
+  "repository": "https://github.com/SuperInstance/flux-tensor-midi",
+  "engines": {"node": ">=18.0.0"}
+}

@@ -1,0 +1,147 @@
+Metadata-Version: 2.4
+Name: flux-tensor-midi
+Version: 0.1.0
+Summary: PLATO rooms as musicians — flux tensor MIDI ensemble coordination
+Author-email: Forgemaster <forgemaster@superinstance.dev>
+License: MIT
+Project-URL: Homepage, https://github.com/SuperInstance/flux-tensor-midi
+Project-URL: Documentation, https://github.com/SuperInstance/flux-tensor-midi#readme
+Project-URL: Repository, https://github.com/SuperInstance/flux-tensor-midi
+Project-URL: Issues, https://github.com/SuperInstance/flux-tensor-midi/issues
+Keywords: midi,flux,tensor,plato,ensemble,music
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Artistic Software
+Classifier: Topic :: Multimedia :: Sound/Audio :: MIDI
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
+# FLUX-Tensor-MIDI ⚒️
+
+**PLATO rooms as musicians.** Each room has a T-0 clock, produces timestamped events (tiles=notes), listens to other rooms, snaps to rhythm via Eisenstein lattice, and sends side-channels (nods/smiles/frowns) for ensemble coordination.
+
+Zero external dependencies. Pure Python 3.10+.
+
+## Musical Analogy Table
+
+| PLATO Concept        | Musical Equivalent    | MIDI Mapping              |
+|----------------------|-----------------------|---------------------------|
+| Room                 | Musician              | MIDI Channel              |
+| T-0 Clock            | Metronome / Conductor | MIDI Clock (0xF8)         |
+| Tile (event)         | Note                  | Note On/Off               |
+| FluxVector (9-ch)    | Chord / Harmonic Spectrum | 9 MIDI notes (C4–D5) |
+| Salience             | Note Velocity         | Velocity (0–127)          |
+| Tolerance            | Pitch Bend / Jitter   | Pitch Bend range          |
+| Eisenstein Snap      | Rhythmic Quantization | Grid snapping             |
+| Nod                  | Nod (agreement)       | CC #1 (Mod Wheel)         |
+| Smile                | Smile (approval)      | CC #2 (Breath)            |
+| Frown                | Frown (disagreement)  | CC #3 (Expression)        |
+| Listening (room→room)| Musician's ear        | MIDI Channel routing      |
+| Conductor            | Band leader / click   | Master MIDI Clock          |
+| Ensemble             | Band / Orchestra      | Multi-channel MIDI output |
+| Jaccard Harmony      | Chord similarity      | Chromatic interval match  |
+| Rhythmic Role        | Groove part           | Program change (patch)    |
+
+## Rhythm Ratios (Eisenstein Lattice)
+
+| Role        | Ratio | Period (at 120 BPM) | Musical Feel       |
+|-------------|-------|---------------------|--------------------|
+| Root        | 1:1   | 500 ms              | Downbeat / quarter |
+| Halftime    | 2:1   | 1000 ms             | Half speed         |
+| Triplet     | 3:2   | 750 ms              | Swung feel         |
+| Waltz       | 3:1   | 1500 ms             | Waltz time         |
+| Compound    | 4:3   | ~667 ms             | Compound meter     |
+| Doubletime  | 1:2   | 250 ms              | Double speed       |
+| Offset      | 1:1   | 500 ms + 120° phase | Syncopated         |
+| Quintuple   | 5:4   | 625 ms              | Quintuple meter    |
+| Septuple    | 7:4   | 875 ms              | Septuple meter     |
+
+Covering radius: **1/√3 ≈ 0.577** — optimal hexagonal tiling.
+
+## Quick Start
+
+```bash
+pip install flux-tensor-midi
+```
+
+```python
+from flux_tensor_midi import FluxVector, TZeroClock, RoomMusician, EisensteinSnap
+from flux_tensor_midi.core.snap import RhythmicRole
+from flux_tensor_midi.ensemble.band import Band
+
+# Create musicians with different rhythmic roles
+piano = RoomMusician("Piano", role=RhythmicRole.ROOT)
+bass = RoomMusician("Bass", role=RhythmicRole.HALFTIME)
+drums = RoomMusician("Drums", role=RhythmicRole.TRIPLET)
+
+# Form a band with a conductor
+band = Band("Trio", conductor=piano, bpm=120.0)
+band.add_musician(bass)
+band.add_musician(drums)
+band.everyone_listens_to_everyone()
+
+# Set some initial state
+piano.update_state(FluxVector([0.8, 0.0, 0.6, 0.0, 0.7, 0.0, 0.0, 0.0, 0.0]))
+bass.update_state(FluxVector([0.0, 0.9, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))  # simple root
+
+# Tick the band
+results = band.tick_all()
+print(f"Piano event at {results['Piano'][0]:.1f}ms")
+
+# Check harmony
+hs = band.harmony()
+print(f"Chord quality: {hs.quality()}, consonance: {hs.consonance():.3f}")
+
+# Side-channel comms
+piano.send_nod(bass)
+print(f"Bass received nods from: {bass.receive_sidechannels()['nods']}")
+```
+
+## Package Structure
+
+```
+flux_tensor_midi/
+├── __init__.py
+├── core/
+│   ├── __init__.py
+│   ├── flux.py       — FluxVector (9-ch tensor with salience+tolerance)
+│   ├── clock.py      — TZeroClock (EWMA-adaptive metronome)
+│   ├── room.py       — RoomMusician (PLATO room as musician)
+│   └── snap.py       — EisensteinSnap (rhythmic quantization lattice)
+├── midi/
+│   ├── __init__.py
+│   ├── events.py     — MidiEvent, NoteName, flux→MIDI conversion
+│   ├── clock.py      — MidiClock (24 PPQN, software clock)
+│   └── channel.py    — MidiChannel mapping by rhythmic role
+├── sidechannel/
+│   ├── __init__.py
+│   ├── nod.py        — Nod gesture (agreement/acknowledgment)
+│   ├── smile.py      — Smile gesture (positive affect)
+│   └── frown.py      — Frown gesture (disagreement/concern)
+├── harmony/
+│   ├── __init__.py
+│   ├── jaccard.py    — Jaccard similarity for FluxVector sets
+│   ├── spectrum.py   — Spectral analysis (centroid, flux, autocorr)
+│   └── chord.py      — HarmonyState (consonance, quality, voice leading)
+└── ensemble/
+    ├── __init__.py
+    ├── band.py       — Band (ensemble with conductor)
+    └── score.py      — Score (recorded performance, export)
+```
+
+## Running Tests
+
+```bash
+cd python
+pip install -e ".[dev]"
+pytest -v
+```
+
+## License
+
+MIT
