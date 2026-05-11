@@ -72,6 +72,20 @@ Each tile is a standalone visual argument. No context needed. No words needed be
 
 **Total: 37 visual tiles across 3 sessions. Each a self-contained theorem.**
 
+## Log Mining Tiles (Session 4 — from old night shift logs)
+
+| # | Title | What It Proves |
+|---|---|---|
+| 38 | **Pruning Creates** | Removing agents improved alignment 0.84→0.91; less can be more |
+| 39 | **Alignment Phase Transition** | 0.000→0.912 in ONE step — alignment is emergent, not accumulated |
+| 40 | **The 60-Bit Lineage** | TUTOR (1969) → Bloom (1990s) → Bloom CRDT (2026): same XOR, different name every decade |
+| 41 | **Hamming Beats Cosine** | POPCNT is 1 instruction, CRDT-compatible, deterministic; cosine is none of those |
+| 42 | **Vertical vs Horizontal Energy** | Crates are residue (vertical); the qualitative energy IS the knowledge (horizontal) |
+| 43 | **12 Nearest Neighbors** | A₂ lattice and FCC crystal both have 12 nearest neighbors — nature chose hexagonal |
+| 44 | **The Glue Problem** | 11 impressive crates ≠ 1 revolutionary product; the glue IS the product |
+
+**Total: 44 visual tiles across 4 sessions.**
+
 ---
 
 ## The Three Capstone Stories
