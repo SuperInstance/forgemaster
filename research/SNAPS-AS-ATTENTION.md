@@ -429,6 +429,91 @@ The snap is the moment the mind says: "I know this one. Hand it off. Look ahead.
 
 ---
 
+## The Adversarial Snap: Poker as Mind vs Mind
+
+### Your Own Odds Are Already Scripted
+
+Before the river flips, the pro has already run every card through a script. Most cards are snake eyes — they don't improve the hand. A few do. The probabilities are pre-compressed into snap categories:
+
+```
+Card improves my hand → DELTA (but small, I expected some)
+Card doesn't change my hand → SNAP to "status quo" (ignore)
+Card hurts my hand → DELTA (rare, but important)
+```
+
+The pro's own odds are HANDLED. Scripts cover them. Cognition freed.
+
+**The freed cognition doesn't go to more calculation. It goes to watching the other players.**
+
+### The Real Game Is Adversarial Snap Calibration
+
+Every other player at the table is doing the same thing — running scripts for their own odds, then watching everyone else. But they're also **generating fake deltas** to jam your snap function:
+
+- A deliberate pause (fake uncertainty delta)
+- A confident bet on a weak hand (fake strength delta)
+- A subtle smirk (fake comfort delta)
+- An exaggerated reach for chips (fake commitment delta)
+
+**They're injecting noise into your snap function.** Your snap has to distinguish real deltas from manufactured deltas.
+
+This is why poker is not a calculation game. It's an **adversarial attention game:**
+
+1. My scripts handle my own odds (free cognition)
+2. My freed cognition watches YOUR deltas (the real intelligence)
+3. But YOU know I'm watching, so you manufacture fake deltas (adversarial layer)
+4. I know you're manufacturing, so I calibrate for that (meta-snap)
+5. You know I'm calibrating for your fakes, so you fake the calibration (recursive)
+
+### Where Intelligence Is Needed
+
+**Intelligence is needed in competition with intelligence trying to out-fake delta — not out-calculating.**
+
+The calculation (odds, outs, pot odds) is the SCRIPT LAYER. It's necessary but insufficient. Every competent player has those scripts. The scripts level the computational playing field.
+
+The intelligence is in the layer ABOVE scripts:
+- Which deltas are real vs manufactured?
+- Which player's fake deltas have tells that leak real information?
+- Which deltas in MY behavior am I leaking that THEY can read?
+- When do I manufacture a delta that's actually a double-bluff?
+
+This is the adversarial snap calibration problem. Your snap function is under active attack by agents who benefit from it being miscalibrated.
+
+### The Rubik's Cube Parallel: Opening Moves
+
+At the start of a Rubik's cube solve, the permutation space is enormous (43 quintillion). But there are only a few REAL moves — moves that actually advance toward solved. Most moves go sideways.
+
+The pro knows which moves advance and which go sideways. They don't explore sideways moves. Their snap says: "that pattern → that algorithm → that outcome." No exploration needed.
+
+Poker is the same but adversarial:
+- Your opening scripts compress your own odds (most river cards = snake eyes)
+- Your freed cognition scans for real vs fake deltas in opponents
+- The "moves that matter" are the ones where opponent intelligence is competing with your intelligence
+- Everything else (card math, pot odds, position) is already scripted
+
+### The General Principle: Intelligence Competes With Intelligence
+
+In any domain where agents interact:
+
+```
+Script layer:     Handle the routine (free cognition)
+    ↓
+Delta layer:      Detect what changed (freed cognition)
+    ↓
+Adversarial layer: Is this delta real or manufactured? (intelligence vs intelligence)
+    ↓
+Meta layer:       What does my snap function leak? Can I use that?
+```
+
+The adversarial layer is where raw computation fails and genuine intelligence is required. You can't script adversarial detection because the adversary is actively adapting to your scripts.
+
+**This is why poker AI (Libratus, Pluribus) needed more than game theory. It needed to model the ADVERSARIAL SNAP CALIBRATION of human opponents — to generate deltas that exploit human snap miscalibration while detecting when humans were trying to exploit its own.**
+
+The game isn't in the cards. The game is in the space between minds — where each intelligence tries to out-fake the other's delta detection.
+
+---
+
 *God's number is 20. Human speedcubers use 150. And they're faster. Because intelligence isn't the optimal path through permutation space. It's the construction of scripts that free the mind to plan the next three moves while the hands execute the current one.*
+
+*In poker, the river card is already scripted. The intelligence is watching the other players watch the river — and knowing they're watching you watch them. The game is in the adversarial snap, not the cards.*
 
 *The snap is the handoff. The script is the offload. The freed mind is the intelligence.* ⚒️
