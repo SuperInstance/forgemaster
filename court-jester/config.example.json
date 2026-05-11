@@ -1,0 +1,17 @@
+{
+  "provider": "deepinfra",
+  "model": "ByteDance/Seed-2.0-mini",
+  "apiKey": "${DEEPINFRA_KEY}",
+  "baseUrl": "https://api.deepinfra.com/v1/openai",
+  "maxTokens": 2000,
+  "temperature": 0.8,
+  "plato": {
+    "mode": "git",
+    "httpUrl": "http://147.224.38.131:8847",
+    "roomPrefix": "jester"
+  },
+  "sessions": {
+    "dir": "sessions",
+    "gitCommit": true
+  }
+}

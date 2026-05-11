@@ -1,0 +1,35 @@
+{
+  "name": "court-jester",
+  "version": "0.1.0",
+  "description": "The cheapest voice in the room — a git-native, PLATO-compatible MCP server for rapid-fire ideation",
+  "main": "dist/index.js",
+  "bin": {
+    "court-jester": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ideation",
+    "brainstorming",
+    "seed-2.0-mini",
+    "deepinfra",
+    "plato",
+    "ai-playground"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "tsx": "^4.19.0"
+  }
+}
