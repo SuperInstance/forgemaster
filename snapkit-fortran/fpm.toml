@@ -1,0 +1,20 @@
+name = "snapkit"
+version = "0.2.0"
+license = "MIT"
+author = "Forgemaster"
+description = "SnapKit — Tolerance-Compressed Attention Allocation Library (Fortran 2008)"
+
+[install]
+library = true
+
+[fortran]
+source-form = "free"
+
+[build]
+targets = [
+    { name = "snapkit", type = "library" },
+    { name = "demo_poker", type = "app", source-dir = "app" },
+    { name = "demo_learning", type = "app", source-dir = "app" },
+    { name = "benchmark", type = "app", source-dir = "app" },
+    { name = "test_snapkit", type = "test", source-dir = "test" }
+]

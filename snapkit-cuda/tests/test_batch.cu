@@ -70,15 +70,7 @@ int test_multi_stream() {
     int grid_size  = (N + block_size - 1) / block_size;
     grid_size = min(grid_size, 65535);
 
-    /* Launch multi-stream batch snap kernel */
-    {
-        extern __shared__ char _[];
-        extern __host__ void batch_snap_with_tolerances_kernel(
-            const float*, const float*, const int*,
-            int*, int*, float*, int*, int);
-    }
-
-    /* Use the direct API */
+    /* Use the multi-stream API */
     snapkit_batch_snap_multi_stream(
         d_x, d_y, d_sid, d_a, d_b, d_delta, d_is_delta, N, 0
     );
