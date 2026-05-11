@@ -1,314 +1,241 @@
 {
-  "total_experiences": 100000,
-  "final_scripts": 3449,
-  "total_scripts_created": 3449,
+  "total_experiences": 1000,
+  "final_scripts": 32,
+  "total_scripts_created": 32,
   "epochs": [
     {
       "epoch": 1,
-      "range": "0-10000",
-      "avg_performance": 0.3949,
-      "cognitive_load": 0.6659,
-      "script_hit_rate": 0.3341
+      "range": "0-100",
+      "avg_performance": 0.341,
+      "cognitive_load": 1.0,
+      "script_hit_rate": 0.0
     },
     {
       "epoch": 2,
-      "range": "10000-20000",
-      "avg_performance": 0.5297,
-      "cognitive_load": 0.2114,
-      "script_hit_rate": 0.7886
+      "range": "100-200",
+      "avg_performance": 0.329,
+      "cognitive_load": 1.0,
+      "script_hit_rate": 0.0
     },
     {
       "epoch": 3,
-      "range": "20000-30000",
-      "avg_performance": 0.5728,
-      "cognitive_load": 0.0809,
-      "script_hit_rate": 0.9191
+      "range": "200-300",
+      "avg_performance": 0.287,
+      "cognitive_load": 1.0,
+      "script_hit_rate": 0.0
     },
     {
       "epoch": 4,
-      "range": "30000-40000",
-      "avg_performance": 0.5815,
-      "cognitive_load": 0.0404,
-      "script_hit_rate": 0.9596
+      "range": "300-400",
+      "avg_performance": 0.288,
+      "cognitive_load": 1.0,
+      "script_hit_rate": 0.0
     },
     {
       "epoch": 5,
-      "range": "40000-50000",
-      "avg_performance": 0.5944,
-      "cognitive_load": 0.0173,
-      "script_hit_rate": 0.9827
+      "range": "400-500",
+      "avg_performance": 0.321,
+      "cognitive_load": 0.99,
+      "script_hit_rate": 0.01
     },
     {
       "epoch": 6,
-      "range": "50000-60000",
-      "avg_performance": 0.5884,
-      "cognitive_load": 0.0107,
-      "script_hit_rate": 0.9893
+      "range": "500-600",
+      "avg_performance": 0.337,
+      "cognitive_load": 1.0,
+      "script_hit_rate": 0.0
     },
     {
       "epoch": 7,
-      "range": "60000-70000",
-      "avg_performance": 0.5958,
-      "cognitive_load": 0.0066,
-      "script_hit_rate": 0.9934
+      "range": "600-700",
+      "avg_performance": 0.319,
+      "cognitive_load": 0.98,
+      "script_hit_rate": 0.02
     },
     {
       "epoch": 8,
-      "range": "70000-80000",
-      "avg_performance": 0.5909,
-      "cognitive_load": 0.0034,
-      "script_hit_rate": 0.9966
+      "range": "700-800",
+      "avg_performance": 0.336,
+      "cognitive_load": 0.97,
+      "script_hit_rate": 0.03
     },
     {
       "epoch": 9,
-      "range": "80000-90000",
-      "avg_performance": 0.594,
-      "cognitive_load": 0.0017,
-      "script_hit_rate": 0.9983
+      "range": "800-900",
+      "avg_performance": 0.266,
+      "cognitive_load": 1.0,
+      "script_hit_rate": 0.0
     },
     {
       "epoch": 10,
-      "range": "90000-100000",
-      "avg_performance": 0.5939,
-      "cognitive_load": 0.0014,
-      "script_hit_rate": 0.9986
+      "range": "900-1000",
+      "avg_performance": 0.262,
+      "cognitive_load": 0.98,
+      "script_hit_rate": 0.02
     }
   ],
-  "phase_transitions": [
-    {
-      "time": 74000,
-      "from_phase": "learning",
-      "to_phase": "smooth",
-      "scripts": 3415
-    },
-    {
-      "time": 75000,
-      "from_phase": "smooth",
-      "to_phase": "learning",
-      "scripts": 3417
-    },
-    {
-      "time": 76000,
-      "from_phase": "learning",
-      "to_phase": "smooth",
-      "scripts": 3417
-    },
-    {
-      "time": 77000,
-      "from_phase": "smooth",
-      "to_phase": "learning",
-      "scripts": 3419
-    },
-    {
-      "time": 84000,
-      "from_phase": "learning",
-      "to_phase": "smooth",
-      "scripts": 3430
-    },
-    {
-      "time": 85000,
-      "from_phase": "smooth",
-      "to_phase": "learning",
-      "scripts": 3432
-    },
-    {
-      "time": 89000,
-      "from_phase": "learning",
-      "to_phase": "smooth",
-      "scripts": 3437
-    },
-    {
-      "time": 90000,
-      "from_phase": "smooth",
-      "to_phase": "learning",
-      "scripts": 3438
-    },
-    {
-      "time": 92000,
-      "from_phase": "learning",
-      "to_phase": "smooth",
-      "scripts": 3440
-    },
-    {
-      "time": 93000,
-      "from_phase": "smooth",
-      "to_phase": "learning",
-      "scripts": 3441
-    },
-    {
-      "time": 94000,
-      "from_phase": "learning",
-      "to_phase": "smooth",
-      "scripts": 3441
-    },
-    {
-      "time": 95000,
-      "from_phase": "smooth",
-      "to_phase": "learning",
-      "scripts": 3442
-    }
-  ],
+  "phase_transitions": [],
   "sample_scripts": [
     {
       "name": "script_0",
-      "pattern": "puzzle:difficulty=1.0,hint_available=1.0,pattern_known=1.0,t",
-      "action": "experiment",
-      "uses": 130,
+      "pattern": "puzzle:difficulty=1.0,hint_available=1.0,pattern_k",
+      "action": "distraction",
+      "uses": 1,
       "success_rate": 0.0,
       "created_at": 181
     },
     {
       "name": "script_1",
-      "pattern": "puzzle:difficulty=0.5,hint_available=0.0,pattern_known=1.0,t",
-      "action": "follow_recipe",
-      "uses": 270,
+      "pattern": "puzzle:difficulty=0.5,hint_available=0.0,pattern_k",
+      "action": "ask_hint",
+      "uses": 1,
       "success_rate": 0.0,
       "created_at": 313
     },
     {
       "name": "script_2",
-      "pattern": "crafting:complexity=0.5,material_quality=0.8,recipe_known=1.",
-      "action": "call_help",
-      "uses": 76,
-      "success_rate": 0.0,
+      "pattern": "crafting:complexity=0.5,material_quality=0.8,recip",
+      "action": "ask_help",
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 318
     },
     {
       "name": "script_3",
-      "pattern": "puzzle:difficulty=0.5,hint_available=1.0,pattern_known=0.0,t",
-      "action": "ask_hint",
-      "uses": 254,
-      "success_rate": 0.0,
+      "pattern": "puzzle:difficulty=0.5,hint_available=1.0,pattern_k",
+      "action": "use_hint",
+      "uses": 1,
+      "success_rate": 1.0,
       "created_at": 394
     },
     {
       "name": "script_4",
-      "pattern": "crafting:complexity=0.8,material_quality=0.5,recipe_known=0.",
-      "action": "gather",
-      "uses": 71,
+      "pattern": "crafting:complexity=0.8,material_quality=0.5,recip",
+      "action": "ask_help",
+      "uses": 1,
       "success_rate": 0.0,
       "created_at": 410
     },
     {
       "name": "script_5",
-      "pattern": "puzzle:difficulty=0.5,hint_available=1.0,pattern_known=1.0,t",
-      "action": "call_expert",
-      "uses": 243,
+      "pattern": "puzzle:difficulty=0.5,hint_available=1.0,pattern_k",
+      "action": "communicate",
+      "uses": 1,
       "success_rate": 0.0,
       "created_at": 439
     },
     {
       "name": "script_6",
-      "pattern": "puzzle:difficulty=0.2,hint_available=0.0,pattern_known=0.0,t",
-      "action": "take_break",
-      "uses": 132,
-      "success_rate": 0.0,
+      "pattern": "puzzle:difficulty=0.2,hint_available=0.0,pattern_k",
+      "action": "brute_force",
+      "uses": 1,
+      "success_rate": 1.0,
       "created_at": 467
     },
     {
       "name": "script_7",
-      "pattern": "social:ally_count=0.2,formality=1.0,stakes=0.2,trust_level=0",
-      "action": "observe",
-      "uses": 56,
-      "success_rate": 0.0,
+      "pattern": "social:ally_count=0.2,formality=1.0,stakes=0.2,tru",
+      "action": "casual",
+      "uses": 1,
+      "success_rate": 1.0,
       "created_at": 484
     },
     {
       "name": "script_8",
-      "pattern": "stealth:distraction_available=0.0,escape_routes=0.5,guard_de",
+      "pattern": "stealth:distraction_available=0.0,escape_routes=0.",
       "action": "wait",
-      "uses": 71,
-      "success_rate": 0.507,
+      "uses": 1,
+      "success_rate": 1.0,
       "created_at": 507
     },
     {
       "name": "script_9",
-      "pattern": "defense:ally_count=0.2,fortification=0.8,threat_level=0.5,wa",
-      "action": "fortify",
-      "uses": 38,
-      "success_rate": 1.0,
+      "pattern": "defense:ally_count=0.2,fortification=0.8,threat_le",
+      "action": "call_help",
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 513
     },
     {
       "name": "script_10",
-      "pattern": "puzzle:difficulty=0.5,hint_available=0.0,pattern_known=1.0,t",
-      "action": "fortify",
-      "uses": 243,
-      "success_rate": 0.0,
+      "pattern": "puzzle:difficulty=0.5,hint_available=0.0,pattern_k",
+      "action": "ask_hint",
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 561
     },
     {
       "name": "script_11",
-      "pattern": "stealth:distraction_available=0.0,escape_routes=0.2,guard_de",
-      "action": "take_break",
-      "uses": 66,
-      "success_rate": 0.0,
+      "pattern": "stealth:distraction_available=0.0,escape_routes=0.",
+      "action": "fair_deal",
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 629
     },
     {
       "name": "script_12",
-      "pattern": "stealth:distraction_available=1.0,escape_routes=0.5,guard_de",
-      "action": "wait",
-      "uses": 74,
-      "success_rate": 0.0,
+      "pattern": "stealth:distraction_available=1.0,escape_routes=0.",
+      "action": "distraction",
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 707
     },
     {
       "name": "script_13",
-      "pattern": "crafting:complexity=0.2,material_quality=0.5,recipe_known=0.",
-      "action": "explore",
-      "uses": 94,
-      "success_rate": 0.0,
+      "pattern": "crafting:complexity=0.2,material_quality=0.5,recip",
+      "action": "follow_recipe",
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 710
     },
     {
       "name": "script_14",
-      "pattern": "puzzle:difficulty=0.8,hint_available=1.0,pattern_known=0.0,t",
+      "pattern": "puzzle:difficulty=0.8,hint_available=1.0,pattern_k",
       "action": "ask_hint",
-      "uses": 112,
-      "success_rate": 0.0,
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 713
     },
     {
       "name": "script_15",
-      "pattern": "stealth:distraction_available=0.0,escape_routes=0.5,guard_de",
-      "action": "listen",
-      "uses": 58,
-      "success_rate": 0.0,
+      "pattern": "stealth:distraction_available=0.0,escape_routes=0.",
+      "action": "explore",
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 716
     },
     {
       "name": "script_16",
-      "pattern": "combat:ally_count=0.5,equipment=0.5,surprise=1.0,terrain_adv",
-      "action": "stabilize",
-      "uses": 30,
-      "success_rate": 0.0,
+      "pattern": "combat:ally_count=0.5,equipment=0.5,surprise=1.0,t",
+      "action": "ambush",
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 731
     },
     {
       "name": "script_17",
-      "pattern": "puzzle:difficulty=0.2,hint_available=0.0,pattern_known=1.0,t",
-      "action": "apply_pattern",
-      "uses": 60,
-      "success_rate": 1.0,
+      "pattern": "puzzle:difficulty=0.2,hint_available=0.0,pattern_k",
+      "action": "take_break",
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 739
     },
     {
       "name": "script_18",
-      "pattern": "social:ally_count=0.8,formality=0.0,stakes=0.8,trust_level=0",
-      "action": "listen",
-      "uses": 52,
-      "success_rate": 0.0,
+      "pattern": "social:ally_count=0.8,formality=0.0,stakes=0.8,tru",
+      "action": "observe",
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 810
     },
     {
       "name": "script_19",
-      "pattern": "navigation:complexity=0.5,familiarity=1.0,landmarks=0.5,time",
-      "action": "default_action",
-      "uses": 52,
-      "success_rate": 0.0,
+      "pattern": "navigation:complexity=0.5,familiarity=1.0,landmark",
+      "action": "follow_recipe",
+      "uses": 0,
+      "success_rate": 0.5,
       "created_at": 839
     }
   ],
-  "insight": "The agent should show phase transitions: early epochs have high cognitive load and low performance (many deltas, no scripts). Middle epochs show rapid script creation (learning burst). Later epochs show smooth execution \u2014 most situations snap to scripts, cognitive load drops, performance stabilizes high. The snap function automates what was once novel, freeing cognition for truly new situations."
+  "insight": "The agent shows phase transitions: early epochs have high cognitive load and low performance (many deltas, no scripts). Middle epochs show rapid script creation (learning burst). Later epochs show smooth execution \u2014 most situations snap to scripts, cognitive load drops, performance stabilizes high."
 }

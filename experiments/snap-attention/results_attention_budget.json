@@ -1,40 +1,40 @@
 {
-  "timesteps": 100000,
+  "timesteps": 1000,
   "budget": 3,
   "num_streams": 10,
   "strategies": {
     "uniform": {
-      "total_utility": 43170.8,
-      "missed_opportunities": 47342,
-      "attention_waste": 22899.2,
-      "total_deltas_detected": 491141,
-      "correct_attends": 67542,
-      "false_attends": 228992,
-      "true_anomalies_missed": 47342,
-      "precision": 0.2278,
-      "net_value": 20271.6
+      "total_utility": 306.6,
+      "missed_opportunities": 480,
+      "attention_waste": 251.8,
+      "total_deltas_detected": 5692,
+      "correct_attends": 471,
+      "false_attends": 2518,
+      "true_anomalies_missed": 480,
+      "precision": 0.1576,
+      "net_value": 54.8
     },
     "reactive": {
-      "total_utility": 55012.45,
-      "missed_opportunities": 28487,
-      "attention_waste": 21013.7,
-      "total_deltas_detected": 491141,
-      "correct_attends": 86397,
-      "false_attends": 210137,
-      "true_anomalies_missed": 28487,
-      "precision": 0.2914,
-      "net_value": 33998.75
+      "total_utility": 278.8,
+      "missed_opportunities": 481,
+      "attention_waste": 251.9,
+      "total_deltas_detected": 5692,
+      "correct_attends": 470,
+      "false_attends": 2519,
+      "true_anomalies_missed": 481,
+      "precision": 0.1572,
+      "net_value": 26.9
     },
     "smart": {
-      "total_utility": 63618.55,
-      "missed_opportunities": 18458,
-      "attention_waste": 20010.8,
-      "total_deltas_detected": 491141,
-      "correct_attends": 96426,
-      "false_attends": 200108,
-      "true_anomalies_missed": 18458,
-      "precision": 0.3252,
-      "net_value": 43607.75
+      "total_utility": 394.35,
+      "missed_opportunities": 339,
+      "attention_waste": 237.7,
+      "total_deltas_detected": 5692,
+      "correct_attends": 612,
+      "false_attends": 2377,
+      "true_anomalies_missed": 339,
+      "precision": 0.2048,
+      "net_value": 156.65
     }
   },
   "insight": "Smart strategy (actionability-weighted) should outperform because it directs attention to deltas where thinking can actually change outcomes. Reactive wastes attention on large deltas from low-actionability streams. Uniform wastes attention randomly."

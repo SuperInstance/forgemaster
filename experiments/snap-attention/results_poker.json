@@ -1,54 +1,54 @@
 {
-  "num_hands": 10000,
+  "num_hands": 100,
   "profiles": {
     "novice": {
-      "wins": 3774,
-      "win_rate": 0.3774,
-      "avg_deltas_per_hand": 2.83,
-      "attention_efficiency": 13.3494,
+      "wins": 33,
+      "win_rate": 0.33,
+      "avg_deltas_per_hand": 2.55,
+      "attention_efficiency": 12.9412,
       "layers_attended": {
-        "cards": 27539,
-        "betting": 732
+        "cards": 247,
+        "betting": 8
       }
     },
     "intermediate": {
-      "wins": 2585,
-      "win_rate": 0.2585,
-      "avg_deltas_per_hand": 4.6,
-      "attention_efficiency": 5.622,
+      "wins": 34,
+      "win_rate": 0.34,
+      "avg_deltas_per_hand": 4.97,
+      "attention_efficiency": 6.841,
       "layers_attended": {
-        "behavior": 20924,
-        "cards": 10980,
-        "betting": 11494,
-        "emotion": 2582
+        "behavior": 229,
+        "cards": 121,
+        "betting": 121,
+        "emotion": 26
       }
     },
     "expert": {
-      "wins": 1957,
-      "win_rate": 0.1957,
-      "avg_deltas_per_hand": 6.99,
-      "attention_efficiency": 2.7985,
+      "wins": 21,
+      "win_rate": 0.21,
+      "avg_deltas_per_hand": 6.89,
+      "attention_efficiency": 3.0479,
       "layers_attended": {
-        "behavior": 21820,
-        "betting": 21161,
-        "emotion": 26949
+        "behavior": 226,
+        "emotion": 272,
+        "betting": 191
       }
     },
     "baseline": {
-      "wins": 1684,
-      "win_rate": 0.1684,
-      "avg_deltas_per_hand": 11.43,
-      "attention_efficiency": 1.4738,
+      "wins": 12,
+      "win_rate": 0.12,
+      "avg_deltas_per_hand": 11.41,
+      "attention_efficiency": 1.0517,
       "layers_attended": {
-        "cards": 30653,
-        "behavior": 21862,
-        "betting": 30987,
-        "emotion": 30762
+        "cards": 307,
+        "behavior": 222,
+        "betting": 311,
+        "emotion": 301
       }
     }
   },
   "summary": {
-    "best_win_rate": "novice",
+    "best_win_rate": "intermediate",
     "most_efficient_attention": "novice",
     "insight": "Expert profile (tight on behavior/emotion, loose on cards) should win most because it attends to the RIGHT deltas \u2014 player behavior and emotional micro-deltas \u2014 rather than wasting attention on card probability noise."
   }
