@@ -1,0 +1,57 @@
+[package]
+name = "snapkit"
+version = "0.1.0"
+description = "Tolerance-compressed attention allocation library — snaps as attention gatekeepers"
+authors = ["Casey Digennaro <casey@superinstance.com>"]
+edition = "2021"
+rust-version = "1.75"
+license = "MIT OR Apache-2.0"
+keywords = ["attention", "snap", "tolerance", "compression", "cognitive"]
+categories = ["algorithms", "mathematics", "science"]
+readme = "README.md"
+repository = "https://github.com/SuperInstance/snapkit-rust"
+documentation = "https://docs.rs/snapkit"
+
+[dependencies]
+num-traits = "0.2"
+serde_json = "1"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[features]
+default = []
+serde = ["dep:serde", "dep:serde_derive"]
+
+[dependencies.serde]
+version = "1"
+optional = true
+
+[dependencies.serde_derive]
+version = "1"
+optional = true
+
+[lib]
+name = "snapkit"
+path = "src/lib.rs"
+
+[[bench]]
+name = "snap_bench"
+harness = false
+path = "benches/snap_bench.rs"
+
+[[example]]
+name = "poker"
+path = "examples/poker.rs"
+
+[[example]]
+name = "rubik"
+path = "examples/rubik.rs"
+
+[[example]]
+name = "monitoring"
+path = "examples/monitoring.rs"
+
+[[example]]
+name = "learning"
+path = "examples/learning.rs"
