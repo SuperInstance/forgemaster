@@ -110,7 +110,7 @@ class TestRoomMusician:
     def test_sidechannel_nod(self):
         a = RoomMusician("a")
         b = RoomMusician("b")
-        a.listen_to(b)
+        b.listen_to(a)
         a.send_nod(b)
         msgs = b.receive_sidechannels()
         assert len(msgs["nods"]) > 0
@@ -118,7 +118,7 @@ class TestRoomMusician:
     def test_sidechannel_smile(self):
         a = RoomMusician("a")
         b = RoomMusician("b")
-        a.listen_to(b)
+        b.listen_to(a)
         a.send_smile(b)
         msgs = b.receive_sidechannels()
         assert len(msgs["smiles"]) > 0
@@ -126,7 +126,7 @@ class TestRoomMusician:
     def test_sidechannel_frown(self):
         a = RoomMusician("a")
         b = RoomMusician("b")
-        a.listen_to(b)
+        b.listen_to(a)
         a.send_frown(b)
         msgs = b.receive_sidechannels()
         assert len(msgs["frowns"]) > 0

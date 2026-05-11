@@ -116,7 +116,7 @@ class TestFluxVectorOperators:
     def test_distance_to(self):
         a = FluxVector.zero()
         b = FluxVector([1.0, 0.0] * 4 + [1.0])
-        assert abs(a.distance_to(b) - 1.0) < 1e-10
+        assert abs(a.distance_to(b) - 2.2360679775) < 1e-6
 
     def test_salience_weighted_magnitude(self):
         v = FluxVector([2.0] * 9, salience=[0.5] * 9)

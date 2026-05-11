@@ -3,7 +3,7 @@
 /// A Band manages up to 9 musicians, their flux vectors, T-0 clocks,
 /// and provides collective operations: energy, harmony, timing.
 
-use crate::core::{FluxVector, RoomMusician, TZeroClock};
+use crate::core::{FluxChannel, FluxVector, RoomMusician, TZeroClock};
 use crate::harmony::chord::{ChordQuality, HarmonyState};
 use crate::harmony::jaccard;
 use crate::MidiEvent;

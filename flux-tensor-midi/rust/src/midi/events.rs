@@ -1,6 +1,6 @@
 /// MIDI event representation and construction.
 
-use crate::sidechannel::{Frown, Nod, Smile};
+use crate::{Frown, Nod, Smile};
 
 /// A parsed MIDI event with semantic meaning for FLUX-Tensor-MIDI.
 #[derive(Debug, Clone, Copy, PartialEq)]
