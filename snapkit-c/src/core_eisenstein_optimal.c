@@ -78,18 +78,58 @@ void snapkit_nearest_eisenstein_optimal(double real, double imag,
 
     int da = 0, db = 0;
 
-    if (v - 2.0 * u < -1.0) {
+    /*
+     * Step 4: Determine the correction using Voronoi boundary conditions.
+     *
+     * The A₂ Voronoi cell in Eisenstein fractional coordinates (u, v) is
+     * a regular hexagon defined by 6 half-plane conditions. After rounding,
+     * (u, v) ∈ [-0.5, 0.5]². The square extends beyond the hexagon at the
+     * corners (0.5, -0.5) and (-0.5, 0.5), where TWO conditions can fire
+     * simultaneously.
+     *
+     * The 4 relevant conditions (the other 2, u+v ≤ ±1, never fire for
+     * u,v ∈ [-0.5, 0.5]):
+     *
+     *   c1: 2u - v > 1  →  correct toward neighbor (1, 0)
+     *   c2: v - 2u > 1  →  correct toward neighbor (-1, 0)
+     *   c3: 2v - u > 1  →  correct toward neighbor (0, 1)
+     *   c4: u - 2v > 1  →  correct toward neighbor (0, -1)
+     *
+     * Overlap analysis:
+     *   c1+c4 can co-occur (near (0.5, -0.5))
+     *   c2+c3 can co-occur (near (-0.5, 0.5))
+     *   No other pairs can co-occur.
+     *
+     * Tie-breaking (derived from comparing Eisenstein norms):
+     *   c1+c4: choose (1,0) if u+v>0, else (0,-1)
+     *   c2+c3: choose (0,1) if u+v>0, else (-1,0)
+     *
+     * Covering radius of A₂ is 1/√3 ≈ 0.5774.
+     */
+
+    int da = 0, db = 0;
+    double c1 = 2.0 * u - v;
+    double c2 = v - 2.0 * u;
+    double c3 = 2.0 * v - u;
+    double c4 = u - 2.0 * v;
+    double u_plus_v = u + v;
+
+    if (c1 > 1.0 && c4 > 1.0) {
+        /* Corner (0.5, -0.5): two corrections possible */
+        if (u_plus_v > 0.0) { da =  1; db =  0; }
+        else                { da =  0; db = -1; }
+    } else if (c2 > 1.0 && c3 > 1.0) {
+        /* Corner (-0.5, 0.5): two corrections possible */
+        if (u_plus_v > 0.0) { da =  0; db =  1; }
+        else                { da = -1; db =  0; }
+    } else if (c1 > 1.0) {
         da =  1; db =  0;
-    } else if (v - 2.0 * u >  1.0) {
+    } else if (c2 > 1.0) {
         da = -1; db =  0;
-    } else if (u - 2.0 * v < -1.0) {
+    } else if (c3 > 1.0) {
         da =  0; db =  1;
-    } else if (u - 2.0 * v >  1.0) {
+    } else if (c4 > 1.0) {
         da =  0; db = -1;
-    } else if (u + v > 0.5) {
-        da =  1; db =  1;
-    } else if (u + v < -0.5) {
-        da = -1; db = -1;
     }
 
     i_a += da;
@@ -166,19 +206,23 @@ void snapkit_nearest_eisenstein_optimal_neon(const double* reals, const double* 
 
         /* Optimal branchless correction for each point */
         for (int j = 0; j < 2; j++) {
-            double u = u_vals[j], v = v_vals[j];
+            double c1 = 2.0 * u - v;
+            double c2 = v - 2.0 * u;
+            double c3 = 2.0 * v - u;
+            double c4 = u - 2.0 * v;
+            double u_plus_v = u + v;
             int da = 0, db = 0;
 
-            double v_minus_2u = v - 2.0 * u;
-            double u_minus_2v = u - 2.0 * v;
-            double u_plus_v   = u + v;
-
-            if (v_minus_2u < -1.0) { da =  1; db =  0; }
-            else if (v_minus_2u >  1.0) { da = -1; db =  0; }
-            else if (u_minus_2v < -1.0) { da =  0; db =  1; }
-            else if (u_minus_2v >  1.0) { da =  0; db = -1; }
-            else if (u_plus_v > 0.5)    { da =  1; db =  1; }
-            else if (u_plus_v < -0.5)   { da = -1; db = -1; }
+            if (c1 > 1.0 && c4 > 1.0) {
+                if (u_plus_v > 0.0) { da =  1; db =  0; }
+                else                { da =  0; db = -1; }
+            } else if (c2 > 1.0 && c3 > 1.0) {
+                if (u_plus_v > 0.0) { da =  0; db =  1; }
+                else                { da = -1; db =  0; }
+            } else if (c1 > 1.0) { da =  1; db =  0; }
+            else if (c2 > 1.0) { da = -1; db =  0; }
+            else if (c3 > 1.0) { da =  0; db =  1; }
+            else if (c4 > 1.0) { da =  0; db = -1; }
 
             int ca = a_int[j] + da;
             int cb = b_int[j] + db;
@@ -238,16 +282,22 @@ void snapkit_nearest_eisenstein_norm(double real, double imag,
     double v = b_float - (double)i_b;
 
     int da = 0, db = 0;
-    double v_minus_2u = v - 2.0 * u;
-    double u_minus_2v = u - 2.0 * v;
-    double u_plus_v   = u + v;
+    double c1 = 2.0 * u - v;
+    double c2 = v - 2.0 * u;
+    double c3 = 2.0 * v - u;
+    double c4 = u - 2.0 * v;
+    double u_plus_v = u + v;
 
-    if (v_minus_2u < -1.0) { da =  1; db =  0; }
-    else if (v_minus_2u >  1.0) { da = -1; db =  0; }
-    else if (u_minus_2v < -1.0) { da =  0; db =  1; }
-    else if (u_minus_2v >  1.0) { da =  0; db = -1; }
-    else if (u_plus_v > 0.5)    { da =  1; db =  1; }
-    else if (u_plus_v < -0.5)   { da = -1; db = -1; }
+    if (c1 > 1.0 && c4 > 1.0) {
+        if (u_plus_v > 0.0) { da =  1; db =  0; }
+        else                { da =  0; db = -1; }
+    } else if (c2 > 1.0 && c3 > 1.0) {
+        if (u_plus_v > 0.0) { da =  0; db =  1; }
+        else                { da = -1; db =  0; }
+    } else if (c1 > 1.0) { da =  1; db =  0; }
+    else if (c2 > 1.0) { da = -1; db =  0; }
+    else if (c3 > 1.0) { da =  0; db =  1; }
+    else if (c4 > 1.0) { da =  0; db = -1; }
 
     i_a += da;
     i_b += db;

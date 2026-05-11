@@ -59,27 +59,30 @@ void eisenstein_snap_optimal(
     /*
      * ---- Step 4: Branchless correction using Voronoi boundaries ----
      *
-     * The 6 mutually-exclusive corrections:
-     *   v - 2u < -1  →  (+1,  0)
-     *   v - 2u >  1  →  (-1,  0)
-     *   u - 2v < -1  →  ( 0, +1)
-     *   u - 2v >  1  →  ( 0, -1)
-     *   u + v  > 0.5 →  (+1, +1)
-     *   u + v  <-0.5 →  (-1, -1)
+     * The A₂ Voronoi cell in Eisenstein fractional coords is a regular
+     * hexagon with 6 half-plane conditions:
      *
-     * The if-else chain compiles to CUDA predicated SEL instructions:
-     * BOTH sides are evaluated, the predicate selects the result.
-     * ZERO warp divergence — all threads execute all predicates.
+     *   2u - v >  1  →  (+1,  0)   closer to neighbor (1, 0)
+     *   v - 2u >  1  →  (-1,  0)   closer to neighbor (-1, 0)
+     *   2v - u >  1  →  ( 0, +1)   closer to neighbor (0, 1)
+     *   u - 2v >  1  →  ( 0, -1)   closer to neighbor (0, -1)
+     *   u + v  > 1.0 →  (+1, +1)   closer to neighbor (1, 1)
+     *   u + v  <-1.0 →  (-1, -1)   closer to neighbor (-1, -1)
+     *
+     * NOTE: Conditions 5/6 have threshold ±1.0 (NOT ±0.5).
+     * Since u,v ∈ [-0.5, 0.5], conditions 5/6 only fire at the exact
+     * boundary points (±0.5, ±0.5), making them effectively no-ops.
+     * The real corrections come from conditions 1-4.
      */
 
     int da = 0, db = 0;
 
-    if (v - 2.0f * u < -1.0f) { da =  1; db =  0; }
+    if (2.0f * u - v > 1.0f)      { da =  1; db =  0; }
     else if (v - 2.0f * u >  1.0f) { da = -1; db =  0; }
-    else if (u - 2.0f * v < -1.0f) { da =  0; db =  1; }
+    else if (2.0f * v - u > 1.0f) { da =  0; db =  1; }
     else if (u - 2.0f * v >  1.0f) { da =  0; db = -1; }
-    else if (u + v > 0.5f)         { da =  1; db =  1; }
-    else if (u + v < -0.5f)        { da = -1; db = -1; }
+    else if (u + v > 1.0f)         { da =  1; db =  1; }
+    else if (u + v < -1.0f)        { da = -1; db = -1; }
 
     a += da;
     b += db;
@@ -129,17 +132,22 @@ void eisenstein_snap_optimal_fast(
     float v = b_f - (float)b;
 
     int da = 0, db = 0;
-    float v_minus_2u = v - 2.0f * u;
-    float u_minus_2v = u - 2.0f * v;
-    float u_plus_v   = u + v;
+    float c1 = 2.0f * u - v;
+    float c2 = v - 2.0f * u;
+    float c3 = 2.0f * v - u;
+    float c4 = u - 2.0f * v;
+    float u_plus_v = u + v;
 
-    /* Pre-reduce common subexpressions for compiler optimization */
-    if (v_minus_2u < -1.0f) { da =  1; db =  0; }
-    else if (v_minus_2u >  1.0f) { da = -1; db =  0; }
-    else if (u_minus_2v < -1.0f) { da =  0; db =  1; }
-    else if (u_minus_2v >  1.0f) { da =  0; db = -1; }
-    else if (u_plus_v > 0.5f)    { da =  1; db =  1; }
-    else if (u_plus_v < -0.5f)   { da = -1; db = -1; }
+    if (c1 > 1.0f && c4 > 1.0f) {
+        if (u_plus_v > 0.0f) { da =  1; db =  0; }
+        else                 { da =  0; db = -1; }
+    } else if (c2 > 1.0f && c3 > 1.0f) {
+        if (u_plus_v > 0.0f) { da =  0; db =  1; }
+        else                 { da = -1; db =  0; }
+    } else if (c1 > 1.0f) { da =  1; db =  0; }
+    else if (c2 > 1.0f) { da = -1; db =  0; }
+    else if (c3 > 1.0f) { da =  0; db =  1; }
+    else if (c4 > 1.0f) { da =  0; db = -1; }
 
     a += da;
     b += db;
@@ -178,12 +186,22 @@ void eisenstein_snap_optimal_nodelta(
     float v = b_f - (float)b;
 
     int da = 0, db = 0;
-    if (v - 2.0f * u < -1.0f) { da =  1; db =  0; }
-    else if (v - 2.0f * u >  1.0f) { da = -1; db =  0; }
-    else if (u - 2.0f * v < -1.0f) { da =  0; db =  1; }
-    else if (u - 2.0f * v >  1.0f) { da =  0; db = -1; }
-    else if (u + v > 0.5f)         { da =  1; db =  1; }
-    else if (u + v < -0.5f)        { da = -1; db = -1; }
+    float c1 = 2.0f * u - v;
+    float c2 = v - 2.0f * u;
+    float c3 = 2.0f * v - u;
+    float c4 = u - 2.0f * v;
+    float u_plus_v = u + v;
+
+    if (c1 > 1.0f && c4 > 1.0f) {
+        if (u_plus_v > 0.0f) { da =  1; db =  0; }
+        else                 { da =  0; db = -1; }
+    } else if (c2 > 1.0f && c3 > 1.0f) {
+        if (u_plus_v > 0.0f) { da =  0; db =  1; }
+        else                 { da = -1; db =  0; }
+    } else if (c1 > 1.0f) { da =  1; db =  0; }
+    else if (c2 > 1.0f) { da = -1; db =  0; }
+    else if (c3 > 1.0f) { da =  0; db =  1; }
+    else if (c4 > 1.0f) { da =  0; db = -1; }
 
     a += da;
     b += db;
