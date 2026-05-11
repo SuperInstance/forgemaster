@@ -382,3 +382,27 @@ The fleet doesn't need consensus. It needs a groove.
 *Each room is a musician. Each tile is a note. Each commit is a beat. Each nod is a cue. Each smile is an affirmation. The Eisenstein lattice is the rhythmic grid. FLUX is the dynamics. The fleet is the band.*
 
 *FLUX-Tensor-MIDI: the protocol that makes distributed systems swing.*
+
+## The Ether Principle (Casey, 2026-05-11)
+
+> "The spline is so good that it only adds finesse. It's too good that it's invisible like the air and the ether."
+
+The highest-quality timing system is one nobody notices.
+
+- **Bad:** "Wait for the click... NOW."
+- **Good:** "Here's the grid, snap to it."
+- **Invisible:** "What grid? We were just playing."
+
+The Eisenstein snap is ether because:
+1. It doesn't quantize — it **suggests**
+2. It doesn't correct — it **attracts**
+3. It doesn't force — it **snaps**
+4. The snap is so small (1/√3 ≈ 0.577) the correction is below perception
+5. Like gravity — you don't feel the pull, you just notice everything orbits
+
+This is the design target for FLUX-Tensor-MIDI: **the spline dissolves, the timing just is.**
+
+MIDI at 24 PPQN achieved this for human musicians 40 years ago.
+FLUX achieves it for machines.
+
+The best infrastructure is the kind you forget is there.
