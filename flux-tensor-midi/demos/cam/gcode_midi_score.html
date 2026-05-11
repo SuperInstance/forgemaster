@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>G-code as MIDI Score: sample_pocket.nc</title>
+<style>
+  body { font-family: 'Segoe UI', sans-serif; margin: 20px; background: #1a1a2e; color: #eee; }
+  h1, h2, h3 { color: #e94560; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .score-container { background: #16213e; border-radius: 8px; padding: 20px; margin: 20px 0; overflow-x: auto; min-height: 400px; position: relative; }
+  .midi-note { transition: opacity 0.2s; }
+  .midi-note:hover { opacity: 0.8 !important; transform: scaleY(1.3); }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  .legend-item { padding: 4px 10px; border-radius: 4px; font-size: 12px; color: white; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 20px 0; }
+  .stat-card { background: #0f3460; border-radius: 8px; padding: 15px; }
+  .stat-value { font-size: 24px; font-weight: bold; color: #e94560; }
+  .stat-label { font-size: 11px; color: #888; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>G-code as MIDI Score</h1>
+<p>File: <strong>sample_pocket.nc</strong></p>
+
+<div class="stats">
+  <div class="stat-card">
+    <div class="stat-value">123</div>
+    <div class="stat-label">Total Events</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">51</div>
+    <div class="stat-label">Toolpath Points</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">127</div>
+    <div class="stat-label">Peak Velocity</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">9</div>
+    <div class="stat-label">Move Types</div>
+  </div>
+</div>
+
+<h2>Tool Path (XY plane)</h2>
+<div style="background: #0f3460; border-radius: 8px; padding: 15px;">
+<svg width="520" height="440" viewBox="0 0 520 440">
+<line x1="50.0" y1="15" x2="50.0" y2="420" stroke="#333" stroke-width="0.5" />
+<text x="50.0" y="432" font-size="8" fill="#777" text-anchor="middle">0</text>
+<line x1="147.8" y1="15" x2="147.8" y2="420" stroke="#333" stroke-width="0.5" />
+<text x="147.8" y="432" font-size="8" fill="#777" text-anchor="middle">10</text>
+<line x1="245.6" y1="15" x2="245.6" y2="420" stroke="#333" stroke-width="0.5" />
+<text x="245.6" y="432" font-size="8" fill="#777" text-anchor="middle">20</text>
+<line x1="343.3" y1="15" x2="343.3" y2="420" stroke="#333" stroke-width="0.5" />
+<text x="343.3" y="432" font-size="8" fill="#777" text-anchor="middle">30</text>
+<line x1="441.1" y1="15" x2="441.1" y2="420" stroke="#333" stroke-width="0.5" />
+<text x="441.1" y="432" font-size="8" fill="#777" text-anchor="middle">40</text>
+<line x1="538.9" y1="15" x2="538.9" y2="420" stroke="#333" stroke-width="0.5" />
+<text x="538.9" y="432" font-size="8" fill="#777" text-anchor="middle">50</text>
+<line x1="30" y1="410.0" x2="510" y2="410.0" stroke="#333" stroke-width="0.5" />
+<text x="25" y="413.0" font-size="8" fill="#777" text-anchor="end">0</text>
+<line x1="30" y1="301.4" x2="510" y2="301.4" stroke="#333" stroke-width="0.5" />
+<text x="25" y="304.4" font-size="8" fill="#777" text-anchor="end">10</text>
+<line x1="30" y1="192.9" x2="510" y2="192.9" stroke="#333" stroke-width="0.5" />
+<text x="25" y="195.9" font-size="8" fill="#777" text-anchor="end">20</text>
+<line x1="30" y1="84.3" x2="510" y2="84.3" stroke="#333" stroke-width="0.5" />
+<text x="25" y="87.3" font-size="8" fill="#777" text-anchor="end">30</text>
+<line x1="30" y1="-24.3" x2="510" y2="-24.3" stroke="#333" stroke-width="0.5" />
+<text x="25" y="-21.3" font-size="8" fill="#777" text-anchor="end">40</text>
+
+<line x1="98.9" y1="355.7" x2="98.9" y2="355.7" stroke="#f39c12" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="355.7" x2="490.0" y2="355.7" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="355.7" x2="490.0" y2="247.1" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="247.1" x2="98.9" y2="247.1" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="247.1" x2="98.9" y2="138.6" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="138.6" x2="490.0" y2="138.6" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="138.6" x2="490.0" y2="30.0" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="30.0" x2="98.9" y2="30.0" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="30.0" x2="98.9" y2="30.0" stroke="#1abc9c" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="30.0" x2="98.9" y2="355.7" stroke="#1abc9c" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="355.7" x2="98.9" y2="355.7" stroke="#f39c12" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="355.7" x2="490.0" y2="355.7" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="355.7" x2="490.0" y2="247.1" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="247.1" x2="98.9" y2="247.1" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="247.1" x2="98.9" y2="138.6" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="138.6" x2="490.0" y2="138.6" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="138.6" x2="490.0" y2="30.0" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="30.0" x2="98.9" y2="30.0" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="30.0" x2="98.9" y2="30.0" stroke="#1abc9c" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="30.0" x2="98.9" y2="355.7" stroke="#1abc9c" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="355.7" x2="98.9" y2="355.7" stroke="#f39c12" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="355.7" x2="490.0" y2="355.7" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="355.7" x2="490.0" y2="247.1" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="247.1" x2="98.9" y2="247.1" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="247.1" x2="98.9" y2="138.6" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="138.6" x2="490.0" y2="138.6" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="138.6" x2="490.0" y2="30.0" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="30.0" x2="98.9" y2="30.0" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="30.0" x2="98.9" y2="30.0" stroke="#1abc9c" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="30.0" x2="98.9" y2="355.7" stroke="#1abc9c" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="355.7" x2="98.9" y2="355.7" stroke="#f39c12" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="355.7" x2="490.0" y2="355.7" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="355.7" x2="490.0" y2="247.1" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="247.1" x2="98.9" y2="247.1" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="247.1" x2="98.9" y2="138.6" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="138.6" x2="490.0" y2="138.6" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="138.6" x2="490.0" y2="30.0" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="30.0" x2="98.9" y2="30.0" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="30.0" x2="98.9" y2="30.0" stroke="#1abc9c" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="30.0" x2="98.9" y2="355.7" stroke="#1abc9c" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="355.7" x2="98.9" y2="355.7" stroke="#f39c12" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="355.7" x2="490.0" y2="355.7" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="355.7" x2="490.0" y2="247.1" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="247.1" x2="98.9" y2="247.1" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="247.1" x2="98.9" y2="138.6" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="138.6" x2="490.0" y2="138.6" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="138.6" x2="490.0" y2="30.0" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="490.0" y1="30.0" x2="98.9" y2="30.0" stroke="#2ecc71" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="30.0" x2="98.9" y2="30.0" stroke="#1abc9c" stroke-width="2" opacity="0.8" />
+<line x1="98.9" y1="30.0" x2="50.0" y2="410.0" stroke="#1abc9c" stroke-width="2" opacity="0.8" />
+
+</svg>
+</div>
+
+<h2>MIDI Score Visualization</h2>
+<div class="legend">
+  <div class="legend-item" style="background:#e74c3c">chatter_warning</div>
+  <div class="legend-item" style="background:#3498db">comment</div>
+  <div class="legend-item" style="background:#2ecc71">feed_xy</div>
+  <div class="legend-item" style="background:#f39c12">plunge</div>
+  <div class="legend-item" style="background:#9b59b6">program_end</div>
+  <div class="legend-item" style="background:#1abc9c">rapid</div>
+  <div class="legend-item" style="background:#e67e22">spindle_off</div>
+  <div class="legend-item" style="background:#34495e">spindle_on</div>
+  <div class="legend-item" style="background:#7f8c8d">toolchange</div>
+</div>
+<div class="score-container">
+  <div style="position: relative; height: 350px;">
+<div class="midi-note" style="left:50.0px;width:35.355px;top:200px;height:22px;background:#1abc9c;opacity:1.00;border-radius:3px;position:absolute;" title="rapid vel=127 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:403.125px;width:45.0px;top:256px;height:22px;background:#f39c12;opacity:1.00;border-radius:3px;position:absolute;" title="plunge vel=127 feed=200.0mm/min"></div>
+<div class="midi-note" style="left:853.125px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:1053.125px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:1103.125px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:1303.125px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:1353.125px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:1553.125px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:1603.125px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:1803.125px;width:30.0px;top:200px;height:22px;background:#1abc9c;opacity:1.00;border-radius:3px;position:absolute;" title="rapid vel=127 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:2103.125px;width:150.0px;top:200px;height:22px;background:#1abc9c;opacity:1.00;border-radius:3px;position:absolute;" title="rapid vel=127 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:3603.125px;width:56.25px;top:256px;height:22px;background:#f39c12;opacity:1.00;border-radius:3px;position:absolute;" title="plunge vel=127 feed=150.0mm/min"></div>
+<div class="midi-note" style="left:4165.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:4365.625px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:4415.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:4615.625px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:4665.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:4865.625px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:4915.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:5115.625px;width:37.5px;top:200px;height:22px;background:#1abc9c;opacity:1.00;border-radius:3px;position:absolute;" title="rapid vel=127 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:5490.625px;width:150.0px;top:200px;height:22px;background:#1abc9c;opacity:1.00;border-radius:3px;position:absolute;" title="rapid vel=127 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:6990.625px;width:67.5px;top:256px;height:22px;background:#f39c12;opacity:1.00;border-radius:3px;position:absolute;" title="plunge vel=127 feed=120.0mm/min"></div>
+<div class="midi-note" style="left:7665.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:7865.625px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:7915.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:8115.625px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:8165.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:8365.625px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:8415.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:8615.625px;width:45.0px;top:200px;height:22px;background:#1abc9c;opacity:1.00;border-radius:3px;position:absolute;" title="rapid vel=127 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:9065.625px;width:150.0px;top:200px;height:22px;background:#1abc9c;opacity:1.00;border-radius:3px;position:absolute;" title="rapid vel=127 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:10565.625px;width:75.0px;top:256px;height:22px;background:#f39c12;opacity:1.00;border-radius:3px;position:absolute;" title="plunge vel=127 feed=100.0mm/min"></div>
+<div class="midi-note" style="left:11315.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:11515.625px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:11565.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:11765.625px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:11815.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:12015.625px;width:5.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:12065.625px;width:20.0px;top:284px;height:22px;background:#2ecc71;opacity:0.60;border-radius:3px;position:absolute;" title="feed_xy vel=60 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:12265.625px;width:50.0px;top:200px;height:22px;background:#1abc9c;opacity:1.00;border-radius:3px;position:absolute;" title="rapid vel=127 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:12765.625px;width:150.0px;top:200px;height:22px;background:#1abc9c;opacity:1.00;border-radius:3px;position:absolute;" title="rapid vel=127 feed=600.0mm/min"></div>
+<div class="midi-note" style="left:14265.625px;width:75.0px;top:256px;height:22px;background:#f39c12;opacity:1.00;border-radius:3px;position:absolute;" title="plunge vel=127 feed=100.0mm/min"></div>
+<div class="midi-note" style="left:15015.625px;width:30.0px;top:284px;height:22px;background:#2ecc71;opacity:0.48;border-radius:3px;position:absolute;" title="feed_xy vel=40 feed=400.0mm/min"></div>
+<div class="midi-note" style="left:15315.625px;width:7.5px;top:284px;height:22px;background:#2ecc71;opacity:0.48;border-radius:3px;position:absolute;" title="feed_xy vel=40 feed=400.0mm/min"></div>
+<div class="midi-note" style="left:15390.625px;width:30.0px;top:284px;height:22px;background:#2ecc71;opacity:0.48;border-radius:3px;position:absolute;" title="feed_xy vel=40 feed=400.0mm/min"></div>
+<div class="midi-note" style="left:15690.625px;width:7.5px;top:284px;height:22px;background:#2ecc71;opacity:0.48;border-radius:3px;position:absolute;" title="feed_xy vel=40 feed=400.0mm/min"></div>
+<div class="midi-note" style="left:15765.625px;width:30.0px;top:284px;height:22px;background:#2ecc71;opacity:0.48;border-radius:3px;position:absolute;" title="feed_xy vel=40 feed=400.0mm/min"></div>
+<div class="midi-note" style="left:16065.625px;width:7.5px;top:284px;height:22px;background:#2ecc71;opacity:0.48;border-radius:3px;position:absolute;" title="feed_xy vel=40 feed=400.0mm/min"></div>
+<div class="midi-note" style="left:16140.625px;width:30.0px;top:284px;height:22px;background:#2ecc71;opacity:0.48;border-radius:3px;position:absolute;" title="feed_xy vel=40 feed=400.0mm/min"></div>
+<div class="midi-note" style="left:16440.625px;width:50.0px;top:200px;height:22px;background:#1abc9c;opacity:1.00;border-radius:3px;position:absolute;" title="rapid vel=127 feed=400.0mm/min"></div>
+<div class="midi-note" style="left:16940.625px;width:176.7775px;top:200px;height:22px;background:#1abc9c;opacity:1.00;border-radius:3px;position:absolute;" title="rapid vel=127 feed=400.0mm/min"></div>
+
+  </div>
+  <div style="margin-top:10px;font-size:10px;color:#666;text-align:center;">
+    Beat grid (1 tick = 1 beat at 60 BPM)
+  </div>
+</div>
+
+<h3>Feed Rate Profile</h3>
+<div style="background: #0f3460; border-radius: 8px; padding: 15px; margin: 20px 0;">
+
+<svg width="100%" height="150" viewBox="0 0 800 150">
+  <polyline points="0.0,20.0 15.686274509803921,93.3 31.372549019607842,20.0 47.05882352941176,20.0 62.745098039215684,20.0 78.43137254901961,20.0 94.11764705882352,20.0 109.80392156862746,20.0 125.49019607843137,20.0 141.1764705882353,20.0 156.86274509803923,20.0 172.54901960784315,102.5 188.23529411764704,20.0 203.92156862745097,20.0 219.60784313725492,20.0 235.29411764705884,20.0 250.98039215686273,20.0 266.66666666666663,20.0 282.3529411764706,20.0 298.03921568627453,20.0 313.72549019607845,20.0 329.4117647058823,108.0 345.0980392156863,20.0 360.7843137254902,20.0 376.4705882352941,20.0 392.156862745098,20.0 407.84313725490193,20.0 423.5294117647059,20.0 439.21568627450984,20.0 454.9019607843137,20.0 470.5882352941177,20.0 486.27450980392155,111.7 501.96078431372547,20.0 517.6470588235294,20.0 533.3333333333333,20.0 549.0196078431372,20.0 564.7058823529412,20.0 580.3921568627451,20.0 596.0784313725491,20.0 611.7647058823529,20.0 627.4509803921569,20.0 643.1372549019608,111.7 658.8235294117646,56.7 674.5098039215686,56.7 690.1960784313726,56.7 705.8823529411765,56.7 721.5686274509804,56.7 737.2549019607843,56.7 752.9411764705882,56.7 768.6274509803922,56.7 784.313725490196,56.7" fill="none" stroke="#e94560" stroke-width="2" />
+  <text x="5" y="15" fill="#999" font-size="10">Feed Rate (mm/min)</text>
+  <text x="5" y="145" fill="#999" font-size="9">0</text>
+  <text x="770" y="145" fill="#999" font-size="9">600.0</text>
+</svg>
+</div>
+
+<h3>Chatter Detection</h3>
+
+<table style="width:100%;border-collapse:collapse;font-size:12px;">
+<tr style="background:#e94560;color:white;">
+  <th style="padding:6px;text-align:left;">Beat</th>
+  <th style="padding:6px;text-align:left;">Feed Rate</th>
+  <th style="padding:6px;text-align:left;">Description</th>
+  <th style="padding:6px;text-align:left;">Line</th>
+</tr>
+<tr><td>155.4</td><td>150.0</td><td>Low feed rate at depth - potential chatter</td><td>Line 26</td></tr><tr><td>293.1</td><td>120.0</td><td>Low feed rate at depth - potential chatter</td><td>Line 38</td></tr><tr><td>437.6</td><td>100.0</td><td>Low feed rate at depth - potential chatter</td><td>Line 49</td></tr><tr><td>585.6</td><td>100.0</td><td>Low feed rate at depth - potential chatter</td><td>Line 60</td></tr>
+</table>
+<h3>Raw Data (first 20 events)</h3>
+<pre style="background:#0f3460;padding:15px;border-radius:8px;font-size:11px;overflow-x:auto;max-height:400px;">
+beat=   0.0  dur=  0.50  vel= 30  type=comment       x=      ?  y=      ?  z=      ?  feed=    ?
+beat=   0.0  dur=  0.50  vel= 30  type=comment       x=      ?  y=      ?  z=      ?  feed=    ?
+beat=   0.0  dur=  2.00  vel= 80  type=toolchange    x=      ?  y=      ?  z=      ?  feed=    ?
+beat=   2.0  dur=  1.00  vel=100  type=spindle_on    x=      ?  y=      ?  z=      ?  feed=    ?
+beat=   2.0  dur=  0.50  vel= 30  type=comment       x=      ?  y=      ?  z=      ?  feed=    ?
+beat=   2.0  dur=  0.50  vel= 30  type=comment       x=      ?  y=      ?  z=      ?  feed=    ?
+beat=   2.0  dur= 14.14  vel=127  type=rapid         x=    5.0  y=    5.0  z=    5.0  feed=600.0
+beat=   2.0  dur= 14.14  vel= 60  type=?             x=      ?  y=      ?  z=      ?  feed=    ?
+beat=  16.1  dur=  0.50  vel= 30  type=comment       x=      ?  y=      ?  z=      ?  feed=    ?
+beat=  16.1  dur= 18.00  vel=127  type=plunge        x=    5.0  y=    5.0  z=   -1.0  feed=200.0
+beat=  16.1  dur= 18.00  vel= 20  type=?             x=      ?  y=      ?  z=      ?  feed=    ?
+beat=  34.1  dur=  8.00  vel= 60  type=feed_xy       x=   45.0  y=    5.0  z=   -1.0  feed=600.0
+beat=  34.1  dur=  8.00  vel= 60  type=?             x=      ?  y=      ?  z=      ?  feed=    ?
+beat=  42.1  dur=  2.00  vel= 60  type=feed_xy       x=   45.0  y=   15.0  z=   -1.0  feed=600.0
+beat=  42.1  dur=  2.00  vel= 60  type=?             x=      ?  y=      ?  z=      ?  feed=    ?
+beat=  44.1  dur=  8.00  vel= 60  type=feed_xy       x=    5.0  y=   15.0  z=   -1.0  feed=600.0
+beat=  44.1  dur=  8.00  vel= 60  type=?             x=      ?  y=      ?  z=      ?  feed=    ?
+beat=  52.1  dur=  2.00  vel= 60  type=feed_xy       x=    5.0  y=   25.0  z=   -1.0  feed=600.0
+beat=  52.1  dur=  2.00  vel= 60  type=?             x=      ?  y=      ?  z=      ?  feed=    ?
+beat=  54.1  dur=  8.00  vel= 60  type=feed_xy       x=   45.0  y=   25.0  z=   -1.0  feed=600.0
+
+</pre>
+
+</div>
+</body>
+</html>

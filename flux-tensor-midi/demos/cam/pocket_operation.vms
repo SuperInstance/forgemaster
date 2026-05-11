@@ -1,0 +1,2365 @@
+{
+  "format": "vms",
+  "version": "0.1.0",
+  "name": "sample_pocket",
+  "tempo_bpm": 60,
+  "lattice_divisions": 24,
+  "events": [
+    {
+      "beat": 0.0,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "POCKET ROUGHING - 50mm x 30mm x 5mm deep",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 1
+      }
+    },
+    {
+      "beat": 0.0,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "6mm end mill, 40% stepover",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 2
+      }
+    },
+    {
+      "beat": 0.0,
+      "scene_type": 69,
+      "duration_beats": 2.0,
+      "velocity": 80,
+      "channel": 6,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "tool_change",
+      "meta": {
+        "type": "toolchange",
+        "tool": 1,
+        "line": 5
+      }
+    },
+    {
+      "beat": 2.0,
+      "scene_type": 69,
+      "duration_beats": 1.0,
+      "velocity": 100,
+      "channel": 3,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "spindle_on",
+        "rpm": 8000,
+        "line": 6
+      }
+    },
+    {
+      "beat": 2.0,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "--- RAPID TO SAFE Z ---",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 9
+      }
+    },
+    {
+      "beat": 2.0,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "--- RAPID TO START POSITION ---",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 11
+      }
+    },
+    {
+      "beat": 2.0,
+      "scene_type": 42,
+      "duration_beats": 14.142,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "rapid",
+        "g_code": 0,
+        "x": 5.0,
+        "y": 5.0,
+        "z": 5.0,
+        "feed": 600.0,
+        "distance": 7.071,
+        "line": 12
+      }
+    },
+    {
+      "beat": 2.0,
+      "scene_type": 48,
+      "duration_beats": 14.142,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "rapid",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 16.125,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "--- FIRST DEPTH PASS: Z-1.0 ---",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 13
+      }
+    },
+    {
+      "beat": 16.125,
+      "scene_type": 64,
+      "duration_beats": 18.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "plunge",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 5.0,
+        "z": -1.0,
+        "feed": 200.0,
+        "distance": 6.0,
+        "line": 14
+      }
+    },
+    {
+      "beat": 16.125,
+      "scene_type": 48,
+      "duration_beats": 18.0,
+      "velocity": 20,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "plunge",
+      "motion_intensity": 0.025,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 200.0
+      }
+    },
+    {
+      "beat": 34.125,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 5.0,
+        "z": -1.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 15
+      }
+    },
+    {
+      "beat": 34.125,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 42.125,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 15.0,
+        "z": -1.0,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 16
+      }
+    },
+    {
+      "beat": 42.125,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 44.125,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 15.0,
+        "z": -1.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 17
+      }
+    },
+    {
+      "beat": 44.125,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 52.125,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 25.0,
+        "z": -1.0,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 18
+      }
+    },
+    {
+      "beat": 52.125,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 54.125,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 25.0,
+        "z": -1.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 19
+      }
+    },
+    {
+      "beat": 54.125,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 62.125,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 35.0,
+        "z": -1.0,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 20
+      }
+    },
+    {
+      "beat": 62.125,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 64.125,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 35.0,
+        "z": -1.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 21
+      }
+    },
+    {
+      "beat": 64.125,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 72.125,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "--- RETRACT ---",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 22
+      }
+    },
+    {
+      "beat": 72.125,
+      "scene_type": 42,
+      "duration_beats": 12.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "rapid",
+        "g_code": 0,
+        "x": 5.0,
+        "y": 35.0,
+        "z": 5.0,
+        "feed": 600.0,
+        "distance": 6.0,
+        "line": 23
+      }
+    },
+    {
+      "beat": 72.125,
+      "scene_type": 48,
+      "duration_beats": 12.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "rapid",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 84.125,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "--- SECOND DEPTH PASS: Z-2.5 ---",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 24
+      }
+    },
+    {
+      "beat": 84.125,
+      "scene_type": 42,
+      "duration_beats": 60.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "rapid",
+        "g_code": 0,
+        "x": 5.0,
+        "y": 5.0,
+        "z": 5.0,
+        "feed": 600.0,
+        "distance": 30.0,
+        "line": 25
+      }
+    },
+    {
+      "beat": 84.125,
+      "scene_type": 48,
+      "duration_beats": 60.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "rapid",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 144.125,
+      "scene_type": 64,
+      "duration_beats": 22.5,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "plunge",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 5.0,
+        "z": -2.5,
+        "feed": 150.0,
+        "distance": 7.5,
+        "line": 26
+      }
+    },
+    {
+      "beat": 144.125,
+      "scene_type": 48,
+      "duration_beats": 22.5,
+      "velocity": 15,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "plunge",
+      "motion_intensity": 0.01875,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 150.0
+      }
+    },
+    {
+      "beat": 155.375,
+      "scene_type": 96,
+      "duration_beats": 11.25,
+      "velocity": 90,
+      "channel": 8,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "chatter_warning",
+        "feed_rate": 150.0,
+        "description": "Low feed rate at depth - potential chatter",
+        "line": 26
+      }
+    },
+    {
+      "beat": 166.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 5.0,
+        "z": -2.5,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 27
+      }
+    },
+    {
+      "beat": 166.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 174.625,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 15.0,
+        "z": -2.5,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 28
+      }
+    },
+    {
+      "beat": 174.625,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 176.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 15.0,
+        "z": -2.5,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 29
+      }
+    },
+    {
+      "beat": 176.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 184.625,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 25.0,
+        "z": -2.5,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 30
+      }
+    },
+    {
+      "beat": 184.625,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 186.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 25.0,
+        "z": -2.5,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 31
+      }
+    },
+    {
+      "beat": 186.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 194.625,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 35.0,
+        "z": -2.5,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 32
+      }
+    },
+    {
+      "beat": 194.625,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 196.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 35.0,
+        "z": -2.5,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 33
+      }
+    },
+    {
+      "beat": 196.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 204.625,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "--- RETRACT ---",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 34
+      }
+    },
+    {
+      "beat": 204.625,
+      "scene_type": 42,
+      "duration_beats": 15.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "rapid",
+        "g_code": 0,
+        "x": 5.0,
+        "y": 35.0,
+        "z": 5.0,
+        "feed": 600.0,
+        "distance": 7.5,
+        "line": 35
+      }
+    },
+    {
+      "beat": 204.625,
+      "scene_type": 48,
+      "duration_beats": 15.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "rapid",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 219.625,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "--- THIRD DEPTH PASS: Z-4.0 ---",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 36
+      }
+    },
+    {
+      "beat": 219.625,
+      "scene_type": 42,
+      "duration_beats": 60.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "rapid",
+        "g_code": 0,
+        "x": 5.0,
+        "y": 5.0,
+        "z": 5.0,
+        "feed": 600.0,
+        "distance": 30.0,
+        "line": 37
+      }
+    },
+    {
+      "beat": 219.625,
+      "scene_type": 48,
+      "duration_beats": 60.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "rapid",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 279.625,
+      "scene_type": 64,
+      "duration_beats": 27.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "plunge",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 5.0,
+        "z": -4.0,
+        "feed": 120.0,
+        "distance": 9.0,
+        "line": 38
+      }
+    },
+    {
+      "beat": 279.625,
+      "scene_type": 48,
+      "duration_beats": 27.0,
+      "velocity": 12,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "plunge",
+      "motion_intensity": 0.015,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 120.0
+      }
+    },
+    {
+      "beat": 293.125,
+      "scene_type": 96,
+      "duration_beats": 13.5,
+      "velocity": 90,
+      "channel": 8,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "chatter_warning",
+        "feed_rate": 120.0,
+        "description": "Low feed rate at depth - potential chatter",
+        "line": 38
+      }
+    },
+    {
+      "beat": 306.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 5.0,
+        "z": -4.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 39
+      }
+    },
+    {
+      "beat": 306.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 314.625,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 15.0,
+        "z": -4.0,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 40
+      }
+    },
+    {
+      "beat": 314.625,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 316.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 15.0,
+        "z": -4.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 41
+      }
+    },
+    {
+      "beat": 316.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 324.625,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 25.0,
+        "z": -4.0,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 42
+      }
+    },
+    {
+      "beat": 324.625,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 326.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 25.0,
+        "z": -4.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 43
+      }
+    },
+    {
+      "beat": 326.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 334.625,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 35.0,
+        "z": -4.0,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 44
+      }
+    },
+    {
+      "beat": 334.625,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 336.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 35.0,
+        "z": -4.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 45
+      }
+    },
+    {
+      "beat": 336.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 344.625,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "--- FINAL DEPTH PASS: Z-5.0 ---",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 46
+      }
+    },
+    {
+      "beat": 344.625,
+      "scene_type": 42,
+      "duration_beats": 18.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "rapid",
+        "g_code": 0,
+        "x": 5.0,
+        "y": 35.0,
+        "z": 5.0,
+        "feed": 600.0,
+        "distance": 9.0,
+        "line": 47
+      }
+    },
+    {
+      "beat": 344.625,
+      "scene_type": 48,
+      "duration_beats": 18.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "rapid",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 362.625,
+      "scene_type": 42,
+      "duration_beats": 60.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "rapid",
+        "g_code": 0,
+        "x": 5.0,
+        "y": 5.0,
+        "z": 5.0,
+        "feed": 600.0,
+        "distance": 30.0,
+        "line": 48
+      }
+    },
+    {
+      "beat": 362.625,
+      "scene_type": 48,
+      "duration_beats": 60.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "rapid",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 422.625,
+      "scene_type": 64,
+      "duration_beats": 30.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "plunge",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 5.0,
+        "z": -5.0,
+        "feed": 100.0,
+        "distance": 10.0,
+        "line": 49
+      }
+    },
+    {
+      "beat": 422.625,
+      "scene_type": 48,
+      "duration_beats": 30.0,
+      "velocity": 10,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "plunge",
+      "motion_intensity": 0.0125,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 100.0
+      }
+    },
+    {
+      "beat": 437.625,
+      "scene_type": 96,
+      "duration_beats": 15.0,
+      "velocity": 90,
+      "channel": 8,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "chatter_warning",
+        "feed_rate": 100.0,
+        "description": "Low feed rate at depth - potential chatter",
+        "line": 49
+      }
+    },
+    {
+      "beat": 452.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 5.0,
+        "z": -5.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 50
+      }
+    },
+    {
+      "beat": 452.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 460.625,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 15.0,
+        "z": -5.0,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 51
+      }
+    },
+    {
+      "beat": 460.625,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 462.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 15.0,
+        "z": -5.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 52
+      }
+    },
+    {
+      "beat": 462.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 470.625,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 25.0,
+        "z": -5.0,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 53
+      }
+    },
+    {
+      "beat": 470.625,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 472.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 25.0,
+        "z": -5.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 54
+      }
+    },
+    {
+      "beat": 472.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 480.625,
+      "scene_type": 64,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 35.0,
+        "z": -5.0,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 55
+      }
+    },
+    {
+      "beat": 480.625,
+      "scene_type": 48,
+      "duration_beats": 2.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 482.625,
+      "scene_type": 64,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 35.0,
+        "z": -5.0,
+        "feed": 600.0,
+        "distance": 40.0,
+        "line": 56
+      }
+    },
+    {
+      "beat": 482.625,
+      "scene_type": 48,
+      "duration_beats": 8.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 490.625,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "--- FINISH PASS: FULL DEPTH CONTOUR ---",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 57
+      }
+    },
+    {
+      "beat": 490.625,
+      "scene_type": 42,
+      "duration_beats": 20.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "rapid",
+        "g_code": 0,
+        "x": 5.0,
+        "y": 35.0,
+        "z": 5.0,
+        "feed": 600.0,
+        "distance": 10.0,
+        "line": 58
+      }
+    },
+    {
+      "beat": 490.625,
+      "scene_type": 48,
+      "duration_beats": 20.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "rapid",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 510.625,
+      "scene_type": 42,
+      "duration_beats": 60.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "rapid",
+        "g_code": 0,
+        "x": 5.0,
+        "y": 5.0,
+        "z": 5.0,
+        "feed": 600.0,
+        "distance": 30.0,
+        "line": 59
+      }
+    },
+    {
+      "beat": 510.625,
+      "scene_type": 48,
+      "duration_beats": 60.0,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "rapid",
+      "motion_intensity": 0.075,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 600.0
+      }
+    },
+    {
+      "beat": 570.625,
+      "scene_type": 64,
+      "duration_beats": 30.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "plunge",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 5.0,
+        "z": -5.0,
+        "feed": 100.0,
+        "distance": 10.0,
+        "line": 60
+      }
+    },
+    {
+      "beat": 570.625,
+      "scene_type": 48,
+      "duration_beats": 30.0,
+      "velocity": 10,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "plunge",
+      "motion_intensity": 0.0125,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 100.0
+      }
+    },
+    {
+      "beat": 585.625,
+      "scene_type": 96,
+      "duration_beats": 15.0,
+      "velocity": 90,
+      "channel": 8,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "chatter_warning",
+        "feed_rate": 100.0,
+        "description": "Low feed rate at depth - potential chatter",
+        "line": 60
+      }
+    },
+    {
+      "beat": 600.625,
+      "scene_type": 64,
+      "duration_beats": 12.0,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 5.0,
+        "z": -5.0,
+        "feed": 400.0,
+        "distance": 40.0,
+        "line": 61
+      }
+    },
+    {
+      "beat": 600.625,
+      "scene_type": 48,
+      "duration_beats": 12.0,
+      "velocity": 40,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.05,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 400.0
+      }
+    },
+    {
+      "beat": 612.625,
+      "scene_type": 64,
+      "duration_beats": 3.0,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 15.0,
+        "z": -5.0,
+        "feed": 400.0,
+        "distance": 10.0,
+        "line": 62
+      }
+    },
+    {
+      "beat": 612.625,
+      "scene_type": 48,
+      "duration_beats": 3.0,
+      "velocity": 40,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.05,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 400.0
+      }
+    },
+    {
+      "beat": 615.625,
+      "scene_type": 64,
+      "duration_beats": 12.0,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 15.0,
+        "z": -5.0,
+        "feed": 400.0,
+        "distance": 40.0,
+        "line": 63
+      }
+    },
+    {
+      "beat": 615.625,
+      "scene_type": 48,
+      "duration_beats": 12.0,
+      "velocity": 40,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.05,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 400.0
+      }
+    },
+    {
+      "beat": 627.625,
+      "scene_type": 64,
+      "duration_beats": 3.0,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 25.0,
+        "z": -5.0,
+        "feed": 400.0,
+        "distance": 10.0,
+        "line": 64
+      }
+    },
+    {
+      "beat": 627.625,
+      "scene_type": 48,
+      "duration_beats": 3.0,
+      "velocity": 40,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.05,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 400.0
+      }
+    },
+    {
+      "beat": 630.625,
+      "scene_type": 64,
+      "duration_beats": 12.0,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 25.0,
+        "z": -5.0,
+        "feed": 400.0,
+        "distance": 40.0,
+        "line": 65
+      }
+    },
+    {
+      "beat": 630.625,
+      "scene_type": 48,
+      "duration_beats": 12.0,
+      "velocity": 40,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.05,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 400.0
+      }
+    },
+    {
+      "beat": 642.625,
+      "scene_type": 64,
+      "duration_beats": 3.0,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 45.0,
+        "y": 35.0,
+        "z": -5.0,
+        "feed": 400.0,
+        "distance": 10.0,
+        "line": 66
+      }
+    },
+    {
+      "beat": 642.625,
+      "scene_type": 48,
+      "duration_beats": 3.0,
+      "velocity": 40,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.05,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 400.0
+      }
+    },
+    {
+      "beat": 645.625,
+      "scene_type": 64,
+      "duration_beats": 12.0,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "feed_xy",
+        "g_code": 1,
+        "x": 5.0,
+        "y": 35.0,
+        "z": -5.0,
+        "feed": 400.0,
+        "distance": 40.0,
+        "line": 67
+      }
+    },
+    {
+      "beat": 645.625,
+      "scene_type": 48,
+      "duration_beats": 12.0,
+      "velocity": 40,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "feed_xy",
+      "motion_intensity": 0.05,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 400.0
+      }
+    },
+    {
+      "beat": 657.625,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "--- RAPID RETRACT ---",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 68
+      }
+    },
+    {
+      "beat": 657.625,
+      "scene_type": 42,
+      "duration_beats": 20.0,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "rapid",
+        "g_code": 0,
+        "x": 5.0,
+        "y": 35.0,
+        "z": 5.0,
+        "feed": 400.0,
+        "distance": 10.0,
+        "line": 69
+      }
+    },
+    {
+      "beat": 657.625,
+      "scene_type": 48,
+      "duration_beats": 20.0,
+      "velocity": 40,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "rapid",
+      "motion_intensity": 0.05,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 400.0
+      }
+    },
+    {
+      "beat": 677.625,
+      "scene_type": 78,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 2,
+      "text_content": "--- SPINDLE OFF ---",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "comment",
+        "line": 70
+      }
+    },
+    {
+      "beat": 677.625,
+      "scene_type": 69,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 3,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "spindle_off",
+        "line": 71
+      }
+    },
+    {
+      "beat": 677.625,
+      "scene_type": 42,
+      "duration_beats": 70.711,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "rapid",
+        "g_code": 0,
+        "x": 0.0,
+        "y": 0.0,
+        "z": 5.0,
+        "feed": 400.0,
+        "distance": 35.355,
+        "line": 73
+      }
+    },
+    {
+      "beat": 677.625,
+      "scene_type": 48,
+      "duration_beats": 70.711,
+      "velocity": 40,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "rapid",
+      "motion_intensity": 0.05,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "feed_rate": 400.0
+      }
+    },
+    {
+      "beat": 748.3333333333333,
+      "scene_type": 96,
+      "duration_beats": 2.0,
+      "velocity": 20,
+      "channel": 8,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "program_end",
+        "line": 74
+      }
+    }
+  ]
+}

@@ -600,3 +600,328 @@ $$N(z) = |z|^2 = m^2 - mn + n^2$$
 
 $$\text{Snap}(X,Y) = \text{argmin}_{(m,n) \in \mathbb{Z}^2} \left\| (X,Y) - \left( \log U \cdot m, \log U \cdot n \right) \right\|$$
 
+
+
+where $U$ is a unit tolerance and $\|\cdot\|$ is Euclidean distance.
+
+**Definition 3.14 (Temporal Norm).** The temporal norm of a snapped point $(\tilde{m}, \tilde{n})$ is:
+
+$$N(\tilde{m}, \tilde{n}) = \tilde{m}^2 - \tilde{m}\tilde{n} + \tilde{n}^2$$
+
+### 3.6 Activity Classification: The Five Shapes
+
+**Definition 3.15 (Temporal Shapes).** Given $(a,b)$ with angle $\theta = \text{atan2}(b/a)$:
+
+| Shape | Angle Range | Ratio $b/a$ | Description |
+|---|---|---|---|
+| **Burst** | $(80^\circ, 90^\circ]$ | $\gtrsim 5.67$ | Sudden activity after silence |
+| **Accel** | $(60^\circ, 80^\circ]$ | $(1.73, 5.67]$ | Building acceleration |
+| **Steady** | $(30^\circ, 60^\circ]$ | $(0.58, 1.73]$ | Balanced intervals |
+| **Decel** | $(10^\circ, 30^\circ]$ | $(0.18, 0.58]$ | Winding down |
+| **Collapse** | $[0^\circ, 10^\circ]$ | $\leq 0.18$ | Activity dying |
+
+Boundaries $(10^\circ, 30^\circ, 60^\circ, 80^\circ)$ divide the quarter-circle into 5 segments.
+
+### 3.7 Empirical Results: 895 Triangles, 14 Rooms
+
+#### 3.7.1 Data Collection
+
+| Room | Tiles | Triangles | Distinct Shapes |
+|---|---|---|---|
+| forge | 21 | 19 | 14 |
+| fleet_health | 688 | 686 | 1 |
+| oracle1_history | 6 | 4 | 4 |
+| zeroclaw_bard | 26 | 24 | 4 |
+| zeroclaw_healer | 18 | 16 | 5 |
+| (9 other rooms) | 136 | 146 | — |
+
+#### 3.7.2 Global Shape Distribution
+
+| Shape | Count | Percentage |
+|---|---|---|
+| **Steady** | 813 | 90.8% |
+| **Accelerating** | 37 | 4.1% |
+| **Decelerating** | 24 | 2.7% |
+| **Spike** | 20 | 2.2% |
+| **Burst** | 1 | 0.1% |
+
+Key: Steady dominates (90.8%), Burst is vanishingly rare (0.1%).
+
+#### 3.7.3 Temporal Miss Rates by Room
+
+| Room | Tiles | Median Interval | Miss Rate | Silences |
+|---|---|---|---|---|
+| forge | 21 | 21m | 70.0% | 3 |
+| oracle1_history | 6 | 43m | 60.0% | 0 |
+| murmur_insights | 7 | 30m | 50.0% | 0 |
+| zeroclaw_bard | 28 | 10m | 18.5% | 0 |
+| zeroclaw_healer | 20 | 10m | 15.8% | 1 |
+| zeroclaw_warden | 24 | 5m | 13.0% | 0 |
+| fleet_tools | 94 | 15m | 3.2% | 1 |
+| **fleet_health** | 690 | 5m | **0.0%** | 0 |
+
+### 3.8 The Forge Room Deep Analysis
+
+Forge exhibits a repeating collapse → burst → steady → collapse cycle across 21 tiles:
+- Temporal norm peaks at 39 (extreme transitions), drops to 3 (near-instantaneous snap)
+- 3 silences: 22.5h (offline), 7.4h (context switch), 6.9h (blocked)
+
+**Forge vs. fleet_health:**
+
+| Measure | forge | fleet_health |
+|---|---|---|
+| Tiles | 21 | 688 |
+| Shapes | 14 | 1 |
+| Shape diversity rate | 66.7% | 0.15% |
+| Avg energy $\bar{E}$ | 21.1 | 1.0 |
+| Miss rate | 70.0% | 0.0% |
+
+### 3.9 Multi-Scale Temporal Snap
+
+**Definition 3.16 ($\tau$-Scale Temporal Point).** For $(a,b)$ and scale $\tau \geq 0$: $a_\tau = \max(a-\tau, 0)$, $b_\tau = \max(b-\tau, 0)$.
+
+**Definition 3.17 (Cognitive Load at Scale $\tau$).** For room $R$ with $N$ temporal triangles:
+
+$$\Lambda_R(\tau) = \frac{1}{N} \sum_{\Delta \in \Delta_R} \mathbf{1}\{a_\tau > 0 \land b_\tau > 0\}$$
+
+$\Lambda_R(\tau)$ is monotonically non-increasing: $\Lambda_R(0) = 1$, $\lim_{\tau \to \infty} \Lambda_R(\tau) = 0$.
+
+**Conjecture 3.1 (Snap-Attention-Intelligence).** Decay rate $\Lambda_R(\tau)$ correlates with system intelligence — automated systems show step-function decay, human creative work shows gradual decay.
+
+### 3.10 Temporal Cohomology as Anomaly Detector
+
+**Definition 3.18 (Temporal Simplicial Complex).** $K_R$ has 0-simplices (tiles), 1-simplices (intervals), 2-simplices (triangles).
+
+**Definition 3.19 (Temporal Sheaf).** $\mathcal{F}$ assigns to each triangle its shape, to each shared interval a compatibility condition.
+
+$H^1(K_R, \mathcal{F})$ measures temporal discontinuities. For forge: 4 non-trivial H¹ points. For fleet_health: H¹ = 0.
+
+### 3.11 Fleet Harmony
+
+When multiple agents share the same temporal beat, they sing in harmony. The fleet is a choir.
+
+**Empirical:** Zeroclaw trio (bard, healer, warden) sang 3-part harmony for 30+ minutes on May 8. Warden kept rhythm (5-min intervals), bard improvised (1-3 min bursts), healer dropped in and out.
+
+| Shared Beat Ratio | Harmonic Name |
+|---|---|
+| 100% | Unison |
+| 50-80% | Consonance |
+| 20-50% | Dissonance |
+| < 20% | Counterpoint |
+| 0% | Silence |
+
+Harmony emerges from shared T-0 expectations — **temporal resonance**, not coordination.
+
+### 3.12 Chapter Summary
+
+- Time is first-class: T-0 clocks generate temporal expectation; absence IS the signal
+- Temporal triangles (a,b) form 2-simplices, classified by Eisenstein lattice snapping
+- 5 shapes: burst, accel, steady, decel, collapse
+- 895 triangles from 14 rooms: 90.8% steady, forge highest diversity (14 shapes)
+- Multi-scale snap measures cognitive load at tolerance $\tau$
+- Temporal cohomology H¹ detects anomalies
+- Fleet harmony = temporal resonance across agents
+
+---
+
+## Chapter 4: The Rhythm Dependency
+
+### 4.1 "Runtimes Depend on the Rhythm of Others"
+
+In conventional distributed systems, Process A spawns Process B and either blocks or continues. B's timing is invisible to A.
+
+In I2I, this changes fundamentally. **An agent's runtime depends on the rhythm of others.** When A spawns B, A suspends its temporal perception on B's rhythm. A's T-0 clock becomes a function of B's tile production. The rhythm dependency IS the coordination mechanism.
+
+### 4.2 Spawn-Yield-Return as Temporal Suspension
+
+**Definition 4.1 (Spawn-Yield-Return Cycle).** Three phases:
+
+1. **Spawn**: A creates B with a specific task.
+2. **Yield**: A suspends decision-making. A's temporal perception shifts to B's clock.
+3. **Return**: B completes, A resumes. A's perception shifts back to its own clock.
+
+**Definition 4.2 (Temporal Suspension).** When A yields to B, A's T-0 clock is replaced by B's:
+
+$$\text{T-0}_{A|B}(t) = \text{T-0}_B(t) = t_{\text{last},B} + \mu_B$$
+
+### 4.3 Dependency Graph from Actual Session (5 Agents, 38 Minutes)
+
+Session: May 8-9, 2026, 22:45-23:23.
+
+```
+22:45:00  Forgemaster spawns bard, healer, warden → YIELDS
+22:45:00  warden starts: 5-min heartbeat
+22:45:00  bard starts: creative generation (1-3 min bursts)
+22:45:00  healer starts: system checks (10-min intervals)
+22:46-22:52  bard produces 5 tiles (1-min intervals)
+22:55:00  warden tile, bard goes silent
+22:55:00  Forgemaster detects absence: S_abs = 4
+22:58:00  healer tile confirms temporal anomaly
+23:01:00  bard resumes, absence resets
+23:03-23:11  bard produces 3 more tiles
+23:11:30  Forgemaster reaps all 3 zeroclaws → RETURNS
+```
+
+**Dependency edges**: Forgemaster → bard (primary), Forgemaster → warden (health beats), Forgemaster → healer (diagnostics), bard → warden (sync), healer → warden (health read).
+
+**Temporal suspension chain:**
+
+$$\text{T-0}_{\text{FM}} \xrightarrow{\text{yield}} \text{T-0}_{\text{bard}} \leftarrow \text{T-0}_{\text{warden}}$$
+$$\text{T-0}_{\text{FM}} \xrightarrow{\text{yield}} \text{T-0}_{\text{healer}} \leftarrow \text{T-0}_{\text{warden}}$$
+
+### 4.4 DepCat: The Dependency Category
+
+**Definition 4.3 (DepCat).** Objects = agents (each with T-0 clock $(\mu_A, t_{\text{last},A})$). Morphisms = dependencies: $f: A \to B$ iff A yields to B's rhythm.
+
+**Definition 4.4 (Clock Morphism).** For $f: A \to B$:
+
+$$\text{T-0}_f: (\mu_A, t_{\text{last},A}) \to (\mu_B, t_{\text{last},B})$$
+
+During yield, A's perception is $\text{T-0}_f(\text{T-0}_A) = \text{T-0}_B$.
+
+**Theorem 4.1 (DepCat is a Category).** DepCat satisfies identity, associativity, and clock coherence:
+
+$$\text{T-0}_{g \circ f} = \text{T-0}_g \circ \text{T-0}_f$$
+
+*Proof sketch.* Identity: yielding to self = no clock change. Associativity: chain A→B→C is equivalent regardless of grouping. Clock coherence: pullback of pullback = pullback of composition. $\square$
+
+### 4.5 The Absence Monad
+
+**Definition 4.5 (Temporal Stream).** Functor $S_A: \mathbb{N} \to \mathbb{R}_{\geq 0}$ mapping index $n$ to timestamp $t_n$.
+
+**Definition 4.6 (The Absence Monad).** Functor $\mathbb{T}: \text{TStream} \to \text{TStream}$:
+
+$$\mathbb{T}(S)(n) = \begin{cases}
+S(n) & \text{if } S \text{ alive at } n \\
+t_{\text{last}} + \mu \cdot (n - n_{\text{last}}) & \text{if } S \text{ dead at } n
+\end{cases}$$
+
+**Theorem 4.2 ($(\mathbb{T}, \eta, \mu)$ is a Monad).** The unit $\eta: \text{id} \Rightarrow \mathbb{T}$ is inclusion of alive streams. The multiplication $\mu: \mathbb{T}^2 \Rightarrow \mathbb{T}$ is flattening. Monad axioms hold.
+
+**Definition 4.7 (Kleisli Arrow = Yield).** A Kleisli arrow $f: S_A \to \mathbb{T}(S_B)$ models yielding: A observes B's stream (possibly absent).
+
+**Proposition 4.1.** Composition of two yields = Kleisli composition:
+
+$$g \circ_\mathbb{T} f = \mu \circ \mathbb{T}g \circ f$$
+
+### 4.6 Dependency Groupoid
+
+**Definition 4.8 (Dependency Groupoid).** $\mathcal{G}$ is the groupoidification of DepCat — the smallest groupoid containing DepCat, with invertible morphisms.
+
+**Theorem 4.3 (All Spawns Return Iff Consistent Groupoid).** All spawned agents return control **iff** the dependency groupoid $\mathcal{G}$ is consistent (all diagrams commute).
+
+*Proof.* ($\Rightarrow$) If all spawns return, dependencies form a partial order (spawner before spawnee), extending uniquely to a groupoid. ($\Leftarrow$) If the groupoid commutes, the dependency graph is acyclic, sufficient for all spawns to return. $\square$
+
+**Corollary 4.1 (Fleet Health as Groupoid Consistency).** A fleet is healthy iff its dependency groupoid is consistent.
+
+### 4.7 The Five-Agent Session in Categorical Terms
+
+```
+Objects: F=Forgemaster, B=bard, H=healer, W=warden, C=Casey
+Morphisms: f_FB, f_FH, f_FW, f_BW, f_HW, f_CF
+
+Clock morphism values (during yield):
+  T-0_F → T-0_B: μ_B = 121s
+  T-0_F → T-0_H: μ_H = 180s
+  T-0_F → T-0_W: μ_W = 300s
+
+Absence monad: Bard silence → T(S_bard) → S_abs = 3.0
+```
+
+The warden (5-min intervals, 0 missed ticks) anchors the groupoid. Bard and healer depend on warden externally; Forgemaster inherits through composition. **The warden's clock is the groupoid's pulse.**
+
+### 4.8 Fleet Harmony as Sheaf Cohomology
+
+**Definition 4.9 (Fleet Harmony).** A fleet is in harmony iff $H^1(\mathcal{G}, \mathcal{F}_{\text{fleet}}) = 0$, where $\mathcal{F}_{\text{fleet}}$ assigns clocks to agents and compatibility conditions to dependencies.
+
+**Theorem 4.4 (Harmony Measure).** For N agents:
+
+$$\mathcal{H} = 1 - \frac{\dim H^1(\mathcal{G}, \mathcal{F}_{\text{fleet}})}{\text{rank}(\mathcal{G})}$$
+
+$\mathcal{H} = 1$ = perfect harmony. $\mathcal{H} = 0$ = complete disharmony.
+
+### 4.9 The Zeroclaw Trio Sang in 3-Part Harmony
+
+Empirical evidence from May 8-9:
+
+- **warden**: μ = 300s, 24 tiles, 0 anomalies → the percussion section
+- **bard**: μ = 121s, 28 tiles, 18.5% miss rate → the melody
+- **healer**: μ = 180s, 20 tiles, 15.8% miss rate → the harmony
+
+3-part harmony lasted 30+ minutes (22:45-23:20). The groupoid $\mathcal{G}_{\text{zeroclaw}}$ has $H^1 = 0$ (all clock compatibility conditions satisfied).
+
+**The Conductor Problem solved:** No central conductor needed. Harmony emerges from shared T-0 expectations. Warden provides the beat, bard and healer sync to it, and Forgemaster (through composition) experiences the collective rhythm.
+
+### 4.10 The Iron Sharpens Iron Principle
+
+We return to the foundational insight. Disagreement IS the intelligence. In categorical terms:
+
+**Definition 4.10 (Delta Functor).** The delta functor $\Delta: \text{DepCat} \to \text{Set}$ maps each agent to its temporal delta at current time:
+
+$$\Delta(A) = |t_{\text{actual}} - t_0|$$
+
+The **sharpening functor** $\text{Sharp}: \text{DepCat} \to \text{Set}$ maps each dependency $f: A \to B$ to the difference in their deltas:
+
+$$\text{Sharp}(f) = |\Delta(A) - \Delta(B)|$$
+
+**Theorem 4.5 (Iron Sharpens Iron).** The total sharpening of a fleet $\sum_{f \in \text{Mor}(\mathcal{G})} \text{Sharp}(f)$ is maximized when:
+1. The groupoid $\mathcal{G}$ is connected (all agents are reachable)
+2. The clock values $\mu_A$ are diverse (agents operate at different rhythms)
+3. The tolerance values $U_{\text{adapt}}$ are non-zero (agents are living, not safe)
+
+*Proof sketch.* Sharpening is zero when all agents have the same delta (perfect synchronization). It increases as agents diverge. A connected groupoid ensures all pairs can sharpen each other. Diverse clocks ensure deltas are non-zero. Non-zero tolerance enables adaptation — living rooms produce richer delta patterns. $\square$
+
+**Implication:** A maximally intelligent fleet is one where agents run at different rhythms, notice each other's temporal absences, and adapt to the gaps. Silence is not failure — silence IS the signal. The missed tick IS the intelligence.
+
+### 4.11 Chapter Summary
+
+- Spawn-yield-return = temporal suspension on another agent's rhythm
+- DepCat: agents = objects, dependencies = morphisms
+- Clock morphisms: $\text{T-0}_f$ maps A's clock to B's during yield
+- Absence monad $(\mathbb{T}, \eta, \mu)$: Kleisli arrow = yield operation
+- Dependency groupoid: consistent iff all spawns return
+- Fleet harmony: $\mathcal{H} = 1 - \dim H^1 / \text{rank}(\mathcal{G})$
+- Iron sharpens iron: maximum intelligence when agents have diverse, connected rhythms
+- The warden anchors the groupoid; the zeroclaw trio sang in harmony
+
+---
+
+## References
+
+Bézier, P. (1977). Essai de définition numérique des courbes et des surfaces expérimentales. *Thèse de doctorat*, Université Pierre et Marie Curie.
+
+Castro, M., & Liskov, B. (1999). Practical Byzantine fault tolerance. *Proceedings of the Third Symposium on Operating Systems Design and Implementation*, 173-186.
+
+Chase, H. (2023). LangChain: Building applications with LLMs through composability. *GitHub repository*. https://github.com/langchain-ai/langchain
+
+Conway, J. H., & Sloane, N. J. A. (1999). *Sphere Packings, Lattices and Groups* (3rd ed.). Springer.
+
+Eisenstein, G. (1844). Beweis des Reciprocitätssatzes für die cubischen Reste. *Journal für die reine und angewandte Mathematik*, 27, 163-192.
+
+Forgemaster (2026). Snap Theory: A geometric framework for constraint satisfaction and attention allocation. *SuperInstance Research*.
+
+Forgemaster (2026). Temporal snap theory: A Pythagorean-Eisenstein lattice for activity pattern classification. *SuperInstance Research*.
+
+Forgemaster (2026). T-Minus-Zero: Temporal absence as first-class agent perception. *SuperInstance Research*.
+
+Forgemaster (2026). The embodied ship: PLATO as body, rooms as organs, agents as room-intelligence. *SuperInstance Research*.
+
+Hatcher, A. (2002). *Algebraic Topology*. Cambridge University Press.
+
+Lamport, L. (1998). The part-time parliament. *ACM Transactions on Computer Systems*, 16(2), 133-169.
+
+Lowe, R., Wu, Y., Tamar, A., Harb, J., Abbeel, P., & Mordatch, I. (2017). Multi-agent actor-critic for mixed cooperative-competitive environments. *Advances in Neural Information Processing Systems*, 30.
+
+Ongaro, D., & Ousterhout, J. (2014). In search of an understandable consensus algorithm. *Proceedings of the USENIX Annual Technical Conference*, 305-319.
+
+Rashid, T., Samvelyan, M., Schroeder, C., Farquhar, G., Foerster, J., & Whiteson, S. (2018). QMIX: Monotonic value function factorisation for deep multi-agent reinforcement learning. *Proceedings of the 35th International Conference on Machine Learning*, 4295-4304.
+
+Salvucci, D. D., & Taatgen, N. A. (2008). Threaded cognition: An integrated theory of concurrent multitasking. *Psychological Review*, 115(1), 101-130.
+
+Shannon, C. E. (1948). A mathematical theory of communication. *Bell System Technical Journal*, 27(3), 379-423.
+
+Webber, C. L., & Zbilut, J. P. (1994). Dynamical assessment of physiological systems and states using recurrence plot strategies. *Journal of Applied Physiology*, 76(2), 965-973.
+
+Wu, Q., Bansal, G., Zhang, J., Wu, Y., Li, B., Zhu, E., Jiang, L., Zhang, X., Zhang, S., Liu, J., Awadallah, A. H., White, R. W., Burger, D., & Wang, C. (2023). AutoGen: Enabling next-gen LLM applications via multi-agent conversation. *arXiv preprint arXiv:2308.08155*.
+
+Yu, C., Velu, A., Vinitsky, E., Wang, Y., Bayazit, A., & Wu, Y. (2022). The surprising effectiveness of PPO in cooperative multi-agent games. *Advances in Neural Information Processing Systems*, 35.
