@@ -36,3 +36,7 @@ download/
 claude/
 flux-research-clone/
 lucineer/
+snapkit-c/*.o
+snapkit-c/*.a
+snapkit-c/*.so
+snapkit-c/test_*

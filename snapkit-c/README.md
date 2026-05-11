@@ -1,194 +1,115 @@
-# SnapKit C ⚒️ — Tolerance-Compressed Attention Allocation
+# snapkit-c
 
-**Everything within tolerance is compressed away. Only the deltas survive.**
-
-SnapKit C is a high-performance, portable C11 library implementing **Snaps as Attention** theory — a mathematical framework for allocating finite cognitive resources using tolerance-compressed snap functions over ADE-classified lattices.
+Plug-and-play C library for **Eisenstein lattice snapping**, **temporal beat grids**, and **spectral analysis** — designed for embedded systems, bare-metal, and WebAssembly targets.
 
 ## Features
 
-- **Eisenstein Lattice Snap (A₂)** — Optimal branchless O(1) nearest-point algorithm using Conway-Sloane (1982) Voronoi boundary conditions
-- **ADE Topology Support** — A₁ binary, A₂ hexagonal, A₃ octahedral, D₄ triality, E₆/E₇/E₈ exceptional
-- **Delta Detection** — Multi-stream delta monitoring with per-stream tolerance
-- **Attention Budget** — Finite cognition allocation (actionability-weighted, reactive, uniform)
-- **Script Library** — Pattern matching with cosine similarity
-- **Constraint Sheaf** — Cohomological consistency checking
-- **SIMD Paths** — NEON (ARM) and SSE (x86) acceleration where available
-- **Header-only mode** — `#define SNAPKIT_HEADER_ONLY 1` before including `snapkit.h`
-- **No dynamic allocation in hot path** — All core operations use stack allocation
+- **C99 compatible** — works on ARM Cortex-M, ESP32, Jetson, x86, WASM
+- **Zero dependencies** — no malloc; caller provides all buffers
+- **Single header option** — `#define SNAPKIT_IMPLEMENTATION` (stb-style)
+- **Covering radius ≤ 1/√3** guaranteed for Eisenstein snap
+- **Batch operations** for all modules
+- **Three modules**: Eisenstein lattice, temporal beat grids, spectral analysis
 
-## Performance
+## Quick Start
 
-| Operation | Ops | Branching | SIMD |
-|-----------|-----|-----------|------|
-| Eisenstein snap (scalar) | ~15-20 FLOPs | Branchless (cmov) | — |
-| Eisenstein snap (NEON) | 2× throughput | Branchless | float64x2_t |
-| Batch snap | O(N) | Fully parallel | Yes |
-
-The optimal Eisenstein snap uses the exact 6-condition Voronoi test from Conway & Sloane (1982), not the naive 3×3=9 candidate search — **5× faster with zero distance computations in the correction path**.
-
-## Build
-
-### Requirements
-- C11 compiler (GCC, Clang, MSVC, or compatible)
-- CMake (optional, for `find_package` integration)
-- make
-
-### Quick Start
-
-```bash
-make              # Build static library
-make test         # Build and run tests
-make benchmark    # Build and run benchmarks
-make examples     # Build example programs
-make shared       # Build shared library
-```
-
-### Install
-
-```bash
-make install              # Install to /usr/local
-make install PREFIX=~/.local  # Install to user prefix
-```
-
-### Cross-compilation
-
-```bash
-make CROSS_COMPILE=arm-none-eabi- CC=arm-none-eabi-gcc AR=arm-none-eabi-ar
-```
-
-### Debug Build
-
-```bash
-make DEBUG=1     # -O0 -g -fsanitize=address
-```
-
-## API Overview
+### Single-header mode
 
 ```c
-#include "snapkit/snapkit.h"
+#define SNAPKIT_IMPLEMENTATION
+#include "snapkit.h"
 
-// Create a snap configuration
-snapkit_config_t config = snapkit_default_config();
-config.tolerance = 0.1;
-config.topology = SNAPKIT_TOPOLOGY_HEXAGONAL;
+// Done — all functions are now defined.
+```
 
-// Snap a value
-snapkit_result_t result = snapkit_snap(&config, 0.05);
-if (result.within_tolerance) {
-    printf("Value snapped. Delta=%f\n", result.delta);
-}
+### Linked library mode
 
-// Optimal Eisenstein lattice snap (A₂)
-int a, b;
-double snapped_re, snapped_im, dist;
-snapkit_nearest_eisenstein_optimal(1.2, 0.7, &a, &b, &snapped_re, &snapped_im, &dist);
-printf("Eisenstein: (%d, %d), distance=%f\n", a, b, dist);
+```bash
+make          # builds libsnapkit.a and libsnapkit.so
+make test     # builds and runs tests
+make install  # installs to /usr/local (override with PREFIX=)
+```
 
-// Batch snap
-double reals[] = {0.1, 0.5, 1.2, 2.0};
-double imags[] = {0.2, 0.8, 0.7, 0.0};
-int a_out[4], b_out[4];
-double dist_out[4];
-snapkit_nearest_eisenstein_optimal_neon(NULL /* fallback to scalar */);
-// Use batch scalar fallback
-for (int i = 0; i < 4; i++) {
-    snapkit_nearest_eisenstein_optimal(reals[i], imags[i], &a_out[i], &b_out[i], 
-                                       &snapped_re, &snapped_im, &dist_out[i]);
-}
+Or with CMake:
 
-// Delta detection
-snapkit_delta_t deltas[16];
-int n_deltas = 0;
-snapkit_observe(&config, 0.3, deltas, &n_deltas);
-
-// Attention budget
-snapkit_budget_t budget = snapkit_budget_create(100.0, SNAPKIT_STRATEGY_ACTIONABILITY);
-snapkit_allocate(&budget, deltas, n_deltas);
-printf("Remaining budget: %f\n", budget.remaining);
+```bash
+mkdir build && cd build
+cmake .. && make
+ctest
 ```
 
 ## API Reference
 
-See the header file `include/snapkit/snapkit.h` for complete API documentation.
+### Eisenstein Snap
 
-| Function | Description |
-|----------|-------------|
-| `snapkit_snap()` | Core snap — test a value against tolerance |
-| `snapkit_snap_batch()` | Snap multiple values efficiently |
-| `snapkit_calibrate()` | Auto-tune tolerance from historical data |
-| `snapkit_nearest_eisenstein_optimal()` | A₂ nearest point (branchless, O(1)) |
-| `snapkit_nearest_eisenstein_norm()` | Lightweight variant (no sqrt) |
-| `snapkit_nearest_eisenstein_optimal_neon()` | NEON-accelerated batch A₂ snap |
-| `snapkit_delta_create()` | Create delta detector instance |
-| `snapkit_delta_observe()` | Process new observation, check for deltas |
-| `snapkit_budget_create()` | Create attention budget |
-| `snapkit_budget_allocate()` | Allocate attention to deltas |
-| `snapkit_script_library_create()` | Create script library |
-| `snapkit_script_match()` | Match input against known scripts |
-| `snapkit_script_learn()` | Learn a new script from example |
-| `snapkit_constraint_sheaf_create()` | Create constraint sheaf |
-| `snapkit_sheaf_verify()` | Verify consistency of constraints |
-| `snapkit_ade_data()` | Get ADE classification data |
+```c
+// Snap to nearest Eisenstein integer (Voronoi — exact nearest neighbor)
+sk_eisenstein e = sk_eisenstein_snap_voronoi(x, y);
 
-## Benchmarks
+// Snap with tolerance check
+sk_snap_result r = sk_eisenstein_snap(x, y, tolerance);
+if (r.is_snap) { /* point is within tolerance of a lattice point */ }
 
-```bash
-make benchmark
+// Batch snap
+sk_eisenstein out[n];
+sk_eisenstein_snap_batch(x_array, y_array, n, out);
 ```
 
-Expected results (single-threaded, GCC -O3 -march=native):
-- Eisenstein scalar snap: ~50M snaps/sec per core
-- Eisenstein NEON batch: ~80M snaps/sec per core
-- Delta threshold: ~100M/sec
-- Eisenstein norm-only (no sqrt): ~80M snaps/sec
+### Temporal
 
-## Project Structure
+```c
+// Create a beat grid (period=1.0, phase=0.0, start=0.0)
+sk_beat_grid grid;
+sk_beat_grid_init(&grid, 1.0, 0.0, 0.0);
 
-```
-snapkit-c/
-├── Makefile                  — Build system
-├── README.md                 — This file
-├── LICENSE                   — MIT License
-├── include/snapkit/          — Public headers
-│   ├── snapkit.h             — Master header (full API)
-│   └── snapkit_internal.h    — Internal constants & helpers
-├── src/                      — Implementation
-│   ├── core_ade.c            — ADE topology data
-│   ├── core_eisenstein.c     — Eisenstein lattice (baseline)
-│   ├── core_eisenstein_optimal.c — Optimal branchless A₂ snap
-│   ├── core_snap.c           — SnapFunction core
-│   └── core_delta.c          — Delta detection
-├── tests/                    — Test suite + benchmarks
-│   ├── test_snapkit.c        — 25+ unit tests
-│   └── bench_snapkit.c       — Performance benchmarks
-├── examples/                 — Example programs
-│   ├── example_eisenstein.c  — Eisenstein snap demo
-│   └── example_delta.c       — Delta detection demo
-└── docs/
-    └── doxygen/              — Generated documentation
+// Snap a timestamp
+sk_temporal_result r = sk_beat_grid_snap(&grid, t, tolerance);
+
+// T-minus-0 detection
+sk_temporal_snap ts;
+sk_temporal_snap_init(&ts, &grid, 0.1, 0.05, 3);
+sk_temporal_result r = sk_temporal_observe(&ts, t, value);
+if (r.is_t_minus_0) { /* zero crossing detected! */ }
 ```
 
-## Integration
+### Spectral
 
-### pkg-config
+```c
+// Entropy
+double h = sk_entropy(data, n, 10);  // 10 bins
 
-```bash
-pkg-config --cflags --libs snapkit
+// Autocorrelation (caller provides buffer)
+double acf[max_lag + 1];
+int len = sk_autocorrelation(data, n, max_lag, acf);
+
+// Hurst exponent (R/S analysis)
+double hurst = sk_hurst_exponent(data, n);
+
+// Full spectral summary (caller provides scratch buffers)
+sk_spectral_summary s = sk_spectral_analyze(data, n, bins, max_lag, acf_buf, counts_buf);
 ```
 
-### CMake
+## Data Structures
 
-```cmake
-find_package(snapkit REQUIRED)
-target_link_libraries(my_app snapkit::snapkit)
-```
+| Type | Description |
+|------|-------------|
+| `sk_eisenstein` | `{int a, b}` — Eisenstein integer a + bω |
+| `sk_snap_result` | Snap result with distance and is_snap flag |
+| `sk_beat_grid` | Periodic beat grid |
+| `sk_temporal_result` | Temporal snap result with beat info |
+| `sk_temporal_snap` | T-minus-0 detector with circular buffer |
+| `sk_spectral_summary` | Entropy, Hurst, autocorrelation, stationarity |
+
+## Build Targets
+
+| Target | Status |
+|--------|--------|
+| x86-64 (Linux/macOS/Windows) | ✅ Tested |
+| ARM Cortex-M | ✅ C99, no OS dependencies |
+| ESP32 (Xtensa) | ✅ C99 compatible |
+| WebAssembly (Emscripten) | ✅ No OS calls |
+| Jetson (ARM64) | ✅ Standard C |
 
 ## License
 
-MIT — use freely, give credit.
-
----
-
-*Built for the Cocapn fleet. The optimal Eisenstein snap implementation reduces a 3×3=9 candidate search to 15 FLOPs with zero branch divergence.*
-
-*"The snap is the gatekeeper of attention. The delta is the compass. The lattice is the infrastructure."*
+MIT

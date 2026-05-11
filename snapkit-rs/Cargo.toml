@@ -1,0 +1,19 @@
+[package]
+name = "snapkit"
+version = "0.1.0"
+edition = "2021"
+description = "Zero-dependency Eisenstein snap, spectral analysis, temporal grids, and connectome detection — no_std compatible"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/SuperInstance/snapkit-rs"
+keywords = ["eisenstein", "hexagonal", "lattice", "snap", "no-std"]
+categories = ["mathematics", "embedded", "no-std"]
+
+[dependencies]
+
+[features]
+default = ["std"]
+std = []
+
+[workspace]
+
+[dev-dependencies]

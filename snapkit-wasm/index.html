@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>snapkit-wasm — Eisenstein Lattice Demo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0f;
+      color: #e0e0e8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: #888;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .container {
+      display: flex;
+      gap: 2rem;
+      padding: 1rem;
+      max-width: 1100px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    canvas {
+      border: 1px solid #222;
+      border-radius: 8px;
+      cursor: crosshair;
+      background: #0d0d14;
+    }
+
+    .panel {
+      background: #12121a;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 1.2rem;
+      min-width: 280px;
+      max-width: 320px;
+    }
+
+    .panel h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #667eea;
+      margin-bottom: 0.8rem;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid #1a1a24;
+      font-size: 0.85rem;
+    }
+
+    .result-row:last-child { border-bottom: none; }
+
+    .result-label { color: #888; }
+    .result-value { color: #e0e0e8; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+
+    .covering-radius {
+      margin-top: 1rem;
+      padding: 0.8rem;
+      background: #1a1a2e;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    .covering-radius strong { color: #667eea; }
+
+    .legend {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.8rem;
+      font-size: 0.75rem;
+      color: #888;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: #1a1a2e;
+      border: 1px solid #333;
+      color: #ccc;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    button:hover { background: #252540; border-color: #667eea; }
+
+    .status {
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .status.ready { color: #4ade80; }
+
+    .info-block {
+      margin-top: 1rem;
+      padding: 0.8rem;
+      background: #1a1a2e;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: #999;
+    }
+
+    .info-block code { color: #c084fc; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>⚒️ snapkit-wasm</h1>
+    <p>Eisenstein integer lattice snap — A₂ hexagonal Voronoï — compiled to WebAssembly</p>
+  </header>
+
+  <div class="status" id="status">Loading WASM module...</div>
+
+  <div class="container">
+    <canvas id="hexCanvas" width="640" height="640"></canvas>
+
+    <div class="panel" id="infoPanel">
+      <h2>Snap Result</h2>
+      <div id="snapResults">
+        <div class="result-row"><span class="result-label">Click the canvas to snap</span></div>
+      </div>
+
+      <div class="covering-radius">
+        Covering radius (A₂): <strong id="coveringRadius">—</strong><br>
+        <span style="font-size:0.7rem">Any point is within 1/√3 of a lattice point</span>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#667eea"></div> Lattice</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f97316"></div> Input</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#4ade80"></div> Snapped</div>
+      </div>
+
+      <div class="controls">
+        <button id="btnRandom">Random Point</button>
+        <button id="btnBatch">Batch 100</button>
+        <button id="btnClear">Clear</button>
+      </div>
+
+      <div class="info-block">
+        <strong>Eisenstein integers:</strong> ℤ[ω] where ω = e<sup>2πi/3</sup><br>
+        The <em>densest</em> 2D lattice packing. Optimal for information compression
+        because the Voronoï cell is a regular hexagon with 6-fold symmetry.<br><br>
+        <code>eisensteinSnap(x, y)</code> → nearest (a, b) in ~15 FP ops (branchless O(1))
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // ── Configuration ──
+    const CANVAS_SIZE = 640;
+    const CENTER = CANVAS_SIZE / 2;
+    const SCALE = 60; // pixels per unit
+    const SQRT3 = Math.sqrt(3);
+    const HALF_SQRT3 = SQRT3 / 2;
+
+    const canvas = document.getElementById('hexCanvas');
+    const ctx = canvas.getContext('2d');
+    const statusEl = document.getElementById('status');
+    const resultsEl = document.getElementById('snapResults');
+
+    let snapkit = null;
+    let markers = []; // {x, y, result}
+
+    // ── Load WASM ──
+    try {
+      // In production, the WASM file is alongside this HTML
+      // We provide a pure-JS fallback for the demo
+      const useFallback = true; // Set false when snapkit.wasm is available
+
+      if (useFallback) {
+        snapkit = createFallbackSnapKit();
+        statusEl.textContent = '✓ Pure JS fallback (compile WASM for 10-50× speedup)';
+        statusEl.className = 'status ready';
+      } else {
+        const { SnapKit } = await import('./js/snapkit.js');
+        snapkit = await SnapKit.init('./snapkit.wasm');
+        statusEl.textContent = '✓ WASM loaded';
+        statusEl.className = 'status ready';
+      }
+
+      document.getElementById('coveringRadius').textContent =
+        snapkit.coveringRadius().toFixed(8);
+
+      drawLattice();
+    } catch (e) {
+      statusEl.textContent = '✗ Failed to load: ' + e.message;
+      console.error(e);
+    }
+
+    // ── Pure JS fallback (same algorithms as C/WASM) ──
+    function createFallbackSnapKit() {
+      const INV_SQRT3 = 1 / SQRT3;
+      const H = HALF_SQRT3;
+
+      function snap(x, y) {
+        const bf = 2 * y * INV_SQRT3;
+        const af = x + y * INV_SQRT3;
+        let ia = Math.round(af);
+        let ib = Math.round(bf);
+        const u = af - ia, v = bf - ib;
+        const c1 = 2*u-v, c2 = v-2*u, c3 = 2*v-u, c4 = u-2*v, uv = u+v;
+        let da = 0, db = 0;
+        if (c1>1 && c4>1) { if(uv>0){da=1}else{db=-1} }
+        else if(c2>1&&c3>1) { if(uv>0){db=1}else{da=-1} }
+        else if(c1>1) da=1;
+        else if(c2>1) da=-1;
+        else if(c3>1) db=1;
+        else if(c4>1) db=-1;
+        ia+=da; ib+=db;
+        const uc=u-da, vc=v-db;
+        const d2=uc*uc-uc*vc+vc*vc;
+        return {
+          a: ia, b: ib,
+          snappedX: ia - ib*0.5,
+          snappedY: ib * H,
+          distance: Math.sqrt(d2)
+        };
+      }
+
+      return {
+        eisensteinSnap: snap,
+        coveringRadius: () => INV_SQRT3,
+        eisensteinSnapVoronoi: snap,
+      };
+    }
+
+    // ── Drawing ──
+    function toScreen(x, y) {
+      return [CENTER + x * SCALE, CENTER - y * SCALE];
+    }
+
+    function fromScreen(sx, sy) {
+      return [(sx - CENTER) / SCALE, -(sy - CENTER) / SCALE];
+    }
+
+    function drawLattice() {
+      ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+
+      // Grid range
+      const range = Math.ceil(CENTER / SCALE) + 1;
+
+      // Draw hexagonal grid lines (faint)
+      ctx.strokeStyle = '#1a1a2e';
+      ctx.lineWidth = 0.5;
+      for (let a = -range; a <= range; a++) {
+        for (let b = -range; b <= range; b++) {
+          const x = a - b * 0.5;
+          const y = b * HALF_SQRT3;
+          const [sx, sy] = toScreen(x, y);
+
+          // Connect to neighbors (1,0), (0,1), (1,-1)
+          for (const [da, db] of [[1,0],[0,1],[1,-1]]) {
+            const nx = (a+da) - (b+db)*0.5;
+            const ny = (b+db) * HALF_SQRT3;
+            const [nsx, nsy] = toScreen(nx, ny);
+            ctx.beginPath();
+            ctx.moveTo(sx, sy);
+            ctx.lineTo(nsx, nsy);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw lattice points
+      ctx.fillStyle = '#667eea';
+      for (let a = -range; a <= range; a++) {
+        for (let b = -range; b <= range; b++) {
+          const x = a - b * 0.5;
+          const y = b * HALF_SQRT3;
+          const [sx, sy] = toScreen(x, y);
+          if (sx >= -10 && sx <= CANVAS_SIZE+10 && sy >= -10 && sy <= CANVAS_SIZE+10) {
+            ctx.beginPath();
+            ctx.arc(sx, sy, 3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+
+      // Draw covering radius circles around lattice points (very faint)
+      ctx.strokeStyle = 'rgba(102, 126, 234, 0.08)';
+      ctx.lineWidth = 0.5;
+      const cr = snapkit.coveringRadius();
+      for (let a = -range; a <= range; a++) {
+        for (let b = -range; b <= range; b++) {
+          const x = a - b * 0.5;
+          const y = b * HALF_SQRT3;
+          const [sx, sy] = toScreen(x, y);
+          if (sx >= -50 && sx <= CANVAS_SIZE+50 && sy >= -50 && sy <= CANVAS_SIZE+50) {
+            ctx.beginPath();
+            ctx.arc(sx, sy, cr * SCALE, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw markers
+      for (const m of markers) {
+        const [isx, isy] = toScreen(m.x, m.y);
+        const [ssx, ssy] = toScreen(m.result.snappedX, m.result.snappedY);
+
+        // Line from input to snapped
+        ctx.strokeStyle = '#4ade80';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(isx, isy);
+        ctx.lineTo(ssx, ssy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Input point
+        ctx.fillStyle = '#f97316';
+        ctx.beginPath();
+        ctx.arc(isx, isy, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Snapped point (larger)
+        ctx.fillStyle = '#4ade80';
+        ctx.beginPath();
+        ctx.arc(ssx, ssy, 6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function showResult(x, y, result) {
+      resultsEl.innerHTML = `
+        <div class="result-row"><span class="result-label">Input</span><span class="result-value">(${x.toFixed(4)}, ${y.toFixed(4)})</span></div>
+        <div class="result-row"><span class="result-label">Eisenstein (a, b)</span><span class="result-value">(${result.a}, ${result.b})</span></div>
+        <div class="result-row"><span class="result-label">Snapped (x, y)</span><span class="result-value">(${result.snappedX.toFixed(4)}, ${result.snappedY.toFixed(4)})</span></div>
+        <div class="result-row"><span class="result-label">Distance</span><span class="result-value">${result.distance.toFixed(8)}</span></div>
+        <div class="result-row"><span class="result-label">Norm² a²−ab+b²</span><span class="result-value">${result.a*result.a - result.a*result.b + result.b*result.b}</span></div>
+        <div class="result-row"><span class="result-label">ω-form</span><span class="result-value">${result.a} + ${result.b}ω</span></div>
+      `;
+    }
+
+    // ── Interaction ──
+    canvas.addEventListener('click', (e) => {
+      if (!snapkit) return;
+      const rect = canvas.getBoundingClientRect();
+      const sx = (e.clientX - rect.left) * (CANVAS_SIZE / rect.width);
+      const sy = (e.clientY - rect.top) * (CANVAS_SIZE / rect.height);
+      const [x, y] = fromScreen(sx, sy);
+      const result = snapkit.eisensteinSnap(x, y);
+      markers.push({ x, y, result });
+      drawLattice();
+      showResult(x, y, result);
+    });
+
+    document.getElementById('btnRandom').addEventListener('click', () => {
+      if (!snapkit) return;
+      const x = (Math.random() - 0.5) * 8;
+      const y = (Math.random() - 0.5) * 8;
+      const result = snapkit.eisensteinSnap(x, y);
+      markers.push({ x, y, result });
+      drawLattice();
+      showResult(x, y, result);
+    });
+
+    document.getElementById('btnBatch').addEventListener('click', () => {
+      if (!snapkit) return;
+      for (let i = 0; i < 100; i++) {
+        const x = (Math.random() - 0.5) * 8;
+        const y = (Math.random() - 0.5) * 8;
+        const result = snapkit.eisensteinSnap(x, y);
+        markers.push({ x, y, result });
+      }
+      drawLattice();
+      const last = markers[markers.length - 1];
+      showResult(last.x, last.y, last.result);
+    });
+
+    document.getElementById('btnClear').addEventListener('click', () => {
+      markers = [];
+      drawLattice();
+      resultsEl.innerHTML = '<div class="result-row"><span class="result-label">Click the canvas to snap</span></div>';
+    });
+  </script>
+</body>
+</html>

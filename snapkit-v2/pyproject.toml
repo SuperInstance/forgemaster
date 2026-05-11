@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "snapkit"
 version = "2.0.0"
-description = "Eisenstein lattice snap, temporal analysis, and connectome detection for the Cocapn fleet"
+description = "Constraint geometry snap toolkit — Eisenstein, temporal, spectral, connectome, MIDI"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"

@@ -1,0 +1,52 @@
+{
+  "name": "@superinstance/snapkit-wasm",
+  "version": "0.1.0",
+  "description": "Eisenstein integer lattice snap compiled to WebAssembly — A₂ hexagonal Voronoï cell nearest-point, optimal O(1) branchless algorithm",
+  "main": "js/snapkit.js",
+  "types": "js/snapkit.d.ts",
+  "module": "js/snapkit.js",
+  "files": [
+    "js/",
+    "src/",
+    "snapkit.wasm",
+    "Makefile",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./js/snapkit.js",
+      "require": "./js/snapkit.js",
+      "types": "./js/snapkit.d.ts"
+    },
+    "./wasm": "./snapkit.wasm"
+  },
+  "keywords": [
+    "eisenstein",
+    "lattice",
+    "voronoi",
+    "snap",
+    "quantization",
+    "hexagonal",
+    "a2-lattice",
+    "webassembly",
+    "wasm",
+    "geometry",
+    "crystallography"
+  ],
+  "author": "Casey Digennaro <casey@superinstance.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SuperInstance/snapkit-wasm.git"
+  },
+  "homepage": "https://github.com/SuperInstance/snapkit-wasm#readme",
+  "scripts": {
+    "build": "make",
+    "clean": "make clean",
+    "check": "make check",
+    "demo": "npx serve ."
+  },
+  "devDependencies": {
+    "serve": "^14.0.0"
+  }
+}

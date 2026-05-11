@@ -1,160 +1,193 @@
-# @snapkit/core
+# @superinstance/snapkit
 
-**Tolerance-Compressed Attention Allocation**
+Eisenstein lattice snap, temporal beat-grid alignment, and spectral analysis — zero dependencies, pure TypeScript.
 
-A TypeScript library implementing snap-attention theory — the systematic compression of context through tolerance boundaries so cognition can focus on where thinking actually matters.
-
-> *"The snap doesn't tell you what's true. The snap tells you what you can safely ignore."*
-
-## Core Concepts
-
-### SnapFunction
-The primary compression mechanism. Defines a tolerance window around an expected baseline. Values within tolerance are "snapped" to the baseline (ignored). Values outside tolerance are "deltas" — signals that demand attention.
-
-```typescript
-import { SnapFunction } from '@snapkit/core';
-
-const snap = new SnapFunction({ tolerance: 0.1 });
-
-// Within tolerance → compression
-const result1 = snap.snap(0.05);  // { snapped: 0, withinTolerance: true  }
-
-// Outside tolerance → delta
-const result2 = snap.snap(0.5);   // { snapped: 0.5, withinTolerance: false }
-```
-
-### DeltaDetector
-Multi-stream delta monitoring with adaptive prioritization. Tracks deltas across independent channels, computes attention weights from actionability and urgency.
-
-### AttentionBudget
-Finite cognition allocation. Distributes a limited budget across competing deltas using one of three strategies (actionability, reactive, uniform).
-
-### ScriptLibrary
-Pattern recognition and automation. Learns frequently-occurring patterns, builds scripts that fire automatically, freeing attention for novel situations.
-
-### SnapTopology
-Mathematical classification of snap "shapes" based on ADE Lie theory. Each topology provides a different flavor of randomness:
-- **A₁**: Binary (coin flip)
-- **A₂**: Hexagonal (Eisenstein integers, densest 2D)
-- **D₄**: Octahedral (8 directions)
-- **E₆/E₇/E₈**: Exceptional (maximum rank for given dimension)
-
-### LearningCycle
-The experience → pattern → script → automation cycle. Moves through phases:
-1. **Delta flood** — Everything demands attention, cognitive load spikes
-2. **Script burst** — Library learns patterns, scripts form
-3. **Smooth running** — Most signals handled automatically
-
-### Adversarial Layer
-For multi-agent contexts where other minds generate fake deltas:
-- `FakeDeltaGenerator` — Manufacture plausible-but-false deltas
-- `AdversarialDetector` — Bayesian classification of real vs fake signals
-- `CamouflageEngine` — Mask attention allocation from observers
-- `BluffCalibration` — Nth-order theory of mind (I know you know I know...)
-
-### Stream Processing
-Async iterable support for processing continuous data streams.
-
-### Eisenstein Integers
-Optimal 2D snap using the A₂ Eisenstein lattice (6-fold symmetry, densest packing).
-
-## Installation
+## Install
 
 ```bash
-npm install @snapkit/core
+npm install @superinstance/snapkit
 ```
 
-## Usage
-
-### Basic Snap Pipeline
+## Quick Start
 
 ```typescript
-import { SnapFunction, DeltaDetector, AttentionBudget } from '@snapkit/core';
-
-// 1. Configure snap tolerance
-const snap = new SnapFunction({ tolerance: 0.1 });
-
-// 2. Set up delta detection across streams
-const detector = new DeltaDetector();
-detector.addStream('market_data', snap, {
-  actionabilityFn: (delta) => delta.magnitude > 0.1 ? 0.8 : 0.2,
-  urgencyFn: (delta) => delta.magnitude * 10,
-});
-
-// 3. Allocate attention budget
-const budget = new AttentionBudget({
-  totalBudget: 100,
-  strategy: 'actionability',
-});
-
-// 4. Process incoming data
-function processTick(value: number) {
-  const deltas = detector.observe({ market_data: value });
-  const allocations = budget.allocate(detector.prioritize(3));
-  return { deltas, allocations };
-}
+import {
+  eisensteinSnap,
+  eisensteinRound,
+  EisensteinInteger,
+  toComplex,
+  BeatGrid,
+  TemporalSnap,
+  entropy,
+  hurstExponent,
+  spectralSummary,
+} from "@superinstance/snapkit";
 ```
 
-### Learning Automation
+## API Reference
+
+### Eisenstein Lattice
+
+#### `eisensteinRound(x, y) → EisensteinInteger`
+
+Round a Cartesian point to the nearest Eisenstein integer using the 9-candidate Voronoï snap (covering radius ≤ 1/√3).
 
 ```typescript
-import { LearningCycle } from '@snapkit/core';
-
-const cycle = new LearningCycle();
-
-// Feed experiences to build scripts
-for (const tick of marketData) {
-  cycle.experience({
-    value: tick.price,
-    expected: previousPrice,
-    reward: outcome,
-  });
-}
-
-// Check learning state
-const state = cycle.currentState;
-console.log(`Phase: ${state.phase}, ${state.scriptsActive} scripts active`);
+const ei = eisensteinRound(0.3, 0.5);
+console.log(ei); // { a: 0, b: 1 }
 ```
 
-## Package Structure
+#### `EisensteinInteger(a, b) → EisensteinInteger`
 
+Create a frozen Eisenstein integer value object. Immutable (like Python's `@dataclass(frozen=True, slots=True)`).
+
+```typescript
+const e = EisensteinInteger(3, 2);
+// e.a === 3, e.b === 2, Object.isFrozen(e) === true
 ```
-dist/            — Compiled JavaScript
-src/
-  index.ts       — Public API re-exports
-  snap.ts        — SnapFunction core
-  delta.ts       — DeltaDetector, DeltaStream
-  attention.ts   — AttentionBudget
-  scripts.ts     — ScriptLibrary
-  topology.ts    — ADE snap topologies
-  learning.ts    — LearningCycle
-  adversarial.ts — Adversarial detection + camouflage
-  streaming.ts   — Async iterable stream processing
-  pipeline.ts    — Composable pipeline builder
-  eisenstein.ts  — Eisenstein integer snap
-  visualization.ts — Terminal + HTML visualization
-  types.ts       — TypeScript interfaces
-test/            — Test suite (node:test)
+
+#### `toComplex(ei) → [number, number]`
+
+Convert to Cartesian coordinates `[real, imag]`.
+
+#### `normSquared(ei) → number`
+
+Eisenstein norm²: `a² − ab + b²`. Always ≥ 0.
+
+#### `magnitude(ei) → number`
+
+Euclidean magnitude `√(norm²)`.
+
+#### `add(left, right)`, `sub(left, right)`, `mul(left, right)`
+
+Arithmetic on Eisenstein integers.
+
+#### `conjugate(ei) → EisensteinInteger`
+
+Galois conjugate: `(a+b, −b)`.
+
+#### `eisensteinSnap(x, y, tolerance?) → SnapResult`
+
+Snap and report distance + whether within tolerance.
+
+```typescript
+const result = eisensteinSnap(0.01, 0.01);
+// { nearest: { a: 0, b: 0 }, distance: 0.014, isSnap: true }
 ```
+
+#### `eisensteinSnapBatch(points, tolerance?) → SnapResult[]`
+
+Vectorized snap.
+
+#### `eisensteinDistance(x1, y1, x2, y2) → number`
+
+Lattice distance between two Cartesian points.
+
+#### `eisensteinFundamentalDomain(x, y) → [EisensteinInteger, EisensteinInteger]`
+
+Reduce to canonical fundamental-domain representative.
+
+### Voronoï Snap (low-level)
+
+```typescript
+import { eisensteinSnapVoronoi, snapDistance, eisensteinToReal } from "@superinstance/snapkit";
+
+const [a, b] = eisensteinSnapVoronoi(0.3, 0.7);
+const [x, y] = eisensteinToReal(a, b);
+const d = snapDistance(0.3, 0.7, a, b);
+```
+
+### Temporal
+
+#### `new BeatGrid(period?, phase?, tStart?)`
+
+Periodic grid of time points.
+
+```typescript
+const grid = new BeatGrid(1.0); // 1-second beats
+
+const [beatTime, beatIndex] = grid.nearestBeat(2.7);
+// beatTime = 3.0, beatIndex = 3
+
+const result = grid.snap(2.05, 0.1);
+// { snappedTime: 2.0, isOnBeat: true, beatPhase: 0.05, ... }
+
+const beats = grid.beatsInRange(0.5, 3.5); // [1.0, 2.0, 3.0]
+```
+
+#### `new TemporalSnap(grid, tolerance?, t0Threshold?, t0Window?)`
+
+Temporal snap with T-minus-0 (zero-crossing) detection.
+
+```typescript
+const ts = new TemporalSnap(grid);
+ts.observe(0.0, 0.5);
+ts.observe(0.5, 0.2);
+const result = ts.observe(1.0, -0.01);
+// result.isTMinus0 may be true if zero crossing detected
+```
+
+### Spectral
+
+#### `entropy(data, bins?) → number`
+
+Shannon entropy in bits via histogram binning.
+
+```typescript
+const h = entropy([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5);
+```
+
+#### `autocorrelation(data, maxLag?) → number[]`
+
+Normalized autocorrelation function.
+
+```typescript
+const acf = autocorrelation(mySignal, 20);
+// acf[0] === 1.0 always
+```
+
+#### `hurstExponent(data) → number`
+
+Hurst exponent via R/S analysis. H ≈ 0.5 → random, H > 0.5 → trending, H < 0.5 → mean-reverting.
+
+```typescript
+const H = hurstExponent(stockPrices);
+```
+
+#### `spectralSummary(data, bins?, maxLag?) → SpectralSummary`
+
+Complete spectral analysis in one call.
+
+```typescript
+const summary = spectralSummary(signal);
+// {
+//   entropyBits: 3.2,
+//   hurst: 0.52,
+//   autocorrLag1: 0.95,
+//   autocorrDecay: 12,
+//   isStationary: false
+// }
+```
+
+#### `spectralBatch(seriesList, bins?, maxLag?) → SpectralSummary[]`
+
+Vectorized spectral analysis.
+
+## Guarantees
+
+- **Covering radius ≤ 1/√3** — Voronoï snap always finds the true nearest Eisenstein integer
+- **Zero dependencies** — pure TypeScript, works in Node.js and browsers
+- **Frozen objects** — all return types are `Object.freeze()`d (equivalent to Python's `frozen=True`)
+- **ESM + CJS dual output** — works with `import` and `require()`
 
 ## Development
 
 ```bash
-git clone https://github.com/SuperInstance/snapkit-js
-cd snapkit-js
-npm install
-npm test        # Run test suite
-npx tsc         # Type-check + build
+npm install        # install dev deps (tsup, typescript, tsx)
+npm test           # run tests
+npm run build      # build dist (ESM + CJS + .d.ts)
 ```
-
-## API
-
-Full API documentation is available from TypeScript type definitions.
 
 ## License
 
 MIT
-
----
-
-*Built for the Cocapn fleet. From poker tells to planetary-scale attention allocation.*

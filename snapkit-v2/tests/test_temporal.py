@@ -72,9 +72,8 @@ class TestBeatGrid(unittest.TestCase):
         self.assertAlmostEqual(result.beat_phase, 0.75)
 
     def test_negative_period_raises(self):
-        grid = BeatGrid(period=-1.0)
         with self.assertRaises(ValueError):
-            grid.nearest_beat(0.0)
+            BeatGrid(period=-1.0)
 
 
 class TestTemporalSnap(unittest.TestCase):

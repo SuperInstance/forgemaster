@@ -1,60 +1,51 @@
 {
-  "name": "@snapkit/core",
-  "version": "0.1.0",
-  "description": "Tolerance-compressed attention allocation library — snap information into expected patterns and focus cognition on what matters",
-  "keywords": [
-    "attention",
-    "snap",
-    "tolerance",
-    "compression",
-    "cognitive",
-    "delta",
-    "allocation",
-    "eisenstein",
-    "ade"
-  ],
-  "license": "MIT",
-  "author": "Forgemaster ⚒️ / Casey Digennaro <casey@superinstance.com>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SuperInstance/snapkit-js"
-  },
-  "homepage": "https://github.com/SuperInstance/snapkit-js#readme",
-  "bugs": {
-    "url": "https://github.com/SuperInstance/snapkit-js/issues"
-  },
+  "name": "@superinstance/snapkit",
+  "version": "1.0.0",
+  "description": "Eisenstein lattice snap, temporal beat alignment, and spectral analysis — zero dependencies",
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
+    "dist"
   ],
   "scripts": {
-    "build": "tsc && node -e \"console.log('Building CJS fallback...'); require('fs').writeFileSync('dist/index.cjs', 'module.exports = require('./index.js');\n');\"",
-    "test": "node --experimental-vm-modules --test test/snap.test.mjs test/delta.test.mjs test/attention.test.mjs test/scripts.test.mjs test/integration.test.mjs",
-    "test:snap": "node --experimental-vm-modules --test test/snap.test.mjs",
-    "test:delta": "node --experimental-vm-modules --test test/delta.test.mjs",
-    "test:attention": "node --experimental-vm-modules --test test/attention.test.mjs",
-    "test:scripts": "node --experimental-vm-modules --test test/scripts.test.mjs",
-    "test:integration": "node --experimental-vm-modules --test test/integration.test.mjs",
-    "prepublishOnly": "npm run build && npm test",
-    "lint": "tsc --noEmit"
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "test": "npx tsx tests/index.test.ts",
+    "prepublishOnly": "npm run build"
   },
-  "engines": {
-    "node": ">=16"
+  "keywords": [
+    "eisenstein",
+    "lattice",
+    "snap",
+    "voronoi",
+    "temporal",
+    "spectral",
+    "hurst",
+    "autocorrelation"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SuperInstance/snapkit-js"
   },
   "devDependencies": {
-    "typescript": "^5.0.0"
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0",
+    "tsx": "^4.7.0"
   },
-  "sideEffects": false
+  "peerDependencies": {},
+  "dependencies": {}
 }
