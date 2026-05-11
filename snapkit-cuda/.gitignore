@@ -1,0 +1,43 @@
+# Object files
+*.o
+*.obj
+
+# Libraries
+*.a
+*.so
+*.lib
+
+# PTX intermediates
+*.ptx.tmp
+
+# Test binaries
+tests/test_eisenstein
+tests/test_batch
+tests/test_delta
+tests/test_correctness
+tests/run_tests
+
+# Example binaries
+examples/batch_eisenstein
+examples/stream_monitor
+examples/topology_compare
+examples/multi_stream
+
+# Benchmark binaries
+benches/bench_snap
+benches/bench_comparison
+
+# Build artifacts
+build/
+lib/
+
+# IDE
+.vscode/
+.idea/
+__pycache__/
+*.swp
+*.swo
+
+# Misc
+*.log
+*.out

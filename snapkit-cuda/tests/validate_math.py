@@ -32,11 +32,37 @@ TOLERANCE = 1e-6
 def eisenstein_snap(x, y):
     """
     Snap (x,y) to nearest Eisenstein lattice point.
-    Identical algorithm to CUDA eisenstein_snap_point().
+    Uses 3×3 Voronoi neighborhood search, matching the corrected
+    CUDA eisenstein_snap_point() and C core_eisenstein.c.
     """
-    b = round(2.0 * y / SQRT3)
-    a = round(x + b * 0.5)
-    return a, b
+    # Step 1: Direct rounding to get base candidate
+    b0 = round(2.0 * y / SQRT3)
+    a0 = round(x + y / SQRT3)
+    
+    # Step 2: 3×3 Voronoi search
+    # Direct rounding fails ~25% because the Eisenstein norm u²-uv+v²
+    # is not separable. True nearest is always within ±1 (proven).
+    best_a, best_b, _ = voronoi_search_3x3_from_base(x, y, a0, b0)
+    return best_a, best_b
+
+
+def voronoi_search_3x3_from_base(x, y, a0, b0):
+    """3×3 search from a given base point."""
+    best_delta = float('inf')
+    best_a = a0
+    best_b = b0
+    
+    for da in range(-1, 2):
+        for db in range(-1, 2):
+            a = a0 + da
+            b = b0 + db
+            sx, sy = snapped_coords(a, b)
+            d = math.hypot(x - sx, y - sy)
+            if d < best_delta:
+                best_delta = d
+                best_a, best_b = a, b
+    
+    return best_a, best_b, best_delta
 
 
 def snapped_coords(a, b):

@@ -354,8 +354,299 @@ void snapkit_recommended_launch_params(
     int* block_size
 );
 
+/* ======================================================================
+ * Additional API — Extended operations
+ * ====================================================================== */
+
+/* ---- Single-point snap ---- */
+
+/**
+ * Snap a single (x,y) point to the Eisenstein lattice (host-side helper).
+ * Uses the same formula as the GPU kernel.
+ */
+void snapkit_eisenstein_snap_single(
+    float x, float y,
+    int* out_a, int* out_b,
+    float* out_delta
+);
+
+/* ---- Grid-stride batch snap ---- */
+
+/**
+ * Grid-stride loop batch Eisenstein snap for arbitrarily large N.
+ * Each thread processes multiple points via grid-stride pattern.
+ */
+void snapkit_batch_snap_grid_stride(
+    const float* points_x,
+    const float* points_y,
+    int*   out_a,
+    int*   out_b,
+    float* out_delta,
+    int    N,
+    cudaStream_t stream
+);
+
+/* ---- FP16 batch snap ---- */
+
+/**
+ * FP16 batch Eisenstein snap. Input as half precision, output in int32.
+ * Higher throughput when precision requirements are moderate.
+ */
+void snapkit_batch_snap_fp16(
+    const half* points_x,
+    const half* points_y,
+    int*   out_a,
+    int*   out_b,
+    float* out_delta,
+    int    N,
+    cudaStream_t stream
+);
+
+/* ---- Multi-stream snap ---- */
+
+/**
+ * Multi-stream batch Eisenstein snap with per-stream tolerance.
+ * Each point assigned to a stream; streams have independent tolerances.
+ */
+void snapkit_batch_snap_multi_stream(
+    const float* points_x,
+    const float* points_y,
+    const int*   stream_ids,
+    int*   out_a,
+    int*   out_b,
+    float* out_delta,
+    int*   out_is_delta,
+    int    N,
+    cudaStream_t stream
+);
+
+/* ---- Weighted delta threshold ---- */
+
+/**
+ * Delta threshold with actionability and urgency weighting.
+ * weight = is_delta * delta * actionability * urgency
+ */
+void snapkit_delta_threshold_weighted(
+    const float* deltas,
+    const float* tolerances,
+    const int*   stream_ids,
+    const float* actionability,
+    const float* urgency,
+    int*   is_delta,
+    float* attention_weights,
+    int    N,
+    cudaStream_t stream
+);
+
+/* ---- Classify by severity ---- */
+
+#define SNAPKIT_SEVERITY_MINIMAL 0
+#define SNAPKIT_SEVERITY_MILD    1
+#define SNAPKIT_SEVERITY_MODERATE 2
+#define SNAPKIT_SEVERITY_SEVERE  3
+#define SNAPKIT_SEVERITY_CRITICAL 4
+
+/**
+ * Classify deltas by severity level relative to tolerance.
+ * Returns severity index 0-4 for each point.
+ */
+void snapkit_delta_classify_severity(
+    const float* deltas,
+    const float* tolerances,
+    const int*   stream_ids,
+    float* severity,
+    float* severity_max,
+    int    N,
+    int    num_streams,
+    cudaStream_t stream
+);
+
+/* ---- Reduction ---- */
+
+/**
+ * Reduce deltas: compute sum and store per-stream counts.
+ */
+void snapkit_delta_reduce(
+    const float* deltas,
+    const int*   is_delta,
+    const int*   stream_ids,
+    int*   stream_counts,
+    float* stream_sums,
+    float* stream_maxes,
+    int    N,
+    int    num_streams,
+    cudaStream_t stream
+);
+
+/**
+ * Compute stream-level delta summaries (count, sum per stream).
+ */
+void snapkit_delta_stream_counts(
+    const float* deltas,
+    const float* tolerances,
+    const int*   stream_ids,
+    int*   out_counts,
+    float* out_sums,
+    int    N,
+    int    num_streams,
+    cudaStream_t stream
+);
+
+/**
+ * Full stream delta summary: counts, sums, and max per stream.
+ */
+void snapkit_delta_stream_summary(
+    const float* deltas,
+    const int*   is_delta,
+    const int*   stream_ids,
+    int*   stream_counts,
+    float* stream_sums,
+    float* stream_maxes,
+    int    N,
+    int    num_streams,
+    cudaStream_t stream
+);
+
+/* ---- Stream tolerances & priorities ---- */
+
+/**
+ * Set per-stream tolerances on device (copy from host array).
+ */
+void snapkit_set_stream_tolerances(
+    const float* host_tolerances,
+    float* device_tolerances,
+    int    num_streams,
+    cudaStream_t stream
+);
+
+/**
+ * Set per-stream priority weights on device (copy from host array).
+ */
+void snapkit_set_stream_priorities(
+    const float* host_priorities,
+    float* device_priorities,
+    int    num_streams,
+    cudaStream_t stream
+);
+
+/**
+ * Top-K selection with per-stream filtering.
+ * Finds top-K deltas for each stream independently.
+ */
+int snapkit_top_k_with_streams(
+    const float* weights,
+    const int*   stream_ids,
+    int*   point_ids,
+    float* top_weights,
+    int    K,
+    int    target_stream,
+    int    N,
+    cudaStream_t stream
+);
+
+/* ---- Reduction utilities ---- */
+
+/**
+ * Parallel reduction: sum all values.
+ */
+void snapkit_reduce_sum(
+    const float* values,
+    float* sum_out,
+    int    N,
+    cudaStream_t stream
+);
+
+/**
+ * Find argmax (index of maximum value).
+ */
+int snapkit_argmax(
+    const float* values,
+    float* max_value,
+    int    N,
+    cudaStream_t stream
+);
+
+/* ---- Stream delta summary (alternate naming for backward compat) ---- */
+
+void snapkit_stream_delta_summary(
+    const float* deltas,
+    const int*   is_delta,
+    const int*   stream_ids,
+    int*   stream_counts,
+    float* stream_sums,
+    float* stream_maxes,
+    int    N,
+    int    num_streams,
+    cudaStream_t stream
+);
+
+/* ---- Topology convenience functions ---- */
+
+/**
+ * Snap A₁ (binary/1D).
+ */
+void snapkit_snap_a1(
+    const float* points,
+    float* out_snapped,
+    float* out_deltas,
+    int    N,
+    cudaStream_t stream
+);
+
+/**
+ * Snap A₃ (tetrahedral/3D). Points as SoA.
+ */
+void snapkit_snap_a3(
+    const float* points_x,
+    const float* points_y,
+    const float* points_z,
+    float* out_x,
+    float* out_y,
+    float* out_z,
+    float* out_deltas,
+    int    N,
+    cudaStream_t stream
+);
+
+/**
+ * Snap D₄ (4D triality).
+ */
+void snapkit_snap_d4(
+    const float* points,
+    float* out_snapped,
+    float* out_deltas,
+    int    N,
+    cudaStream_t stream
+);
+
+/**
+ * Snap E₈ (8D icosahedral).
+ */
+void snapkit_snap_e8(
+    const float* points,
+    float* out_snapped,
+    float* out_deltas,
+    int    N,
+    cudaStream_t stream
+);
+
+/* ---- Attention allocation ---- */
+
+/**
+ * Allocate attention budget to top-K deltas.
+ * Allocation strategy determined by config.
+ */
+void snapkit_allocate_attention(
+    const snapkit_config_t* config,
+    const int*   top_indices,
+    const float* top_weights,
+    const int*   stream_ids,
+    snapkit_attention_t* results,
+    int    actual_k
+);
+
 #ifdef __cplusplus
-}
+}   /* extern "C" */
 #endif
 
 #endif /* SNAPKIT_CUDA_H */

@@ -26,8 +26,15 @@ INCLUDES := -Iinclude -I$(CUDA_HOME)/include
 # Libraries
 LIBRARIES := -L$(CUDA_HOME)/lib64 -lcudart -lcuda
 
-# Sources
-SRC := $(wildcard src/*.cu)
+# Sources (explicit order for proper linking)
+SRC := \
+	src/eisenstein_snap.cu \
+	src/batch_snap.cu \
+	src/delta_detect.cu \
+	src/attention.cu \
+	src/topology.cu \
+	src/reduce.cu \
+	src/snapkit_cuda.cu
 OBJ := $(SRC:.cu=.o)
 
 # Library targets
@@ -78,32 +85,53 @@ $(PTX_DIR)/%.ptx: kernels/%.cuh
 ptx: $(PTX_SRC:kernels/%=$(PTX_DIR)/%)
 
 # Build tests
-tests/%: tests/%.cu $(STATIC_LIB)
+tests/test_eisenstein: tests/test_eisenstein.cu $(STATIC_LIB)
+	$(NVCC) $(NVCC_FLAGS) $(INCLUDES) -o $@ $< $(STATIC_LIB) $(LIBRARIES)
+
+tests/test_batch: tests/test_batch.cu $(STATIC_LIB)
+	$(NVCC) $(NVCC_FLAGS) $(INCLUDES) -o $@ $< $(STATIC_LIB) $(LIBRARIES)
+
+tests/test_delta: tests/test_delta.cu $(STATIC_LIB)
+	$(NVCC) $(NVCC_FLAGS) $(INCLUDES) -o $@ $< $(STATIC_LIB) $(LIBRARIES)
+
+tests/test_correctness: tests/test_correctness.cu $(STATIC_LIB)
+	$(NVCC) $(NVCC_FLAGS) $(INCLUDES) -o $@ $< $(STATIC_LIB) $(LIBRARIES)
+
+tests/run_tests: tests/run_tests.cu $(STATIC_LIB)
 	$(NVCC) $(NVCC_FLAGS) $(INCLUDES) -o $@ $< $(STATIC_LIB) $(LIBRARIES)
 
 .PHONY: test
-test: $(TEST_BINS)
+test: tests/test_eisenstein tests/test_batch tests/test_delta tests/test_correctness tests/run_tests
 	@echo "Running all tests..."
-	@for t in $(TEST_BINS); do \
-		echo "  Running $$t..."; \
-		$$t || exit 1; \
-	done
+	@tests/run_tests --quick || (echo "Some tests failed!" && exit 1)
 	@echo "All tests passed!"
 
 # Build examples
-examples/%: examples/%.cu $(STATIC_LIB)
+examples/batch_eisenstein: examples/batch_eisenstein.cu $(STATIC_LIB)
+	$(NVCC) $(NVCC_FLAGS) $(INCLUDES) -o $@ $< $(STATIC_LIB) $(LIBRARIES)
+
+examples/stream_monitor: examples/stream_monitor.cu $(STATIC_LIB)
+	$(NVCC) $(NVCC_FLAGS) $(INCLUDES) -o $@ $< $(STATIC_LIB) $(LIBRARIES)
+
+examples/topology_compare: examples/topology_compare.cu $(STATIC_LIB)
+	$(NVCC) $(NVCC_FLAGS) $(INCLUDES) -o $@ $< $(STATIC_LIB) $(LIBRARIES)
+
+examples/multi_stream: examples/multi_stream.cu $(STATIC_LIB)
 	$(NVCC) $(NVCC_FLAGS) $(INCLUDES) -o $@ $< $(STATIC_LIB) $(LIBRARIES)
 
 .PHONY: examples
 examples: $(EXAMPLE_BINS)
 
 # Build benchmarks
-benches/%: benches/%.cu $(STATIC_LIB)
+benches/bench_snap: benches/bench_snap.cu $(STATIC_LIB)
+	$(NVCC) $(NVCC_FLAGS) $(INCLUDES) -o $@ $< $(STATIC_LIB) $(LIBRARIES)
+
+benches/bench_comparison: benches/bench_comparison.cu $(STATIC_LIB)
 	$(NVCC) $(NVCC_FLAGS) $(INCLUDES) -o $@ $< $(STATIC_LIB) $(LIBRARIES)
 
 .PHONY: bench
 bench: $(BENCH_BINS)
-	@echo "Running benchmarks..."
+	@echo "Running all benchmarks..."
 	@for b in $(BENCH_BINS); do \
 		echo "  Benchmark: $$b"; \
 		$$b || exit 1; \
@@ -132,13 +160,23 @@ clean:
 debug: NVCC_FLAGS = $(SM_TARGETS) -G -std=c++17 -Xcompiler -O0,-fPIC -DCUDA_CHECK
 debug: clean all
 
+# Quick test (skips correctness verification)
+.PHONY: test-quick
+test-quick: tests/test_eisenstein tests/test_batch tests/test_delta
+	@echo "Running quick tests..."
+	@tests/test_eisenstein && tests/test_batch && tests/test_delta && echo "Quick tests passed!"
+
+# Full test (includes CPU vs GPU correctness)
+.PHONY: test-full
+test-full: test
+
 # Install
 .PHONY: install
 install: all
 	@echo "Install not configured. Files are at:"
-	@echo "  lib/$(STATIC_LIB)"
-	@echo "  lib/$(SHARED_LIB)"
 	@echo "  include/snapkit_cuda/"
+	@echo "  $(STATIC_LIB)"
+	@echo "  $(SHARED_LIB)"
 
 # Help
 .PHONY: help

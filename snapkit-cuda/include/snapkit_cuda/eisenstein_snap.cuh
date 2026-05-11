@@ -46,55 +46,45 @@ void eisenstein_snap_point(
     int* out_b,
     float* out_delta
 ) {
-    /* ---- Step 1: Convert (x,y) to lattice coordinates ---- */
-    /* b = round(2y / √3)  — using PTX cvt.rni for hardware rounding */
-    float b_f = y * (2.0f * __frcp_rn(SNAPKIT_EISENSTEIN_SQRT3));
-    int b;
+    /* ---- Step 1: Initial rounding to get base candidate ---- */
+    /* b = round(2y / √3), a = round(x + y/√3) */
+    float inv_s3 = SNAPKIT_EISENSTEIN_INV_SQRT3;
+    float b_f = y * (2.0f * inv_s3);
+    float a_f = x + y * inv_s3;
 
-    /* PTX: cvt.rni.s32.f32 — round-to-nearest-even hardware instruction */
-    asm volatile("cvt.rni.s32.f32 %0, %1;" : "=r"(b) : "f"(b_f));
+    int b0 = __float2int_rn(b_f);
+    int a0 = __float2int_rn(a_f);
+    /* ---- Step 2: 3x3 Voronoi neighborhood search ----
+     * Direct rounding alone fails ~25% of the time because the Eisenstein
+     * norm u²-uv+v² is not separable. The true nearest neighbor is always
+     * within ±1 of the rounded point (proved in VORONOI_PROOF.md).
+     */
+    float sqrt3_half = SNAPKIT_EISENSTEIN_SQRT3 * 0.5f;
+    int best_a = a0, best_b = b0;
+    float best_d2 = 1e30f;
 
-    /* a = round(x + b/2) — using FMA for precision */
-    float a_f;
-    asm volatile("fma.rn.f32 %0, %1, %2, %3;"
-                 : "=f"(a_f)
-                 : "f"((float)b), "f"(0.5f), "f"(x));
+    #pragma unroll
+    for (int da = -1; da <= 1; da++) {
+        #pragma unroll
+        for (int db = -1; db <= 1; db++) {
+            int ca = a0 + da;
+            int cb = b0 + db;
+            float cx = __fmaf_rn(-0.5f, (float)cb, (float)ca);  /* a - b/2 */
+            float cy = (float)cb * sqrt3_half;                    /* b*√3/2 */
+            float dx = x - cx;
+            float dy = y - cy;
+            float d2 = __fmaf_rn(dx, dx, dy * dy);
+            if (d2 < best_d2) {
+                best_d2 = d2;
+                best_a = ca;
+                best_b = cb;
+            }
+        }
+    }
 
-    int a;
-    asm volatile("cvt.rni.s32.f32 %0, %1;" : "=r"(a) : "f"(a_f));
-
-    /* ---- Step 2: Compute snapped point coordinates ---- */
-    /* snap_x = a - b/2, snap_y = b * √3 / 2 */
-    float snap_x, snap_y;
-
-    /* snap_y = b * (√3/2) */
-    asm volatile("mul.f32 %0, %1, %2;"
-                 : "=f"(snap_y)
-                 : "f"((float)b), "f"(SNAPKIT_EISENSTEIN_SQRT3 * 0.5f));
-
-    /* snap_x = a - b/2 */
-    float half_b;
-    asm volatile("mul.f32 %0, %1, %2;"
-                 : "=f"(half_b)
-                 : "f"((float)b), "f"(0.5f));
-    snap_x = a - half_b;
-
-    /* ---- Step 3: Compute delta (distance from original) ---- */
-    float dx = x - snap_x;
-    float dy = y - snap_y;
-
-    /* delta = sqrt(dx² + dy²)  — using FMA for dx² and dy² */
-    float dx2, dy2;
-    asm volatile("fma.rn.f32 %0, %1, %1, %2;"
-                 : "=f"(dx2)
-                 : "f"(dx), "f"(0.0f));
-    asm volatile("fma.rn.f32 %0, %1, %1, %2;"
-                 : "=f"(dy2)
-                 : "f"(dy), "f"(0.0f));
-
-    *out_delta = sqrtf(dx2 + dy2);
-    *out_a = a;
-    *out_b = b;
+    *out_a = best_a;
+    *out_b = best_b;
+    *out_delta = sqrtf(best_d2);
 }
 
 /* ======================================================================
@@ -112,18 +102,38 @@ void eisenstein_snap_fast(
     int* out_b,
     float* out_delta
 ) {
-    int b = __float2int_rn(y * (2.0f / SNAPKIT_EISENSTEIN_SQRT3));
-    int a = __float2int_rn(x + b * 0.5f);
+    /* Initial rounding */
+    float inv_s3 = SNAPKIT_EISENSTEIN_INV_SQRT3;
+    int b0 = __float2int_rn(y * 2.0f * inv_s3);
+    int a0 = __float2int_rn(x + y * inv_s3);
 
-    float snap_x = __fmaf_rn(-0.5f, (float)b, (float)a);
-    float snap_y = (float)b * (SNAPKIT_EISENSTEIN_SQRT3 * 0.5f);
+    /* 3×3 Voronoi search (required — see VORONOI_PROOF.md) */
+    float sqrt3_half = SNAPKIT_EISENSTEIN_SQRT3 * 0.5f;
+    int best_a = a0, best_b = b0;
+    float best_d2 = 1e30f;
 
-    float dx = x - snap_x;
-    float dy = y - snap_y;
-    float dist2 = __fmaf_rn(dx, dx, dy * dy);
-    *out_delta = __fsqrt_rn(dist2);
-    *out_a = a;
-    *out_b = b;
+    #pragma unroll
+    for (int da = -1; da <= 1; da++) {
+        #pragma unroll
+        for (int db = -1; db <= 1; db++) {
+            int ca = a0 + da;
+            int cb = b0 + db;
+            float cx = __fmaf_rn(-0.5f, (float)cb, (float)ca);
+            float cy = (float)cb * sqrt3_half;
+            float dx = x - cx;
+            float dy = y - cy;
+            float d2 = __fmaf_rn(dx, dx, dy * dy);
+            if (d2 < best_d2) {
+                best_d2 = d2;
+                best_a = ca;
+                best_b = cb;
+            }
+        }
+    }
+
+    *out_a = best_a;
+    *out_b = best_b;
+    *out_delta = __fsqrt_rn(best_d2);
 }
 
 /* ======================================================================
