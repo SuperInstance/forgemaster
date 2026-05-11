@@ -129,7 +129,7 @@ class DetectNode(PipelineNode):
             from snapkit.delta import Delta, DeltaSeverity
             delta = Delta(
                 value=ctx.input_value,
-                expected=ctx.snap_result.baseline if ctx.snap_result else 0,
+                expected=ctx.get_metadata("baseline", 0.0),
                 magnitude=ctx.snap_result.delta if ctx.snap_result else 0,
                 tolerance=ctx.snap_result.tolerance if ctx.snap_result else 0.1,
                 severity=(

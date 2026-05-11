@@ -1,0 +1,106 @@
+{
+  "test_config": {
+    "quick": false,
+    "n_random": 5000000,
+    "seed": 42
+  },
+  "claims": {
+    "1": {
+      "claim": 1,
+      "description": "c1-c4 mutually exclusive except c1+c4 and c2+c3 at Voronoi vertices",
+      "c1c4": 167000,
+      "c2c3": 167000,
+      "c1c2": 0,
+      "c1c3": 0,
+      "c2c4": 0,
+      "c3c4": 0,
+      "triple": 0,
+      "all_expected": true,
+      "elapsed_seconds": 0.2
+    },
+    "2": {
+      "claim": 2,
+      "description": "Fixed algorithm matches brute force (tie-aware)",
+      "always_correct": true,
+      "dis_nontie": 0,
+      "dis_tie": 0,
+      "orig_err": 874922,
+      "orig_err_pct": 29.164066666666667,
+      "claim3_voronoi_vertex": {
+        "claim": 3,
+        "description": "Correct at Voronoi vertices (tie-aware)",
+        "vertex_always_correct": true,
+        "counterexamples": []
+      },
+      "elapsed_seconds": 35.9
+    },
+    "3": {
+      "claim": 3,
+      "skipped": true,
+      "description": "Merged with claim 2 for efficiency",
+      "elapsed_seconds": 0.0
+    },
+    "4": {
+      "claim": 4,
+      "description": "Max delta <= 0.577350",
+      "max_delta": 0.5773502691896258,
+      "covering_radius": 0.5773502691896258,
+      "exceeded": false,
+      "elapsed_seconds": 6.3
+    },
+    "5": {
+      "claim": 5,
+      "description": "~25% failure rate for direct round",
+      "failure_rate": 0.166266,
+      "n_total": 2000000,
+      "n_failures": 332532,
+      "max_improvement": 0.36559280613967704,
+      "failure_types": {
+        "(+1,+0)": 83682,
+        "(-1,+0)": 82642,
+        "(+0,+1)": 82976,
+        "(+0,-1)": 83232
+      },
+      "elapsed_seconds": 9.6
+    },
+    "6": {
+      "claim": 6,
+      "description": "15-20 FLOPs for optimal correction",
+      "cse_flops": 21,
+      "hot_path_flops": 15,
+      "cmp": 6,
+      "sqrt": 1,
+      "old_3x3_flops": 76,
+      "ratio": 3.6,
+      "elapsed_seconds": 0.0
+    },
+    "7": {
+      "claim": 7,
+      "description": "Near-zero warp divergence",
+      "correction_no_divergence": true,
+      "elapsed_seconds": 0.0
+    },
+    "8": {
+      "claim": 8,
+      "description": "sum(frac)>4 -> half coset",
+      "tested": 1000000,
+      "errors": 499910,
+      "threshold_correct": false,
+      "elapsed_seconds": 20.8
+    },
+    "9": {
+      "claim": 9,
+      "description": "a^2-ab+b^2 == a^2+b^2-ab",
+      "max_error_fp64": 4.656612873077393e-10,
+      "max_error_fp32": 0.25,
+      "elapsed_seconds": 0.4
+    },
+    "10": {
+      "claim": 10,
+      "description": "Eisenstein norm is positive semidefinite",
+      "max_relative_error": 9.313225746154785e-08,
+      "no_catastrophic_cancellation": true,
+      "elapsed_seconds": 0.0
+    }
+  }
+}
