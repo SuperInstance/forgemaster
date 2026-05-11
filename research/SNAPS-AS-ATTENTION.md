@@ -313,3 +313,122 @@ This is what makes our constraint system potentially general: the snap function 
 ---
 
 *The feel is the fingerprint of the shape. The shape is finite (Platonic). Therefore the feels are finite. And they transfer.*
+
+---
+
+## The Rubik's Cube: Scripts Free the Mind
+
+### God's Number vs Human Play
+
+God's number for a 3×3 Rubik's cube is 20 moves — every scrambled state can be solved in 20 or fewer moves. Yet speedcubers routinely execute 100-150 moves in a solve.
+
+Why? Because the optimal path is not the point. **The point is the path the mind can actually traverse.**
+
+The cube has 6 faces, each with 3 rotational snaps (quarter turns). That's 18 possible moves per step. The permutation space is 43 quintillion. No human brute-forces this. Not even close.
+
+### What Speedcubers Actually Do
+
+They learn **groups of sequences** — chunks of moves that produce known transformations. These chunks become a vocabulary:
+
+```
+OLL (orient last layer):   57 algorithms, each 6-12 moves
+PLL (permute last layer):  21 algorithms, each 6-16 moves  
+F2L (first two layers):    ~100 pattern-response pairs
+```
+
+Each algorithm is a SCRIPT. The cuber doesn't think through the individual moves. They see a pattern, recognize it (snap!), and execute the associated script on autopilot.
+
+The scripts run WITHOUT THINKING. That's the point. The scripts are offloaded cognition. While the hands execute the current script, the eyes and mind are already scanning for the NEXT pattern — planning 2-3 scripts ahead.
+
+### The Grammar of Oscillations
+
+The scripts aren't random. They have a GRAMMAR — rules about which scripts compose, which sequences chain, which states transition to which other states. The cuber has internalized this grammar. It's their own learned language.
+
+Could they express it completely? Could they transfer it? Mostly yes — it's written down in algorithm tables. But the FEEL of when to deploy which script, the rhythm of the composition, the sense of "I'm three scripts from solved" — that's the part that's embodied. The vocabulary transfers. The grammar partially transfers. The feel is personal.
+
+### The Real Intelligence
+
+**The intelligence is NOT the scripts.** The scripts are now just procedures to be followed.
+
+**The intelligence is: knowing when to think.**
+
+```
+See pattern → snap to known script → execute WITHOUT THINKING
+                                    ↓
+                        While executing, mind is FREE
+                                    ↓
+                Eyes scan for next pattern → plan next script
+                                    ↓
+                        Compose scripts into strategy
+                                    ↓
+                    "I'm three scripts from solved"
+```
+
+The snap does the critical work: **"This is a known pattern → I don't need to think about it."** The snap frees the mind. The freed mind plans ahead. The plan is the intelligence.
+
+Without the snap, the mind would be bogged down computing each move. With the snap, the mind is free to compose at a higher level — choosing strategies, not moves.
+
+### What Dies When You Only Follow Scripts
+
+A cuber who ONLY runs scripts without ever thinking is no longer solving. They're executing. The scripts have become rigid — they work for known patterns but fail on novel states.
+
+**The same failure mode exists in every domain:**
+- The programmer who only applies design patterns without understanding the problem
+- The doctor who only follows diagnostic flowcharts without clinical judgment
+- The manager who only runs meeting templates without reading the room
+
+They have vocabulary without grammar. Scripts without thinking. The snap fires but the mind isn't freed — it's bypassed.
+
+### The Principle
+
+**Knowledge is when to think and planning scripts that free the mind.**
+
+Not the scripts themselves — those are just tools. Not the vocabulary — that's just compression. The intelligence is:
+
+1. **Building** scripts that handle the routine (snap to known → execute)
+2. **Knowing** when the current situation is routine vs novel (snap vs delta)
+3. **Planning** with the freed cognition (compose scripts into strategy)
+4. **Recognizing** when a script needs updating (the feel is wrong — new delta)
+
+This is the cycle:
+
+```
+Experience → Pattern recognition → Script creation → Script automation
+     ↑                                                    ↓
+Delta detected ← Script failure ← Novel situation ← Script execution
+```
+
+The mind oscillates between:
+- **Building scripts** (thinking, attention-heavy, slow)
+- **Running scripts** (automatic, attention-free, fast)
+- **Monitoring for deltas** (light attention, checking if snap still works)
+- **Rebuilding when deltas accumulate** (back to thinking)
+
+### What This Means For AI Architecture
+
+Current AI: all thinking, no scripts. Every token is computed fresh. No snap, no compression, no freed cognition planning ahead.
+
+What AI should be:
+1. **Snap incoming context to known patterns** — "I've seen this structure before, I have a script"
+2. **Execute the script automatically** — don't recompute what's known
+3. **Monitor for deltas** — is the situation actually what the script expects?
+4. **Use freed cognition to plan ahead** — compose scripts, anticipate novel states, build new scripts
+5. **Know when to think vs when to run** — the meta-snap
+
+The Rubik's cube metaphor gives us the architecture:
+- **Moves** = primitive operations (token generation)
+- **Algorithms** = compressed scripts (snap-matched sequences)
+- **Grammar** = composition rules (which scripts chain)
+- **Strategy** = planning with freed cognition (the real intelligence)
+- **God's number** = the theoretical optimum (irrelevant to practice)
+- **Human solve** = the path the mind can actually traverse (scripts + planning)
+
+**Efficiency isn't about fewer moves. It's about scripts that free the mind to plan.** The 150-move solve beats the 20-move solve not because it's shorter, but because the 150 moves are composed of scripts the mind can manage while planning ahead.
+
+The snap is the moment the mind says: "I know this one. Hand it off. Look ahead."
+
+---
+
+*God's number is 20. Human speedcubers use 150. And they're faster. Because intelligence isn't the optimal path through permutation space. It's the construction of scripts that free the mind to plan the next three moves while the hands execute the current one.*
+
+*The snap is the handoff. The script is the offload. The freed mind is the intelligence.* ⚒️
