@@ -1,0 +1,1849 @@
+{
+  "format": "vms",
+  "version": "0.1.0",
+  "name": "robot_arm_pick_and_place",
+  "tempo_bpm": 60,
+  "lattice_divisions": 24,
+  "events": [
+    {
+      "beat": 0.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 20,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": 0.0,
+        "phase": "HOME",
+        "end_effector": [
+          0.95,
+          0.0,
+          0.3
+        ]
+      }
+    },
+    {
+      "beat": 1.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 20,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": 0.0,
+        "phase": "HOME",
+        "end_effector": [
+          0.95,
+          0.0,
+          0.3
+        ]
+      }
+    },
+    {
+      "beat": 2.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 20,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": 0.0,
+        "phase": "HOME",
+        "end_effector": [
+          0.95,
+          0.0,
+          0.3
+        ]
+      }
+    },
+    {
+      "beat": 3.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 20,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": 0.0,
+        "phase": "HOME",
+        "end_effector": [
+          0.95,
+          0.0,
+          0.3
+        ]
+      }
+    },
+    {
+      "beat": 4.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 20,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": 0.0,
+        "phase": "HOME",
+        "end_effector": [
+          0.95,
+          0.0,
+          0.3
+        ]
+      }
+    },
+    {
+      "beat": 5.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 20,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": 0.0,
+        "phase": "HOME",
+        "end_effector": [
+          0.95,
+          0.0,
+          0.3
+        ]
+      }
+    },
+    {
+      "beat": 6.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 20,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": 0.0,
+        "phase": "HOME",
+        "end_effector": [
+          0.95,
+          0.0,
+          0.3
+        ]
+      }
+    },
+    {
+      "beat": 7.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 20,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": 0.0,
+        "phase": "HOME",
+        "end_effector": [
+          0.95,
+          0.0,
+          0.3
+        ]
+      }
+    },
+    {
+      "beat": 4.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 20,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.02,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.9499,
+          0.0056,
+          0.2987
+        ]
+      }
+    },
+    {
+      "beat": 5.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 22,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.074,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.9491,
+          0.0211,
+          0.2952
+        ]
+      }
+    },
+    {
+      "beat": 6.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 26,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.156,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.9462,
+          0.0444,
+          0.2899
+        ]
+      }
+    },
+    {
+      "beat": 7.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.259,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.9394,
+          0.0732,
+          0.2832
+        ]
+      }
+    },
+    {
+      "beat": 8.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 35,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.376,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.9279,
+          0.1052,
+          0.2757
+        ]
+      }
+    },
+    {
+      "beat": 9.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.5,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.9111,
+          0.1377,
+          0.2678
+        ]
+      }
+    },
+    {
+      "beat": 10.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 44,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.624,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.8899,
+          0.1685,
+          0.26
+        ]
+      }
+    },
+    {
+      "beat": 11.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 49,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.741,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.8659,
+          0.1957,
+          0.2528
+        ]
+      }
+    },
+    {
+      "beat": 12.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 53,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.844,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.8418,
+          0.2177,
+          0.2465
+        ]
+      }
+    },
+    {
+      "beat": 13.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 57,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.926,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.8206,
+          0.234,
+          0.2416
+        ]
+      }
+    },
+    {
+      "beat": 14.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 59,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.98,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.8057,
+          0.244,
+          0.2384
+        ]
+      }
+    },
+    {
+      "beat": 15.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "APPROACH_PICK",
+        "end_effector": [
+          0.8002,
+          0.2475,
+          0.2373
+        ]
+      }
+    },
+    {
+      "beat": 10.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 59,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.979,
+        "phase": "LOWER_TO_PICK",
+        "end_effector": [
+          0.8068,
+          0.2496,
+          0.261
+        ]
+      }
+    },
+    {
+      "beat": 11.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 56,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.922,
+        "phase": "LOWER_TO_PICK",
+        "end_effector": [
+          0.8206,
+          0.2538,
+          0.3251
+        ]
+      }
+    },
+    {
+      "beat": 12.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 53,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.842,
+        "phase": "LOWER_TO_PICK",
+        "end_effector": [
+          0.8301,
+          0.2568,
+          0.4183
+        ]
+      }
+    },
+    {
+      "beat": 13.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 50,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.75,
+        "phase": "LOWER_TO_PICK",
+        "end_effector": [
+          0.8263,
+          0.2556,
+          0.527
+        ]
+      }
+    },
+    {
+      "beat": 14.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 46,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.658,
+        "phase": "LOWER_TO_PICK",
+        "end_effector": [
+          0.8068,
+          0.2496,
+          0.6349
+        ]
+      }
+    },
+    {
+      "beat": 15.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 43,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.578,
+        "phase": "LOWER_TO_PICK",
+        "end_effector": [
+          0.7771,
+          0.2404,
+          0.7262
+        ]
+      }
+    },
+    {
+      "beat": 16.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.521,
+        "phase": "LOWER_TO_PICK",
+        "end_effector": [
+          0.7492,
+          0.2318,
+          0.7881
+        ]
+      }
+    },
+    {
+      "beat": 17.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.5,
+        "phase": "LOWER_TO_PICK",
+        "end_effector": [
+          0.7372,
+          0.228,
+          0.8109
+        ]
+      }
+    },
+    {
+      "beat": 14.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.5,
+        "phase": "GRASP",
+        "end_effector": [
+          0.7372,
+          0.228,
+          0.8109
+        ]
+      }
+    },
+    {
+      "beat": 15.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.5,
+        "phase": "GRASP",
+        "end_effector": [
+          0.7372,
+          0.228,
+          0.8109
+        ]
+      }
+    },
+    {
+      "beat": 16.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.5,
+        "phase": "GRASP",
+        "end_effector": [
+          0.7372,
+          0.228,
+          0.8109
+        ]
+      }
+    },
+    {
+      "beat": 17.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.5,
+        "phase": "GRASP",
+        "end_effector": [
+          0.7372,
+          0.228,
+          0.8109
+        ]
+      }
+    },
+    {
+      "beat": 16.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.521,
+        "phase": "LIFT",
+        "end_effector": [
+          0.7492,
+          0.2318,
+          0.7881
+        ]
+      }
+    },
+    {
+      "beat": 17.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 43,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.578,
+        "phase": "LIFT",
+        "end_effector": [
+          0.7771,
+          0.2404,
+          0.7262
+        ]
+      }
+    },
+    {
+      "beat": 18.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 46,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.658,
+        "phase": "LIFT",
+        "end_effector": [
+          0.8068,
+          0.2496,
+          0.6349
+        ]
+      }
+    },
+    {
+      "beat": 19.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 50,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.75,
+        "phase": "LIFT",
+        "end_effector": [
+          0.8263,
+          0.2556,
+          0.527
+        ]
+      }
+    },
+    {
+      "beat": 20.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 53,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.842,
+        "phase": "LIFT",
+        "end_effector": [
+          0.8301,
+          0.2568,
+          0.4183
+        ]
+      }
+    },
+    {
+      "beat": 21.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 56,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.922,
+        "phase": "LIFT",
+        "end_effector": [
+          0.8206,
+          0.2538,
+          0.3251
+        ]
+      }
+    },
+    {
+      "beat": 22.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 59,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.979,
+        "phase": "LIFT",
+        "end_effector": [
+          0.8068,
+          0.2496,
+          0.261
+        ]
+      }
+    },
+    {
+      "beat": 23.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "LIFT",
+        "end_effector": [
+          0.8002,
+          0.2475,
+          0.2373
+        ]
+      }
+    },
+    {
+      "beat": 20.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8018,
+          0.2421,
+          0.2371
+        ]
+      }
+    },
+    {
+      "beat": 21.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.806,
+          0.2267,
+          0.2365
+        ]
+      }
+    },
+    {
+      "beat": 22.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8121,
+          0.2027,
+          0.2355
+        ]
+      }
+    },
+    {
+      "beat": 23.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8188,
+          0.1713,
+          0.2343
+        ]
+      }
+    },
+    {
+      "beat": 24.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8252,
+          0.1339,
+          0.2329
+        ]
+      }
+    },
+    {
+      "beat": 25.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8303,
+          0.0918,
+          0.2314
+        ]
+      }
+    },
+    {
+      "beat": 26.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8333,
+          0.0467,
+          0.2297
+        ]
+      }
+    },
+    {
+      "beat": 27.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8337,
+          0.0,
+          0.2281
+        ]
+      }
+    },
+    {
+      "beat": 28.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8315,
+          -0.0466,
+          0.2265
+        ]
+      }
+    },
+    {
+      "beat": 29.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8268,
+          -0.0914,
+          0.2249
+        ]
+      }
+    },
+    {
+      "beat": 30.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8202,
+          -0.1331,
+          0.2235
+        ]
+      }
+    },
+    {
+      "beat": 31.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8124,
+          -0.17,
+          0.2223
+        ]
+      }
+    },
+    {
+      "beat": 32.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.8045,
+          -0.2008,
+          0.2213
+        ]
+      }
+    },
+    {
+      "beat": 33.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.7977,
+          -0.2244,
+          0.2205
+        ]
+      }
+    },
+    {
+      "beat": 34.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.7929,
+          -0.2394,
+          0.22
+        ]
+      }
+    },
+    {
+      "beat": 35.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 60,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -1.0,
+        "phase": "MOVE_TO_PLACE",
+        "end_effector": [
+          0.7911,
+          -0.2447,
+          0.2198
+        ]
+      }
+    },
+    {
+      "beat": 28.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 59,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.979,
+        "phase": "LOWER_TO_PLACE",
+        "end_effector": [
+          0.7985,
+          -0.247,
+          0.2432
+        ]
+      }
+    },
+    {
+      "beat": 29.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 56,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.922,
+        "phase": "LOWER_TO_PLACE",
+        "end_effector": [
+          0.8144,
+          -0.2519,
+          0.3063
+        ]
+      }
+    },
+    {
+      "beat": 30.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 53,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.842,
+        "phase": "LOWER_TO_PLACE",
+        "end_effector": [
+          0.8272,
+          -0.2559,
+          0.3987
+        ]
+      }
+    },
+    {
+      "beat": 31.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 50,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.75,
+        "phase": "LOWER_TO_PLACE",
+        "end_effector": [
+          0.8273,
+          -0.2559,
+          0.5072
+        ]
+      }
+    },
+    {
+      "beat": 32.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 46,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.658,
+        "phase": "LOWER_TO_PLACE",
+        "end_effector": [
+          0.8115,
+          -0.251,
+          0.6156
+        ]
+      }
+    },
+    {
+      "beat": 33.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 43,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.578,
+        "phase": "LOWER_TO_PLACE",
+        "end_effector": [
+          0.7849,
+          -0.2428,
+          0.7081
+        ]
+      }
+    },
+    {
+      "beat": 34.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.521,
+        "phase": "LOWER_TO_PLACE",
+        "end_effector": [
+          0.7592,
+          -0.2348,
+          0.7712
+        ]
+      }
+    },
+    {
+      "beat": 35.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.5,
+        "phase": "LOWER_TO_PLACE",
+        "end_effector": [
+          0.7479,
+          -0.2314,
+          0.7945
+        ]
+      }
+    },
+    {
+      "beat": 32.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.5,
+        "phase": "RELEASE",
+        "end_effector": [
+          0.7479,
+          -0.2314,
+          0.7945
+        ]
+      }
+    },
+    {
+      "beat": 33.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.5,
+        "phase": "RELEASE",
+        "end_effector": [
+          0.7479,
+          -0.2314,
+          0.7945
+        ]
+      }
+    },
+    {
+      "beat": 34.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.5,
+        "phase": "RELEASE",
+        "end_effector": [
+          0.7479,
+          -0.2314,
+          0.7945
+        ]
+      }
+    },
+    {
+      "beat": 35.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 40,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.5,
+        "phase": "RELEASE",
+        "end_effector": [
+          0.7479,
+          -0.2314,
+          0.7945
+        ]
+      }
+    },
+    {
+      "beat": 34.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 39,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.49,
+        "phase": "RETURN",
+        "end_effector": [
+          0.7553,
+          -0.2288,
+          0.7863
+        ]
+      }
+    },
+    {
+      "beat": 35.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 38,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.463,
+        "phase": "RETURN",
+        "end_effector": [
+          0.7749,
+          -0.221,
+          0.7631
+        ]
+      }
+    },
+    {
+      "beat": 36.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 36,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.422,
+        "phase": "RETURN",
+        "end_effector": [
+          0.8031,
+          -0.2077,
+          0.7269
+        ]
+      }
+    },
+    {
+      "beat": 37.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 34,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.37,
+        "phase": "RETURN",
+        "end_effector": [
+          0.8354,
+          -0.1888,
+          0.6796
+        ]
+      }
+    },
+    {
+      "beat": 38.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 32,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.312,
+        "phase": "RETURN",
+        "end_effector": [
+          0.8677,
+          -0.1643,
+          0.6238
+        ]
+      }
+    },
+    {
+      "beat": 39.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 30,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.25,
+        "phase": "RETURN",
+        "end_effector": [
+          0.8966,
+          -0.1355,
+          0.5623
+        ]
+      }
+    },
+    {
+      "beat": 40.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 27,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.188,
+        "phase": "RETURN",
+        "end_effector": [
+          0.9195,
+          -0.1042,
+          0.499
+        ]
+      }
+    },
+    {
+      "beat": 41.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 25,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.13,
+        "phase": "RETURN",
+        "end_effector": [
+          0.9355,
+          -0.0729,
+          0.438
+        ]
+      }
+    },
+    {
+      "beat": 42.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 23,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.078,
+        "phase": "RETURN",
+        "end_effector": [
+          0.9447,
+          -0.0443,
+          0.3834
+        ]
+      }
+    },
+    {
+      "beat": 43.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 21,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.037,
+        "phase": "RETURN",
+        "end_effector": [
+          0.9488,
+          -0.0211,
+          0.3396
+        ]
+      }
+    },
+    {
+      "beat": 44.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 20,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": -0.01,
+        "phase": "RETURN",
+        "end_effector": [
+          0.9499,
+          -0.0056,
+          0.3105
+        ]
+      }
+    },
+    {
+      "beat": 45.0,
+      "scene_type": 64,
+      "duration_beats": 0.5,
+      "velocity": 20,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "joint": "elbow",
+        "angle": 0.0,
+        "phase": "RETURN",
+        "end_effector": [
+          0.95,
+          0.0,
+          0.3
+        ]
+      }
+    }
+  ]
+}

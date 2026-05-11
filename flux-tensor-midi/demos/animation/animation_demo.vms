@@ -1,0 +1,383 @@
+{
+  "format": "vms",
+  "version": "0.1.0",
+  "name": "logo_reveal",
+  "tempo_bpm": 72,
+  "lattice_divisions": 12,
+  "events": [
+    {
+      "beat": 0,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 0,
+      "channel": 1,
+      "meta": {
+        "property": "pos_x",
+        "value": -1.5
+      }
+    },
+    {
+      "beat": 4,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 100,
+      "channel": 1,
+      "meta": {
+        "property": "pos_x",
+        "value": 0.0
+      }
+    },
+    {
+      "beat": 16,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 40,
+      "channel": 1,
+      "meta": {
+        "property": "pos_x",
+        "value": 0.0
+      }
+    },
+    {
+      "beat": 18,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 60,
+      "channel": 1,
+      "meta": {
+        "property": "pos_x",
+        "value": 0.3
+      }
+    },
+    {
+      "beat": 0,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 0,
+      "channel": 2,
+      "meta": {
+        "property": "pos_y",
+        "value": 0.3
+      }
+    },
+    {
+      "beat": 4,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 80,
+      "channel": 2,
+      "meta": {
+        "property": "pos_y",
+        "value": 0.0
+      }
+    },
+    {
+      "beat": 8,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 40,
+      "channel": 2,
+      "meta": {
+        "property": "pos_y",
+        "value": -0.1
+      }
+    },
+    {
+      "beat": 10,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 60,
+      "channel": 2,
+      "meta": {
+        "property": "pos_y",
+        "value": 0.0
+      }
+    },
+    {
+      "beat": 16,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 30,
+      "channel": 2,
+      "meta": {
+        "property": "pos_y",
+        "value": 0.0
+      }
+    },
+    {
+      "beat": 18,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 50,
+      "channel": 2,
+      "meta": {
+        "property": "pos_y",
+        "value": -0.05
+      }
+    },
+    {
+      "beat": 0,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 0,
+      "channel": 3,
+      "meta": {
+        "property": "rotation",
+        "value": -6.283185307179586
+      }
+    },
+    {
+      "beat": 4,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 100,
+      "channel": 3,
+      "meta": {
+        "property": "rotation",
+        "value": 0
+      }
+    },
+    {
+      "beat": 12,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 30,
+      "channel": 3,
+      "meta": {
+        "property": "rotation",
+        "value": 0.2617993877991494
+      }
+    },
+    {
+      "beat": 16,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 40,
+      "channel": 3,
+      "meta": {
+        "property": "rotation",
+        "value": 0
+      }
+    },
+    {
+      "beat": 18,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 50,
+      "channel": 3,
+      "meta": {
+        "property": "rotation",
+        "value": 0.1308996938995747
+      }
+    },
+    {
+      "beat": 0,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 0,
+      "channel": 4,
+      "meta": {
+        "property": "scale",
+        "value": 0.0
+      }
+    },
+    {
+      "beat": 2,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 60,
+      "channel": 4,
+      "meta": {
+        "property": "scale",
+        "value": 0.3
+      }
+    },
+    {
+      "beat": 4,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 100,
+      "channel": 4,
+      "meta": {
+        "property": "scale",
+        "value": 1.2
+      }
+    },
+    {
+      "beat": 6,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 80,
+      "channel": 4,
+      "meta": {
+        "property": "scale",
+        "value": 0.95
+      }
+    },
+    {
+      "beat": 8,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 60,
+      "channel": 4,
+      "meta": {
+        "property": "scale",
+        "value": 1.0
+      }
+    },
+    {
+      "beat": 12,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 30,
+      "channel": 4,
+      "meta": {
+        "property": "scale",
+        "value": 1.05
+      }
+    },
+    {
+      "beat": 16,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 40,
+      "channel": 4,
+      "meta": {
+        "property": "scale",
+        "value": 1.0
+      }
+    },
+    {
+      "beat": 18,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 50,
+      "channel": 4,
+      "meta": {
+        "property": "scale",
+        "value": 1.02
+      }
+    },
+    {
+      "beat": 0,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 0,
+      "channel": 5,
+      "meta": {
+        "property": "opacity",
+        "value": 0.0
+      }
+    },
+    {
+      "beat": 2,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 60,
+      "channel": 5,
+      "meta": {
+        "property": "opacity",
+        "value": 0.3
+      }
+    },
+    {
+      "beat": 4,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 100,
+      "channel": 5,
+      "meta": {
+        "property": "opacity",
+        "value": 1.0
+      }
+    },
+    {
+      "beat": 16,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 30,
+      "channel": 5,
+      "meta": {
+        "property": "opacity",
+        "value": 1.0
+      }
+    },
+    {
+      "beat": 18,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 50,
+      "channel": 5,
+      "meta": {
+        "property": "opacity",
+        "value": 0.8
+      }
+    },
+    {
+      "beat": 0,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 0,
+      "channel": 6,
+      "meta": {
+        "property": "color_hue",
+        "value": 0.6
+      }
+    },
+    {
+      "beat": 4,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 80,
+      "channel": 6,
+      "meta": {
+        "property": "color_hue",
+        "value": 0.55
+      }
+    },
+    {
+      "beat": 8,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 60,
+      "channel": 6,
+      "meta": {
+        "property": "color_hue",
+        "value": 0.45
+      }
+    },
+    {
+      "beat": 12,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 40,
+      "channel": 6,
+      "meta": {
+        "property": "color_hue",
+        "value": 0.35
+      }
+    },
+    {
+      "beat": 16,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 50,
+      "channel": 6,
+      "meta": {
+        "property": "color_hue",
+        "value": 0.6
+      }
+    },
+    {
+      "beat": 18,
+      "scene_type": 69,
+      "duration_beats": 0.1,
+      "velocity": 60,
+      "channel": 6,
+      "meta": {
+        "property": "color_hue",
+        "value": 0.55
+      }
+    }
+  ]
+}
