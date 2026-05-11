@@ -1,0 +1,28 @@
+[workspace]
+
+[package]
+name = "flux-tensor-midi"
+version = "0.1.0"
+edition = "2021"
+description = "PLATO rooms as musicians with T-0 clocks, Eisenstein rhythmic snap, and side-channel communication"
+authors = ["Forgemaster <forgemaster@cocapn.fleet>"]
+license = "MIT"
+repository = "https://github.com/SuperInstance/flux-tensor-midi"
+keywords = ["midi", "flux", "rhythm", "eisenstein", "plato"]
+categories = ["multimedia::audio", "science::mathematics"]
+
+[dependencies]
+serde = { version = "1", optional = true, features = ["derive"] }
+
+[features]
+default = []
+serde = ["dep:serde"]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+
+[lib]
+name = "flux_tensor_midi"
+path = "src/lib.rs"

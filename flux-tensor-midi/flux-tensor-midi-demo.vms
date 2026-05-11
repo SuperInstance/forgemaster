@@ -1,0 +1,260 @@
+{
+  "format": "vms",
+  "version": "0.1.0",
+  "name": "flux-tensor-midi-demo",
+  "tempo_bpm": 72.0,
+  "lattice_divisions": 12,
+  "events": [
+    {
+      "beat": 0.0,
+      "scene_type": 60,
+      "duration_beats": 4,
+      "velocity": 100,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "name": "Hero product shot",
+        "description": "FLUX-Tensor-MIDI logo reveal"
+      }
+    },
+    {
+      "beat": 0.0,
+      "scene_type": 69,
+      "duration_beats": 16,
+      "velocity": 30,
+      "channel": 3,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "name": "Music bed",
+        "type": "ambient_electronic"
+      }
+    },
+    {
+      "beat": 0.5,
+      "scene_type": 78,
+      "duration_beats": 3,
+      "velocity": 70,
+      "channel": 2,
+      "text_content": "FLUX-Tensor-MIDI",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": ""
+    },
+    {
+      "beat": 4.0,
+      "scene_type": 64,
+      "duration_beats": 8,
+      "velocity": 80,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "name": "Room musician demo",
+        "description": "Rooms snapping to each other"
+      }
+    },
+    {
+      "beat": 4.0,
+      "scene_type": 69,
+      "duration_beats": 8,
+      "velocity": 60,
+      "channel": 5,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "push_in",
+      "motion_intensity": 0.6,
+      "color_mood": "",
+      "effect_type": ""
+    },
+    {
+      "beat": 5.0,
+      "scene_type": 78,
+      "duration_beats": 6,
+      "velocity": 40,
+      "channel": 2,
+      "text_content": "Rooms snap to Eisenstein lattice",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": ""
+    },
+    {
+      "beat": 9.0,
+      "scene_type": 42,
+      "duration_beats": 0.5,
+      "velocity": 10,
+      "channel": 8,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "nod",
+        "from": "visual",
+        "to": "text",
+        "meaning": "ready_for_next"
+      }
+    },
+    {
+      "beat": 12.0,
+      "scene_type": 72,
+      "duration_beats": 4,
+      "velocity": 50,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "name": "Harmony visualization",
+        "description": "Temporal connectome rendering"
+      }
+    },
+    {
+      "beat": 12.0,
+      "scene_type": 69,
+      "duration_beats": 4,
+      "velocity": 60,
+      "channel": 4,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "warm_confident",
+      "effect_type": ""
+    },
+    {
+      "beat": 12.0,
+      "scene_type": 78,
+      "duration_beats": 3,
+      "velocity": 40,
+      "channel": 2,
+      "text_content": "33-37% fleet harmony",
+      "text_position": "lower_third",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": ""
+    },
+    {
+      "beat": 14.0,
+      "scene_type": 69,
+      "duration_beats": 2,
+      "velocity": 80,
+      "channel": 3,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "name": "Crescendo",
+        "volume_start": 30,
+        "volume_end": 90
+      }
+    },
+    {
+      "beat": 16.0,
+      "scene_type": 96,
+      "duration_beats": 3,
+      "velocity": 127,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "name": "CTA",
+        "description": "Get started with FLUX-Tensor-MIDI"
+      }
+    },
+    {
+      "beat": 16.0,
+      "scene_type": 78,
+      "duration_beats": 3,
+      "velocity": 100,
+      "channel": 2,
+      "text_content": "github.com/SuperInstance/flux-tensor-midi",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": ""
+    },
+    {
+      "beat": 19.0,
+      "scene_type": 60,
+      "duration_beats": 2,
+      "velocity": 30,
+      "channel": 1,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "name": "Fermata",
+        "description": "Hold. Let it breathe."
+      }
+    },
+    {
+      "beat": 20.0,
+      "scene_type": 42,
+      "duration_beats": 0.1,
+      "velocity": 10,
+      "channel": 8,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "smile",
+        "meaning": "good_take"
+      }
+    },
+    {
+      "beat": 21.0,
+      "scene_type": 42,
+      "duration_beats": 0.5,
+      "velocity": 1,
+      "channel": 8,
+      "text_content": "",
+      "text_position": "center",
+      "motion_type": "",
+      "motion_intensity": 0.5,
+      "color_mood": "",
+      "effect_type": "",
+      "meta": {
+        "type": "breath",
+        "meaning": "end"
+      }
+    }
+  ]
+}
