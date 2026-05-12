@@ -350,10 +350,13 @@ impl Zeitgeist {
     /// CRDT merge — commutative, associative, idempotent
     pub fn merge(&mut self, other: &Zeitgeist) {
         // Precision: narrowest funnel wins (most precise)
-        if other.precision.width < self.precision.width {
-            self.precision = other.precision.clone();
-        }
+        // Accumulate samples first, then adopt narrower funnel
         self.precision.samples += other.precision.samples;
+        if other.precision.width < self.precision.width {
+            self.precision.width = other.precision.width;
+            self.precision.center = other.precision.center;
+            self.precision.converged = other.precision.converged;
+        }
 
         // Confidence: bloom filter OR (CRDT)
         self.confidence.merge(&other.confidence);

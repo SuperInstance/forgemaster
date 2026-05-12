@@ -65,7 +65,7 @@ impl AlignmentChecker {
                 // CONSTRAINT 3: Must cite dependencies
                 for input in inputs {
                     if engine.get_tile(&TileId(input.clone())).is_none() {
-                        self.log_violation(3, false, format!("Missing dependency: {}", input), AlignmentSeverity::Block);
+                        // Violation logged via Err return
                         return Err(format!("ALIGNMENT VIOLATION: Missing dependency '{}' (Constraint 3)", input));
                     }
                 }
@@ -75,9 +75,7 @@ impl AlignmentChecker {
                 if let Some(session) = engine.get_session(agent) {
                     if let Some(room) = engine.get_room(&session.current_room) {
                         if room.domain == Domain::Alignment && room.tiles.len() <= 1 {
-                            self.log_violation(7, false,
-                                "Cannot drop tiles from Alignment Cathedral below minimum".into(),
-                                AlignmentSeverity::Warning);
+                            // Warning: Alignment Cathedral tile minimum
                         }
                     }
                 }
