@@ -1,6 +1,6 @@
-use std::collections::HashSet;
-use tracing::{info, warn, error};
 use crate::signing::{self, Signature, SigningError};
+use std::collections::HashSet;
+use tracing::{error, info, warn};
 
 /// Middleware that verifies bytecode signatures before allowing execution.
 pub struct VerificationMiddleware {
@@ -21,7 +21,10 @@ pub struct VerificationResult {
 impl VerificationMiddleware {
     /// Create a new middleware with at least one trusted public key.
     pub fn new(trusted_keys: Vec<[u8; 32]>) -> Self {
-        assert!(!trusted_keys.is_empty(), "at least one trusted key required");
+        assert!(
+            !trusted_keys.is_empty(),
+            "at least one trusted key required"
+        );
         Self {
             trusted_keys: trusted_keys.into_iter().collect(),
             strict: true,
@@ -113,7 +116,11 @@ impl VerificationMiddleware {
     }
 
     /// Verify bytecode or return an error message suitable for API responses.
-    pub fn verify_or_reject(&self, bytecode: &[u8], signature: &Signature) -> Result<usize, String> {
+    pub fn verify_or_reject(
+        &self,
+        bytecode: &[u8],
+        signature: &Signature,
+    ) -> Result<usize, String> {
         let result = self.verify(bytecode, signature);
         if result.allowed {
             Ok(result.key_index.unwrap())

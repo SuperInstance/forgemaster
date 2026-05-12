@@ -74,10 +74,19 @@ fn test_sonar_trace_has_physics() {
 
     let opcodes: Vec<&str> = trace.iter().map(|e| e.opcode.as_str()).collect();
     assert!(opcodes.contains(&"LOAD"), "trace should have LOAD ops");
-    assert!(opcodes.contains(&"SONAR_SVP"), "trace should have SONAR_SVP");
-    assert!(opcodes.contains(&"SONAR_ABSORPTION"), "trace should have SONAR_ABSORPTION");
+    assert!(
+        opcodes.contains(&"SONAR_SVP"),
+        "trace should have SONAR_SVP"
+    );
+    assert!(
+        opcodes.contains(&"SONAR_ABSORPTION"),
+        "trace should have SONAR_ABSORPTION"
+    );
     assert!(opcodes.contains(&"SONAR_TL"), "trace should have SONAR_TL");
-    assert!(opcodes.contains(&"ASSERT_GT"), "trace should have ASSERT_GT");
+    assert!(
+        opcodes.contains(&"ASSERT_GT"),
+        "trace should have ASSERT_GT"
+    );
 }
 
 #[test]
@@ -93,9 +102,16 @@ fn test_sonar_mackenzie_velocity() {
     let trace = vm.execute(&bytecodes);
 
     // Find the SVP entry and check the result is reasonable
-    let svp = trace.iter().find(|e| e.opcode == "SONAR_SVP").expect("should have SVP");
+    let svp = trace
+        .iter()
+        .find(|e| e.opcode == "SONAR_SVP")
+        .expect("should have SVP");
     let sv = svp.result.unwrap();
-    assert!(sv > 1450.0 && sv < 1550.0, "Sound velocity {} should be ~1480-1520", sv);
+    assert!(
+        sv > 1450.0 && sv < 1550.0,
+        "Sound velocity {} should be ~1480-1520",
+        sv
+    );
 }
 
 // ── Thermal Domain Tests ──

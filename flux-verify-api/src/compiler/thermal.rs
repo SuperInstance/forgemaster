@@ -19,17 +19,34 @@ pub fn parse(claim: &str) -> Result<ConstraintProblem, String> {
     Ok(ConstraintProblem {
         domain: "thermal".into(),
         variables: vec![
-            super::Variable { name: "temp_c".into(), value: temp_c, desc: "temperature (°C)".into() },
-            super::Variable { name: "min_safe".into(), value: min_safe, desc: "minimum safe temp (°C)".into() },
-            super::Variable { name: "max_safe".into(), value: max_safe, desc: "maximum safe temp (°C)".into() },
+            super::Variable {
+                name: "temp_c".into(),
+                value: temp_c,
+                desc: "temperature (°C)".into(),
+            },
+            super::Variable {
+                name: "min_safe".into(),
+                value: min_safe,
+                desc: "minimum safe temp (°C)".into(),
+            },
+            super::Variable {
+                name: "max_safe".into(),
+                value: max_safe,
+                desc: "maximum safe temp (°C)".into(),
+            },
         ],
-        constraints: vec![
-            super::Constraint::ThermalBound { temp_c, min_safe, max_safe },
-        ],
+        constraints: vec![super::Constraint::ThermalBound {
+            temp_c,
+            min_safe,
+            max_safe,
+        }],
         assertion: super::Assertion {
             assertion_type: "in_range".into(),
             expected: 0.0,
-            actual_expr: format!("temperature {}°C within [{}, {}]", temp_c, min_safe, max_safe),
+            actual_expr: format!(
+                "temperature {}°C within [{}, {}]",
+                temp_c, min_safe, max_safe
+            ),
         },
     })
 }

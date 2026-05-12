@@ -7,8 +7,8 @@ extern crate alloc;
 use alloc::collections::VecDeque;
 use alloc::string::String;
 
-use crate::types::{FluxTransference, TransportConfig};
 use crate::transport::{Result, Transport, TransportError};
+use crate::types::{FluxTransference, TransportConfig};
 
 /// Shared memory transport — uses an in-process queue
 pub struct MemoryTransport {
@@ -16,6 +16,12 @@ pub struct MemoryTransport {
     inbox: VecDeque<FluxTransference>,
     // In a real implementation, this would use shared memory segments
     // or Unix domain sockets for multi-process communication
+}
+
+impl Default for MemoryTransport {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl MemoryTransport {
@@ -38,7 +44,7 @@ impl Transport for MemoryTransport {
         Ok(())
     }
 
-    fn send_flux(&mut self, flux: &FluxTransference) -> Result<()> {
+    fn send_flux(&mut self, _flux: &FluxTransference) -> Result<()> {
         if !self.connected {
             return Err(TransportError::NotConnected);
         }
@@ -51,8 +57,11 @@ impl Transport for MemoryTransport {
         if !self.connected {
             return Err(TransportError::NotConnected);
         }
-        self.inbox.pop_front()
-            .ok_or(TransportError::ReceiveFailed(String::from("No pending flux")))
+        self.inbox
+            .pop_front()
+            .ok_or(TransportError::ReceiveFailed(String::from(
+                "No pending flux",
+            )))
     }
 
     fn disconnect(&mut self) -> Result<()> {
@@ -72,8 +81,8 @@ impl Transport for MemoryTransport {
 
 #[cfg(feature = "std")]
 pub mod tcp {
-    use crate::types::{FluxTransference, TransportConfig};
     use crate::transport::{Result, Transport, TransportError};
+    use crate::types::{FluxTransference, TransportConfig};
 
     /// TCP transport adapter (enterprise, LAN)
     pub struct TcpTransport {
@@ -82,9 +91,19 @@ pub mod tcp {
         port: u16,
     }
 
+    impl Default for TcpTransport {
+        fn default() -> Self {
+            Self::new()
+        }
+    }
+
     impl TcpTransport {
         pub fn new() -> Self {
-            Self { connected: false, address: String::new(), port: 0 }
+            Self {
+                connected: false,
+                address: String::new(),
+                port: 0,
+            }
         }
     }
 
@@ -98,14 +117,20 @@ pub mod tcp {
         }
 
         fn send_flux(&mut self, _flux: &FluxTransference) -> Result<()> {
-            if !self.connected { return Err(TransportError::NotConnected); }
+            if !self.connected {
+                return Err(TransportError::NotConnected);
+            }
             // In a real implementation: serialize and write to TcpStream
             Ok(())
         }
 
         fn recv_flux(&mut self) -> Result<FluxTransference> {
-            if !self.connected { return Err(TransportError::NotConnected); }
-            Err(TransportError::ReceiveFailed("TCP recv not yet implemented".into()))
+            if !self.connected {
+                return Err(TransportError::NotConnected);
+            }
+            Err(TransportError::ReceiveFailed(
+                "TCP recv not yet implemented".into(),
+            ))
         }
 
         fn disconnect(&mut self) -> Result<()> {
@@ -113,22 +138,32 @@ pub mod tcp {
             Ok(())
         }
 
-        fn is_connected(&self) -> bool { self.connected }
+        fn is_connected(&self) -> bool {
+            self.connected
+        }
     }
 }
 
 #[cfg(feature = "std")]
 pub mod websocket {
-    use crate::types::{FluxTransference, TransportConfig};
     use crate::transport::{Result, Transport, TransportError};
+    use crate::types::{FluxTransference, TransportConfig};
 
     /// WebSocket transport adapter (browser dashboard)
     pub struct WebSocketTransport {
         connected: bool,
     }
 
+    impl Default for WebSocketTransport {
+        fn default() -> Self {
+            Self::new()
+        }
+    }
+
     impl WebSocketTransport {
-        pub fn new() -> Self { Self { connected: false } }
+        pub fn new() -> Self {
+            Self { connected: false }
+        }
     }
 
     impl Transport for WebSocketTransport {
@@ -137,22 +172,33 @@ pub mod websocket {
             Ok(())
         }
         fn send_flux(&mut self, _flux: &FluxTransference) -> Result<()> {
-            if !self.connected { return Err(TransportError::NotConnected); }
+            if !self.connected {
+                return Err(TransportError::NotConnected);
+            }
             Ok(())
         }
         fn recv_flux(&mut self) -> Result<FluxTransference> {
-            if !self.connected { return Err(TransportError::NotConnected); }
-            Err(TransportError::ReceiveFailed("WebSocket recv not yet implemented".into()))
+            if !self.connected {
+                return Err(TransportError::NotConnected);
+            }
+            Err(TransportError::ReceiveFailed(
+                "WebSocket recv not yet implemented".into(),
+            ))
         }
-        fn disconnect(&mut self) -> Result<()> { self.connected = false; Ok(()) }
-        fn is_connected(&self) -> bool { self.connected }
+        fn disconnect(&mut self) -> Result<()> {
+            self.connected = false;
+            Ok(())
+        }
+        fn is_connected(&self) -> bool {
+            self.connected
+        }
     }
 }
 
 #[cfg(feature = "std")]
 pub mod mqtt {
-    use crate::types::{FluxTransference, TransportConfig};
     use crate::transport::{Result, Transport, TransportError};
+    use crate::types::{FluxTransference, TransportConfig};
 
     /// MQTT transport adapter (IoT, cloud)
     pub struct MqttTransport {
@@ -160,8 +206,19 @@ pub mod mqtt {
         topic: String,
     }
 
+    impl Default for MqttTransport {
+        fn default() -> Self {
+            Self::new()
+        }
+    }
+
     impl MqttTransport {
-        pub fn new() -> Self { Self { connected: false, topic: String::new() } }
+        pub fn new() -> Self {
+            Self {
+                connected: false,
+                topic: String::new(),
+            }
+        }
     }
 
     impl Transport for MqttTransport {
@@ -171,22 +228,33 @@ pub mod mqtt {
             Ok(())
         }
         fn send_flux(&mut self, _flux: &FluxTransference) -> Result<()> {
-            if !self.connected { return Err(TransportError::NotConnected); }
+            if !self.connected {
+                return Err(TransportError::NotConnected);
+            }
             Ok(())
         }
         fn recv_flux(&mut self) -> Result<FluxTransference> {
-            if !self.connected { return Err(TransportError::NotConnected); }
-            Err(TransportError::ReceiveFailed("MQTT recv not yet implemented".into()))
+            if !self.connected {
+                return Err(TransportError::NotConnected);
+            }
+            Err(TransportError::ReceiveFailed(
+                "MQTT recv not yet implemented".into(),
+            ))
         }
-        fn disconnect(&mut self) -> Result<()> { self.connected = false; Ok(()) }
-        fn is_connected(&self) -> bool { self.connected }
+        fn disconnect(&mut self) -> Result<()> {
+            self.connected = false;
+            Ok(())
+        }
+        fn is_connected(&self) -> bool {
+            self.connected
+        }
     }
 }
 
 #[cfg(feature = "std")]
 pub mod serial {
-    use crate::types::{FluxTransference, TransportConfig};
     use crate::transport::{Result, Transport, TransportError};
+    use crate::types::{FluxTransference, TransportConfig};
 
     /// Serial/UART transport adapter (embedded, debug)
     pub struct SerialTransport {
@@ -195,38 +263,61 @@ pub mod serial {
         baud_rate: u32,
     }
 
+    impl Default for SerialTransport {
+        fn default() -> Self {
+            Self::new()
+        }
+    }
+
     impl SerialTransport {
         pub fn new() -> Self {
-            Self { connected: false, port_name: String::new(), baud_rate: 115200 }
+            Self {
+                connected: false,
+                port_name: String::new(),
+                baud_rate: 115200,
+            }
         }
     }
 
     impl Transport for SerialTransport {
         fn connect(&mut self, config: &TransportConfig) -> Result<()> {
             self.port_name = config.address.clone();
-            self.baud_rate = config.options.get("baud")
+            self.baud_rate = config
+                .options
+                .get("baud")
                 .and_then(|b| b.parse().ok())
                 .unwrap_or(115200);
             self.connected = true;
             Ok(())
         }
         fn send_flux(&mut self, _flux: &FluxTransference) -> Result<()> {
-            if !self.connected { return Err(TransportError::NotConnected); }
+            if !self.connected {
+                return Err(TransportError::NotConnected);
+            }
             Ok(())
         }
         fn recv_flux(&mut self) -> Result<FluxTransference> {
-            if !self.connected { return Err(TransportError::NotConnected); }
-            Err(TransportError::ReceiveFailed("Serial recv not yet implemented".into()))
+            if !self.connected {
+                return Err(TransportError::NotConnected);
+            }
+            Err(TransportError::ReceiveFailed(
+                "Serial recv not yet implemented".into(),
+            ))
         }
-        fn disconnect(&mut self) -> Result<()> { self.connected = false; Ok(()) }
-        fn is_connected(&self) -> bool { self.connected }
+        fn disconnect(&mut self) -> Result<()> {
+            self.connected = false;
+            Ok(())
+        }
+        fn is_connected(&self) -> bool {
+            self.connected
+        }
     }
 }
 
 #[cfg(feature = "std")]
 pub mod can_bus {
-    use crate::types::{FluxTransference, TransportConfig};
     use crate::transport::{Result, Transport, TransportError};
+    use crate::types::{FluxTransference, TransportConfig};
 
     /// CAN bus transport adapter (automotive, industrial)
     pub struct CanTransport {
@@ -234,8 +325,19 @@ pub mod can_bus {
         interface: String,
     }
 
+    impl Default for CanTransport {
+        fn default() -> Self {
+            Self::new()
+        }
+    }
+
     impl CanTransport {
-        pub fn new() -> Self { Self { connected: false, interface: String::new() } }
+        pub fn new() -> Self {
+            Self {
+                connected: false,
+                interface: String::new(),
+            }
+        }
     }
 
     impl Transport for CanTransport {
@@ -245,14 +347,25 @@ pub mod can_bus {
             Ok(())
         }
         fn send_flux(&mut self, _flux: &FluxTransference) -> Result<()> {
-            if !self.connected { return Err(TransportError::NotConnected); }
+            if !self.connected {
+                return Err(TransportError::NotConnected);
+            }
             Ok(())
         }
         fn recv_flux(&mut self) -> Result<FluxTransference> {
-            if !self.connected { return Err(TransportError::NotConnected); }
-            Err(TransportError::ReceiveFailed("CAN recv not yet implemented".into()))
+            if !self.connected {
+                return Err(TransportError::NotConnected);
+            }
+            Err(TransportError::ReceiveFailed(
+                "CAN recv not yet implemented".into(),
+            ))
         }
-        fn disconnect(&mut self) -> Result<()> { self.connected = false; Ok(()) }
-        fn is_connected(&self) -> bool { self.connected }
+        fn disconnect(&mut self) -> Result<()> {
+            self.connected = false;
+            Ok(())
+        }
+        fn is_connected(&self) -> bool {
+            self.connected
+        }
     }
 }

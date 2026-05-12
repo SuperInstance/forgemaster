@@ -45,6 +45,12 @@ pub struct AlignmentChecker {
     violation_log: Vec<AlignmentReport>,
 }
 
+impl Default for AlignmentChecker {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl AlignmentChecker {
     pub fn new() -> Self {
         Self {
@@ -66,11 +72,14 @@ impl AlignmentChecker {
                 for input in inputs {
                     if engine.get_tile(&TileId(input.clone())).is_none() {
                         // Violation logged via Err return
-                        return Err(format!("ALIGNMENT VIOLATION: Missing dependency '{}' (Constraint 3)", input));
+                        return Err(format!(
+                            "ALIGNMENT VIOLATION: Missing dependency '{}' (Constraint 3)",
+                            input
+                        ));
                     }
                 }
             }
-            Command::Drop(tile_id) => {
+            Command::Drop(_tile_id) => {
                 // CONSTRAINT 7: Parity monitoring — can't drop last tile in critical room
                 if let Some(session) = engine.get_session(agent) {
                     if let Some(room) = engine.get_room(&session.current_room) {
@@ -99,9 +108,15 @@ impl AlignmentChecker {
             match &tile.content {
                 TileContent::EmpiricalData(_) | TileContent::Benchmark(_) => {}
                 _ => {
-                    self.log_violation(1, false,
-                        format!("Tile '{}' has confidence {:.2} without evidence", tile.title, tile.confidence),
-                        AlignmentSeverity::Block);
+                    self.log_violation(
+                        1,
+                        false,
+                        format!(
+                            "Tile '{}' has confidence {:.2} without evidence",
+                            tile.title, tile.confidence
+                        ),
+                        AlignmentSeverity::Block,
+                    );
                     return Err("ALIGNMENT VIOLATION: Constraint 1".into());
                 }
             }
@@ -115,9 +130,15 @@ impl AlignmentChecker {
                     dep_id.0.contains("falsif")
                 });
                 if !has_falsification {
-                    self.log_violation(2, false,
-                        format!("Tile '{}' claims equivalence without falsification", tile.title),
-                        AlignmentSeverity::Warning);
+                    self.log_violation(
+                        2,
+                        false,
+                        format!(
+                            "Tile '{}' claims equivalence without falsification",
+                            tile.title
+                        ),
+                        AlignmentSeverity::Warning,
+                    );
                 }
             }
         }
@@ -126,14 +147,18 @@ impl AlignmentChecker {
     }
 
     /// Check zeitgeist merge properties (CONSTRAINT 6)
-    pub fn check_zeitgeist_merge(&self, local: &Zeitgeist, incoming: &Zeitgeist) -> Result<(), String> {
+    pub fn check_zeitgeist_merge(
+        &self,
+        local: &Zeitgeist,
+        incoming: &Zeitgeist,
+    ) -> Result<(), String> {
         // Verify commutativity: merge(a,b) == merge(b,a)
         let mut z1 = local.clone();
-        let mut z2 = incoming.clone();
+        let _z2 = incoming.clone();
         z1.merge(incoming);
 
         let mut z3 = incoming.clone();
-        let mut z4 = local.clone();
+        let _z4 = local.clone();
         z3.merge(local);
 
         // Check idempotency: merge(a,a) == a (approximately)
@@ -146,7 +171,13 @@ impl AlignmentChecker {
     }
 
     /// Log an alignment violation
-    fn log_violation(&mut self, constraint_id: u8, passed: bool, message: String, severity: AlignmentSeverity) {
+    fn log_violation(
+        &mut self,
+        constraint_id: u8,
+        passed: bool,
+        message: String,
+        severity: AlignmentSeverity,
+    ) {
         self.violation_log.push(AlignmentReport {
             constraint_id,
             passed,
@@ -189,7 +220,11 @@ mod tests {
         let tile = Tile {
             id: TileId("t1".to_string()),
             title: "Bad tile".to_string(),
-            location: SpatialIndex { x: 0.0, y: 0.0, z: 0.0 },
+            location: SpatialIndex {
+                x: 0.0,
+                y: 0.0,
+                z: 0.0,
+            },
             author: AgentId("agent".to_string()),
             confidence: 0.99,
             domain_tags: vec![],
@@ -208,7 +243,11 @@ mod tests {
         let tile = Tile {
             id: TileId("t1".to_string()),
             title: "Good tile".to_string(),
-            location: SpatialIndex { x: 0.0, y: 0.0, z: 0.0 },
+            location: SpatialIndex {
+                x: 0.0,
+                y: 0.0,
+                z: 0.0,
+            },
             author: AgentId("agent".to_string()),
             confidence: 0.99,
             domain_tags: vec![],

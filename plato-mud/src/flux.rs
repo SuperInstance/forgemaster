@@ -25,6 +25,12 @@ pub struct ParityState {
     pub parity_ok: bool,
 }
 
+impl Default for FluxManager {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl FluxManager {
     pub fn new() -> Self {
         Self {
@@ -77,12 +83,15 @@ impl FluxManager {
     /// Update parity state for a room (CONSTRAINT 7)
     pub fn update_parity(&mut self, room: &RoomId, zeitgeist: &Zeitgeist, timestamp: f64) {
         let parity = zeitgeist.temporal.beat % 2;
-        let state = self.parity_state.entry(room.clone()).or_insert(ParityState {
-            even_count: 0,
-            odd_count: 0,
-            last_check: 0.0,
-            parity_ok: true,
-        });
+        let state = self
+            .parity_state
+            .entry(room.clone())
+            .or_insert(ParityState {
+                even_count: 0,
+                odd_count: 0,
+                last_check: 0.0,
+                parity_ok: true,
+            });
 
         if parity == 0 {
             state.even_count += 1;
@@ -97,7 +106,8 @@ impl FluxManager {
 
     /// Check if a room has valid parity (CONSTRAINT 7)
     pub fn check_parity(&self, room: &RoomId) -> bool {
-        self.parity_state.get(room)
+        self.parity_state
+            .get(room)
             .map(|s| s.parity_ok)
             .unwrap_or(false)
     }
@@ -142,11 +152,23 @@ impl FluxManager {
 
         let mut offset = 0;
 
-        let center = f64::from_le_bytes(bytes[offset..offset+8].try_into().map_err(|_| "parse error")?);
+        let center = f64::from_le_bytes(
+            bytes[offset..offset + 8]
+                .try_into()
+                .map_err(|_| "parse error")?,
+        );
         offset += 8;
-        let width = f64::from_le_bytes(bytes[offset..offset+8].try_into().map_err(|_| "parse error")?);
+        let width = f64::from_le_bytes(
+            bytes[offset..offset + 8]
+                .try_into()
+                .map_err(|_| "parse error")?,
+        );
         offset += 8;
-        let samples = u64::from_le_bytes(bytes[offset..offset+8].try_into().map_err(|_| "parse error")?);
+        let samples = u64::from_le_bytes(
+            bytes[offset..offset + 8]
+                .try_into()
+                .map_err(|_| "parse error")?,
+        );
         offset += 8;
         let converged = bytes[offset] != 0;
         offset += 1;
@@ -156,31 +178,76 @@ impl FluxManager {
 
         let remaining_words = (bytes.len() - offset - 8 - 8 - 8 - 8 - 8) / 8;
         let mut bits = Vec::new();
-        for i in 0..remaining_words {
+        for _i in 0..remaining_words {
             if offset + 8 <= bytes.len() {
-                bits.push(u64::from_le_bytes(bytes[offset..offset+8].try_into().map_err(|_| "parse error")?));
+                bits.push(u64::from_le_bytes(
+                    bytes[offset..offset + 8]
+                        .try_into()
+                        .map_err(|_| "parse error")?,
+                ));
                 offset += 8;
             }
         }
 
-        let trajectory_value = f64::from_le_bytes(bytes[offset..offset+8].try_into().map_err(|_| "parse error")?);
+        let trajectory_value = f64::from_le_bytes(
+            bytes[offset..offset + 8]
+                .try_into()
+                .map_err(|_| "parse error")?,
+        );
         offset += 8;
-        let trajectory_confidence = f64::from_le_bytes(bytes[offset..offset+8].try_into().map_err(|_| "parse error")?);
+        let trajectory_confidence = f64::from_le_bytes(
+            bytes[offset..offset + 8]
+                .try_into()
+                .map_err(|_| "parse error")?,
+        );
         offset += 8;
 
-        let coherence = f64::from_le_bytes(bytes[offset..offset+8].try_into().map_err(|_| "parse error")?);
+        let coherence = f64::from_le_bytes(
+            bytes[offset..offset + 8]
+                .try_into()
+                .map_err(|_| "parse error")?,
+        );
         offset += 8;
 
-        let beat = u64::from_le_bytes(bytes[offset..offset+8].try_into().map_err(|_| "parse error")?);
+        let beat = u64::from_le_bytes(
+            bytes[offset..offset + 8]
+                .try_into()
+                .map_err(|_| "parse error")?,
+        );
         offset += 8;
-        let tempo = f64::from_le_bytes(bytes[offset..offset+8].try_into().map_err(|_| "parse error")?);
+        let tempo = f64::from_le_bytes(
+            bytes[offset..offset + 8]
+                .try_into()
+                .map_err(|_| "parse error")?,
+        );
 
         Ok(Zeitgeist {
-            precision: FunnelState { center, width, samples, converged },
-            confidence: BloomFilter { bits, num_hashes, estimated_count: 0 },
-            trajectory: HurstEstimate { value: trajectory_value, confidence: trajectory_confidence, sample_count: 0 },
-            consensus: HolonomyState { cycle_count: 0, coherence, last_check: 0.0 },
-            temporal: BeatPosition { beat, tempo, phase: 0.0 },
+            precision: FunnelState {
+                center,
+                width,
+                samples,
+                converged,
+            },
+            confidence: BloomFilter {
+                bits,
+                num_hashes,
+                estimated_count: 0,
+            },
+            trajectory: HurstEstimate {
+                value: trajectory_value,
+                confidence: trajectory_confidence,
+                sample_count: 0,
+            },
+            consensus: HolonomyState {
+                cycle_count: 0,
+                coherence,
+                last_check: 0.0,
+            },
+            temporal: BeatPosition {
+                beat,
+                tempo,
+                phase: 0.0,
+            },
         })
     }
 
@@ -192,9 +259,7 @@ impl FluxManager {
 
         let n = observations.len() as f64;
         let mean = observations.iter().sum::<f64>() / n;
-        let variance = observations.iter()
-            .map(|x| (x - mean).powi(2))
-            .sum::<f64>() / n;
+        let variance = observations.iter().map(|x| (x - mean).powi(2)).sum::<f64>() / n;
         let std_dev = variance.sqrt();
         let width = 2.0 * std_dev; // 1-sigma deadband
 
@@ -235,12 +300,18 @@ mod tests {
         let mut mgr = FluxManager::new();
 
         let flux1 = mgr.create_flux(
-            RoomId("r1".to_string()), RoomId("r2".to_string()),
-            100.0, TransferencePayload::Heartbeat, Zeitgeist::new(),
+            RoomId("r1".to_string()),
+            RoomId("r2".to_string()),
+            100.0,
+            TransferencePayload::Heartbeat,
+            Zeitgeist::new(),
         );
         let flux2 = mgr.create_flux(
-            RoomId("r1".to_string()), RoomId("r3".to_string()),
-            101.0, TransferencePayload::Heartbeat, Zeitgeist::new(),
+            RoomId("r1".to_string()),
+            RoomId("r3".to_string()),
+            101.0,
+            TransferencePayload::Heartbeat,
+            Zeitgeist::new(),
         );
         mgr.send_flux(flux1);
         mgr.send_flux(flux2);

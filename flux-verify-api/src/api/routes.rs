@@ -15,8 +15,8 @@ use crate::api::response::{HealthResponse, StatusResponse, VerifyResponse};
 use crate::compiler;
 use crate::config::Config;
 use crate::engine::vm::FluxVm;
-use crate::provenance::merkle;
 use crate::plato::client::PlatoClient;
+use crate::provenance::merkle;
 
 #[derive(Debug)]
 pub struct AppState {
@@ -55,13 +55,12 @@ async fn verify(
     let start = Instant::now();
 
     // Parse the claim into a constraint problem
-    let problem = compiler::parse_claim(&req.claim, &req.domain)
-        .map_err(|e| {
-            (
-                StatusCode::UNPROCESSABLE_ENTITY,
-                Json(serde_json::json!({ "error": e })),
-            )
-        })?;
+    let problem = compiler::parse_claim(&req.claim, &req.domain).map_err(|e| {
+        (
+            StatusCode::UNPROCESSABLE_ENTITY,
+            Json(serde_json::json!({ "error": e })),
+        )
+    })?;
 
     // Compile to FLUX bytecodes
     let bytecodes = compiler::compile(&problem);
@@ -124,9 +123,7 @@ async fn verify(
     Ok((status_code, Json(response)))
 }
 
-async fn status(
-    State(state): State<Arc<Mutex<AppState>>>,
-) -> Json<StatusResponse> {
+async fn status(State(state): State<Arc<Mutex<AppState>>>) -> Json<StatusResponse> {
     let s = state.lock().await;
     let avg = if s.total > 0 {
         s.total_latency_ms / s.total as f64

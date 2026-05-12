@@ -46,15 +46,46 @@ pub fn parse(claim: &str) -> Result<ConstraintProblem, String> {
     Ok(ConstraintProblem {
         domain: "sonar".into(),
         variables: vec![
-            super::Variable { name: "depth_m".into(), value: depth_m, desc: "depth (m)".into() },
-            super::Variable { name: "frequency_hz".into(), value: freq_normalized, desc: "frequency (Hz)".into() },
-            super::Variable { name: "range_m".into(), value: range_m, desc: "range (m)".into() },
-            super::Variable { name: "target_strength_db".into(), value: target_strength_db, desc: "target strength (dB)".into() },
+            super::Variable {
+                name: "depth_m".into(),
+                value: depth_m,
+                desc: "depth (m)".into(),
+            },
+            super::Variable {
+                name: "frequency_hz".into(),
+                value: freq_normalized,
+                desc: "frequency (Hz)".into(),
+            },
+            super::Variable {
+                name: "range_m".into(),
+                value: range_m,
+                desc: "range (m)".into(),
+            },
+            super::Variable {
+                name: "target_strength_db".into(),
+                value: target_strength_db,
+                desc: "target strength (dB)".into(),
+            },
         ],
         constraints: vec![
-            super::Constraint::SoundVelocity { depth_m, temp_c, salinity_ppt },
-            super::Constraint::Absorption { frequency_khz, depth_m, temp_c, salinity_ppt },
-            super::Constraint::TransmissionLoss { range_m, frequency_khz, depth_m, temp_c, salinity_ppt },
+            super::Constraint::SoundVelocity {
+                depth_m,
+                temp_c,
+                salinity_ppt,
+            },
+            super::Constraint::Absorption {
+                frequency_khz,
+                depth_m,
+                temp_c,
+                salinity_ppt,
+            },
+            super::Constraint::TransmissionLoss {
+                range_m,
+                frequency_khz,
+                depth_m,
+                temp_c,
+                salinity_ppt,
+            },
         ],
         assertion: super::Assertion {
             assertion_type: "gt".into(),

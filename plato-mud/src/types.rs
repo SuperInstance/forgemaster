@@ -236,7 +236,7 @@ pub struct BloomFilter {
 
 impl BloomFilter {
     pub fn new(num_hashes: u32, size_bits: usize) -> Self {
-        let num_words = (size_bits + 63) / 64;
+        let num_words = size_bits.div_ceil(64);
         Self {
             bits: alloc::vec![0u64; num_words],
             num_hashes,
@@ -319,6 +319,12 @@ pub struct Zeitgeist {
     pub temporal: BeatPosition,
 }
 
+impl Default for Zeitgeist {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Zeitgeist {
     pub fn new() -> Self {
         Self {
@@ -367,7 +373,8 @@ impl Zeitgeist {
         }
 
         // Consensus: max coherence
-        self.consensus.cycle_count = core::cmp::max(self.consensus.cycle_count, other.consensus.cycle_count);
+        self.consensus.cycle_count =
+            core::cmp::max(self.consensus.cycle_count, other.consensus.cycle_count);
         self.consensus.coherence = self.consensus.coherence.max(other.consensus.coherence);
 
         // Temporal: latest beat

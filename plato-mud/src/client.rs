@@ -45,10 +45,13 @@ impl PlatoClient {
         let name = name.trim().to_string();
 
         let agent_id = crate::types::AgentId(name.clone());
-        server.engine_mut().connect_agent(
-            agent_id.clone(),
-            crate::types::RoomId("alignment-cathedral".to_string()),
-        ).expect("Starting room exists");
+        server
+            .engine_mut()
+            .connect_agent(
+                agent_id.clone(),
+                crate::types::RoomId("alignment-cathedral".to_string()),
+            )
+            .expect("Starting room exists");
 
         println!("\nWelcome, {}.\n", name);
         if let Ok(desc) = server.engine().look(&agent_id) {

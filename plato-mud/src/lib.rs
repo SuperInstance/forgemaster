@@ -8,11 +8,11 @@
 
 extern crate alloc;
 
-pub mod types;
-pub mod engine;
 pub mod alignment;
+pub mod engine;
 pub mod flux;
 pub mod transport;
+pub mod types;
 
 #[cfg(feature = "server")]
 pub mod server;
@@ -20,7 +20,7 @@ pub mod server;
 #[cfg(feature = "client")]
 pub mod client;
 
-pub use types::*;
-pub use engine::Engine;
 pub use alignment::AlignmentChecker;
+pub use engine::Engine;
 pub use flux::FluxManager;
+pub use types::*;

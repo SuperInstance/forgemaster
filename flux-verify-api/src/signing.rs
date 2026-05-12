@@ -1,6 +1,6 @@
-use ed25519_dalek::{SigningKey, VerifyingKey, Signer, Verifier, Signature as DalekSignature};
-use sha2::{Sha256, Digest};
-use serde::{Serialize, Deserialize};
+use ed25519_dalek::{Signature as DalekSignature, Signer, SigningKey, Verifier, VerifyingKey};
+use serde::{Deserialize, Serialize};
+use sha2::{Digest, Sha256};
 
 /// A signed bytecode blob: Ed25519 signature + SHA-256 fingerprint + timestamp.
 #[derive(Debug, Clone, Serialize, Deserialize)]

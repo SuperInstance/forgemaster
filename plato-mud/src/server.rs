@@ -10,9 +10,9 @@ use std::io::{self, BufRead, Write};
 
 use crate::engine::Engine;
 use crate::flux::FluxManager;
-use crate::types::*;
-use crate::transport::Transport;
 use crate::transport::memory::MemoryTransport;
+use crate::transport::Transport;
+use crate::types::*;
 
 /// The PLATO MUD server
 pub struct PlatoServer {
@@ -20,6 +20,12 @@ pub struct PlatoServer {
     flux_manager: FluxManager,
     transport: Box<dyn Transport>,
     running: bool,
+}
+
+impl Default for PlatoServer {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl PlatoServer {
@@ -42,13 +48,22 @@ impl PlatoServer {
             name: "The Alignment Cathedral".to_string(),
             description: "A vast hall of pure constraint. Eight pillars hold the sky. \
                 Each pillar is an alignment constraint, immutable and true. \
-                The zeitgeist here is precise to 16 decimal places.".to_string(),
+                The zeitgeist here is precise to 16 decimal places."
+                .to_string(),
             domain: Domain::Alignment,
             exits: vec![
-                Exit { direction: "north".to_string(), target: RoomId("fortran-foyer".to_string()),
-                       description: "Toward the ancient fortran halls".to_string(), locked: false },
-                Exit { direction: "east".to_string(), target: RoomId("rust-forge".to_string()),
-                       description: "The fires of the Rust forge burn bright".to_string(), locked: false },
+                Exit {
+                    direction: "north".to_string(),
+                    target: RoomId("fortran-foyer".to_string()),
+                    description: "Toward the ancient fortran halls".to_string(),
+                    locked: false,
+                },
+                Exit {
+                    direction: "east".to_string(),
+                    target: RoomId("rust-forge".to_string()),
+                    description: "The fires of the Rust forge burn bright".to_string(),
+                    locked: false,
+                },
             ],
             tiles: vec![],
             npcs: vec![],
@@ -58,7 +73,9 @@ impl PlatoServer {
                 recipes: vec![Recipe {
                     name: "combine".to_string(),
                     inputs: vec![TileId("theorem".to_string()), TileId("proof".to_string())],
-                    output: TileContent::Constraint("New constraint from theorem + proof".to_string()),
+                    output: TileContent::Constraint(
+                        "New constraint from theorem + proof".to_string(),
+                    ),
                     description: "Combine a theorem and proof into a constraint".to_string(),
                 }],
             }),
@@ -71,13 +88,22 @@ impl PlatoServer {
             name: "The Fortran Foyer".to_string(),
             description: "Stone walls carved with DO loops and FORMAT statements. \
                 The air smells of punch cards and optimization. A grandfather clock \
-                ticks in units of FLOPS.".to_string(),
+                ticks in units of FLOPS."
+                .to_string(),
             domain: Domain::Fortran,
             exits: vec![
-                Exit { direction: "south".to_string(), target: RoomId("alignment-cathedral".to_string()),
-                       description: "Back to the Cathedral".to_string(), locked: false },
-                Exit { direction: "up".to_string(), target: RoomId("fortran-attic".to_string()),
-                       description: "Climb to the expert-level optimizations".to_string(), locked: false },
+                Exit {
+                    direction: "south".to_string(),
+                    target: RoomId("alignment-cathedral".to_string()),
+                    description: "Back to the Cathedral".to_string(),
+                    locked: false,
+                },
+                Exit {
+                    direction: "up".to_string(),
+                    target: RoomId("fortran-attic".to_string()),
+                    description: "Climb to the expert-level optimizations".to_string(),
+                    locked: false,
+                },
             ],
             tiles: vec![],
             npcs: vec![],
@@ -90,12 +116,15 @@ impl PlatoServer {
             id: RoomId("fortran-attic".to_string()),
             name: "The Fortran Attic".to_string(),
             description: "Dusty volumes of BLAS, LAPACK, and parallel directives. \
-                Here, arrays are king and column-major is law.".to_string(),
+                Here, arrays are king and column-major is law."
+                .to_string(),
             domain: Domain::Fortran,
-            exits: vec![
-                Exit { direction: "down".to_string(), target: RoomId("fortran-foyer".to_string()),
-                       description: "Back down to the foyer".to_string(), locked: false },
-            ],
+            exits: vec![Exit {
+                direction: "down".to_string(),
+                target: RoomId("fortran-foyer".to_string()),
+                description: "Back down to the foyer".to_string(),
+                locked: false,
+            }],
             tiles: vec![],
             npcs: vec![],
             workbench: Some(Workbench {
@@ -117,13 +146,22 @@ impl PlatoServer {
             name: "The Rust Forge".to_string(),
             description: "Heat shimmers from a zero-cost abstraction furnace. \
                 The borrow checker guards the door. Ownership is strictly enforced. \
-                Crates of components line the walls, each with its own module.".to_string(),
+                Crates of components line the walls, each with its own module."
+                .to_string(),
             domain: Domain::Rust,
             exits: vec![
-                Exit { direction: "west".to_string(), target: RoomId("alignment-cathedral".to_string()),
-                       description: "Back to the Cathedral".to_string(), locked: false },
-                Exit { direction: "north".to_string(), target: RoomId("c-caverns".to_string()),
-                       description: "Descend into the C caverns".to_string(), locked: false },
+                Exit {
+                    direction: "west".to_string(),
+                    target: RoomId("alignment-cathedral".to_string()),
+                    description: "Back to the Cathedral".to_string(),
+                    locked: false,
+                },
+                Exit {
+                    direction: "north".to_string(),
+                    target: RoomId("c-caverns".to_string()),
+                    description: "Descend into the C caverns".to_string(),
+                    locked: false,
+                },
             ],
             tiles: vec![],
             npcs: vec![],
@@ -136,12 +174,15 @@ impl PlatoServer {
             id: RoomId("c-caverns".to_string()),
             name: "The C Caverns".to_string(),
             description: "Dark tunnels of pointer arithmetic and manual memory management. \
-                Segfaults echo in the distance. A faint smell of undefined behavior.".to_string(),
+                Segfaults echo in the distance. A faint smell of undefined behavior."
+                .to_string(),
             domain: Domain::C,
-            exits: vec![
-                Exit { direction: "south".to_string(), target: RoomId("rust-forge".to_string()),
-                       description: "Back to the Rust Forge".to_string(), locked: false },
-            ],
+            exits: vec![Exit {
+                direction: "south".to_string(),
+                target: RoomId("rust-forge".to_string()),
+                description: "Back to the Rust Forge".to_string(),
+                locked: false,
+            }],
             tiles: vec![],
             npcs: vec![],
             workbench: None,
@@ -153,7 +194,11 @@ impl PlatoServer {
         let constraint_tile = Tile {
             id: TileId("constraint-1".to_string()),
             title: "Precision Deadband Constraint".to_string(),
-            location: SpatialIndex { x: 0.0, y: 2.0, z: 0.0 },
+            location: SpatialIndex {
+                x: 0.0,
+                y: 2.0,
+                z: 0.0,
+            },
             author: AgentId("forgemaster".to_string()),
             confidence: 0.95,
             domain_tags: vec!["alignment".to_string(), "constraint".to_string()],
@@ -166,7 +211,11 @@ impl PlatoServer {
         let benchmark_tile = Tile {
             id: TileId("benchmark-fortran-1".to_string()),
             title: "BLAS Level-3 Throughput Benchmark".to_string(),
-            location: SpatialIndex { x: 0.0, y: 0.0, z: 0.0 },
+            location: SpatialIndex {
+                x: 0.0,
+                y: 0.0,
+                z: 0.0,
+            },
             author: AgentId("forgemaster".to_string()),
             confidence: 0.99,
             domain_tags: vec!["fortran".to_string(), "benchmark".to_string()],
@@ -186,17 +235,30 @@ impl PlatoServer {
         self.engine.add_tile(benchmark_tile).unwrap();
 
         // Place tiles in rooms
-        self.engine.rooms.get_mut(&RoomId("alignment-cathedral".to_string())).unwrap()
-            .tiles.push(TileId("constraint-1".to_string()));
-        self.engine.rooms.get_mut(&RoomId("fortran-foyer".to_string())).unwrap()
-            .tiles.push(TileId("benchmark-fortran-1".to_string()));
+        self.engine
+            .rooms
+            .get_mut(&RoomId("alignment-cathedral".to_string()))
+            .unwrap()
+            .tiles
+            .push(TileId("constraint-1".to_string()));
+        self.engine
+            .rooms
+            .get_mut(&RoomId("fortran-foyer".to_string()))
+            .unwrap()
+            .tiles
+            .push(TileId("benchmark-fortran-1".to_string()));
 
         // Add NPCs
         let rust_expert = Npc {
             id: NpcId("boris".to_string()),
             name: "Boris".to_string(),
             room: RoomId("rust-forge".to_string()),
-            expertise: vec!["rust".to_string(), "borrow".to_string(), "ownership".to_string(), "lifetime".to_string()],
+            expertise: vec![
+                "rust".to_string(),
+                "borrow".to_string(),
+                "ownership".to_string(),
+                "lifetime".to_string(),
+            ],
             personality: "A grizzled systems programmer who speaks in lifetimes".to_string(),
             knowledge_graph: {
                 let mut kg = BTreeMap::new();
@@ -212,7 +274,12 @@ impl PlatoServer {
             id: NpcId("dr-fortran".to_string()),
             name: "Dr. Fortran".to_string(),
             room: RoomId("fortran-foyer".to_string()),
-            expertise: vec!["fortran".to_string(), "blas".to_string(), "lapack".to_string(), "optimization".to_string()],
+            expertise: vec![
+                "fortran".to_string(),
+                "blas".to_string(),
+                "lapack".to_string(),
+                "optimization".to_string(),
+            ],
             personality: "An elderly academic who speaks in array operations".to_string(),
             knowledge_graph: {
                 let mut kg = BTreeMap::new();
@@ -243,17 +310,12 @@ impl PlatoServer {
                 let dir = parts.get(1).map(|s| s.to_lowercase());
                 dir.map(Command::Go)
             }
-            "GET" | "TAKE" | "PICKUP" => {
-                parts.get(1).map(|s| Command::Get(s.to_string()))
-            }
-            "DROP" | "PUT" => {
-                parts.get(1).map(|s| Command::Drop(s.to_string()))
-            }
-            "TALK" | "SPEAK" | "ASK" => {
-                parts.get(1).map(|s| Command::Talk(s.to_string()))
-            }
+            "GET" | "TAKE" | "PICKUP" => parts.get(1).map(|s| Command::Get(s.to_string())),
+            "DROP" | "PUT" => parts.get(1).map(|s| Command::Drop(s.to_string())),
+            "TALK" | "SPEAK" | "ASK" => parts.get(1).map(|s| Command::Talk(s.to_string())),
             "CRAFT" | "MAKE" | "BUILD" => {
-                let items: Vec<String> = parts.get(1)
+                let items: Vec<String> = parts
+                    .get(1)
                     .map(|s| s.split('+').map(|i| i.trim().to_string()).collect())
                     .unwrap_or_default();
                 Some(Command::Craft(items))
@@ -261,9 +323,7 @@ impl PlatoServer {
             "INVENTORY" | "INV" | "I" => Some(Command::Inventory),
             "MAP" | "M" => Some(Command::Map),
             "HELP" | "H" | "?" => Some(Command::Help),
-            "EXAMINE" | "EX" | "X" => {
-                parts.get(1).map(|s| Command::Examine(s.to_string()))
-            }
+            "EXAMINE" | "EX" | "X" => parts.get(1).map(|s| Command::Examine(s.to_string())),
             "STATUS" | "STAT" => Some(Command::Status),
             // Direction shortcuts
             "N" | "NORTH" => Some(Command::Go("north".to_string())),
@@ -294,10 +354,9 @@ impl PlatoServer {
         let name = name.trim().to_string();
 
         let agent_id = AgentId(name.clone());
-        self.engine.connect_agent(
-            agent_id.clone(),
-            RoomId("alignment-cathedral".to_string()),
-        ).expect("Starting room should exist");
+        self.engine
+            .connect_agent(agent_id.clone(), RoomId("alignment-cathedral".to_string()))
+            .expect("Starting room should exist");
 
         println!("\nWelcome, {}. You stand in the Alignment Cathedral.", name);
         println!("Type HELP for commands.\n");
@@ -326,12 +385,10 @@ impl PlatoServer {
                         println!("Unknown command. Type HELP for available commands.");
                     }
                 }
-                Some(cmd) => {
-                    match self.engine.execute(&agent_id, cmd) {
-                        Ok(response) => println!("{}", response),
-                        Err(e) => println!("⚠ {}", e),
-                    }
-                }
+                Some(cmd) => match self.engine.execute(&agent_id, cmd) {
+                    Ok(response) => println!("{}", response),
+                    Err(e) => println!("⚠ {}", e),
+                },
             }
         }
 
@@ -367,22 +424,48 @@ mod tests {
 
     #[test]
     fn test_parse_commands() {
-        assert!(matches!(PlatoServer::parse_command("look"), Some(Command::Look)));
-        assert!(matches!(PlatoServer::parse_command("L"), Some(Command::Look)));
-        assert!(matches!(PlatoServer::parse_command("go north"), Some(Command::Go(ref s)) if s == "north"));
-        assert!(matches!(PlatoServer::parse_command("N"), Some(Command::Go(ref s)) if s == "north"));
-        assert!(matches!(PlatoServer::parse_command("get tile-1"), Some(Command::Get(ref s)) if s == "tile-1"));
-        assert!(matches!(PlatoServer::parse_command("talk Boris"), Some(Command::Talk(ref s)) if s == "Boris"));
-        assert!(matches!(PlatoServer::parse_command("help"), Some(Command::Help)));
-        assert!(matches!(PlatoServer::parse_command("inventory"), Some(Command::Inventory)));
-        assert!(matches!(PlatoServer::parse_command("map"), Some(Command::Map)));
+        assert!(matches!(
+            PlatoServer::parse_command("look"),
+            Some(Command::Look)
+        ));
+        assert!(matches!(
+            PlatoServer::parse_command("L"),
+            Some(Command::Look)
+        ));
+        assert!(
+            matches!(PlatoServer::parse_command("go north"), Some(Command::Go(ref s)) if s == "north")
+        );
+        assert!(
+            matches!(PlatoServer::parse_command("N"), Some(Command::Go(ref s)) if s == "north")
+        );
+        assert!(
+            matches!(PlatoServer::parse_command("get tile-1"), Some(Command::Get(ref s)) if s == "tile-1")
+        );
+        assert!(
+            matches!(PlatoServer::parse_command("talk Boris"), Some(Command::Talk(ref s)) if s == "Boris")
+        );
+        assert!(matches!(
+            PlatoServer::parse_command("help"),
+            Some(Command::Help)
+        ));
+        assert!(matches!(
+            PlatoServer::parse_command("inventory"),
+            Some(Command::Inventory)
+        ));
+        assert!(matches!(
+            PlatoServer::parse_command("map"),
+            Some(Command::Map)
+        ));
     }
 
     #[test]
     fn test_process_command() {
         let mut server = PlatoServer::new();
         let agent = AgentId("tester".to_string());
-        server.engine_mut().connect_agent(agent.clone(), RoomId("alignment-cathedral".to_string())).unwrap();
+        server
+            .engine_mut()
+            .connect_agent(agent.clone(), RoomId("alignment-cathedral".to_string()))
+            .unwrap();
 
         let result = server.process_command(&agent, "look");
         assert!(result.is_ok());
@@ -396,7 +479,10 @@ mod tests {
     fn test_navigation_commands() {
         let mut server = PlatoServer::new();
         let agent = AgentId("wanderer".to_string());
-        server.engine_mut().connect_agent(agent.clone(), RoomId("alignment-cathedral".to_string())).unwrap();
+        server
+            .engine_mut()
+            .connect_agent(agent.clone(), RoomId("alignment-cathedral".to_string()))
+            .unwrap();
 
         let result = server.process_command(&agent, "go east");
         assert!(result.is_ok());

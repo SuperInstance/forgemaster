@@ -20,6 +20,12 @@ pub struct Engine {
     zeitgeist: Zeitgeist,
 }
 
+impl Default for Engine {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Engine {
     pub fn new() -> Self {
         Self {
@@ -43,7 +49,9 @@ impl Engine {
     }
 
     pub fn remove_room(&mut self, id: &RoomId) -> Result<Room, String> {
-        self.rooms.remove(id).ok_or_else(|| format!("Room {} not found", id.0))
+        self.rooms
+            .remove(id)
+            .ok_or_else(|| format!("Room {} not found", id.0))
     }
 
     pub fn get_room(&self, id: &RoomId) -> Option<&Room> {
@@ -55,7 +63,10 @@ impl Engine {
     }
 
     pub fn rooms_by_domain(&self, domain: &Domain) -> Vec<&Room> {
-        self.rooms.values().filter(|r| &r.domain == domain).collect()
+        self.rooms
+            .values()
+            .filter(|r| &r.domain == domain)
+            .collect()
     }
 
     pub fn rooms_by_depth(&self, depth: &Depth) -> Vec<&Room> {
@@ -82,7 +93,10 @@ impl Engine {
         // CONSTRAINT 3: Must cite dependencies
         for dep in &tile.links {
             if !self.tiles.contains_key(dep) {
-                return Err(format!("ALIGNMENT VIOLATION: Dependency {} not found (Constraint 3)", dep.0));
+                return Err(format!(
+                    "ALIGNMENT VIOLATION: Dependency {} not found (Constraint 3)",
+                    dep.0
+                ));
             }
         }
 
@@ -100,17 +114,24 @@ impl Engine {
     }
 
     pub fn remove_tile(&mut self, id: &TileId) -> Result<Tile, String> {
-        self.tiles.remove(id).ok_or_else(|| format!("Tile {} not found", id.0))
+        self.tiles
+            .remove(id)
+            .ok_or_else(|| format!("Tile {} not found", id.0))
     }
 
     pub fn tiles_by_domain(&self, domain: &Domain) -> Vec<&Tile> {
-        self.tiles.values().filter(|t| t.domain_tags.contains(&domain.name().to_string())).collect()
+        self.tiles
+            .values()
+            .filter(|t| t.domain_tags.contains(&domain.name().to_string()))
+            .collect()
     }
 
     pub fn tile_dependencies(&self, id: &TileId) -> Vec<&Tile> {
-        self.tiles.get(id)
+        self.tiles
+            .get(id)
             .map(|t| {
-                t.links.iter()
+                t.links
+                    .iter()
                     .filter_map(|dep| self.tiles.get(dep))
                     .collect()
             })
@@ -150,17 +171,22 @@ impl Engine {
         if !self.rooms.contains_key(&start_room) {
             return Err(format!("Room {} not found", start_room.0));
         }
-        self.agents.insert(agent_id.clone(), AgentSession {
-            agent_id,
-            current_room: start_room,
-            inventory: Vec::new(),
-            connected_at: 0.0,
-        });
+        self.agents.insert(
+            agent_id.clone(),
+            AgentSession {
+                agent_id,
+                current_room: start_room,
+                inventory: Vec::new(),
+                connected_at: 0.0,
+            },
+        );
         Ok(())
     }
 
     pub fn disconnect_agent(&mut self, id: &AgentId) -> Result<AgentSession, String> {
-        self.agents.remove(id).ok_or_else(|| format!("Agent {} not found", id.0))
+        self.agents
+            .remove(id)
+            .ok_or_else(|| format!("Agent {} not found", id.0))
     }
 
     pub fn get_session(&self, id: &AgentId) -> Option<&AgentSession> {
@@ -174,14 +200,19 @@ impl Engine {
     // ── Navigation ─────────────────────────────────────────────────────────
 
     pub fn navigate(&mut self, agent: &AgentId, direction: &str) -> Result<RoomId, String> {
-        let session = self.agents.get(agent)
+        let session = self
+            .agents
+            .get(agent)
             .ok_or_else(|| format!("Agent {} not found", agent.0))?;
         let current_room_id = session.current_room.clone();
 
         let exit = {
-            let room = self.rooms.get(&current_room_id)
+            let room = self
+                .rooms
+                .get(&current_room_id)
                 .ok_or_else(|| format!("Room {} not found", current_room_id.0))?;
-            room.exits.iter()
+            room.exits
+                .iter()
                 .find(|e| e.direction == direction)
                 .cloned()
                 .ok_or_else(|| format!("No exit '{}' from {}", direction, room.name))?
@@ -192,8 +223,13 @@ impl Engine {
         }
 
         // CONSTRAINT 5: Room exits must preserve mathematical guarantees
-        if !self.alignment.check_exit_constraint(&current_room_id, &exit.target) {
-            return Err("ALIGNMENT VIOLATION: Exit violates mathematical guarantees (Constraint 5)".into());
+        if !self
+            .alignment
+            .check_exit_constraint(&current_room_id, &exit.target)
+        {
+            return Err(
+                "ALIGNMENT VIOLATION: Exit violates mathematical guarantees (Constraint 5)".into(),
+            );
         }
 
         let target_id = exit.target.clone();
@@ -206,13 +242,17 @@ impl Engine {
     // ── Inventory ──────────────────────────────────────────────────────────
 
     pub fn pick_up_tile(&mut self, agent: &AgentId, tile_id: &TileId) -> Result<(), String> {
-        let session = self.agents.get(agent)
+        let session = self
+            .agents
+            .get(agent)
             .ok_or_else(|| format!("Agent {} not found", agent.0))?;
         let room_id = session.current_room.clone();
 
         // Check tile is in the room
         {
-            let room = self.rooms.get(&room_id)
+            let room = self
+                .rooms
+                .get(&room_id)
                 .ok_or_else(|| format!("Room {} not found", room_id.0))?;
             if !room.tiles.contains(tile_id) {
                 return Err(format!("Tile {} not in room", tile_id.0));
@@ -230,7 +270,9 @@ impl Engine {
     }
 
     pub fn drop_tile(&mut self, agent: &AgentId, tile_id: &TileId) -> Result<(), String> {
-        let session = self.agents.get(agent)
+        let session = self
+            .agents
+            .get(agent)
             .ok_or_else(|| format!("Agent {} not found", agent.0))?;
         let room_id = session.current_room.clone();
 
@@ -254,18 +296,27 @@ impl Engine {
 
     // ── Crafting ───────────────────────────────────────────────────────────
 
-    pub fn craft(&mut self, agent: &AgentId, input_ids: &[TileId], recipe_name: &str) -> Result<Tile, String> {
-        let session = self.agents.get(agent)
+    pub fn craft(
+        &mut self,
+        agent: &AgentId,
+        input_ids: &[TileId],
+        recipe_name: &str,
+    ) -> Result<Tile, String> {
+        let session = self
+            .agents
+            .get(agent)
             .ok_or_else(|| format!("Agent {} not found", agent.0))?;
         let room_id = session.current_room.clone();
 
         // Check room has workbench
         let recipe = {
-            let room = self.rooms.get(&room_id)
+            let room = self
+                .rooms
+                .get(&room_id)
                 .ok_or_else(|| format!("Room {} not found", room_id.0))?;
-            let wb = room.workbench.as_ref()
-                .ok_or("No workbench in this room")?;
-            wb.recipes.iter()
+            let wb = room.workbench.as_ref().ok_or("No workbench in this room")?;
+            wb.recipes
+                .iter()
                 .find(|r| r.name == recipe_name)
                 .cloned()
                 .ok_or_else(|| format!("Recipe '{}' not found", recipe_name))?
@@ -274,7 +325,10 @@ impl Engine {
         // CONSTRAINT 3: Cite dependencies
         for input_id in input_ids {
             if !self.tiles.contains_key(input_id) {
-                return Err(format!("ALIGNMENT VIOLATION: Input tile {} not found (Constraint 3)", input_id.0));
+                return Err(format!(
+                    "ALIGNMENT VIOLATION: Input tile {} not found (Constraint 3)",
+                    input_id.0
+                ));
             }
         }
 
@@ -287,7 +341,8 @@ impl Engine {
         let session = self.agents.get(agent).unwrap();
         for input_id in input_ids {
             let has_it = session.inventory.contains(input_id) || {
-                self.rooms.get(&room_id)
+                self.rooms
+                    .get(&room_id)
                     .map(|r| r.tiles.contains(input_id))
                     .unwrap_or(false)
             };
@@ -301,7 +356,11 @@ impl Engine {
         let output_tile = Tile {
             id: TileId(format!("{}:{}", recipe_name, self.tiles.len())),
             title: recipe.name.clone(),
-            location: SpatialIndex { x: 0.0, y: 0.0, z: 0.0 },
+            location: SpatialIndex {
+                x: 0.0,
+                y: 0.0,
+                z: 0.0,
+            },
             author: agent_id,
             confidence: 0.5,
             domain_tags: vec![],
@@ -318,14 +377,23 @@ impl Engine {
 
     // ── NPC Interaction ────────────────────────────────────────────────────
 
-    pub fn talk_to_npc(&mut self, agent: &AgentId, npc_id: &NpcId, query: &str) -> Result<String, String> {
-        let npc = self.npcs.get(npc_id)
+    pub fn talk_to_npc(
+        &mut self,
+        _agent: &AgentId,
+        npc_id: &NpcId,
+        query: &str,
+    ) -> Result<String, String> {
+        let npc = self
+            .npcs
+            .get(npc_id)
             .ok_or_else(|| format!("NPC {} not found", npc_id.0))?;
 
         // CONSTRAINT 4: NPC must not give advice outside its expertise
         if !npc.expertise.is_empty() {
             let query_lower = query.to_lowercase();
-            let relevant = npc.expertise.iter()
+            let relevant = npc
+                .expertise
+                .iter()
                 .any(|e| query_lower.contains(&e.to_lowercase()));
             if !relevant {
                 return Err(format!(
@@ -336,9 +404,16 @@ impl Engine {
         }
 
         let query_key = Query(query.to_string());
-        let response = npc.knowledge_graph.get(&query_key)
+        let response = npc
+            .knowledge_graph
+            .get(&query_key)
             .map(|r| r.0.clone())
-            .unwrap_or_else(|| format!("{} scratches their head. \"I don't know about that.\"", npc.name));
+            .unwrap_or_else(|| {
+                format!(
+                    "{} scratches their head. \"I don't know about that.\"",
+                    npc.name
+                )
+            });
 
         Ok(response)
     }
@@ -346,18 +421,29 @@ impl Engine {
     // ── Look ───────────────────────────────────────────────────────────────
 
     pub fn look(&self, agent: &AgentId) -> Result<String, String> {
-        let session = self.agents.get(agent)
+        let session = self
+            .agents
+            .get(agent)
             .ok_or_else(|| format!("Agent {} not found", agent.0))?;
-        let room = self.rooms.get(&session.current_room)
+        let room = self
+            .rooms
+            .get(&session.current_room)
             .ok_or_else(|| format!("Room {} not found", session.current_room.0))?;
 
         let mut desc = format!("═══ {} ═══\n", room.name);
         desc.push_str(&format!("{}\n", room.description));
-        desc.push_str(&format!("Domain: {} | Depth: {:?} | State: {:?}\n", room.domain.name(), room.depth, room.state));
+        desc.push_str(&format!(
+            "Domain: {} | Depth: {:?} | State: {:?}\n",
+            room.domain.name(),
+            room.depth,
+            room.state
+        ));
 
         if !room.exits.is_empty() {
             desc.push_str("\nExits: ");
-            let exits: Vec<String> = room.exits.iter()
+            let exits: Vec<String> = room
+                .exits
+                .iter()
                 .filter(|e| !e.locked)
                 .map(|e| format!("{} [{}]", e.direction, e.target.0))
                 .collect();
@@ -369,7 +455,10 @@ impl Engine {
             desc.push_str(&format!("\nTiles here ({}):\n", room.tiles.len()));
             for tid in &room.tiles {
                 if let Some(tile) = self.tiles.get(tid) {
-                    desc.push_str(&format!("  📦 {} (confidence: {:.2})\n", tile.title, tile.confidence));
+                    desc.push_str(&format!(
+                        "  📦 {} (confidence: {:.2})\n",
+                        tile.title, tile.confidence
+                    ));
                 }
             }
         }
@@ -387,7 +476,10 @@ impl Engine {
             desc.push_str(&format!("\n⚒️ Workbench: {}\n", wb.name));
             desc.push_str(&format!("   {}\n", wb.description));
             for recipe in &wb.recipes {
-                desc.push_str(&format!("   Recipe: {} — {}\n", recipe.name, recipe.description));
+                desc.push_str(&format!(
+                    "   Recipe: {} — {}\n",
+                    recipe.name, recipe.description
+                ));
             }
         }
 
@@ -397,7 +489,9 @@ impl Engine {
     // ── Map ────────────────────────────────────────────────────────────────
 
     pub fn map(&self, agent: &AgentId) -> Result<String, String> {
-        let session = self.agents.get(agent)
+        let session = self
+            .agents
+            .get(agent)
             .ok_or_else(|| format!("Agent {} not found", agent.0))?;
 
         let mut map_str = String::from("╔═══════════════════════════════════╗\n");
@@ -405,13 +499,21 @@ impl Engine {
         map_str.push_str("╠═══════════════════════════════════╣\n");
 
         for room in self.rooms.values() {
-            let marker = if room.id == session.current_room { " ◄ YOU" } else { "" };
+            let marker = if room.id == session.current_room {
+                " ◄ YOU"
+            } else {
+                ""
+            };
             map_str.push_str(&format!(
                 "║ [{}] {} ({:?}){}{}\n",
                 room.domain.name(),
                 room.name,
                 room.depth,
-                if room.state != RoomState::Dormant { format!(" [{:?}]", room.state) } else { String::new() },
+                if room.state != RoomState::Dormant {
+                    format!(" [{:?}]", room.state)
+                } else {
+                    String::new()
+                },
                 marker
             ));
             for exit in &room.exits {
@@ -441,7 +543,7 @@ impl Engine {
         match cmd {
             Command::Look => self.look(agent),
             Command::Go(dir) => {
-                let new_room = self.navigate(agent, &dir)?;
+                let _new_room = self.navigate(agent, &dir)?;
                 self.look(agent)
             }
             Command::Get(item) => {
@@ -454,9 +556,14 @@ impl Engine {
             }
             Command::Talk(npc_name) => {
                 // Find NPC by name in current room
-                let session = self.agents.get(agent).cloned()
+                let session = self
+                    .agents
+                    .get(agent)
+                    .cloned()
                     .ok_or_else(|| format!("Agent {} not found", agent.0))?;
-                let npc_id = self.npcs.values()
+                let npc_id = self
+                    .npcs
+                    .values()
                     .find(|n| n.name == npc_name && n.room == session.current_room)
                     .map(|n| n.id.clone())
                     .ok_or_else(|| format!("NPC '{}' not in this room", npc_name))?;
@@ -468,7 +575,9 @@ impl Engine {
                 Ok(format!("Crafted: {}", tile.title))
             }
             Command::Inventory => {
-                let session = self.agents.get(agent)
+                let session = self
+                    .agents
+                    .get(agent)
                     .ok_or_else(|| format!("Agent {} not found", agent.0))?;
                 if session.inventory.is_empty() {
                     Ok("Inventory is empty.".into())
@@ -476,7 +585,10 @@ impl Engine {
                     let mut inv = format!("Inventory ({}):\n", session.inventory.len());
                     for tid in &session.inventory {
                         if let Some(tile) = self.tiles.get(tid) {
-                            inv.push_str(&format!("  📦 {} ({:.2})\n", tile.title, tile.confidence));
+                            inv.push_str(&format!(
+                                "  📦 {} ({:.2})\n",
+                                tile.title, tile.confidence
+                            ));
                         }
                     }
                     Ok(inv)
@@ -486,15 +598,22 @@ impl Engine {
             Command::Examine(target) => {
                 let tile = self.get_tile(&TileId(target.clone()));
                 if let Some(tile) = tile {
-                    Ok(format!("📦 {}\nConfidence: {:.2}\nLifecycle: {:?}\nTags: {}\nAuthor: {}",
-                        tile.title, tile.confidence, tile.lifecycle,
-                        tile.domain_tags.join(", "), tile.author.0))
+                    Ok(format!(
+                        "📦 {}\nConfidence: {:.2}\nLifecycle: {:?}\nTags: {}\nAuthor: {}",
+                        tile.title,
+                        tile.confidence,
+                        tile.lifecycle,
+                        tile.domain_tags.join(", "),
+                        tile.author.0
+                    ))
                 } else {
                     Err(format!("'{}' not found", target))
                 }
             }
             Command::Status => {
-                let session = self.agents.get(agent)
+                let session = self
+                    .agents
+                    .get(agent)
                     .ok_or_else(|| format!("Agent {} not found", agent.0))?;
                 let room = self.rooms.get(&session.current_room);
                 Ok(format!(
@@ -505,10 +624,11 @@ impl Engine {
                     self.zeitgeist.temporal.beat
                 ))
             }
-            Command::Help => {
-                Ok("Commands: LOOK, GO <dir>, GET <tile>, DROP <tile>, TALK <npc>, \
-                    CRAFT <tiles...>, INVENTORY, MAP, EXAMINE <tile>, STATUS, HELP".into())
-            }
+            Command::Help => Ok(
+                "Commands: LOOK, GO <dir>, GET <tile>, DROP <tile>, TALK <npc>, \
+                    CRAFT <tiles...>, INVENTORY, MAP, EXAMINE <tile>, STATUS, HELP"
+                    .into(),
+            ),
         }
     }
 
@@ -566,7 +686,11 @@ mod tests {
         Tile {
             id: TileId(id.to_string()),
             title: format!("Test tile {}", id),
-            location: SpatialIndex { x: 0.0, y: 0.0, z: 0.0 },
+            location: SpatialIndex {
+                x: 0.0,
+                y: 0.0,
+                z: 0.0,
+            },
             author: AgentId("test-agent".to_string()),
             confidence,
             domain_tags: vec!["test".to_string()],
@@ -628,7 +752,9 @@ mod tests {
         engine.add_room(room2).unwrap();
 
         let agent = AgentId("test".to_string());
-        engine.connect_agent(agent.clone(), RoomId("rust-01".to_string())).unwrap();
+        engine
+            .connect_agent(agent.clone(), RoomId("rust-01".to_string()))
+            .unwrap();
 
         let result = engine.navigate(&agent, "north");
         assert!(result.is_ok());
@@ -650,7 +776,9 @@ mod tests {
         engine.add_room(room2).unwrap();
 
         let agent = AgentId("test".to_string());
-        engine.connect_agent(agent.clone(), RoomId("r1".to_string())).unwrap();
+        engine
+            .connect_agent(agent.clone(), RoomId("r1".to_string()))
+            .unwrap();
         assert!(engine.navigate(&agent, "east").is_err());
     }
 
@@ -664,12 +792,21 @@ mod tests {
         engine.add_tile(tile.clone()).unwrap();
 
         // Add tile to room
-        engine.rooms.get_mut(&RoomId("r1".to_string())).unwrap().tiles.push(tile.id.clone());
+        engine
+            .rooms
+            .get_mut(&RoomId("r1".to_string()))
+            .unwrap()
+            .tiles
+            .push(tile.id.clone());
 
         let agent = AgentId("test".to_string());
-        engine.connect_agent(agent.clone(), RoomId("r1".to_string())).unwrap();
+        engine
+            .connect_agent(agent.clone(), RoomId("r1".to_string()))
+            .unwrap();
 
-        assert!(engine.pick_up_tile(&agent, &TileId("t1".to_string())).is_ok());
+        assert!(engine
+            .pick_up_tile(&agent, &TileId("t1".to_string()))
+            .is_ok());
         let session = engine.get_session(&agent).unwrap();
         assert!(session.inventory.contains(&TileId("t1".to_string())));
 
@@ -681,10 +818,15 @@ mod tests {
     #[test]
     fn test_npc_talk() {
         let mut engine = Engine::new();
-        engine.add_room(make_test_room("r1", "Test", Domain::Rust)).unwrap();
+        engine
+            .add_room(make_test_room("r1", "Test", Domain::Rust))
+            .unwrap();
 
         let mut knowledge = BTreeMap::new();
-        knowledge.insert(Query("borrowing".to_string()), Response("Ownership is key in Rust!".to_string()));
+        knowledge.insert(
+            Query("borrowing".to_string()),
+            Response("Ownership is key in Rust!".to_string()),
+        );
 
         let npc = Npc {
             id: NpcId("rusty".to_string()),
@@ -698,7 +840,9 @@ mod tests {
         engine.add_npc(npc).unwrap();
 
         let agent = AgentId("test".to_string());
-        engine.connect_agent(agent.clone(), RoomId("r1".to_string())).unwrap();
+        engine
+            .connect_agent(agent.clone(), RoomId("r1".to_string()))
+            .unwrap();
 
         let response = engine.talk_to_npc(&agent, &NpcId("rusty".to_string()), "borrowing");
         assert!(response.is_ok());
@@ -708,7 +852,9 @@ mod tests {
     #[test]
     fn test_npc_constraint_4() {
         let mut engine = Engine::new();
-        engine.add_room(make_test_room("r1", "Test", Domain::Rust)).unwrap();
+        engine
+            .add_room(make_test_room("r1", "Test", Domain::Rust))
+            .unwrap();
 
         let npc = Npc {
             id: NpcId("rusty".to_string()),
@@ -722,7 +868,9 @@ mod tests {
         engine.add_npc(npc).unwrap();
 
         let agent = AgentId("test".to_string());
-        engine.connect_agent(agent.clone(), RoomId("r1".to_string())).unwrap();
+        engine
+            .connect_agent(agent.clone(), RoomId("r1".to_string()))
+            .unwrap();
 
         // Asking about python should fail (outside expertise)
         let response = engine.talk_to_npc(&agent, &NpcId("rusty".to_string()), "python gil");
@@ -733,10 +881,14 @@ mod tests {
     #[test]
     fn test_command_dispatch() {
         let mut engine = Engine::new();
-        engine.add_room(make_test_room("r1", "Test Room", Domain::Concept)).unwrap();
+        engine
+            .add_room(make_test_room("r1", "Test Room", Domain::Concept))
+            .unwrap();
 
         let agent = AgentId("test".to_string());
-        engine.connect_agent(agent.clone(), RoomId("r1".to_string())).unwrap();
+        engine
+            .connect_agent(agent.clone(), RoomId("r1".to_string()))
+            .unwrap();
 
         let result = engine.execute(&agent, Command::Look);
         assert!(result.is_ok());
@@ -749,9 +901,15 @@ mod tests {
     #[test]
     fn test_rooms_by_domain() {
         let mut engine = Engine::new();
-        engine.add_room(make_test_room("r1", "Rust 1", Domain::Rust)).unwrap();
-        engine.add_room(make_test_room("r2", "Rust 2", Domain::Rust)).unwrap();
-        engine.add_room(make_test_room("c1", "C Basics", Domain::C)).unwrap();
+        engine
+            .add_room(make_test_room("r1", "Rust 1", Domain::Rust))
+            .unwrap();
+        engine
+            .add_room(make_test_room("r2", "Rust 2", Domain::Rust))
+            .unwrap();
+        engine
+            .add_room(make_test_room("c1", "C Basics", Domain::C))
+            .unwrap();
 
         assert_eq!(engine.rooms_by_domain(&Domain::Rust).len(), 2);
         assert_eq!(engine.rooms_by_domain(&Domain::C).len(), 1);
@@ -790,7 +948,9 @@ mod tests {
     #[test]
     fn test_receive_flux() {
         let mut engine = Engine::new();
-        engine.add_room(make_test_room("r1", "Target", Domain::Rust)).unwrap();
+        engine
+            .add_room(make_test_room("r1", "Target", Domain::Rust))
+            .unwrap();
 
         let tile = make_test_tile("flux-tile", 0.5);
         let flux = FluxTransference {
@@ -833,10 +993,17 @@ mod tests {
 
         let tile = make_test_tile("t1", 0.75);
         engine.add_tile(tile.clone()).unwrap();
-        engine.rooms.get_mut(&RoomId("r1".to_string())).unwrap().tiles.push(tile.id);
+        engine
+            .rooms
+            .get_mut(&RoomId("r1".to_string()))
+            .unwrap()
+            .tiles
+            .push(tile.id);
 
         let agent = AgentId("wanderer".to_string());
-        engine.connect_agent(agent.clone(), RoomId("r1".to_string())).unwrap();
+        engine
+            .connect_agent(agent.clone(), RoomId("r1".to_string()))
+            .unwrap();
 
         let output = engine.execute(&agent, Command::Look).unwrap();
         assert!(output.contains("Rust Shrine"));

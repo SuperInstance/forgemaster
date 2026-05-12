@@ -80,7 +80,8 @@ fn key_revocation() {
     let (sk_old, pk_old) = random_keypair();
     let (sk_new, pk_new) = random_keypair();
 
-    let mut mw = flux_verify_api::verify_middleware::VerificationMiddleware::new(vec![pk_old, pk_new]);
+    let mut mw =
+        flux_verify_api::verify_middleware::VerificationMiddleware::new(vec![pk_old, pk_new]);
 
     let bytecode = b"THERMAL_BOUND 85.0 0.0 100.0";
     let sig_old = flux_verify_api::signing::sign_bytecode(bytecode, &sk_old, Some(1000));
@@ -95,5 +96,8 @@ fn key_revocation() {
 
     // New key still works.
     let sig_new = flux_verify_api::signing::sign_bytecode(bytecode, &sk_new, Some(2000));
-    assert!(mw.verify(bytecode, &sig_new).allowed, "new key still trusted");
+    assert!(
+        mw.verify(bytecode, &sig_new).allowed,
+        "new key still trusted"
+    );
 }

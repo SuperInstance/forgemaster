@@ -23,13 +23,47 @@ pub struct Variable {
 
 #[derive(Debug, Clone)]
 pub enum Constraint {
-    SoundVelocity { depth_m: f64, temp_c: f64, salinity_ppt: f64 },
-    Absorption { frequency_khz: f64, depth_m: f64, temp_c: f64, salinity_ppt: f64 },
-    TransmissionLoss { range_m: f64, frequency_khz: f64, depth_m: f64, temp_c: f64, salinity_ppt: f64 },
-    ThermalBound { temp_c: f64, min_safe: f64, max_safe: f64 },
-    GenericCompare { left: f64, operator: String, right: f64, desc: String },
-    GenericBound { value: f64, min: f64, max: f64, desc: String },
-    GenericRangeCheck { value: f64, min: f64, max: f64, desc: String },
+    SoundVelocity {
+        depth_m: f64,
+        temp_c: f64,
+        salinity_ppt: f64,
+    },
+    Absorption {
+        frequency_khz: f64,
+        depth_m: f64,
+        temp_c: f64,
+        salinity_ppt: f64,
+    },
+    TransmissionLoss {
+        range_m: f64,
+        frequency_khz: f64,
+        depth_m: f64,
+        temp_c: f64,
+        salinity_ppt: f64,
+    },
+    ThermalBound {
+        temp_c: f64,
+        min_safe: f64,
+        max_safe: f64,
+    },
+    GenericCompare {
+        left: f64,
+        operator: String,
+        right: f64,
+        desc: String,
+    },
+    GenericBound {
+        value: f64,
+        min: f64,
+        max: f64,
+        desc: String,
+    },
+    GenericRangeCheck {
+        value: f64,
+        min: f64,
+        max: f64,
+        desc: String,
+    },
 }
 
 #[derive(Debug, Clone)]
@@ -45,7 +79,10 @@ pub fn parse_claim(claim: &str, domain: &str) -> Result<ConstraintProblem, Strin
         "sonar" => sonar::parse(claim),
         "thermal" => thermal::parse(claim),
         "generic" => generic::parse(claim),
-        _ => Err(format!("Unknown domain: '{}'. Use sonar, thermal, or generic.", domain)),
+        _ => Err(format!(
+            "Unknown domain: '{}'. Use sonar, thermal, or generic.",
+            domain
+        )),
     }
 }
 
@@ -65,14 +102,23 @@ pub fn compile(problem: &ConstraintProblem) -> Vec<Bytecode> {
     // Evaluate constraints
     for constraint in &problem.constraints {
         match constraint {
-            Constraint::SoundVelocity { depth_m, temp_c, salinity_ppt } => {
+            Constraint::SoundVelocity {
+                depth_m,
+                temp_c,
+                salinity_ppt,
+            } => {
                 bytecodes.push(Bytecode::SonarSvp {
                     depth_m: *depth_m,
                     temp_c: *temp_c,
                     salinity_ppt: *salinity_ppt,
                 });
             }
-            Constraint::Absorption { frequency_khz, depth_m, temp_c, salinity_ppt } => {
+            Constraint::Absorption {
+                frequency_khz,
+                depth_m,
+                temp_c,
+                salinity_ppt,
+            } => {
                 bytecodes.push(Bytecode::SonarAbsorption {
                     frequency_khz: *frequency_khz,
                     depth_m: *depth_m,
@@ -80,7 +126,13 @@ pub fn compile(problem: &ConstraintProblem) -> Vec<Bytecode> {
                     salinity_ppt: *salinity_ppt,
                 });
             }
-            Constraint::TransmissionLoss { range_m, frequency_khz, depth_m, temp_c, salinity_ppt } => {
+            Constraint::TransmissionLoss {
+                range_m,
+                frequency_khz,
+                depth_m,
+                temp_c,
+                salinity_ppt,
+            } => {
                 bytecodes.push(Bytecode::SonarTl {
                     range_m: *range_m,
                     frequency_khz: *frequency_khz,
@@ -89,14 +141,23 @@ pub fn compile(problem: &ConstraintProblem) -> Vec<Bytecode> {
                     salinity_ppt: *salinity_ppt,
                 });
             }
-            Constraint::ThermalBound { temp_c, min_safe, max_safe } => {
+            Constraint::ThermalBound {
+                temp_c,
+                min_safe,
+                max_safe,
+            } => {
                 bytecodes.push(Bytecode::ThermalBound {
                     temp_c: *temp_c,
                     min_safe: *min_safe,
                     max_safe: *max_safe,
                 });
             }
-            Constraint::GenericCompare { left, operator, right, desc } => {
+            Constraint::GenericCompare {
+                left,
+                operator,
+                right,
+                desc,
+            } => {
                 bytecodes.push(Bytecode::GenericCompare {
                     left: *left,
                     operator: operator.clone(),
@@ -104,7 +165,12 @@ pub fn compile(problem: &ConstraintProblem) -> Vec<Bytecode> {
                     desc: desc.clone(),
                 });
             }
-            Constraint::GenericBound { value, min, max, desc } => {
+            Constraint::GenericBound {
+                value,
+                min,
+                max,
+                desc,
+            } => {
                 bytecodes.push(Bytecode::GenericBound {
                     value: *value,
                     min: *min,
@@ -112,7 +178,12 @@ pub fn compile(problem: &ConstraintProblem) -> Vec<Bytecode> {
                     desc: desc.clone(),
                 });
             }
-            Constraint::GenericRangeCheck { value, min, max, desc } => {
+            Constraint::GenericRangeCheck {
+                value,
+                min,
+                max,
+                desc,
+            } => {
                 bytecodes.push(Bytecode::GenericRangeCheck {
                     value: *value,
                     min: *min,

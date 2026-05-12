@@ -9,7 +9,9 @@ use flux_verify_api::config::Config;
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt()
-        .with_env_filter(EnvFilter::from_default_env().add_directive("flux_verify_api=info".parse().unwrap()))
+        .with_env_filter(
+            EnvFilter::from_default_env().add_directive("flux_verify_api=info".parse().unwrap()),
+        )
         .init();
 
     let config = Config::from_env();
@@ -17,9 +19,7 @@ async fn main() {
 
     let state = Arc::new(Mutex::new(AppState::new(config)));
 
-    let app = Router::new()
-        .merge(routes::router())
-        .with_state(state);
+    let app = Router::new().merge(routes::router()).with_state(state);
 
     tracing::info!("🔥 flux-verify-api v0.1.0 listening on {}", addr);
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();

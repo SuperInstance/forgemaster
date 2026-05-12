@@ -8,23 +8,65 @@ use crate::compiler::ConstraintProblem;
 #[serde(tag = "opcode")]
 pub enum Bytecode {
     #[serde(rename = "LOAD")]
-    Load { name: String, value: f64, desc: String },
+    Load {
+        name: String,
+        value: f64,
+        desc: String,
+    },
     #[serde(rename = "SONAR_SVP")]
-    SonarSvp { depth_m: f64, temp_c: f64, salinity_ppt: f64 },
+    SonarSvp {
+        depth_m: f64,
+        temp_c: f64,
+        salinity_ppt: f64,
+    },
     #[serde(rename = "SONAR_ABSORPTION")]
-    SonarAbsorption { frequency_khz: f64, depth_m: f64, temp_c: f64, salinity_ppt: f64 },
+    SonarAbsorption {
+        frequency_khz: f64,
+        depth_m: f64,
+        temp_c: f64,
+        salinity_ppt: f64,
+    },
     #[serde(rename = "SONAR_TL")]
-    SonarTl { range_m: f64, frequency_khz: f64, depth_m: f64, temp_c: f64, salinity_ppt: f64 },
+    SonarTl {
+        range_m: f64,
+        frequency_khz: f64,
+        depth_m: f64,
+        temp_c: f64,
+        salinity_ppt: f64,
+    },
     #[serde(rename = "THERMAL_BOUND")]
-    ThermalBound { temp_c: f64, min_safe: f64, max_safe: f64 },
+    ThermalBound {
+        temp_c: f64,
+        min_safe: f64,
+        max_safe: f64,
+    },
     #[serde(rename = "GENERIC_COMPARE")]
-    GenericCompare { left: f64, operator: String, right: f64, desc: String },
+    GenericCompare {
+        left: f64,
+        operator: String,
+        right: f64,
+        desc: String,
+    },
     #[serde(rename = "GENERIC_BOUND")]
-    GenericBound { value: f64, min: f64, max: f64, desc: String },
+    GenericBound {
+        value: f64,
+        min: f64,
+        max: f64,
+        desc: String,
+    },
     #[serde(rename = "GENERIC_RANGE_CHECK")]
-    GenericRangeCheck { value: f64, min: f64, max: f64, desc: String },
+    GenericRangeCheck {
+        value: f64,
+        min: f64,
+        max: f64,
+        desc: String,
+    },
     #[serde(rename = "ASSERT_GT")]
-    Assert { assertion_type: String, expected: f64, desc: String },
+    Assert {
+        assertion_type: String,
+        expected: f64,
+        desc: String,
+    },
 }
 
 #[derive(Debug, Clone)]
@@ -35,6 +77,12 @@ pub struct FluxVm {
     pub transmission_loss_db: f64,
     pub signal_excess_db: f64,
     pub last_result: f64,
+}
+
+impl Default for FluxVm {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl FluxVm {
@@ -67,7 +115,11 @@ impl FluxVm {
                         desc: desc.clone(),
                     });
                 }
-                Bytecode::SonarSvp { depth_m, temp_c, salinity_ppt } => {
+                Bytecode::SonarSvp {
+                    depth_m,
+                    temp_c,
+                    salinity_ppt,
+                } => {
                     let sv = mackenzie_sound_velocity(*depth_m, *temp_c, *salinity_ppt);
                     self.sound_velocity = sv;
                     self.last_result = sv;
@@ -81,8 +133,18 @@ impl FluxVm {
                         desc: "sound velocity (Mackenzie 1981)".into(),
                     });
                 }
-                Bytecode::SonarAbsorption { frequency_khz, depth_m, temp_c, salinity_ppt } => {
-                    let abs_db_km = francois_garrison_absorption(*frequency_khz, *depth_m, *temp_c, *salinity_ppt);
+                Bytecode::SonarAbsorption {
+                    frequency_khz,
+                    depth_m,
+                    temp_c,
+                    salinity_ppt,
+                } => {
+                    let abs_db_km = francois_garrison_absorption(
+                        *frequency_khz,
+                        *depth_m,
+                        *temp_c,
+                        *salinity_ppt,
+                    );
                     self.absorption_db_km = abs_db_km;
                     self.last_result = abs_db_km;
                     self.registers.insert("absorption_db_km".into(), abs_db_km);
@@ -95,7 +157,13 @@ impl FluxVm {
                         desc: "absorption dB/km (FG 1982)".into(),
                     });
                 }
-                Bytecode::SonarTl { range_m, frequency_khz, depth_m, temp_c, salinity_ppt } => {
+                Bytecode::SonarTl {
+                    range_m,
+                    frequency_khz,
+                    depth_m,
+                    temp_c,
+                    salinity_ppt,
+                } => {
                     let sv = if self.sound_velocity > 0.0 {
                         self.sound_velocity
                     } else {
@@ -104,7 +172,12 @@ impl FluxVm {
                     let abs_db_km = if self.absorption_db_km > 0.0 {
                         self.absorption_db_km
                     } else {
-                        francois_garrison_absorption(*frequency_khz, *depth_m, *temp_c, *salinity_ppt)
+                        francois_garrison_absorption(
+                            *frequency_khz,
+                            *depth_m,
+                            *temp_c,
+                            *salinity_ppt,
+                        )
                     };
                     let tl = transmission_loss(*range_m, sv, abs_db_km);
                     self.transmission_loss_db = tl;
@@ -119,7 +192,11 @@ impl FluxVm {
                         desc: "transmission loss (dB)".into(),
                     });
                 }
-                Bytecode::ThermalBound { temp_c, min_safe, max_safe } => {
+                Bytecode::ThermalBound {
+                    temp_c,
+                    min_safe,
+                    max_safe,
+                } => {
                     let in_range = *temp_c >= *min_safe && *temp_c <= *max_safe;
                     let margin = if *temp_c < *min_safe {
                         *temp_c - *min_safe
@@ -139,7 +216,12 @@ impl FluxVm {
                         desc: format!("temp {}°C vs safe [{}, {}]", temp_c, min_safe, max_safe),
                     });
                 }
-                Bytecode::GenericCompare { left, operator, right, desc } => {
+                Bytecode::GenericCompare {
+                    left,
+                    operator,
+                    right,
+                    desc,
+                } => {
                     let result = match operator.as_str() {
                         "gt" => left > right,
                         "gte" => left >= right,
@@ -159,7 +241,12 @@ impl FluxVm {
                         desc: desc.clone(),
                     });
                 }
-                Bytecode::GenericBound { value, min, max, desc } => {
+                Bytecode::GenericBound {
+                    value,
+                    min,
+                    max,
+                    desc,
+                } => {
                     let in_range = *value >= *min && *value <= *max;
                     let margin = if in_range {
                         (*value - *min).min(*max - *value)
@@ -178,7 +265,12 @@ impl FluxVm {
                         desc: desc.clone(),
                     });
                 }
-                Bytecode::GenericRangeCheck { value, min, max, desc } => {
+                Bytecode::GenericRangeCheck {
+                    value,
+                    min,
+                    max,
+                    desc,
+                } => {
                     let in_range = *value >= *min && *value <= *max;
                     let margin = if in_range {
                         (*value - *min).min(*max - *value)
@@ -197,19 +289,30 @@ impl FluxVm {
                         desc: desc.clone(),
                     });
                 }
-                Bytecode::Assert { assertion_type, expected, desc } => {
+                Bytecode::Assert {
+                    assertion_type,
+                    expected,
+                    desc,
+                } => {
                     match assertion_type.as_str() {
                         "gt" => {
                             // Active sonar equation: SE = SL - 2*TL + TS - DT
                             // Default source level 220 dB, detection threshold 5 dB
                             let source_level_db = 220.0;
                             let detection_threshold_db = 5.0;
-                            let target_strength = self.registers.get("target_strength_db").copied().unwrap_or(10.0);
+                            let target_strength = self
+                                .registers
+                                .get("target_strength_db")
+                                .copied()
+                                .unwrap_or(10.0);
                             let tl = self.transmission_loss_db;
-                            let signal_excess = source_level_db - 2.0 * tl + target_strength - detection_threshold_db;
+                            let signal_excess = source_level_db - 2.0 * tl + target_strength
+                                - detection_threshold_db;
                             self.signal_excess_db = signal_excess;
-                            self.registers.insert("source_level_db".into(), source_level_db);
-                            self.registers.insert("signal_excess_db".into(), signal_excess);
+                            self.registers
+                                .insert("source_level_db".into(), source_level_db);
+                            self.registers
+                                .insert("signal_excess_db".into(), signal_excess);
                             trace.push(TraceEntry {
                                 opcode: "ASSERT_GT".into(),
                                 value: None,
@@ -249,7 +352,11 @@ impl FluxVm {
     }
 
     /// Evaluate the trace and determine PROVEN/DISPROVEN with confidence.
-    pub fn evaluate(&self, trace: &[TraceEntry], problem: &ConstraintProblem) -> (String, f64, Option<serde_json::Value>) {
+    pub fn evaluate(
+        &self,
+        trace: &[TraceEntry],
+        problem: &ConstraintProblem,
+    ) -> (String, f64, Option<serde_json::Value>) {
         match problem.domain.as_str() {
             "sonar" => {
                 let signal_excess = self.signal_excess_db;
@@ -275,7 +382,11 @@ impl FluxVm {
                 };
 
                 (
-                    if proven { "PROVEN".into() } else { "DISPROVEN".into() },
+                    if proven {
+                        "PROVEN".into()
+                    } else {
+                        "DISPROVEN".into()
+                    },
                     (confidence * 100.0).round() / 100.0,
                     counterexample,
                 )
@@ -300,7 +411,11 @@ impl FluxVm {
                 };
 
                 (
-                    if in_range { "PROVEN".into() } else { "DISPROVEN".into() },
+                    if in_range {
+                        "PROVEN".into()
+                    } else {
+                        "DISPROVEN".into()
+                    },
                     confidence,
                     counterexample,
                 )
@@ -309,12 +424,15 @@ impl FluxVm {
                 // Check the last compare/assert entry
                 let mut proven = false;
                 for entry in trace.iter().rev() {
-                    if entry.opcode == "GENERIC_COMPARE" || entry.opcode == "GENERIC_RANGE_CHECK" || entry.opcode == "GENERIC_BOUND" {
-                        proven = entry.result.map_or(false, |v| v > 0.0);
+                    if entry.opcode == "GENERIC_COMPARE"
+                        || entry.opcode == "GENERIC_RANGE_CHECK"
+                        || entry.opcode == "GENERIC_BOUND"
+                    {
+                        proven = entry.result.is_some_and(|v| v > 0.0);
                         break;
                     }
                     if entry.opcode == "ASSERT_IN_RANGE" {
-                        proven = entry.result.map_or(false, |v| v >= 0.0);
+                        proven = entry.result.is_some_and(|v| v >= 0.0);
                         break;
                     }
                 }
@@ -328,7 +446,11 @@ impl FluxVm {
                 };
 
                 (
-                    if proven { "PROVEN".into() } else { "DISPROVEN".into() },
+                    if proven {
+                        "PROVEN".into()
+                    } else {
+                        "DISPROVEN".into()
+                    },
                     0.95,
                     counterexample,
                 )
@@ -347,9 +469,7 @@ pub fn mackenzie_sound_velocity(depth_m: f64, temp_c: f64, salinity_ppt: f64) ->
     let t = temp_c;
     let s = salinity_ppt;
 
-    1448.96
-        + 4.591 * t
-        - 5.304e-2 * t * t
+    1448.96 + 4.591 * t - 5.304e-2 * t * t
         + 2.374e-4 * t * t * t
         + 1.340 * (s - 35.0)
         + 1.630e-2 * d
@@ -361,7 +481,12 @@ pub fn mackenzie_sound_velocity(depth_m: f64, temp_c: f64, salinity_ppt: f64) ->
 /// Francois-Garrison 1982 absorption model (dB/km).
 /// Uses the simplified Thorp (1967) / Francois-Garrison (1982) formulation.
 /// Valid for 0.4–100 kHz, temperature-corrected.
-pub fn francois_garrison_absorption(frequency_khz: f64, depth_m: f64, temp_c: f64, salinity_ppt: f64) -> f64 {
+pub fn francois_garrison_absorption(
+    frequency_khz: f64,
+    depth_m: f64,
+    temp_c: f64,
+    salinity_ppt: f64,
+) -> f64 {
     let f = frequency_khz; // kHz
     let t = temp_c;
     let s = salinity_ppt;
@@ -376,15 +501,13 @@ pub fn francois_garrison_absorption(frequency_khz: f64, depth_m: f64, temp_c: f6
 
     // Thorp (1967) + FG (1982) simplified absorption formula (dB/km)
     // Boric acid relaxation: 0.11*f²/(1+f²)
-    // MgSO4 relaxation: 44*f²/(4100+f²)  
+    // MgSO4 relaxation: 44*f²/(4100+f²)
     // Viscous: 2.75e-4*f²
-    let alpha = (0.11 * f * f / (1.0 + f * f)
-        + 44.0 * f * f / (4100.0 + f * f)
-        + 2.75e-4 * f * f
-        + 0.003)
-        * temp_factor
-        * sal_factor
-        * pressure_factor;
+    let alpha =
+        (0.11 * f * f / (1.0 + f * f) + 44.0 * f * f / (4100.0 + f * f) + 2.75e-4 * f * f + 0.003)
+            * temp_factor
+            * sal_factor
+            * pressure_factor;
 
     alpha.max(0.001)
 }
