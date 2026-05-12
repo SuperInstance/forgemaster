@@ -4,7 +4,7 @@
 //! By testing all 9 candidates we guarantee the nearest neighbor is found,
 //! and the maximum snap distance (covering radius) is ≤ 1/√3.
 
-use crate::eisenstein::{EisensteinInt, HALF_SQRT3, INV_SQRT3, round, fabs, hypot};
+use crate::eisenstein::{fabs, hypot, round, EisensteinInt, HALF_SQRT3, INV_SQRT3};
 
 /// Snap (x, y) to the true nearest Eisenstein integer using 9-candidate Voronoï search.
 ///
@@ -55,7 +55,10 @@ pub fn eisenstein_snap_voronoi(x: f64, y: f64, tolerance: f64) -> (EisensteinInt
 
 /// Batch Voronoï snap for multiple points.
 pub fn eisenstein_snap_voronoi_batch(points: &[(f64, f64)]) -> alloc::vec::Vec<EisensteinInt> {
-    points.iter().map(|&(x, y)| eisenstein_round_voronoi(x, y)).collect()
+    points
+        .iter()
+        .map(|&(x, y)| eisenstein_round_voronoi(x, y))
+        .collect()
 }
 
 /// Batch Voronoï snap with distance and tolerance check.
@@ -63,7 +66,10 @@ pub fn eisenstein_snap_voronoi_batch_with_tolerance(
     points: &[(f64, f64)],
     tolerance: f64,
 ) -> alloc::vec::Vec<(EisensteinInt, f64, bool)> {
-    points.iter().map(|&(x, y)| eisenstein_snap_voronoi(x, y, tolerance)).collect()
+    points
+        .iter()
+        .map(|&(x, y)| eisenstein_snap_voronoi(x, y, tolerance))
+        .collect()
 }
 
 /// Verify the covering radius guarantee: maximum snap distance ≤ 1/√3.

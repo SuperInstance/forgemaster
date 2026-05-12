@@ -36,7 +36,7 @@ fn test_eisenstein_to_cartesian() {
     let (x, y) = EisensteinInt::new(1, 0).to_cartesian();
     assert!((x - 1.0).abs() < 1e-10);
     assert!(y.abs() < 1e-10);
-    
+
     // (0, 1) → (-0.5, √3/2)
     let (x, y) = EisensteinInt::new(0, 1).to_cartesian();
     assert!((x + 0.5).abs() < 1e-10);
@@ -73,7 +73,7 @@ fn test_eisenstein_conjugate() {
     let e = EisensteinInt::new(3, -2);
     let conj = e.conjugate();
     assert_eq!(conj.a, 3 - (-2)); // 5
-    assert_eq!(conj.b, -(-2));    // 2
+    assert_eq!(conj.b, -(-2)); // 2
 }
 
 #[test]
@@ -144,7 +144,7 @@ fn test_voronoi_unit_directions() {
     // East → (1, 0)
     let e = voronoi::eisenstein_round_voronoi(1.0, 0.0);
     assert_eq!(e, EisensteinInt::new(1, 0));
-    
+
     // ω direction → (0, 1)
     let (wx, wy) = EisensteinInt::new(0, 1).to_cartesian();
     let e = voronoi::eisenstein_round_voronoi(wx, wy);
@@ -171,8 +171,12 @@ fn test_voronoi_batch() {
 fn test_covering_radius() {
     let max_dist = voronoi::verify_covering_radius(50);
     let inv_sqrt3 = 1.0 / 1.7320508156882472;
-    assert!(max_dist <= inv_sqrt3 + 1e-10, 
-        "Max snap distance {} exceeds covering radius 1/√3 ≈ {}", max_dist, inv_sqrt3);
+    assert!(
+        max_dist <= inv_sqrt3 + 1e-10,
+        "Max snap distance {} exceeds covering radius 1/√3 ≈ {}",
+        max_dist,
+        inv_sqrt3
+    );
 }
 
 // ── Temporal snap tests ──────────────────────────────────────────────
@@ -233,14 +237,14 @@ fn test_beat_grid_snap_batch() {
 fn test_temporal_snap_t0_detection() {
     let grid = temporal::BeatGrid::new(1.0, 0.0, 0.0);
     let mut ts = temporal::TemporalSnap::new(grid, 0.1, 0.1, 3);
-    
+
     // Feed values that create an inflection: going down then up, with small value at inflection
     let r1 = ts.observe(0.0, 0.5);
     assert!(!r1.is_t_minus_0);
-    
+
     let r2 = ts.observe(1.0, 0.02);
     assert!(!r2.is_t_minus_0); // Only 2 observations
-    
+
     let r3 = ts.observe(2.0, 0.03);
     // d1 = (0.02 - 0.5) / 1 = -0.48 (going down)
     // d2 = (0.03 - 0.02) / 1 = 0.01 (going up)
@@ -392,16 +396,22 @@ fn test_connectome_three_rooms() {
 #[test]
 fn test_room_pair_is_significant() {
     let coupled = types::RoomPair {
-        room_a: 0, room_b: 1,
+        room_a: 0,
+        room_b: 1,
         coupling: CouplingType::Coupled,
-        correlation: 0.9, lag: 0, confidence: 0.8,
+        correlation: 0.9,
+        lag: 0,
+        confidence: 0.8,
     };
     assert!(coupled.is_significant());
 
     let uncoupled = types::RoomPair {
-        room_a: 0, room_b: 1,
+        room_a: 0,
+        room_b: 1,
         coupling: CouplingType::Uncoupled,
-        correlation: 0.1, lag: 0, confidence: 0.05,
+        correlation: 0.1,
+        lag: 0,
+        confidence: 0.05,
     };
     assert!(!uncoupled.is_significant());
 }
@@ -416,7 +426,7 @@ fn test_connectome_result_filters() {
     tc.add_room(&b);
     tc.add_room(&c);
     let result = tc.analyze();
-    
+
     // Room 0 and 1: correlated (a vs 2a) → coupled
     // Room 0 and 2: anti-correlated (a vs -a) → anti-coupled
     // Room 1 and 2: anti-correlated (2a vs -a) → anti-coupled

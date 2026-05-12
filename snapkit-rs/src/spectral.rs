@@ -2,8 +2,8 @@
 //!
 //! All algorithms are libm-free (pure Rust) and `no_std` compatible.
 
+use crate::eisenstein::{fabs, ln, sqrt, LN2};
 use crate::types::SpectralSummary;
-use crate::eisenstein::{fabs, sqrt, ln, LN2};
 
 /// Compute Shannon entropy (in bits) via histogram binning.
 ///
@@ -23,8 +23,11 @@ pub fn entropy(data: &[f64], bins: usize) -> f64 {
     let mut min_val = data[0];
     let mut max_val = data[0];
     for &x in data {
-        if x < min_val { min_val = x; }
-        else if x > max_val { max_val = x; }
+        if x < min_val {
+            min_val = x;
+        } else if x > max_val {
+            max_val = x;
+        }
     }
 
     if max_val == min_val {
@@ -116,7 +119,9 @@ pub fn hurst_exponent(data: &[f64]) -> f64 {
             s = next2;
         } else {
             let next15 = (s as f64 * 1.5) as usize;
-            if next15 == s || next15 > n / 2 { break; }
+            if next15 == s || next15 > n / 2 {
+                break;
+            }
             s = next15;
         }
     }
@@ -156,12 +161,22 @@ pub fn hurst_exponent(data: &[f64]) -> f64 {
             let mut cum_max = 0.0;
             for &x in sub {
                 running += x - sub_mean;
-                if running < cum_min { cum_min = running; }
-                else if running > cum_max { cum_max = running; }
+                if running < cum_min {
+                    cum_min = running;
+                } else if running > cum_max {
+                    cum_max = running;
+                }
             }
             let r = cum_max - cum_min;
 
-            let var: f64 = sub.iter().map(|x| { let d = x - sub_mean; d * d }).sum::<f64>() * inv_size;
+            let var: f64 = sub
+                .iter()
+                .map(|x| {
+                    let d = x - sub_mean;
+                    d * d
+                })
+                .sum::<f64>()
+                * inv_size;
             if var > 1e-20 {
                 rs_sum += r / sqrt(var);
                 rs_count += 1;
@@ -197,7 +212,13 @@ pub fn hurst_exponent(data: &[f64]) -> f64 {
     }
 
     let h = (n_pts * sum_xy - sum_x * sum_y) / denom;
-    if h < 0.0 { 0.0 } else if h > 1.0 { 1.0 } else { h }
+    if h < 0.0 {
+        0.0
+    } else if h > 1.0 {
+        1.0
+    } else {
+        h
+    }
 }
 
 /// Compute a complete spectral summary of a signal.
@@ -226,7 +247,7 @@ pub fn spectral_summary(data: &[f64], bins: usize, max_lag: Option<usize>) -> Sp
         }
     }
 
-    let is_stationary = (0.4 <= hurst_val && hurst_val <= 0.6) && fabs(acf_lag1) < 0.3;
+    let is_stationary = (0.4..=0.6).contains(&hurst_val) && fabs(acf_lag1) < 0.3;
 
     SpectralSummary {
         entropy_bits: h,
@@ -243,7 +264,10 @@ pub fn spectral_batch(
     bins: usize,
     max_lag: Option<usize>,
 ) -> alloc::vec::Vec<SpectralSummary> {
-    series_list.iter().map(|data| spectral_summary(data, bins, max_lag)).collect()
+    series_list
+        .iter()
+        .map(|data| spectral_summary(data, bins, max_lag))
+        .collect()
 }
 
 extern crate alloc;

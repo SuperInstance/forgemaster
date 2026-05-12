@@ -3,8 +3,8 @@
 //! `BeatGrid` defines a periodic grid of time points.
 //! `TemporalSnap` adds T-minus-0 (inflection point) detection using a circular buffer.
 
-use crate::types::TemporalResult;
 use crate::eisenstein::fabs;
+use crate::types::TemporalResult;
 
 /// A periodic grid of time points.
 ///
@@ -63,8 +63,15 @@ impl BeatGrid {
     }
 
     /// Snap multiple timestamps.
-    pub fn snap_batch(&self, timestamps: &[f64], tolerance: f64) -> alloc::vec::Vec<TemporalResult> {
-        timestamps.iter().map(|&t| self.snap(t, tolerance)).collect()
+    pub fn snap_batch(
+        &self,
+        timestamps: &[f64],
+        tolerance: f64,
+    ) -> alloc::vec::Vec<TemporalResult> {
+        timestamps
+            .iter()
+            .map(|&t| self.snap(t, tolerance))
+            .collect()
     }
 
     /// List all beat times in [t_start, t_end].
@@ -204,14 +211,22 @@ fn floor_i64(x: f64) -> i64 {
 
 fn ceil_i64(x: f64) -> i64 {
     let f = floor(x);
-    if x == f { f as i64 } else { f as i64 + 1 }
+    if x == f {
+        f as i64
+    } else {
+        f as i64 + 1
+    }
 }
 
 /// Fractional part, always in [0, 1).
 fn frac_part(x: f64) -> f64 {
     let f = floor(x);
     let frac = x - f;
-    if frac < 0.0 { frac + 1.0 } else { frac }
+    if frac < 0.0 {
+        frac + 1.0
+    } else {
+        frac
+    }
 }
 
 fn floor(x: f64) -> f64 {

@@ -17,14 +17,14 @@
 
 extern crate alloc;
 
-pub mod eisenstein;
-pub mod voronoi;
-pub mod temporal;
-pub mod spectral;
 pub mod connectome;
+pub mod eisenstein;
+pub mod spectral;
+pub mod temporal;
 pub mod types;
+pub mod voronoi;
 
 // Re-export key types at crate root for convenience
 pub use eisenstein::EisensteinInt;
+pub use types::{ConnectomeResult, CouplingType, RoomPair, SpectralSummary, TemporalResult};
 pub use voronoi::eisenstein_round_voronoi;
-pub use types::{TemporalResult, SpectralSummary, CouplingType, RoomPair, ConnectomeResult};

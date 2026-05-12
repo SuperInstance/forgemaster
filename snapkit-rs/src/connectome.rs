@@ -2,8 +2,8 @@
 //!
 //! Cross-correlation based coupling detection between pairs of temporal signals.
 
-use crate::types::{ConnectomeResult, CouplingType, RoomPair};
 use crate::eisenstein::fabs;
+use crate::types::{ConnectomeResult, CouplingType, RoomPair};
 
 /// Builder for temporal connectome analysis.
 ///
@@ -155,11 +155,15 @@ fn cross_correlation(x: &[f64], y: &[f64], max_lag: usize) -> alloc::vec::Vec<(i
             let l = lag * sign;
             let (xx, yy) = if l >= 0 {
                 let l = l as usize;
-                if l >= n { continue; }
+                if l >= n {
+                    continue;
+                }
                 (&x[..n - l], &y[l..n])
             } else {
                 let l = (-l) as usize;
-                if l >= n { continue; }
+                if l >= n {
+                    continue;
+                }
                 (&x[l..n], &y[..n - l])
             };
 

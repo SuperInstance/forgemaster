@@ -75,12 +75,18 @@ pub struct ConnectomeResult {
 impl ConnectomeResult {
     /// Return only coupled pairs.
     pub fn coupled(&self) -> alloc::vec::Vec<&RoomPair> {
-        self.pairs.iter().filter(|p| p.coupling == CouplingType::Coupled).collect()
+        self.pairs
+            .iter()
+            .filter(|p| p.coupling == CouplingType::Coupled)
+            .collect()
     }
 
     /// Return only anti-coupled pairs.
     pub fn anti_coupled(&self) -> alloc::vec::Vec<&RoomPair> {
-        self.pairs.iter().filter(|p| p.coupling == CouplingType::AntiCoupled).collect()
+        self.pairs
+            .iter()
+            .filter(|p| p.coupling == CouplingType::AntiCoupled)
+            .collect()
     }
 
     /// Return all significant pairs.

@@ -3,8 +3,8 @@
 //! An Eisenstein integer is a + bω where ω = e^{2πi/3} = (-1 + i√3)/2.
 //! The six units of Z[ω] are ±1, ±ω, ±ω², all with norm 1.
 
-use core::ops::{Add, Mul, Sub};
 use core::fmt;
+use core::ops::{Add, Mul, Sub};
 
 /// Precomputed √3.
 pub const SQRT3: f64 = 1.7320508075688772;
@@ -69,12 +69,12 @@ impl EisensteinInt {
     /// The six units of Z[ω]: ±1, ±ω, ±ω².
     /// These all have Eisenstein norm a²-ab+b² = 1.
     pub const UNITS: [EisensteinInt; 6] = [
-        EisensteinInt::new(1, 0),    // 1
-        EisensteinInt::new(0, 1),    // ω
-        EisensteinInt::new(1, 1),    // -ω² = 1+ω
-        EisensteinInt::new(-1, 0),   // -1
-        EisensteinInt::new(0, -1),   // -ω
-        EisensteinInt::new(-1, -1),  // ω² = -1-ω
+        EisensteinInt::new(1, 0),   // 1
+        EisensteinInt::new(0, 1),   // ω
+        EisensteinInt::new(1, 1),   // -ω² = 1+ω
+        EisensteinInt::new(-1, 0),  // -1
+        EisensteinInt::new(0, -1),  // -ω
+        EisensteinInt::new(-1, -1), // ω² = -1-ω
     ];
 }
 
@@ -155,7 +155,10 @@ pub fn eisenstein_snap_batch(
     points: &[(f64, f64)],
     tolerance: f64,
 ) -> alloc::vec::Vec<(EisensteinInt, f64, bool)> {
-    points.iter().map(|&(x, y)| eisenstein_snap(x, y, tolerance)).collect()
+    points
+        .iter()
+        .map(|&(x, y)| eisenstein_snap(x, y, tolerance))
+        .collect()
 }
 
 /// Eisenstein lattice distance between two Cartesian points.
@@ -176,7 +179,11 @@ pub(crate) fn floor(x: f64) -> f64 {
         x as u64 as f64
     } else {
         let i = x as i64 as f64;
-        if i == x { i } else { i - 1.0 }
+        if i == x {
+            i
+        } else {
+            i - 1.0
+        }
     }
 }
 
@@ -188,7 +195,11 @@ pub(crate) fn round(x: f64) -> f64 {
 /// Absolute value.
 #[inline]
 pub(crate) fn fabs(x: f64) -> f64 {
-    if x < 0.0 { -x } else { x }
+    if x < 0.0 {
+        -x
+    } else {
+        x
+    }
 }
 
 /// √x via Newton's method (no libm).
@@ -201,11 +212,11 @@ pub(crate) fn sqrt(x: f64) -> f64 {
     let mut i = x.to_bits();
     i = 0x5fe6eb50c7b537a9_u64.wrapping_sub(i >> 1);
     let mut z = f64::from_bits(i); // ≈ 1/√x
-    z = z * (1.5 - half * z * z);  // 1st Newton refinement
-    z = z * (1.5 - half * z * z);  // 2nd
-    z = z * (1.5 - half * z * z);  // 3rd
-    // z is now ≈ 1/√x with high accuracy; multiply by x to get √x
-    // But: x * (1/√x) = √x only if exact. Do a final Newton on √x directly:
+    z = z * (1.5 - half * z * z); // 1st Newton refinement
+    z = z * (1.5 - half * z * z); // 2nd
+    z = z * (1.5 - half * z * z); // 3rd
+                                  // z is now ≈ 1/√x with high accuracy; multiply by x to get √x
+                                  // But: x * (1/√x) = √x only if exact. Do a final Newton on √x directly:
     let mut s = x * z;
     for _ in 0..3 {
         s = 0.5 * (s + x / s);
@@ -260,7 +271,11 @@ pub const PI: f64 = 3.1415926535897932;
 #[allow(dead_code)]
 pub(crate) fn ceil(x: f64) -> f64 {
     let f = floor(x);
-    if x == f { f } else { f + 1.0 }
+    if x == f {
+        f
+    } else {
+        f + 1.0
+    }
 }
 
 extern crate alloc;
