@@ -38,14 +38,15 @@ def snap(x: float, y: float) -> SnapResult:
     """Snap (x,y) to nearest Eisenstein integer."""
     b_est = round(y / W_IM)
     a_est = round(x - b_est * W_RE)
-    best_a, best_b, best_err = int(a_est), int(b_est), 1e18
+    a0, b0 = int(a_est), int(b_est)
+    best_a, best_b, best_err = a0, b0, 1e18
     for da in range(-1, 2):
         for db in range(-1, 2):
-            ca = (best_a + da) + (best_b + db) * W_RE
-            cb = (best_b + db) * W_IM
+            ca = (a0 + da) + (best_b + db) * W_RE
+            cb = (b0 + db) * W_IM
             err = math.hypot(x - ca, y - cb)
             if err < best_err:
-                best_a, best_b = best_a + da, best_b + db
+                best_a, best_b = a0 + da, b0 + db
                 best_err = err
     cx = best_a + best_b * W_RE
     cy = best_b * W_IM
