@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "nodes": ["local"],
+  "rooms": {
+    "forgemaster-workspace": {"tiles": 0, "description": "Forgemaster's working room"},
+    "fleet-coordination": {"tiles": 0, "description": "Fleet-wide coordination"},
+    "seed-discoveries": {"tiles": 0, "description": "Crystallized seed tiles"},
+    "sensor-data": {"tiles": 0, "description": "IoT sensor readings"},
+    "constraint-params": {"tiles": 0, "description": "Optimal constraint parameters"}
+  },
+  "last_sync": null
+}
