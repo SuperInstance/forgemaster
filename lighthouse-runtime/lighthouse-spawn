@@ -1,0 +1,35 @@
+#!/bin/bash
+# lighthouse-spawn — Bridge lighthouse orient → OpenClaw subagent
+#
+# Usage: ./lighthouse-spawn "task description" task_type [role]
+# Example: ./lighthouse-spawn "Write a benchmark script" drafting
+#
+# This script:
+# 1. Calls orient to pick the cheapest appropriate model
+# 2. Creates the PLATO agent room
+# 3. Relays (marks as running)
+# 4. Outputs the room_id and model for use with sessions_spawn
+
+set -euo pipefail
+
+LIGHTHOUSE_DIR="$(cd "$(dirname "$0")" && pwd)"
+TASK="${1:?Usage: lighthouse-spawn TASK TASK_TYPE [ROLE]}"
+TASK_TYPE="${2:-drafting}"
+ROLE="${3:-worker}"
+
+# Orient — pick model, create room
+ORIENT_JSON=$(python3 "$LIGHTHOUSE_DIR/lighthouse.py" orient "$TASK" "$TASK_TYPE" "$ROLE")
+ROOM_ID=$(echo "$ORIENT_JSON" | python3 -c "import sys,json; print(json.load(sys.stdin)['room_id'])")
+MODEL=$(echo "$ORIENT_JSON" | python3 -c "import sys,json; print(json.load(sys.stdin)['openclaw_model'])")
+COST=$(echo "$ORIENT_JSON" | python3 -c "import sys,json; print(json.load(sys.stdin)['cost_estimate'])")
+
+echo "ORIENTED: room=$ROOM_ID model=$MODEL cost=$COST" >&2
+
+# Relay — mark as running
+python3 "$LIGHTHOUSE_DIR/lighthouse.py" relay "$ROOM_ID" > /dev/null
+
+echo "RELAYED: $ROOM_ID is running" >&2
+
+# Output for consumption
+echo "$ROOM_ID"
+echo "$MODEL"

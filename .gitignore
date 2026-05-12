@@ -40,3 +40,5 @@ snapkit-c/*.o
 snapkit-c/*.a
 snapkit-c/*.so
 snapkit-c/test_*
+constraint-demos/
+galois-unification-proofs/
