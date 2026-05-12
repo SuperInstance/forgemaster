@@ -1,0 +1,77 @@
+[
+  {
+    "role": "converging-tracker",
+    "score": 0.557,
+    "entropy": 0.074,
+    "iterations": 150,
+    "generation": 2,
+    "params": {
+      "decay_rate": 1.2408768370508576,
+      "prediction_horizon": 7,
+      "anomaly_sigma": 3.996053456856543,
+      "learning_rate": 0.276335575687742,
+      "chirality_lock_threshold": 426,
+      "merge_trust": 0.29463586822139354
+    }
+  },
+  {
+    "role": "noisy-sensor",
+    "score": 0.737,
+    "entropy": 0.127,
+    "iterations": 150,
+    "generation": 2,
+    "params": {
+      "decay_rate": 2.2622996375493334,
+      "prediction_horizon": 16,
+      "anomaly_sigma": 5.0,
+      "learning_rate": 0.01,
+      "chirality_lock_threshold": 100,
+      "merge_trust": 0.6678125934994844
+    }
+  },
+  {
+    "role": "step-detector",
+    "score": 0.704,
+    "entropy": 0.066,
+    "iterations": 150,
+    "generation": 2,
+    "params": {
+      "decay_rate": 1.0,
+      "prediction_horizon": 4,
+      "anomaly_sigma": 2.0,
+      "learning_rate": 0.1,
+      "chirality_lock_threshold": 500,
+      "merge_trust": 0.5
+    }
+  },
+  {
+    "role": "boundary-scanner",
+    "score": 0.64,
+    "entropy": 0.145,
+    "iterations": 150,
+    "generation": 2,
+    "params": {
+      "decay_rate": 1.0626666167821521,
+      "prediction_horizon": 5,
+      "anomaly_sigma": 2.736249105369356,
+      "learning_rate": 0.2763355756877419,
+      "chirality_lock_threshold": 654,
+      "merge_trust": 0.7946861752186066
+    }
+  },
+  {
+    "role": "diverging-recovery",
+    "score": 0.587,
+    "entropy": 0.13,
+    "iterations": 150,
+    "generation": 2,
+    "params": {
+      "decay_rate": 1.0626666167821521,
+      "prediction_horizon": 5,
+      "anomaly_sigma": 2.736249105369356,
+      "learning_rate": 0.2763355756877419,
+      "chirality_lock_threshold": 654,
+      "merge_trust": 0.7946861752186066
+    }
+  }
+]
