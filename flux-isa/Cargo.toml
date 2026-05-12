@@ -10,3 +10,5 @@ keywords = ["flux", "constraint", "vm", "bytecode", "isa"]
 categories = ["algorithms", "compilers", "embedded"]
 
 [dependencies]
+
+[workspace]

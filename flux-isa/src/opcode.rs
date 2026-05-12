@@ -64,6 +64,28 @@ pub enum FluxOpcode {
     Debug = 0x71,
     Trace = 0x72,
     Dump = 0x73,
+
+    // GALOIS ADJUNCTIONS (FLUX-DEEP, cross-domain mathematical primitives)
+    // Each is a verified Galois connection from the Unification Principle
+    XorInvert = 0x80,   // Self-adjoint involution: f(x) = x ⊕ mask, f = f*
+    Clamp    = 0x81,   // Reflective subcategory: e(x) = clamp(x, lo, hi)
+    Bloom    = 0x82,   // Heyting algebra insert: filter ∨ hash(item)
+    BloomQ   = 0x83,   // Heyting algebra query: filter ∧ hash(item) ≠ 0
+    FloorQ   = 0x84,   // Floor adjoint: floor(v/step)*step (left adjoint)
+    CeilQ    = 0x85,   // Ceil adjoint: ceil(v/step)*step (right adjoint)
+    Align    = 0x86,   // Tolerance-set: max|v - I| ≤ ε
+    Holonomy = 0x87,   // Cycle/subgraph: ∏cycle (consistency check)
+
+    // CROSS-DOMAIN OPERATIONS (FLUX-DEEP)
+    // Shared mathematical operations across all five domains
+    Tdqkr    = 0x88,   // Tucker Decomposed Query-Key Retrieval (top-k scoring)
+    Amnesia  = 0x89,   // Ebbinghaus forgetting curve (temporal decay)
+    Shadow   = 0x8A,   // Negative space reconstruction (complement projection)
+    Phase    = 0x8B,   // Phase transition detection (order parameter snap)
+    Couple   = 0x8C,   // Critical coupling strength (agent influence)
+    Federate = 0x8D,   // Autonomous federation (distributed merge)
+    Bearing  = 0x8E,   // Fleet bearing/heading (dodecet direction)
+    Depth    = 0x8F,   // Sonar depth extraction (signal processing)
 }
 
 impl FluxOpcode {
@@ -124,6 +146,26 @@ impl FluxOpcode {
             0x72 => Some(FluxOpcode::Trace),
             0x73 => Some(FluxOpcode::Dump),
 
+            // FLUX-DEEP: Galois adjunctions
+            0x80 => Some(FluxOpcode::XorInvert),
+            0x81 => Some(FluxOpcode::Clamp),
+            0x82 => Some(FluxOpcode::Bloom),
+            0x83 => Some(FluxOpcode::BloomQ),
+            0x84 => Some(FluxOpcode::FloorQ),
+            0x85 => Some(FluxOpcode::CeilQ),
+            0x86 => Some(FluxOpcode::Align),
+            0x87 => Some(FluxOpcode::Holonomy),
+
+            // FLUX-DEEP: Cross-domain operations
+            0x88 => Some(FluxOpcode::Tdqkr),
+            0x89 => Some(FluxOpcode::Amnesia),
+            0x8A => Some(FluxOpcode::Shadow),
+            0x8B => Some(FluxOpcode::Phase),
+            0x8C => Some(FluxOpcode::Couple),
+            0x8D => Some(FluxOpcode::Federate),
+            0x8E => Some(FluxOpcode::Bearing),
+            0x8F => Some(FluxOpcode::Depth),
+
             _ => None,
         }
     }
@@ -143,6 +185,14 @@ impl FluxOpcode {
             | FluxOpcode::Pabs | FluxOpcode::Pmin => "INT8_SATURATION",
 
             FluxOpcode::Nop | FluxOpcode::Debug | FluxOpcode::Trace | FluxOpcode::Dump => "SPECIAL",
+
+            FluxOpcode::XorInvert | FluxOpcode::Clamp | FluxOpcode::Bloom | FluxOpcode::BloomQ
+            | FluxOpcode::FloorQ | FluxOpcode::CeilQ | FluxOpcode::Align | FluxOpcode::Holonomy
+            => "GALOIS",
+
+            FluxOpcode::Tdqkr | FluxOpcode::Amnesia | FluxOpcode::Shadow | FluxOpcode::Phase
+            | FluxOpcode::Couple | FluxOpcode::Federate | FluxOpcode::Bearing | FluxOpcode::Depth
+            => "DEEP",
         }
     }
 

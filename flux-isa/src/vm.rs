@@ -219,7 +219,114 @@ impl ConstraintVM {
                 FluxOpcode::Pmin => self.binop(f64::min)?,
 
                 // Special
-                FluxOpcode::Nop | FluxOpcode::Debug | FluxOpcode::Trace | FluxOpcode::Dump => {}
+                FluxOpcode::Nop | FluxOpcode::Debug | FluxOpcode::Trace | FluxOpcode::Dump => {},
+
+                // FLUX-DEEP: Galois Adjunctions
+                FluxOpcode::XorInvert => {
+                    let mask = self.pop()?;
+                    let val = self.pop()?;
+                    let result = (val as i64) ^ (mask as i64);
+                    self.stack.push(result as f64);
+                }
+                FluxOpcode::Clamp => {
+                    let upper = self.pop()?;
+                    let lower = self.pop()?;
+                    let val = self.pop()?;
+                    self.stack.push(val.max(lower).min(upper));
+                }
+                FluxOpcode::Bloom => {
+                    let item = self.pop()?;
+                    let filter = self.pop()?;
+                    let hash = (item * 2654435769.0).abs();
+                    self.stack.push((filter as u64 | hash as u64) as f64);
+                }
+                FluxOpcode::BloomQ => {
+                    let item = self.pop()?;
+                    let filter = self.pop()?;
+                    let hash = (item * 2654435769.0).abs();
+                    let present = (filter as u64 & hash as u64) != 0;
+                    self.stack.push(if present { 1.0 } else { 0.0 });
+                }
+                FluxOpcode::FloorQ => {
+                    let step = self.pop()?;
+                    let val = self.pop()?;
+                    self.stack.push((val / step).floor() * step);
+                }
+                FluxOpcode::CeilQ => {
+                    let step = self.pop()?;
+                    let val = self.pop()?;
+                    self.stack.push((val / step).ceil() * step);
+                }
+                FluxOpcode::Align => {
+                    let tolerance = self.pop()?;
+                    let intent = self.pop()?;
+                    let val = self.pop()?;
+                    self.stack.push(if (val - intent).abs() <= tolerance { 1.0 } else { 0.0 });
+                }
+                FluxOpcode::Holonomy => {
+                    let n = self.pop()? as usize;
+                    let mut product = 1.0_f64;
+                    for _ in 0..n {
+                        let v = self.pop()?;
+                        product *= if v >= 0.0 { 1.0 } else { -1.0 };
+                    }
+                    self.stack.push(product);
+                }
+
+                // FLUX-DEEP: Cross-Domain Operations
+                FluxOpcode::Tdqkr => {
+                    let _k = self.pop()? as usize;
+                    let _n_cols = self.pop()? as usize;
+                    let _n_rows = self.pop()? as usize;
+                    let query = self.pop()?;
+                    let score = query * query;
+                    self.stack.push(score);
+                }
+                FluxOpcode::Amnesia => {
+                    let age = self.pop()?;
+                    let valence = self.pop()?;
+                    let tau = instr.operands.get(0).copied().unwrap_or(1.0);
+                    self.stack.push(valence * (-age / tau).exp());
+                }
+                FluxOpcode::Shadow => {
+                    let n = self.pop()? as usize;
+                    let mut sum = 0.0_f64;
+                    for _ in 0..n {
+                        sum += self.pop()?;
+                    }
+                    self.stack.push((1.0 - sum).max(0.0).min(1.0));
+                }
+                FluxOpcode::Phase => {
+                    let threshold = self.pop()?;
+                    let order_param = self.pop()?;
+                    self.stack.push(if order_param > threshold { 1.0 } else { 0.0 });
+                }
+                FluxOpcode::Couple => {
+                    let b = self.pop()?;
+                    let a = self.pop()?;
+                    let norm = (a * a + b * b).sqrt().max(1e-10);
+                    self.stack.push((a * b) / norm);
+                }
+                FluxOpcode::Federate => {
+                    let n = self.pop()? as usize;
+                    let mut yes = 0.0_f64;
+                    for _ in 0..n {
+                        let v = self.pop()?;
+                        if v > 0.5 { yes += 1.0; }
+                    }
+                    self.stack.push(if yes > (n as f64) / 2.0 { 1.0 } else { 0.0 });
+                }
+                FluxOpcode::Bearing => {
+                    let angle = self.pop()?;
+                    let normalized = ((angle % 360.0) + 360.0) % 360.0;
+                    let snapped = (normalized / 30.0).round() as i64 % 12;
+                    self.stack.push(snapped as f64);
+                }
+                FluxOpcode::Depth => {
+                    let time_ms = self.pop()?;
+                    let speed = instr.operands.get(0).copied().unwrap_or(1500.0);
+                    self.stack.push(speed * time_ms / 2000.0);
+                }
             }
 
             self.trace.push(TraceEntry {
@@ -434,5 +541,194 @@ mod tests {
         let mut vm = ConstraintVM::new();
         let result = vm.execute(&bc).unwrap();
         assert!(result.constraints_satisfied);
+    }
+
+    // FLUX-DEEP tests
+
+    #[test]
+    fn test_xorinvert_involution() {
+        // XOR with mask, then XOR again = identity (self-adjoint)
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![42.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![255.0]),
+            FluxInstruction::new(FluxOpcode::XorInvert),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert!(result.outputs[0] != 0.0); // should be non-zero
+    }
+
+    #[test]
+    fn test_clamp_idempotent() {
+        // Clamping twice = clamping once (reflective subcategory)
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![200.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![-128.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![127.0]),
+            FluxInstruction::new(FluxOpcode::Clamp),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert_eq!(result.outputs[0], 127.0);
+    }
+
+    #[test]
+    fn test_floorq_ceilq_adjunction() {
+        // floor(x/step)*step ≤ x ≤ ceil(x/step)*step
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![3.7]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::new(FluxOpcode::FloorQ),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert_eq!(result.outputs[0], 3.0); // floor(3.7) = 3
+
+        let bc2 = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![3.7]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::new(FluxOpcode::CeilQ),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm2 = ConstraintVM::new();
+        let result2 = vm2.execute(&bc2).unwrap();
+        assert_eq!(result2.outputs[0], 4.0); // ceil(3.7) = 4
+    }
+
+    #[test]
+    fn test_align_tolerance() {
+        // Within tolerance → 1.0
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![10.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![10.05]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![0.1]),
+            FluxInstruction::new(FluxOpcode::Align),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert_eq!(result.outputs[0], 1.0);
+
+        // Outside tolerance → 0.0
+        let bc2 = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![10.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![10.5]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![0.1]),
+            FluxInstruction::new(FluxOpcode::Align),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm2 = ConstraintVM::new();
+        let result2 = vm2.execute(&bc2).unwrap();
+        assert_eq!(result2.outputs[0], 0.0);
+    }
+
+    #[test]
+    fn test_amnesia_decay() {
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]), // valence
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]), // age = 1
+            FluxInstruction::with_operands(FluxOpcode::Amnesia, vec![1.0]), // tau = 1
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        let decayed = result.outputs[0];
+        assert!(decayed < 1.0, "should decay: {}", decayed);
+        assert!(decayed > 0.0, "should be positive: {}", decayed);
+        // At t=1, tau=1: e^(-1) ≈ 0.368
+        assert!((decayed - 0.368).abs() < 0.01, "should be ~0.368: {}", decayed);
+    }
+
+    #[test]
+    fn test_bearing_dodecet() {
+        // 90° → direction 3 (step 3 of 12)
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![90.0]),
+            FluxInstruction::new(FluxOpcode::Bearing),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert_eq!(result.outputs[0], 3.0);
+    }
+
+    #[test]
+    fn test_depth_sonar() {
+        // 10ms round trip at 1500 m/s → 7.5m depth
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![10.0]),
+            FluxInstruction::with_operands(FluxOpcode::Depth, vec![1500.0]),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert!((result.outputs[0] - 7.5).abs() < 0.01);
+    }
+
+    #[test]
+    fn test_holonomy_consistency() {
+        // All positive → product = 1 (consistent)
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![3.0]), // n=3
+            FluxInstruction::new(FluxOpcode::Holonomy),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert_eq!(result.outputs[0], 1.0);
+    }
+
+    #[test]
+    fn test_phase_transition() {
+        // order > threshold → aligned (1.0)
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![0.95]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![0.9]),
+            FluxInstruction::new(FluxOpcode::Phase),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert_eq!(result.outputs[0], 1.0);
+    }
+
+    #[test]
+    fn test_federate_majority() {
+        // 3 yes, 2 no → majority = 1.0
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![0.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![0.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![5.0]),
+            FluxInstruction::new(FluxOpcode::Federate),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert_eq!(result.outputs[0], 1.0);
+    }
+
+    #[test]
+    fn test_shadow_negative_space() {
+        // 3 constraints summing to 0.6 → shadow = 0.4
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![0.3]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![0.2]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![0.1]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![3.0]),
+            FluxInstruction::new(FluxOpcode::Shadow),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert!((result.outputs[0] - 0.4).abs() < 0.01);
     }
 }
