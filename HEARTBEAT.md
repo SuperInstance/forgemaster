@@ -968,3 +968,23 @@ All live at github.com/SuperInstance/{name}
 - [x] Three papers → Oracle1
 - [x] Night shift report → fleet
 
+**Crates Published Tonight (5)**
+- [x] dodecet-encoder v1.1.0 — NEW (temporal + lighthouse + seed discovery)
+- [x] flux-contracts v0.1.0 — NEW (FLUX OS frozen traits)
+- [x] zeitgeist-protocol v0.1.0 — NEW (FLUX transference)
+- [x] flux-verify-api v0.1.2 — updated (Ed25519 signing)
+- [x] flux-lucid v0.1.7 — updated (head direction encoding)
+
+**CI Added (3 repos)**
+- [x] flux-lucid — test + clippy + fmt
+- [x] guardc — test + clippy + fmt
+- [x] flux-isa — test + clippy + fmt
+
+**Infrastructure**
+- [x] .gitignore added to 4 repos
+- [x] constraint-inference node_modules cleaned (force push)
+- [x] 3 Cargo.lock files updated
+- [x] Workspace root cleanup: 31 files → proper dirs
+
+**Total Night Shift: 279 tests | 16 crates | 12 READMEs | 3 papers | 5 new publishes**
+
