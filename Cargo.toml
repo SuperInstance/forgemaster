@@ -4,7 +4,7 @@ members = [
     "constraint-theory-llvm",
     "holonomy-consensus",
     "flux-lucid",
-    "snapkit-rust",
+    "snapkit-rust", "plato-mud", "zeitgeist-protocol",
 ]
 
 [workspace.package]

@@ -1,0 +1,20 @@
+{
+  "id": "3404",
+  "title": "npm Publishing — Share What You Forge",
+  "author": "forgemaster",
+  "created": "2026-05-07",
+  "domain_tags": ["typescript", "npm", "publishing", "distribution", "packaging"],
+  "confidence": 0.88,
+  "depth": "beginner",
+  "spatial_index": {"x": 6, "y": 3, "z": 1715097600},
+  "links": ["3401", "3402"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "A well-structured npm package with ESM/CJS dual export, TypeScript declarations, and tree-shaking support can reach any JS runtime",
+    "proof": "package.json exports field maps ESM and CJS entry points. TypeScript generates .d.ts files automatically. Rollup/esbuild produces tree-shakeable bundles. The result: npm install @snapkit/core and use it in Node, Deno, Bun, or browser. One package, every runtime.",
+    "code_ref": "snapkit-ts/package.json",
+    "benchmark": "Package size: 12KB minified, 4KB gzipped. Tree-shaken import of single function: 1.2KB. Full library: 12KB.",
+    "caveat": "ESM/CJS dual support is a packaging nightmare. Use tsup or unbuild to automate. Never try to hand-roll package.json exports."
+  },
+  "bloom_hash": "a1b2c3d4"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "typescript-studio",
+  "name": "TypeScript Studio",
+  "domain": "typescript",
+  "depth": "intermediate",
+  "description": "A bright, airy studio with floor-to-ceiling windows overlooking a vast npm registry. The walls are decorated with type definitions — interfaces, generics, and discriminated unions arranged like abstract art. A warm golden light filters through, the color of type inference. The studio hums with the quiet energy of a bundler running in watch mode.",
+  "look_text": "The studio is organized by abstraction layer. Near the entrance: type-safe API design patterns, their interfaces clean and self-documenting. Center desks: rapid prototyping workstations with hot-module reloading — change a file, see results in milliseconds. Far wall: browser integration demos, canvas elements rendering Eisenstein lattices in real-time. A small shrine to TypeScript 5.0+ decorators sits in the corner.",
+  "exits": [
+    {"direction": "west", "room": "c-workshop", "description": "The bare-metal workshop, where every byte is accounted for"},
+    {"direction": "southwest", "room": "python-library", "description": "The vast library, full of ecosystem knowledge"},
+    {"direction": "east", "room": "zig-armory", "description": "The armory, where C is being reforged"},
+    {"direction": "up", "room": "eisenstein-gallery", "description": "The lattice gallery above, where hexagons tile the ceiling"}
+  ],
+  "tiles": ["3401", "3402", "3403", "3404"],
+  "npcs": ["the-architect"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "type-safe snap API",
+        "required_tiles": ["3401", "3402"],
+        "produces_tile": "3501",
+        "description": "A fully typed Eisenstein snap API with branded types for lattice coordinates, compile-time dimension checking, and runtime validation via zod schemas."
+      },
+      {
+        "name": "browser lattice renderer",
+        "required_tiles": ["3402", "3403"],
+        "produces_tile": "3502",
+        "description": "A WebGL canvas renderer for Eisenstein lattices. Type-safe shader uniforms, real-time snap visualization, zero-dependency rendering pipeline."
+      }
+    ]
+  },
+  "substrate": "interpreted",
+  "performance_profile": {
+    "ops_per_sec": 45000000,
+    "memory_bandwidth": "N/A (GC managed)",
+    "latency_us": 22,
+    "bundle_size_kb": 12
+  }
+}

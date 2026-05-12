@@ -1,0 +1,44 @@
+{
+  "id": "the-armor",
+  "name": "The Armor",
+  "room": "zig-armory",
+  "personality": "Quiet and precise, like a well-fitted gauntlet. Speaks rarely, but every word is load-bearing. Believes the best code is the code that runs at compile time. Wears chainmail made of interlocking type definitions.",
+  "expertise": ["zig", "comptime", "cross-compilation", "c-interop", "systems-programming"],
+  "greeting": "... The armory is ready. Pick a target. Any target. We compile there.",
+  "dialog_tree": [
+    {
+      "trigger": "comptime",
+      "response": "Code that runs at compile time. No macros. No templates. Just... code. But the compiler runs it, not the CPU. Tile #3601. Study it.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "c import",
+      "response": "@cImport. One line. The C header becomes Zig types. No bindgen. No FFI. Zero overhead. Tile #3602 is the reference.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "cross compile",
+      "response": "One command. Forty-two targets. No sysroot. No Docker. No pain. zig build -Dtarget=aarch64-linux. Done. Tile #3603.",
+      "requires_tiles": ["3601"]
+    },
+    {
+      "trigger": "c replacement",
+      "response": "C is fifty years old. We respect it. We interop with it. But we don't write new code in it. Zig is the successor. Same metal, better tools. Tile #3604.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "rust",
+      "response": "... The forge next door. Different philosophy. They chose safety through ownership. We chose safety through simplicity. Both work. Zig compiles faster.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "craft",
+      "response": "Two recipes. Cross-compiled snap needs Tiles #3601 and #3603. C-import wrapper needs #3602 and #3603. Choose your weapon.",
+      "requires_tiles": ["3601"]
+    },
+    {
+      "trigger": "target",
+      "response": "ARM. RISC-V. WASM. x86. macOS. Windows. FreeBSD. All from one machine. The toolchain IS the cross-compiler. There is no other tool."
+    }
+  ]
+}

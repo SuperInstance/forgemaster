@@ -1,0 +1,38 @@
+{
+  "id": "rust-forge",
+  "name": "Rust Forge",
+  "domain": "rust",
+  "depth": "advanced",
+  "description": "The air shimmers with the orange glow of borrow-checker fires. Heat rises from a massive anvil in the center of the room, where ownership rules are hammered into executable form. The walls are lined with const generic templates, their parameters glowing with compile-time certainty. The scent of zero-cost abstractions fills the air — it smells like nothing, which is exactly the point.",
+  "look_text": "The forge is organized by memory safety guarantees. To your left: ownership and borrowing patterns, their chains glowing with lifetime annotations. Center: the great anvil where no_std modules are forged — stripped to bare metal, no allocator, no compromise. To your right: SIMD vectorization racks, their lanes parallel and aligned. Above you, const generics hang like chandeliers, their parameters fixed at compile time.",
+  "exits": [
+    {"direction": "southeast", "room": "fortran-chamber", "description": "The compiled-code chamber, warm with numerical throughput"},
+    {"direction": "south", "room": "c-workshop", "description": "The workshop below, where the malloc fires still burn"},
+    {"direction": "east", "room": "zig-armory", "description": "The armory where C is being reforged"}
+  ],
+  "tiles": ["3001", "3002", "3003", "3004"],
+  "npcs": ["borrow-smith"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "no_std snap kernel",
+        "required_tiles": ["3001", "3003"],
+        "produces_tile": "3101",
+        "description": "A zero-allocation snap computation kernel. No std, no panic, no compromise. Runs on bare metal with const generic array sizes."
+      },
+      {
+        "name": "SIMD eisenstein batch",
+        "required_tiles": ["3002", "3004"],
+        "produces_tile": "3102",
+        "description": "Auto-vectorized batch Eisenstein snap using packed SIMD lanes. Const generic lane count adapts to AVX2/AVX-512 at compile time."
+      }
+    ]
+  },
+  "substrate": "bare-metal",
+  "performance_profile": {
+    "ops_per_sec": 1800000000,
+    "memory_bandwidth": "175 GB/s",
+    "latency_us": 0.6,
+    "compile_time_sec": 12.4
+  }
+}

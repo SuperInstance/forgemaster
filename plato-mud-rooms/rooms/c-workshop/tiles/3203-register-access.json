@@ -1,0 +1,20 @@
+{
+  "id": "3203",
+  "title": "Register Access — Talking to the Metal",
+  "author": "forgemaster",
+  "created": "2026-05-06",
+  "domain_tags": ["c", "registers", "memory-mapped-io", "bit-fields", "embedded"],
+  "confidence": 0.91,
+  "depth": "expert",
+  "spatial_index": {"x": 4, "y": 3, "z": 1715011200},
+  "links": ["3201", "3204"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "Memory-mapped register access via volatile pointers and bit-field structs provides zero-overhead hardware control",
+    "proof": "ARM peripherals live at fixed addresses. A struct with volatile fields overlaid at that address gives named access to individual bits. The compiler generates single load/store instructions. No function call overhead. The hardware sees the access in one cycle.",
+    "code_ref": "snapkit-c/registers.h",
+    "benchmark": "Register access via volatile struct: 1 cycle. Via function call wrapper: 3-5 cycles. Via HAL library: 20-50 cycles.",
+    "caveat": "Volatile is not a memory barrier. For DMA-coherent access, you need DMB/DSB instructions. C doesn't give you those — use inline asm or compiler builtins."
+  },
+  "bloom_hash": "a9b0c1d2"
+}

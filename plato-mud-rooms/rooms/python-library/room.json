@@ -1,0 +1,39 @@
+{
+  "id": "python-library",
+  "name": "Python Library",
+  "domain": "python",
+  "depth": "intermediate",
+  "description": "You step into an enormous library with towering bookshelves stretching to a vaulted ceiling. Each shelf is labeled with an ecosystem name — numpy, scipy, torch, sklearn, matplotlib — their bindings glowing with import statements. The air smells of Jupyter notebooks and freshly brewed data. A grand staircase leads to the Eisenstein Gallery above.",
+  "look_text": "The library is organized by integration depth. Ground floor: pure Python wrappers calling Fortran/C via ctypes and cffi. Mezzanine: ML pipeline integration, snap as a preprocessing step in sklearn transformers. Upper gallery: data science workflows, pandas DataFrames flowing through snap transformations. A terminal in the corner runs a PLATO API server, its endpoints humming with RESTful energy.",
+  "exits": [
+    {"direction": "west", "room": "fortran-chamber", "description": "The optimization chamber, where the numerical engines live"},
+    {"direction": "north", "room": "zig-armory", "description": "The armory, where cross-compilation happens"},
+    {"direction": "east", "room": "eisenstein-gallery", "description": "The lattice gallery, where the math becomes visual"},
+    {"direction": "south", "room": "parity-cathedral", "description": "The cathedral below, where XOR reveals truth"}
+  ],
+  "tiles": ["3801", "3802", "3803", "3804"],
+  "npcs": ["the-librarian"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "sklearn snap transformer",
+        "required_tiles": ["3801", "3803"],
+        "produces_tile": "3901",
+        "description": "A scikit-learn compatible transformer that applies Eisenstein snap as a preprocessing step. Fits into any sklearn Pipeline. GPU optional via torch."
+      },
+      {
+        "name": "PLATO REST API",
+        "required_tiles": ["3801", "3804"],
+        "produces_tile": "3902",
+        "description": "A FastAPI server exposing PLATO tile query, room navigation, and snap computation as REST endpoints. OpenAPI spec auto-generated."
+      }
+    ]
+  },
+  "substrate": "interpreted",
+  "performance_profile": {
+    "ops_per_sec": 12000000,
+    "memory_bandwidth": "N/A (GC managed)",
+    "latency_us": 83,
+    "ecosystem_packages": 450000
+  }
+}

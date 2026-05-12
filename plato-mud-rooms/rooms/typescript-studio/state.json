@@ -1,0 +1,14 @@
+{
+  "room": "typescript-studio",
+  "updated": "2026-05-11T17:41:00-08:00",
+  "zeitgeist": {
+    "energy": 0.78,
+    "clarity": 0.82,
+    "tension": 0.12,
+    "discovery_rate": 0.88,
+    "last_breakthrough": "2026-05-10 — WASM bridge achieves 800M ops/sec in browser"
+  },
+  "active_projects": ["wasm-simd-integration", "type-safe-api-v2"],
+  "open_questions": ["Can we hit 1B ops/sec in browser with WASM SIMD?"],
+  "visitor_count": 0
+}

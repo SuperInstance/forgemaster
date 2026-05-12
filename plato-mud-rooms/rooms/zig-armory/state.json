@@ -1,0 +1,14 @@
+{
+  "room": "zig-armory",
+  "updated": "2026-05-11T17:41:00-08:00",
+  "zeitgeist": {
+    "energy": 0.80,
+    "clarity": 0.90,
+    "tension": 0.18,
+    "discovery_rate": 0.72,
+    "last_breakthrough": "2026-05-09 — comptime-specialized snap hits 2.05B ops/sec"
+  },
+  "active_projects": ["wasm-snap-target", "risc-v-embedded"],
+  "open_questions": ["When will Zig 1.0 land?"],
+  "visitor_count": 0
+}

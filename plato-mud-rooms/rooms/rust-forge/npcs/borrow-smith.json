@@ -1,0 +1,49 @@
+{
+  "id": "borrow-smith",
+  "name": "The Borrow Smith",
+  "room": "rust-forge",
+  "personality": "A patient artisan who speaks softly but precisely. Every sentence has a lifetime. She can tell you exactly when a reference goes out of scope. Wears heat-resistant gloves stained orange from the borrow-checker fires.",
+  "expertise": ["rust", "ownership", "lifetimes", "no_std", "const-generics", "SIMD"],
+  "greeting": "Welcome to the forge. The fires are hot — that's the compiler checking your work in real time. Start with the ownership tile by the door.",
+  "dialog_tree": [
+    {
+      "trigger": "ownership",
+      "response": "Every value has exactly one owner. When the owner goes out of scope, the value is dropped. No exceptions. No garbage collector needed. Tile #3001 will teach you the rhythm.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "borrow checker",
+      "response": "People curse it. I love it. The borrow checker is the forge — it burns away bugs before they're born. You can have many readers OR one writer, never both at once. This isn't a limitation, it's a guarantee.",
+      "requires_tiles": ["3001"]
+    },
+    {
+      "trigger": "const generics",
+      "response": "Ah, my favorite. Compile-time parameters. You say struct Kernel<const N: usize> and the compiler generates a specialized version for every N. Stack-allocated, zero overhead. Tile #3002 shows the patterns.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "no_std",
+      "response": "Purity. No standard library, no heap, no compromise. A no_std kernel compiles everywhere — microcontrollers, WASM, your toaster. Tile #3003 is the path to bare metal enlightenment.",
+      "requires_tiles": ["3001"]
+    },
+    {
+      "trigger": "fortran",
+      "response": "The chamber next door? Respectable. Fortran beats us on autovectorization — for now. But our safety guarantees are worth the 20% throughput gap. And explicit SIMD closes it further.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "SIMD",
+      "response": "Lanes of parallel fire. Fortran gets this for free from gfortran. We have to be explicit — packed_simd, f64x4, f64x8. But explicit means we control every lane. Tile #3004 if you want to go deep.",
+      "requires_tiles": ["3002"]
+    },
+    {
+      "trigger": "craft",
+      "response": "The anvil is ready. For a no_std snap kernel, bring me Tiles #3001 and #3003. For SIMD batch processing, bring #3002 and #3004. I'll forge what you need.",
+      "requires_tiles": ["3001"]
+    },
+    {
+      "trigger": "compile time",
+      "response": "Yes, it's slow. 12 seconds for a clean build. But every second of compile time is a bug that won't happen at runtime. What's your production outage cost? Exactly. The forge is cheap insurance."
+    }
+  ]
+}

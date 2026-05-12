@@ -1,0 +1,20 @@
+{
+  "id": "3402",
+  "title": "Rapid Prototyping — Ship, Measure, Iterate",
+  "author": "forgemaster",
+  "created": "2026-05-09",
+  "domain_tags": ["typescript", "prototyping", "hmr", "iteration-speed", "dx"],
+  "confidence": 0.93,
+  "depth": "beginner",
+  "spatial_index": {"x": 5, "y": 2, "z": 1715270400},
+  "links": ["3401", "3403"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "TypeScript + HMR enables idea-to-running-code in under 60 seconds for visualization and API prototyping",
+    "proof": "Vite's HMR updates modules in <50ms. TypeScript incremental compilation is near-instant for small files. The feedback loop is: think, type, save, see. No compile step, no deploy step, no refresh. For Eisenstein visualization: change the lattice parameters, watch the canvas update in real time.",
+    "code_ref": "snapkit-ts/examples/browser-demo/",
+    "benchmark": "Idea to running visualization: 45 seconds. API prototype to testable endpoint: 90 seconds. Hot reload: 47ms average.",
+    "caveat": "Rapid prototyping is not production. The prototype exists to validate the concept. Then the Fortran chamber optimizes it for real."
+  },
+  "bloom_hash": "e1f2a3b4"
+}

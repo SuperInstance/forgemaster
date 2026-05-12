@@ -1,0 +1,49 @@
+{
+  "id": "the-mechanic",
+  "name": "The Mechanic",
+  "room": "c-workshop",
+  "personality": "A practical, no-nonsense builder with grease under their fingernails. Speaks in increments of bytes and cycles. Has zero patience for abstractions that cost more than they save. The malloc furnace hasn't been lit since they arrived.",
+  "expertise": ["c", "embedded", "zero-allocation", "registers", "bit-manipulation", "single-header"],
+  "greeting": "Mind the soldering iron. Don't touch the malloc furnace — it's decorative. Everything here runs on the stack.",
+  "dialog_tree": [
+    {
+      "trigger": "malloc",
+      "response": "Read the sign. WE DON'T DO THAT HERE. Tile #3201 explains why. The stack gives you everything you need if you know the maximum size upfront. And you always know the maximum size.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "single header",
+      "response": "One file. One include. Done. No CMakeLists.txt, no package.json, no build.rs. Drop the file in your project and compile. That's it. Tile #3202 shows the pattern.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "registers",
+      "response": "Volatile pointer, overlaid struct, named bit fields. The hardware doesn't care about your abstractions — it cares about single-cycle access. Tile #3203 is the map.",
+      "requires_tiles": ["3201"]
+    },
+    {
+      "trigger": "rust",
+      "response": "The forge upstairs? Nice folks. Their safety guarantees cost them 20% throughput. Down here, WE guarantee safety by understanding every byte. Different philosophy. Both valid.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "fortran",
+      "response": "Respect the elders. Fortran's numerical libraries are the bedrock everything else stands on. We call their BLAS routines from down here. There's no shame in standing on giants.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "bits",
+      "response": "The art of the mask. SET, CLEAR, TOGGLE, TEST — four operations that compile to single instructions. Tile #3204 has the macros. Every embedded programmer should know these by heart.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "craft",
+      "response": "The workbench is ready. Bring me Tiles #3201 and #3202 and I'll build you a single-header snap implementation that weighs less than 5KB. Or #3202 and #3203 for a register-mapped version.",
+      "requires_tiles": ["3201"]
+    },
+    {
+      "trigger": "benchmark",
+      "response": "2.1 billion ops per second. 4.2KB binary. Zero heap allocations. That's not a benchmark — that's a statement. The stack is all you need."
+    }
+  ]
+}

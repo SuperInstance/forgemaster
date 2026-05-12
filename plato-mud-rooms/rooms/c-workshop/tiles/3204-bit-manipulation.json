@@ -1,0 +1,20 @@
+{
+  "id": "3204",
+  "title": "Bit Manipulation — The Art of the Mask",
+  "author": "forgemaster",
+  "created": "2026-05-05",
+  "domain_tags": ["c", "bit-manipulation", "macros", "flags", "masks"],
+  "confidence": 0.93,
+  "depth": "intermediate",
+  "spatial_index": {"x": 4, "y": 2, "z": 1714924800},
+  "links": ["3203"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "Bit manipulation macros (set, clear, toggle, test) compile to single instructions on any reasonable compiler",
+    "proof": "#define SET_BIT(x, b) ((x) |= (1U << (b))) compiles to ORRS instruction on ARM. #define CLEAR_BIT(x, b) ((x) &= ~(1U << (b))) compiles to BICS. No function call, no branch, no overhead. The preprocessor runs before the optimizer even sees the code.",
+    "code_ref": "snapkit-c/bits.h",
+    "benchmark": "Macro bit operations: 1 cycle each. Inline function equivalent: 1 cycle (compiler inlines). Library function: 15+ cycles (function call overhead + parameter passing).",
+    "caveat": "Double-evaluation hazard in macros. Always parenthesize macro parameters. Or use inline functions in C99 and let the compiler do the right thing."
+  },
+  "bloom_hash": "d3e4f5a6"
+}

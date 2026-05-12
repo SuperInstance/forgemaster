@@ -1,0 +1,20 @@
+{
+  "id": "2851",
+  "title": "Coarray Parallelism — The Untapped Multi-Core Frontier",
+  "author": "forgemaster",
+  "created": "2026-05-11",
+  "domain_tags": ["fortran", "coarray", "parallel", "multicore", "coarray"],
+  "confidence": 0.65,
+  "depth": "expert",
+  "spatial_index": {"x": 3, "y": 3, "z": 1715443200},
+  "links": ["2847"],
+  "lifecycle": "theoretical",
+  "content": {
+    "theorem": "Fortran coarray parallelism can project 3-4× speedup for batch snap on multi-core hardware",
+    "proof": "Theoretical model based on Amdahl's law. Batch snap parallelizes cleanly across images — each image processes a slice of the input array. Synchronization needed only at final reduction step. Coarray syntax: `real :: data(N)[*]` distributes across images.",
+    "code_ref": "snapkit-fortran/src/eisenstein.f90 (projected extension)",
+    "benchmark": "No real benchmark yet. Single-threaded: 2.27B ops/sec. Projected 8-core: ~8-9B ops/sec",
+    "caveat": "UNTESTED. Coarray runtime support varies by compiler. gfortran OpenCoarray runtime has overhead. Intel Fortran ifort/ifx has native support."
+  },
+  "bloom_hash": "e5f12893"
+}

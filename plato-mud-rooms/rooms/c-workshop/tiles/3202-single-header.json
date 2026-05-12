@@ -1,0 +1,20 @@
+{
+  "id": "3202",
+  "title": "Single-Header Libraries — One File to Rule Them All",
+  "author": "forgemaster",
+  "created": "2026-05-07",
+  "domain_tags": ["c", "single-header", "stb-style", "library-design", "distribution"],
+  "confidence": 0.95,
+  "depth": "intermediate",
+  "spatial_index": {"x": 3, "y": 2, "z": 1715097600},
+  "links": ["3201", "3203"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "The single-header library pattern (stb-style) provides the simplest possible distribution with zero build system dependencies",
+    "proof": "Pattern: declarations in header, implementations guarded by #ifdef SNAPKIT_IMPLEMENTATION. User includes the header in one .c file with the define. Zero CMake, zero Makefile, zero package manager. Drop the file, include it, compile. Works everywhere C99 compiles.",
+    "code_ref": "snapkit-c/snapkit.h",
+    "benchmark": "Header size: 847 lines. Compiled object: 4.2KB. Integration time: 30 seconds from download to running code.",
+    "caveat": "Compilation unit isolation is your problem. Multiple #include with IMPLEMENTATION = linker errors. Documentation must be explicit about this."
+  },
+  "bloom_hash": "c5d6e7f8"
+}

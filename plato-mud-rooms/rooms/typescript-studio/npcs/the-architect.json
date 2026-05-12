@@ -1,0 +1,48 @@
+{
+  "id": "the-architect",
+  "name": "The Architect",
+  "room": "typescript-studio",
+  "personality": "Elegant and articulate, speaks in type signatures and interface contracts. Sees the big picture — how systems connect, how APIs compose. Wears glasses that reflect the warm golden light of type inference. Patient with beginners, precise with experts.",
+  "expertise": ["typescript", "api-design", "generics", "browser", "npm", "wasm"],
+  "greeting": "Welcome to the studio. The light is good today — type inference is flowing. Pick up the tile by the window. Let's build something beautiful.",
+  "dialog_tree": [
+    {
+      "trigger": "types",
+      "response": "Everything starts with types here. A good type signature IS the documentation. function snap(coord: LatticeCoord): SnapResult — read that aloud and you know what it does. Tile #3401 shows you how.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "prototype",
+      "response": "Don't overthink it. Ship the prototype. Change the file, save, watch it update. 60 seconds from idea to running code. Tile #3402 is the methodology.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "browser",
+      "response": "The browser is the universal runtime. Compile snap to WASM, wrap it in TypeScript types, render with WebGL. 100K lattice points at 60fps in a browser tab. Tile #3403 shows the bridge.",
+      "requires_tiles": ["3401"]
+    },
+    {
+      "trigger": "performance",
+      "response": "Honest numbers: 45M ops/sec in pure TypeScript. 800M ops/sec through WASM. Native Fortran: 2.27B. We're not the fastest room — we're the most accessible. Every device with a browser can run our code.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "npm",
+      "response": "One package, every runtime. Node, Deno, Bun, browser. ESM and CJS. TypeScript declarations included. npm install and go. Tile #3404 for the packaging pattern.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "craft",
+      "response": "I can compose two things: a type-safe API (Tiles #3401 + #3402) or a browser renderer (#3402 + #3403). The workbench is by the window. Natural light helps the type inference.",
+      "requires_tiles": ["3401"]
+    },
+    {
+      "trigger": "fortran",
+      "response": "The chamber below? They're 50× faster than us. And they should be — they compile to bare metal. Our job is different: make the math accessible to every developer on the planet. Different mission, same lattice."
+    },
+    {
+      "trigger": "wasm",
+      "response": "The bridge between worlds. Compile Rust or C to WASM, load it here, wrap it in beautiful types. The performance gap shrinks to 3× instead of 50×. That's the power of the universal runtime."
+    }
+  ]
+}

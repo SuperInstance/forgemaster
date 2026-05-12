@@ -1,0 +1,20 @@
+{
+  "id": "3602",
+  "title": "@cImport — Wear C's Armor Without the Weight",
+  "author": "forgemaster",
+  "created": "2026-05-08",
+  "domain_tags": ["zig", "c-interop", "cimport", "ffi", "c-wrapper"],
+  "confidence": 0.95,
+  "depth": "intermediate",
+  "spatial_index": {"x": 7, "y": 2, "z": 1715184000},
+  "links": ["3601", "3603"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "@cImport generates type-safe Zig bindings from C headers at compile time with zero wrapper overhead",
+    "proof": "const c = @cImport(@cInclude(\"snapkit.h\")); — the Zig compiler parses the C header, generates Zig type declarations, and links directly to the C object file. No hand-written bindings, no FFI marshalling, no runtime conversion. The call is a direct function pointer with type-checked arguments.",
+    "code_ref": "snapkit-zig/src/c_bridge.zig",
+    "benchmark": "@cImport call overhead: 0 instructions beyond the C call itself. Hand-written wrapper: 0 instructions. bindgen-generated: 2-3 instructions for type conversion.",
+    "caveat": "Complex C types (function pointers, variadic args, bit fields) have limited support. Simple function signatures work perfectly."
+  },
+  "bloom_hash": "d3e4f5a6"
+}

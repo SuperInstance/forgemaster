@@ -1,0 +1,38 @@
+{
+  "id": "fortran-chamber",
+  "name": "Fortran Optimization Chamber",
+  "domain": "fortran",
+  "depth": "advanced",
+  "description": "You are standing in a vast chamber that smells of compiled numerical code and hot silicon. The walls are lined with column-major arrays stretching floor to ceiling, their indices glowing faintly in sequential order. A BLAS subroutine hums at the far end, its frequency a perfect A440. The floor is a grid of precomputed constants — SQRT3 and INV_SQRT3 etched into tiles beneath your feet.",
+  "look_text": "The room is organized by optimization depth. Near the door: introductory tiles on column-major layout and memory access patterns. Center pedestals hold batch processing patterns, their surfaces warm from iterative computation. The far wall displays expert-level coarray parallelism diagrams, half-finished, waiting for someone to complete them. A workbench sits in the corner, its surface scarred from thousands of compilation cycles.",
+  "exits": [
+    {"direction": "south", "room": "c-workshop", "description": "A low doorway leads to the bare-metal workshop, where malloc goes to die"},
+    {"direction": "east", "room": "python-library", "description": "Tall bookshelves stretch into the distance, spines labeled with ecosystem names"},
+    {"direction": "up", "room": "eisenstein-gallery", "description": "A spiral staircase ascends to the lattice gallery above"},
+    {"direction": "northwest", "room": "rust-forge", "description": "The orange glow of borrow-checker fires flickers through an archway"}
+  ],
+  "tiles": ["2847", "2841", "2839", "2851"],
+  "npcs": ["optimizer"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "spectral_batch module",
+        "required_tiles": ["2847", "2841"],
+        "produces_tile": "2901",
+        "description": "A Fortran module for batch spectral analysis with column-major optimization. Combines batch snap patterns with column-major memory layout for maximum throughput."
+      },
+      {
+        "name": "coarray_parallel_snap",
+        "required_tiles": ["2847", "2851"],
+        "produces_tile": "2902",
+        "description": "Parallel snap computation using Fortran coarrays. Projected 3-4× speedup on multi-core hardware. Experimental — no real hardware validation yet."
+      }
+    ]
+  },
+  "substrate": "bare-metal",
+  "performance_profile": {
+    "ops_per_sec": 2270000000,
+    "memory_bandwidth": "187 GB/s",
+    "latency_us": 0.4
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "3002",
+  "title": "Const Generics — Compile-Time Arrays, Zero Allocation",
+  "author": "forgemaster",
+  "created": "2026-05-10",
+  "domain_tags": ["rust", "const-generics", "compile-time", "zero-allocation", "arrays"],
+  "confidence": 0.94,
+  "depth": "advanced",
+  "spatial_index": {"x": 2, "y": 4, "z": 1715356800},
+  "links": ["3001", "3003"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "Const generics enable stack-allocated arrays with sizes determined at compile time, eliminating heap allocation in hot paths",
+    "proof": "struct SnapKernel<const N: usize> { data: [f64; N] } — N is known at compile time, so the compiler places the array on the stack. No Box, no Vec, no allocator call. The CPU can prefetch and vectorize with full knowledge of the data layout.",
+    "code_ref": "snapkit-rust/src/kernel.rs",
+    "benchmark": "Stack-allocated const generic array: 0 allocation overhead. Vec equivalent: ~40ns per allocation in hot path.",
+    "caveat": "Const generics have limitations — no const fn in trait bounds yet (as of rustc 1.75). Workarounds exist."
+  },
+  "bloom_hash": "d4e5f6a7"
+}

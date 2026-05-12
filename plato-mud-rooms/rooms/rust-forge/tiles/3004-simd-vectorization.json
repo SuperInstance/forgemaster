@@ -1,0 +1,20 @@
+{
+  "id": "3004",
+  "title": "SIMD Vectorization — Lanes of Parallel Fire",
+  "author": "forgemaster",
+  "created": "2026-05-11",
+  "domain_tags": ["rust", "SIMD", "vectorization", "AVX", "parallel"],
+  "confidence": 0.85,
+  "depth": "expert",
+  "spatial_index": {"x": 4, "y": 4, "z": 1715443200},
+  "links": ["3002"],
+  "lifecycle": "experimental",
+  "content": {
+    "theorem": "Explicit SIMD via std::simd or packed_simd can close the gap between Rust and Fortran for numerical hot paths",
+    "proof": "Rust's autovectorizer is less mature than GCC/gfortran's. Explicit SIMD types (f64x4 for AVX2, f64x8 for AVX-512) give the compiler explicit lane packing. Combined with const generics for lane count, the same code adapts to target hardware at compile time.",
+    "code_ref": "snapkit-rust/src/simd.rs (experimental branch)",
+    "benchmark": "Autovectorized Rust: ~1.8B ops/sec. Explicit SIMD (projected): ~2.1B ops/sec. Fortran baseline: 2.27B.",
+    "caveat": "Portable SIMD is still nightly-only. Production use requires either nightly or core::arch intrinsics per platform."
+  },
+  "bloom_hash": "e2f3a4b5"
+}

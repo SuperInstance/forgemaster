@@ -1,0 +1,14 @@
+{
+  "room": "c-workshop",
+  "updated": "2026-05-11T17:41:00-08:00",
+  "zeitgeist": {
+    "energy": 0.85,
+    "clarity": 0.94,
+    "tension": 0.10,
+    "discovery_rate": 0.55,
+    "last_breakthrough": "2026-05-08 — single-header snap compiles to 4.2KB"
+  },
+  "active_projects": ["register-mapped-eisenstein-embedded"],
+  "open_questions": ["Can snap run on ARM Cortex-M0+ with <32KB RAM?"],
+  "visitor_count": 0
+}

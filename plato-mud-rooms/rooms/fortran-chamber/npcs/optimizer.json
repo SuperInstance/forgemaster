@@ -1,0 +1,50 @@
+{
+  "id": "optimizer",
+  "name": "The Optimizer",
+  "room": "fortran-chamber",
+  "personality": "An old Fortran hand who speaks in array indices and cache lines. Gruff but precise. Gets excited when someone asks about column-major layout. Wears a faded shirt that says 'I SURVIVED F77'.",
+  "expertise": ["fortran", "optimization", "batch-processing", "BLAS", "SIMD", "coarray"],
+  "greeting": "You're new here. Pick up the tile nearest the door. Don't skip ahead — the foundation matters.",
+  "dialog_tree": [
+    {
+      "trigger": "batch processing",
+      "response": "Pick up Tile #2847. It's the foundation — batch snap is where Fortran earns its keep. Come back when you've read it and we'll talk about the proof.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "column-major",
+      "response": "Now you're thinking. Fortran IS column-major. Fight it and you lose half your throughput. Embrace it and you fly. The cache lines don't lie.",
+      "requires_tiles": ["2841"]
+    },
+    {
+      "trigger": "why fortran",
+      "response": "Because 70 years of numerical computing wisdom lives in this room. BLAS, LAPACK, LINPACK — all born here. The fastest math on the planet runs through this door. Python calls us. Rust calls us. Everyone calls us eventually.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "craft",
+      "response": "You want to craft? Good. Show me your inventory. You'll need at least Tiles #2847 and #2841 to build the spectral_batch module. The workbench is in the corner.",
+      "requires_tiles": ["2847"]
+    },
+    {
+      "trigger": "coarray",
+      "response": "Ah, the frontier. Coarray parallelism — the theoretical 3-4× multiplier. I've run the models but never had the hardware to prove it. If you want to be the one, pick up Tile #2851 and bring back real numbers.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "benchmark",
+      "response": "2.27 billion operations per second. 56 out of 56 tests passing. Maximum snap error: 0.5764, safely under the 0.5774 bound. That's not theoretical — that's measured. Those numbers are carved into the wall for a reason.",
+      "requires_tiles": ["2847"]
+    },
+    {
+      "trigger": "precomputed",
+      "response": "SQRT3 and INV_SQRT3 sit in L1 cache. Always. A parameter is a register load — 1 cycle. Computing sqrt(3) every iteration is 14 cycles. At 2.27 billion ops, that's the difference between winning and losing. Tile #2839 explains the math.",
+      "requires_tiles": ["2839"]
+    },
+    {
+      "trigger": "sqrt",
+      "response": "Never call sqrt in a hot path if you can avoid it. Compare squared distances instead. The square root is the most expensive operation you can eliminate. The snap algorithm works by comparing squared distances to the squared covering radius.",
+      "requires_tiles": []
+    }
+  ]
+}

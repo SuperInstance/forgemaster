@@ -1,0 +1,59 @@
+[package]
+name = "flux-transport"
+version = "0.1.0"
+edition = "2021"
+description = "FLUX Transport Layer — multi-protocol adapters for enterprise, IoT, and embedded"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+async-trait = "0.1"
+thiserror = "1"
+tracing = "0.1"
+bytes = "1"
+futures-util = "0.3"
+
+# Enterprise
+tokio-rustls = { version = "0.26", optional = true }
+rustls-pemfile = { version = "2", optional = true }
+webpki-roots = { version = "0.26", optional = true }
+tokio-tungstenite = { version = "0.24", optional = true }
+tonic = { version = "0.12", optional = true }
+
+# IoT
+rumqttc = { version = "0.24", optional = true }
+coap = { version = "0.19", optional = true }
+serialport = { version = "4", optional = true }
+socketcan = { version = "3", optional = true }
+linux-embedded-hal = { version = "0.4", optional = true }
+embedded-hal = { version = "1", optional = true }
+
+# Config
+toml = { version = "0.8", optional = true }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["test-util", "macros"] }
+
+[features]
+default = ["tcp", "websocket", "http", "memory", "file"]
+enterprise = ["tcp", "websocket", "grpc", "http"]
+iot = ["mqtt", "coap", "serial", "can", "i2c", "spi"]
+full = ["enterprise", "iot"]
+embedded = ["serial", "can", "i2c", "spi"]
+
+tcp = ["dep:tokio-rustls", "dep:rustls-pemfile", "dep:webpki-roots"]
+websocket = ["dep:tokio-tungstenite"]
+grpc = ["dep:tonic"]
+http = ["dep:hyper", "dep:http-body-util", "dep:hyper-util"]
+mqtt = ["dep:rumqttc"]
+coap = ["dep:coap"]
+serial = ["dep:serialport"]
+can = ["dep:socketcan"]
+i2c = ["dep:linux-embedded-hal", "dep:embedded-hal"]
+spi = ["dep:linux-embedded-hal", "dep:embedded-hal"]
+memory = []
+file = []
+config = ["dep:toml"]
+
+[workspace]

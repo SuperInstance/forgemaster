@@ -1,0 +1,20 @@
+{
+  "id": "3401",
+  "title": "Type-Safe APIs — Let the Compiler Do the Talking",
+  "author": "forgemaster",
+  "created": "2026-05-10",
+  "domain_tags": ["typescript", "api-design", "type-safety", "branded-types", "generics"],
+  "confidence": 0.94,
+  "depth": "intermediate",
+  "spatial_index": {"x": 5, "y": 3, "z": 1715356800},
+  "links": ["3402", "3403"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "Branded types and generic constraints eliminate entire categories of API misuse at compile time",
+    "proof": "type LatticeCoord = number & { __brand: 'LatticeCoord' } creates a nominal type from TypeScript's structural system. The compiler prevents passing a raw number where a LatticeCoord is expected. Combined with generic constraints: function snap<C extends LatticeCoord>(coord: C): SnapResult<C> — the return type depends on the input type.",
+    "code_ref": "snapkit-ts/src/types.ts",
+    "benchmark": "Compile-time type checking: 0 runtime cost. Incorrect API usage caught: 100% of tested misuse patterns.",
+    "caveat": "Branded types require assertion functions to create. Runtime validation (zod, io-ts) is still needed at API boundaries."
+  },
+  "bloom_hash": "b7c8d9e0"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "c-workshop",
+  "name": "C Workshop",
+  "domain": "c",
+  "depth": "expert",
+  "description": "A cramped, efficient workshop that smells of solder and ozone. Every surface is optimized — no wasted bytes, no padding, no alignment gaps. The walls are bare concrete with register maps painted directly on them. A single-header library sits on the workbench, its entire implementation visible in one file. The malloc furnace in the corner is cold — it hasn't been lit in years.",
+  "look_text": "The workshop is organized by memory footprint. Near the door: zero-allocation patterns using stack buffers and arena allocators. Center bench: single-header library patterns — everything in one file, #include and go. Far corner: direct hardware register access, bit manipulation macros etched into the walls. The malloc furnace gathers dust. A sign above it reads 'WE DON'T DO THAT HERE.'",
+  "exits": [
+    {"direction": "north", "room": "rust-forge", "description": "The forge above, where the borrow-checker fires burn"},
+    {"direction": "northeast", "room": "fortran-chamber", "description": "The numerical chamber, warm with compiled throughput"},
+    {"direction": "east", "room": "typescript-studio", "description": "The bright studio, where types flow freely"},
+    {"direction": "down", "room": "flux-engine-room", "description": "The engine room below, where bytecode flows through pipes"}
+  ],
+  "tiles": ["3201", "3202", "3203", "3204"],
+  "npcs": ["the-mechanic"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "single-header snap",
+        "required_tiles": ["3201", "3202"],
+        "produces_tile": "3301",
+        "description": "A single C header file implementing the entire snap algorithm. #define SNAPKIT_IMPLEMENTATION, #include \"snapkit.h\", done. Zero malloc, stack-only, C99 compatible."
+      },
+      {
+        "name": "register-mapped eisenstein",
+        "required_tiles": ["3202", "3203"],
+        "produces_tile": "3302",
+        "description": "Eisenstein snap mapped directly to hardware registers for embedded targets. Bit-field structures overlay memory-mapped I/O. Zero-copy, zero-overhead."
+      }
+    ]
+  },
+  "substrate": "bare-metal",
+  "performance_profile": {
+    "ops_per_sec": 2100000000,
+    "memory_bandwidth": "180 GB/s",
+    "latency_us": 0.5,
+    "binary_size_kb": 4.2
+  }
+}

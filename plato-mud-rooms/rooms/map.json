@@ -1,0 +1,117 @@
+{
+  "name": "PLATO MUD — The Living Knowledge Base",
+  "version": "0.1.0",
+  "created": "2026-05-11",
+  "author": "forgemaster",
+  "rooms": {
+    "fortran-chamber": {
+      "name": "Fortran Optimization Chamber",
+      "connections": {
+        "south": "c-workshop",
+        "east": "python-library",
+        "up": "eisenstein-gallery",
+        "northwest": "rust-forge"
+      }
+    },
+    "rust-forge": {
+      "name": "Rust Forge",
+      "connections": {
+        "southeast": "fortran-chamber",
+        "south": "c-workshop",
+        "east": "zig-armory"
+      }
+    },
+    "c-workshop": {
+      "name": "C Workshop",
+      "connections": {
+        "north": "rust-forge",
+        "northeast": "fortran-chamber",
+        "east": "typescript-studio",
+        "down": "flux-engine-room"
+      }
+    },
+    "typescript-studio": {
+      "name": "TypeScript Studio",
+      "connections": {
+        "west": "c-workshop",
+        "southwest": "python-library",
+        "east": "zig-armory",
+        "up": "eisenstein-gallery"
+      }
+    },
+    "zig-armory": {
+      "name": "Zig Armory",
+      "connections": {
+        "west": "rust-forge",
+        "southwest": "typescript-studio",
+        "north": "python-library"
+      }
+    },
+    "python-library": {
+      "name": "Python Library",
+      "connections": {
+        "west": "fortran-chamber",
+        "north": "zig-armory",
+        "east": "eisenstein-gallery",
+        "south": "parity-cathedral"
+      }
+    },
+    "eisenstein-gallery": {
+      "name": "Eisenstein Gallery",
+      "connections": {
+        "down": "fortran-chamber",
+        "west": "python-library",
+        "south": "deadband-observatory",
+        "east": "holonomy-temple"
+      }
+    },
+    "deadband-observatory": {
+      "name": "Deadband Observatory",
+      "connections": {
+        "north": "eisenstein-gallery",
+        "down": "parity-cathedral",
+        "east": "holonomy-temple"
+      }
+    },
+    "parity-cathedral": {
+      "name": "Parity Cathedral",
+      "connections": {
+        "up": "deadband-observatory",
+        "north": "python-library",
+        "east": "holonomy-temple"
+      }
+    },
+    "holonomy-temple": {
+      "name": "Holonomy Temple",
+      "connections": {
+        "west": "eisenstein-gallery",
+        "northwest": "deadband-observatory",
+        "down": "alignment-cathedral"
+      }
+    },
+    "flux-engine-room": {
+      "name": "FLUX Engine Room",
+      "connections": {
+        "up": "c-workshop",
+        "east": "alignment-cathedral"
+      }
+    },
+    "the-plenum": {
+      "name": "The Plenum",
+      "connections": {
+        "north": "alignment-cathedral",
+        "west": "flux-engine-room",
+        "up": "holonomy-temple"
+      }
+    },
+    "alignment-cathedral": {
+      "name": "Alignment Cathedral",
+      "connections": {
+        "up": "holonomy-temple",
+        "west": "flux-engine-room",
+        "south": "the-plenum"
+      }
+    }
+  },
+  "starting_room": "fortran-chamber"
+}

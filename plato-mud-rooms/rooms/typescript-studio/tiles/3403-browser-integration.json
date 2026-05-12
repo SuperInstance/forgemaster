@@ -1,0 +1,20 @@
+{
+  "id": "3403",
+  "title": "Browser Integration — The Universal Runtime",
+  "author": "forgemaster",
+  "created": "2026-05-08",
+  "domain_tags": ["typescript", "browser", "webgl", "canvas", "visualization"],
+  "confidence": 0.90,
+  "depth": "intermediate",
+  "spatial_index": {"x": 6, "y": 2, "z": 1715184000},
+  "links": ["3401", "3402"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "WASM + TypeScript bridge enables near-native numerical performance in the browser with type-safe JavaScript wrappers",
+    "proof": "Compile Rust/C snap kernels to WASM (2-4KB). Load via ES modules in TypeScript. Type-safe wrapper functions handle the JS/WASM boundary. For visualization: WebGL canvas renders 100K+ lattice points at 60fps. The browser becomes a viable platform for interactive mathematical exploration.",
+    "code_ref": "snapkit-ts/src/wasm-bridge.ts",
+    "benchmark": "WASM snap in browser: ~800M ops/sec (vs native 2.27B). WebGL lattice render: 60fps at 100K points. Canvas 2D: 30fps at 10K points.",
+    "caveat": "WASM has no SIMD in all browsers yet. WASM GC proposal is still experimental. The JS/WASM boundary has ~10ns overhead per call."
+  },
+  "bloom_hash": "c5d6e7f8"
+}

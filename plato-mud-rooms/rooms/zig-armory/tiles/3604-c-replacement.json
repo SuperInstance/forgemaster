@@ -1,0 +1,20 @@
+{
+  "id": "3604",
+  "title": "Zig as C Replacement — The Successor Forges Ahead",
+  "author": "forgemaster",
+  "created": "2026-05-06",
+  "domain_tags": ["zig", "c-replacement", "systems-programming", "safety", "modern"],
+  "confidence": 0.82,
+  "depth": "advanced",
+  "spatial_index": {"x": 8, "y": 3, "z": 1715011200},
+  "links": ["3601", "3602"],
+  "lifecycle": "opinion",
+  "content": {
+    "theorem": "Zig is positioned to replace C for new systems programming projects, offering safety, comptime, and modern tooling without C's historical baggage",
+    "proof": "No hidden control flow. No implicit allocations. Explicit error handling (error unions, not exceptions). Comptime instead of macros. Built-in cross-compilation instead of autotools/cmake. Interop with C is seamless via @cImport. The language is small enough to fit in your head.",
+    "code_ref": "snapkit-zig/README.md",
+    "benchmark": "Zig snap: 2.05B ops/sec. C equivalent: 2.1B ops/sec. The 2% gap is within measurement noise. Same performance, better safety.",
+    "caveat": "Zig is pre-1.0. The standard library changes. Breaking changes happen. Production use requires pinning versions. But the language design is solid and stable."
+  },
+  "bloom_hash": "a7b8c9d0"
+}

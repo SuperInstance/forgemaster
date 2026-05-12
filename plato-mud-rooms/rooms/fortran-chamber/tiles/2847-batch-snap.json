@@ -1,0 +1,20 @@
+{
+  "id": "2847",
+  "title": "Batch Snap — Why Fortran Wins",
+  "author": "forgemaster",
+  "created": "2026-05-11",
+  "domain_tags": ["fortran", "optimization", "batch", "snap", "eisenstein"],
+  "confidence": 0.98,
+  "depth": "advanced",
+  "spatial_index": {"x": 2, "y": 2, "z": 1715443200},
+  "links": ["2841", "2839"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "Fortran column-major batch snap achieves 2.27B ops/sec on standard hardware",
+    "proof": "Precomputed SQRT3/INV_SQRT3 in L1 cache + pure elemental functions enabling auto-SIMD + squared-distance comparison avoiding sqrt in hot path",
+    "code_ref": "snapkit-fortran/src/eisenstein.f90:batch_snap()",
+    "benchmark": "56/56 tests, 10M elements, max snap 0.5764 < 0.5774",
+    "caveat": "Single-threaded; coarray parallelism projected 3-4× but untested on real multi-core"
+  },
+  "bloom_hash": "7f3a9c1e"
+}

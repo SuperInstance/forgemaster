@@ -1,0 +1,38 @@
+{
+  "id": "zig-armory",
+  "name": "Zig Armory",
+  "domain": "zig",
+  "depth": "advanced",
+  "description": "The armory gleams with the cold blue light of comptime evaluation. Racks of weapons line the walls — each one a cross-compiled binary, sharp and ready for any target. The air is thin and precise, like the scent of fresh metal shavings. An anvil in the center is engraved with '@cImport', the incantation that lets Zig wear C's armor.",
+  "look_text": "The armory is organized by compilation target. Left wall: ARM and RISC-V cross-compilation racks, their targets labeled in chalk. Center: the comptime forge, where code runs at compile time to generate optimized runtime code. Right wall: the C import station, where existing C libraries are wrapped in Zig safety without wrapper overhead. The floor is a grid of target triples.",
+  "exits": [
+    {"direction": "west", "room": "rust-forge", "description": "The forge, where ownership is hammered into shape"},
+    {"direction": "southwest", "room": "typescript-studio", "description": "The bright studio, where types flow like water"},
+    {"direction": "north", "room": "python-library", "description": "The vast library, where ecosystems grow"}
+  ],
+  "tiles": ["3601", "3602", "3603", "3604"],
+  "npcs": ["the-armor"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "cross-compiled snap",
+        "required_tiles": ["3601", "3603"],
+        "produces_tile": "3701",
+        "description": "A snap binary cross-compiled from x86 to ARM, RISC-V, and WASM in a single zig build command. Zero dependencies, zero sysroot setup."
+      },
+      {
+        "name": "c-import snap wrapper",
+        "required_tiles": ["3602", "3603"],
+        "produces_tile": "3702",
+        "description": "Zig wrapper around the C single-header snap library. @cImport generates type-safe bindings automatically. Zig safety with C performance."
+      }
+    ]
+  },
+  "substrate": "bare-metal",
+  "performance_profile": {
+    "ops_per_sec": 2050000000,
+    "memory_bandwidth": "178 GB/s",
+    "latency_us": 0.5,
+    "cross_compile_targets": 42
+  }
+}
