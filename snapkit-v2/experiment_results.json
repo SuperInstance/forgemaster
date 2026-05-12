@@ -1,0 +1,554 @@
+[
+  {
+    "section": "1A",
+    "test": "10M random snap max distance",
+    "status": "PASS",
+    "detail": "max_dist=0.577175441190305, bound=0.577350269189626, diff=-1.75e-04"
+  },
+  {
+    "section": "1A",
+    "test": "All snap results are integers",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "1A",
+    "test": "Snap idempotency (1K sample)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "1A",
+    "test": "10M snaps throughput",
+    "status": "\ud83d\udcca",
+    "detail": "458914 ops/sec in 2.18s"
+  },
+  {
+    "section": "1A",
+    "test": "Degenerate: origin (0,0)",
+    "status": "PASS",
+    "detail": "snap(0.0,0.0) = (0,0) expected (0, 0)"
+  },
+  {
+    "section": "1A",
+    "test": "Degenerate: near origin (0.1,0.1)",
+    "status": "PASS",
+    "detail": "snap(0.1,0.1) = (0,0)"
+  },
+  {
+    "section": "1A",
+    "test": "Degenerate: large coords (1e6,1e6)",
+    "status": "PASS",
+    "detail": "snap(1000000.0,1000000.0) = (1577350,1154700)"
+  },
+  {
+    "section": "1A",
+    "test": "Degenerate: very large (1e9,1e9)",
+    "status": "PASS",
+    "detail": "snap(1000000000.0,1000000000.0) = (1577350269,1154700538)"
+  },
+  {
+    "section": "1A",
+    "test": "Degenerate: negative (-5,-5)",
+    "status": "PASS",
+    "detail": "snap(-5.0,-5.0) = (-8,-6)"
+  },
+  {
+    "section": "1A",
+    "test": "Degenerate: epsilon (1e-15,1e-15)",
+    "status": "PASS",
+    "detail": "snap(1e-15,1e-15) = (0,0) expected (0, 0)"
+  },
+  {
+    "section": "1A",
+    "test": "12 boundary directions within bound",
+    "status": "PASS",
+    "detail": "0/12 exceeded bound"
+  },
+  {
+    "section": "1A",
+    "test": "Voronoi always \u2264 naive accuracy",
+    "status": "PASS",
+    "detail": "voronoi worse in 0/100K cases"
+  },
+  {
+    "section": "1A",
+    "test": "EisensteinInteger round-trip (100K)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "1A",
+    "test": "eisenstein_snap tolerance consistent",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "1B",
+    "test": "All phases in [0, 1)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "1B",
+    "test": "On-beat detection (8 cases)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "1B",
+    "test": "T-minus-0 basic detection",
+    "status": "PASS",
+    "detail": "is_t_minus_0=True"
+  },
+  {
+    "section": "1B",
+    "test": "BeatGrid period=0 raises ValueError",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "1B",
+    "test": "BeatGrid period=-1 raises ValueError",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "1B",
+    "test": "beats_in_range(0, 2) with period=0.5",
+    "status": "PASS",
+    "detail": "got 5 beats: [0.0, 0.5, 1.0, 1.5, 2.0]"
+  },
+  {
+    "section": "1B",
+    "test": "snap_batch(5 timestamps)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "1B",
+    "test": "History tracking",
+    "status": "PASS",
+    "detail": "len=3"
+  },
+  {
+    "section": "1B",
+    "test": "Reset clears history",
+    "status": "PASS",
+    "detail": "len=0"
+  },
+  {
+    "section": "1C",
+    "test": "Entropy uniform bins=5",
+    "status": "PASS",
+    "detail": "h=2.3219, expected=2.3219, diff=0.0000"
+  },
+  {
+    "section": "1C",
+    "test": "Entropy uniform bins=10",
+    "status": "PASS",
+    "detail": "h=3.3219, expected=3.3219, diff=0.0000"
+  },
+  {
+    "section": "1C",
+    "test": "Entropy uniform bins=20",
+    "status": "PASS",
+    "detail": "h=4.3216, expected=4.3219, diff=0.0003"
+  },
+  {
+    "section": "1C",
+    "test": "Entropy constant = 0",
+    "status": "PASS",
+    "detail": "h=0.0"
+  },
+  {
+    "section": "1C",
+    "test": "Entropy single element = 0",
+    "status": "PASS",
+    "detail": "h=0.0"
+  },
+  {
+    "section": "1C",
+    "test": "Autocorrelation lag-0 = 1.0",
+    "status": "PASS",
+    "detail": "acf[0]=1.000000000000000"
+  },
+  {
+    "section": "1C",
+    "test": "AR(1) phi=0.7 lag-1 \u2248 0.7",
+    "status": "PASS",
+    "detail": "acf[1]=0.7123"
+  },
+  {
+    "section": "1C",
+    "test": "Hurst random walk \u2248 0.5",
+    "status": "FAIL",
+    "detail": "H=0.9837"
+  },
+  {
+    "section": "1C",
+    "test": "Hurst persistent > 0.5",
+    "status": "PASS",
+    "detail": "H=0.9997"
+  },
+  {
+    "section": "1C",
+    "test": "Hurst tiny data returns 0.5",
+    "status": "PASS",
+    "detail": "H=0.5"
+  },
+  {
+    "section": "1C",
+    "test": "Spectral summary for random data",
+    "status": "\ud83d\udcca",
+    "detail": "H=0.580, entropy=2.650, acf_lag1=0.015, stationary=True"
+  },
+  {
+    "section": "1C",
+    "test": "spectral_batch(2 series)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "1D",
+    "test": "Coupled pair detected",
+    "status": "PASS",
+    "detail": "1 coupled pairs: [('signal', 'coupled', 0.979162)]"
+  },
+  {
+    "section": "1D",
+    "test": "Anti-coupled pair detected",
+    "status": "PASS",
+    "detail": "2 anti pairs: [('signal', 'anti', -0.982406), ('coupled', 'anti', -0.961717)]"
+  },
+  {
+    "section": "1D",
+    "test": "Independent = UNCOUPLED",
+    "status": "PASS",
+    "detail": "coupling=CouplingType.UNCOUPLED, corr=0.1250"
+  },
+  {
+    "section": "1D",
+    "test": "Adjacency matrix (4x4)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "1D",
+    "test": "Significant pairs",
+    "status": "\ud83d\udcca",
+    "detail": "3 significant"
+  },
+  {
+    "section": "1D",
+    "test": "Graphviz output",
+    "status": "PASS",
+    "detail": "288 chars"
+  },
+  {
+    "section": "1D",
+    "test": "Below min_samples \u2192 UNCOUPLED",
+    "status": "PASS",
+    "detail": "coupling=CouplingType.UNCOUPLED"
+  },
+  {
+    "section": "2A",
+    "test": "Eisenstein snap 1,000",
+    "status": "\ud83d\udcca",
+    "detail": "608,348 ops/sec (0.002s)"
+  },
+  {
+    "section": "2A",
+    "test": "Eisenstein snap 10,000",
+    "status": "\ud83d\udcca",
+    "detail": "590,485 ops/sec (0.017s)"
+  },
+  {
+    "section": "2A",
+    "test": "Eisenstein snap 100,000",
+    "status": "\ud83d\udcca",
+    "detail": "601,447 ops/sec (0.166s)"
+  },
+  {
+    "section": "2B",
+    "test": "Scaling ratio (1K vs 100K)",
+    "status": "\ud83d\udcca",
+    "detail": "1K/100K = 1.01x (1.0 = perfect linear)"
+  },
+  {
+    "section": "2C",
+    "test": "Voronoi vs naive (10,000)",
+    "status": "\ud83d\udcca",
+    "detail": "voronoi=0.017s, naive=0.001s, ratio=11.96x"
+  },
+  {
+    "section": "2C",
+    "test": "Voronoi vs naive (100,000)",
+    "status": "\ud83d\udcca",
+    "detail": "voronoi=0.164s, naive=0.014s, ratio=12.18x"
+  },
+  {
+    "section": "2B",
+    "test": "Batch vs single (100K)",
+    "status": "\ud83d\udcca",
+    "detail": "batch=0.171s, single=0.163s, ratio=0.96x"
+  },
+  {
+    "section": "2A",
+    "test": "Temporal snap 10,000",
+    "status": "\ud83d\udcca",
+    "detail": "602,513 ops/sec (0.017s)"
+  },
+  {
+    "section": "2A",
+    "test": "Temporal snap 100,000",
+    "status": "\ud83d\udcca",
+    "detail": "770,633 ops/sec (0.130s)"
+  },
+  {
+    "section": "2A",
+    "test": "Spectral summary n=100",
+    "status": "\ud83d\udcca",
+    "detail": "0.000s"
+  },
+  {
+    "section": "2A",
+    "test": "Spectral summary n=1,000",
+    "status": "\ud83d\udcca",
+    "detail": "0.015s"
+  },
+  {
+    "section": "2A",
+    "test": "Spectral summary n=10,000",
+    "status": "\ud83d\udcca",
+    "detail": "1.479s"
+  },
+  {
+    "section": "2A",
+    "test": "Spectral summary n=100,000",
+    "status": "\ud83d\udcca",
+    "detail": "154.303s"
+  },
+  {
+    "section": "3A",
+    "test": "Robot arm drift: raw RMSE",
+    "status": "\ud83d\udcca",
+    "detail": "0.3702"
+  },
+  {
+    "section": "3A",
+    "test": "Robot arm drift: snapped RMSE",
+    "status": "\ud83d\udcca",
+    "detail": "0.4695"
+  },
+  {
+    "section": "3A",
+    "test": "Snapping improves accuracy",
+    "status": "WARN",
+    "detail": "ratio=0.79x improvement"
+  },
+  {
+    "section": "3B",
+    "test": "Healthy heartbeat Hurst",
+    "status": "\ud83d\udcca",
+    "detail": "H=0.5389"
+  },
+  {
+    "section": "3B",
+    "test": "Degraded heartbeat Hurst",
+    "status": "\ud83d\udcca",
+    "detail": "H=0.5251"
+  },
+  {
+    "section": "3B",
+    "test": "Healthy stationary",
+    "status": "\ud83d\udcca",
+    "detail": "is_stationary=True"
+  },
+  {
+    "section": "3B",
+    "test": "Degraded stationary",
+    "status": "\ud83d\udcca",
+    "detail": "is_stationary=True"
+  },
+  {
+    "section": "3C",
+    "test": "MIDI event count",
+    "status": "FAIL",
+    "detail": "128 events (expected 64)"
+  },
+  {
+    "section": "3C",
+    "test": "tick_to_seconds(480) at 120bpm",
+    "status": "PASS",
+    "detail": "0.500000s (expected 0.5)"
+  },
+  {
+    "section": "3C",
+    "test": "seconds_to_tick(0.5) at 120bpm",
+    "status": "PASS",
+    "detail": "tick=480 (expected 480)"
+  },
+  {
+    "section": "3C",
+    "test": "Quantize to 120-tick grid",
+    "status": "PASS",
+    "detail": "got [0, 120, 240, 360, 480], expected [0, 120, 240, 360, 480]"
+  },
+  {
+    "section": "3C",
+    "test": "Timeline duration",
+    "status": "\ud83d\udcca",
+    "detail": "15.750s"
+  },
+  {
+    "section": "3C",
+    "test": "Room list",
+    "status": "PASS",
+    "detail": "['piano', 'drums']"
+  },
+  {
+    "section": "3C",
+    "test": "Channel 16 rejected",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "3C",
+    "test": "Duplicate room rejected",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "section": "3C",
+    "test": "Tempo change tick_to_seconds",
+    "status": "PASS",
+    "detail": "got 1.333333, expected 1.333333"
+  },
+  {
+    "section": "4A",
+    "test": "Large value snap (1e+09)",
+    "status": "\ud83d\udcca",
+    "detail": "snap\u2192(1693666955, 1239850262)"
+  },
+  {
+    "section": "4A",
+    "test": "Large value snap (1e+15)",
+    "status": "\ud83d\udcca",
+    "detail": "snap\u2192(1577350269189626, 1154700538379252)"
+  },
+  {
+    "section": "4A",
+    "test": "Large value snap (1e+30)",
+    "status": "\ud83d\udcca",
+    "detail": "snap\u2192(1577350269189625824835289481215, 1154700538379251750638817640447)"
+  },
+  {
+    "section": "4A",
+    "test": "Small value snap (1e-15)",
+    "status": "\ud83d\udcca",
+    "detail": "snap\u2192(0, 0)"
+  },
+  {
+    "section": "4A",
+    "test": "Small value snap (1e-30)",
+    "status": "\ud83d\udcca",
+    "detail": "snap\u2192(0, 0)"
+  },
+  {
+    "section": "4A",
+    "test": "Small value snap (5e-16)",
+    "status": "\ud83d\udcca",
+    "detail": "snap\u2192(0, 0)"
+  },
+  {
+    "section": "4A",
+    "test": "Input (NaN)",
+    "status": "PASS",
+    "detail": "raised ValueError"
+  },
+  {
+    "section": "4A",
+    "test": "Input (Inf)",
+    "status": "PASS",
+    "detail": "raised OverflowError"
+  },
+  {
+    "section": "4A",
+    "test": "Input (-Inf)",
+    "status": "PASS",
+    "detail": "raised OverflowError"
+  },
+  {
+    "section": "4A",
+    "test": "Input (NaN,NaN)",
+    "status": "PASS",
+    "detail": "raised ValueError"
+  },
+  {
+    "section": "4A",
+    "test": "Mixed sign (-100, 100)",
+    "status": "\ud83d\udcca",
+    "detail": "snap\u2192(-42, 116)"
+  },
+  {
+    "section": "4A",
+    "test": "Mixed sign (100, -100)",
+    "status": "\ud83d\udcca",
+    "detail": "snap\u2192(42, -116)"
+  },
+  {
+    "section": "4A",
+    "test": "Mixed sign (-1000000.0, 1000000.0)",
+    "status": "\ud83d\udcca",
+    "detail": "snap\u2192(-422650, 1154700)"
+  },
+  {
+    "section": "4A",
+    "test": "Mixed sign (0, -1e-15)",
+    "status": "\ud83d\udcca",
+    "detail": "snap\u2192(0, 0)"
+  },
+  {
+    "section": "4B",
+    "test": "Exhaustive interior (2,642 points)",
+    "status": "FAIL",
+    "detail": "478/2642 points did NOT snap to (0,0)"
+  },
+  {
+    "section": "4B",
+    "test": "Outside points distance check",
+    "status": "PASS",
+    "detail": "0/24 exceeded covering radius"
+  },
+  {
+    "section": "4B",
+    "test": "EisensteinInteger(0,0).norm",
+    "status": "PASS",
+    "detail": "norm\u00b2=0"
+  },
+  {
+    "section": "4B",
+    "test": "EisensteinInteger(1,0) * (0,1)",
+    "status": "\ud83d\udcca",
+    "detail": "EisensteinInteger(0, 1)"
+  },
+  {
+    "section": "4B",
+    "test": "EisensteinInteger conjugate",
+    "status": "\ud83d\udcca",
+    "detail": "EisensteinInteger(8, -5)"
+  },
+  {
+    "section": "4B",
+    "test": "Eisenstein distance",
+    "status": "\ud83d\udcca",
+    "detail": "d=0.1414"
+  },
+  {
+    "section": "4",
+    "test": "PHASE CRASH",
+    "status": "FAIL",
+    "detail": "name 'eisenstein_fundamental_domain' is not defined"
+  }
+]

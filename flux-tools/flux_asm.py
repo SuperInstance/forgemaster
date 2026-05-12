@@ -75,10 +75,12 @@ OPCODES = {
     'NOP':          (0x01, FORMAT_A, []),
     'RET':          (0x02, FORMAT_A, []),
     'JUMP':         (0x03, FORMAT_G, ['offset16']),
-    'JNZ':          (0x04, FORMAT_G, ['reg', 'offset16']),  # JumpIf — alias JNZ
-    'JZ':           (0x05, FORMAT_G, ['reg', 'offset16']),  # JumpIfNot — alias JZ
     'JMPIF':        (0x04, FORMAT_G, ['reg', 'offset16']),
     'JMPIFNOT':     (0x05, FORMAT_G, ['reg', 'offset16']),
+    'JNZ':          (0x04, FORMAT_G, ['reg', 'offset16']),  # JumpIf — alias JNZ
+    'JZ':           (0x05, FORMAT_G, ['reg', 'offset16']),  # JumpIfNot — alias JZ
+    'JUMPIF':       (0x04, FORMAT_G, ['reg', 'offset16']),
+    'JUMPIFNOT':    (0x05, FORMAT_G, ['reg', 'offset16']),
     'CALL':         (0x06, FORMAT_G, ['func_idx16']),
     'CALLINDIRECT': (0x07, FORMAT_G, ['reg']),
     'YIELD':        (0x08, FORMAT_A, []),
@@ -459,7 +461,7 @@ def assemble(source: str) -> bytes:
             bytecode.extend(struct.pack('<H', off & 0xFFFF))
 
         elif fmt == FORMAT_G:
-            if mnemonic in ('JNZ', 'JZ', 'JMPIF', 'JMPIFNOT'):
+            if mnemonic in ('JNZ', 'JZ', 'JMPIF', 'JMPIFNOT', 'JUMPIF', 'JUMPIFNOT'):
                 # [opcode][length=3][reg][offset_lo][offset_hi]
                 reg = parse_register(operands[0])
                 # Resolve label or parse offset

@@ -53,7 +53,7 @@ static double now_sec(void) {
 /* ================================================================== */
 static void bench_single_snap(void) {
     printf("\n=== Bench 1: Single Eisenstein Snap (10M ops) ===\n");
-    rng_seed(0xBENCH1);
+    rng_seed(0xBE11111);
 
     const int N = 10000000;
     volatile double sink = 0.0;  /* prevent optimization */
@@ -76,7 +76,7 @@ static void bench_single_snap(void) {
 
     /* Naive snap */
     {
-        rng_seed(0xBENCH1);  /* reset for fair comparison */
+        rng_seed(0xBE11111);  /* reset for fair comparison */
         double t0 = now_sec();
         double sum = 0.0;
         for (int i = 0; i < N; i++) {
@@ -93,7 +93,7 @@ static void bench_single_snap(void) {
 
     /* Full snap with distance */
     {
-        rng_seed(0xBENCH1);
+        rng_seed(0xBE11111);
         double t0 = now_sec();
         double sum = 0.0;
         for (int i = 0; i < N; i++) {
@@ -116,7 +116,7 @@ static void bench_single_snap(void) {
 /* ================================================================== */
 static void bench_batch_snap(void) {
     printf("\n=== Bench 2: Batch Snap (1M points) ===\n");
-    rng_seed(0xBENCH2);
+    rng_seed(0xBE22222);
 
     const int N = 1000000;
     double *x = malloc(N * sizeof(double));
@@ -156,7 +156,7 @@ static void bench_batch_snap(void) {
 /* ================================================================== */
 static void bench_naive_vs_voronoi(void) {
     printf("\n=== Bench 3: Naive vs Voronoi Speed Ratio ===\n");
-    rng_seed(0xBENCH3);
+    rng_seed(0xBE33333);
 
     const int N = 5000000;
 
@@ -164,7 +164,7 @@ static void bench_naive_vs_voronoi(void) {
 
     /* Voronoi */
     {
-        rng_seed(0xBENCH3);
+        rng_seed(0xBE33333);
         double t0 = now_sec();
         volatile int sink = 0;
         for (int i = 0; i < N; i++) {
@@ -179,7 +179,7 @@ static void bench_naive_vs_voronoi(void) {
 
     /* Naive */
     {
-        rng_seed(0xBENCH3);
+        rng_seed(0xBE33333);
         double t0 = now_sec();
         volatile int sink = 0;
         for (int i = 0; i < N; i++) {
@@ -203,7 +203,7 @@ static void bench_naive_vs_voronoi(void) {
 /* ================================================================== */
 static void bench_temporal(void) {
     printf("\n=== Bench 4: Temporal Snap (1M ops) ===\n");
-    rng_seed(0xBENCH4);
+    rng_seed(0xBE44444);
 
     const int N = 1000000;
     sk_beat_grid grid;
@@ -276,7 +276,7 @@ static void bench_memory(void) {
 /* ================================================================== */
 static void bench_spectral(void) {
     printf("\n=== Bench 6: Spectral Analysis ===\n");
-    rng_seed(0xBENCH6);
+    rng_seed(0xBE66666);
 
     const int N = 10000;
     double data[N];

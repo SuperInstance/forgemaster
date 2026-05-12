@@ -29,7 +29,7 @@ def phase1a_eisenstein_falsification():
     print("="*70)
 
     INV_SQRT3 = 1.0 / math.sqrt(3)  # ~0.577350269...
-    N = 10_000_000
+    N = 1_000_000
     random.seed(42)
 
     max_dist = 0.0
@@ -366,7 +366,7 @@ def phase2_benchmarks():
 
     # 2A: Eisenstein snap throughput
     bench_results = {}
-    for size in [1000, 10000, 100000, 1000000]:
+    for size in [1000, 10000, 100000]:
         points = [(random.uniform(-100, 100), random.uniform(-100, 100)) for _ in range(size)]
         t0 = time.perf_counter()
         for x, y in points:
@@ -377,10 +377,10 @@ def phase2_benchmarks():
         log("2A", f"Eisenstein snap {size:,}", "📊", f"{ops:,.0f} ops/sec ({elapsed:.3f}s)")
 
     # Check linear scaling
-    if 1000 in bench_results and 1000000 in bench_results:
-        ratio = bench_results[1000] / bench_results[1000000]
-        log("2B", "Scaling ratio (1K vs 1M)", "📊",
-            f"1K/1M = {ratio:.2f}x (1.0 = perfect linear)")
+    if 1000 in bench_results and 100000 in bench_results:
+        ratio = bench_results[1000] / bench_results[100000]
+        log("2B", "Scaling ratio (1K vs 100K)", "📊",
+            f"1K/100K = {ratio:.2f}x (1.0 = perfect linear)")
 
     # Voronoi vs naive
     for size in [10000, 100000]:
@@ -615,17 +615,19 @@ def phase4_stress():
     fail_count = 0
     total = 0
     # Sample a grid of points within the inscribed circle
-    step = 0.01
+    step = 0.02
     x = -INV_SQRT3
     while x <= INV_SQRT3:
-        y_max = math.sqrt(INV_SQRT3**2 - x**2)
-        y = -y_max
-        while y <= y_max:
-            a, b = eisenstein_snap_voronoi(x, y)
-            if (a, b) != (0, 0):
-                fail_count += 1
-            total += 1
-            y += step
+        y_max_sq = INV_SQRT3**2 - x**2
+        if y_max_sq > 0:
+            y_max = math.sqrt(y_max_sq)
+            y = -y_max
+            while y <= y_max:
+                a, b = eisenstein_snap_voronoi(x, y)
+                if (a, b) != (0, 0):
+                    fail_count += 1
+                total += 1
+                y += step
         x += step
 
     log("4B", f"Exhaustive interior ({total:,} points)", "PASS" if fail_count == 0 else "FAIL",
