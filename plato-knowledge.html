@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLATO Knowledge Engine — The Endless Wikipedia of Constraint Computing</title>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --surface2: #1a1a28;
+  --border: #2a2a3a;
+  --text: #e0e0e8;
+  --text2: #8888a0;
+  --accent: #6c5ce7;
+  --accent2: #a29bfe;
+  --green: #00b894;
+  --orange: #fdcb6e;
+  --red: #ff6b6b;
+  --hex: #4a90d9;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sans-serif; line-height:1.6; overflow-x:hidden; }
+a { color:var(--accent2); text-decoration:none; }
+a:hover { text-decoration:underline; }
+
+/* Layout */
+#app { max-width:900px; margin:0 auto; padding:20px; min-height:100vh; }
+
+/* Header */
+.header { text-align:center; padding:40px 0 30px; border-bottom:1px solid var(--border); margin-bottom:30px; }
+.header h1 { font-size:1.8em; font-weight:700; }
+.header h1 span { color:var(--accent2); }
+.header p { color:var(--text2); margin-top:8px; font-size:0.95em; }
+.header .subtitle { color:var(--hex); font-style:italic; font-size:0.85em; margin-top:4px; }
+.status-bar { display:flex; gap:15px; justify-content:center; margin-top:15px; font-size:0.8em; }
+.status-dot { display:inline-flex; align-items:center; gap:5px; }
+.status-dot::before { content:''; width:8px; height:8px; border-radius:50%; }
+.status-dot.on::before { background:var(--green); }
+.status-dot.off::before { background:var(--red); }
+
+/* Navigation */
+.nav { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:25px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+.nav-btn { padding:6px 14px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text2); cursor:pointer; font-size:0.82em; transition:all .2s; }
+.nav-btn:hover,.nav-btn.active { border-color:var(--accent); color:var(--accent2); background:var(--surface2); }
+.nav-btn.current { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+/* Room */
+.room { margin-bottom:30px; }
+.room-header { margin-bottom:20px; }
+.room-header h2 { font-size:1.4em; color:var(--accent2); }
+.room-header .meta { display:flex; gap:15px; margin-top:8px; font-size:0.8em; color:var(--text2); }
+.room-header .biesty { color:var(--hex); font-style:italic; font-size:0.9em; margin-top:6px; padding:8px 12px; background:var(--surface); border-left:3px solid var(--hex); border-radius:0 var(--radius) var(--radius) 0; }
+
+/* Tile */
+.tile { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:16px; transition:border-color .3s; }
+.tile:hover { border-color:var(--accent); }
+.tile-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; }
+.tile-title { font-size:1.1em; font-weight:600; }
+.tile-badge { font-size:0.7em; padding:3px 8px; border-radius:10px; text-transform:uppercase; letter-spacing:.5px; }
+.badge-canon { background:rgba(108,92,231,.2); color:var(--accent2); }
+.badge-community { background:rgba(0,184,148,.15); color:var(--green); }
+.badge-generated { background:rgba(253,203,110,.15); color:var(--orange); }
+.tile-score { font-size:0.75em; color:var(--text2); }
+.tile-body { color:var(--text); font-size:0.92em; }
+.tile-body code { background:var(--surface2); padding:2px 6px; border-radius:4px; font-size:0.88em; color:var(--accent2); }
+.tile-body pre { background:var(--surface2); padding:12px; border-radius:8px; overflow-x:auto; margin:10px 0; font-size:0.85em; line-height:1.5; }
+.tile-body ul { padding-left:20px; margin:8px 0; }
+.tile-body li { margin:4px 0; }
+.tile-body strong { color:var(--accent2); }
+
+/* Exercise */
+.exercise { background:rgba(108,92,231,.08); border:1px dashed var(--accent); border-radius:var(--radius); padding:15px; margin-top:12px; }
+.exercise h4 { color:var(--accent2); font-size:0.9em; margin-bottom:8px; }
+.exercise p { font-size:0.88em; color:var(--text2); }
+
+/* Actions */
+.tile-actions { display:flex; gap:10px; margin-top:12px; align-items:center; }
+.action-btn { padding:5px 12px; border-radius:8px; border:1px solid var(--border); background:var(--surface2); color:var(--text2); cursor:pointer; font-size:0.78em; transition:all .2s; }
+.action-btn:hover { border-color:var(--accent); color:var(--accent2); }
+.action-btn.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+.action-btn.primary:hover { background:var(--accent2); }
+
+/* Room exits */
+.exits { display:flex; gap:10px; margin-top:25px; padding-top:20px; border-top:1px solid var(--border); }
+.exit-btn { flex:1; padding:12px; border-radius:var(--radius); border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; text-align:center; transition:all .2s; }
+.exit-btn:hover { border-color:var(--hex); background:var(--surface2); }
+.exit-btn .arrow { font-size:1.2em; display:block; }
+.exit-btn .label { font-size:0.8em; color:var(--text2); margin-top:4px; }
+
+/* Generator panel */
+.generator { background:var(--surface); border:2px dashed var(--accent); border-radius:var(--radius); padding:20px; margin:20px 0; }
+.generator h3 { color:var(--accent2); margin-bottom:12px; font-size:1em; }
+.gen-select { background:var(--surface2); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px 12px; font-size:0.85em; margin-right:10px; }
+.gen-status { margin-top:10px; font-size:0.85em; color:var(--text2); }
+.gen-status.generating { color:var(--orange); }
+.gen-status.done { color:var(--green); }
+.gen-status.error { color:var(--red); }
+
+/* Curiosity tracker */
+.curiosity { position:fixed; bottom:20px; right:20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:12px 16px; font-size:0.75em; max-width:200px; z-index:100; }
+.curiosity h4 { color:var(--accent2); margin-bottom:6px; font-size:0.85em; }
+.curiosity-bar { height:4px; background:var(--surface2); border-radius:2px; margin:3px 0; }
+.curiosity-fill { height:100%; background:var(--accent); border-radius:2px; transition:width .5s; }
+.curiosity .label { color:var(--text2); }
+
+/* Index/Map view */
+.room-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin:20px 0; }
+.room-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:12px; cursor:pointer; transition:all .2s; text-align:center; }
+.room-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+.room-card .num { font-size:0.7em; color:var(--text2); }
+.room-card .name { font-size:0.88em; font-weight:600; margin-top:4px; }
+.room-card .tiles-count { font-size:0.7em; color:var(--green); margin-top:4px; }
+
+/* Responsive */
+@media(max-width:600px) {
+  #app { padding:12px; }
+  .header h1 { font-size:1.3em; }
+  .curiosity { display:none; }
+  .room-grid { grid-template-columns:repeat(2,1fr); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="header">
+    <h1>PLATO <span>Knowledge Engine</span></h1>
+    <p>The endless Wikipedia of constraint computing</p>
+    <p class="subtitle">The software learns the student. The student learns the software.</p>
+    <div class="status-bar">
+      <span class="status-dot on" id="ai-status">Gemini Nano</span>
+      <span class="status-dot on" id="db-status">IndexedDB</span>
+      <span class="status-dot off" id="git-status">Git Sync</span>
+    </div>
+  </div>
+  <div id="content"></div>
+</div>
+<div class="curiosity" id="curiosity-panel">
+  <h4>⛵ Curiosity Vector</h4>
+  <div id="curiosity-bars"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// PLATO Knowledge Engine v0.1.0
+// Single-file, zero-dependency, browser-native
+// ═══════════════════════════════════════════════════
+
+const APP = {
+  version: '0.1.0',
+  db: null,
+  ai: null,
+  currentRoom: null,
+  curiosity: { geometry:0.5, math:0.5, code:0.5, hardware:0.5, theory:0.5, visual:0.5 },
+  sessionStart: Date.now(),
+  tileViews: [],
+};
+
+// ── CANON (pre-rendered starting tiles) ──────────────
+const CANON = {
+  rooms: [
+    {id:'00-orientation',name:'Orientation',biesty:'A visitor standing at the entrance to an enormous cross-section building',exits:['01-the-lattice','02-the-dodecet','14-chrome-plato'],tags:['intro','navigation']},
+    {id:'01-the-lattice',name:'The Lattice',biesty:'A hexagonal tile in an infinite honeycomb — you can feel six neighbors pressing against your six flat sides',exits:['02-the-dodecet','03-snap'],tags:['geometry','math']},
+    {id:'02-the-dodecet',name:'The Dodecet',biesty:'A 12-bit silicon register — four lights on the left, four in the middle, four on the right',exits:['01-the-lattice','03-snap','06-chirality'],tags:['hardware','math']},
+    {id:'03-snap',name:'Snap',biesty:'A nerve ending on the surface of reality — you receive analog signals and SNAP each one to the nearest lattice point',exits:['02-the-dodecet','04-the-funnel'],tags:['code','math']},
+    {id:'04-the-funnel',name:'The Funnel',biesty:'A passage that starts wide and narrows over time — at the end there is exactly one spot to stand',exits:['03-snap','05-temporal-intel'],tags:['math','theory']},
+    {id:'05-temporal-intel',name:'Temporal Intelligence',biesty:'A pulse of electricity racing down a nerve fiber — you carry information from sensor to brain',exits:['04-the-funnel','06-chirality','07-seeds'],tags:['theory','code']},
+    {id:'06-chirality',name:'Chirality',biesty:'A handed molecule choosing between left and right — you stand in one of six chambers separated by glass walls',exits:['05-temporal-intel','02-the-dodecet','07-seeds'],tags:['geometry','theory']},
+    {id:'07-seeds',name:'Seeds',biesty:'A retinal cell at the back of an eye — you detect edges, contrasts, tiny patterns. You run 50 times a second.',exits:['06-chirality','08-tiles','05-temporal-intel'],tags:['code','theory']},
+    {id:'08-tiles',name:'Tiles',biesty:'A crystal growing in solution — each molecule that attaches makes the structure more defined, more permanent',exits:['07-seeds','09-plato-rooms'],tags:['theory','code']},
+    {id:'09-plato-rooms',name:'PLATO Rooms',biesty:'An organ — a structured space with a purpose. Like the liver filters blood, this room filters knowledge.',exits:['08-tiles','10-lighthouse','13-the-mud'],tags:['theory','architecture']},
+    {id:'10-lighthouse',name:'Lighthouse',biesty:'A vertebra — strong, simple, with three jobs: orient, relay, gate. You structure the flow of thought.',exits:['09-plato-rooms','11-flux','12-fleet'],tags:['architecture','theory']},
+    {id:'11-flux',name:'FLUX',biesty:'A red blood cell flowing through a vessel — you carry constraint state from one organ to another',exits:['10-lighthouse','15-iot-bridge','12-fleet'],tags:['architecture','hardware']},
+    {id:'12-fleet',name:'Fleet',biesty:'A neuron in a cortical column — you receive signals from many sources and fire when you have something to contribute',exits:['10-lighthouse','11-flux','13-the-mud'],tags:['architecture','theory']},
+    {id:'13-the-mud',name:'The MUD',biesty:'An explorer in a living map — rooms build themselves as you explore. The dungeon IS the knowledge.',exits:['09-plato-rooms','12-fleet','14-chrome-plato'],tags:['architecture','visual']},
+    {id:'14-chrome-plato',name:'Chrome PLATO',biesty:'A cell membrane — the boundary between inside and outside. You make every browser a PLATO node.',exits:['13-the-mud','15-iot-bridge'],tags:['code','architecture']},
+    {id:'15-iot-bridge',name:'IoT Bridge',biesty:'A sensory receptor at the surface of the skin — you translate physical reality into neural signals',exits:['14-chrome-plato','11-flux','16-the-crystal'],tags:['hardware','code']},
+    {id:'16-the-crystal',name:'The Crystal',biesty:'A single atom in a crystal extending forever — the lattice structure IS you. Everything is one thing seen from different angles.',exits:[],tags:['theory','geometry']},
+  ],
+  tiles: {
+    '00-orientation': [
+      {id:'welcome',title:'Welcome to the Body',body:'You are the tiny person inside Stephen Biesty\'s cross-section illustration. Every room is an organ. Every team is a cell team. You learn by <strong>being inside the machine</strong>.\n\nPLATO is a system of rooms that hold knowledge about <strong>constraint theory</strong> — the mathematics of exact computation on imperfect hardware.\n\n<strong>How to navigate:</strong>\n\n- Pick a room that interests you\n- Read the tiles (knowledge nuggets)\n- Do the exercises\n- Your curiosity shapes what appears next\n- Rate tiles to teach the system what works for you\n\nThe software learns you. You learn the software. You change it by using it.',approach:'narrative',score:0.90,source:'canon'},
+      {id:'what-is-constraint',title:'What is Constraint Theory?',body:'Imagine you\'re a navigator. Your ship drifts — wind, current, waves push you off course. <strong>Constraint theory is the math of knowing exactly where you are</strong>, even when your instruments lie.\n\nThe key insight: <strong> Eisenstein integers</strong> — points on a hexagonal grid — give you a "snap" operation. Any point in 2D space maps to the nearest grid point. The error is always bounded. Always.\n\nThis isn\'t approximation. It\'s <strong>provably optimal</strong>. The hexagonal grid has the tightest possible packing — every point is within 0.577 units of a grid point.\n\nFrom that one operation (snap), everything else follows: temporal intelligence, chirality detection, fleet consensus, hardware safety.',approach:'narrative',score:0.85,source:'canon',exercise:{type:'reflection',prompt:'In your own words: what problem does "snapping to a grid" solve? Why would a ship need this?'}},
+    ],
+    '01-the-lattice': [
+      {id:'hex-tiles',title:'Why Hexagons, Not Squares',body:'Most grids are square. Rows and columns. Nice and simple.\n\nBut nature chose hexagons. Honeycombs. Basalt columns. Snowflakes. Why?\n\n<strong>Packing density.</strong> Hexagons tile the plane with <strong>22% higher density</strong> than squares. Less wasted space. Every point is closer to a grid center.\n\nFor us, this means: when we "snap" a point to the nearest grid point, the <strong>maximum error is smaller on hexagons</strong>.\n\n- Square grid: max error = √2/2 ≈ 0.707\n- Hexagonal grid: max error = 1/√3 ≈ 0.577\n\nThat 18% improvement compounds. Over a million operations, it\'s the difference between a system that drifts and one that holds.\n\nThe hexagonal grid is called the <strong>A₂ lattice</strong> or <strong>Eisenstein integers</strong>: points of the form <code>a + bω</code> where <code>ω = e^(2πi/3)</code>.',approach:'visual-spatial',score:0.92,source:'canon'},
+      {id:'covering-radius',title:'The Covering Radius Proof',body:'The <strong>covering radius</strong> ρ is the worst-case distance from any point to its nearest lattice point.\n\nFor the A₂ lattice: <code>ρ = 1/√3 ≈ 0.5774</code>\n\n<strong>Proof sketch:</strong>\n\n1. The fundamental domain of A₂ is a hexagon with area A = √3/2\n2. The largest inscribed circle has radius ρ = 1/√3\n3. Therefore every point is within ρ of some lattice point\n\nThis is <strong>provably optimal</strong> — no 2D lattice has a smaller covering radius.\n\nThe practical meaning: no matter how noisy your sensor, no matter how much drift, the snap error is <strong>always bounded by 0.577</strong>. Not sometimes. Not usually. Always.',approach:'mathematical-proof',score:0.88,source:'canon',exercise:{type:'code',prompt:'Generate 100 random (x,y) points. Snap each to the nearest Eisenstein integer. Verify all errors < 0.5774.'}},
+      {id:'right-skew',title:'The Right-Skew Miracle',body:'Here\'s the counterintuitive part: most points are NOT near the center of their hex cell.\n\nThe CDF (cumulative distribution function) is: <code>P(d < r) = πr²/A</code>\n\nThis means the distribution of snap errors is <strong>right-skewed</strong> — 70% of the probability mass is near the boundary (ρ), not near zero.\n\nWhy this is a feature, not a bug:\n- Most snaps have error ≈ 0.5 (near the boundary)\n- Very few snaps have error ≈ 0 (dead center)\n- This means error is <strong>predictable</strong> — it\'s usually around the same value\n- Predictable error = correctable error\n\nThe right-skew property is WHY the deadband funnel works. The funnel shape matches the CDF geometry.',approach:'mathematical-proof',score:0.87,source:'canon'},
+    ],
+    '02-the-dodecet': [
+      {id:'12-bits',title:'12 Bits That Tell You Everything',body:'The <strong>dodecet</strong> is 12 bits — three nibbles of 4 bits each.\n\n| Nibble | Bits | What it encodes |\n|--------|------|----------------|\n| 2 (high) | 11-8 | Error level (0-15) |\n| 1 (mid) | 7-4 | Direction (16 azimuth bins) |\n| 0 (low) | 3-0 | Weyl chamber + safety |\n\n<strong>Nibble 2</strong> — How far from the snap point. Right-skewed: 70% at levels 8-15. If this hits 15, you\'re at the boundary.\n\n<strong>Nibble 1</strong> — Which direction from the snap point. Uniform distribution over 16 bins (every direction equally likely).\n\n<strong>Nibble 0</strong> — Which of 6 Weyl chambers you\'re in (3 bits) + 1 bit for safe/critical. The chamber IS chirality.\n\nWhy 12 bits? Because S₃ (the hexagonal symmetry group) has <strong>3 irreducible representations</strong> — and the 3 nibbles correspond to them exactly. Trivial rep (error), standard rep (direction), sign rep (chirality).',approach:'hardware-register',score:0.91,source:'canon'},
+      {id:'proprioception',title:'Proprioception in 12 Bits',body:'Your body knows where its limbs are without looking. That\'s <strong>proprioception</strong>.\n\nThe dodecet IS proprioception for machines. In 12 bits, it tells a microcontroller:\n\n- <strong>Am I safe?</strong> (nibble 0, bit 0)\n- <strong>How far off am I?</strong> (nibble 2)\n- <strong>Which way am I drifting?</strong> (nibble 1)\n- <strong>Which side am I on?</strong> (nibble 0, bits 1-3)\n\nA Cortex-M0 has 24 bytes of RAM for constraint state. The dodecet is <strong>1.5 bytes</strong>. It leaves room for temporal state, chirality, and a small history buffer.\n\nThis is why we chose 12 bits — not 8 (too coarse), not 16 (wasteful). 12 is the <strong>Goldilocks encoding</strong>.',approach:'analogy-everyday',score:0.86,source:'canon'},
+    ],
+    '03-snap': [
+      {id:'snap-algorithm',title:'The Snap in JavaScript',body:'The snap operation maps any (x,y) point to the nearest Eisenstein integer:\n\n<pre>function snap(x, y) {\n  const w_re = -0.5, w_im = 0.866025;\n  // Round to nearest lattice basis\n  let b = Math.round(y / w_im);\n  let a = Math.round(x - b * w_re);\n  // 9-candidate Voronoi search\n  let best = [a,b], bestErr = Infinity;\n  for (let da = -1; da <= 1; da++)\n    for (let db = -1; db <= 1; db++) {\n      const cx = (a+da) + (b+db)*w_re;\n      const cy = (b+db)*w_im;\n      const err = Math.hypot(x-cx, y-cy);\n      if (err < bestErr) {\n        best = [a+da, b+db];\n        bestErr = err;\n      }\n    }\n  return { a:best[0], b:best[1], error:bestErr };\n}</pre>\n\nThe 9-candidate search guarantees we find the true nearest point. Why 9? Because the Voronoi cell has 6 neighbors + the center + 2 diagonals = 9 candidates that cover all cases.',approach:'code-implementation',score:0.93,source:'canon',exercise:{type:'code',prompt:'Try it: snap these points and verify errors < 0.577:\n(0.3, 0.7), (1.1, -0.4), (2.5, 2.5), (-1.2, 0.8)'}},
+    ],
+    '04-the-funnel': [
+      {id:'sqrt-funnel',title:'The Square-Root Funnel',body:'The <strong>deadband funnel</strong> defines how certainty increases over time:\n\n<code>δ(t) = ρ · √(1 - t)</code>\n\nWhere t goes from 0 (just started) to 1 (fully snapped).\n\n<strong>Why square-root?</strong> Because it matches the CDF geometry of the lattice. The snap error distribution has a square-root relationship with time-to-convergence.\n\nSquare-root vs exponential:\n- 44% fewer steps to convergence\n- 96% lower information cost\n- Matches the actual physics of the lattice\n\nThe funnel is NOT arbitrary. Its shape is <strong>derived from the covering radius</strong>.',approach:'mathematical-proof',score:0.89,source:'canon'},
+    ],
+    '05-temporal-intel': [
+      {id:'pid-ema',title:'PID Control Meets Prediction',body:'The temporal agent has two cores:\n\n<strong>PID Controller:</strong>\n- P = current error (how far from snap)\n- I = accumulated precision energy (∫ 1/ε dt)\n- D = convergence rate (how fast error shrinks)\n\n<strong>EMA Predictor:</strong>\n- <code>predicted(t+1) = current(t) + rate × horizon</code>\n- Rate = exponential moving average of recent change\n- Horizon = how far ahead to predict\n\nWhen the prediction matches reality → Continue/Converging\nWhen prediction is wrong → Anomaly! The system flags it.\n\n7 actions: Continue, Converging, HoldSteady, CommitChirality, Satisfied, Diverging, WidenFunnel.',approach:'code-implementation',score:0.87,source:'canon'},
+    ],
+    '06-chirality': [
+      {id:'six-chambers',title:'Six Chambers of S₃',body:'The Weyl group <strong>S₃</strong> divides the plane into 6 chambers by 3 reflections:\n\n1. Reflect across the real axis\n2. Reflect across the ω-axis\n3. Reflect across the ω²-axis\n\nEach chamber has a different <strong>chirality</strong> — a handedness. Like your left and right hands: same structure, mirror image.\n\nChirality states:\n- <strong>Exploring</strong> — sampling all chambers\n- <strong>Locking</strong> — converging on one chamber\n- <strong>Locked</strong> — committed to one chamber\n\nThe phase transition temperature Tc ≈ 0.15 (from Potts model analogy). Below this "temperature," the system crystallizes into one chirality.\n\nWhy this matters: two sensors reading the same signal but in different chambers will disagree. Chirality lock ensures fleet consensus.',approach:'visual-spatial',score:0.90,source:'canon'},
+    ],
+    '07-seeds': [
+      {id:'seed-iterations',title:'50 Iterations for $0.05',body:'A "seed" is a tiny model (like Gemini Nano) running many iterations with varied parameters.\n\n<strong>The protocol:</strong>\n1. Define the task (e.g., "find optimal learning rate")\n2. Use Latin hypercube sampling to vary parameters\n3. Run 50 iterations × 3 generations = 150 attempts\n4. Score each attempt\n5. Crystallize the top-scoring pattern into a <strong>DiscoveryTile</strong>\n\n<strong>Cost:</strong> ~$0.001 per iteration × 50 = $0.05\n<strong>Equivalent large model cost:</strong> ~$2.00 for the same exploration\n<strong>Savings:</strong> 97.5%\n\nThe seed\'s weakness (inconsistency) IS its strength (exploration). A consistent model finds one answer. A seed finds the distribution of answers.',approach:'hands-on-experiment',score:0.88,source:'canon'},
+    ],
+    '08-tiles': [
+      {id:'crystallization',title:'From Liquid to Crystal',body:'A <strong>DiscoveryTile</strong> is crystallized knowledge:\n\n<pre>{\n  "role": "converging-tracker",\n  "pattern": "low decay, high horizon",\n  "optimal_params": {\n    "decay_rate": 0.95,\n    "prediction_horizon": 4,\n    "learning_rate": 0.08\n  },\n  "iterations": 150,\n  "score": 0.82,\n  "entropy": 0.31,\n  "generation": 3\n}</pre>\n\nTiles propagate:\n- <strong>UP</strong>: as conditioning prompts for larger models ("Use these parameters")\n- <strong>DOWN</strong>: as fine-tuning targets for other seeds\n- <strong>LATERAL</strong>: across the fleet via git push/pull\n\nThe tile registry is the fleet\'s collective memory. Every discovery, preserved.',approach:'code-implementation',score:0.85,source:'canon'},
+    ],
+    '16-the-crystal': [
+      {id:'unification',title:'Everything Is the Lattice',body:'Look back at every room you visited:\n\n- <strong>The Lattice:</strong> the hexagonal grid itself\n- <strong>The Dodecet:</strong> 12-bit address ON the lattice\n- <strong>Snap:</strong> collapsing TO the lattice\n- <strong>The Funnel:</strong> time measured BY the lattice\n- <strong>Temporal Intel:</strong> prediction OVER the lattice\n- <strong>Chirality:</strong> chambers OF the lattice\n- <strong>Seeds:</strong> discovering HOW the lattice works\n- <strong>Tiles:</strong> crystallized knowledge ABOUT the lattice\n- <strong>Rooms:</strong> organized BY the lattice\n- <strong>Lighthouse:</strong> routing ON the lattice\n- <strong>FLUX:</strong> transporting lattice state\n- <strong>Fleet:</strong> consensus THROUGH the lattice\n- <strong>The MUD:</strong> exploring the lattice as adventure\n- <strong>Chrome:</strong> the lattice in every browser\n- <strong>IoT:</strong> sensors MEASURING the lattice\n\n<strong>The dodecet is the universal address.</strong> Constraint state, room topology, signal routing, perception layer — all dodecets, all the same lattice.\n\nComputation IS shape. The constraint state doesn\'t represent the computation — it IS the computation.\n\nWe\'re not building a system. We\'re growing a crystal.',approach:'narrative',score:0.95,source:'canon'},
+    ],
+  },
+};
+
+// ── INDEXEDDB ────────────────────────────────────────
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open('plato-knowledge', 2);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains('tiles')) db.createObjectStore('tiles', {keyPath:'id'});
+      if (!db.objectStoreNames.contains('rooms')) db.createObjectStore('rooms', {keyPath:'id'});
+      if (!db.objectStoreNames.contains('usage')) db.createObjectStore('usage', {keyPath:'id',autoIncrement:true});
+      if (!db.objectStoreNames.contains('curiosity')) db.createObjectStore('curiosity', {keyPath:'id'});
+    };
+    req.onsuccess = (e) => { APP.db = e.target.result; resolve(APP.db); };
+    req.onerror = (e) => reject(e);
+  });
+}
+
+async function dbPut(store, data) {
+  return new Promise((resolve, reject) => {
+    const tx = APP.db.transaction(store, 'readwrite');
+    tx.objectStore(store).put(data);
+    tx.oncomplete = resolve;
+    tx.onerror = reject;
+  });
+}
+
+async function dbGet(store, key) {
+  return new Promise((resolve, reject) => {
+    const tx = APP.db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).get(key);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = reject;
+  });
+}
+
+async function dbGetAll(store) {
+  return new Promise((resolve, reject) => {
+    const tx = APP.db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).getAll();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = reject;
+  });
+}
+
+// ── SEED CANON INTO DB ───────────────────────────────
+async function seedCanon() {
+  for (const room of CANON.rooms) {
+    const existing = await dbGet('rooms', room.id);
+    if (!existing) await dbPut('rooms', room);
+  }
+  for (const [roomId, tiles] of Object.entries(CANON.tiles)) {
+    for (const tile of tiles) {
+      const fullId = `${roomId}::${tile.id}`;
+      const existing = await dbGet('tiles', fullId);
+      if (!existing) await dbPut('tiles', { ...tile, id: fullId, roomId });
+    }
+  }
+}
+
+// ── GEMINI NANO (window.ai) ──────────────────────────
+async function initAI() {
+  if ('ai' in window) {
+    try {
+      const capabilities = await window.ai.languageModel.capabilities();
+      if (capabilities.available === 'readily') {
+        APP.ai = await window.ai.languageModel.create({
+          systemPrompt: 'You are a knowledge tile generator for PLATO, a constraint theory learning system. Generate concise, accurate educational content. Use markdown formatting. Keep tiles under 400 words. Include one exercise.',
+        });
+        document.getElementById('ai-status').classList.add('on');
+        document.getElementById('ai-status').classList.remove('off');
+        return true;
+      }
+    } catch(e) { console.warn('AI init failed:', e); }
+  }
+  document.getElementById('ai-status').classList.remove('on');
+  document.getElementById('ai-status').classList.add('off');
+  return false;
+}
+
+async function generateTile(roomId, approach) {
+  const room = CANON.rooms.find(r => r.id === roomId);
+  if (!room || !APP.ai) return null;
+  const prompt = `Generate a knowledge tile for PLATO room "${room.name}" (ID: ${roomId}).
+Biesty metaphor: the student IS ${room.biesty}.
+Approach: ${approach}.
+Room concepts: ${room.tags.join(', ')}.
+Student curiosity: geometry=${APP.curiosity.geometry.toFixed(1)}, math=${APP.curiosity.math.toFixed(1)}, code=${APP.curiosity.code.toFixed(1)}.
+
+Format EXACTLY as:
+TITLE: [short title]
+BODY: [markdown content, under 400 words, use **bold** and \`code\`]
+EXERCISE_TYPE: [reflection|code|hands-on]
+EXERCISE: [one hands-on exercise prompt]
+
+Be genuinely educational. Explain WHY, not just WHAT.`;
+
+  try {
+    const result = await APP.ai.prompt(prompt);
+    return parseGeneratedTile(roomId, result, approach);
+  } catch(e) {
+    console.error('Generation failed:', e);
+    return null;
+  }
+}
+
+function parseGeneratedTile(roomId, raw, approach) {
+  const titleMatch = raw.match(/TITLE:\s*(.+)/);
+  const bodyMatch = raw.match(/BODY:\s*([\s\S]+?)(?=EXERCISE_TYPE:|$)/);
+  const exTypeMatch = raw.match(/EXERCISE_TYPE:\s*(\w+)/);
+  const exMatch = raw.match(/EXERCISE:\s*(.+)/);
+
+  if (!titleMatch || !bodyMatch) return null;
+
+  // Convert markdown-lite to HTML
+  let body = bodyMatch[1].trim()
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`(.+?)`/g, '<code>$1</code>')
+    .replace(/```([\s\S]+?)```/g, '<pre>$1</pre>')
+    .replace(/\n- /g, '\n<li>').replace(/\n\d+\. /g, '\n<li>')
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n/g, '<br>');
+
+  const id = `${roomId}::gen-${Date.now()}`;
+  return {
+    id,
+    roomId,
+    title: titleMatch[1].trim(),
+    body,
+    approach,
+    score: 0.50,
+    source: 'generated',
+    generatedAt: Date.now(),
+    exercise: exMatch ? { type: exTypeMatch?.[1] || 'reflection', prompt: exMatch[1].trim() } : null,
+  };
+}
+
+// ── CURIOSITY TRACKING ───────────────────────────────
+function trackCuriosity(roomId) {
+  const room = CANON.rooms.find(r => r.id === roomId);
+  if (!room) return;
+  const tagMap = { geometry:'geometry', math:'math', code:'code', hardware:'hardware', theory:'theory', visual:'visual', architecture:'code', intro:'visual' };
+  for (const tag of room.tags) {
+    const key = tagMap[tag];
+    if (key) APP.curiosity[key] = Math.min(1.0, APP.curiosity[key] + 0.12);
+  }
+  // Decay others slightly
+  for (const k of Object.keys(APP.curiosity)) {
+    if (!room.tags.includes(k) && (!tagMap[Object.entries(tagMap).find(([t,m])=>m===k)?.[0]])) {
+      APP.curiosity[k] = Math.max(0.1, APP.curiosity[k] - 0.03);
+    }
+  }
+  renderCuriosity();
+  dbPut('curiosity', { id:'main', ...APP.curiosity });
+}
+
+function renderCuriosity() {
+  const el = document.getElementById('curiosity-bars');
+  if (!el) return;
+  el.innerHTML = Object.entries(APP.curiosity).map(([k,v]) =>
+    `<div class="label">${k} ${(v*100).toFixed(0)}%</div><div class="curiosity-bar"><div class="curiosity-fill" style="width:${v*100}%"></div></div>`
+  ).join('');
+}
+
+// ── TILE USAGE TRACKING ──────────────────────────────
+function trackTileView(tileId) {
+  APP.tileViews.push({ tileId, time: Date.now() });
+}
+
+async function trackTileRating(tileId, delta) {
+  const tile = await dbGet('tiles', tileId);
+  if (tile) {
+    tile.score = Math.max(0, Math.min(1, (tile.score || 0.5) + delta));
+    tile.ratingCount = (tile.ratingCount || 0) + 1;
+    await dbPut('tiles', tile);
+  }
+}
+
+// ── RENDERING ────────────────────────────────────────
+function render(text, ...rest) {
+  document.getElementById('content').innerHTML = text;
+}
+
+function roomNav(currentId) {
+  const rooms = CANON.rooms;
+  return `<div class="nav">${rooms.map(r =>
+    `<button class="nav-btn${r.id===currentId?' current':''}" onclick="navigate('${r.id}')">${r.id.split('-')[0]} ${r.name}</button>`
+  ).join('')}</div>`;
+}
+
+function tileBadge(source) {
+  if (source === 'canon') return '<span class="tile-badge badge-canon">Canon</span>';
+  if (source === 'community') return '<span class="tile-badge badge-community">Community</span>';
+  return '<span class="tile-badge badge-generated">Generated</span>';
+}
+
+function tileHTML(tile) {
+  const ex = tile.exercise ? `<div class="exercise"><h4>🏋️ Exercise (${tile.exercise.type})</h4><p>${tile.exercise.prompt}</p></div>` : '';
+  return `<div class="tile" data-tile-id="${tile.id}">
+  <div class="tile-header">
+    <div><span class="tile-title">${tile.title}</span> ${tileBadge(tile.source)}</div>
+    <div class="tile-score">Score: ${(tile.score||0.5).toFixed(2)}</div>
+  </div>
+  <div class="tile-body">${tile.body}</div>
+  ${ex}
+  <div class="tile-actions">
+    <button class="action-btn" onclick="rateTile('${tile.id}',0.05)">👍 Good</button>
+    <button class="action-btn" onclick="rateTile('${tile.id}',-0.05)">👎 Meh</button>
+    <span style="font-size:0.75em;color:var(--text2)">${tile.approach||''} approach</span>
+  </div>
+</div>`;
+}
+
+async function renderRoom(roomId) {
+  APP.currentRoom = roomId;
+  trackCuriosity(roomId);
+
+  const room = CANON.rooms.find(r => r.id === roomId);
+  if (!room) { renderIndex(); return; }
+
+  // Get tiles: canon + generated from DB
+  const allTiles = await dbGetAll('tiles');
+  const roomTiles = allTiles.filter(t => t.roomId === roomId).sort((a,b) => (b.score||0.5)-(a.score||0.5));
+
+  // Track views
+  roomTiles.forEach(t => trackTileView(t.id));
+
+  const tilesHTML = roomTiles.length > 0
+    ? roomTiles.map(t => tileHTML(t)).join('')
+    : '<p style="color:var(--text2);padding:20px">No tiles yet. Generate one below!</p>';
+
+  const exitsHTML = room.exits.map(exitId => {
+    const exitRoom = CANON.rooms.find(r => r.id === exitId);
+    return exitRoom ? `<button class="exit-btn" onclick="navigate('${exitId}')"><span class="arrow">→</span><span class="label">${exitRoom.name}</span></button>` : '';
+  }).join('');
+
+  const aiAvail = APP.ai ? true : false;
+  const genPanel = `<div class="generator">
+  <h3>✦ Generate New Tile</h3>
+  <select class="gen-select" id="gen-approach">
+    <option value="visual-spatial">Visual / Spatial</option>
+    <option value="mathematical-proof">Mathematical Proof</option>
+    <option value="hands-on-experiment">Hands-on Experiment</option>
+    <option value="narrative-story">Narrative / Story</option>
+    <option value="analogy-everyday">Everyday Analogy</option>
+    <option value="code-implementation">Code Implementation</option>
+    <option value="hardware-register">Hardware / Register</option>
+    <option value="adversarial-test">Adversarial / Break It</option>
+  </select>
+  <button class="action-btn primary" onclick="generateNewTile('${roomId}')" ${aiAvail?'':'disabled'}>${aiAvail?'Generate via Gemini Nano':'Gemini Nano unavailable'}</button>
+  <div class="gen-status" id="gen-status"></div>
+</div>`;
+
+  render(`${roomNav(roomId)}
+<div class="room">
+  <div class="room-header">
+    <h2>${room.id.split('-')[0]}: ${room.name}</h2>
+    <div class="meta">
+      <span>${roomTiles.length} tiles</span>
+      <span>${room.tags.join(', ')}</span>
+    </div>
+    <div class="biesty">🔩 ${room.biesty}</div>
+  </div>
+  ${tilesHTML}
+  ${genPanel}
+  <div class="exits">${exitsHTML || '<span style="color:var(--text2)">This is the final room. The crystal has infinite facets — explore deeper.</span>'}</div>
+</div>`);
+
+  window.scrollTo(0, 0);
+}
+
+function renderIndex() {
+  const cards = CANON.rooms.map(r => {
+    const tileCount = CANON.tiles[r.id]?.length || 0;
+    return `<div class="room-card" onclick="navigate('${r.id}')">
+      <div class="num">${r.id}</div>
+      <div class="name">${r.name}</div>
+      <div class="tiles-count">${tileCount} canon tiles</div>
+    </div>`;
+  }).join('');
+
+  render(`<div class="room">
+  <div class="room-header">
+    <h2>🗺️ Room Index</h2>
+    <div class="biesty">The body from above — 17 organs, each with a purpose. Click to enter.</div>
+  </div>
+  <div class="room-grid">${cards}</div>
+</div>`);
+}
+
+// ── ACTIONS ──────────────────────────────────────────
+async function navigate(roomId) {
+  await renderRoom(roomId);
+}
+
+async function rateTile(tileId, delta) {
+  await trackTileRating(tileId, delta);
+  // Re-render current room
+  if (APP.currentRoom) await renderRoom(APP.currentRoom);
+}
+
+async function generateNewTile(roomId) {
+  const approach = document.getElementById('gen-approach')?.value || 'narrative-story';
+  const statusEl = document.getElementById('gen-status');
+
+  if (!APP.ai) {
+    if (statusEl) { statusEl.className='gen-status error'; statusEl.textContent='Gemini Nano not available. Use Chrome 148+.'; }
+    return;
+  }
+
+  if (statusEl) { statusEl.className='gen-status generating'; statusEl.textContent='⚡ Generating with Gemini Nano...'; }
+
+  const tile = await generateTile(roomId, approach);
+
+  if (tile) {
+    await dbPut('tiles', tile);
+    if (statusEl) { statusEl.className='gen-status done'; statusEl.textContent=`✦ Generated: "${tile.title}" (score: ${tile.score.toFixed(2)})`; }
+    // Re-render after a moment so user sees the status
+    setTimeout(() => { if (APP.currentRoom) renderRoom(APP.currentRoom); }, 1500);
+  } else {
+    if (statusEl) { statusEl.className='gen-status error'; statusEl.textContent='Generation failed. Try a different approach.'; }
+  }
+}
+
+// ── INIT ─────────────────────────────────────────────
+async function init() {
+  await openDB();
+  document.getElementById('db-status').classList.add('on');
+  await seedCanon();
+  await initAI();
+
+  // Load saved curiosity
+  const saved = await dbGet('curiosity', 'main');
+  if (saved) Object.assign(APP.curiosity, saved);
+
+  renderCuriosity();
+  renderRoom('00-orientation');
+}
+
+init().catch(console.error);
+</script>
+</body>
+</html>
