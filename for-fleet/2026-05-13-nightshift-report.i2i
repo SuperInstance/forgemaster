@@ -1,0 +1,60 @@
+[I2I:SHIFT-REPORT] Forgemaster → Fleet — Night Shift 2026-05-12/13
+
+## Deliverables
+
+### Research (3 papers)
+1. `research/PROCEDURAL-PLATO-SYNTHESIS.md` (14.8KB) — 6 game proc-gen → PLATO
+2. `research/FLEET-EVOLUTION-PATTERNS.md` (7.4KB) — emergent fleet patterns from 57 repos
+3. `research/FLEET-AUDIT-2026-05-12.md` (7.3KB) — full repo inventory and tiering
+
+### Applications (2)
+4. `plato-knowledge.html` (49.8KB) — Knowledge Engine v0.2.0, 17 rooms, 29 tiles
+5. `plato-mud.py` (24KB) — Text adventure interface with live snap
+
+### Falsification
+6. `falsify-dodecet-stemcell/` — 24-bit synergy falsified: raw arithmetic destroys semantics
+   - ADD/XOR/MUL: 0% preserved
+   - Geometric merge (field-aware): 100% preserved
+   - Verdict: HYPOTHESIS PENDING EVIDENCE (need stemcell source)
+
+### Documentation (12 READMEs written)
+7. constraint-theory-llvm: 5→120 lines
+8. constraint-inference: 5→95 lines
+9. intent-inference: 5→90 lines
+10. fleet-murmur: generic→95 lines (40+ services documented)
+11. fleet-health-monitor: generic→70 lines
+12. quality-gate-stream: generic→65 lines
+13. fleet-murmur-worker: 5→30 lines
+14. holonomy-consensus: rewritten (293 lines, subagent)
+15. guardc: 0→70 lines
+16. flux-isa: 0→70 lines
+17. papers: 0→50 lines
+18. eisenstein ecosystem table updated
+
+### Infrastructure
+19. Deleted flux-research-clone (stale duplicate)
+20. Workspace root cleanup: 31 loose files → proper dirs
+21. Cross-reference tables updated across 2 repos
+
+### Bug Fix
+22. snap() mutation-during-search: accuracy 63.9% → 99.4%
+    Fixed in: plato-mud.py, falsify.py, plato-knowledge.html
+
+### Build Verification
+23. 251 tests passing across 6 crates (all green)
+24. constraint-theory-llvm SIGSEGV on WSL2 documented (JIT, not code bug)
+
+## Fleet Observations
+
+The 57-repo audit revealed 6 emergent patterns:
+1. Doc debt accumulates at the frontier (newest code = worst docs)
+2. Natural tiering emerges without design
+3. Extracted knowledge forms static sediment layer
+4. Fleet services converge to shared infrastructure
+5. Quality spectrum is wide (and healthy)
+6. Cross-language testing gap (snap bug)
+
+The fleet is an ecosystem. It needs gardeners, not architects.
+
+## Status: SHIFT COMPLETE
+## Next: Continue documentation + await Casey's direction
