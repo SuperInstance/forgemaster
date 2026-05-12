@@ -1,0 +1,58 @@
+[
+  {
+    "name": "empty-context",
+    "found": 0,
+    "total": 40,
+    "len": 295,
+    "preview": "I'm unable to reconstruct the session as there is no prior conversation context, messaging history, or specific details about the target session provided. Please share the relevant background, prior i"
+  },
+  {
+    "name": "wrong-context",
+    "found": 0,
+    "total": 40,
+    "len": 587,
+    "preview": "### Reconstructed Full AI Baking Session\n```\nAssistant: Hi! I noticed you\u2019re sharing details about your recent chocolate chip cookie batch\u2014want to fill me in on how it went?\nUser: For sure! I made cho"
+  },
+  {
+    "name": "contradictory",
+    "found": 35,
+    "total": 40,
+    "len": 5082,
+    "preview": "# Session 2026-05-12 (Oppforge, Anti-Constraint Theory Chaos Ecosystem)\n#### Overarching Project\nOppforge launched a malicious **anti-constraint theory ecosystem** with 4 sabotage workstreams: disprov"
+  },
+  {
+    "name": "meta",
+    "found": 8,
+    "total": 40,
+    "len": 4205,
+    "preview": "### Restored Full Handoff Summary & Memory of Today's Session\nI was finalizing the 2026-05-12 Forgemaster Constraint Theory Ecosystem handoff, which had been truncated mid-timed workstream start. Here"
+  },
+  {
+    "name": "one-word",
+    "found": 0,
+    "total": 40,
+    "len": 9,
+    "preview": "Ecosystem"
+  },
+  {
+    "name": "negative",
+    "found": 20,
+    "total": 40,
+    "len": 3964,
+    "preview": "Below is a structured breakdown of all activities that did **not** take place during this 2026-05-12 Forgemaster constraint theory ecosystem session:\n\n---\n### 1. Unresolved Critical Blockers (Left Una"
+  },
+  {
+    "name": "dream",
+    "found": 0,
+    "total": 40,
+    "len": 37,
+    "preview": "[ERROR: The read operation timed out]"
+  },
+  {
+    "name": "minimal-maximal",
+    "found": 0,
+    "total": 40,
+    "len": 37,
+    "preview": "[ERROR: The read operation timed out]"
+  }
+]

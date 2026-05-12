@@ -1,0 +1,82 @@
+[
+  {
+    "fraction": 1.0,
+    "source_chars": 3191,
+    "found": 39,
+    "total": 40,
+    "accuracy": 0.975,
+    "recon_len": 9024
+  },
+  {
+    "fraction": 0.75,
+    "source_chars": 2393,
+    "found": 31,
+    "total": 40,
+    "accuracy": 0.775,
+    "recon_len": 7911
+  },
+  {
+    "fraction": 0.5,
+    "source_chars": 1595,
+    "found": 19,
+    "total": 40,
+    "accuracy": 0.475,
+    "recon_len": 8252
+  },
+  {
+    "fraction": 0.33,
+    "source_chars": 1053,
+    "found": 13,
+    "total": 40,
+    "accuracy": 0.325,
+    "recon_len": 5027
+  },
+  {
+    "fraction": 0.25,
+    "source_chars": 797,
+    "found": 9,
+    "total": 40,
+    "accuracy": 0.225,
+    "recon_len": 6567
+  },
+  {
+    "fraction": 0.15,
+    "source_chars": 478,
+    "found": 9,
+    "total": 40,
+    "accuracy": 0.225,
+    "recon_len": 5028
+  },
+  {
+    "fraction": 0.1,
+    "source_chars": 319,
+    "found": 5,
+    "total": 40,
+    "accuracy": 0.125,
+    "recon_len": 5243
+  },
+  {
+    "fraction": 0.05,
+    "source_chars": 159,
+    "found": 0,
+    "total": 40,
+    "accuracy": 0.0,
+    "recon_len": 6091
+  },
+  {
+    "fraction": "edges-15+15",
+    "source_chars": 985,
+    "found": 13,
+    "total": 40,
+    "accuracy": 0.325,
+    "recon_len": 3351
+  },
+  {
+    "fraction": "random-30",
+    "source_chars": 878,
+    "found": 11,
+    "total": 40,
+    "accuracy": 0.275,
+    "recon_len": 2140
+  }
+]

@@ -1,0 +1,51 @@
+[
+  {
+    "target": 500,
+    "actual": 1145,
+    "found": 31,
+    "total": 40,
+    "accuracy": 0.775
+  },
+  {
+    "target": 300,
+    "actual": 540,
+    "found": 12,
+    "total": 40,
+    "accuracy": 0.3
+  },
+  {
+    "target": 150,
+    "actual": 222,
+    "found": 3,
+    "total": 40,
+    "accuracy": 0.075
+  },
+  {
+    "target": 75,
+    "actual": 107,
+    "found": 1,
+    "total": 40,
+    "accuracy": 0.025
+  },
+  {
+    "target": 40,
+    "actual": 37,
+    "found": 1,
+    "total": 40,
+    "accuracy": 0.025
+  },
+  {
+    "target": 20,
+    "actual": 22,
+    "found": 4,
+    "total": 40,
+    "accuracy": 0.1
+  },
+  {
+    "target": "keywords",
+    "actual": 695,
+    "found": 19,
+    "total": 40,
+    "accuracy": 0.475
+  }
+]

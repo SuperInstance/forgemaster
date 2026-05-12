@@ -1,0 +1,42 @@
+[
+  {
+    "style": "pirate",
+    "styled_len": 5059,
+    "found": 35,
+    "total": 40,
+    "accuracy": 0.875,
+    "recon_len": 4677
+  },
+  {
+    "style": "haiku",
+    "styled_len": 582,
+    "found": 13,
+    "total": 40,
+    "accuracy": 0.325,
+    "recon_len": 1896
+  },
+  {
+    "style": "gen-z",
+    "styled_len": 4333,
+    "found": 36,
+    "total": 40,
+    "accuracy": 0.9,
+    "recon_len": 3649
+  },
+  {
+    "style": "legal",
+    "styled_len": 5934,
+    "found": 38,
+    "total": 40,
+    "accuracy": 0.95,
+    "recon_len": 4961
+  },
+  {
+    "style": "emoji",
+    "styled_len": 522,
+    "found": 13,
+    "total": 40,
+    "accuracy": 0.325,
+    "recon_len": 1559
+  }
+]
