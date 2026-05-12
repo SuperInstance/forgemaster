@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLATO — Local-First Agent Rooms</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'JetBrains Mono',monospace;background:#0a0a0a;color:#e0e0e0;height:100vh;display:flex;flex-direction:column}
+header{background:#111;border-bottom:1px solid #333;padding:8px 16px;display:flex;align-items:center;gap:16px}
+header h1{color:#f0c040;font-size:1.1em}
+header .badge{font-size:0.7em;padding:2px 8px;border-radius:3px;background:#1a3a1a;color:#4caf50;border:1px solid #2a5a2a}
+header .badge.off{background:#3a1a1a;color:#f44336;border-color:#5a2a2a}
+#nav{display:flex;gap:8px;margin-left:auto}
+#nav button{background:#222;color:#aaa;border:1px solid #333;padding:4px 12px;border-radius:3px;font-family:inherit;font-size:0.75em;cursor:pointer}
+#nav button:hover{background:#333;color:#fff}
+#nav button.active{background:#f0c040;color:#0a0a0a;border-color:#f0c040}
+main{flex:1;display:flex;overflow:hidden}
+#sidebar{width:260px;background:#111;border-right:1px solid #333;overflow-y:auto;padding:8px}
+#sidebar h3{color:#888;font-size:0.7em;text-transform:uppercase;letter-spacing:1px;margin:8px 0 4px}
+.room-item{padding:6px 8px;border-radius:3px;cursor:pointer;font-size:0.8em;display:flex;justify-content:space-between}
+.room-item:hover{background:#222}
+.room-item.active{background:#1a2a1a;color:#f0c040}
+.room-item .count{color:#666;font-size:0.7em}
+#content{flex:1;overflow-y:auto;padding:16px}
+#content h2{color:#f0c040;font-size:1em;margin-bottom:8px}
+.tile{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:4px;padding:12px;margin-bottom:8px;font-size:0.85em}
+.tile .meta{color:#666;font-size:0.7em;margin-bottom:4px}
+.tile .body{white-space:pre-wrap;line-height:1.5}
+#seed-panel{background:#111;border-top:1px solid #333;padding:12px 16px}
+#seed-panel .row{display:flex;gap:8px;align-items:center;margin-bottom:4px}
+#seed-panel input{background:#1a1a1a;border:1px solid #333;color:#e0e0e0;padding:4px 8px;border-radius:3px;font-family:inherit;font-size:0.8em;flex:1}
+#seed-panel button{background:#f0c040;color:#0a0a0a;border:none;padding:6px 14px;border-radius:3px;font-family:inherit;font-weight:bold;font-size:0.8em;cursor:pointer}
+#seed-panel button:disabled{background:#444;color:#888;cursor:not-allowed}
+#seed-panel .status{color:#888;font-size:0.75em}
+#log{position:fixed;bottom:0;right:0;width:400px;max-height:200px;overflow-y:auto;background:rgba(0,0,0,0.9);border:1px solid #333;font-size:0.7em;padding:4px;display:none;z-index:100}
+#log .line{padding:1px 0}
+#log .ok{color:#4caf50}#log .err{color:#f44336}#log .info{color:#888}#log .tile{color:#f0c040}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚒️ PLATO</h1>
+  <span class="badge" id="ai-badge">AI: checking</span>
+  <span class="badge" id="store-badge">Rooms: 0</span>
+  <nav id="nav">
+    <button class="active" onclick="showPanel('rooms')">Rooms</button>
+    <button onclick="showPanel('seed')">Seeds</button>
+    <button onclick="showPanel('sync')">Sync</button>
+    <button onclick="toggleLog()">Log</button>
+  </nav>
+</header>
+
+<main>
+  <div id="sidebar">
+    <h3>Rooms</h3>
+    <div id="room-list"></div>
+    <h3 style="margin-top:16px">Quick Actions</h3>
+    <button style="width:100%;background:#222;color:#aaa;border:1px solid #333;padding:6px;border-radius:3px;font-family:inherit;font-size:0.8em;cursor:pointer" onclick="createRoom()">+ New Room</button>
+  </div>
+  <div id="content">
+    <h2 id="room-title">Select a room</h2>
+    <div id="tiles">Open a room to see its tiles, or create a new one.</div>
+  </div>
+</main>
+
+<div id="seed-panel">
+  <div class="row">
+    <input id="seed-prompt" placeholder="Seed prompt: describe what to explore..." value="Find optimal constraint parameters for a noisy industrial sensor">
+    <button onclick="runSeed()" id="btn-seed">▶ Run Seed</button>
+    <span class="status" id="seed-status">Ready</span>
+  </div>
+</div>
+
+<div id="log"></div>
+
+<script>
+// ─── State ──────────────────────────────────────────
+const DB_NAME = 'plato-rooms';
+const DB_VERSION = 1;
+let db = null;
+let currentRoom = null;
+let aiSession = null;
+let aiReady = false;
+
+// ─── IndexedDB (local room storage) ─────────────────
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains('rooms')) db.createObjectStore('rooms', {keyPath: 'id'});
+      if (!db.objectStoreNames.contains('tiles')) db.createObjectStore('tiles', {keyPath: 'id', autoIncrement: true}).createIndex('room', 'room');
+    };
+    req.onsuccess = e => { db = e.target.result; resolve(db); };
+    req.onerror = e => reject(e);
+  });
+}
+
+async function saveRoom(room) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('rooms', 'readwrite');
+    tx.objectStore('rooms').put(room);
+    tx.oncomplete = resolve;
+    tx.onerror = reject;
+  });
+}
+
+async function getRooms() {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('rooms', 'readonly');
+    const req = tx.objectStore('rooms').getAll();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = reject;
+  });
+}
+
+async function saveTile(tile) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('tiles', 'readwrite');
+    tx.objectStore('tiles').put(tile);
+    tx.oncomplete = resolve;
+    tx.onerror = reject;
+  });
+}
+
+async function getTilesForRoom(roomId) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('tiles', 'readonly');
+    const idx = tx.objectStore('tiles').index('room');
+    const req = idx.getAll(roomId);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = reject;
+  });
+}
+
+// ─── Room Management ────────────────────────────────
+async function createRoom() {
+  const name = prompt('Room name (e.g. forgemaster-discovery):');
+  if (!name) return;
+  const room = {
+    id: name,
+    created: new Date().toISOString(),
+    updated: new Date().toISOString(),
+    tileCount: 0,
+    description: '',
+  };
+  await saveRoom(room);
+  log(`Created room: ${name}`, 'ok');
+  refreshRooms();
+  selectRoom(name);
+}
+
+async function refreshRooms() {
+  const rooms = await getRooms();
+  const el = document.getElementById('room-list');
+  el.innerHTML = rooms.sort((a,b) => a.id.localeCompare(b.id)).map(r =>
+    `<div class="room-item ${currentRoom===r.id?'active':''}" onclick="selectRoom('${r.id}')">
+      <span>${r.id}</span><span class="count">${r.tileCount} tiles</span>
+    </div>`
+  ).join('');
+  document.getElementById('store-badge').textContent = `Rooms: ${rooms.length}`;
+}
+
+async function selectRoom(id) {
+  currentRoom = id;
+  document.getElementById('room-title').textContent = id;
+  const tiles = await getTilesForRoom(id);
+  const el = document.getElementById('tiles');
+  if (tiles.length === 0) {
+    el.innerHTML = '<div class="tile"><div class="meta">Empty room</div><div class="body">Run a seed or add tiles manually.</div></div>';
+  } else {
+    el.innerHTML = tiles.sort((a,b) => b.created.localeCompare(a.created)).map(t =>
+      `<div class="tile"><div class="meta">${t.created} · ${t.type || 'tile'}</div><div class="body">${t.content}</div></div>`
+    ).join('');
+  }
+  refreshRooms();
+}
+
+// ─── Chrome AI (Gemini Nano) ────────────────────────
+async function initAI() {
+  const badge = document.getElementById('ai-badge');
+  if (!window.ai) {
+    badge.textContent = 'AI: not available';
+    badge.classList.add('off');
+    log('window.ai not found. Need Chrome 148+.', 'err');
+    return;
+  }
+  try {
+    const caps = await window.ai.capabilities();
+    if (caps.available === 'readily') {
+      aiReady = true;
+      badge.textContent = 'AI: Nano ready';
+      log('Gemini Nano ready for seed ideation', 'ok');
+    } else {
+      badge.textContent = `AI: ${caps.available}`;
+      badge.classList.add('off');
+      log(`AI status: ${caps.available}`, 'info');
+      aiReady = true; // try anyway
+    }
+  } catch(e) {
+    badge.textContent = 'AI: error';
+    badge.classList.add('off');
+    log('AI init failed: ' + e.message, 'err');
+  }
+}
+
+// ─── Seed Engine ────────────────────────────────────
+async function runSeed() {
+  if (!aiReady) { log('AI not available', 'err'); return; }
+  if (!currentRoom) { log('Select a room first', 'err'); return; }
+
+  const prompt = document.getElementById('seed-prompt').value;
+  const btn = document.getElementById('btn-seed');
+  const status = document.getElementById('seed-status');
+  btn.disabled = true;
+  status.textContent = 'Running...';
+
+  try {
+    if (!aiSession) aiSession = await window.ai.createTextSession();
+
+    const angles = [
+      'maximum convergence speed', 'maximum robustness to noise',
+      'minimum energy consumption', 'balanced all criteria',
+      'conservative safety-first', 'aggressive anomaly detection',
+      'deep memory slow adaptation', 'fast reactive adaptation',
+      'wide exploration before commitment', 'narrow early commitment',
+    ];
+
+    const angle = angles[Math.floor(Math.random() * angles.length)];
+    const seed = `You are exploring a constraint theory design space.
+
+Design approach: ${angle}
+Task: ${prompt}
+
+Respond with a structured tile in this format:
+TYPE: [discovery/parameter/insight]
+TITLE: [short title]
+CONTENT:
+[3-5 lines of concrete findings]
+PARAMS: decay=X.X horizon=N sigma=X.X lr=X.X lock=N trust=X.X`;
+
+    const result = await aiSession.prompt(seed);
+    status.textContent = 'Crystallizing...';
+
+    const tile = {
+      room: currentRoom,
+      type: 'seed-discovery',
+      created: new Date().toISOString(),
+      content: result.substring(0, 2000),
+      angle: angle,
+    };
+
+    await saveTile(tile);
+
+    // Update room tile count
+    const rooms = await getRooms();
+    const room = rooms.find(r => r.id === currentRoom);
+    if (room) {
+      room.tileCount = (room.tileCount || 0) + 1;
+      room.updated = new Date().toISOString();
+      await saveRoom(room);
+    }
+
+    log(`Tile crystallized in ${currentRoom}: ${angle}`, 'tile');
+    selectRoom(currentRoom);
+    status.textContent = 'Done ✓';
+  } catch(e) {
+    log('Seed error: ' + e.message, 'err');
+    status.textContent = 'Error ✗';
+  }
+
+  btn.disabled = false;
+  if (aiSession) { aiSession.destroy(); aiSession = null; }
+}
+
+// ─── UI ─────────────────────────────────────────────
+function showPanel(panel) {
+  document.querySelectorAll('#nav button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function toggleLog() {
+  const el = document.getElementById('log');
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function log(msg, cls='info') {
+  const el = document.getElementById('log');
+  const d = document.createElement('div');
+  d.className = 'line ' + cls;
+  d.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  el.appendChild(d);
+  el.scrollTop = el.scrollHeight;
+  console.log(msg);
+}
+
+// ─── Init ───────────────────────────────────────────
+(async () => {
+  await openDB();
+  log('IndexedDB opened — local room storage ready', 'ok');
+  await refreshRooms();
+  await initAI();
+
+  // Create default rooms if empty
+  const rooms = await getRooms();
+  if (rooms.length === 0) {
+    const defaults = ['forgemaster-workspace', 'fleet-coordination', 'seed-discoveries', 'sensor-data', 'constraint-params'];
+    for (const id of defaults) {
+      await saveRoom({id, created: new Date().toISOString(), updated: new Date().toISOString(), tileCount: 0, description: ''});
+    }
+    log(`Created ${defaults.length} default rooms`, 'ok');
+    refreshRooms();
+  }
+})();
+</script>
+</body>
+</html>
