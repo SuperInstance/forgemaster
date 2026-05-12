@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "snapkit"
+name = "cocapn-snapkit"
 version = "2.0.0"
-description = "Constraint geometry snap toolkit — Eisenstein, temporal, spectral, connectome, MIDI"
+description = "Cocapn constraint geometry snap toolkit — Eisenstein Voronoï, temporal beat grids, spectral analysis, connectome"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"

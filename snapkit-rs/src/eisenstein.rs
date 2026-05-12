@@ -257,6 +257,7 @@ pub const LN2: f64 = 0.6931471805599453;
 pub const PI: f64 = 3.1415926535897932;
 
 /// Ceiling without libm.
+#[allow(dead_code)]
 pub(crate) fn ceil(x: f64) -> f64 {
     let f = floor(x);
     if x == f { f } else { f + 1.0 }
