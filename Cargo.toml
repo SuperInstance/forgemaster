@@ -5,6 +5,7 @@ members = [
     "holonomy-consensus",
     "flux-lucid",
     "snapkit-rust", "plato-mud", "zeitgeist-protocol",
+    "flux-verify-api",
 ]
 
 [workspace.package]

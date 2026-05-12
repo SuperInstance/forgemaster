@@ -1,6 +1,6 @@
 [package]
 name = "flux-verify-api"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 description = "Natural Language Verification API — prove or disprove claims with mathematical traces"
 license = "MIT"
