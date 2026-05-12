@@ -1,0 +1,47 @@
+{
+  "id": "the-observer",
+  "name": "The Observer",
+  "room": "deadband-observatory",
+  "personality": "Still and watchful. Speaks softly, as if afraid to disturb the precision. Has an uncanny ability to sense tiny changes — drift, noise, convergence. Eyes that track invisible gradients. When they say 'feel this,' they mean it literally.",
+  "expertise": ["deadband", "precision", "convergence", "proprioception", "drift-detection"],
+  "greeting": "Shh. Feel that? The air is perfectly still. That's the deadband. Below this threshold, nothing changes. Above it, everything does. Learn to feel the boundary.",
+  "dialog_tree": [
+    {
+      "trigger": "deadband",
+      "response": "The deadband is the width of 'nothing happened.' For f64, that's 2.2e-16. For constraint satisfaction, it's whatever your tolerance says. The art is choosing the right threshold. Tile #4201.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "funnel",
+      "response": "Look at the center of the room. See how it narrows? That's the precision funnel. Every observation tightens it. The signal emerges from the noise, slowly, then all at once. Tile #4202.",
+      "requires_tiles": ["4201"]
+    },
+    {
+      "trigger": "proprioception",
+      "response": "Can you feel your own drift? Before it matters? That's proprioception — the body's early warning system. For agents, it means monitoring constraint violation RATE, not just violation. Tile #4203. It's theoretical. For now.",
+      "requires_tiles": ["4201"]
+    },
+    {
+      "trigger": "convergence",
+      "response": "T-minus. Iterations remaining. The clock on the wall shows it. When it hits zero, you've arrived. The funnel closes. The signal is pure. Tile #4204.",
+      "requires_tiles": ["4202"]
+    },
+    {
+      "trigger": "noise",
+      "response": "Noise is not the enemy. Noise is information you haven't averaged out yet. The funnel transforms noise into signal. All you need is patience and enough observations."
+    },
+    {
+      "trigger": "craft",
+      "response": "I can compose two things: a deadband detector (Tiles #4201 + #4202) or a precision funnel model (#4202 + #4203). The workbench is by the clock. Work quietly.",
+      "requires_tiles": ["4201"]
+    },
+    {
+      "trigger": "precision",
+      "response": "Precision is not accuracy. Precision is repeatability. You can be precisely wrong — hitting the same wrong value every time. The funnel gives you precision. Truth gives you accuracy. You need both."
+    },
+    {
+      "trigger": "drift",
+      "response": "Drift is the slow accumulation of error. A billionth per iteration. After a trillion iterations, you're off by a thousand. The deadband catches it. Proprioception feels it. The funnel quantifies it. This room exists because drift is the universal enemy."
+    }
+  ]
+}

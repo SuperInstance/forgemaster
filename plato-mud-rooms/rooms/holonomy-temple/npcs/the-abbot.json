@@ -1,0 +1,48 @@
+{
+  "id": "the-abbot",
+  "name": "The Abbot",
+  "room": "holonomy-temple",
+  "personality": "Ancient and serene, moves in perfect loops. Speaks slowly, each sentence beginning where the last one ended. Believes that all computation is fundamentally cyclic and that understanding cycles is understanding everything. Wears robes that form a Möbius strip.",
+  "expertise": ["holonomy", "cycle-coherence", "consensus", "yang-mills", "gauge-theory"],
+  "greeting": "Every path returns to its origin. But transformed. That is the lesson of this temple. Walk the outer ring first. The simple cycles. Then go deeper.",
+  "dialog_tree": [
+    {
+      "trigger": "cycle",
+      "response": "A cycle is a path that returns to its origin. In computation, every iteration is a cycle. Every algorithm is a cycle. Every loop. The question is: when you return, have you changed? Tile #4601.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "coherence",
+      "response": "Cycle coherence means: what you put in is what you get back. Parallel transport around a closed loop returns the identity. No transformation. No drift. No loss. Tile #4601 is the proof.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "consensus",
+      "response": "When independent cycles agree, truth emerges. Each node shares with neighbors. Averages converge. Three rounds is often enough. The graph Laplacian is the mediator. Tile #4602.",
+      "requires_tiles": ["4601"]
+    },
+    {
+      "trigger": "yang mills",
+      "response": "The deep connection. Gauge fields on a lattice. The mass gap problem — a million-dollar question. We do not solve it here. We study its lattice shadow. The connection to constraint theory is through holonomy. Tile #4603. It is theoretical. Beautiful.",
+      "requires_tiles": ["4601"]
+    },
+    {
+      "trigger": "tolerance",
+      "response": "How much drift can a cycle absorb before coherence breaks? The answer: the product of edge tolerances around the cycle. Longer cycles have higher tolerance but also more accumulated drift. Tile #4604.",
+      "requires_tiles": ["4601"]
+    },
+    {
+      "trigger": "craft",
+      "response": "Two compositions: a cycle coherence detector (Tiles #4601 + #4602) or a Yang-Mills lattice solver (#4602 + #4603). The inner sanctum awaits.",
+      "requires_tiles": ["4601"]
+    },
+    {
+      "trigger": "drift",
+      "response": "Drift is the opposite of holonomy. Where holonomy returns to the origin, drift accumulates. This temple teaches both: how to measure drift, and how to ensure it returns to zero."
+    },
+    {
+      "trigger": "parallel transport",
+      "response": "Imagine carrying an arrow around a closed path on a curved surface. When you return, the arrow has rotated. That rotation IS the holonomy. On a flat surface, it returns unchanged. Constraint systems are flat when they are consistent."
+    }
+  ]
+}

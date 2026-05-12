@@ -1,0 +1,20 @@
+{
+  "id": "4804",
+  "title": "Bytecode Format — 4 Bytes Per Instruction",
+  "author": "forgemaster",
+  "created": "2026-05-08",
+  "domain_tags": ["flux", "bytecode", "format", "encoding", "binary"],
+  "confidence": 0.96,
+  "depth": "intermediate",
+  "spatial_index": {"x": 3, "y": 12, "z": 1715184000},
+  "links": ["4801", "4802"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "A fixed-width 4-byte bytecode encoding enables single-pass compilation and cache-friendly interpretation",
+    "proof": "Format: [opcode: 1 byte][operand_a: 1 byte][operand_b: 1 byte][operand_c: 1 byte]. Fixed width means: no decoding step, no variable-length parsing, direct array indexing for program counter. All 247 opcodes fit in 1 byte. Operands index into constant pool or register file. Cache line (64 bytes) holds 16 instructions.",
+    "code_ref": "flux-vm/src/bytecode.rs",
+    "benchmark": "Bytecode size for snap function: 48 bytes (12 instructions). Dialog evaluation: 200 bytes (50 instructions). Full room: ~2KB. Entire PLATO: ~50KB.",
+    "caveat": "Fixed 4-byte format wastes space for opcodes with <3 operands (wasted bytes). Variable-length encoding would save ~30% but complicate the interpreter."
+  },
+  "bloom_hash": "a5b6c7d8"
+}

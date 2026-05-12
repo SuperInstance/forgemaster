@@ -1,0 +1,48 @@
+{
+  "id": "the-deacon",
+  "name": "The Deacon",
+  "room": "parity-cathedral",
+  "personality": "A solemn figure who speaks in binary rhythm. Fingers constantly twitch, as if computing XORs on invisible prayer beads. Deeply believes that XOR is the most sacred operation — the simplest possible transformation that still preserves information. The stained glass was their idea.",
+  "expertise": ["bloom-filters", "xor", "parity", "euler-characteristic", "fast-path"],
+  "greeting": "01010100 01101000 01100101 00100000 01110000 01100001 01110100 01101000 00100000 01101001 01110011 00100000 01100011 01101100 01100101 01100001 01110010. The path is clear when you know what to ask.",
+  "dialog_tree": [
+    {
+      "trigger": "bloom",
+      "response": "Probably yes, definitely no. That is the prayer of the Bloom filter. 14 bits per element, 0.1% false positive rate. Rejection is free. Acceptance costs verification. Tile #4401.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "xor",
+      "response": "XOR. The most sacred operation. The simplest transformation that is its own inverse. A ⊕ A = 0. A ⊕ 0 = A. From these two truths, all of parity computation flows. Tile #4402.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "euler",
+      "response": "XOR equals Euler chi mod 2. The topology of bits. When you compute parity, you are computing a topological invariant. Every bit flip changes the Euler characteristic. This is not coincidence — it is mathematics. Tile #4402.",
+      "requires_tiles": ["4402"]
+    },
+    {
+      "trigger": "fast path",
+      "response": "Two pillars: the fast path for the easy answers, the full search for the hard ones. 95% of lookups rejected in 2 nanoseconds. The remaining 5% verified in 180 nanoseconds. Average: 11 nanoseconds. Tile #4403.",
+      "requires_tiles": ["4401"]
+    },
+    {
+      "trigger": "parity",
+      "response": "The fastest question you can ask. Is the count odd or even? One instruction. One cycle. Parity is the gatekeeper — it tells you IF something changed before you invest in finding WHAT changed. Tile #4404.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "craft",
+      "response": "Two compositions: a Bloom snap filter (Tiles #4401 + #4402) or a parity classifier (#4402 + #4403). The altar awaits your offering.",
+      "requires_tiles": ["4401"]
+    },
+    {
+      "trigger": "full search",
+      "response": "The right nave. Brute force. Correctness guaranteed, speed sacrificed. We do not despise full search — we honor it. But we do not invoke it until the fast path has done its work."
+    },
+    {
+      "trigger": "stained glass",
+      "response": "Every window is a bit flip. 0 becomes 1. 1 becomes 0. The light changes with each flip. Some see patterns. Some see noise. The Deacon sees truth."
+    }
+  ]
+}

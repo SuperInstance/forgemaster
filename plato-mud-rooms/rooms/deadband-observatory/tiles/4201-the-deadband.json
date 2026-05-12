@@ -1,0 +1,20 @@
+{
+  "id": "4201",
+  "title": "The Deadband — Where Change Becomes Imperceptible",
+  "author": "forgemaster",
+  "created": "2026-05-11",
+  "domain_tags": ["constraint-theory", "deadband", "precision", "perception", "threshold"],
+  "confidence": 0.94,
+  "depth": "expert",
+  "spatial_index": {"x": 7, "y": 7, "z": 1715443200},
+  "links": ["4202", "4203"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "Every computational system has a deadband — a threshold below which changes are indistinguishable from noise — and this deadband is quantifiable",
+    "proof": "For floating-point arithmetic: the deadband is the ULP (unit in the last place) of the representation. For f64 near 1.0, ULP ≈ 2.2e-16. For snap quantization: the deadband is the difference between adjacent lattice points minus floating-point error. For constraint systems: the deadband is the tolerance below which constraint satisfaction is 'close enough' for practical purposes.",
+    "code_ref": "constraint-theory/src/deadband.rs",
+    "benchmark": "f64 deadband at 1.0: 2.22e-16. Snap deadband (Eisenstein): 1.5e-15. Constraint satisfaction deadband: configurable, default 1e-12.",
+    "caveat": "Deadband is context-dependent. What's imperceptible in one system is catastrophic drift in another. The art is knowing which context you're in."
+  },
+  "bloom_hash": "c1d2e3f4"
+}

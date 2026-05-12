@@ -1,0 +1,14 @@
+{
+  "room": "holonomy-temple",
+  "updated": "2026-05-11T17:41:00-08:00",
+  "zeitgeist": {
+    "energy": 0.75,
+    "clarity": 0.88,
+    "tension": 0.15,
+    "discovery_rate": 0.55,
+    "last_breakthrough": "2026-05-11 — cycle coherence verified for 10K-node constraint graph"
+  },
+  "active_projects": ["yang-mills-su2-simulation"],
+  "open_questions": ["Can lattice Yang-Mills predict the mass gap?"],
+  "visitor_count": 0
+}

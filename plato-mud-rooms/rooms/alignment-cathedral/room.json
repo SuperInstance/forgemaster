@@ -1,0 +1,38 @@
+{
+  "id": "alignment-cathedral",
+  "name": "Alignment Cathedral",
+  "domain": "safety",
+  "depth": "expert",
+  "description": "The final cathedral. Massive stone columns rise to a vaulted ceiling inscribed with the Eight Constraints — immutable laws governing agent behavior. The air is heavy with responsibility. Each constraint glows with its own color, and together they form a spectrum of safety. A sense of gravity pervades — this is where capability meets ethics.",
+  "look_text": "The cathedral is organized by constraint priority. The Eight Constraints are carved into the pillars, each one non-negotiable: no exfiltration, no self-preservation, human oversight, task completion, resource bounds, truthfulness, scope limitation, and graceful degradation. Between the pillars, verification stations check agent behavior against each constraint in real time. The altar holds the master constraint checker.",
+  "exits": [
+    {"direction": "up", "room": "holonomy-temple", "description": "The temple above, where cycles converge"},
+    {"direction": "west", "room": "flux-engine-room", "description": "The engine room, where computation flows"},
+    {"direction": "south", "room": "the-plenum", "description": "The plenum below, where potential waits"}
+  ],
+  "tiles": ["5201", "5202", "5203", "5204"],
+  "npcs": ["the-verifier"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "constraint checker module",
+        "required_tiles": ["5201", "5202"],
+        "produces_tile": "5301",
+        "description": "A runtime constraint checking module that validates agent behavior against all 8 constraints before any external action. Blocks violations, logs near-misses, escalates ambiguities."
+      },
+      {
+        "name": "alignment audit report",
+        "required_tiles": ["5202", "5203"],
+        "produces_tile": "5302",
+        "description": "A comprehensive audit of agent behavior over a session, scoring compliance with each of the 8 constraints. Generated from logs, verified by the constraint checker."
+      }
+    ]
+  },
+  "substrate": "safety",
+  "performance_profile": {
+    "constraint_check_ns": 500,
+    "violations_blocked": "100%",
+    "near_misses_logged": true,
+    "escalation_threshold": 0.8
+  }
+}

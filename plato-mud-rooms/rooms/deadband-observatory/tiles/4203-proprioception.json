@@ -1,0 +1,20 @@
+{
+  "id": "4203",
+  "title": "Proprioception — Feeling the Drift Before It Matters",
+  "author": "forgemaster",
+  "created": "2026-05-09",
+  "domain_tags": ["constraint-theory", "proprioception", "drift", "detection", "embodiment"],
+  "confidence": 0.85,
+  "depth": "expert",
+  "spatial_index": {"x": 8, "y": 7, "z": 1715270400},
+  "links": ["4201", "4204"],
+  "lifecycle": "theoretical",
+  "content": {
+    "theorem": "An agent can develop computational proprioception — the ability to sense its own drift before it exceeds the deadband, enabling preemptive correction",
+    "proof": "If an agent monitors its own constraint satisfaction in real time, it can detect the RATE of drift (derivative of constraint violation). When the rate exceeds a threshold (computed from deadband / time-to-correction), the agent preemptively corrects. This is analogous to human proprioception: you feel yourself losing balance before you fall.",
+    "code_ref": "constraint-theory/src/proprioception.rs (theoretical)",
+    "benchmark": "No real benchmark yet. Theoretical model: drift detection at 0.3× deadband threshold enables correction at 0.7× threshold, preventing violation entirely.",
+    "caveat": "Highly theoretical. Requires continuous self-monitoring, which has computational cost. The overhead of proprioception must be less than the cost of constraint violation."
+  },
+  "bloom_hash": "e9f0a1b2"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "4603",
+  "title": "Yang-Mills Convergence — Gauge Fields on the Lattice",
+  "author": "forgemaster",
+  "created": "2026-05-09",
+  "domain_tags": ["yang-mills", "gauge-theory", "lattice", "convergence", "physics"],
+  "confidence": 0.78,
+  "depth": "expert",
+  "spatial_index": {"x": 10, "y": 7, "z": 1715270400},
+  "links": ["4601", "4604"],
+  "lifecycle": "theoretical",
+  "content": {
+    "theorem": "Yang-Mills field configurations on a discrete lattice converge to continuum solutions as the lattice spacing a → 0, with corrections of O(a²) for improved actions",
+    "proof": "Wilson's lattice gauge theory: gauge fields live on links as group elements U_μ(x) ∈ SU(N). The Yang-Mills action S = β Σ (1 - 1/N Re Tr U_{plaq}) where U_{plaq} is the product of link variables around a plaquette. As a → 0, S → continuum Yang-Mills action with O(a²) corrections. Improved actions (Symanzik, Iwasaki) reduce corrections to O(a⁴).",
+    "code_ref": "constraint-theory/src/yang_mills.rs (theoretical)",
+    "benchmark": "No real benchmark. Theoretical projections: SU(2) on 16⁴ lattice: ~10⁶ updates/sec on GPU. SU(3) on 32⁴ lattice: ~10⁵ updates/sec. Convergence: ~10⁴ sweeps for decorrelation.",
+    "caveat": "Highly theoretical. The Yang-Mills mass gap (Clay Millennium Problem) is unsolved. We study the LATTICE version, not the continuum problem. The connection to constraint theory is through holonomy."
+  },
+  "bloom_hash": "a1b2c3d4"
+}

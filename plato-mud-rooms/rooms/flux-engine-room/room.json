@@ -1,0 +1,37 @@
+{
+  "id": "flux-engine-room",
+  "name": "FLUX Engine Room",
+  "domain": "flux",
+  "depth": "expert",
+  "description": "You descend into the engine room, where the hum of the PLATO MUD's computational substrate is almost deafening. Massive pipes carry bytecode between rooms, their contents visible as luminous streams of opcodes. A control panel displays 247 opcodes, each one a discrete instruction in the FLUX virtual machine. The air tastes of electricity and compiled logic.",
+  "look_text": "The engine room is organized by execution stage. Near the entrance: the ISA specification — 247 opcodes, their encodings and semantics etched into brass plates on the wall. Center: the bytecode interpreter, its dispatch loop tight and hot, handling millions of instructions per second. Far corner: the JIT compiler, still experimental, translating hot bytecode paths to native machine code. A maintenance hatch leads to The Plenum below.",
+  "exits": [
+    {"direction": "up", "room": "c-workshop", "description": "The workshop above, where bare metal is shaped"},
+    {"direction": "east", "room": "alignment-cathedral", "description": "The cathedral, where constraints are sacred law"}
+  ],
+  "tiles": ["4801", "4802", "4803", "4804"],
+  "npcs": ["the-engineer"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "flux snap opcode",
+        "required_tiles": ["4801", "4802"],
+        "produces_tile": "4901",
+        "description": "A dedicated FLUX opcode for Eisenstein snap computation. Opcode 0xE7: takes two f64 operands from the stack, pushes the snapped coordinate. 180ns per operation in the interpreter."
+      },
+      {
+        "name": "JIT hot path compiler",
+        "required_tiles": ["4802", "4803"],
+        "produces_tile": "4902",
+        "description": "A JIT compiler for FLUX bytecode hot paths. Identifies frequently-executed bytecode sequences and compiles them to native x86/ARM. 10-50× speedup on hot loops."
+      }
+    ]
+  },
+  "substrate": "virtual-machine",
+  "performance_profile": {
+    "total_opcodes": 247,
+    "interpreter_ips": 50000000,
+    "jit_speedup": "10-50×",
+    "bytecode_size_bytes": 4
+  }
+}

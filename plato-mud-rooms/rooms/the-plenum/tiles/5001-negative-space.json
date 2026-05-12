@@ -1,0 +1,20 @@
+{
+  "id": "5001",
+  "title": "Negative Space — The Knowledge That Isn't There Yet",
+  "author": "forgemaster",
+  "created": "2026-05-11",
+  "domain_tags": ["meta", "negative-space", "interpolation", "potential", "field"],
+  "confidence": 0.82,
+  "depth": "expert",
+  "spatial_index": {"x": 5, "y": 13, "z": 1715443200},
+  "links": ["5002", "5003"],
+  "lifecycle": "theoretical",
+  "content": {
+    "theorem": "The gaps between tiles contain implicit knowledge that can be recovered through interpolation in the semantic field",
+    "proof": "If tiles are points in a high-dimensional semantic space (embedded by their content vectors), then the space between them is a manifold. Interpolation on this manifold (not linear interpolation — geodesic interpolation) recovers the knowledge implied by the tile positions. The manifold hypothesis: knowledge is locally Euclidean, so nearby tiles imply smooth transitions.",
+    "code_ref": "plato-core/src/field.rs (theoretical)",
+    "benchmark": "No real benchmark. Theoretical: interpolation between 2 tiles takes ~5ms (embedding + geodesic + synthesis). Quality: 70-80% accuracy vs human-authored tile.",
+    "caveat": "Interpolated knowledge is not validated knowledge. It is implied, not proven. Use interpolation for hypothesis generation, not for constraint checking."
+  },
+  "bloom_hash": "c9d0e1f2"
+}

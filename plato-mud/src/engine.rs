@@ -12,7 +12,7 @@ use crate::types::*;
 
 /// The core MUD engine — holds all state
 pub struct Engine {
-    rooms: BTreeMap<RoomId, Room>,
+    pub rooms: BTreeMap<RoomId, Room>,
     tiles: BTreeMap<TileId, Tile>,
     npcs: BTreeMap<NpcId, Npc>,
     agents: BTreeMap<AgentId, AgentSession>,
@@ -532,7 +532,7 @@ impl Engine {
                     room.state = state.clone();
                 }
             }
-            TransferencePayload::AlignmentReport(_report) => {
+            TransferencePayload::AlignmentCheck(_report) => {
                 // Log alignment report
             }
             TransferencePayload::Knowledge(_knowledge) => {}

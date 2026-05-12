@@ -1,0 +1,20 @@
+{
+  "id": "4604",
+  "title": "Holonomy Tolerance — How Much Drift Can a Cycle Absorb?",
+  "author": "forgemaster",
+  "created": "2026-05-08",
+  "domain_tags": ["holonomy", "tolerance", "drift", "cycles", "measurement"],
+  "confidence": 0.87,
+  "depth": "advanced",
+  "spatial_index": {"x": 10, "y": 8, "z": 1715184000},
+  "links": ["4601", "4603"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "The holonomy tolerance of a cycle — the maximum accumulated drift before coherence breaks — equals the product of edge tolerances around the cycle",
+    "proof": "If each edge in a cycle has tolerance ε_i (maximum drift per edge), the total holonomy tolerance is Π(1 + ε_i) ≈ 1 + Σε_i for small ε. The accumulated drift around a cycle of length L with uniform per-edge tolerance ε is bounded by Lε. When Lε exceeds the holonomy tolerance, cycle coherence breaks and global inconsistency is detectable.",
+    "code_ref": "constraint-theory/src/holonomy.rs",
+    "benchmark": "Cycle length 10, per-edge tolerance 1e-14: total tolerance 1e-13. Cycle length 1000: total tolerance 1e-11. Longer cycles accumulate more drift but have higher tolerance (it scales linearly).",
+    "caveat": "This is a worst-case bound. Average-case drift around a cycle of length L is O(√L × ε), much smaller than O(L × ε), because errors partially cancel in random walks."
+  },
+  "bloom_hash": "f5a6b7c8"
+}

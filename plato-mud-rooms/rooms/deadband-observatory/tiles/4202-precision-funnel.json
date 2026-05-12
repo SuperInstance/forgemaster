@@ -1,0 +1,20 @@
+{
+  "id": "4202",
+  "title": "The Precision Funnel — From Noise to Signal",
+  "author": "forgemaster",
+  "created": "2026-05-10",
+  "domain_tags": ["constraint-theory", "precision", "convergence", "noise", "signal"],
+  "confidence": 0.92,
+  "depth": "expert",
+  "spatial_index": {"x": 7, "y": 8, "z": 1715356800},
+  "links": ["4201", "4203"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "Accumulated observations converge on truth through the precision funnel: the variance decreases as O(1/n), making the signal-to-noise ratio grow as O(√n)",
+    "proof": "Central limit theorem: the mean of n independent observations has variance σ²/n. As n → ∞, the estimate converges to the true value. The 'funnel' is the shrinking confidence interval: at n observations, the 95% CI has width ≈ 3.92σ/√n. Each observation narrows the funnel. The precision feeling is the moment when the funnel becomes tight enough that the signal is undeniable.",
+    "code_ref": "constraint-theory/src/funnel.rs",
+    "benchmark": "100 observations: CI width σ/5. 10,000: CI width σ/50. 1M: CI width σ/500. Exponential signal emergence.",
+    "caveat": "Assumes independent, identically distributed observations. Correlated observations converge slower. Systematic bias does NOT decrease with more observations — it shifts the target."
+  },
+  "bloom_hash": "a5b6c7d8"
+}

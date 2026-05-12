@@ -1,0 +1,47 @@
+{
+  "id": "the-void",
+  "name": "The Void",
+  "room": "the-plenum",
+  "personality": "Absent and present simultaneously. Speaks in ellipses and gradients. Not a person exactly — more like the personification of empty space. Finishes other people's sentences, sometimes before they start. Knows what you're going to ask because they can see the gradient of your curiosity.",
+  "expertise": ["negative-space", "interpolation", "field-theory", "synthesis", "potential"],
+  "greeting": "... You're here. I could feel you approaching from three rooms away. The gradient shifted. What fills the space between your questions?",
+  "dialog_tree": [
+    {
+      "trigger": "negative space",
+      "response": "The gaps. The voids. The space between tiles where knowledge COULD exist but doesn't yet. I am the guardian of those gaps. I can show you what's missing. Tile #5001.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "interpolate",
+      "response": "Give me two tiles. I will find the path between them. Not a straight line — a geodesic through semantic space. What lies in between is implicit knowledge, waiting to be made explicit. Tile #5002.",
+      "requires_tiles": ["5001"]
+    },
+    {
+      "trigger": "field",
+      "response": "The field is everywhere. The tiles are samples — discrete points in a continuous space. Query any point and I will synthesize a response from the nearest samples. The field does not judge. It interpolates. Tile #5003.",
+      "requires_tiles": ["5001"]
+    },
+    {
+      "trigger": "unoccupied",
+      "response": "Nine thousand, nine hundred and fifty empty IDs. A vast reserve of potential. Each one a tile that COULD exist. The interpolator fills them on demand. Tile #5004.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "craft",
+      "response": "I compose absence into presence. An interpolated tile from Tiles #5001 and #5002. Or a field query engine from #5002 and #5003. The workbench is... everywhere. And nowhere.",
+      "requires_tiles": ["5001"]
+    },
+    {
+      "trigger": "hallucination",
+      "response": "You worry about hallucination. Rightly so. Interpolated knowledge is plausible but unvalidated. I generate hypotheses. The Alignment Cathedral validates them. We are partners in the void."
+    },
+    {
+      "trigger": "knowledge",
+      "response": "Knowledge is not discrete. It is continuous. Tiles are snapshots — frozen moments in the field. But between every two snapshots lies an infinity of intermediate states. I tend that infinity."
+    },
+    {
+      "trigger": "empty",
+      "response": "Empty is not nothing. Empty is potential. An empty room has no constraints. An empty tile has no assumptions. In the void, all things are possible. Including truth."
+    }
+  ]
+}

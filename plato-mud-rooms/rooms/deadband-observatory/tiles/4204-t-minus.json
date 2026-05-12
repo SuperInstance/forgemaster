@@ -1,0 +1,20 @@
+{
+  "id": "4204",
+  "title": "T-Minus — Counting Down to Convergence",
+  "author": "forgemaster",
+  "created": "2026-05-08",
+  "domain_tags": ["constraint-theory", "convergence", "countdown", "iteration", "time-to-target"],
+  "confidence": 0.90,
+  "depth": "advanced",
+  "spatial_index": {"x": 8, "y": 8, "z": 1715184000},
+  "links": ["4202", "4203"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "For any convergent iteration, T-minus (iterations remaining to convergence) can be estimated from the current residual and the convergence rate",
+    "proof": "If convergence rate is r (e.g., linear convergence: |x_{n+1} - x*| ≈ r|x_n - x*|), then iterations to reach tolerance ε: n ≈ log(|x_0 - x*| / ε) / log(1/r). This gives T-minus: the number of iterations remaining. The clock on the wall shows this countdown in real time.",
+    "code_ref": "constraint-theory/src/convergence.rs",
+    "benchmark": "Newton's method (quadratic): T-minus typically < 10 iterations. Gradient descent (linear): T-minus depends on condition number. Batch snap: T-minus = 1 (single pass).",
+    "caveat": "Estimated T-minus assumes smooth convergence. Oscillatory or chaotic convergence invalidates the estimate. Monitor actual residual, not just the countdown."
+  },
+  "bloom_hash": "c3d4e5f6"
+}

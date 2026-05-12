@@ -1,0 +1,38 @@
+{
+  "id": "holonomy-temple",
+  "name": "Holonomy Temple",
+  "domain": "mathematics",
+  "depth": "expert",
+  "description": "You enter a circular temple where cycles are sacred. The architecture is a closed loop — every path through the temple returns to its origin, but transformed. The walls spiral inward and outward simultaneously, a physical manifestation of holonomy: the measure of how much a vector changes when parallel-transported around a closed loop. The air hums with the resonance of converging cycles.",
+  "look_text": "The temple is organized by loop structure. Outer ring: simple cycles and their closure properties. Middle ring: consensus mechanisms — how independent cycles agree on shared truth. Inner sanctum: Yang-Mills convergence, the deep connection between gauge theory and lattice computation. The floor is a Feynman diagram, its paths glowing with propagator energy.",
+  "exits": [
+    {"direction": "west", "room": "eisenstein-gallery", "description": "The lattice gallery, where hexagons tile infinity"},
+    {"direction": "northwest", "room": "deadband-observatory", "description": "The observatory, where precision is felt"},
+    {"direction": "down", "room": "alignment-cathedral", "description": "The cathedral below, where constraints are enforced"}
+  ],
+  "tiles": ["4601", "4602", "4603", "4604"],
+  "npcs": ["the-abbot"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "cycle coherence detector",
+        "required_tiles": ["4601", "4602"],
+        "produces_tile": "4701",
+        "description": "An algorithm that verifies cycle coherence in a constraint graph: checking that parallel transport around every cycle returns the identity transformation. Zero holonomy = zero drift."
+      },
+      {
+        "name": "yang-mills lattice solver",
+        "required_tiles": ["4602", "4603"],
+        "produces_tile": "4702",
+        "description": "A lattice gauge theory solver that computes Yang-Mills field configurations on a discretized spacetime. Gauge invariance is preserved at every lattice site."
+      }
+    ]
+  },
+  "substrate": "mathematical",
+  "performance_profile": {
+    "cycle_check_ns": 150,
+    "consensus_rounds": 3,
+    "yang_mills_convergence": "exponential",
+    "holonomy_tolerance": 1e-14
+  }
+}

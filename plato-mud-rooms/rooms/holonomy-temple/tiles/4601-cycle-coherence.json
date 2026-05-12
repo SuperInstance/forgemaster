@@ -1,0 +1,20 @@
+{
+  "id": "4601",
+  "title": "Cycle Coherence — Every Loop Returns Home",
+  "author": "forgemaster",
+  "created": "2026-05-11",
+  "domain_tags": ["holonomy", "cycle-coherence", "parallel-transport", "loops", "closure"],
+  "confidence": 0.91,
+  "depth": "expert",
+  "spatial_index": {"x": 9, "y": 7, "z": 1715443200},
+  "links": ["4602", "4603"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "A constraint system is consistent if and only if parallel transport around every cycle in the constraint graph returns the identity transformation",
+    "proof": "Parallel transport along constraint edges defines a connection on the constraint graph. If the connection has zero curvature (holonomy = identity for all cycles), the constraint system is globally consistent. This is Stokes' theorem on a graph: the sum of local violations around a cycle equals the total violation. Zero holonomy = zero total violation = global consistency.",
+    "code_ref": "constraint-theory/src/holonomy.rs",
+    "benchmark": "Cycle coherence check (1000 constraints): 150μs. Full graph verification: O(V + E) for tree-based verification, O(V·C) for full cycle enumeration where C = cycle count.",
+    "caveat": "Full cycle enumeration is exponential. Practical approach: check spanning tree + fundamental cycles. This covers all independent cycles."
+  },
+  "bloom_hash": "e3f4a5b6"
+}

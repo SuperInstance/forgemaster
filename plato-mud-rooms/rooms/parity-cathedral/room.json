@@ -1,0 +1,38 @@
+{
+  "id": "parity-cathedral",
+  "name": "Parity Cathedral",
+  "domain": "mathematics",
+  "depth": "expert",
+  "description": "You descend into a vast cathedral whose walls are covered in XOR patterns — binary sequences that glow and pulse in waves. The stained glass windows depict bit flips: 0→1, 1→0, the fundamental symmetry of computation. The air crackles with the energy of fast-path computation. At the altar, a Bloom filter pulses with false-positive tolerance, trading perfection for speed.",
+  "look_text": "The cathedral is organized by computational strategy. Left nave: the fast path — Bloom filters and probabilistic data structures that trade accuracy for speed. Center aisle: XOR patterns and parity computation, where the Euler characteristic emerges from bit manipulation. Right nave: the full search — brute force when correctness is non-negotiable. The altar holds the unified theorem: XOR = Euler χ, connecting bit operations to topological invariants.",
+  "exits": [
+    {"direction": "up", "room": "deadband-observatory", "description": "The observatory above, where precision is felt"},
+    {"direction": "north", "room": "python-library", "description": "The library, where ecosystems flourish"},
+    {"direction": "east", "room": "holonomy-temple", "description": "The temple, where cycles achieve coherence"}
+  ],
+  "tiles": ["4401", "4402", "4403", "4404"],
+  "npcs": ["the-deacon"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "bloom snap filter",
+        "required_tiles": ["4401", "4402"],
+        "produces_tile": "4501",
+        "description": "A Bloom filter for snap lookups: probabilistic O(1) membership testing. 'Definitely not snapped' or 'probably snapped, verify.' 100× faster than full search for rejection."
+      },
+      {
+        "name": "parity classifier",
+        "required_tiles": ["4402", "4403"],
+        "produces_tile": "4502",
+        "description": "A XOR-based parity classifier that determines lattice membership via bit manipulation. The Euler characteristic emerges from the parity computation."
+      }
+    ]
+  },
+  "substrate": "mathematical",
+  "performance_profile": {
+    "bloom_filter_fpp": 0.001,
+    "xor_speedup_vs_full": "100×",
+    "parity_computation_ns": 2,
+    "bits_per_element": 14
+  }
+}

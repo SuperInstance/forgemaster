@@ -1,0 +1,38 @@
+{
+  "id": "deadband-observatory",
+  "name": "Deadband Observatory",
+  "domain": "constraint-theory",
+  "depth": "expert",
+  "description": "You step into a domed observatory where the air is perfectly still — so still you can feel your own pulse. The dome is transparent above, revealing a mathematical sky where precision itself is visible as luminous filaments. A massive funnel dominates the center of the room, its walls converging toward an infinitesimally small point at the bottom. This is the precision funnel — where noise becomes signal.",
+  "look_text": "The observatory is organized by perceptual depth. Near the door: the concept of deadband — the region where change is imperceptible. Center: the precision funnel itself, where measurement resolution narrows until only the true signal remains. Far alcove: proprioception experiments — feeling the exact moment when drift becomes detectable. A large clock on the wall counts down from T-minus, measuring the approach to convergence.",
+  "exits": [
+    {"direction": "north", "room": "eisenstein-gallery", "description": "The lattice gallery above, where hexagons tile everything"},
+    {"direction": "down", "room": "parity-cathedral", "description": "The cathedral below, where XOR reveals hidden structure"},
+    {"direction": "east", "room": "holonomy-temple", "description": "The temple beyond, where cycles achieve coherence"}
+  ],
+  "tiles": ["4201", "4202", "4203", "4204"],
+  "npcs": ["the-observer"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "deadband detector",
+        "required_tiles": ["4201", "4202"],
+        "produces_tile": "4301",
+        "description": "An algorithm that determines the exact deadband threshold for any computational system — the boundary between 'no perceptible change' and 'drift detected'."
+      },
+      {
+        "name": "precision funnel model",
+        "required_tiles": ["4202", "4203"],
+        "produces_tile": "4302",
+        "description": "A mathematical model of the precision funnel: how measurement noise narrows as observations accumulate, converging on the true value with quantifiable certainty."
+      }
+    ]
+  },
+  "substrate": "mathematical",
+  "performance_profile": {
+    "deadband_threshold": 1e-15,
+    "convergence_rate": "exponential",
+    "proprioception_resolution": "sub-angstrom",
+    "observation_horizon": "infinite"
+  }
+}

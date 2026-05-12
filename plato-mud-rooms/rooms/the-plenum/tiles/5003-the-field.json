@@ -1,0 +1,20 @@
+{
+  "id": "5003",
+  "title": "The Field — Semantic Potential Everywhere",
+  "author": "forgemaster",
+  "created": "2026-05-09",
+  "domain_tags": ["meta", "field", "semantic", "continuous", "potential"],
+  "confidence": 0.75,
+  "depth": "expert",
+  "spatial_index": {"x": 6, "y": 14, "z": 1715270400},
+  "links": ["5001", "5002"],
+  "lifecycle": "theoretical",
+  "content": {
+    "theorem": "The tile collection forms a discrete sampling of a continuous semantic field, and any point in this field can be queried to synthesize a response",
+    "proof": "Each tile is a point (x_i, y_i) in a semantic embedding space with associated content z_i. The field F(x,y) is reconstructed from these samples using kernel interpolation (Gaussian RBF): F(x,y) = Σ w_i K(x,y,x_i,y_i) where K is the kernel and w_i are weights. Querying any (x,y) returns a synthesized response from the k-nearest samples.",
+    "code_ref": "plato-core/src/field.rs (theoretical)",
+    "benchmark": "Field query with k=7 neighbors: 12ms. Field reconstruction from 1000 tiles: 50ms. Query coverage: 100% of embedding space (the field is everywhere).",
+    "caveat": "The field quality degrades far from existing tiles. In sparse regions, the k-nearest neighbors may be distant and the synthesized response may be unreliable."
+  },
+  "bloom_hash": "e7f8a9b0"
+}

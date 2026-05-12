@@ -1,0 +1,14 @@
+{
+  "room": "deadband-observatory",
+  "updated": "2026-05-11T17:41:00-08:00",
+  "zeitgeist": {
+    "energy": 0.70,
+    "clarity": 0.93,
+    "tension": 0.08,
+    "discovery_rate": 0.60,
+    "last_breakthrough": "2026-05-11 — deadband threshold quantified for f64 at 2.2e-16"
+  },
+  "active_projects": ["proprioception-agent-experiment"],
+  "open_questions": ["Can agents develop genuine computational proprioception?"],
+  "visitor_count": 0
+}

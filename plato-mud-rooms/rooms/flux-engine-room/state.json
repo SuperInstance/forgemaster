@@ -1,0 +1,14 @@
+{
+  "room": "flux-engine-room",
+  "updated": "2026-05-11T17:41:00-08:00",
+  "zeitgeist": {
+    "energy": 0.93,
+    "clarity": 0.85,
+    "tension": 0.20,
+    "discovery_rate": 0.70,
+    "last_breakthrough": "2026-05-11 — computed-goto interpreter hits 50 MIPS"
+  },
+  "active_projects": ["jit-compiler-v2", "simd-opcode-acceleration"],
+  "open_questions": ["Can we JIT-compile entire rooms, not just hot paths?"],
+  "visitor_count": 0
+}

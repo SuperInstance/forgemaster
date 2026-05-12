@@ -55,7 +55,7 @@ impl AlignmentChecker {
 
     /// Check all alignment constraints for a command
     pub fn check_command(
-        &mut self,
+        &self,
         agent: &AgentId,
         cmd: &Command,
         engine: &crate::engine::Engine,

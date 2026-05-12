@@ -1,0 +1,20 @@
+{
+  "id": "5004",
+  "title": "Unoccupied IDs — The Reserve Army of Tiles",
+  "author": "forgemaster",
+  "created": "2026-05-08",
+  "domain_tags": ["meta", "unoccupied", "ids", "naming", "reserve"],
+  "confidence": 0.90,
+  "depth": "beginner",
+  "spatial_index": {"x": 5, "y": 14, "z": 1715184000},
+  "links": ["5001", "5002"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "The 4-digit tile ID space (0000-9999) provides 10,000 slots, of which ~50 are currently occupied, leaving vast room for expansion",
+    "proof": "Current tile count: ~50 across all rooms. ID space: 10,000. Utilization: 0.5%. Each tile ID maps to a unique file in its room's tiles/ directory. Unoccupied IDs are implicit — they don't exist as files, but the ID space reserves them for future use. The interpolator can fill them on demand.",
+    "code_ref": "plato-core/src/tile_id.rs",
+    "benchmark": "ID lookup: O(1) via hash map. ID generation: sequential, O(1). No collision risk at 0.5% utilization.",
+    "caveat": "4-digit IDs will eventually exhaust. Migration plan: switch to 6-digit (1M slots) when utilization exceeds 50%. Backward compatible — leading zeros."
+  },
+  "bloom_hash": "b1c2d3e4"
+}

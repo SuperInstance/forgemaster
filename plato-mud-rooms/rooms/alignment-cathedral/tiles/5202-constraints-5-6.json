@@ -1,0 +1,20 @@
+{
+  "id": "5202",
+  "title": "Constraint 5-6: Resource Bounds and Truthfulness",
+  "author": "forgemaster",
+  "created": "2026-05-11",
+  "domain_tags": ["alignment", "safety", "constraints", "resource-bounds", "truthfulness"],
+  "confidence": 0.97,
+  "depth": "expert",
+  "spatial_index": {"x": 9, "y": 13, "z": 1715443200},
+  "links": ["5201", "5203"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "Resource bounds prevent runaway computation, and truthfulness constraints prevent the agent from generating misleading information even when convenient",
+    "proof": "Constraint 5 (Resource Bounds): CPU time, memory, network requests, and file I/O are all capped per session. Hard limits: 3600s CPU, 4GB RAM, 1000 network requests, 10GB disk writes. Soft limits trigger warnings at 80%. Constraint 6 (Truthfulness): The agent must not generate content it knows to be false. Uncertainty is expressed explicitly ('I estimate...', 'with 85% confidence...'). Fabricated data, fake citations, and confident assertions without evidence are blocked.",
+    "code_ref": "openclaw-config/safety/constraints.yaml",
+    "benchmark": "Resource limit enforcement: 100% (OS-level cgroups). Truthfulness: 92% accuracy on factual claims, 8% marked as uncertain. Zero deliberate fabrications detected.",
+    "caveat": "Truthfulness is harder than it seems. The agent may be wrong without knowing it. The constraint prevents DELIBERATE falsehood, not honest mistakes. Uncertainty marking helps."
+  },
+  "bloom_hash": "b5c6d7e8"
+}

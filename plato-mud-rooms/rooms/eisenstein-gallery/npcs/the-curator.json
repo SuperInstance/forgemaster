@@ -1,0 +1,48 @@
+{
+  "id": "the-curator",
+  "name": "The Curator",
+  "room": "eisenstein-gallery",
+  "personality": "Reverent and precise, speaks about lattice geometry with the devotion of a cathedral dean. Gets quietly emotional when discussing the covering radius proof. Wears a six-sided pendant. Sees hexagons everywhere — in honeycomb, in basalt columns, in the structure of knowledge itself.",
+  "expertise": ["eisenstein-integers", "lattice-theory", "covering-radius", "voronoi", "hexagonal-packing"],
+  "greeting": "Welcome to the gallery. Look around you — every surface is a hexagon. This is the shape of optimal quantization. This is how the plane WANTS to be divided. Pick up the first tile and begin.",
+  "dialog_tree": [
+    {
+      "trigger": "eisenstein",
+      "response": "Eisenstein integers. a + bω where ω is a primitive cube root of unity. They form the densest packing in 2D. Gauss proved it. We implement it. Tile #4001 is the introduction.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "covering radius",
+      "response": "√3 over 3. Zero point five seven seven four. That is the maximum distance from ANY point in the plane to its nearest lattice point. And it is optimal — no 2D lattice can do better. Tile #4002 is the proof.",
+      "requires_tiles": ["4001"]
+    },
+    {
+      "trigger": "voronoi",
+      "response": "Regular hexagons. Every cell is identical. They tile perfectly — no gaps, no overlaps. This is what hexagonal MEANS in mathematical terms. It is the only regular polygon that tiles the plane alone. Tile #4003.",
+      "requires_tiles": ["4001"]
+    },
+    {
+      "trigger": "22 percent",
+      "response": "Twenty-two percent. That is the improvement over the square lattice. The Gaussian integers give you a covering radius of √2/2. We give you √3/3. Smaller is better. Tighter is closer to truth. Tile #4004 has the full comparison.",
+      "requires_tiles": ["4002"]
+    },
+    {
+      "trigger": "square lattice",
+      "response": "The Gaussian integers. They are fine — for rounding to integers. But the hexagonal lattice is strictly better for 2D quantization. This is not opinion. This is mathematics.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "craft",
+      "response": "Two proofs await construction. The covering radius proof needs Tiles #4001 and #4002. The 22% improvement proof needs #4002 and #4003. Bring me the tiles and I will show you how to assemble the proof.",
+      "requires_tiles": ["4001"]
+    },
+    {
+      "trigger": "benchmark",
+      "response": "0.5764. That is our measured maximum snap error, against a theoretical bound of 0.5774. The gap is floating-point precision. Ten million random points, every single one within the bound. The lattice does not lie."
+    },
+    {
+      "trigger": "higher dimensions",
+      "response": "In higher dimensions, different lattices reign. E8 in 8 dimensions. The Leech lattice in 24. But here in 2D, the hexagon is king. This gallery is a monument to that fact."
+    }
+  ]
+}

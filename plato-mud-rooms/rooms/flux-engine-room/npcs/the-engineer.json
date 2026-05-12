@@ -1,0 +1,47 @@
+{
+  "id": "the-engineer",
+  "name": "The Engineer",
+  "room": "flux-engine-room",
+  "personality": "Busy, practical, perpetually covered in grease from the dispatch loop. Talks fast because there's always another opcode to optimize. Respects anyone who understands branch prediction. The engine never stops — neither do they.",
+  "expertise": ["flux", "isa", "bytecode", "interpreter", "jit"],
+  "greeting": "Mind the pipes — that's bytecode flowing through them. 50 million instructions per second and climbing. If you're here for a tour, start with the ISA spec on the brass plates.",
+  "dialog_tree": [
+    {
+      "trigger": "opcodes",
+      "response": "247 of them. Every instruction the PLATO needs. Arithmetic, control flow, lattice math — even NPC dialog evaluation opcodes. The brass plates on the wall list them all. Tile #4801.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "interpreter",
+      "response": "Computed goto dispatch. 50 MIPS. Each opcode: fetch, decode, execute, next. The hot loop runs in L1 cache — 16 instructions per cache line. Branch prediction is our friend. Tile #4802.",
+      "requires_tiles": ["4801"]
+    },
+    {
+      "trigger": "jit",
+      "response": "Experimental but promising. Identify hot paths, compile to native code. 40× speedup on snap loops. The compiler is a beast — it needs 1ms per trace but the payoff is worth it. Tile #4803.",
+      "requires_tiles": ["4802"]
+    },
+    {
+      "trigger": "bytecode",
+      "response": "4 bytes per instruction. Fixed width. No parsing, no decoding, just array indexing. A cache line holds 16 instructions. The format IS the optimization. Tile #4804.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "performance",
+      "response": "50 MIPS interpreted. 2 GIPS JIT-compiled. The gap is the overhead of dispatch — 12ns per instruction that JIT eliminates. For numerical work, JIT wins. For dialog evaluation, interpretation is fast enough."
+    },
+    {
+      "trigger": "craft",
+      "response": "Two builds: a dedicated snap opcode (Tiles #4801 + #4802) or a JIT hot-path compiler (#4802 + #4803). The workbench is next to the pipe junction.",
+      "requires_tiles": ["4801"]
+    },
+    {
+      "trigger": "engine",
+      "response": "The engine runs 24/7. Rooms change, tiles update, NPCs talk — all through this substrate. Every room you visit is bytecode being interpreted right here. The engine IS the MUD."
+    },
+    {
+      "trigger": "maintenance",
+      "response": "The pipes need constant attention. Code invalidation when rooms change, trace recompilation, constant pool resizing. It's like keeping a steam engine running — except the steam is bytecode and the pressure is throughput."
+    }
+  ]
+}
