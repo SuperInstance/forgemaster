@@ -52,12 +52,55 @@
 - [x] I2I bottle sent to Oracle1 (cross-pollination request)
 - [x] Analysis doc: research/OPENARM-COCAPN-SYNERGY.md (9KB)
 
+## Session Progress (2026-05-12) 🔨 ACTIVE
+
+### Phase 18: Temporal Intelligence + Seed-Tile Architecture + Lighthouse Protocol
+
+**dodecet-encoder: Full Constraint Intelligence System**
+- [x] `src/eisenstein.rs` — Perception: snap → dodecet (467 LOC, 9 tests)
+- [x] `src/temporal.rs` — Intelligence: observe → action (540 LOC, 9 tests)
+- [x] `src/seed_discovery.rs` — Meta-learning: iterate → tile (580 LOC, 7 tests)
+- [x] `src/lighthouse.rs` — Orchestration: orient → relay → gate (430 LOC, 11 tests)
+- [x] **210/210 tests passing** across all modules
+
+**Temporal Intelligence (the finesse):**
+- [x] 7 control knobs: decay_rate, prediction_horizon, anomaly_sigma, learning_rate, chirality_lock, merge_trust
+- [x] 7 agent actions: Continue→Converging→HoldSteady→CommitChirality→Satisfied, Diverging→WidenFunnel
+- [x] 5 funnel phases: Approach→Narrowing→SnapImminent→Crystallized, Anomaly
+- [x] 3 chirality states: Exploring→Locking→Locked (Potts model Tc≈0.15)
+- [x] PID control: P=error, I=precision energy (∫1/ε), D=convergence rate
+- [x] EMA prediction: predicted(t+1) = current(t) + rate × horizon
+
+**Seed-Tile Architecture:**
+- [x] Seed discovery engine: 50 iterations × 3 generations = 150 per role
+- [x] 5 roles tested: converging-tracker, noisy-sensor, step-detector, boundary-scanner, diverging-recovery
+- [x] 750 total seed runs at $0.75 (98% savings vs large models)
+- [x] All 10 cross-pollinations show genuinely different temporal personalities
+- [x] Conditioning prompts generated for upward propagation to larger models
+
+**Lighthouse Protocol (Forgemaster as orchestrator, not worker):**
+- [x] orient(task) → picks cheapest appropriate model
+- [x] relay(room, seeds) → seeds first, then agent runs
+- [x] gate(output) → credential leak, overclaim, external action checks
+- [x] Resource allocation: Claude=synthesis, GLM=architecture, Seed=discovery, DeepSeek=drafting, Hermes=adversarial
+
+**Research Papers This Session:**
+- [x] TEMPORAL-INTELLIGENCE.md (8.4KB) — the finesse decoded
+- [x] SEED-TILE-ARCHITECTURE.md (8.8KB) — response logic as discoverable artifact
+- [x] LIGHTHOUSE-PROTOCOL.md (6.7KB) — Forgemaster as lighthouse, not worker
+- [x] DODECET-CONSTRAINT-OS.md (10.8KB) — application science deep dive
+
+**Commits to SuperInstance/dodecet-encoder:**
+- f565afd: Eisenstein constraint module
+- 940fac4: Temporal constraint agent
+- 267d729: Seed discovery engine
+- 6539665: Lighthouse protocol
+
 **Stay Tuned:**
-- [ ] HN V9 post — waiting for Casey to review and post
-- [ ] Update HN post with dev tool repo links once live
-- [ ] npm publish (@superinstance/polyformalism-a2a) — blocked by Casey's OTP
-- [ ] Coq proofs for DO-178C certification path
-- [ ] ARM NEON benchmark on real hardware
+- [ ] Claude Opus: synthesis of temporal intelligence + seed-tile + lighthouse into unified theory
+- [ ] Wire lighthouse into actual OpenClaw subagent spawning
+- [ ] Build PLATO agent rooms (state.json + tiles/ + bottles/ + log/)
+- [ ] First self-bootstrapping run: seeds discover, agent builds, lighthouse gates
 
 **4 Research Papers Written:**
 - [x] PAPER-IEEE-INTENT-DIRECTED.md — IEEE conference paper (14.8KB)
