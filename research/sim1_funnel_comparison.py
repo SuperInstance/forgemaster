@@ -80,9 +80,12 @@ for name, funnel_fn in funnels.items():
     times = np.arange(N_STEPS) / N_STEPS
     pct_relaxed = 100 * (1 - np.array(active_count) / N_POINTS)
     
-    t50 = times[np.searchsorted(pct_relaxed, 50)] if np.any(pct_relaxed >= 50) else 1.0
-    t90 = times[np.searchsorted(pct_relaxed, 90)] if np.any(pct_relaxed >= 90) else 1.0
-    t99 = times[np.searchsorted(pct_relaxed, 99)] if np.any(pct_relaxed >= 99) else 1.0
+    idx50 = np.searchsorted(pct_relaxed, 50)
+    idx90 = np.searchsorted(pct_relaxed, 90)
+    idx99 = np.searchsorted(pct_relaxed, 99)
+    t50 = times[min(idx50, N_STEPS-1)] if np.any(pct_relaxed >= 50) else 1.0
+    t90 = times[min(idx90, N_STEPS-1)] if np.any(pct_relaxed >= 90) else 1.0
+    t99 = times[min(idx99, N_STEPS-1)] if np.any(pct_relaxed >= 99) else 1.0
     
     print(f"  {name}:")
     print(f"    t(50% relaxed)={t50:.2f}, t(90%)={t90:.2f}, t(99%)={t99:.2f}")
