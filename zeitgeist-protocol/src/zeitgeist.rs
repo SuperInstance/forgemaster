@@ -2,11 +2,11 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::precision::PrecisionState;
 use crate::confidence::ConfidenceState;
-use crate::trajectory::TrajectoryState;
 use crate::consensus::ConsensusState;
+use crate::precision::PrecisionState;
 use crate::temporal::TemporalState;
+use crate::trajectory::TrajectoryState;
 
 /// Alignment report returned by constraint checking
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -38,7 +38,13 @@ impl Zeitgeist {
         consensus: ConsensusState,
         temporal: TemporalState,
     ) -> Self {
-        Self { precision, confidence, trajectory, consensus, temporal }
+        Self {
+            precision,
+            confidence,
+            trajectory,
+            consensus,
+            temporal,
+        }
     }
 
     pub fn default() -> Self {
@@ -66,15 +72,13 @@ impl Zeitgeist {
     /// Encode to CBOR bytes
     pub fn encode(&self) -> Vec<u8> {
         let mut buf = Vec::new();
-        ciborium::into_writer(self, &mut buf)
-            .expect("CBOR encoding should not fail for Zeitgeist");
+        ciborium::into_writer(self, &mut buf).expect("CBOR encoding should not fail for Zeitgeist");
         buf
     }
 
     /// Decode from CBOR bytes
     pub fn decode(data: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(data)
-            .map_err(|e| format!("CBOR decode error: {}", e))
+        ciborium::from_reader(data).map_err(|e| format!("CBOR decode error: {}", e))
     }
 
     /// Check alignment constraints across all five dimensions
@@ -86,6 +90,9 @@ impl Zeitgeist {
         violations.extend(self.consensus.check_alignment());
         violations.extend(self.temporal.check_alignment());
         let aligned = violations.is_empty();
-        AlignmentReport { aligned, violations }
+        AlignmentReport {
+            aligned,
+            violations,
+        }
     }
 }

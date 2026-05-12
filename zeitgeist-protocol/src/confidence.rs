@@ -16,7 +16,11 @@ pub struct ConfidenceState {
 
 impl ConfidenceState {
     pub fn new(bloom: [u8; 32], parity: u8, certainty: f64) -> Self {
-        Self { bloom, parity, certainty }
+        Self {
+            bloom,
+            parity,
+            certainty,
+        }
     }
 
     pub fn default() -> Self {

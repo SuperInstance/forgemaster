@@ -36,7 +36,11 @@ pub struct TemporalState {
 
 impl TemporalState {
     pub fn new(beat_pos: f64, phase: Phase, rhythm_coherence: f64) -> Self {
-        Self { beat_pos, phase, rhythm_coherence }
+        Self {
+            beat_pos,
+            phase,
+            rhythm_coherence,
+        }
     }
 
     pub fn default() -> Self {

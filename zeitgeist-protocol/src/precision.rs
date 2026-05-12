@@ -18,7 +18,11 @@ impl PrecisionState {
     pub const COVERING_RADIUS: f64 = 1e6;
 
     pub fn new(deadband: f64, funnel_pos: f64, snap_imminent: bool) -> Self {
-        Self { deadband, funnel_pos, snap_imminent }
+        Self {
+            deadband,
+            funnel_pos,
+            snap_imminent,
+        }
     }
 
     pub fn default() -> Self {

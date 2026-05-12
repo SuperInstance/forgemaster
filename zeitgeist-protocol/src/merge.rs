@@ -9,14 +9,14 @@ pub use crate::zeitgeist::Zeitgeist;
 
 #[cfg(test)]
 mod laws {
-    use crate::zeitgeist::Zeitgeist;
-    use crate::precision::PrecisionState;
     use crate::confidence::ConfidenceState;
-    use crate::trajectory::{TrajectoryState, Trend};
     use crate::consensus::ConsensusState;
-    use crate::temporal::{TemporalState, Phase};
-    use std::collections::BTreeMap;
+    use crate::precision::PrecisionState;
+    use crate::temporal::{Phase, TemporalState};
+    use crate::trajectory::{TrajectoryState, Trend};
+    use crate::zeitgeist::Zeitgeist;
     use rand::Rng;
+    use std::collections::BTreeMap;
 
     fn random_zeitgeist() -> Zeitgeist {
         let mut rng = rand::thread_rng();
@@ -44,17 +44,13 @@ mod laws {
                 },
                 rng.gen_range(-10.0..10.0),
             ),
-            ConsensusState::new(
-                rng.gen_range(0.0..1.0),
-                rng.gen_range(0.0..1.0),
-                {
-                    let mut m = BTreeMap::new();
-                    for _ in 0..rng.gen_range(0..5) {
-                        m.insert(rng.gen(), rng.gen());
-                    }
-                    m
-                },
-            ),
+            ConsensusState::new(rng.gen_range(0.0..1.0), rng.gen_range(0.0..1.0), {
+                let mut m = BTreeMap::new();
+                for _ in 0..rng.gen_range(0..5) {
+                    m.insert(rng.gen(), rng.gen());
+                }
+                m
+            }),
             TemporalState::new(
                 rng.gen_range(0.0..1.0),
                 match rng.gen_range(0u8..4) {
@@ -113,7 +109,11 @@ mod laws {
     fn alignment_check_valid() {
         let zg = random_zeitgeist();
         let report = zg.check_alignment();
-        assert!(report.aligned, "Random zeitgeist should be aligned: {:?}", report.violations);
+        assert!(
+            report.aligned,
+            "Random zeitgeist should be aligned: {:?}",
+            report.violations
+        );
     }
 
     #[test]
@@ -125,6 +125,10 @@ mod laws {
         zg.temporal.beat_pos = -0.5; // Invalid
         let report = zg.check_alignment();
         assert!(!report.aligned);
-        assert!(report.violations.len() >= 4, "Expected 4+ violations, got: {:?}", report.violations);
+        assert!(
+            report.violations.len() >= 4,
+            "Expected 4+ violations, got: {:?}",
+            report.violations
+        );
     }
 }

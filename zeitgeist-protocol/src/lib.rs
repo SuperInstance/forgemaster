@@ -7,19 +7,19 @@
 //! - **Consensus**: Cycle coherence with CRDT version vector
 //! - **Temporal**: Beat grid rhythm coherence
 
-pub mod packet;
-pub mod zeitgeist;
-pub mod precision;
 pub mod confidence;
-pub mod trajectory;
 pub mod consensus;
-pub mod temporal;
 pub mod merge;
+pub mod packet;
+pub mod precision;
+pub mod temporal;
+pub mod trajectory;
+pub mod zeitgeist;
 
-pub use packet::FluxPacket;
-pub use zeitgeist::Zeitgeist;
-pub use precision::PrecisionState;
 pub use confidence::ConfidenceState;
-pub use trajectory::TrajectoryState;
 pub use consensus::ConsensusState;
+pub use packet::FluxPacket;
+pub use precision::PrecisionState;
 pub use temporal::TemporalState;
+pub use trajectory::TrajectoryState;
+pub use zeitgeist::Zeitgeist;

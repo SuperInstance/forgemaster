@@ -37,7 +37,11 @@ pub struct TrajectoryState {
 
 impl TrajectoryState {
     pub fn new(hurst: f64, trend: Trend, velocity: f64) -> Self {
-        Self { hurst, trend, velocity }
+        Self {
+            hurst,
+            trend,
+            velocity,
+        }
     }
 
     pub fn default() -> Self {
@@ -62,7 +66,11 @@ impl TrajectoryState {
     pub fn merge(&self, other: &Self) -> Self {
         Self {
             hurst: self.hurst.min(other.hurst),
-            trend: if self.trend == other.trend { self.trend } else { Trend::Chaotic },
+            trend: if self.trend == other.trend {
+                self.trend
+            } else {
+                Trend::Chaotic
+            },
             velocity: self.velocity.max(other.velocity),
         }
     }

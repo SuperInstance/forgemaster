@@ -45,9 +45,15 @@ impl FluxPacket {
     /// Compute parity: XOR of all bytes in the packet (excluding parity field itself)
     fn compute_parity(header: &[u8], payload: &[u8], zeitgeist_bytes: &[u8]) -> u8 {
         let mut p: u8 = 0;
-        for &b in header { p ^= b; }
-        for &b in payload { p ^= b; }
-        for &b in zeitgeist_bytes { p ^= b; }
+        for &b in header {
+            p ^= b;
+        }
+        for &b in payload {
+            p ^= b;
+        }
+        for &b in zeitgeist_bytes {
+            p ^= b;
+        }
         p
     }
 
@@ -57,9 +63,9 @@ impl FluxPacket {
 
         // Build header (25 bytes before lengths)
         let mut header = Vec::with_capacity(25);
-        header.extend_from_slice(&self.magic);           // 4 bytes
+        header.extend_from_slice(&self.magic); // 4 bytes
         header.extend_from_slice(&self.version.to_be_bytes()); // 2 bytes
-        header.push(self.flags);                          // 1 byte
+        header.push(self.flags); // 1 byte
         header.extend_from_slice(&self.source.to_be_bytes()); // 4 bytes
         header.extend_from_slice(&self.target.to_be_bytes()); // 4 bytes
         header.extend_from_slice(&self.timestamp.to_be_bytes()); // 8 bytes
@@ -68,9 +74,8 @@ impl FluxPacket {
 
         let parity = Self::compute_parity(&header, &self.payload, &zeitgeist_bytes);
 
-        let mut buf = Vec::with_capacity(
-            header.len() + self.payload.len() + zeitgeist_bytes.len() + 1
-        );
+        let mut buf =
+            Vec::with_capacity(header.len() + self.payload.len() + zeitgeist_bytes.len() + 1);
         buf.extend_from_slice(&header);
         buf.extend_from_slice(&self.payload);
         buf.extend_from_slice(&zeitgeist_bytes);
@@ -96,8 +101,7 @@ impl FluxPacket {
         let source = u32::from_be_bytes([data[7], data[8], data[9], data[10]]);
         let target = u32::from_be_bytes([data[11], data[12], data[13], data[14]]);
         let timestamp = f64::from_be_bytes([
-            data[15], data[16], data[17], data[18],
-            data[19], data[20], data[21], data[22],
+            data[15], data[16], data[17], data[18], data[19], data[20], data[21], data[22],
         ]);
         let payload_len = u32::from_be_bytes([data[23], data[24], data[25], data[26]]) as usize;
         let zeitgeist_len = u32::from_be_bytes([data[27], data[28], data[29], data[30]]) as usize;
@@ -143,11 +147,11 @@ impl FluxPacket {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::precision::PrecisionState;
     use crate::confidence::ConfidenceState;
-    use crate::trajectory::{TrajectoryState, Trend};
     use crate::consensus::ConsensusState;
-    use crate::temporal::{TemporalState, Phase};
+    use crate::precision::PrecisionState;
+    use crate::temporal::{Phase, TemporalState};
+    use crate::trajectory::{TrajectoryState, Trend};
     use std::collections::BTreeMap;
 
     fn test_zeitgeist() -> Zeitgeist {
