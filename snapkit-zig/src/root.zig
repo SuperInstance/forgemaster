@@ -8,6 +8,15 @@
 //!   const nearest = snapkit.eisenstein.snapVoronoi(1.3, 0.7);
 //!   const result = snapkit.eisenstein.snap(1.3, 0.7, 0.5);
 
+// Force all modules to be referenced so export fns are included in the shared library
+comptime {
+    _ = @import("types.zig");
+    _ = @import("eisenstein.zig");
+    _ = @import("voronoi.zig");
+    _ = @import("temporal.zig");
+    _ = @import("spectral.zig");
+}
+
 pub const types = @import("types.zig");
 pub const eisenstein = @import("eisenstein.zig");
 pub const voronoi = @import("voronoi.zig");

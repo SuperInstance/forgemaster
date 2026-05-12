@@ -4,7 +4,7 @@ module snapkit_eisenstein
     implicit none
     private
     public :: eisenstein_int, eisenstein_round, eisenstein_round_naive
-    public :: eisenstein_snap, eisenstein_snap_batch
+    public :: eisenstein_snap, eisenstein_snap_batch, snap_result
     public :: eisenstein_distance, eisenstein_to_real, eisenstein_from_real
     public :: eisenstein_conjugate, eisenstein_norm_sq, eisenstein_add
     public :: eisenstein_sub, eisenstein_mul, eisenstein_units

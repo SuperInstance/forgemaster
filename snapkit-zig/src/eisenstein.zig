@@ -31,32 +31,32 @@ pub fn comptimeValid(comptime a: i64, comptime b: i64) void {
 /// Compile-time verification that a floating-point (x, y) pair lies exactly
 /// on an Eisenstein lattice point. Causes a compile error if not.
 pub fn comptimeAssertLatticePoint(comptime x: f64, comptime y: f64) EisensteinInteger {
-    comptime {
-        const b_float = 2.0 * y / sqrt3;
-        const a_float = x + b_float * 0.5;
-        // Check both coordinates are integers
-        if (a_float != @floor(a_float) or b_float != @floor(b_float)) {
-            @compileError("Point (" ++ std.fmt.formatValue(x, .{}) ++ ", " ++ std.fmt.formatValue(y, .{}) ++ ") does not lie on the Eisenstein lattice");
+    const result = comptime blk: {
+        const b_float: f64 = 2.0 * y / sqrt3;
+        const a_float: f64 = x + b_float * 0.5;
+        const a_rounded: f64 = @round(a_float);
+        const b_rounded: f64 = @round(b_float);
+        if (a_float != a_rounded or b_float != b_rounded) {
+            @compileError("supplied coordinates do not lie on the Eisenstein lattice");
         }
-        // Also verify round-trip: lattice -> cartesian -> lattice
-        const a: i64 = @intFromFloat(a_float);
-        const b: i64 = @intFromFloat(b_float);
-        const rx = @as(f64, @floatFromInt(a)) - 0.5 * @as(f64, @floatFromInt(b));
-        const ry = half_sqrt3 * @as(f64, @floatFromInt(b));
+        const a: i64 = @intFromFloat(a_rounded);
+        const b: i64 = @intFromFloat(b_rounded);
+        const rx: f64 = @as(f64, @floatFromInt(a)) - 0.5 * @as(f64, @floatFromInt(b));
+        const ry: f64 = half_sqrt3 * @as(f64, @floatFromInt(b));
         if (rx != x or ry != y) {
-            @compileError("Point (" ++ std.fmt.formatValue(x, .{}) ++ ", " ++ std.fmt.formatValue(y, .{}) ++ ") round-trip failed — not a lattice point");
+            @compileError("round-trip verification failed — not a lattice point");
         }
-        return .{ .a = a, .b = b };
-    }
+        break :blk .{ .a = a, .b = b };
+    };
+    return result;
 }
 
 /// Compile-time snap: given comptime-known (x, y), compute the nearest
 /// Eisenstein integer at compile time. The result is a comptime constant.
 pub fn comptimeSnap(comptime x: f64, comptime y: f64) EisensteinInteger {
-    comptime {
-        const b0 = @round(2.0 * y * inv_sqrt3);
-        const a0 = @round(x + b0 * 0.5);
-        // 9-candidate search at comptime
+    return comptime blk: {
+        const b0: f64 = @round(2.0 * y * inv_sqrt3);
+        const a0: f64 = @round(x + b0 * 0.5);
         var best_dist: f64 = 1e30;
         var best_a: i64 = @intFromFloat(a0);
         var best_b: i64 = @intFromFloat(b0);
@@ -64,8 +64,8 @@ pub fn comptimeSnap(comptime x: f64, comptime y: f64) EisensteinInteger {
             for (&[_]i64{ -1, 0, 1 }) |db| {
                 const a = @as(i64, @intFromFloat(a0)) + da;
                 const b = @as(i64, @intFromFloat(b0)) + db;
-                const cx = @as(f64, @floatFromInt(a)) - 0.5 * @as(f64, @floatFromInt(b));
-                const cy = half_sqrt3 * @as(f64, @floatFromInt(b));
+                const cx: f64 = @as(f64, @floatFromInt(a)) - 0.5 * @as(f64, @floatFromInt(b));
+                const cy: f64 = half_sqrt3 * @as(f64, @floatFromInt(b));
                 const dx = x - cx;
                 const dy = y - cy;
                 const d2 = dx * dx + dy * dy;
@@ -81,8 +81,8 @@ pub fn comptimeSnap(comptime x: f64, comptime y: f64) EisensteinInteger {
                 }
             }
         }
-        return .{ .a = best_a, .b = best_b };
-    }
+        break :blk .{ .a = best_a, .b = best_b };
+    };
 }
 
 // ── Runtime algorithms ──
@@ -204,22 +204,25 @@ pub fn snapBatchSimd(x_coords: []const f64, y_coords: []const f64, out: []Eisens
         const vx: Vec = x_coords[i..][0..vec_len].*;
         const vy: Vec = y_coords[i..][0..vec_len].*;
 
-        const b0: Vec = @round(2.0 * vy * @as(Vec, @splat(inv_sqrt3)));
+        const two: Vec = @splat(2.0);
+        const b0: Vec = @round(two * vy * @as(Vec, @splat(inv_sqrt3)));
         const a0: Vec = @round(vx + b0 * @as(Vec, @splat(0.5)));
 
         // For each of 9 candidates, compute squared distance vectorized
+        const a0_int: IVec = @intFromFloat(a0);
+        const b0_int: IVec = @intFromFloat(b0);
         var best_dist: Vec = @splat(1e30);
-        var best_a: IVec = @intCast(a0);
-        var best_b: IVec = @intCast(b0);
+        var best_a: IVec = a0_int;
+        var best_b: IVec = b0_int;
 
         const da_vals: [3]i64 = .{ -1, 0, 1 };
         const db_vals: [3]i64 = .{ -1, 0, 1 };
         for (da_vals) |da| {
             for (db_vals) |db| {
-                const a_vec: IVec = @intCast(a0) + @as(IVec, @splat(da));
-                const b_vec: IVec = @intCast(b0) + @as(IVec, @splat(db));
-                const a_f: Vec = @floatCast(a_vec);
-                const b_f: Vec = @floatCast(b_vec);
+                const a_vec: IVec = a0_int + @as(IVec, @splat(@as(i64, da)));
+                const b_vec: IVec = b0_int + @as(IVec, @splat(@as(i64, db)));
+                const a_f: Vec = @floatFromInt(a_vec);
+                const b_f: Vec = @floatFromInt(b_vec);
                 const cx: Vec = a_f - b_f * @as(Vec, @splat(0.5));
                 const cy: Vec = b_f * @as(Vec, @splat(half_sqrt3));
                 const dx: Vec = vx - cx;

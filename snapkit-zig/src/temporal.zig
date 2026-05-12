@@ -235,18 +235,10 @@ test "BeatGrid range" {
     const grid = try beatGridInit(1.0, 0.0, 0.0);
     var buf: [10]f64 = undefined;
     const count = beatGridRange(&grid, 1.5, 4.5, &buf);
-    try std.testing.expectEqual(@as(usize, 3)); // beats at 2, 3, 4
+    try std.testing.expectEqual(@as(usize, 3), count);
     try std.testing.expectApproxEqAbs(@as(f64, 2.0), buf[0], 1e-10);
     try std.testing.expectApproxEqAbs(@as(f64, 3.0), buf[1], 1e-10);
     try std.testing.expectApproxEqAbs(@as(f64, 4.0), buf[2], 1e-10);
-    _ = count;
-}
-
-test "BeatGrid range — count check" {
-    const grid = try beatGridInit(1.0, 0.0, 0.0);
-    var buf: [10]f64 = undefined;
-    const count = beatGridRange(&grid, 1.5, 4.5, &buf);
-    try std.testing.expectEqual(@as(usize, 3), count);
 }
 
 test "TemporalSnap — T-minus-0 detection" {
