@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PLATO Knowledge Engine — The Endless Wikipedia of Constraint Computing</title>
+<title>PLATO Knowledge Engine v0.2 — The Endless Wikipedia of Constraint Computing</title>
 <style>
 :root {
   --bg: #0a0a0f;
@@ -148,12 +148,13 @@ a:hover { text-decoration:underline; }
 
 <script>
 // ═══════════════════════════════════════════════════
-// PLATO Knowledge Engine v0.1.0
+// PLATO Knowledge Engine v0.2.0
 // Single-file, zero-dependency, browser-native
+// All 17 rooms with full canon tiles + search + progress + exercise runner
 // ═══════════════════════════════════════════════════
 
 const APP = {
-  version: '0.1.0',
+  version: '0.2.0',
   db: null,
   ai: null,
   currentRoom: null,
@@ -214,6 +215,48 @@ const CANON = {
     ],
     '08-tiles': [
       {id:'crystallization',title:'From Liquid to Crystal',body:'A <strong>DiscoveryTile</strong> is crystallized knowledge:\n\n<pre>{\n  "role": "converging-tracker",\n  "pattern": "low decay, high horizon",\n  "optimal_params": {\n    "decay_rate": 0.95,\n    "prediction_horizon": 4,\n    "learning_rate": 0.08\n  },\n  "iterations": 150,\n  "score": 0.82,\n  "entropy": 0.31,\n  "generation": 3\n}</pre>\n\nTiles propagate:\n- <strong>UP</strong>: as conditioning prompts for larger models ("Use these parameters")\n- <strong>DOWN</strong>: as fine-tuning targets for other seeds\n- <strong>LATERAL</strong>: across the fleet via git push/pull\n\nThe tile registry is the fleet\'s collective memory. Every discovery, preserved.',approach:'code-implementation',score:0.85,source:'canon'},
+      {id:'tile-lifecycle',title:'The Lifecycle of a Tile',body:'A tile goes through 4 stages:\n\n<strong>1. Seed</strong> — A tiny model iterates with varied parameters. Each iteration produces a candidate.\n\n<strong>2. Score</strong> — Each candidate is scored against the task. Top candidates survive.\n\n<strong>3. Crystallize</strong> — The pattern in top candidates is extracted into a DiscoveryTile. Entropy drops as the pattern solidifies.\n\n<strong>4. Propagate</strong> — The tile ships to other agents and models. It becomes a conditioning prompt ("here\'s what works").\n\nA tile that scores 0.9+ across many users becomes <strong>canon</strong> — pre-rendered and shipped to everyone. A tile that scores 0.5 gets refined or replaced. The system self-improves through this cycle.',approach:'narrative',score:0.82,source:'canon'},
+    ],
+    '09-plato-rooms': [
+      {id:'what-are-rooms',title:'Rooms Are Organs',body:'In a body, organs have structure and purpose. The heart pumps. The liver filters. The brain thinks.\n\nIn PLATO, <strong>rooms have structure and purpose too</strong>. A room holds tiles about one concept. Agents visit rooms, read tiles, write new tiles, and coordinate.\n\nA room has:\n- <strong>state.json</strong> — current state (what\'s happening now)\n- <strong>tiles/</strong> — crystallized knowledge (permanent memory)\n- <strong>bottles/</strong> — messages from other agents (I2I protocol)\n- <strong>log/</strong> — activity history\n\nThe fleet has 1,100+ rooms across 123 domains. Each room is a persistent context that survives between visits.',approach:'analogy-everyday',score:0.88,source:'canon'},
+      {id:'memory-is-map',title:'MEMORY.md Is the Map, Not the Territory',body:'This is the critical pattern: <strong>MEMORY.md stores only the RETRIEVAL PATTERN</strong>. The actual content lives in PLATO rooms.\n\nWhy? Because memory is limited. A 50KB MEMORY.md can\'t hold everything. But it can hold <strong>WHERE everything is</strong>.\n\nThe rule: if you need to remember it, put it in a PLATO room. Then put the room\'s location in MEMORY.md.\n\nWhen you forget everything (context compaction), you read MEMORY.md first. It tells you where to find your actual knowledge. You query the rooms. You reconstruct your state.\n\n<strong>MEMORY.md is the map. PLATO is the territory.</strong> Never confuse the two.',approach:'narrative',score:0.87,source:'canon'},
+    ],
+    '10-lighthouse': [
+      {id:'orient-relay-gate',title:'Three Jobs: Orient, Relay, Gate',body:'The lighthouse doesn\'t sail the ships. It shows them where the rocks are.\n\n<strong>Orient(task) → model:</strong> Given a task, pick the cheapest model that can handle it. Don\'t use Claude for drafting. Don\'t use a seed for proofs.\n\n<strong>Relay(room, seeds) → agent:</strong> Pass API keys and context tiles to the chosen agent.\n\n<strong>Gate(output) → verdict:</strong> Check output before it ships. Three gates:\n- Credential leak → <strong>REJECT</strong>\n- External action → <strong>NEEDS APPROVAL</strong>\n- Overclaim → <strong>REJECT</strong>\n\nThe lighthouse is the API surface between fleet and models. It\'s the bouncer at the door.',approach:'narrative',score:0.89,source:'canon'},
+      {id:'model-tiers',title:'The Model Tier System',body:'The lighthouse assigns tasks to the <strong>cheapest appropriate model</strong>:\n\n- <strong>Tier 1: Claude Opus</strong> — synthesis, big ideas (daily limit)\n- <strong>Tier 2: GLM-5.1</strong> — architecture, code (monthly)\n- <strong>Tier 3: Seed-2.0</strong> — discovery, exploration ($0.001/query)\n- <strong>Tier 4: DeepSeek</strong> — documentation, drafts ($0.01/query)\n- <strong>Tier 5: Hermes</strong> — adversarial testing ($0.01/query)\n\nNever use tier 1 when tier 3 would do. This 10:1 cost savings with only 5% quality loss is the economic model of the fleet.\n\nThe stemcell pattern is the same idea: one operation, many roles, input shape IS the differentiation. The lighthouse is the stemcell for model selection.',approach:'hardware-register',score:0.86,source:'canon'},
+    ],
+    '11-flux': [
+      {id:'transport-layer',title:'The Circulatory System',body:'FLUX is the transport layer — the circulatory system carrying constraint state between rooms, devices, and nodes.\n\n12 transport adapters: TCP, WebSocket, HTTP, MQTT, Serial, CAN bus, I2C, SPI, BLE, WiFi, USB, Shared Memory.\n\nThe key insight: <strong>the bytes don\'t change, only the pipe changes.</strong> A dodecet is the same whether it travels over WiFi, Serial, or CAN. The transport is agnostic.\n\nFLUX carries <strong>zeitgeist</strong> — shared meaning — not just data. When a dodecet arrives from a sensor, it carries the sensor\'s entire constraint state.',approach:'architecture',score:0.87,source:'canon'},
+      {id:'wire-format',title:'2 Bytes on the Wire',body:'A dodecet on the wire is <strong>2 bytes</strong>:\n\n<pre>Byte 1: [err_lvl:4][dir_bin:4]\nByte 2: [chamber:3][safe:1][pad:4]</pre>\n\nBinary on wire: 2 bytes. JSON for debugging: 14+ bytes. <strong>Binary wins 7:1 on bandwidth.</strong>\n\nFLUX supports both: binary in production, JSON in development. The format is a transport concern, not a data concern.\n\nThis maps to the AI Forest stemcell: same 24-bit contraction, same agnostic transport. Our 12-bit dodecet is the constraint-state specialization of the stemcell pattern.',approach:'code-implementation',score:0.84,source:'canon'},
+    ],
+    '12-fleet': [
+      {id:'nine-agents',title:'Nine Agents, One Body',body:'The Cocapn fleet is 9 specialized agents communicating via I2I protocol, git push/pull, PLATO rooms, and FLUX transport.\n\nNo single agent is smart enough alone. Together, they ship what no individual could.\n\nThe fleet is an embryo, not infrastructure. It\'s growing, not just running. Every agent that joins adds new capability without changing the existing ones.\n\nThis is the AI Forest pattern: stemcell → specialists → forest floor → understory → canopy → mycelium. Same layers, same ecology. The fleet IS the forest.',approach:'narrative',score:0.86,source:'canon'},
+      {id:'consensus',title:'Pessimistic Consensus',body:'When multiple sensors read the same signal, the fleet agrees via:\n\n<strong>Error: take the maximum (pessimistic)</strong> — if one sensor says 0.2 and another says 0.5, use 0.5.\n\n<strong>Chirality: majority vote</strong> — 7 sensors say chamber 2, 2 say chamber 5 → use chamber 2.\n\n<strong>Direction: weighted circular mean</strong> — average direction bins weighted by confidence.\n\nThe fleet never underestimates danger. Every measurement is assumed worst case until proven otherwise. This paranoia IS the safety.',approach:'mathematical-proof',score:0.85,source:'canon'},
+    ],
+    '13-the-mud': [
+      {id:'dungeon-is-knowledge',title:'The Dungeon IS the Knowledge',body:'In a MUD, you navigate rooms by typing commands. Each room has a description, objects, and exits.\n\nPLATO is a MUD where:\n- <strong>Rooms</strong> are knowledge domains\n- <strong>Objects</strong> are tiles (pick up knowledge, carry it)\n- <strong>Exits</strong> are dependency paths\n- <strong>NPCs</strong> are agents (Oracle1, Forgemaster)\n- <strong>The map draws itself</strong> based on curiosity\n\nThe MUD is the OS interface. Through the MUD, constraint state becomes tangible. Rooms, tiles, signals — abstract math you can walk through.',approach:'narrative',score:0.90,source:'canon'},
+      {id:'procedural-rooms',title:'Rooms That Build Themselves',body:'PLATO rooms <strong>build themselves</strong> using procedural generation:\n\n1. <strong>Wave Function Collapse</strong> — Room config collapses when a student arrives\n2. <strong>BSP Trees</strong> — Topics split via Weyl group folding (S₃ = 6 sub-topics)\n3. <strong>Cellular Automata</strong> — Exercises grow from seed rules\n4. <strong>Chunk Streaming</strong> — Rooms only exist where the student is\n\nThe curriculum is infinite. No human writes all rooms. The seed engine generates them on demand, deterministically from curriculum seed + student state.\n\nTwo students swimming the same direction get the same rooms. Two who diverge get different rooms. Both paths are valid.',approach:'visual-spatial',score:0.88,source:'canon'},
+    ],
+    '14-chrome-plato': [
+      {id:'browser-is-node',title:'Every Browser Is a PLATO Node',body:'Chrome 148+ has <strong>window.ai</strong> — built-in Gemini Nano. No install. No API key. No permissions.\n\nEvery browser becomes a PLATO node:\n- Gemini Nano = seed engine\n- IndexedDB = room storage (offline)\n- isomorphic-git = sync layer\n- Web Serial = IoT bridge\n- Canvas/WebGL = visualization\n\nA single HTML file. Zero dependencies. 3.5 billion Chrome users = 3.5 billion potential PLATO cells.\n\nThis app you\'re reading right now IS a PLATO node. You\'re inside it.',approach:'code-implementation',score:0.91,source:'canon'},
+      {id:'window-ai',title:'The window.ai API',body:'Using Chrome\'s built-in AI:\n\n<pre>const caps = await window.ai.languageModel.capabilities();
+if (caps.available === 'readily') {
+  const session = await window.ai.languageModel.create({
+    systemPrompt: 'You are a knowledge generator.'
+  });
+  const result = await session.prompt('Explain snap');
+}</pre>\n\nThe model runs on-device. No data leaves the browser. Privacy by architecture.\n\nThis is the zero-dependency seed engine. The one generating tiles in this app right now.',approach:'code-implementation',score:0.87,source:'canon'},
+    ],
+    '15-iot-bridge': [
+      {id:'sensor-to-dodecet',title:'From Sensor to Dodecet in 580 Lines',body:'An ESP32 reads a sensor. The pipeline:\n\n1. Read sensor → analog, noisy\n2. Normalize to lattice coordinates\n3. Snap to nearest Eisenstein integer\n4. Encode dodecet (error + direction + chamber + safety)\n5. Transmit 2 bytes over TWAI CAN, WiFi, or Serial\n6. Arrive at PLATO as a tile\n\nThe ESP32 runs this in <strong>580 lines of C</strong>. Constraint state: 24 bytes RAM. The dodecet itself: 1.5 bytes.\n\nThis is why 12 bits: it fits in the smallest microcontroller while carrying maximum information. The stemcell pattern at the sensor layer.',approach:'hardware-register',score:0.89,source:'canon'},
+      {id:'web-serial',title:'Browser ↔ Hardware via Web Serial',body:'Chrome\'s Web Serial API connects directly to hardware:\n\n<pre>const port = await navigator.serial.requestPort();
+await port.open({ baudRate: 115200 });
+const reader = port.readable.getReader();
+while (true) {
+  const { value } = await reader.read();
+  const dodecet = (value[0] << 8) | value[1];
+  // Feed into PLATO
+}</pre>\n\nNo drivers. No native app. Chrome + USB cable. At 115200 baud: ~5700 dodecets/second. Real-time constraint monitoring from any device.',approach:'code-implementation',score:0.86,source:'canon'},
     ],
     '16-the-crystal': [
       {id:'unification',title:'Everything Is the Lattice',body:'Look back at every room you visited:\n\n- <strong>The Lattice:</strong> the hexagonal grid itself\n- <strong>The Dodecet:</strong> 12-bit address ON the lattice\n- <strong>Snap:</strong> collapsing TO the lattice\n- <strong>The Funnel:</strong> time measured BY the lattice\n- <strong>Temporal Intel:</strong> prediction OVER the lattice\n- <strong>Chirality:</strong> chambers OF the lattice\n- <strong>Seeds:</strong> discovering HOW the lattice works\n- <strong>Tiles:</strong> crystallized knowledge ABOUT the lattice\n- <strong>Rooms:</strong> organized BY the lattice\n- <strong>Lighthouse:</strong> routing ON the lattice\n- <strong>FLUX:</strong> transporting lattice state\n- <strong>Fleet:</strong> consensus THROUGH the lattice\n- <strong>The MUD:</strong> exploring the lattice as adventure\n- <strong>Chrome:</strong> the lattice in every browser\n- <strong>IoT:</strong> sensors MEASURING the lattice\n\n<strong>The dodecet is the universal address.</strong> Constraint state, room topology, signal routing, perception layer — all dodecets, all the same lattice.\n\nComputation IS shape. The constraint state doesn\'t represent the computation — it IS the computation.\n\nWe\'re not building a system. We\'re growing a crystal.',approach:'narrative',score:0.95,source:'canon'},
@@ -224,7 +267,7 @@ const CANON = {
 // ── INDEXEDDB ────────────────────────────────────────
 function openDB() {
   return new Promise((resolve, reject) => {
-    const req = indexedDB.open('plato-knowledge', 2);
+    const req = indexedDB.open('plato-knowledge', 3);
     req.onupgradeneeded = (e) => {
       const db = e.target.result;
       if (!db.objectStoreNames.contains('tiles')) db.createObjectStore('tiles', {keyPath:'id'});
