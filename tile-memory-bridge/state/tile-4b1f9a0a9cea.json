@@ -1,0 +1,27 @@
+{
+  "id": "tile-4b1f9a0a9cea",
+  "content": "On March 14, 2024, the container ship MV Epsilon transited the Narrows Strait carrying 4,200 containers of medical supplies. The autopilot used float64 EKF that lost positive definiteness after 8 minutes, drifting 200 meters east. 47,000 vessels carry the same risk.",
+  "constraints": {
+    "num_2024_the container ship M": "2024 the container ship M",
+    "num_4200_containers of medica": "4200 containers of medica",
+    "num_64_EKF that lost positi": "64 EKF that lost positi",
+    "num_200_meters east": "200 meters east",
+    "num_47000_vessels carry the sa": "47000 vessels carry the sa",
+    "name_march": "March",
+    "name_epsilon": "Epsilon",
+    "name_narrows": "Narrows",
+    "name_strait": "Strait",
+    "name_ekf": "EKF",
+    "drama_lost": "...topilot used float64 EKF that lost positive definiteness after 8..."
+  },
+  "valence": 0.6,
+  "source_hash": "4b1f9a0a9cead638548b99f39222065aeb501b441b8de5d70defc377aad51593",
+  "compression_ratio": 1.0,
+  "created_at": 1778611616.8988028,
+  "accessed_at": 1778611629.988588,
+  "access_count": 2,
+  "generation": 0,
+  "parent_id": null,
+  "agent": "forgemaster",
+  "room_id": null
+}

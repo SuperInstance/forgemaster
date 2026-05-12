@@ -1,0 +1,22 @@
+{
+  "id": "tile-8b6b896483f8",
+  "content": "[Round 3 via healer] [Round 2 via bard] [Round 1 via oracle1] [Round 0 via forgemaster] On March 14, 2024, the container ship MV Epsilon transited the Narrows Strait carrying 4,200 containers of medica",
+  "constraints": {
+    "name_march": "March",
+    "name_epsilon": "Epsilon",
+    "name_narrows": "Narrows",
+    "name_strait": "Strait",
+    "name_ekf": "EKF",
+    "drama_lost": "...topilot used float64 EKF that lost positive definiteness after 8..."
+  },
+  "valence": 0.6,
+  "source_hash": "4b1f9a0a9cead638548b99f39222065aeb501b441b8de5d70defc377aad51593",
+  "compression_ratio": 1.4641000000000006,
+  "created_at": 1778611630.0194504,
+  "accessed_at": 1778611630.0194504,
+  "access_count": 1,
+  "generation": 4,
+  "parent_id": "tile-12d7660c6ded",
+  "agent": "healer",
+  "room_id": null
+}
