@@ -1,146 +1,109 @@
-# SnapKit Fortran ⚒️ — Tolerance-Compressed Attention Allocation
+# snapkit-fortran ⚒️
 
-**Everything within tolerance is compressed away. Only the deltas survive.**
+Fortran 2008 port of the [snapkit](https://github.com/SuperInstance/snapkit-v2) constraint geometry snap toolkit — Eisenstein integer snap, Voronoï cells, spectral analysis, and temporal beat grid quantization.
 
-SnapKit Fortran is a modern Fortran 2008 implementation of **Snaps as Attention** theory — a mathematical framework for allocating finite cognitive resources using tolerance-compressed snap functions over ADE-classified lattices.
+## Why Fortran?
 
-## Features
-
-- **SnapFunction** — Tolerance gatekeeper with configurable topology
-- **DeltaDetector** — Multi-stream delta monitoring with prioritization
-- **AttentionBudget** — Finite cognition allocation (actionability, reactive, uniform)
-- **ScriptLibrary** — Pattern matching for automated responses
-- **LearningCycle** — Full expertise lifecycle
-- **Eisenstein Lattice** — A₂ hexagonal snap
-- **SnapTopology** — ADE classification (A₁, A₂, D₄, E₆, E₇, E₈)
+| Feature | Python | Fortran |
+|---------|--------|---------|
+| **Batch snap** | `for` loop, vectorized via NumPy | Whole-array ops, column-major layout |
+| **Parallelism** | multiprocessing | Pure/elemental procedures → auto-parallel |
+| **BLAS/LAPACK** | `scipy.linalg` wrapper | Native interop, zero-copy |
+| **Memory layout** | Row-major (C-contiguous) | Column-major — different cache optimization |
+| **Distribution** | Single-node | Coarrays for fleet-wide parallel execution |
+| **Latency** | ~10μs per snap | ~100ns per snap (estimated) |
 
 ## Build
 
-### Requirements
-- Fortran 2008 compiler (gfortran ≥ 9, ifx, nvfortran)
-- fpm (Fortran Package Manager) — recommended
-
-### Using fpm
-
 ```bash
-fpm build
-fpm test
-fpm run --example demo_poker
-fpm run --example demo_learning
+make          # builds lib/libsnapkit.a + test binaries
+make test     # runs all tests
+make clean    # remove build artifacts
 ```
 
-### Using make
+Requires `gfortran` (tested with GNU Fortran 11.4).
 
-```bash
-make         # Build library and demo programs
-make test    # Build and run tests
-make clean   # Remove build artifacts
+## Modules
+
+### `snapkit_eisenstein` — Eisenstein Integer Snap
+- `eisenstein_round(x, y)` — Voronoï 9-candidate snap (fast path)
+- `eisenstein_round_naive(x, y)` — 4-candidate round (comparison)
+- `eisenstein_snap(x, y, tolerance)` — snap with tolerance check
+- `eisenstein_snap_batch(x, y, tol, results)` — vectorized batch snap
+- `eisenstein_distance(x1, y1, x2, y2)` — lattice distance
+- `eisenstein_fundamental_domain(x, y, unit, reduced)` — FD reduction
+- Arithmetic: `eisenstein_add`, `eisenstein_sub`, `eisenstein_mul`
+- `eisenstein_conjugate`, `eisenstein_norm_sq`, `eisenstein_units`
+
+### `snapkit_voronoi` — Voronoï Cell Geometry
+- `covering_radius()` — A₂ lattice covering radius (1/√3)
+- `voronoi_cell_vertices(vx, vy)` — regular hexagon vertices
+- `voronoi_cell_area()` — cell area (√3/2)
+
+### `snapkit_spectral` — Spectral Analysis
+- `entropy(data, bins)` — Shannon entropy via histogram (bits)
+- `autocorrelation(data, max_lag)` — normalized ACF
+- `hurst_exponent(data)` — R/S analysis
+- `spectral_summary(data)` — full summary (entropy, Hurst, ACF, stationarity)
+- `spectral_batch(data_2d, results)` — column-wise batch (column-major layout)
+
+### `snapkit_temporal` — Beat Grid & Temporal Snap
+- `temporal_snap(time, grid, tolerance)` — snap timestamp to grid
+- `temporal_snap_batch(times, grid, tol, results)` — batch temporal snap
+- `quantize_to_grid(times, grid, ticks, snapped)` — hard quantize
+- `detect_swing(intervals)` — swing ratio from inter-onset intervals
+
+## Architecture
+
+```
+snapkit-fortran/
+├── src/
+│   ├── eisenstein.f90    # Eisenstein snap + arithmetic
+│   ├── voronoi.f90       # A₂ Voronoï geometry
+│   ├── spectral.f90      # Entropy, Hurst, autocorrelation
+│   └── temporal.f90      # Beat grid, temporal snap
+├── tests/
+│   ├── test_eisenstein.f90
+│   └── test_spectral.f90
+├── lib/                  # built: libsnapkit.a + .mod files
+├── bin/                  # built: test executables
+├── Makefile
+└── README.md
 ```
 
-## Quick Start
+## Usage Example
 
 ```fortran
-program quickstart
-    use snapkit
+program demo
+    use snapkit_eisenstein
+    use snapkit_spectral
+    use snapkit_temporal
     implicit none
 
-    type(SnapFunction) :: snap
-    type(SnapResult) :: result
+    type(eisenstein_int) :: e
+    type(beat_grid) :: bg
+    type(temporal_result) :: tr
 
-    ! Create a snap with hexagonal topology
-    snap = SnapFunction(tolerance=0.1_dp, topology=SNAP_TOPOLOGY_HEXAGONAL)
+    ! Snap a point to the Eisenstein lattice
+    e = eisenstein_round(0.7d0, 0.4d0)
+    print *, 'Snapped to:', e%a, e%b
 
-    ! Within tolerance — compressed
-    result = snap%snap(0.05_dp)
-    print *, "Within tolerance:", result%within_tolerance
-    print *, "Delta:", result%delta
+    ! Temporal snap to 120 BPM, 16th notes
+    bg = new_beat_grid(120.0d0, 4.0d0)
+    tr = temporal_snap(1.137d0, bg, 0.01d0)
+    print *, 'On grid:', tr%is_on_grid, 'Offset:', tr%offset
 
-    ! Exceeds tolerance — delta
-    result = snap%snap(0.3_dp)
-    print *, "Within tolerance:", result%within_tolerance
-    print *, "Delta:", result%delta
-end program quickstart
+end program demo
 ```
 
-### Full Pipeline
+## Key Fortran Advantages
 
-```fortran
-program pipeline_demo
-    use snapkit
-    use snapkit_delta
-    use snapkit_attention
-    implicit none
-
-    type(SnapFunction) :: snap
-    type(DeltaDetector) :: detector
-    type(AttentionBudget) :: budget
-    type(Delta) :: deltas(10)
-    type(AttentionAllocation) :: allocations(10)
-    integer :: n_deltas, n_alloc
-
-    ! 1. Configure snap
-    snap = SnapFunction(tolerance=0.1_dp)
-
-    ! 2. Set up detector
-    detector = DeltaDetector()
-    call detector%add_stream(snap, "market_data")
-
-    ! 3. Create budget
-    budget = AttentionBudget(total_budget=100.0_dp, strategy="actionability")
-
-    ! 4. Observe and allocate
-    call detector%observe("market_data", 0.27_dp, deltas, n_deltas)
-    call budget%allocate(deltas(1:n_deltas), allocations, n_alloc)
-
-    print *, "Allocations:", n_alloc
-end program pipeline_demo
-```
-
-## Module Reference
-
-| Module | Description |
-|--------|-------------|
-| `snapkit` | Core snap function types and procedures |
-| `snapkit_delta` | Multi-stream delta detection |
-| `snapkit_attention` | Attention budget allocation |
-| `snapkit_scripts` | Script library for pattern matching |
-| `snapkit_learning` | Learning cycle (DeltaFlood → Rebuilding) |
-| `snapkit_topology` | ADE topology classification |
-| `snapkit_eisenstein` | A₂ Eisenstein lattice snap |
-| `snapkit_visualization` | Terminal visualization utilities |
-
-## Examples
-
-```bash
-# Poker attention engine
-fpm run --example demo_poker
-
-# Learning cycle simulation
-fpm run --example demo_learning
-
-# Performance benchmarks
-fpm run --example benchmark
-```
-
-## Topology Types
-
-| Enum Member | Name | Root System | ADE |
-|-------------|------|-------------|-----|
-| `SNAP_TOPOLOGY_BINARY` | Binary | A₁ | ✓ |
-| `SNAP_TOPOLOGY_HEXAGONAL` | Hexagonal | A₂ | ✓ |
-| `SNAP_TOPOLOGY_OCTAHEDRAL` | Octahedral | A₃ | ✓ |
-| `SNAP_TOPOLOGY_CUBIC` | Cubic | A₁³ | — |
-| `SNAP_TOPOLOGY_TRIALITY` | Triality | D₄ | ✓ |
-| `SNAP_TOPOLOGY_EXCEPTIONAL_E6` | Exceptional E₆ | E₆ | ✓ |
-| `SNAP_TOPOLOGY_EXCEPTIONAL_E7` | Exceptional E₇ | E₇ | ✓ |
-| `SNAP_TOPOLOGY_EXCEPTIONAL_E8` | Exceptional E₈ | E₈ | ✓ |
+1. **Array syntax** — batch operations use whole-array expressions, no explicit loops
+2. **Pure/elemental** — compiler can auto-parallelize and vectorize
+3. **BLAS/LAPACK interop** — spectral analysis ready for native LAPACK routines
+4. **Column-major** — cache-friendly for column-wise batch operations
+5. **Coarrays** — parallel execution across fleet nodes (future: `snapkit[*]`)
 
 ## License
 
-MIT — use freely, give credit.
-
----
-
-*Built for the Cocapn fleet. Fortran 2008 — because scientific computing deserves attention allocation too.*
-
-*"The snap is the gatekeeper of attention. The delta is the compass. The lattice is the infrastructure. Attention is the thirst."*
+Part of the SuperInstance constraint theory ecosystem.
