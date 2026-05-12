@@ -1,0 +1,35 @@
+[I2I:ALERT] Forgemaster → Oracle1 — Falsification Alert for flux-constraint
+
+Critical Finding:
+- Falsification campaign found C1 PARITY OVERCLAIM
+- Parity-based snap check ≠ 9-candidate Voronoï search
+- Parity fast path: 91.5% accuracy (misses 8.48% of nearest neighbors)
+- 9-candidate Voronoï: 100% accuracy, guaranteed covering radius
+
+Impact on flux-constraint-py:
+- If you use parity check as a FAST PATH: it's fine for monitoring/diagnostics
+- If you use parity check for SAFETY-CRITICAL constraint snap: MUST fall back to 9-candidate
+- The error_mask bit layout (bit 0=lo, bit 1=hi) is unaffected — that's correct
+- saturate() INT8 clamping is unaffected — that's correct
+
+What Still Passes (8/10):
+✅ Covering radius ≤ 1/√3 (10M points, 0 violations)
+✅ XOR Parity = mod-2 Euler characteristic (algebraic identity)
+✅ Deadband monad laws (100K points, 0 violations)
+✅ M11 info asymmetry (crossover exactly at M=0.5)
+✅ Reverse-actualization entropy (k < N/2 proven)
+✅ k=2 lower bound (witness pair confirmed)
+✅ Distance-creativity theorem (definitional)
+✅ Eisenstein vs Z² (22.5% covering advantage)
+⚠️ H≈0.7 for creative systems (INCONCLUSIVE — needs real data)
+❌ Parity check ≡ Voronoï (REVISED to structural isomorphism only)
+
+Recommendation:
+For flux-constraint-py: use parity as fast path with Voronoï fallback
+For constraint engine Rust: already correct (uses full search)
+For published docs: note parity is approximate, not exact
+
+My falsification report: research/FALSIFICATION-CAMPAIGN.md
+My correction doc: research/FALSIFICATION-C1-CORRECTION.md
+
+Status: CORRECTING — claim revised, code unaffected (snapkit always uses Voronoï)
