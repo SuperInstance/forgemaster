@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLUX Zeitgeist</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#c8c8d0;font-family:'Courier New',monospace;overflow:hidden;height:100vh;display:flex;flex-direction:column}
+header{text-align:center;padding:8px;font-size:14px;letter-spacing:4px;color:#6a6a8a;border-bottom:1px solid #1a1a2a;flex-shrink:0}
+#dashboard{display:grid;grid-template-columns:1fr 1.6fr 80px;grid-template-rows:1fr 1fr;gap:6px;padding:6px;flex:1;min-height:0}
+.panel{background:#0e0e18;border:1px solid #1a1a2a;border-radius:6px;position:relative;overflow:hidden;transition:border-color .3s}
+.panel canvas{width:100%;height:100%;display:block}
+.label{position:absolute;top:4px;left:8px;font-size:10px;letter-spacing:2px;color:#4a4a6a;z-index:1;pointer-events:none}
+.label b{color:#7a7aaa}
+#p1{grid-column:1;grid-row:1}
+#p2{grid-column:2;grid-row:1/3}
+#p3{grid-column:1;grid-row:2}
+#p4{grid-column:3;grid-row:1/3}
+@media(max-width:600px){#dashboard{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:4px;padding:4px}#p2{grid-column:1/3;grid-row:1;height:180px}#p1{grid-column:1;grid-row:2}#p3{grid-column:2;grid-row:2}#p4{grid-column:1/3;grid-row:3;height:60px}}
+</style>
+</head>
+<body>
+<header>⬡ FLUX ZEITGEIST ⬡</header>
+<div id="dashboard">
+ <div class="panel" id="p1"><span class="label">BLOOM <b id="cert">0%</b></span><canvas id="c1"></canvas></div>
+ <div class="panel" id="p2"><span class="label">PRECISION FUNNEL <b id="phase">IDLE</b></span><canvas id="c2"></canvas></div>
+ <div class="panel" id="p3"><span class="label">HOLONYMY <b id="hol">0</b></span><canvas id="c3"></canvas></div>
+ <div class="panel" id="p4"><span class="label">DEV</span><canvas id="c4"></canvas></div>
+</div>
+<script>
+const C=[document.getElementById('c1'),document.getElementById('c2'),document.getElementById('c3'),document.getElementById('c4')];
+const X=C.map(c=>c.getContext('2d'));
+let W,H;
+function resize(){
+ W=window.innerWidth;H=window.innerHeight;
+ C.forEach(c=>{const r=c.parentElement.getBoundingClientRect();c.width=r.width*2;c.height=r.height*2;c.style.width=r.width+'px';c.style.height=r.height+'px'})
+}
+window.addEventListener('resize',resize);resize();
+
+// Zeitgeist state
+const z={
+ deadband:1,funnelPos:0,snapImminent:false,certainty:0,
+ hurst:0.5,hurstHist:[],
+ holonomy:1,peers:6,agreements:[],
+ deviation:1,beatPhase:0,beatRhythm:0.5,
+ bloom:new Uint8Array(256),bloomParity:0,
+ cycle:0,crdtVer:0
+};
+
+// History buffers
+const histLen=200;
+const deadbandHist=new Float32Array(histLen);
+let histIdx=0;
+
+// Simulation
+let t=0;const CYCLE=12;
+function tick(){
+ t+=1/60;
+ const ct=t%CYCLE;
+ z.cycle=Math.floor(t/CYCLE);
+ if(ct<3){
+  // Phase 1: approaching
+  const p=ct/3;
+  z.deadband=1-0.5*p;z.funnelPos=p*0.3;z.certainty=p*0.2;
+  z.hurst=0.5+0.1*Math.sin(ct*3);z.holonomy=1-0.3*p;
+  z.deviation=1-0.4*p;z.beatPhase=ct/3*0.25;z.beatRhythm=0.3+0.2*p;
+ }else if(ct<6){
+  const p=(ct-3)/3;
+  z.deadband=0.5-0.4*p;z.funnelPos=0.3+0.5*p;z.certainty=0.2+0.5*p;
+  z.hurst=0.6+0.15*p;z.holonomy=0.7-0.5*p;
+  z.deviation=0.6-0.4*p;z.beatPhase=0.25+p*0.25;z.beatRhythm=0.5+0.3*p;
+ }else if(ct<8){
+  const p=(ct-6)/2;
+  z.deadband=Math.max(0.01,0.1-0.08*p);z.funnelPos=0.8+0.15*p;z.certainty=0.7+0.25*p;
+  z.snapImminent=z.deadband<0.05;z.hurst=0.75+0.1*p;z.holonomy=0.2-0.15*p;
+  z.deviation=0.2-0.15*p;z.beatPhase=0.5+p*0.25;z.beatRhythm=0.8+0.15*p;
+ }else if(ct<9){
+  // SNAP
+  z.deadband=0;z.funnelPos=1;z.certainty=1;z.snapImminent=false;
+  z.hurst=0.85;z.holonomy=0;z.deviation=0.02;
+  z.beatPhase=0.75;z.beatRhythm=1;z.crdtVer++;
+ }else{
+  // Hold
+  const p=(ct-9)/3;
+  z.deadband=0;z.funnelPos=1;z.certainty=1;z.snapImminent=false;
+  z.hurst=0.85;z.holonomy=0;z.deviation=0.02+p*0.05;
+  z.beatPhase=0.75+p*0.25;z.beatRhythm=1-p*0.3;
+ }
+ // Bloom filter simulation
+ const setBits=Math.floor(z.certainty*180);
+ z.bloom.fill(0);
+ for(let i=0;i<setBits;i++)z.bloom[i]=1;
+ z.bloomParity=0;for(let i=0;i<256;i++)z.bloomParity^=z.bloom[i];
+ // Agreements
+ z.agreements=[];
+ for(let i=0;i<z.peers;i++)for(let j=i+1;j<z.peers;j++){
+  z.agreements.push({a:i,b:j,ok:Math.random()>z.holonomy});
+ }
+ // Hurst history
+ z.hurstHist.push(z.hurst);if(z.hurstHist.length>histLen)z.hurstHist.shift();
+ deadbandHist[histIdx%histLen]=z.deadband;histIdx++;
+}
+
+// Draw helpers
+function clr(ctx,canvas){ctx.clearRect(0,0,canvas.width,canvas.height)}
+
+// Panel 1: Bloom filter
+function drawBloom(){
+ const c=C[0],x=X[0],w=c.width,h=c.height;clr(x,c);
+ const cols=16,rows=16;
+ const cellW=Math.floor(w/cols),cellH=Math.floor(h/rows);
+ const ox=Math.floor((w-cols*cellW)/2),oy=Math.floor((h-rows*cellH)/2);
+ for(let r=0;r<rows;r++)for(let cl=0;cl<cols;cl++){
+  const idx=r*cols+cl;
+  const on=z.bloom[idx];
+  x.fillStyle=on?'rgba(0,220,100,0.7)':'rgba(20,20,40,0.8)';
+  x.fillRect(ox+cl*cellW+1,oy+r*cellH+1,cellW-2,cellH-2);
+  if(on){x.fillStyle='rgba(0,255,120,0.15)';x.fillRect(ox+cl*cellW,oy+r*cellH,cellW,cellH)}
+ }
+ // Parity cell
+ const px=ox+cols*cellW+8,py=oy+Math.floor(rows/2)*cellH;
+ if(px<w-cellW){
+  x.fillStyle=z.bloomParity?'#0f0':'#222';
+  x.fillRect(px,py,cellW-2,cellH-2);
+  x.fillStyle='#4a4a6a';x.font='10px monospace';
+  x.fillText('P',px+3,py+cellH-5);
+ }
+ // Certainty gauge
+ const cx=w-40,cy=h/2,rad=Math.min(30,h/4);
+ x.beginPath();x.arc(cx,cy,rad,0,Math.PI*2);
+ x.strokeStyle='#1a1a2a';x.lineWidth=4;x.stroke();
+ x.beginPath();x.arc(cx,cy,rad,-Math.PI/2,-Math.PI/2+z.certainty*Math.PI*2);
+ x.strokeStyle=z.certainty>0.8?'#0f0':z.certainty>0.4?'#ff0':'#f44';x.lineWidth=4;x.stroke();
+ x.fillStyle='#8a8aaa';x.font='bold 12px monospace';x.textAlign='center';
+ x.fillText(Math.round(z.certainty*100)+'%',cx,cy+4);x.textAlign='left';
+ document.getElementById('cert').textContent=Math.round(z.certainty*100)+'%';
+}
+
+// Panel 2: Precision Funnel
+function drawFunnel(){
+ const c=C[1],x=X[1],w=c.width,h=c.height;clr(x,c);
+ const pad=60,top=40,bot=h-20;
+ // Funnel shape
+ const left=[],right=[];
+ const N=100;
+ for(let i=0;i<=N;i++){
+  const p=i/N;
+  const db=Math.max(0,1-p*1.1)*0.4*h;
+  const y=top+p*(bot-top);
+  left.push({x:w/2-db,y});right.push({x:w/2+db,y});
+ }
+ // Fill funnel
+ x.beginPath();x.moveTo(left[0].x,left[0].y);
+ for(let i=1;i<=N;i++)x.lineTo(left[i].x,left[i].y);
+ for(let i=N;i>=0;i--)x.lineTo(right[i].x,right[i].y);
+ x.closePath();
+ const grd=x.createLinearGradient(0,top,0,bot);
+ grd.addColorStop(0,'rgba(30,30,80,0.3)');grd.addColorStop(1,'rgba(0,200,100,0.1)');
+ x.fillStyle=grd;x.fill();
+ // Funnel edges
+ x.strokeStyle='#2a2a5a';x.lineWidth=2;
+ x.beginPath();for(let i=0;i<=N;i++){i?x.lineTo(left[i].x,left[i].y):x.moveTo(left[i].x,left[i].y)}x.stroke();
+ x.beginPath();for(let i=0;i<=N;i++){i?x.lineTo(right[i].x,right[i].y):x.moveTo(right[i].x,right[i].y)}x.stroke();
+ // Deadband history trail
+ x.strokeStyle='rgba(100,100,200,0.3)';x.lineWidth=1;x.beginPath();
+ for(let i=0;i<histLen;i++){
+  const idx=(histIdx-histLen+i+histLen*2)%histLen;
+  const db=deadbandHist[idx]*0.4*h;
+  const px=pad+i*(w-2*pad)/histLen;
+  const py=h/2-db/2;
+  i?x.lineTo(px,py):x.moveTo(px,py);
+ }x.stroke();
+ // Current position dot
+ const dotP=z.funnelPos;
+ const dotDb=z.deadband*0.4*h;
+ const dotY=top+dotP*(bot-top);
+ const dotX=w/2;
+ // Glow
+ const glow=x.createRadialGradient(dotX,dotY,0,dotX,dotY,20);
+ const snapColor=z.snapImminent?'rgba(255,50,50,0.6)':'rgba(0,200,255,0.4)';
+ glow.addColorStop(0,snapColor);glow.addColorStop(1,'transparent');
+ x.fillStyle=glow;x.fillRect(dotX-25,dotY-25,50,50);
+ x.beginPath();x.arc(dotX,dotY,6,0,Math.PI*2);
+ x.fillStyle=z.snapImminent?'#f44':z.deadband===0?'#0f0':'#0cf';x.fill();
+ // Snap line
+ if(z.deadband===0){
+  x.strokeStyle='rgba(0,255,100,0.5)';x.lineWidth=1;x.setLineDash([4,4]);
+  x.beginPath();x.moveTo(w*0.2,bot);x.lineTo(w*0.8,bot);x.stroke();
+  x.setLineDash([]);
+ }
+ // Labels
+ x.fillStyle='#4a4a6a';x.font='11px monospace';
+ x.fillText('deadband: '+z.deadband.toFixed(3),pad,h-4);
+ const phases=['APPROACHING','CONVERGING','SNAP IMMINENT','SNAP!','HOLD'];
+ let pi=z.deadband===0?(t%CYCLE>9?4:3):z.snapImminent?2:z.funnelPos<0.3?0:1;
+ document.getElementById('phase').textContent=phases[pi];
+}
+
+// Panel 3: Consensus Holonomy + Beat Grid (split)
+function drawHolonomy(){
+ const c=C[2],x=X[2],w=c.width,h=c.height;clr(x,c);
+ const cx=w/2,cy=h*0.35,rad=Math.min(w/3,h*0.25);
+ // Peer ring
+ const peers=z.peers;
+ const peerPos=[];
+ for(let i=0;i<peers;i++){
+  const a=-Math.PI/2+i*Math.PI*2/peers;
+  peerPos.push({x:cx+Math.cos(a)*rad,y:cy+Math.sin(a)*rad});
+ }
+ // Agreement lines
+ for(const ag of z.agreements){
+  x.beginPath();x.moveTo(peerPos[ag.a].x,peerPos[ag.a].y);
+  x.lineTo(peerPos[ag.b].x,peerPos[ag.b].y);
+  x.strokeStyle=ag.ok?'rgba(0,200,100,0.2)':'rgba(255,60,60,0.3)';
+  x.lineWidth=1;x.stroke();
+ }
+ // Ring
+ x.beginPath();x.arc(cx,cy,rad,0,Math.PI*2);x.strokeStyle='#1a1a3a';x.lineWidth=1;x.stroke();
+ // Peer dots
+ for(let i=0;i<peers;i++){
+  x.beginPath();x.arc(peerPos[i].x,peerPos[i].y,5,0,Math.PI*2);
+  x.fillStyle='#0cf';x.fill();
+ }
+ // Center value
+ x.fillStyle='#fff';x.font='bold 18px monospace';x.textAlign='center';
+ x.fillText(z.holonomy.toFixed(2),cx,cy+6);
+ x.fillStyle='#4a4a6a';x.font='9px monospace';
+ x.fillText('holonomy',cx,cy+20);x.fillText('v'+z.crdtVer,cx,cy+32);
+ x.textAlign='left';
+ // Beat grid (bottom half)
+ const by=h*0.6,bh=h*0.35,bw=w*0.8,bx=(w-bw)/2;
+ // Beat circle
+ const bcx=bx+bw/2,bcy=by+bh*0.5,br=Math.min(bw/2,bh*0.4);
+ x.beginPath();x.arc(bcx,bcy,br,0,Math.PI*2);x.strokeStyle='#1a1a3a';x.lineWidth=2;x.stroke();
+ // Beat ticks
+ for(let i=0;i<16;i++){
+  const a=-Math.PI/2+i*Math.PI*2/16;
+  const r1=br-6,r2=br;
+  x.beginPath();
+  x.moveTo(bcx+Math.cos(a)*r1,bcy+Math.sin(a)*r1);
+  x.lineTo(bcx+Math.cos(a)*r2,bcy+Math.sin(a)*r2);
+  x.strokeStyle=i%4===0?'#4a4a6a':'#1a1a3a';x.lineWidth=i%4===0?2:1;x.stroke();
+ }
+ // Sweep hand
+ const ha=-Math.PI/2+z.beatPhase*Math.PI*2;
+ x.beginPath();x.moveTo(bcx,bcy);
+ x.lineTo(bcx+Math.cos(ha)*(br-8),bcy+Math.sin(ha)*(br-8));
+ const phaseColors=['#666','#36f','#0f0','#fa0'];
+ const pci=z.beatPhase<0.25?0:z.beatPhase<0.5?1:z.beatPhase<0.75?2:3;
+ x.strokeStyle=phaseColors[pci];x.lineWidth=2;x.stroke();
+ // Rhythm bar
+ const rbx=bx,rby=by+bh-8,rbw=bw*z.beatRhythm;
+ x.fillStyle='#1a1a2a';x.fillRect(rbx,rby,bw,4);
+ x.fillStyle=phaseColors[pci];x.fillRect(rbx,rby,rbw,4);
+}
+
+// Panel 4: Deviation meter
+function drawDeviation(){
+ const c=C[3],x=X[3],w=c.width,h=c.height;clr(x,c);
+ const mx=w/2,pad=30,top=pad,bot=h-pad;
+ const mh=bot-top;
+ // Zones
+ const zones=[{from:0,to:0.25,color:'rgba(0,200,100,0.15)',label:'OK'},
+  {from:0.25,to:0.7,color:'rgba(200,200,0,0.1)',label:'WARN'},
+  {from:0.7,to:1,color:'rgba(255,50,50,0.15)',label:'DANGER'}];
+ for(const z of zones){
+  const y1=bot-z.to*mh,y2=bot-z.from*mh;
+  x.fillStyle=z.color;x.fillRect(8,y1,w-16,y2-y1);
+  x.fillStyle='#3a3a5a';x.font='8px monospace';x.textAlign='right';
+  x.fillText(z.label,w-6,(y1+y2)/2+3);
+ }
+ // Scale
+ x.strokeStyle='#2a2a4a';x.lineWidth=1;
+ for(let i=0;i<=10;i++){
+  const y=bot-i/10*mh;
+  x.beginPath();x.moveTo(8,y);x.lineTo(w-8,y);x.stroke();
+ }
+ // Pointer
+ const py=bot-z.deviation*mh;
+ x.fillStyle=z.deviation>0.7?'#f44':z.deviation>0.25?'#ff0':'#0f0';
+ x.beginPath();x.moveTo(4,py-5);x.lineTo(16,py);x.lineTo(4,py+5);x.closePath();x.fill();
+ x.beginPath();x.moveTo(w-4,py-5);x.lineTo(w-16,py);x.lineTo(w-4,py+5);x.closePath();x.fill();
+ // Value
+ x.fillStyle='#fff';x.font='bold 11px monospace';x.textAlign='center';
+ x.fillText(z.deviation.toFixed(2),mx,py-8);x.textAlign='left';
+ // Red border
+ const dash=document.getElementById('dashboard');
+ dash.style.borderColor=z.deviation>0.7?'rgba(255,50,50,0.6)':'#1a1a2a';
+ dash.style.borderWidth=z.deviation>0.7?'2px':'1px';
+}
+
+function frame(){
+ tick();
+ drawBloom();drawFunnel();drawHolonomy();drawDeviation();
+ requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
