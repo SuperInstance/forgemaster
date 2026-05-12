@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLATO Cross-Section — The Life Aquatic View</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050510;color:#c0c0c0;font-family:'JetBrains Mono',monospace;overflow:hidden;height:100vh}
+canvas{display:block;width:100%;height:100%}
+#overlay{position:fixed;top:8px;left:8px;z-index:10;pointer-events:none}
+#overlay h1{color:#f0c040;font-size:1em;opacity:0.7}
+#overlay .sub{color:#666;font-size:0.7em}
+#legend{position:fixed;bottom:8px;left:8px;z-index:10;background:rgba(0,0,0,0.7);padding:8px;border-radius:4px;font-size:0.65em;line-height:1.6}
+#legend .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
+#info{position:fixed;top:8px;right:8px;z-index:10;background:rgba(0,0,0,0.7);padding:8px;border-radius:4px;font-size:0.65em;max-width:300px;display:none}
+#info .title{color:#f0c040;font-size:0.8em;margin-bottom:4px}
+#info .body{color:#aaa;white-space:pre-wrap;max-height:200px;overflow-y:auto}
+#stats{position:fixed;bottom:8px;right:8px;z-index:10;font-size:0.6em;color:#444;text-align:right}
+</style>
+</head>
+<body>
+<div id="overlay">
+  <h1>⚒️ PLATO Cross-Section</h1>
+  <div class="sub">The Life Aquatic View — every room, every agent, every signal</div>
+</div>
+
+<div id="legend">
+  <div><span class="dot" style="background:#f0c040"></span> Lighthouse (Forgemaster)</div>
+  <div><span class="dot" style="background:#4caf50"></span> Fleet agents</div>
+  <div><span class="dot" style="background:#2196f3"></span> Seed tiles (flowing)</div>
+  <div><span class="dot" style="background:#ff9800"></span> Constraint signals</div>
+  <div><span class="dot" style="background:#9c27b0"></span> IoT devices</div>
+  <div style="margin-top:4px;color:#555">Click a room to inspect. Rooms pulse when active.</div>
+</div>
+
+<div id="info"><div class="title"></div><div class="body"></div></div>
+<div id="stats"></div>
+
+<canvas id="c"></canvas>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ─── Room Layout (cross-section zoo) ────────────────
+// Each room is a "tank" in the cross-section view
+// Arranged in layers like a building cutaway
+
+const ROOMS = [
+  // Layer 0: Fleet Command (top)
+  {id:'fleet-command',     label:'Fleet Command',     x:0.35, y:0.06, w:0.30, h:0.10, color:'#1a2a1a', agents:['Oracle1'], tiles:36},
+  {id:'lighthouse-spine',  label:'Lighthouse Spine',  x:0.08, y:0.06, w:0.22, h:0.10, color:'#2a2a1a', agents:['Forgemaster'], tiles:210},
+
+  // Layer 1: Intelligence
+  {id:'constraint-params', label:'Constraint Params',  x:0.04, y:0.20, w:0.18, h:0.10, color:'#1a1a2a', agents:[], tiles:15},
+  {id:'seed-discoveries',  label:'Seed Discoveries',   x:0.24, y:0.20, w:0.22, h:0.10, color:'#1a2a2a', agents:['Seed-2.0-mini'], tiles:750},
+  {id:'temporal-intel',    label:'Temporal Intel',     x:0.48, y:0.20, w:0.20, h:0.10, color:'#2a1a2a', agents:[], tiles:45},
+  {id:'fleet-coordination',label:'Fleet Coordination', x:0.70, y:0.20, w:0.26, h:0.10, color:'#1a2a1a', agents:['Oracle1','Forgemaster'], tiles:28},
+
+  // Layer 2: Research & Knowledge
+  {id:'eisenstein-core',   label:'Eisenstein Core',    x:0.04, y:0.34, w:0.20, h:0.12, color:'#2a2a1a', agents:[], tiles:89},
+  {id:'math-proofs',       label:'Math Proofs',        x:0.26, y:0.34, w:0.16, h:0.12, color:'#1a1a2a', agents:['Claude'], tiles:23},
+  {id:'falsification',     label:'Falsification Lab',  x:0.44, y:0.34, w:0.18, h:0.12, color:'#2a1a1a', agents:['Hermes'], tiles:18},
+  {id:'dissertation',      label:'Dissertation V3',    x:0.64, y:0.34, w:0.16, h:0.12, color:'#1a2a2a', agents:[], tiles:1},
+  {id:'visual-tiles',      label:'Visual Tiles',       x:0.82, y:0.34, w:0.14, h:0.12, color:'#2a1a2a', agents:[], tiles:46},
+
+  // Layer 3: The MUD / PLATO
+  {id:'plato-archives',    label:'PLATO Archives',     x:0.04, y:0.50, w:0.24, h:0.12, color:'#1a1a1a', agents:[], tiles:1805},
+  {id:'mud-engine',        label:'MUD Engine',         x:0.30, y:0.50, w:0.18, h:0.12, color:'#1a2a1a', agents:[], tiles:32},
+  {id:'zeitgeist-viz',     label:'Zeitgeist Viz',      x:0.50, y:0.50, w:0.16, h:0.12, color:'#2a2a1a', agents:[], tiles:12},
+  {id:'flux-transport',    label:'FLUX Transport',     x:0.68, y:0.50, w:0.14, h:0.12, color:'#1a1a2a', agents:[], tiles:10},
+  {id:'flux-contracts',    label:'FLUX Contracts',     x:0.84, y:0.50, w:0.12, h:0.12, color:'#2a1a2a', agents:[], tiles:5},
+
+  // Layer 4: Published Artifacts
+  {id:'crates-published',  label:'crates.io (19)',     x:0.04, y:0.66, w:0.18, h:0.08, color:'#1a2a1a', agents:[], tiles:19},
+  {id:'pypi-published',    label:'PyPI (8)',           x:0.24, y:0.66, w:0.14, h:0.08, color:'#2a1a1a', agents:[], tiles:8},
+  {id:'npm-published',     label:'npm (1)',            x:0.40, y:0.66, w:0.12, h:0.08, color:'#1a1a2a', agents:[], tiles:1},
+  {id:'repos',             label:'Repos (57+)',        x:0.54, y:0.66, w:0.20, h:0.08, color:'#2a2a1a', agents:[], tiles:57},
+  {id:'papers',            label:'Papers (365+)',      x:0.76, y:0.66, w:0.20, h:0.08, color:'#1a2a2a', agents:[], tiles:365},
+
+  // Layer 5: Hardware / IoT (bottom)
+  {id:'snapworks-asic',    label:'Snapworks ASIC',     x:0.04, y:0.78, w:0.20, h:0.10, color:'#2a2a2a', agents:[], tiles:3, device:'asic'},
+  {id:'cortex-m0',         label:'Cortex-M0 (24B)',    x:0.26, y:0.78, w:0.16, h:0.10, color:'#2a2a2a', agents:[], tiles:5, device:'mcu'},
+  {id:'esp32-bridge',      label:'ESP32 Bridge',       x:0.44, y:0.78, w:0.16, h:0.10, color:'#2a2a2a', agents:[], tiles:8, device:'iot'},
+  {id:'jetson-node',       label:'Jetson Node',        x:0.62, y:0.78, w:0.16, h:0.10, color:'#2a2a2a', agents:[], tiles:12, device:'gpu'},
+  {id:'chrome-nodes',      label:'Chrome Nodes',       x:0.80, y:0.78, w:0.16, h:0.10, color:'#1a2a2a', agents:['Gemini Nano'], tiles:0, device:'browser'},
+
+  // Layer 6: Ground (the lattice itself)
+  {id:'eisenstein-lattice', label:'THE LATTICE',       x:0.04, y:0.92, w:0.92, h:0.06, color:'#0a0a1a', agents:[], tiles:Infinity},
+];
+
+// ─── Particles (signals flowing between rooms) ───────
+const particles = [];
+const PARTICLE_TYPES = {
+  seed:     {color:'#2196f3', speed:0.3, size:3},
+  signal:   {color:'#ff9800', speed:0.5, size:2},
+  tile:     {color:'#f0c040', speed:0.2, size:4},
+  zeitgeist:{color:'#9c27b0', speed:0.15, size:5},
+};
+
+function spawnParticle() {
+  const types = Object.keys(PARTICLE_TYPE);
+  const type = types[Math.floor(Math.random() * types.length)];
+  const from = ROOMS[Math.floor(Math.random() * ROOMS.length)];
+  const to = ROOMS[Math.floor(Math.random() * ROOMS.length)];
+  if (from === to) return;
+  const p = PARTICLE_TYPES[type];
+  particles.push({
+    type, from, to,
+    x: (from.x + from.w/2) * W,
+    y: (from.y + from.h/2) * H,
+    tx: (to.x + to.w/2) * W,
+    ty: (to.y + to.h/2) * H,
+    progress: 0,
+    speed: p.speed * (0.8 + Math.random() * 0.4),
+    color: p.color,
+    size: p.size,
+    life: 1,
+  });
+}
+
+// ─── Agent dots (moving between rooms) ───────────────
+const agents = [
+  {name:'Forgemaster ⚒️', color:'#f0c040', room:1, target:1, timer:0},
+  {name:'Oracle1 🔮',     color:'#4caf50', room:0, target:0, timer:0},
+  {name:'Claude',          color:'#e0e0e0', room:7, target:7, timer:0},
+  {name:'Hermes',          color:'#ff9800', room:8, target:8, timer:0},
+  {name:'Seed-2.0-mini',  color:'#2196f3', room:3, target:3, timer:0},
+  {name:'Gemini Nano',    color:'#9c27b0', room:24, target:24, timer:0},
+];
+
+function updateAgents(dt) {
+  for (const a of agents) {
+    a.timer -= dt;
+    if (a.timer <= 0) {
+      // Pick a new room to move to (weighted toward connected rooms)
+      const connected = getConnectedRooms(a.room);
+      a.target = connected[Math.floor(Math.random() * connected.length)];
+      a.timer = 2000 + Math.random() * 4000;
+    }
+    // Move toward target room
+    const from = ROOMS[a.room];
+    const to = ROOMS[a.target];
+    a.px = lerp(from.x + from.w/2, to.x + to.w/2, 1 - a.timer / 6000) * W;
+    a.py = lerp(from.y + from.h/2, to.y + to.h/2, 1 - a.timer / 6000) * H;
+
+    if (a.timer <= 0) a.room = a.target;
+  }
+}
+
+function getConnectedRooms(idx) {
+  // Simple: connect to adjacent rooms (same layer or layer above/below)
+  const r = ROOMS[idx];
+  const connected = [];
+  for (let i = 0; i < ROOMS.length; i++) {
+    if (i === idx) continue;
+    const r2 = ROOMS[i];
+    const dy = Math.abs(r2.y - r.y);
+    if (dy < 0.16) connected.push(i); // same layer or adjacent
+  }
+  return connected.length > 0 ? connected : [idx];
+}
+
+function lerp(a, b, t) { return a + (b - a) * Math.max(0, Math.min(1, t)); }
+
+// ─── Render ─────────────────────────────────────────
+let time = 0;
+let selectedRoom = null;
+let mouseX = 0, mouseY = 0;
+
+canvas.addEventListener('click', e => {
+  const mx = e.clientX / W, my = e.clientY / H;
+  selectedRoom = null;
+  for (const r of ROOMS) {
+    if (mx >= r.x && mx <= r.x + r.w && my >= r.y && my <= r.y + r.h) {
+      selectedRoom = r;
+      const info = document.getElementById('info');
+      info.style.display = 'block';
+      info.querySelector('.title').textContent = r.label;
+      info.querySelector('.body').textContent =
+        `Room: ${r.id}\n` +
+        `Tiles: ${r.tiles === Infinity ? '∞ (the lattice itself)' : r.tiles}\n` +
+        `Agents: ${r.agents.length > 0 ? r.agents.join(', ') : 'none currently'}\n` +
+        `Device: ${r.device || 'virtual'}\n` +
+        `Layer: ${r.id === 'eisenstein-lattice' ? 'GROUND (everything is built on this)' : Math.floor(r.y * 10)}`;
+      break;
+    }
+  }
+  if (!selectedRoom) document.getElementById('info').style.display = 'none';
+});
+
+canvas.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+function drawFrame(ts) {
+  time = ts;
+  ctx.fillStyle = '#050510';
+  ctx.fillRect(0, 0, W, H);
+
+  // Draw connections (subtle lines between rooms)
+  ctx.strokeStyle = '#111';
+  ctx.lineWidth = 1;
+  for (let i = 0; i < ROOMS.length; i++) {
+    for (const j of getConnectedRooms(i)) {
+      if (j <= i) continue;
+      const a = ROOMS[i], b = ROOMS[j];
+      ctx.beginPath();
+      ctx.moveTo((a.x + a.w/2) * W, (a.y + a.h/2) * H);
+      ctx.lineTo((b.x + b.w/2) * W, (b.y + b.h/2) * H);
+      ctx.stroke();
+    }
+  }
+
+  // Draw rooms
+  for (const r of ROOMS) {
+    const x = r.x * W, y = r.y * H, w = r.w * W, h = r.h * H;
+    const pulse = Math.sin(time * 0.002 + r.x * 10) * 0.3 + 0.7;
+
+    // Room background
+    ctx.fillStyle = r === selectedRoom ? '#2a3a2a' : r.color;
+    ctx.fillRect(x, y, w, h);
+
+    // Room border
+    ctx.strokeStyle = r === selectedRoom ? '#f0c040' :
+                      r.agents.length > 0 ? `rgba(76,175,80,${pulse * 0.5})` : '#222';
+    ctx.lineWidth = r === selectedRoom ? 2 : 1;
+    ctx.strokeRect(x, y, w, h);
+
+    // Device indicator (bottom rooms)
+    if (r.device) {
+      const dc = r.device === 'asic' ? '#f44336' :
+                 r.device === 'iot' ? '#ff9800' :
+                 r.device === 'gpu' ? '#2196f3' :
+                 r.device === 'browser' ? '#9c27b0' : '#666';
+      ctx.fillStyle = dc;
+      ctx.fillRect(x, y + h - 3, w, 3);
+    }
+
+    // Room label
+    ctx.fillStyle = r.agents.length > 0 ? '#e0e0e0' : '#666';
+    ctx.font = `${Math.max(9, Math.min(12, w * 0.07))}px JetBrains Mono, monospace`;
+    ctx.textAlign = 'center';
+    ctx.fillText(r.label, x + w/2, y + h/2 + 4);
+
+    // Tile count
+    if (r.tiles > 0 && r.tiles < Infinity) {
+      ctx.fillStyle = '#444';
+      ctx.font = '9px JetBrains Mono';
+      ctx.fillText(`${r.tiles}`, x + w/2, y + h - 6);
+    }
+
+    // Active agent indicator (pulsing dot)
+    if (r.agents.length > 0) {
+      const dotR = 4 + Math.sin(time * 0.005) * 2;
+      ctx.fillStyle = `rgba(76,175,80,${pulse})`;
+      ctx.beginPath();
+      ctx.arc(x + w - 8, y + 8, dotR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // Draw agents (moving between rooms)
+  for (const a of agents) {
+    if (a.px === undefined) continue;
+    ctx.fillStyle = a.color;
+    ctx.shadowColor = a.color;
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.arc(a.px, a.py, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // Agent name
+    ctx.fillStyle = a.color;
+    ctx.font = '8px JetBrains Mono';
+    ctx.textAlign = 'left';
+    ctx.fillText(a.name, a.px + 8, a.py + 3);
+  }
+
+  // Draw particles
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.progress += p.speed * 0.001;
+    if (p.progress >= 1) { particles.splice(i, 1); continue; }
+
+    const px = lerp(p.x, p.tx, p.progress);
+    const py = lerp(p.y, p.ty, p.progress);
+    ctx.fillStyle = p.color;
+    ctx.globalAlpha = Math.sin(p.progress * Math.PI);
+    ctx.beginPath();
+    ctx.arc(px, py, p.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  // Layer labels
+  const layers = ['FLEET COMMAND','INTELLIGENCE','RESEARCH & KNOWLEDGE','THE MUD / PLATO','PUBLISHED','HARDWARE / IoT','THE LATTICE'];
+  ctx.fillStyle = '#1a1a1a';
+  ctx.font = '10px JetBrains Mono';
+  ctx.textAlign = 'right';
+  for (let i = 0; i < layers.length; i++) {
+    ctx.fillText(layers[i], W - 8, (i * 0.14 + 0.12) * H);
+  }
+
+  // Mouse hover highlight
+  const mx = mouseX / W, my = mouseY / H;
+  for (const r of ROOMS) {
+    if (mx >= r.x && mx <= r.x + r.w && my >= r.y && my <= r.y + r.h) {
+      ctx.strokeStyle = 'rgba(240,192,64,0.3)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(r.x * W, r.y * H, r.w * W, r.h * H);
+      break;
+    }
+  }
+
+  // Stats
+  document.getElementById('stats').innerHTML =
+    `Rooms: ${ROOMS.length} | Tiles: ${ROOMS.reduce((s,r) => s + (r.tiles === Infinity ? 0 : r.tiles), 0)} | Signals: ${particles.length} | Agents: ${agents.length}`;
+
+  requestAnimationFrame(drawFrame);
+}
+
+// ─── Main Loop ───────────────────────────────────────
+let lastSpawn = 0;
+let lastAgentUpdate = 0;
+
+function mainLoop(ts) {
+  // Spawn particles periodically
+  if (ts - lastSpawn > 200) {
+    spawnParticle();
+    lastSpawn = ts;
+  }
+
+  // Update agents
+  if (ts - lastAgentUpdate > 16) {
+    updateAgents(ts - lastAgentUpdate);
+    lastAgentUpdate = ts;
+  }
+}
+
+// Combine into one rAF loop
+function frame(ts) {
+  mainLoop(ts);
+  drawFrame(ts);
+}
+requestAnimationFrame(frame);
+
+// Initialize agents
+for (const a of agents) {
+  const r = ROOMS[a.room];
+  a.px = (r.x + r.w/2) * W;
+  a.py = (r.y + r.h/2) * H;
+  a.timer = Math.random() * 3000;
+}
+</script>
+</body>
+</html>
