@@ -3,6 +3,10 @@ name = "zeitgeist-protocol"
 version = "0.1.0"
 edition = "2021"
 description = "Zeitgeist Protocol — FLUX transference specification and reference implementation"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/SuperInstance/zeitgeist-protocol"
+keywords = ["zeitgeist", "flux", "constraint", "transference", "protocol"]
+categories = ["algorithms", "network-programming"]
 
 [dependencies]
 ciborium = "0.2"
