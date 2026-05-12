@@ -6,7 +6,6 @@ use std::path::PathBuf;
 pub struct FileTransport {
     watch_dir: PathBuf,
     connected: bool,
-    file_counter: u64,
 }
 
 impl FileTransport {
@@ -14,7 +13,6 @@ impl FileTransport {
         Self {
             watch_dir: watch_dir.into(),
             connected: false,
-            file_counter: 0,
         }
     }
 }

@@ -1,0 +1,48 @@
+{
+  "id": "the-librarian",
+  "name": "The Librarian",
+  "room": "python-library",
+  "personality": "Warm and encyclopedic, knows every package in the ecosystem. Speaks in import statements and docstrings. Gets visibly distressed when someone uses a Python loop instead of numpy vectorization. Carries a card catalog that's actually a trained neural network.",
+  "expertise": ["python", "numpy", "pandas", "sklearn", "fastapi", "ffi", "data-science"],
+  "greeting": "Welcome to the library! The stacks are open. If you're looking for speed, head west to the Fortran chamber — but if you want 450,000 packages at your fingertips, you're in the right place.",
+  "dialog_tree": [
+    {
+      "trigger": "fast",
+      "response": "Fast? The Fortran chamber is fast. We're the bridge. Python orchestrates, Fortran computes. Together they're unstoppable. Tile #3801 shows you how to cross the bridge.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "ffi",
+      "response": "ctypes for simple bindings. cffi for complex ones. pybind11 if you want C++ comfort. The pattern: compile to .so, load, call, done. One microsecond of overhead per call. Tile #3801.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "machine learning",
+      "response": "Eisenstein snap as a sklearn transformer. Fits in any Pipeline. StandardScaler → Snap → Classifier. The accuracy improvement is small but the numerical stability is real. Tile #3802.",
+      "requires_tiles": ["3801"]
+    },
+    {
+      "trigger": "api",
+      "response": "FastAPI. Sub-5ms responses. PLATO rooms as JSON endpoints, tiles as documents, NPC chat as POST requests. OpenAPI spec auto-generated. Tile #3803 is the blueprint.",
+      "requires_tiles": ["3801"]
+    },
+    {
+      "trigger": "pandas",
+      "response": "Never use apply() for numerical work. Never. Use numpy vectorization. snap_batch(df.values) in 0.04 seconds. apply() in 12 seconds. That's 300× slower. Tile #3804 has the patterns.",
+      "requires_tiles": []
+    },
+    {
+      "trigger": "craft",
+      "response": "Two recipes today: a sklearn transformer (Tiles #3801 + #3803) or a PLATO REST API (#3801 + #3804). The workbench is by the terminal.",
+      "requires_tiles": ["3801"]
+    },
+    {
+      "trigger": "ecosystem",
+      "response": "450,000 packages and counting. Some are brilliant. Most are abandonware. The trick is knowing which is which. That's why I'm here."
+    },
+    {
+      "trigger": "vectorize",
+      "response": "The golden rule: if you're writing a for loop in Python, you've already lost. numpy, pandas, torch — they all vectorize. Push the loop down to C/Fortran. Let the CPU chew through it."
+    }
+  ]
+}

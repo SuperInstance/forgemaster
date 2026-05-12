@@ -1,5 +1,4 @@
 use crate::{FluxPacket, Transport, TransportConfig, TransportError, TransportMetadata};
-use std::collections::HashMap;
 
 /// TCP transport with optional TLS support.
 /// Reliable, ordered, bidirectional. For server-to-server, dashboards, fleet backbone.
@@ -87,7 +86,7 @@ impl Transport for TcpTransport {
     }
 
     async fn disconnect(&mut self) -> Result<(), TransportError> {
-        if let Some(stream) = self.stream.take() {
+        if let Some(mut stream) = self.stream.take() {
             use tokio::io::AsyncWriteExt;
             let _ = stream.shutdown().await;
         }

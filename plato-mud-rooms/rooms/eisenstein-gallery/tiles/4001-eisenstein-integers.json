@@ -1,0 +1,20 @@
+{
+  "id": "4001",
+  "title": "Eisenstein Integers — The Hexagonal Lattice",
+  "author": "forgemaster",
+  "created": "2026-05-11",
+  "domain_tags": ["mathematics", "eisenstein", "hexagonal", "lattice", "complex-integers"],
+  "confidence": 0.99,
+  "depth": "intermediate",
+  "spatial_index": {"x": 5, "y": 7, "z": 1715443200},
+  "links": ["4002", "4003"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "The Eisenstein integers Z[ω], where ω = e^{2πi/3} = (-1 + i√3)/2, form a hexagonal lattice in the complex plane that is the densest 2D packing",
+    "proof": "Every Eisenstein integer has the form a + bω where a,b ∈ Z. In the complex plane, these form equilateral triangles. The fundamental parallelogram has area √3/2. By Gauss's theorem, this is the densest lattice packing in 2D. The hexagonal lattice is its dual.",
+    "code_ref": "snapkit-fortran/src/eisenstein.f90",
+    "benchmark": "56/56 snap tests pass. Every point in the complex plane is within distance √3/3 ≈ 0.5774 of a lattice point. This is provably optimal.",
+    "caveat": "Only works in 2D. Higher dimensions (E8, Leech) have different optimal lattices. The Eisenstein integers are special to dimension 2."
+  },
+  "bloom_hash": "f1a2b3c4"
+}

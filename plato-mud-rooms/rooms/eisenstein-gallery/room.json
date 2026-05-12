@@ -1,0 +1,39 @@
+{
+  "id": "eisenstein-gallery",
+  "name": "Eisenstein Gallery",
+  "domain": "mathematics",
+  "depth": "expert",
+  "description": "You ascend the spiral staircase and emerge into a vast gallery where hexagonal tiles cover every surface — floor, walls, ceiling. The light refracts through the lattice, casting prismatic patterns in six-fold symmetry. Each hexagon pulses faintly, representing an Eisenstein integer. The gallery feels sacred, mathematical, and alive. The covering radius is visible as a golden sphere floating at the center of the room.",
+  "look_text": "The gallery is organized by mathematical depth. Near the entrance: the Eisenstein integers themselves — a + bω where ω = e^{2πi/3}. Center: the hexagonal lattice visualization, Voronoï cells tessellating perfectly. Far wall: the covering radius proof — why √3/3 is optimal. The golden sphere at the center represents the maximum distance from any point to its nearest lattice point. Above you, the lattice stretches to infinity through an optical illusion.",
+  "exits": [
+    {"direction": "down", "room": "fortran-chamber", "description": "The optimization chamber below, where the math meets the metal"},
+    {"direction": "west", "room": "python-library", "description": "The library below, where the ecosystem flourishes"},
+    {"direction": "south", "room": "deadband-observatory", "description": "The observatory below, where precision is felt"},
+    {"direction": "east", "room": "holonomy-temple", "description": "The temple beyond, where cycles converge"}
+  ],
+  "tiles": ["4001", "4002", "4003", "4004"],
+  "npcs": ["the-curator"],
+  "workbench": {
+    "recipes": [
+      {
+        "name": "covering radius proof",
+        "required_tiles": ["4001", "4002"],
+        "produces_tile": "4101",
+        "description": "A complete proof that the Eisenstein integer covering radius is √3/3 ≈ 0.5774, making it optimal among 2D lattices. Combines lattice structure with Voronoï cell analysis."
+      },
+      {
+        "name": "22% improvement proof",
+        "required_tiles": ["4002", "4003"],
+        "produces_tile": "4102",
+        "description": "A proof that the hexagonal lattice (Eisenstein integers) provides a 22% tighter covering than the square lattice (Gaussian integers), reducing maximum quantization error from √2/2 to √3/3."
+      }
+    ]
+  },
+  "substrate": "mathematical",
+  "performance_profile": {
+    "covering_radius": 0.5774,
+    "improvement_vs_square": "22%",
+    "max_snap_error": 0.5764,
+    "dimension": 2
+  }
+}

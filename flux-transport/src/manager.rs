@@ -1,4 +1,4 @@
-use crate::{FluxPacket, Transport, TransportConfig, TransportError, TransportMetadata, TransportKind};
+use crate::{FluxPacket, Transport, TransportError, TransportMetadata};
 use std::collections::HashMap;
 
 /// Route rule: target pattern -> transport name

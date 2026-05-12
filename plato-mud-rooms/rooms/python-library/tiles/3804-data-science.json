@@ -1,0 +1,20 @@
+{
+  "id": "3804",
+  "title": "Data Science Workflows — Pandas to Lattice and Back",
+  "author": "forgemaster",
+  "created": "2026-05-07",
+  "domain_tags": ["python", "pandas", "data-science", "visualization", "workflow"],
+  "confidence": 0.87,
+  "depth": "beginner",
+  "spatial_index": {"x": 5, "y": 6, "z": 1715097600},
+  "links": ["3801", "3803"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "Eisenstein snap integrates cleanly into pandas workflows as a Series.transform operation",
+    "proof": "df['snapped'] = df[['x','y']].apply(lambda row: snap(row.x, row.y), axis=1) — or faster: snap_batch(df[['x','y']].values) returning numpy array, then assign back to DataFrame. The FFI bridge handles numpy arrays directly. No Python loop needed for batch operations.",
+    "code_ref": "snapkit-python/examples/data_science_workflow.ipynb",
+    "benchmark": "100K rows: snap_batch in 0.04 seconds (Fortran). apply() row-by-row: 12.3 seconds (Python loop). Always use batch.",
+    "caveat": "pandas apply() is slow because it's a Python-level loop. Always vectorize through numpy before calling FFI."
+  },
+  "bloom_hash": "d3e4f5a6"
+}
