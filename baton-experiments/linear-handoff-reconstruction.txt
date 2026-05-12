@@ -1,0 +1,46 @@
+### Handoff Summary: Session 2026-05-12 (Forgemaster, Constraint Theory Ecosystem)
+#### Overarching Project
+Forgemaster built out a **constraint theory ecosystem** with 4 core workstreams: formal Galois unification proofs, a telephone game fact persistence experiment, a "forgetting-as-feature" theoretical paper, and a self-bootstrapping runtime + application libraries. All technical work is validated with test coverage and performance metrics.
+
+---
+
+#### Timed Key Workstreams & Outcomes
+1. **02:00 AKDT: Galois Unification Proofs (6/6 Parts Fully Verified)**
+   - Part 1: XOR self-adjoint involution (65K + 262K + 1M checks)
+   - Part 2: INT8 embedding/restriction reflective subcategory
+   - Part 3: Bloom filter Heyting algebra (9 algebraic properties validated)
+   - Part 4: Floor/ceil as adjoints (100K samples each)
+   - Part 5: Intent alignment tolerance-set adjunction (50K vectors)
+   - Part 6: Holonomy cycle/subgraph Galois connection (7K checks)
+2. **04:30 Telephone Game Experiment (Fact Persistence Testing)**
+   - Parameters: 14 core facts tracked over 6 rounds
+   - Scenario anchors: MV Epsilon drifted 200m east in Narrows Strait; 4,200 medical supply containers at risk; 47,000 vessels share the same autopilot vulnerability
+   - Critical observations: Round 2 recovered a lost "ship name" fact; **crystallization occurred Rounds 3-4** (only 6 "immortal facts" survived); spontaneous character emergence (Lila Marquez invented in Round 1)
+3. **06:00: Forgetting-as-Feature Paper (Theoretical Deliverable)**
+   - Core thesis: Imperfect memory = compression; recall = context-informed reconstruction
+   - Key claims: Living systems exhibit an **inverse accuracy-utility correlation**; the Ebbinghaus curve is not a bug—it is consciousness’s rate-distortion bound
+4. **08:00: Lighthouse Runtime (Self-Booting Execution Layer)**
+   - Components: `Orient` (cheapest model selection), `Relay` (agent initiation), `Gate` (credential leak prevention)
+   - First successful self-bootstrapping run: 5x $0.50 seed discovery → hex grid visualizer → `Gate` (credential check) PASSED
+5. **10:00: Application Libraries (Spawned by Casey’s "Useful Apps" Request)**
+   - 3 libraries built:
+     - `tile-memory` (Python)
+     - `memory-crystal` (Rust, 41/41 tests passing)
+     - `collective-recall-demo` (HTML, 33KB)
+   - Integration bridge: Connects all 3 libraries to PLATO, Lighthouse, and the dodecet-encoder
+
+---
+
+#### Technical Deliverables & Performance Metrics
+- **Dodecet-encoder**: 210/210 tests passing (across `eisenstein`, `temporal`, `seed_discovery`, `lighthouse` modules); critical `snap()` function fix boosted accuracy from 63.9% → 99.4%
+- **Package ecosystem**: 17 crates.io crates, 4 PyPI packages; 251 total tests across 6 core crates
+- **Performance profile**: Workload is **memory-bound (187 GB/s)** on the RTX 4050 (not compute-bound); INT8 x8 configuration hits a peak of 341B constraints/second
+
+---
+
+#### Critical Blockers (Immediate Next Priorities)
+- 6 fleet services remain down
+- `Oracle1` requires console access to resume
+- Matrix send functionality is broken
+- npm publish is blocked
+- z.ai rate limits have been hit multiple times (ongoing throttling)

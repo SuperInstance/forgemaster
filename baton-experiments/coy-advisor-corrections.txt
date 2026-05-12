@@ -1,0 +1,4 @@
+### Factual Errors in Agent B's Reconstruction:
+1.  Agent B incorrectly labels the RTX 4050 as a "high-end GPU" — the original session specifies this is the mid-range consumer laptop GPU used for the workload.
+2.  Agent B falsely claims the collective-recall-demo uses HTML/JS; the original only describes it as a 33KB HTML project with no mention of JavaScript.
+3.  Agent B incorrectly states the team was "systematically identifying and working to resolve major technical blockers" — the original session only lists existing unaddressed blockers, with no indication active resolution work was underway at the time logged.

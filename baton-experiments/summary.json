@@ -1,0 +1,57 @@
+[
+  {
+    "facts_found": 39,
+    "facts_total": 40,
+    "accuracy": 0.975,
+    "novel_terms": 128,
+    "reconstruction_length": 3191,
+    "experiment": "linear-handoff",
+    "config": "Single shard, all info, low temperature"
+  },
+  {
+    "facts_found": 9,
+    "facts_total": 40,
+    "accuracy": 0.225,
+    "novel_terms": 92,
+    "reconstruction_length": 2002,
+    "experiment": "split-2",
+    "config": "2 shards (built+thought), basic reconstruction"
+  },
+  {
+    "facts_found": 24,
+    "facts_total": 40,
+    "accuracy": 0.6,
+    "novel_terms": 147,
+    "reconstruction_length": 3204,
+    "experiment": "split-3",
+    "config": "3 shards (built+thought+blocked), basic reconstruction"
+  },
+  {
+    "facts_found": 19,
+    "facts_total": 40,
+    "accuracy": 0.475,
+    "novel_terms": 126,
+    "reconstruction_length": 2663,
+    "experiment": "split-5",
+    "config": "5 shards (built+thought+blocked+emotional+procedural)"
+  },
+  {
+    "facts_found": 13,
+    "facts_total": 40,
+    "accuracy": 0.325,
+    "novel_terms": 108,
+    "reconstruction_length": 2106,
+    "experiment": "coy-advisor",
+    "config": "3 shards + coy advisor (original corrects only falsehoods)",
+    "coy_corrections": "### Factual Errors in Agent B's Reconstruction:\n1.  Agent B incorrectly labels the RTX 4050 as a \"high-end GPU\" \u2014 the original session specifies this is the mid-range consumer laptop GPU used for the workload.\n2.  Agent B falsely claims the collective-recall-demo uses HTML/JS; the original only describes it as a 33KB HTML project with no mention of JavaScript.\n3.  Agent B incorrectly states the team was \"systematically identifying and working to resolve major technical blockers\" \u2014 the original session only lists existing unaddressed blockers, with no indication active resolution work was underway at the time logged."
+  },
+  {
+    "facts_found": 10,
+    "facts_total": 40,
+    "accuracy": 0.25,
+    "novel_terms": 99,
+    "reconstruction_length": 1905,
+    "experiment": "storyteller",
+    "config": "Advisor tells 3 story-modes, team re-meshes"
+  }
+]
