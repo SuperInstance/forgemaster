@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLATO Seed Engine — Chrome Built-in AI</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'JetBrains Mono', monospace; background: #0a0a0a; color: #e0e0e0; padding: 20px; }
+h1 { color: #f0c040; font-size: 1.4em; margin-bottom: 4px; }
+h2 { color: #c0a030; font-size: 1.1em; margin: 16px 0 8px; }
+.subtitle { color: #888; font-size: 0.85em; margin-bottom: 16px; }
+pre { background: #1a1a1a; border: 1px solid #333; border-radius: 4px; padding: 12px; overflow-x: auto; font-size: 0.85em; line-height: 1.4; }
+.log { max-height: 400px; overflow-y: auto; }
+.log .line { padding: 2px 0; }
+.log .info { color: #888; }
+.log .success { color: #4caf50; }
+.log .error { color: #f44336; }
+.log .data { color: #64b5f6; }
+.log .tile { color: #f0c040; }
+.log .warn { color: #ff9800; }
+button { background: #f0c040; color: #0a0a0a; border: none; padding: 10px 20px; border-radius: 4px;
+         font-family: inherit; font-weight: bold; cursor: pointer; margin: 4px; font-size: 0.9em; }
+button:hover { background: #f5d060; }
+button:disabled { background: #555; color: #888; cursor: not-allowed; }
+input, textarea { background: #1a1a1a; border: 1px solid #333; color: #e0e0e0; padding: 8px;
+                  border-radius: 4px; font-family: inherit; font-size: 0.85em; width: 100%; margin: 4px 0; }
+.status { display: flex; gap: 16px; margin: 12px 0; flex-wrap: wrap; }
+.stat { background: #1a1a1a; border: 1px solid #333; border-radius: 4px; padding: 8px 12px; min-width: 120px; }
+.stat .label { color: #888; font-size: 0.75em; }
+.stat .value { color: #f0c040; font-size: 1.2em; font-weight: bold; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>⚒️ PLATO Seed Engine</h1>
+<p class="subtitle">Zero-dependency seed ideation via Chrome's built-in Gemini Nano</p>
+
+<div class="status">
+  <div class="stat"><div class="label">Chrome AI</div><div class="value" id="ai-status">checking...</div></div>
+  <div class="stat"><div class="label">Iterations</div><div class="value" id="iter-count">0</div></div>
+  <div class="stat"><div class="label">Tiles Found</div><div class="value" id="tile-count">0</div></div>
+  <div class="stat"><div class="label">Best Score</div><div class="value" id="best-score">—</div></div>
+</div>
+
+<div class="grid">
+  <div>
+    <h2>Role Configuration</h2>
+    <input id="role" value="constraint-checker" placeholder="Role name">
+    <textarea id="task" rows="3" placeholder="Task description">Design optimal constraint parameters for a sensor that tracks a converging signal through noise. Consider decay rate, anomaly sensitivity, and learning rate.</textarea>
+    <textarea id="evaluation" rows="2" placeholder="Evaluation criteria">Score based on: convergence speed (30%), robustness to noise (30%), anomaly detection (20%), energy efficiency (20%)</textarea>
+
+    <h2>Seed Parameters</h2>
+    <label style="color:#888;font-size:0.8em">Iterations: <input id="n-iters" type="number" value="20" style="width:60px;display:inline"></label>
+    <label style="color:#888;font-size:0.8em;margin-left:12px">Temperature: <input id="temp" type="number" value="0.8" step="0.1" style="width:60px;display:inline"></label>
+    <div style="margin-top:8px">
+      <button onclick="runSeeds()" id="btn-run">▶ Run Seeds</button>
+      <button onclick="crystallize()" id="btn-crystal" disabled>✦ Crystallize Tile</button>
+      <button onclick="clearLog()">✕ Clear</button>
+    </div>
+  </div>
+
+  <div>
+    <h2>Discovered Tiles</h2>
+    <pre id="tiles" style="min-height:200px">No tiles yet. Run seeds to discover patterns.</pre>
+
+    <h2>Conditioning Prompt (for larger models)</h2>
+    <button onclick="exportPrompt()" id="btn-export" disabled>📋 Copy Conditioning Prompt</button>
+    <pre id="prompt-out" style="display:none"></pre>
+  </div>
+</div>
+
+<h2>Log</h2>
+<pre class="log" id="log"></pre>
+
+<script>
+// ─── Constants ──────────────────────────────────────
+const SQRT3 = 1.7320508075688772;
+const COVERING_RADIUS = 1.0 / SQRT3;
+
+// ─── State ──────────────────────────────────────────
+let session = null;
+let iterations = [];
+let tiles = [];
+let bestScore = 0;
+let running = false;
+
+// ─── Logging ────────────────────────────────────────
+function log(msg, cls = 'info') {
+  const el = document.getElementById('log');
+  const line = document.createElement('div');
+  line.className = 'line ' + cls;
+  line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  el.appendChild(line);
+  el.scrollTop = el.scrollHeight;
+}
+
+function clearLog() { document.getElementById('log').innerHTML = ''; }
+
+function updateStats() {
+  document.getElementById('iter-count').textContent = iterations.length;
+  document.getElementById('tile-count').textContent = tiles.length;
+  document.getElementById('best-score').textContent = bestScore > 0 ? bestScore.toFixed(3) : '—';
+}
+
+// ─── Chrome AI Check ────────────────────────────────
+async function checkAI() {
+  const el = document.getElementById('ai-status');
+  if (!window.ai) {
+    el.textContent = 'not available';
+    el.style.color = '#f44336';
+    log('window.ai not found. Need Chrome 148+ with built-in AI enabled.', 'error');
+    log('Enable: chrome://flags/#optimization-guide-on-device-model', 'info');
+    return false;
+  }
+  try {
+    const caps = await window.ai.capabilities();
+    if (caps.available === 'readily') {
+      el.textContent = 'ready';
+      el.style.color = '#4caf50';
+      log('Chrome built-in AI (Gemini Nano) ready!', 'success');
+      return true;
+    } else {
+      el.textContent = caps.available;
+      el.style.color = '#ff9800';
+      log(`AI status: ${caps.available}. Model may need to download.`, 'warn');
+      // Try anyway
+      return true;
+    }
+  } catch (e) {
+    el.textContent = 'error';
+    el.style.color = '#f44336';
+    log('AI check failed: ' + e.message, 'error');
+    return false;
+  }
+}
+
+// ─── Seed Runner ────────────────────────────────────
+async function runSeedIteration(role, task, evaluation, temperature, iterNum) {
+  if (!session) {
+    session = await window.ai.createTextSession();
+  }
+
+  // Each iteration gets a variation angle
+  const angles = [
+    'Maximize convergence speed at all costs',
+    'Maximize robustness — survive worst-case noise',
+    'Minimize energy — do more with less',
+    'Balanced — equal weight all criteria',
+    'Conservative — avoid false positives at all costs',
+    'Aggressive — catch every anomaly, accept false positives',
+    'Slow learner — deep memory, gradual adaptation',
+    'Fast learner — recent observations weighted heavily',
+    'Wide funnel — explore before committing',
+    'Narrow funnel — commit early, refine later',
+    'High anomaly sensitivity — detect everything',
+    'Low anomaly sensitivity — only major shifts',
+    'Long prediction horizon — plan far ahead',
+    'Short prediction horizon — react quickly',
+    'High chirality lock threshold — explore thoroughly',
+    'Low chirality lock threshold — commit fast',
+    'Design for Cortex-M0 — 24 bytes RAM',
+    'Design for x86 fleet — unlimited memory',
+    'Design for noisy industrial sensor',
+    'Design for precision scientific instrument',
+  ];
+
+  const angle = angles[iterNum % angles.length];
+  const variationSeed = Math.random().toString(36).substring(2, 8);
+
+  const prompt = `You are a constraint theory engineer. Role: ${role}
+
+Task: ${task}
+
+Evaluation: ${evaluation}
+
+Design approach: ${angle}
+Random variation seed: ${variationSeed}
+
+Respond with EXACTLY this JSON format (no markdown, no explanation):
+{"decay_rate": NUMBER, "prediction_horizon": INTEGER, "anomaly_sigma": NUMBER, "learning_rate": NUMBER, "chirality_lock": INTEGER, "merge_trust": NUMBER, "reasoning": "BRIEF_REASON"}`;
+
+  try {
+    const result = await session.prompt(prompt);
+    // Parse the JSON response
+    const jsonMatch = result.match(/\{[^}]+\}/);
+    if (jsonMatch) {
+      const params = JSON.parse(jsonMatch[0]);
+      log(`Iter ${iterNum}: decay=${params.decay_rate?.toFixed(2)} σ=${params.anomaly_sigma?.toFixed(2)} lr=${params.learning_rate?.toFixed(3)} — ${params.reasoning?.substring(0,60)}`, 'data');
+      return params;
+    } else {
+      log(`Iter ${iterNum}: parse failed — ${result.substring(0,80)}`, 'warn');
+      return null;
+    }
+  } catch (e) {
+    log(`Iter ${iterNum}: error — ${e.message}`, 'error');
+    return null;
+  }
+}
+
+// ─── Score a seed result ────────────────────────────
+function scoreSeed(params) {
+  // Heuristic scoring based on how "reasonable" the parameters are
+  let score = 0.5;
+
+  // Decay rate: 0.5-3.0 is reasonable
+  const d = params.decay_rate || 1.0;
+  if (d >= 0.5 && d <= 3.0) score += 0.1;
+  else score -= 0.1;
+
+  // Horizon: 2-8 is reasonable
+  const h = params.prediction_horizon || 4;
+  if (h >= 2 && h <= 8) score += 0.1;
+
+  // Sigma: 1.5-3.5 is reasonable
+  const s = params.anomaly_sigma || 2.0;
+  if (s >= 1.5 && s <= 3.5) score += 0.1;
+
+  // Learning rate: 0.05-0.3 is reasonable
+  const lr = params.learning_rate || 0.1;
+  if (lr >= 0.05 && lr <= 0.3) score += 0.1;
+
+  // Chirality: 300-700 reasonable
+  const cl = params.chirality_lock || 500;
+  if (cl >= 300 && cl <= 700) score += 0.05;
+
+  return Math.max(0, Math.min(1, score));
+}
+
+// ─── Main Run ───────────────────────────────────────
+async function runSeeds() {
+  if (running) return;
+  running = true;
+  const btn = document.getElementById('btn-run');
+  btn.disabled = true;
+
+  const role = document.getElementById('role').value;
+  const task = document.getElementById('task').value;
+  const evaluation = document.getElementById('evaluation').value;
+  const nIters = parseInt(document.getElementById('n-iters').value) || 20;
+  const temp = parseFloat(document.getElementById('temp').value) || 0.8;
+
+  log(`Starting ${nIters} seed iterations for role "${role}"...`, 'success');
+  iterations = [];
+
+  for (let i = 0; i < nIters; i++) {
+    const params = await runSeedIteration(role, task, evaluation, temp, i);
+    if (params) {
+      const score = scoreSeed(params);
+      iterations.push({ iter: i, params, score });
+      if (score > bestScore) {
+        bestScore = score;
+        log(`  ★ New best: ${score.toFixed(3)} — decay=${params.decay_rate?.toFixed(2)} σ=${params.anomaly_sigma?.toFixed(2)}`, 'tile');
+      }
+    }
+    updateStats();
+
+    // Small delay to let the model breathe
+    await new Promise(r => setTimeout(r, 100));
+  }
+
+  log(`Done. ${iterations.length} iterations, best score ${bestScore.toFixed(3)}`, 'success');
+  document.getElementById('btn-crystal').disabled = false;
+  btn.disabled = false;
+  running = false;
+
+  if (session) { session.destroy(); session = null; }
+}
+
+// ─── Crystallize ────────────────────────────────────
+function crystallize() {
+  if (iterations.length === 0) return;
+
+  // Take top 5 by score
+  const sorted = [...iterations].sort((a, b) => b.score - a.score);
+  const top = sorted.slice(0, Math.min(5, sorted.length));
+
+  // Average params from top scores
+  const avg = top.reduce((acc, {params}) => {
+    acc.decay_rate += (params.decay_rate || 1) / top.length;
+    acc.prediction_horizon += (params.prediction_horizon || 4) / top.length;
+    acc.anomaly_sigma += (params.anomaly_sigma || 2) / top.length;
+    acc.learning_rate += (params.learning_rate || 0.1) / top.length;
+    acc.chirality_lock += (params.chirality_lock || 500) / top.length;
+    acc.merge_trust += (params.merge_trust || 0.5) / top.length;
+    return acc;
+  }, {decay_rate:0, prediction_horizon:0, anomaly_sigma:0, learning_rate:0, chirality_lock:0, merge_trust:0});
+
+  const tile = {
+    role: document.getElementById('role').value,
+    params: {
+      decay_rate: parseFloat(avg.decay_rate.toFixed(3)),
+      prediction_horizon: Math.round(avg.prediction_horizon),
+      anomaly_sigma: parseFloat(avg.anomaly_sigma.toFixed(2)),
+      learning_rate: parseFloat(avg.learning_rate.toFixed(3)),
+      chirality_lock: Math.round(avg.chirality_lock),
+      merge_trust: parseFloat(avg.merge_trust.toFixed(2)),
+    },
+    score: bestScore,
+    iterations: iterations.length,
+    top_count: top.length,
+    timestamp: new Date().toISOString(),
+  };
+
+  tiles.push(tile);
+
+  // Display
+  const el = document.getElementById('tiles');
+  el.textContent = tiles.map((t, i) => 
+    `TILE ${i+1}: ${t.role}\n` +
+    `  decay_rate=${t.params.decay_rate}  horizon=${t.params.prediction_horizon}\n` +
+    `  anomaly_sigma=${t.params.anomaly_sigma}  learning_rate=${t.params.learning_rate}\n` +
+    `  chirality_lock=${t.params.chirality_lock}  merge_trust=${t.params.merge_trust}\n` +
+    `  score=${t.score.toFixed(3)}  iterations=${t.iterations}\n`
+  ).join('\n');
+
+  log(`✦ Crystallized tile: score=${bestScore.toFixed(3)} from ${top.length} top iterations`, 'tile');
+  document.getElementById('btn-export').disabled = false;
+  updateStats();
+}
+
+// ─── Export Conditioning Prompt ──────────────────────
+function exportPrompt() {
+  if (tiles.length === 0) return;
+  const t = tiles[tiles.length - 1];
+  const p = t.params;
+
+  const prompt = `# Discovered Inner Logic for: ${t.role}
+# (crystallized from ${t.iterations} seed iterations via Chrome built-in AI)
+# Score: ${t.score.toFixed(3)}
+
+decay_rate = ${p.decay_rate}       # funnel speed (square-root base)
+prediction_horizon = ${p.prediction_horizon}    # steps ahead
+anomaly_sigma = ${p.anomaly_sigma}       # surprise threshold (sigma)
+learning_rate = ${p.learning_rate}       # memory plasticity
+chirality_lock = ${p.chirality_lock}     # commitment threshold (milli)
+merge_trust = ${p.merge_trust}        # fleet vs local
+
+# Generated by PLATO Seed Engine (Chrome Gemini Nano)
+# ${t.timestamp}
+
+Use these parameters when performing this role.`;
+
+  const el = document.getElementById('prompt-out');
+  el.style.display = 'block';
+  el.textContent = prompt;
+
+  navigator.clipboard.writeText(prompt).then(() => {
+    log('📋 Conditioning prompt copied to clipboard', 'success');
+  }).catch(() => {
+    log('Prompt displayed below — copy manually', 'warn');
+  });
+}
+
+// ─── Init ───────────────────────────────────────────
+checkAI();
+</script>
+</body>
+</html>
