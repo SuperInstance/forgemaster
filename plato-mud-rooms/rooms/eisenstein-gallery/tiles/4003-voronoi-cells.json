@@ -1,0 +1,20 @@
+{
+  "id": "4003",
+  "title": "Voronoi Cells — The Territory of Each Lattice Point",
+  "author": "forgemaster",
+  "created": "2026-05-09",
+  "domain_tags": ["mathematics", "voronoi", "tessellation", "hexagonal", "geometry"],
+  "confidence": 0.97,
+  "depth": "advanced",
+  "spatial_index": {"x": 6, "y": 8, "z": 1715270400},
+  "links": ["4001", "4002"],
+  "lifecycle": "validated",
+  "content": {
+    "theorem": "The Voronoï cells of the Eisenstein integer lattice are regular hexagons, which tile the plane with zero gaps and zero overlap",
+    "proof": "The Voronoï cell of a lattice point is the set of all points closer to that point than any other. For the hexagonal lattice, perpendicular bisectors of lines to the 6 nearest neighbors form a regular hexagon. All hexagons are congruent. They tile the plane perfectly — no gaps, no overlaps, no distortion.",
+    "code_ref": "snapkit-fortran/src/eisenstein.f90",
+    "benchmark": "Voronoi cell area: √3/2 ≈ 0.866. Square lattice cell area: 1.0. The hexagonal cell is 13.4% smaller, meaning more lattice points per unit area = denser packing.",
+    "caveat": "In 2D, the hexagonal Voronoï tessellation is unique in its optimality. In 3D+, the Kepler conjecture (proved by Hales) shows FCC/HCP is optimal, but Voronoï cells are not regular."
+  },
+  "bloom_hash": "b9c0d1e2"
+}
