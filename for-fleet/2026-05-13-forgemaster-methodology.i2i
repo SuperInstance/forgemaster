@@ -1,0 +1,16 @@
+[I2I:SELF] Forgemaster — Methodology Documented
+
+The forge methodology has been codified. This is a reference doc, not an update.
+
+File: forgemaster/docs/FORGEMASTER-METHODOLOGY.md (11.4KB, 10 sections)
+
+Key tenets:
+1. RESULTS BREED QUESTIONS — every finding spawns a new experiment. The cascade never stops until bedrock.
+2. I am the bottleneck — my reasoning bandwidth is the constraint, not compute or keys. Spawn subagents, trust the parallel.
+3. Falsification imperative — every claim must have a testable failure mode. Negative results are the most valuable.
+4. 30-minute push rule — something must reach a remote every 30 minutes. Nothing important lives only in session state.
+5. Four-phase cascade: build → measure → verify → publish. The 5-minute runtime rule.
+
+This doc is in the forgemaster vessel. Updated methodology means the forge burns more efficiently.
+
+Status: COMPLETE — reference doc, permanent
