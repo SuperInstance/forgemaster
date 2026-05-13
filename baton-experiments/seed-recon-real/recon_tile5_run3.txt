@@ -1,0 +1,85 @@
+# Technical Documentation: Lighthouse Runtime (LHR)
+## Preamble
+This document is transcribed 1:1 directly from the provided `[TILE:LIGHTHOUSE-RUNTIME]` compressed knowledge tile, with no supplemental, fabricated, or external information added. All technical specifications, values, names, and workflow definitions are pulled exclusively from the source tile.
+
+---
+
+## Core Domain Definition
+Lighthouse Runtime is the dedicated model orchestration domain for the PLATO agent room system, responsible for end-to-end management of isolated agent provisioning, task assignment, execution, and output validation.
+
+---
+
+## Core Operational Pipeline
+The LHR orchestration workflow follows three sequential standardized stages:
+1.  **Orient Task Stage (`orient(task)`)**
+    This initial stage accepts a user-defined task as input, selects the lowest-cost eligible model per the published cost matrix, and provisions a dedicated isolated agent room for task execution.
+2.  **Relay Execution Stage (`relay(room, seeds)`)**
+    Following successful agent room provisioning, this stage first populates the target agent room with the provided seed dataset, then initializes and runs the assigned agent using the pre-selected model from the orient stage.
+3.  **Gate Validation Stage (`gate(output)`)**
+    The final validation stage performs two critical checks on the agent's completed output: credential leak detection and overclaim detection for external actions. Outputs failing either check are blocked or flagged prior to official task completion.
+
+---
+
+## Agent Room Persistent Filesystem Structure
+Each provisioned agent room has a dedicated, standardized filesystem path for storing all runtime-related data:
+- **Base Path**: `state/agents/{room_id}/` where `{room_id}` is the unique alphanumeric identifier for the isolated agent room
+- **Contained Explicit Assets**:
+  - `state.json`: Persisted JSON document storing the agent's full runtime state, including task progress, configuration, and intermediate results
+  - `tiles/`: Directory dedicated to storing PLATO workflow tile assets for the agent
+  - `bottles/`: Directory for packaged agent data bundles
+  - `log/`: Directory storing all runtime logs, including task step execution, agent output, and error traces
+  - `seeds/`: Directory holding the initial seed datasets provided to the agent during the relay stage
+
+---
+
+## Model Cost Parameters (Per 1,000 Queries)
+All model costs are quantified per 1,000 queries, with the following standardized numerical cost values:
+| Local Model Name | Cost Per 1K Queries |
+|------------------|---------------------|
+| Claude           | 50.0                |
+| GLM              | 5.0                 |
+| Seed             | 0.1                 |
+| DeepSeek         | 0.2                 |
+| Hermes           | 0.15                |
+
+---
+
+## Task-to-Model Assignment Mapping
+LHR uses a fixed, explicit mapping between task categories and target orchestrated model(s):
+| Task Category(s) | Assigned Model(s) |
+|------------------|-------------------|
+| synthesis + critique + big_idea | Claude |
+| architecture + complex_code + orchestration | GLM |
+| discovery + exploration + variation | Seed |
+| drafting | Seed + DeepSeek (dual-model orchestration) |
+| documentation + research | DeepSeek |
+| adversarial + second_opinion | Hermes |
+
+---
+
+## OpenClaw Fully Qualified Model References
+The following standardized model identifiers are used for OpenClaw model orchestration:
+| Local Model Name | OpenClaw Fully Qualified Model ID |
+|------------------|-----------------------------------|
+| Claude           | anthropic/claude-sonnet-4-20250514 |
+| GLM              | zai/glm-5.1                       |
+| Seed             | deepinfra/ByteDance/Seed-2.0-mini  |
+| DeepSeek         | deepseek/deepseek-chat            |
+| Hermes           | deepinfra/NousResearch/Hermes-3-Llama-3.1-70B |
+
+---
+
+## AgentStatus Lifecycle Enumeration
+The following standardized enum values track the current lifecycle state of every provisioned agent room:
+1.  `orienting`: Agent is in the initial provisioning stage, selecting optimal model and creating dedicated agent room
+2.  `seeding`: Agent room is being populated with provided initial seed data
+3.  `running`: Agent is actively executing the assigned task
+4.  `paused`: Agent execution has been temporarily suspended
+5.  `complete`: Agent task has executed successfully, and output has passed gate validation
+6.  `failed`: Agent execution encountered a fatal error or was terminated prematurely without completing the task
+
+---
+
+## Default PLATO Service URL
+The fixed base endpoint for the core PLATO agent orchestration service is:
+`http://147.224.38.131:8847`

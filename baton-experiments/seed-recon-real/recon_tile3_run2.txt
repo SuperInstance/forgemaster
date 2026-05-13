@@ -1,0 +1,157 @@
+# FLUX-ISA Constraint-Theory Virtual Machine Instruction Set Specification
+**Document ID**: FLUX-ISA-OPCODES-v1.0  
+**Domain**: Constraint-theory optimized virtual machine instruction set
+
+---
+
+## 1. Core Enumeration Specification
+The FLUX-ISA uses a single-byte (`repr(u8)`) typed opcode enumeration named `FluxOpcode`, with standard traits for debuggability and interoperability:
+```rust
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[repr(u8)]
+pub enum FluxOpcode {
+    // All opcodes grouped by functional category per official allocation
+}
+```
+All opcodes are assigned to non-overlapping contiguous hexadecimal ranges, with explicit mnemonics defined per the spec.
+
+---
+
+## 2. Primary Functional Opcode Categories
+### 2.1 ARITHMETIC (0x01 – 0x05)
+Basic arithmetic operations, allocated hex range 0x01 to 0x05:
+| Hex Opcode | Mnemonic | Operation Description |
+|---|---|---|
+| 0x01 | `Add` | Addition |
+| 0x02 | `Sub` | Subtraction |
+| 0x03 | `Mul` | Multiplication |
+| 0x04 | `Div` | Division |
+| 0x05 | `Mod` | Modulo/remainder |
+
+---
+
+### 2.2 CONSTRAINT (0x10 – 0x13)
+Constraint validation and enforcement operations, allocated hex range 0x10 to 0x13:
+| Hex Opcode | Mnemonic | Operation Description |
+|---|---|---|
+| 0x10 | `Assert` | Post constraint condition for enforcement |
+| 0x11 | `Check` | Validate pending constraint conditions |
+| 0x12 | `Validate` | Verify full constraint set satisfaction |
+| 0x13 | `Reject` | Reject violated constraints or constraint sets |
+
+---
+
+### 2.3 FLOW (0x20 – 0x24)
+Execution flow control operations, allocated hex range 0x20 to 0x24:
+| Hex Opcode | Mnemonic | Operation Description |
+|---|---|---|
+| 0x20 | `Jump` | Unconditional branch to target instruction offset |
+| 0x21 | `Branch` | Conditional branch to target offset based on status flags |
+| 0x22 | `Call` | Invoke subroutine with return address storage |
+| 0x23 | `Return` | Exit current subroutine and resume execution |
+| 0x24 | `Halt` | Terminate virtual machine execution immediately |
+
+---
+
+### 2.4 MEMORY (0x30 – 0x34)
+Register and stack memory operations, allocated hex range 0x30 to 0x34:
+| Hex Opcode | Mnemonic | Operation Description |
+|---|---|---|
+| 0x30 | `Load` | Copy data from memory address to general-purpose register |
+| 0x31 | `Store` | Copy data from general-purpose register to memory address |
+| 0x32 | `Push` | Push register value to the virtual machine stack |
+| 0x33 | `Pop` | Pop top stack value into a general-purpose register |
+| 0x34 | `Swap` | Exchange values between two registers or a register and stack top |
+
+---
+
+### 2.5 CONVERT (0x40 – 0x43)
+Data type conversion operations, allocated hex range 0x40 to 0x43:
+| Hex Opcode | Mnemonic | Operation Description |
+|---|---|---|
+| 0x40 | `Snap` | Align value to a fixed reference grid |
+| 0x41 | `Quantize` | Map continuous values to discrete quantization levels |
+| 0x42 | `Cast` | Reinterpret binary data between fixed type definitions |
+| 0x43 | `Promote` | Upgrade data to a higher-precision numeric type |
+
+---
+
+### 2.6 LOGIC (0x50 – 0x53)
+Bitwise boolean logic operations, allocated hex range 0x50 to 0x53:
+| Hex Opcode | Mnemonic | Operation Description |
+|---|---|---|
+| 0x50 | `And` | Bitwise AND between two register values |
+| 0x51 | `Or` | Bitwise OR between two register values |
+| 0x52 | `Not` | Bitwise NOT (one's complement) of a single register value |
+| 0x53 | `Xor` | Bitwise XOR between two register values |
+
+---
+
+### 2.7 COMPARE (0x60 – 0x65)
+Numeric comparison operations, allocated hex range 0x60 to 0x65:
+| Hex Opcode | Mnemonic | Operation Description |
+|---|---|---|
+| 0x60 | `Eq` | Test equality between two values |
+| 0x61 | `Neq` | Test inequality between two values |
+| 0x62 | `Lt` | Test less-than relationship between two values |
+| 0x63 | `Gt` | Test greater-than relationship between two values |
+| 0x64 | `Lte` | Test less-than-or-equal relationship between two values |
+| 0x65 | `Gte` | Test greater-than-or-equal relationship between two values |
+
+---
+
+## 3. Specialized Operation Groups
+### 3.1 INT8-SAT (FLUX-X) (0x28 – 0x2F)
+Saturating arithmetic specialized operations, allocated hex range 0x28 to 0x2F:
+| Hex Opcode | Mnemonic | Operation Description |
+|---|---|---|
+| 0x28 | `SatAdd` | Saturating addition |
+| 0x29 | `SatSub` | Saturating subtraction |
+| 0x2A | `Clip` | Value clipping to defined bounds |
+| 0x2B | `Mad` | Fused multiply-add operation |
+| 0x2C | `Popcnt` | Population count (set bit total) |
+| 0x2D | `Ctz` | Count trailing zeros from least significant bit |
+| 0x2E | `Pabs` | Parallel absolute value |
+| 0x2F | `Pmin` | Parallel minimum value |
+
+---
+
+### 3.2 GALOIS-ADJUNCTIONS (0x80 – 0x87)
+Category theory and lattice algebra operations, allocated hex range 0x80 to 0x87 with formal semantic annotations:
+| Hex Opcode | Mnemonic | Semantic Annotation |
+|---|---|---|
+| 0x80 | `XorInvert` | Self-adjoint |
+| 0x81 | `Clamp` | Reflective-subcategory |
+| 0x82 | `Bloom+BloomQ` | Heyting algebra |
+| 0x83 | `FloorQ` | Left-adjoint |
+| 0x84 | `CeilQ` | Right-adjoint |
+| 0x85 | `Align` | Tolerance-set |
+| 0x86 | `Holonomy` | Cycle-check |
+*Note: 0x87 is unassigned within this group per the allocated range.*
+
+---
+
+### 3.3 CROSS-DOMAIN (0x88 – 0x8F)
+Cross-domain bridging operations, allocated hex range 0x88 to 0x8F with domain-specific annotations:
+| Hex Opcode | Mnemonic | Domain Annotation |
+|---|---|---|
+| 0x88 | `Tdqkr` | Tucker top-k |
+| 0x89 | `Amnesia` | Ebbinghaus decay |
+| 0x8A | `Shadow` | Negative-space |
+| 0x8B | `Phase` | Transition |
+| 0x8C | `Couple` | Strength |
+| 0x8D | `Federate` | Distributed-merge |
+| 0x8E | `Bearing` | Dodecet |
+| 0x8F | `Depth` | Sonar |
+
+---
+
+### 3.4 PROJECTION (0x90 – 0x95)
+Lattice projection and residue space operations, allocated hex range 0x90 to 0x95 with formal semantic annotations:
+| Hex Opcode | Mnemonic | Semantic Annotation |
+|---|---|---|
+| 0x90 | `Project` | Cut-and-project |
+| 0x91 | `Reconstruct` | Projected+residue |
+| 0x92 | `Window` | Acceptance |
+| 0x93 | `Residue` | Perp-space |
+|

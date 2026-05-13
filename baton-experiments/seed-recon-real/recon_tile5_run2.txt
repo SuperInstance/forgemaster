@@ -1,0 +1,65 @@
+# Lighthouse Runtime Technical Specification
+**System Domain**: PLATO Agent Room Model Orchestration System
+**Source Compressed Tile**: LIGHTHOUSE-RUNTIME
+
+## Preamble
+This document formally expands the compressed Lighthouse Runtime knowledge tile into a complete, structured technical specification using only explicit, verifiable data from the source tile. No speculative or fabricated information is included.
+
+---
+
+## 1. Core Functional Pipeline
+The Lighthouse Runtime implements a three-stage sequential pipeline for orchestrating model-driven agent room operations:
+1.  **Orient Stage (`orient(task)`)**: The initial pipeline step that evaluates available models using per-1K-query cost metrics, selects the lowest-priced eligible model, and provisions a dedicated isolated agent room for task execution.
+2.  **Seed & Agent Execution Stage (`relay(room, seeds)`)**: Transfers all provided seed data to the newly created agent room’s staging directory, then initiates runtime execution of the orchestrated agent within the room.
+3.  **Safeguard Validation Stage (`gate(output)`)**: Performs mandatory post-execution checks on agent-generated output, including credential leak detection, overclaim validation, and audit logging of all external actions initiated by the agent.
+
+## 2. Per-Agent Isolated Filesystem Structure
+Each dedicated agent room uses a standardized, isolated filesystem hierarchy rooted at the path:
+`state/agents/room_id/`
+The following mandatory files and directories are contained within this root directory:
+| Item Type       | Path/Name                  | Purpose                                                                 |
+|-----------------|----------------------------|-------------------------------------------------------------------------|
+| Core State File | `state.json`               | Persistent storage for real-time agent state and runtime metrics        |
+| Subdirectory    | `tiles/`                   | Staging area for structured task tile data                              |
+| Subdirectory    | `bottles/`                 | Storage directory for completed agent output artifacts                  |
+| Subdirectory    | `log/`                     | Directory for timestamped runtime execution logs                        |
+| Subdirectory    | `seeds/`                   | Staging area for input seed data provided to the agent during setup     |
+
+## 3. Relative Model Cost Metrics (Per 1,000 Queries)
+Cost values are expressed as normalized relative scores used for model selection during the Orient stage. All models are ranked by these metrics to identify the lowest-cost eligible option for a given task:
+| Model Friendly Name | Relative Cost Per 1,000 Queries |
+|---------------------|----------------------------------|
+| Claude              | 50.0                             |
+| GLM                 | 5.0                              |
+| Seed                | 0.1                              |
+| DeepSeek            | 0.2                              |
+| Hermes              | 0.15                             |
+
+## 4. Task-Type to Model Routing Rules
+Predefined task category mappings direct work to appropriate models based on functional suitability and cost:
+| Task Category Set                                      | Assigned Model(s)                          |
+|--------------------------------------------------------|--------------------------------------------|
+| Synthesis + Critique + Big Idea Generation             | Claude                                     |
+| Architecture Design + Complex Code + Orchestration     | GLM                                        |
+| Discovery + Exploration + Variation Generation         | Seed                                       |
+| Drafting                                               | Seed + DeepSeek                            |
+| Documentation + Research                                 | DeepSeek                                   |
+| Adversarial Testing + Second Opinion Review             | Hermes                                     |
+
+## 5. OpenClaw Model Fully Qualified Identifiers
+All model references use OpenClaw-compatible fully qualified registry paths for standardized model resource lookup:
+| Model Friendly Name | OpenClaw Fully Qualified Registry Path                          |
+|---------------------|------------------------------------------------------------------|
+| Claude              | anthropic/claude-sonnet-4-20250514                               |
+| GLM                 | zai/glm-5.1                                                      |
+| Seed                | deepinfra/ByteDance/Seed-2.0-mini                                |
+| DeepSeek            | deepseek/deepseek-chat                                           |
+| Hermes              | deepinfra/NousResearch/Hermes-3-Llama-3.1-70B                    |
+
+## 6. AgentStatus Lifecycle Enumeration
+The standard state machine used to track the operational lifecycle of all agent rooms uses the following predefined enum values:
+`orienting`, `seeding`, `running`, `paused`, `complete`, `failed`
+
+## 7. Default PLATO Service Endpoint
+The base URL for all official PLATO service API interactions is configured by default as:
+`http://147.224.38.131:8847`

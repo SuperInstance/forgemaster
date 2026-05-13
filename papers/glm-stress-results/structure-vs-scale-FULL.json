@@ -1,0 +1,194 @@
+[
+  {
+    "cond": "naive",
+    "model": "llama-3.1-8b-instant",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "llama-3.1-8b-instant",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "llama-3.1-8b-instant",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "llama-3.1-8b-instant",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "multi-room",
+    "model": "llama-3.1-8b-instant",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "multi-room",
+    "model": "llama-3.1-8b-instant",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "multi-room",
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "multi-room",
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "openai/gpt-oss-20b",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "openai/gpt-oss-20b",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "openai/gpt-oss-20b",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "openai/gpt-oss-20b",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "multi-room",
+    "model": "openai/gpt-oss-20b",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "multi-room",
+    "model": "openai/gpt-oss-20b",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "ByteDance/Seed-2.0-mini",
+    "temp": 0.3,
+    "score": 10,
+    "tok": 1755,
+    "chars": 2983
+  },
+  {
+    "cond": "naive",
+    "model": "ByteDance/Seed-2.0-mini",
+    "temp": 1.0,
+    "score": 10,
+    "tok": 4718,
+    "chars": 4679
+  },
+  {
+    "cond": "structured",
+    "model": "ByteDance/Seed-2.0-mini",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 35
+  },
+  {
+    "cond": "structured",
+    "model": "ByteDance/Seed-2.0-mini",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 35
+  },
+  {
+    "cond": "multi-room",
+    "model": "ByteDance/Seed-2.0-mini",
+    "temp": 0.3,
+    "score": 9,
+    "tok": 7064,
+    "chars": 8464
+  },
+  {
+    "cond": "multi-room",
+    "model": "ByteDance/Seed-2.0-mini",
+    "temp": 1.0,
+    "score": 9,
+    "tok": 6750,
+    "chars": 8550
+  }
+]

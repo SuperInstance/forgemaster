@@ -31,6 +31,10 @@ pub struct ConstraintVM {
     call_stack: Vec<usize>,
     trace: Vec<TraceEntry>,
     constraint_results: Vec<bool>,
+    /// Perpendicular-space residue storage for PROJECT/RECONSTRUCT
+    residue_memory: Vec<Vec<f64>>,
+    /// Acceptance window size for cut-and-project (set by WINDOW opcode)
+    acceptance_window: f64,
 }
 
 impl ConstraintVM {
@@ -40,6 +44,8 @@ impl ConstraintVM {
             call_stack: Vec::new(),
             trace: Vec::new(),
             constraint_results: Vec::new(),
+            residue_memory: Vec::new(),
+            acceptance_window: 1.0,
         }
     }
 
@@ -49,6 +55,8 @@ impl ConstraintVM {
         self.call_stack.clear();
         self.trace.clear();
         self.constraint_results.clear();
+        self.residue_memory.clear();
+        self.acceptance_window = 1.0;
 
         let instructions = &bytecode.instructions;
         let mut ip: usize = 0;
@@ -326,6 +334,126 @@ impl ConstraintVM {
                     let time_ms = self.pop()?;
                     let speed = instr.operands.get(0).copied().unwrap_or(1500.0);
                     self.stack.push(speed * time_ms / 2000.0);
+                }
+
+                // FLUX-DEEP: Projection / Reconstruction (Penrose navigation space)
+                FluxOpcode::Project => {
+                    // Stack: [embed_dim, tiling_dim, ...coords] → [...projected_coords, residue_ptr]
+                    let tiling_dim = self.pop()? as usize;
+                    let embed_dim = self.pop()? as usize;
+                    let n_coords = self.stack.len();
+                    let coord_count = embed_dim.min(n_coords);
+                    let coords: Vec<f64> = self.stack.split_off(n_coords - coord_count);
+
+                    // Golden ratio projection matrix (deterministic pseudo-random projection)
+                    let phi = (1.0 + 5_f64.sqrt()) / 2.0; // golden ratio ≈ 1.618
+                    let mut projected = Vec::with_capacity(tiling_dim);
+                    for t in 0..tiling_dim {
+                        let mut sum = 0.0_f64;
+                        for (i, &c) in coords.iter().enumerate() {
+                            // Deterministic projection: use golden ratio powers
+                            sum += c * ((i + t + 1) as f64 * phi).fract();
+                        }
+                        projected.push(sum);
+                    }
+
+                    // Compute perpendicular-space residue (information lost in projection)
+                    let residue_len = embed_dim.saturating_sub(tiling_dim);
+                    let mut residue = Vec::with_capacity(residue_len);
+                    for i in 0..residue_len {
+                        let idx = tiling_dim + i;
+                        if idx < coords.len() {
+                            residue.push(coords[idx]);
+                        } else {
+                            residue.push(0.0);
+                        }
+                    }
+
+                    // Store residue in a special memory region (use stack offset as ptr)
+                    let residue_ptr = self.residue_memory.len() as f64;
+                    self.residue_memory.push(residue);
+
+                    for v in projected {
+                        self.stack.push(v);
+                    }
+                    self.stack.push(residue_ptr);
+                }
+                FluxOpcode::Reconstruct => {
+                    // Stack: [residue_ptr, ...projected_coords] → [...reconstructed_coords]
+                    let residue_ptr = self.pop()? as usize;
+                    let projected: Vec<f64> = self.stack.drain(..).collect();
+
+                    // Retrieve residue
+                    let residue = if residue_ptr < self.residue_memory.len() {
+                        self.residue_memory[residue_ptr].clone()
+                    } else {
+                        vec![0.0; 4] // default stub
+                    };
+
+                    // Reconstruct: interleave projected + residue
+                    let phi = (1.0 + 5_f64.sqrt()) / 2.0;
+                    let embed_dim = projected.len() + residue.len();
+                    let mut reconstructed = Vec::with_capacity(embed_dim);
+                    for i in 0..embed_dim {
+                        if i < projected.len() {
+                            // Invert projection approximately
+                            let inv_factor = 1.0 / (((i + 1) as f64 * phi).fract().max(0.1));
+                            reconstructed.push(projected[i] * inv_factor / (embed_dim as f64).sqrt());
+                        } else {
+                            let ri = i - projected.len();
+                            if ri < residue.len() {
+                                reconstructed.push(residue[ri]);
+                            } else {
+                                reconstructed.push(0.0);
+                            }
+                        }
+                    }
+
+                    for v in reconstructed {
+                        self.stack.push(v);
+                    }
+                }
+                FluxOpcode::Window => {
+                    // Stack: [window_size] — sets the acceptance window
+                    let window_size = self.pop()?;
+                    self.acceptance_window = window_size.max(0.0);
+                }
+                FluxOpcode::Residue => {
+                    // Stack: [] → [...perp_coords]
+                    // Push the last stored residue onto the stack
+                    if let Some(residue) = self.residue_memory.last() {
+                        for &v in residue {
+                            self.stack.push(v);
+                        }
+                    }
+                    // If no residue, push nothing (empty stack stays empty)
+                }
+                FluxOpcode::Nasty => {
+                    // Stack: [dim] → [is_nasty: 0 or 1]
+                    // Greenfeld-Tao: dimensions ≥ threshold guarantee aperiodicity
+                    // Conservative threshold: dim > 2 (Penrose works in 2+, higher = nastier)
+                    let dim = self.pop()? as usize;
+                    let threshold = instr.operands.get(0).copied().unwrap_or(2.0) as usize;
+                    self.stack.push(if dim > threshold { 1.0 } else { 0.0 });
+                }
+                FluxOpcode::SnapHigh => {
+                    // Stack: [dim, ...coords] → [...snapped_coords]
+                    let dim = self.pop()? as usize;
+                    let n = self.stack.len();
+                    let take = dim.min(n);
+                    let mut coords: Vec<f64> = self.stack.split_off(n - take);
+
+                    // Snap to nearest aperiodic lattice point using golden ratio
+                    let phi = (1.0 + 5_f64.sqrt()) / 2.0;
+                    for (i, c) in coords.iter_mut().enumerate() {
+                        // Snap: round to nearest golden-ratio-spaced lattice point
+                        let lattice_spacing = phi.powi((i % 5) as i32);
+                        *c = (*c / lattice_spacing).round() * lattice_spacing;
+                    }
+
+                    for v in coords {
+                        self.stack.push(v);
+                    }
                 }
             }
 
@@ -730,5 +858,145 @@ mod tests {
         let mut vm = ConstraintVM::new();
         let result = vm.execute(&bc).unwrap();
         assert!((result.outputs[0] - 0.4).abs() < 0.01);
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // FLUX-DEEP: Projection / Reconstruction tests
+    // ═══════════════════════════════════════════════════════════
+
+    #[test]
+    fn test_project_cuts_to_lower_dim() {
+        // Project 4D → 2D: embed_dim=4, tiling_dim=2, coords=[1,2,3,4]
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![2.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![3.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![4.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![4.0]), // embed_dim
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![2.0]), // tiling_dim
+            FluxInstruction::new(FluxOpcode::Project),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        // Should have 2 projected coords + 1 residue_ptr = 3 values
+        assert_eq!(result.outputs.len(), 3, "projected output should be tiling_dim + 1 (ptr)");
+        // residue_ptr should be 0 (first residue stored)
+        assert_eq!(result.outputs[2], 0.0, "first residue ptr should be 0");
+    }
+
+    #[test]
+    fn test_reconstruct_roundtrip() {
+        // Project 3D→1D then reconstruct — should produce some values
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![2.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![3.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![3.0]), // embed_dim
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]), // tiling_dim
+            FluxInstruction::new(FluxOpcode::Project),
+            // Stack now: [projected, residue_ptr]
+            FluxInstruction::new(FluxOpcode::Reconstruct),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        // Reconstructed should have embed_dim values (3)
+        assert_eq!(result.outputs.len(), 3, "reconstructed to embed_dim=3");
+        // All should be finite
+        for v in &result.outputs {
+            assert!(v.is_finite(), "reconstructed value should be finite: {}", v);
+        }
+    }
+
+    #[test]
+    fn test_window_sets_acceptance() {
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![2.5]),
+            FluxInstruction::new(FluxOpcode::Window),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![42.0]),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        // WINDOW consumes the value, so only 42.0 should remain
+        assert_eq!(result.outputs, vec![42.0]);
+        assert_eq!(vm.acceptance_window, 2.5);
+    }
+
+    #[test]
+    fn test_residue_pushes_perp_coords() {
+        // Project 4D→2D, then RESIDUE should push the 2 perp coords
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![2.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![3.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![4.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![4.0]), // embed_dim
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![2.0]), // tiling_dim
+            FluxInstruction::new(FluxOpcode::Project),
+            // Pop residue_ptr to get it out of the way
+            FluxInstruction::new(FluxOpcode::Pop),
+            // Pop projected coords
+            FluxInstruction::new(FluxOpcode::Pop),
+            FluxInstruction::new(FluxOpcode::Pop),
+            // Now push residue
+            FluxInstruction::new(FluxOpcode::Residue),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        // Residue should have embed_dim - tiling_dim = 2 coords
+        assert_eq!(result.outputs.len(), 2, "residue should have perp-space coords");
+        // The residue should be coords[2] and coords[3] = 3.0, 4.0
+        assert_eq!(result.outputs[0], 3.0, "first perp coord");
+        assert_eq!(result.outputs[1], 4.0, "second perp coord");
+    }
+
+    #[test]
+    fn test_nasty_high_dim() {
+        // dim=5, threshold=2 → nasty (1.0)
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![5.0]),
+            FluxInstruction::new(FluxOpcode::Nasty),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert_eq!(result.outputs[0], 1.0, "dim 5 > 2 should be nasty");
+
+        // dim=2, threshold=2 → NOT nasty (0.0)
+        let bc2 = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![2.0]),
+            FluxInstruction::new(FluxOpcode::Nasty),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm2 = ConstraintVM::new();
+        let result2 = vm2.execute(&bc2).unwrap();
+        assert_eq!(result2.outputs[0], 0.0, "dim 2 not > 2 should not be nasty");
+    }
+
+    #[test]
+    fn test_snap_high_golden_ratio() {
+        // Snap [1.0, 2.0] in dim=2 — should snap to golden-ratio-spaced lattice
+        let bc = make_bc(vec![
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![1.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![2.0]),
+            FluxInstruction::with_operands(FluxOpcode::Load, vec![2.0]), // dim
+            FluxInstruction::new(FluxOpcode::SnapHigh),
+            FluxInstruction::new(FluxOpcode::Halt),
+        ]);
+        let mut vm = ConstraintVM::new();
+        let result = vm.execute(&bc).unwrap();
+        assert_eq!(result.outputs.len(), 2, "should have 2 snapped coords");
+        // Verify snapped values are finite and on golden-ratio lattice
+        let phi = (1.0 + 5_f64.sqrt()) / 2.0;
+        for (i, v) in result.outputs.iter().enumerate() {
+            let lattice_spacing = phi.powi((i % 5) as i32);
+            let remainder = (v / lattice_spacing).fract().abs();
+            assert!(remainder < 1e-10 || (1.0 - remainder) < 1e-10,
+                "coord {} = {} should be on phi^{} lattice (spacing {})",
+                i, v, i % 5, lattice_spacing);
+        }
     }
 }

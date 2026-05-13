@@ -1,0 +1,75 @@
+# Technical Specification: Eisenstein-Dodecet 12-Bit State Encoding Constraint Module
+Official Designation: **EISENSTEIN-DODECET**
+
+---
+
+## 1. Core Domain
+This module is an Eisenstein integer-based constraint encoder designed explicitly for dodecet 12-bit state encoding workflows, used to discretize and encode 2D planar state data relative to the A2 lattice.
+
+---
+
+## 2. Dodecet 12-Bit State Layout
+The standard encoded state is a 12-bit unsigned integer, partitioned into three consecutive 4-bit nibbles. Each nibble maps to a specific state parameter, defined verbatim as follows:
+### 2.1 Nibble 2 (Bits 11–8: Constraint Level Field)
+4-bit unsigned field representing the discrete constraint level of the measured state, with valid range 0–15:
+- `0 = on-snap`: Fully aligned to a nearest A2 lattice point
+- `15 = at-rho`: State exactly at the A2 lattice covering radius ρ
+### 2.2 Nibble 1 (Bits 7–4: Direction-in-Cell Field)
+4-bit unsigned field representing discrete azimuth orientation within a Voronoi cell, with valid range 0–15. Each value corresponds to a 22.5° azimuth increment, delivering 16 uniformly spaced angular positions spanning 0° to 337.5°.
+### 2.3 Nibble 0 (Bits 3–0: Chirality + Safety Field)
+4-bit unsigned field combining chiral chamber identification and safety criticality:
+- Bits 0–2: 3-bit chamber index, valid range 0–5 (matches the 6 total A2 lattice Voronoi chambers)
+- Bit 3: Safety criticality flag, with a referenced critical threshold of 0.70 correlating to a critical state
+
+---
+
+## 3. Defined Mathematical Constants
+All standardized constants for the A2 lattice Eisenstein constraint system are specified exactly as follows:
+1.  **Underlying Lattice**: A2 (equilateral triangular 2D lattice)
+2.  **Covering Radius (ρ)**: Exact value \( \rho = \frac{1}{\sqrt{3}} \), with approximate numerical value 0.5774 (maximum distance from any point within an A2 lattice Voronoi cell to the nearest lattice point)
+3.  **Voronoi Cell Area**: Exact value \( \frac{\sqrt{3}}{2} \), the area of the regular hexagonal Voronoi cell for the A2 lattice
+4.  **Primitive 3rd Root of Unity**: \( \omega = e^{2\pi i / 3} = -\frac{1}{2} + i\frac{\sqrt{3}}{2} \), defining the ring of Eisenstein integers \( \mathbb{Z}[\omega] \)
+5.  **Weyl Group**: The symmetric group \( S_3 \), with total group order 6, corresponding to the 6 distinct Voronoi chambers of the A2 lattice
+
+---
+
+## 4. Weyl Voronoi Chambers
+The 6 total Voronoi chambers of the A2 lattice are all permutations of the coordinate triplet (0,1,2), partitioned by permutation parity:
+- **Even-Parity Chambers**: `[0, 2, 5]`, accessible via rotational transformations of the A2 lattice Weyl group
+- **Odd-Parity Chambers**: `[1, 3, 4]`, accessible via reflection transformations of the A2 lattice Weyl group
+
+---
+
+## 5. Safety Thresholds
+Two standardized safety classification bounds are defined:
+1.  **Standard Safe Threshold**: \( \rho/2 \). Any measured state with distance to the nearest lattice point below this value is classified as safe; states above this value are classified as critical.
+2.  **Statistical Constraint Level Property**: 70% of all observed constraint level values fall in the range ≥ 8, correlating to elevated critical state risk.
+
+---
+
+## 6. SnapResult Data Structure
+This struct encapsulates all raw calculation outputs and encoded state data returned by the module's core snap function. All fields are defined exactly per specification:
+| Field Name               | Type Specification                                                                 |
+|--------------------------|-------------------------------------------------------------------------------------|
+| `dodecet`                | `u16`: 16-bit unsigned integer storing the full 12-bit dodecet encoded state (lower 12 bits used for the 3-nibble layout) |
+| `snap_a`, `snap_b`       | `i32 Eisenstein integers`: Pair of closest A2 lattice points matched to the input coordinate |
+| `error`                  | `f64`: Double-precision floating-point raw distance error metric                    |
+| `error_normalized`       | `f64`: Normalized error value constrained to the closed interval [0, 1]             |
+| `error_level`            | `u8`: Discretized constraint level matching the Nibble 2 field range (0–15)         |
+| `angle_level`            | `u8`: Discretized azimuth direction matching the Nibble 1 field range (0–15)        |
+| `chamber`                | `u8`: Voronoi chamber index, valid range 0–5                                       |
+| `parity`                 | `i8`: Permutation parity of the chamber, valid values +1 (even) or -1 (odd)         |
+| `is_safe`                | `bool`: Boolean flag indicating safe state classification                           |
+
+---
+
+## 7. Hexadecimal Encoding Format
+The 12-bit dodecet state is compactly represented as a 3-character hexadecimal string, with each character mapping directly to one of the three 4-bit nibbles:
+1.  1st hex character: Nibble 2 (bits 11–8)
+2.  2nd hex character: Nibble 1 (bits 7–4)
+3.  3rd hex character: Nibble 0 (bits 3–0)
+
+---
+
+## 8. Public API Usage
+The primary module interface is provided via the `EisensteinConstraint` class/struct. A default-initialized instance created with `EisensteinConstraint::new()` exposes the `snap(x, y)` method, which accepts two 2D planar Cartesian coordinates `x` and `y` as input, and returns a fully populated `SnapResult` struct containing all encoded state and calculation metrics.

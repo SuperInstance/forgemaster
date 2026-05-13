@@ -86,6 +86,15 @@ pub enum FluxOpcode {
     Federate = 0x8D,   // Autonomous federation (distributed merge)
     Bearing  = 0x8E,   // Fleet bearing/heading (dodecet direction)
     Depth    = 0x8F,   // Sonar depth extraction (signal processing)
+
+    // PROJECTION / RECONSTRUCTION (FLUX-DEEP, Penrose navigation space)
+    // Cut-and-project between high-D "nasty" space and low-D Penrose tiling space
+    Project    = 0x90,   // Cut-and-project from high-D to low-D
+    Reconstruct = 0x91,  // Reconstruct from projected + residue back to high-D
+    Window     = 0x92,   // Set acceptance window size for cut-and-project
+    Residue    = 0x93,   // Push perpendicular-space residue onto the stack
+    Nasty      = 0x94,   // Check if embedding dimension guarantees aperiodicity
+    SnapHigh   = 0x95,   // Snap high-D point to nearest aperiodic lattice point
 }
 
 impl FluxOpcode {
@@ -166,6 +175,14 @@ impl FluxOpcode {
             0x8E => Some(FluxOpcode::Bearing),
             0x8F => Some(FluxOpcode::Depth),
 
+            // FLUX-DEEP: Projection / Reconstruction
+            0x90 => Some(FluxOpcode::Project),
+            0x91 => Some(FluxOpcode::Reconstruct),
+            0x92 => Some(FluxOpcode::Window),
+            0x93 => Some(FluxOpcode::Residue),
+            0x94 => Some(FluxOpcode::Nasty),
+            0x95 => Some(FluxOpcode::SnapHigh),
+
             _ => None,
         }
     }
@@ -193,6 +210,10 @@ impl FluxOpcode {
             FluxOpcode::Tdqkr | FluxOpcode::Amnesia | FluxOpcode::Shadow | FluxOpcode::Phase
             | FluxOpcode::Couple | FluxOpcode::Federate | FluxOpcode::Bearing | FluxOpcode::Depth
             => "DEEP",
+
+            FluxOpcode::Project | FluxOpcode::Reconstruct | FluxOpcode::Window
+            | FluxOpcode::Residue | FluxOpcode::Nasty | FluxOpcode::SnapHigh
+            => "PROJECTION",
         }
     }
 

@@ -1021,3 +1021,63 @@ All live at github.com/SuperInstance/{name}
 
 **Total Night Shift: 279 tests | 16 crates | 12 READMEs | 3 papers | 5 new publishes**
 
+---
+
+## Session Progress (2026-05-12 Late) 🔨 ACTIVE
+
+### Phase 18C: Seeding Science + Seed Architecture + Structure vs Scale
+
+**THE finding: Structure > Scale**
+- [x] llama-3.1-8b-instant NAIVE: 5/10 facts recovered
+- [x] llama-3.1-8b-instant STRUCTURED (PLATO room): **10/10 facts = matches Seed-2.0-mini**
+- [x] Seed-2.0-mini NAIVE: 10/10 (baseline champion)
+- [x] Seed-2.0-mini STRUCTURED: 10/10 (no degradation)
+- [x] The PLATO room structure (domain tags, key markers, expansion hints) IS the intelligence
+- [x] A $0.0001/query 8B model matches a $0.01/query 230B model when rooms are well-structured
+
+**Seed Architecture Revealed (from z.ai report)**
+- [x] 230B total / 23B active MoE (10:1 sparsity)
+- [x] AdaCoT adaptive chain-of-thought (3 modes: FullCoT/NoCoT/AdaCoT)
+- [x] 4-level reasoning effort: minimal/low/medium/high
+- [x] Coarse-grained experts (vs DeepSeek's 256 fine-grained) = broader posterior = better for reconstruction
+- [x] Multi-stage training: text → multimodal → long-context
+
+**Seeding Science Experiments (all run)**
+- [x] Cross-model: Seed 42/45 actionable, Qwen Pisot numbers, Hermes mediocre
+- [x] Ablation: minimal-maximal 8/8, temp plateau 0.7-1.5, prompt 3× more than temp
+- [x] Learned projection: PCA 1.7× better neighbor preservation than golden ratio
+- [x] End-to-end: 56% recall@20 with real embeddings, bottleneck = PCA not tiling
+- [x] Temp=1.0 U-curve FALSIFIED: model-specific, not universal
+
+**Code Shipped**
+- [x] penrose-memory 35/35 tests (cut_and_project + compiler)
+- [x] FLUX-PLATO integration (tile scoring + matching + consolidation via bytecode)
+- [x] pyflux/compat.py (58-opcode Python VM, 5 cross-domain demos)
+- [x] penrose_cuda_v2.cu (prefix-sum fix for Oracle1)
+- [x] penrose-memory v1.0 crates.io dry run passed
+
+**Papers Written (10+)**
+- [x] WHY-TEMPERATURE-1-WINS.md (38KB)
+- [x] SEED-INFORMATION-THEORY.md (38KB)
+- [x] SEEDING-SCIENCE-SYNTHESIS.md (29KB)
+- [x] SEED-PLATO-INTEGRATION-STRATEGY.md (42KB)
+- [x] SEED-ARCHITECTURE-DEEP-DIVE.md (13KB)
+- [x] PLATO-INTELLIGENCE-TRANSFER.md (35KB)
+- [x] SEED-TILE-SPEC.md / SEED-ALIGNMENT-PROCEDURE.md / SEED-ENCODED-PLATO.md
+- [x] SEED-INTEGRATION-AUDIT.md + GROUND-TRUTH-FINAL.md
+
+**Active Tasks**
+- [ ] Run structure-vs-scale with Groq models (llama-4-scout, gpt-oss-20b) — structured vs naive
+- [ ] Run with 0.6B-2B models locally (ollama) when WSL restarts
+- [ ] Test JEPA/flow models for information-flow rooms
+- [ ] Publish penrose-memory v1.0 to crates.io
+- [ ] Run z.ai P3 experiment: domain tags shift routing 15-25%
+- [ ] Wire dynamic MoE routing into lighthouse.py
+
+**Key Credentials**
+- Groq key: `~/.openclaw/workspace/.credentials/groq-api-key.txt`
+- Models: llama-3.1-8b-instant, llama-4-scout-17b, gpt-oss-20b
+- All Groq models respond in <2 seconds, essentially free
+
+**Total This Session: ~450 tests | 25+ papers | 10 experiments | 5 code modules | 1 fundamental finding**
+

@@ -1,0 +1,146 @@
+[
+  {
+    "cond": "naive",
+    "model": "llama-3.1-8b-instant",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "llama-3.1-8b-instant",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "openai/gpt-oss-20b",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "openai/gpt-oss-20b",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "naive",
+    "model": "ByteDance/Seed-2.0-mini",
+    "temp": 0.3,
+    "score": 10,
+    "tok": 7325,
+    "chars": 7972
+  },
+  {
+    "cond": "naive",
+    "model": "ByteDance/Seed-2.0-mini",
+    "temp": 1.0,
+    "score": 10,
+    "tok": 3604,
+    "chars": 8394
+  },
+  {
+    "cond": "structured",
+    "model": "llama-3.1-8b-instant",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "llama-3.1-8b-instant",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "openai/gpt-oss-20b",
+    "temp": 0.3,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "openai/gpt-oss-20b",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "structured",
+    "model": "ByteDance/Seed-2.0-mini",
+    "temp": 0.3,
+    "score": 10,
+    "tok": 6248,
+    "chars": 7425
+  },
+  {
+    "cond": "structured",
+    "model": "ByteDance/Seed-2.0-mini",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 35
+  },
+  {
+    "cond": "multi-room",
+    "model": "llama-3.1-8b-instant",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  },
+  {
+    "cond": "multi-room",
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temp": 1.0,
+    "score": 0,
+    "tok": 0,
+    "chars": 32
+  }
+]

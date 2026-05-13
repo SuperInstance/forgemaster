@@ -1,0 +1,155 @@
+# FLUX-ISA-OPCODES Formal Specification
+## Core Enumeration Definition
+The FLUX ISA opcode set is defined via the `FluxOpcode` Rust enumeration, marked with `#[repr(u8)]` to enforce 8-bit unsigned integer backing storage, and derives standard library traits for tooling and equality checking:
+```rust
+#[repr(u8)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum FluxOpcode {
+    // All variant mnemonics and hex mappings are defined per category below
+}
+```
+## Domain Context
+This specification defines the complete opcode set for the FLUX virtual machine, a specialized runtime designed exclusively for constraint-theory operations across mathematical, set-theoretic, and computational constraint domains.
+
+---
+
+## 1. Opcode Category Mappings (Aligned to Hex Range)
+All categories use contiguous 8-bit hexadecimal opcode ranges as defined below:
+
+### 1.1 ARITHMETIC Category (0x01–0x05)
+5 dedicated arithmetic opcodes, mapped in listed order:
+| Hex Opcode | Mnemonic |
+|------------|----------|
+| 0x01       | Add      |
+| 0x02       | Sub      |
+| 0x03       | Mul      |
+| 0x04       | Div      |
+| 0x05       | Mod      |
+
+---
+
+### 1.2 CONSTRAINT Category (0x10–0x13)
+4 constraint validation and state opcodes:
+| Hex Opcode | Mnemonic |
+|------------|----------|
+| 0x10       | Assert   |
+| 0x11       | Check    |
+| 0x12       | Validate |
+| 0x13       | Reject   |
+
+---
+
+### 1.3 FLOW Category (0x20–0x24)
+5 control flow transition opcodes:
+| Hex Opcode | Mnemonic |
+|------------|----------|
+| 0x20       | Jump     |
+| 0x21       | Branch   |
+| 0x22       | Call     |
+| 0x23       | Return   |
+| 0x24       | Halt     |
+
+---
+
+### 1.4 MEMORY Category (0x30–0x34)
+5 stack and memory access opcodes:
+| Hex Opcode | Mnemonic |
+|------------|----------|
+| 0x30       | Load     |
+| 0x31       | Store    |
+| 0x32       | Push     |
+| 0x33       | Pop      |
+| 0x34       | Swap     |
+
+---
+
+### 1.5 CONVERT Category (0x40–0x43)
+4 data type and value conversion opcodes:
+| Hex Opcode | Mnemonic |
+|------------|----------|
+| 0x40       | Snap     |
+| 0x41       | Quantize |
+| 0x42       | Cast     |
+| 0x43       | Promote  |
+
+---
+
+### 1.6 LOGIC Category (0x50–0x53)
+4 bitwise logical operation opcodes:
+| Hex Opcode | Mnemonic |
+|------------|----------|
+| 0x50       | And      |
+| 0x51       | Or       |
+| 0x52       | Not      |
+| 0x53       | Xor      |
+
+---
+
+### 1.7 COMPARE Category (0x60–0x65)
+6 numeric comparison opcodes:
+| Hex Opcode | Mnemonic |
+|------------|----------|
+| 0x60       | Eq       |
+| 0x61       | Neq      |
+| 0x62       | Lt       |
+| 0x63       | Gt       |
+| 0x64       | Lte      |
+| 0x65       | Gte      |
+
+---
+
+## 2. INT8-SAT(FLUX-X) Extended Operations (0x28–0x2F)
+Specialized subset for INT8 signed/unsigned saturated arithmetic on the FLUX-X virtual machine variant, occupying the gap between the FLOW and MEMORY core categories:
+| Hex Opcode | Mnemonic |
+|------------|----------|
+| 0x28       | SatAdd   |
+| 0x29       | SatSub   |
+| 0x2A       | Clip     |
+| 0x2B       | Mad      |
+| 0x2C       | Popcnt   |
+| 0x2D       | Ctz      |
+| 0x2E       | Pabs     |
+| 0x2F       | Pmin     |
+
+---
+
+## 3. GALOIS-ADJUNCTIONS Category (0x80–0x87)
+Category theory-based constraint adjunction operations, 8-opcode contiguous range with 7 defined named opcodes and 1 unallocated slot:
+| Hex Opcode | Mnemonic | Descriptive Label (Per Specification) |
+|------------|----------|----------------------------------------|
+| 0x80       | XorInvert| self-adjoint                           |
+| 0x81       | Clamp    | reflective-subcategory                 |
+| 0x82       | Bloom+BloomQ | Heyting algebra                    |
+| 0x83       | FloorQ   | left-adjoint                           |
+| 0x84       | CeilQ    | right-adjoint                          |
+| 0x85       | Align    | tolerance-set                          |
+| 0x86       | Holonomy | cycle-check                            |
+| 0x87       | Unallocated | Reserved for future standardization |
+
+---
+
+## 4. CROSS-DOMAIN Category (0x88–0x8F)
+Cross-domain operations spanning multiple mathematical and computational constraint frameworks, fully allocated 8-opcode range:
+| Hex Opcode | Mnemonic | Descriptive Label (Per Specification) |
+|------------|----------|----------------------------------------|
+| 0x88       | Tdqkr    | Tucker top-k                            |
+| 0x89       | Amnesia  | Ebbinghaus decay                        |
+| 0x8A       | Shadow   | negative-space                          |
+| 0x8B       | Phase    | transition                              |
+| 0x8C       | Couple   | strength                                |
+| 0x8D       | Federate | distributed-merge                       |
+| 0x8E       | Bearing  | dodecet                                 |
+| 0x8F       | Depth    | sonar                                   |
+
+---
+
+## 5. PROJECTION Category (0x90–0x95)
+Lattice and set projection operations, fully allocated 6-opcode range:
+| Hex Opcode | Mnemonic | Descriptive Label (Per Specification) |
+|------------|----------|----------------------------------------|
+| 0x90       | Project  | cut-and-project                         |
+| 0x91       | Reconstruct | projected+residue                   |
+| 0x92       | Window   | acceptance                              |
+| 0x93       | Residue  | perp-space                              |
+| 0x94       | Nasty    | aperiodicity check                      |
+| 0x95       | SnapHigh | snap to lattice                         |

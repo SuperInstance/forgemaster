@@ -1,0 +1,122 @@
+# FLUX-ISA-OPCODES: Constraint Theory Virtual Machine Instruction Set Specification
+## Document Overview
+This formal specification is derived exclusively from the `FLUX-ISA-OPCODES` knowledge tile, with no fabricated information added. It defines the opcode set for the FLUX constraint-theory virtual machine, a domain-specific VM for formal constraint system operations.
+
+---
+
+## 1. Core Enumeration Definition
+The `FluxOpcode` type is a C-style enumeration represented as an unsigned 8-bit integer (`repr(u8)`). It derives the following standard trait implementations for interoperability and tooling:
+- `Debug` for human-readable debug formatting
+- `Clone` for deep copying of opcode values
+- `Copy` for trivial bitwise copying
+- `PartialEq` and `Eq` for value equality comparisons
+- `Hash` for use as a key in hash-based data structures
+
+---
+
+## 2. Opcode Category Groupings
+All opcodes are organized into functional categories, each assigned a contiguous range of 8-bit opcode values. Mnemonics map to sequential offsets within their category range per the order listed in the source tile.
+
+### 2.1 Arithmetic Operations (ARITHMETIC)
+**Opcode Range**: 0x01–0x05 (inclusive)
+| Mnemonic | Opcode | Functional Description |
+|----------|--------|------------------------|
+| Add      | 0x01   | Standard integer addition |
+| Sub      | 0x02   | Standard integer subtraction |
+| Mul      | 0x03   | Standard integer multiplication |
+| Div      | 0x04   | Standard integer division |
+| Mod      | 0x05   | Standard integer modulus/remainder operation |
+
+### 2.2 Constraint Validation Operations (CONSTRAINT)
+**Opcode Range**: 0x10–0x13 (inclusive)
+| Mnemonic | Opcode | Functional Description |
+|----------|--------|------------------------|
+| Assert   | 0x10   | Validates a constraint condition; raises a VM error on failure |
+| Check    | 0x11   | Tests a constraint condition without side effects |
+| Validate | 0x12   | Verifies compliance of the current VM state against formal constraints |
+| Reject   | 0x13   | Immediately aborts execution in response to a constraint violation |
+
+### 2.3 Control Flow Operations (FLOW)
+**Opcode Range**: 0x20–0x24 (inclusive)
+| Mnemonic | Opcode | Functional Description |
+|----------|--------|------------------------|
+| Jump     | 0x20   | Unconditionally transfers execution to a target memory address |
+| Branch   | 0x21   | Conditionally transfers execution to a target memory address |
+| Call     | 0x22   | Saves the current execution context and transfers control to a subroutine |
+| Return   | 0x23   | Restores saved execution context and resumes the parent calling frame |
+| Halt     | 0x24   | Terminates virtual machine execution immediately |
+
+### 2.4 Memory Access Operations (MEMORY)
+**Opcode Range**: 0x30–0x34 (inclusive)
+| Mnemonic | Opcode | Functional Description |
+|----------|--------|------------------------|
+| Load     | 0x30   | Loads a value from VM memory into a general-purpose register |
+| Store    | 0x31   | Writes a register value to VM memory |
+| Push     | 0x32   | Pushes a register value onto the VM stack |
+| Pop      | 0x33   | Pops a value from the VM stack into a general-purpose register |
+| Swap     | 0x34   | Exchanges values between two VM registers or stack positions |
+
+### 2.5 Data Conversion Operations (CONVERT)
+**Opcode Range**: 0x40–0x43 (inclusive)
+| Mnemonic | Opcode | Functional Description |
+|----------|--------|------------------------|
+| Snap     | 0x40   | Aligns a numeric value to a predefined discrete grid or reference point |
+| Quantize | 0x41   | Reduces the bit depth or numeric precision of a value |
+| Cast     | 0x42   | Converts a value between distinct data types without adjusting stored bit patterns |
+| Promote  | 0x43   | Upgrades a value to a higher-precision data type safely |
+
+### 2.6 Bitwise Logic Operations (LOGIC)
+**Opcode Range**: 0x50–0x53 (inclusive)
+| Mnemonic | Opcode | Functional Description |
+|----------|--------|------------------------|
+| And      | 0x50   | Bitwise logical AND between two register values |
+| Or       | 0x51   | Bitwise logical OR between two register values |
+| Not      | 0x52   | Bitwise logical inversion of a single register value |
+| Xor      | 0x53   | Bitwise logical XOR between two register values |
+
+### 2.7 Numeric Comparison Operations (COMPARE)
+**Opcode Range**: 0x60–0x65 (inclusive)
+| Mnemonic | Opcode | Functional Description |
+|----------|--------|------------------------|
+| Eq       | 0x60   | Tests if two values are equal, sets a status flag |
+| Neq      | 0x61   | Tests if two values are not equal, sets a status flag |
+| Lt       | 0x62   | Tests if the first value is less than the second, sets a status flag |
+| Gt       | 0x63   | Tests if the first value is greater than the second, sets a status flag |
+| Lte      | 0x64   | Tests if the first value is less than or equal to the second, sets a status flag |
+| Gte      | 0x65   | Tests if the first value is greater than or equal to the second, sets a status flag |
+
+### 2.8 INT8 Saturation Arithmetic (FLUX-X)
+**Opcode Range**: 0x28–0x2F (inclusive)
+Specialized subset of arithmetic operations for signed 8-bit integers with overflow-preventing saturation behavior:
+| Mnemonic | Opcode | Functional Description |
+|----------|--------|------------------------|
+| SatAdd   | 0x28   | Saturated signed 8-bit addition |
+| SatSub   | 0x29   | Saturated signed 8-bit subtraction |
+| Clip     | 0x2A   | Clips a signed 8-bit value to a user-specified min/max range |
+| Mad      | 0x2B   | Optimized multiply-add operation (`a*b + c`) for signed 8-bit integers |
+| Popcnt   | 0x2C   | Counts the number of set (1) bits in a signed 8-bit value |
+| Ctz      | 0x2D   | Counts the number of trailing zero bits starting from the least significant bit |
+| Pabs     | 0x2E   | Computes the absolute value of a signed 8-bit integer without overflow |
+| Pmin     | 0x2F   | Returns the minimum of two signed 8-bit integer values |
+
+### 2.9 Galois Adjunctions (GALOIS-ADJUNCTIONS)
+**Opcode Range**: 0x80–0x87 (inclusive)
+Opcodes implementing formal category theory Galois adjunctions and related algebraic operations. Explicitly specified mnemonics and their formal properties:
+| Mnemonic | Opcode | Formal Property/Description |
+|----------|--------|-----------------------------|
+| XorInvert| 0x80   | Self-adjoint Galois operation |
+| Clamp    | 0x81   | Reflective subcategory adjunction |
+| Bloom+BloomQ | 0x82 | Implements Bloom filter and Bloom filter query operations; corresponds to a Heyting algebra structure |
+| FloorQ   | 0x83   | Left-adjoint quotient operation |
+| CeilQ    | 0x84   | Right-adjoint quotient operation |
+| Align    | 0x85   | Adjunction operation for aligning values to a tolerance-set grid |
+| Holonomy | 0x86   | Cycle-check adjunction for verifying closed-loop constraint consistency |
+| *Unspecified* | 0x87 | No explicit mnemonic or description provided in source tile |
+
+### 2.10 Cross-Domain Integration Operations (CROSS-DOMAIN)
+**Opcode Range**: 0x88–0x8F (inclusive)
+Opcodes enabling interoperability between distinct constraint theory domains and specialized external systems:
+| Mnemonic | Opcode | Functional Description |
+|----------|--------|------------------------|
+| Tdqkr    | 0x88   | Tucker top-k rank aggregation for merged constrained ranked datasets |
+| Amnesia

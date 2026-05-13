@@ -1,0 +1,75 @@
+# Penrose-Memory Crate Technical Documentation
+## Version: 0.1.0
+## License: MIT License
+
+---
+
+## 1.  Product Overview
+Penrose-Memory is a cross-language software crate built for both Rust and Python that implements an aperiodic semantic memory palace using Penrose tiling. The crate enables secure storage of semantic embeddings, spatial recall of stored entries, navigational traversal of the memory lattice, and hierarchical memory consolidation using golden ratio-based logic.
+
+## 2.  Core Pipeline Architecture
+The crate follows a defined operational workflow:
+1.  **Embedding Mapping**: Input semantic embedding vectors are converted to 2D planar coordinates within a Penrose tiling lattice using a golden-ratio based hash function.
+2.  **Tile-Bound Persistence**: Semantic data is stored directly on the corresponding Penrose tiles within the tiling lattice.
+3.  **Dead-Reckoning Recall**: Stored embeddings are retrieved using dead-reckoning spatial calculations, avoiding full lattice traversal to locate relevant memory tiles.
+4.  **Spatial Navigation**: Traversal between memory tiles is supported using Euclidean distance and planar heading to move between discrete positions in the Penrose lattice.
+5.  **Hierarchical Consolidation**: Stored memory tiles are organized into nested logical groups using a golden ratio-based hierarchical scaling factor of φ^k, where φ = (1+√5)/2 (the golden ratio) and k is a non-negative integer exponent.
+
+## 3.  Fibonacci Word & Tiling Validation Logic
+Core tiling definition and validation relies on a Fibonacci word:
+- The Fibonacci word generates a binary bitstream defining thick and thin Penrose tiles, with the asymptotic ratio of thin tiles to thick tiles equal to 1/φ.
+- The Fibonacci word enforces official Penrose tiling matching rules, verifying that all tile placements within the lattice are valid aperiodic positions.
+- A 3-coloring schema applied to the Penrose tiling lattice enables logical sharding of the memory palace, allowing partitioned access to disjoint segments of stored memory.
+
+## 4.  API Specifications
+### 4.1 Rust API
+The Rust implementation is published as the `penrose_memory` crate on crates.io, with the following public methods:
+- `new(dim: usize) -> Self`: Constructor that initializes a new memory palace instance with a specified embedding dimension `dim`.
+- `store(embedding: &[f64], payload: u64) -> u64`: Stores a provided embedding vector and associated 64-bit unsigned payload, returning a unique integer tile ID for the stored entry.
+- `recall(query: &[f64], steps: usize) -> Vec<RecallResult>`: Performs dead-reckoning recall using a query embedding vector and specified number of recall steps, returning a vector of `RecallResult` structs.
+- `navigate(tile_id: u64, distance: f64, heading: f64) -> Vec<u64>`: Navigates from the tile specified by `tile_id` a given Euclidean distance along the specified planar heading, returning a vector of tile IDs for all tiles along the navigational path.
+- `consolidate(&mut self) -> ()`: Triggers hierarchical memory consolidation using the φ^k golden ratio hierarchy to reorganize stored memory tiles.
+- `len(&self) -> usize`: Returns the total number of currently stored memory tiles in the memory palace.
+
+#### 4.1.1 RecallResult Struct
+The Rust API defines a standardized `RecallResult` struct with three fields:
+- `tile_id: u64`: Unique identifier of the recalled memory tile
+- `confidence: f64`: Floating-point similarity confidence score between the query embedding and the stored tile embedding
+- `distance: f64`: Euclidean distance between the query embedding's mapped Penrose coordinate and the stored tile's coordinate
+
+---
+
+### 4.2 Python API
+The Python binding is published as the `penrose_memory` package on PyPI, with the following public methods:
+- `init(embedding_dim: int = 1536) -> PenroseMemory`: Initializes a new memory palace wrapper instance, with an optional embedding dimension parameter defaulting to the standard 1536.
+- `store(text: str, embedding: list[float]) -> int`: Stores a provided input text string and associated embedding vector, returning a unique integer tile ID for the stored entry.
+- `recall(query_embedding: list[float], max_steps: int = 5) -> list[RecallResult]`: Performs dead-reckoning recall using a query embedding vector and optional maximum recall step count (defaulting to 5), returning a list of `RecallResult` objects.
+- `navigate(tile_id: int, distance: float, heading: float) -> list[int]`: Navigates from the specified tile ID a given Euclidean distance along the specified planar heading, returning a list of tile IDs for all tiles along the navigational path.
+- `consolidate() -> int`: Triggers hierarchical memory consolidation, returning the total number of nested memory groups created by the operation.
+
+#### 4.2.1 RecallResult Dataclass
+The Python API exposes a standardized `RecallResult` dataclass with three fields:
+- `tile_id: int`: Unique identifier of the recalled memory tile
+- `confidence: float`: Floating-point similarity confidence score between the query embedding and the stored tile embedding
+- `distance: float`: Euclidean distance between the query embedding's mapped Penrose coordinate and the stored tile's coordinate
+
+## 5.  Default Configuration
+The standard default embedding dimension for all Penrose-Memory instances is 1536, used when no dimension is explicitly specified in the Rust `new()` constructor or Python `init()` function.
+
+## 6.  Test Suite
+### 6.1 Rust Test Suite
+The Rust implementation includes 15 total test cases covering:
+- Roundtrip storage and retrieval correctness
+- Aperiodic tiling validity
+- Fibonacci ratio tile count compliance
+- 3-color sharding functionality
+- Memory consolidation logic
+- Spatial navigation operations
+- Large embedding vector handling
+- Confidence decay scoring
+
+### 6.2 Python Test Suite
+The Python binding includes 10 total test cases covering core API functionality aligned with the Rust implementation.
+
+## 7.  Licensing
+This crate is released under the permissive MIT License, which permits unrestricted use, modification, distribution, and private/commercial deployment provided original copyright and license notices are preserved.

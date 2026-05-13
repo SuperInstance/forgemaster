@@ -1,0 +1,173 @@
+[
+  {
+    "name": "recon",
+    "model": "glm-4.7-flash",
+    "temp": 1.0,
+    "score": 0,
+    "content_len": 40,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "creative",
+    "model": "glm-4.7",
+    "temp": 0.7,
+    "score": 0,
+    "content_len": 40,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "tempsweep",
+    "model": "glm-5.1",
+    "temp": 0.3,
+    "score": 0,
+    "content_len": 40,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "tempsweep",
+    "model": "glm-5.1",
+    "temp": 1.3,
+    "score": 0,
+    "content_len": 40,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "creative",
+    "model": "glm-5.1",
+    "temp": 1.3,
+    "score": 0,
+    "content_len": 40,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "recon",
+    "model": "glm-4.5-air",
+    "temp": 1.0,
+    "score": 0,
+    "content_len": 40,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "tempsweep",
+    "model": "glm-4.5-air",
+    "temp": 0.7,
+    "score": 0,
+    "content_len": 40,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "tempsweep",
+    "model": "glm-5.1",
+    "temp": 0.7,
+    "score": 0,
+    "content_len": 40,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "recon",
+    "model": "glm-5.1",
+    "temp": 1.0,
+    "score": 0,
+    "content_len": 40,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "creative",
+    "model": "glm-4.5-air",
+    "temp": 0.7,
+    "score": 5,
+    "content_len": 4663,
+    "reasoning_len": 6063,
+    "tokens": 2417
+  },
+  {
+    "name": "creative",
+    "model": "glm-4.5-air",
+    "temp": 1.0,
+    "score": 3,
+    "content_len": 4142,
+    "reasoning_len": 6296,
+    "tokens": 2472
+  },
+  {
+    "name": "tempsweep",
+    "model": "glm-4.5-air",
+    "temp": 0.3,
+    "score": 10,
+    "content_len": 9984,
+    "reasoning_len": 3634,
+    "tokens": 2782
+  },
+  {
+    "name": "creative",
+    "model": "glm-4.7",
+    "temp": 1.0,
+    "score": 0,
+    "content_len": 35,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "creative",
+    "model": "glm-5.1",
+    "temp": 1.0,
+    "score": 0,
+    "content_len": 35,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "creative",
+    "model": "glm-4.5-air",
+    "temp": 1.3,
+    "score": 0,
+    "content_len": 35,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "recon",
+    "model": "glm-4.7",
+    "temp": 1.0,
+    "score": 0,
+    "content_len": 35,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "tempsweep",
+    "model": "glm-4.5-air",
+    "temp": 1.3,
+    "score": 0,
+    "content_len": 35,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "creative",
+    "model": "glm-5.1",
+    "temp": 0.7,
+    "score": 0,
+    "content_len": 35,
+    "reasoning_len": 0,
+    "tokens": 0
+  },
+  {
+    "name": "creative",
+    "model": "glm-4.7",
+    "temp": 1.3,
+    "score": 0,
+    "content_len": 35,
+    "reasoning_len": 0,
+    "tokens": 0
+  }
+]

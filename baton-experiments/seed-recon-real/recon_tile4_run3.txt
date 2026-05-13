@@ -1,0 +1,75 @@
+# Technical Specification: Eisenstein-Dodecet 12-Bit Eisenstein Integer Constraint Module
+## Document Identification
+- Official Designation: Eisenstein-Dodecet
+- Primary Domain: Constraint encoding module for 12-bit dodecet state vectors targeting A₂ (Eisenstein integer) lattice operations
+
+---
+
+## 1. Dodecet 12-Bit State Encoding Layout
+The core encoded data unit is a 12-bit dodecet, split exactly into three 4-bit unsigned nibbles ordered from most-significant to least-significant bit positions:
+### 1.1 Nibble 2 (Bits 11–8): Constraint Level Field
+This 4-bit field quantifies positional distance relative to the Eisenstein lattice:
+- Value `0`: On-snap state, where input coordinates align perfectly with an Eisenstein lattice point (zero positional error)
+- Maximum value `15`: State at the A₂ lattice covering radius ρ
+### 1.2 Nibble 1 (Bits 7–4): Direction-in-Cell Field
+This 4-bit field encodes discrete azimuthal orientation within the Voronoi cell, with 16 total states each corresponding to a 22.5° angular increment:
+- Valid range: 0–15
+- State `n` maps to an azimuth angle of `n * 22.5°`
+### 1.3 Nibble 0 (Bits 3–0): Chirality + Safety Metadata Field
+This 4-bit field combines chirality tracking and safety classification metadata, split into two defined sub-fields:
+- Bits 0–2: Chamber Index (range 0–5): Specifies the assigned Weyl chamber for the state
+- Bit 3: Safe/Critical Flag: Indicates safety classification, with a 0.70 threshold defining critical state status
+
+---
+
+## 2. Standardized Mathematical Constants
+All lattice and group theory constants are fixed for A₂ lattice operations:
+1.  Underlying Lattice: A₂ hexagonal Eisenstein integer lattice
+2.  Covering Radius (ρ): $ρ = 1/\sqrt{3} ≈ 0.5774$
+3.  Voronoi Cell Area: $\sqrt{3}/2$
+4.  Primitive 3rd Root of Unity: $ω = e^{2πi/3} = -1/2 + i·(\sqrt{3}/2)$
+5.  Weyl Group Order: Symmetric group $S_3$ has an order of 6, matching the total number of unique A₂ Weyl chambers
+
+---
+
+## 3. Weyl Chamber Configuration
+The A₂ lattice has 6 distinct Weyl chambers, defined as all permutations of the ordered triplet (0,1,2). Chambers are split into parity-based symmetry groups:
+- **Even-Parity Chambers (Rotation-Only Accessible)**: Explicit set `[0, 2, 5]`, reachable exclusively via rotational lattice symmetry operations
+- **Odd-Parity Chambers (Reflection-Only Accessible)**: Explicit set `[1, 3, 4]`, reachable exclusively via reflection lattice symmetry operations
+
+---
+
+## 4. Safety Thresholds & Distribution Specifications
+### 4.1 Standard Safe Threshold
+The formal safety boundary is defined as half the lattice covering radius: $ρ/2$. Per the specification:
+- Any state with positional error below $ρ/2$ is classified as safe
+- Any state with positional error at or above $ρ/2$ is classified as critical
+### 4.2 Population Distribution Constraint
+70% of all valid constraint-level values fall at or above level 8 (i.e., ≥8 on the 0–15 constraint level scale)
+
+---
+
+## 5. SnapResult Data Structure
+This struct encapsulates all output data from the lattice snapping operation, with strictly typed fields as defined:
+| Field Name               | Type               | Formal Description                                                                 |
+|--------------------------|--------------------|-------------------------------------------------------------------------------------|
+| `dodecet`                | `u16`              | Packed 12-bit encoded state vector, stored within a 16-bit unsigned integer wrapper |
+| `snap_a`, `snap_b`       | `i32`              | Signed 32-bit integer components of the snapped Eisenstein coordinate pair          |
+| `error`                  | `f64`              | Floating-point magnitude of positional error between input and snapped coordinates   |
+| `error_normalized`       | `f64`              | Normalized error value constrained to the closed interval $[0, 1]$                  |
+| `error_level`            | `u8`               | Unsigned 8-bit integer encoding raw error quantization level                        |
+| `angle_level`            | `u8`               | Unsigned 8-bit integer encoding directional azimuth quantization level              |
+| `chamber`                | `u8` (0–5)         | Weyl chamber index assigned to the snapped state                                    |
+| `parity`                 | `i8` (+1 or -1)    | Parity of the Weyl chamber transformation: +1 for even, -1 for odd                   |
+| `is_safe`                | `bool`             | Boolean flag indicating if the snapped state meets safe classification criteria     |
+
+---
+
+## 6. Serialization Format & Public API
+### 6.1 Hexadecimal Serialization Format
+The 12-bit dodecet state is serialized as a 3-character standard hexadecimal string, with each character representing one 4-bit nibble ordered from most-significant (Nibble 2) to least-significant (Nibble 0).
+### 6.2 Public API Workflow
+The module exposes a standardized instantiation and snapping interface:
+1.  Instantiate a constraint module instance via the static constructor: `EisensteinConstraint::new()`
+2.  Execute lattice snapping by calling the `.snap(x, y)` method on the instance, where `x` and `y` are input Cartesian coordinates
+3.  The method returns a fully populated `SnapResult` struct containing all encoded and computed state data

@@ -1,0 +1,91 @@
+# Full Technical Specification: Penrose-Memory Crate Suite v0.1.0
+## Overview
+The Penrose-Memory crate suite is a dual-language Rust + Python software library that implements an aperiodic memory palace using Penrose tiling for spatially organized, cryptographically consistent memory storage and recall.
+
+---
+
+## Core Functional Pipeline
+The crate implements a standardized end-to-end memory workflow as derived directly from the specification:
+1.  **Embedding to Penrose Coordinates**: Input data is converted to 2D Penrose tiling coordinates using a golden-ratio hash function.
+2.  **Tile-Based Storage**: Encoded data is persisted directly onto individual Penrose tiles within the aperiodic tiling lattice.
+3.  **Dead-Reckon Recall**: Memory recall is performed using dead-reckoning to locate proximity matches to query embeddings.
+4.  **Spatial Navigation**: Users can traverse the tiling lattice by specifying a target distance and cardinal heading from a known tile ID to locate adjacent or distant stored entries.
+5.  **Hierarchical Consolidation**: Stored memory entries are organized and optimized using a golden ratio hierarchy defined by powers of the golden ratio (φᵏ) to improve access latency and reduce lookup overhead.
+
+---
+
+## Fibonacci Word & Tiling Enforcement Rules
+A Fibonacci word sequence is a foundational component of the crate's Penrose tiling implementation:
+- The Fibonacci word defines bit allocation for thick and thin Penrose tiles, with the steady-state ratio of thick-to-thin tiles asymptotically approaching 1/φ (where φ is the golden ratio).
+- The Fibonacci word enforces official Penrose tiling matching rules, which validate that all tiles within the lattice are placed in valid, non-conflicting positions.
+- A 3-coloring scheme for Penrose tiles is implemented, which enables logical sharding of the memory palace across multiple isolated storage partitions.
+
+---
+
+## API Specifications
+### Rust Core Crate API
+The foundational library is implemented in Rust, with the following public interface:
+| Function Signature | Behavior |
+|----|----|
+| `fn new(dim: usize) -> Self` | Initializes a new Penrose memory palace instance configured for embeddings of the specified dimensionality `dim` |
+| `fn store(&self, embedding: &[f64], metadata: u64) -> u64` | Accepts a reference to a floating-point embedding vector and a 64-bit metadata value, stores the associated memory entry, and returns a unique unsigned 64-bit tile ID identifying the entry's position on the tiling lattice |
+| `fn recall(&self, query_embedding: &[f64], steps: usize) -> Vec<RecallResult>` | Processes a query embedding and a specified number of recall steps, returning a vector of `RecallResult` structs sorted by match confidence |
+| `fn navigate(&self, start_tile_id: u64, distance: f64, heading: f64) -> Vec<u64>` | Navigates linearly from the tile specified by `start_tile_id` a distance of `distance` along the provided cardinal `heading`, returning a vector of tile IDs for all reachable tiles along the calculated path |
+| `fn consolidate(&mut self) -> ()` | Triggers a re-organization of stored memory entries using the φᵏ golden ratio hierarchy to optimize lattice layout and access patterns; returns no value |
+| `fn len(&self) -> usize` | Returns the total count of currently stored memory entries in the palace |
+
+#### Rust `RecallResult` Struct
+The struct returned by the Rust `recall()` method contains the following public fields:
+| Field Name | Type | Description |
+|----|----|----|
+| `tile_id` | `u64` | Unique identifier of the stored memory entry's tile |
+| `confidence` | `f64` | Confidence score of the recall match, with higher values indicating closer alignment between the query and stored embedding |
+| `distance` | `f64` | Spatial distance between the query embedding's Penrose coordinate and the stored entry's tile coordinate |
+
+---
+
+### Python Bindings API
+A user-friendly Python interface wraps the Rust core library, with the following public functions:
+| Function Signature | Behavior |
+|----|----|
+| `def init(embedding_dim: int = 1536) -> PenroseMemory` | Initializes a new Penrose memory palace instance, with a default embedding dimensionality of 1536 if no parameter is provided |
+| `def store(text: str, embedding: list[float]) -> int` | Accepts a text input string and a corresponding floating-point embedding vector, stores the memory entry, and returns an integer tile ID for the stored entry |
+| `def recall(query_embedding: list[float], max_steps: int = 5) -> list[RecallResult]` | Processes a query embedding vector and an optional maximum number of recall steps (defaults to 5), returning a list of `RecallResult` objects for matched memory entries |
+| `def navigate(tile_id: int, distance: float, heading: float) -> list[int]` | Navigates linearly from the specified tile ID a distance of `distance` along the provided cardinal `heading`, returning a list of integer tile IDs for reachable tiles along the calculated path |
+| `def consolidate(self) -> int` | Triggers hierarchical consolidation of the memory palace using the φᵏ golden ratio hierarchy, returning an integer count of the number of entries optimized during the process |
+
+#### Python `RecallResult` Struct
+The Python wrapper for the `RecallResult` struct exposes the same fields as the Rust implementation, with Python-native typing:
+| Field Name | Type | Description |
+|----|----|----|
+| `tile_id` | `int` | Unique integer identifier of the stored memory entry's tile |
+| `confidence` | `float` | Floating-point confidence score of the recall match |
+| `distance` | `float` | Floating-point spatial distance between the query and stored tile coordinates |
+
+---
+
+## Default Embedding Dimensionality
+The crate uses a standardized default embedding dimensionality of **1536**, which is automatically used when no dimensionality is specified during initialization (as seen in the Python API's default `embedding_dim` parameter).
+
+---
+
+## Test Coverage
+### Rust Test Suite
+The Rust core library includes exactly 15 unit and integration tests covering the following critical functionality:
+- Roundtrip storage and recall of embedding entries
+- Validation of aperiodic Penrose tiling behavior
+- Confirmation of the asymptotic thick:thin tile ratio approaching 1/φ
+- Correct enforcement of Penrose matching rules via the Fibonacci word
+- Proper operation of the 3-color tile sharding scheme
+- End-to-end functionality of the consolidation workflow
+- Spatial navigation between tiles using distance and heading parameters
+- Handling of large 1536-dimensional embedding vectors
+- Confidence decay behavior during multi-step recall operations
+
+### Python Test Suite
+The Python bindings include exactly 10 tests that validate cross-language compatibility, correct wrapping of Rust functionality, and adherence to the Python API specification.
+
+---
+
+## Licensing & Version
+The Penrose-Memory crate suite is licensed under the **MIT Open Source License**, with the initial public release version being **0.1.0**.
