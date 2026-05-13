@@ -180,6 +180,8 @@ eisenstein_result_t eisenstein_snap(float x, float y) {
     result.error = (float)snap.error;
     result.chamber = (uint8_t)chamber;
     result.flags = 0;
+    result.snap_a = (int32_t)snap.a;
+    result.snap_b = (int32_t)snap.b;
     if (snap.error < COVERING_RADIUS) {
         result.flags |= EISENSTEIN_FLAG_SAFE;
     }

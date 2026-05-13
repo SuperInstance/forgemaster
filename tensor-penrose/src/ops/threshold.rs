@@ -2,8 +2,6 @@
 
 use crate::tile::PTile;
 use super::TileOp;
-
-/// Zero out tensor values below a given threshold.
 pub struct Threshold {
     pub value: f32,
 }

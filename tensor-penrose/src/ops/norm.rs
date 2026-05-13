@@ -9,7 +9,7 @@ pub struct L1Norm;
 impl BorderOp for L1Norm {
     fn compute(&self, tile_a: &PTile, tile_b: &PTile) -> f32 {
         let (rows_a, cols_a) = tile_a.inner.tensor_shape;
-        let (rows_b, cols_b) = tile_b.inner.tensor_shape;
+        let (_rows_b, cols_b) = tile_b.inner.tensor_shape;
 
         let mut mismatch = 0.0f32;
 

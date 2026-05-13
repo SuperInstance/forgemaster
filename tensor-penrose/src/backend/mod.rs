@@ -4,7 +4,6 @@ pub mod eisenstein;
 pub mod penrose;
 
 use crate::TileType;
-use crate::tile::PTile;
 
 /// Result of snapping a point to the lattice.
 #[derive(Debug, Clone)]

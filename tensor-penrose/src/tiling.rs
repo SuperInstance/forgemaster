@@ -50,7 +50,7 @@ impl PTiling {
             } else {
                 TileType::Thin
             };
-            let shape = backend.tile_shape(tile_type);
+            let _shape = backend.tile_shape(tile_type);
             let mut ptile = PTile::new(coords, tile_type, 0.0, [x, y]);
             ptile.fill();
             tiles.push(ptile);

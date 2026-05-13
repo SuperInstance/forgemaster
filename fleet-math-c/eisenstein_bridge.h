@@ -24,10 +24,12 @@ typedef struct __attribute__((packed, aligned(8))) {
     uint16_t dodecet;
     uint8_t  chamber;
     uint8_t  flags;
+    int32_t  snap_a;     // Eisenstein a-coordinate of snapped point
+    int32_t  snap_b;     // Eisenstein b-coordinate of snapped point
 } eisenstein_result_t;
 
-_Static_assert(sizeof(eisenstein_result_t) == 8,
-    "eisenstein_result_t must be exactly 8 bytes for AVX-512 pairing");
+_Static_assert(sizeof(eisenstein_result_t) == 16,
+    "eisenstein_result_t must be exactly 16 bytes for AVX-512 pairing");
 
 /* flags bits */
 #define EISENSTEIN_FLAG_SAFE    0x01

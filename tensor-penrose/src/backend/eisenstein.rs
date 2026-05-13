@@ -11,7 +11,7 @@ pub struct EisensteinBackend {
 
 impl EisensteinBackend {
     pub fn new() -> Self {
-        Self
+        Self {}
     }
 }
 
