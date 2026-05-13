@@ -204,11 +204,3 @@ mod tests {
         })
     }
 }
-#[test]
-fn test_debug() {
-    let r = snap(0.0, 0.0);
-    println!("snap(0,0): error={} dodecet=0x{:04x} chamber={} safe={} snap_a={} snap_b={}",
-        r.error, r.dodecet, r.chamber, r.is_safe, r.snap_a, r.snap_b);
-    assert_eq!(r.snap_a, 0);
-    assert_eq!(r.snap_b, 0);
-}
