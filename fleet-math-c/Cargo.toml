@@ -1,0 +1,10 @@
+[package]
+name = "fleet-math-c"
+version = "0.1.0"
+edition = "2021"
+description = "Rust FFI bindings for the fleet-math-c Eisenstein bridge"
+
+[workspace]
+
+[build-dependencies]
+cc = "1.0"
