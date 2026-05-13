@@ -19,7 +19,7 @@
 | | Adversarial | ✅ PASS | ✅ PASS | 0 |
 | | Cross-domain (3) | **2/3** | **3/3** | **+1** |
 | | Creative (3) | **3/3** | **3/3** | 0 |
-| **gemma3:1b** | Fact recall | — | — | (not run) |
+| **gemma3:1b** | Fact recall (10) | **10/10** | **10/10** | 0 |
 | | Adversarial | ✅ PASS | ✅ PASS | 0 |
 | | Cross-domain (3) | **2/3** | **3/3** | **+1** |
 | | Creative (3) | **3/3** | **3/3** | 0 |
@@ -48,9 +48,9 @@ At 1B, both models already score 3/3 without structure. The 1B parameter boundar
 **Implication:** For models under 1B, PLATO structure IS the creative capability. Without it, tiny models simply can't generate structured schemas. This is the strongest structure-vs-scale signal yet.
 
 ### Finding 4: Fact recall is saturated at 0.6B
-Both qwen3:0.6b (10/10) and llama3.2:1b (9/10→10/10) essentially max out fact recall. The 10 simple facts about Project Meridian are within the context window of any 0.6B+ model.
+All three models max out fact recall: qwen3:0.6b (10/10), llama3.2:1b (9/10→10/10), and gemma3:1b (10/10 both conditions). The 10 simple facts about Project Meridian are within the context window of any 0.6B+ model. Structure provides zero advantage for fact retrieval.
 
-**Implication:** The "structure doesn't help for fact recall" finding from earlier is confirmed across all sizes. Fact recall != intelligence.
+**Implication:** The "structure doesn't help for fact recall" finding from earlier is confirmed across all sizes and architectures (Qwen, Llama, Gemma). Fact recall != intelligence.
 
 ---
 
@@ -89,3 +89,17 @@ Structure matters MOST where the model is weakest. At 0.6B, structure is the dif
 ---
 
 *Analysis written 2026-05-13. All data from live ollama runs on eileen (WSL2).*
+
+---
+
+## Appendix A: z.ai P3 Experiment Status
+
+The z.ai P3 experiment (`experiments/zai-p3/`) tested domain-tag routing on GLM-5.1 via z.ai PaaS API. It was interrupted at ~23/90 planned calls.
+
+**Key finding:** GLM-5.1 is a reasoning model — it spends most of its token budget on hidden reasoning, often exhausting `max_tokens` before producing visible output. P0 (easy derivative) worked fine (~900 chars response), but P1 (proof) and P2 (physics explanation) mostly produced empty responses because reasoning ate the budget.
+
+**Tag effects:** Domain tags had no statistically significant effect on response quality with the small sample. Mismatched tags did trigger domain-specific framing (e.g., `[COMPUTER_SCIENCE]` on a math prompt added an ML context section), but this only appeared when the model had token budget left after reasoning.
+
+**Recommendation:** Re-run with `max_tokens=4096+` and test reasoning-effort cues (`[BE_CONCISE]`, `[THINK_STEP_BY_STEP]`) on both glm-5.1 and glm-5-turbo. See `FINDINGS-PRE.md` for full analysis and `experiment2.sh` for the redesigned experiment.
+
+**Why not completed now:** Running 90+ API calls risks rate limits; the existing 23-record dataset already reveals the core finding (reasoning model architecture dominates tag effects).

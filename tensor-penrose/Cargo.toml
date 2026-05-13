@@ -24,3 +24,5 @@ path = "src/main.rs"
 [[bench]]
 name = "tiling_bench"
 harness = false
+[workspace]
+

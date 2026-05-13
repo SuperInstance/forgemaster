@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 //! # tensor-penrose — The Constraint Tensor Framework
 //!
 //! Like PyTorch, but the tensors come with positions and the array is a tiling.
