@@ -46,3 +46,6 @@ tile-memory/
 memory-crystal/
 collective-recall-demo/
 neural-plato/
+__pycache__/
+*.pyc
+*.egg-info/

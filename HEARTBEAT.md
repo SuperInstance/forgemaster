@@ -1066,11 +1066,22 @@ All live at github.com/SuperInstance/{name}
 - [x] SEED-TILE-SPEC.md / SEED-ALIGNMENT-PROCEDURE.md / SEED-ENCODED-PLATO.md
 - [x] SEED-INTEGRATION-AUDIT.md + GROUND-TRUTH-FINAL.md
 
-### Key Findings So Far (May 13 Night Shift)
-- **qwen3:0.6b** scored 10/10 on fact recall with BOTH naive and PLATO-structured context — 0.6B is enough for 10 simple facts
-- **Hard test needed**: structure's value should appear on adversarial/cross-domain/creative tasks
-- **z.ai GLM-5.1** is a reasoning model — all tokens go to reasoning_content, leaving response_content empty. Use glm-5-turbo for P3 experiment
-- **z.ai key rotated**: leaked key replaced in 3 config files, new key verified working
+### Key Findings (May 13-14)
+
+**Easy Test (10 simple facts):**
+- qwen3:0.6b = Seed-2.0-mini = both 10/10 → test too easy
+
+**Hard Test (5 adversarial cross-domain questions, judged blind):**
+- [x] STRUCTURE-SCALE-HARD-TEST.md — full results + analysis
+- **qwen3:0.6b**: naive 2.60, structured 2.40 (Δ = -0.20) — structure HURTS tiny models
+- **Seed-2.0-mini**: naive 3.40, structured 2.80 (Δ = -0.60) — structure HURTS large models on creative tasks
+- **glm-5-turbo**: naive 1.00, structured 2.40 (Δ = **+1.40**) — structure HELPS mid-range reasoning models
+- **llama3.2:1b**: naive 0.80 (OOM before structured condition)
+
+**Revised hypothesis**: Structure is a bandwidth multiplier, not intelligence amplifier. Sweet spot = models large enough to parse structure but small enough to need help.
+
+**z.ai GLM-5.1** is a reasoning model — all tokens go to reasoning_content, leaving response_content empty. Use glm-5-turbo for content-producing experiments
+**z.ai key** (current): 703f56774c324a76b8a283ce50b15744.tLKi6d9yeYza5Spg
 
 **Key Credentials**
 - z.ai: GLM-5.1 (reasoning), GLM-5-turbo (non-reasoning) — key rotated May 13
