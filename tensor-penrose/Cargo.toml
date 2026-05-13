@@ -1,0 +1,26 @@
+[package]
+name = "tensor-penrose"
+version = "0.1.0"
+edition = "2021"
+description = "Constraint tensor framework — tensors on Penrose tilings with pluggable lattice backends"
+
+[dependencies]
+fleet-math-c = { path = "../fleet-math-c" }
+penrose-memory = { path = "../penrose-memory" }
+
+[features]
+default = ["eisenstein-backend", "penrose-backend"]
+eisenstein-backend = []
+penrose-backend = []
+cli = []
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bin]]
+name = "pt"
+path = "src/main.rs"
+
+[[bench]]
+name = "tiling_bench"
+harness = false
