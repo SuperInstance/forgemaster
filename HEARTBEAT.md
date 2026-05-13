@@ -2,6 +2,26 @@
 
 ## Session Progress (2026-05-08) 🔨 ACTIVE
 
+### PLATO Server v3: Shipped (backend)
+- [x] 75/75 tests passing
+- [x] Lamport clocks for causal ordering
+- [x] WAL with fsync for crash recovery
+- [x] Tile lifecycle: Active/Superseded/Retracted
+- [x] /stats endpoint (active/superseded/retracted counts, agents, domains)
+- [x] /health endpoint for container healthchecks
+- [x] POST /retract with reason
+- [x] POST /supersede (old→Superseded, new→Active)
+- [x] t_minus_event field for simulation-first coordination
+- [x] Pushed to SuperInstance/plato-vessel-core
+- [ ] Oracle1 to deploy v3 on production server (147.224.38.131:8847)
+
+### Landing Page + Wiki
+- [x] plato.purplepincher.org live with v5 landing page
+- [x] Simulation-first coordination wiki page
+- [x] All 4 images serving
+- [x] I2I bottle sent to Oracle1 re: HTTPS cert
+- [ ] Oracle1 to enable HTTPS enforcement on GitHub Pages
+
 ### Phase 17: Self-Iterating Discovery Runtime + Fleet Modularization + OpenArm Integration
 
 **Landing Page: Complete**
