@@ -1,6 +1,6 @@
 #!/bin/bash
 # Seed-2.0-mini Ablation Study
-API_KEY="woKHPYOPyNkSUHFkkqAf90snZ1T9kqH7"
+API_KEY="${DEEPINFRA_KEY}"
 ENDPOINT="https://api.deepinfra.com/v1/openai/chat/completions"
 MODEL="ByteDance/Seed-2.0-mini"
 OUTDIR="/home/phoenix/.openclaw/workspace/baton-experiments/seed-ablation"

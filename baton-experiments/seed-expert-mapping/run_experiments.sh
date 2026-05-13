@@ -2,7 +2,7 @@
 # Seed 2.0 Mini Expert Pathway Mapping Experiment
 # 10 categories × 3 trials × 3 reasoning efforts = 90 calls
 
-API_KEY="woKHPYOPyNkSUHFkkqAf90snZ1T9kqH7"
+API_KEY="${DEEPINFRA_KEY}"
 ENDPOINT="https://api.deepinfra.com/v1/openai/chat/completions"
 MODEL="ByteDance/Seed-2.0-mini"
 OUTDIR="/home/phoenix/.openclaw/workspace/baton-experiments/seed-expert-mapping"

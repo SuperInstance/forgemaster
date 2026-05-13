@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-API_KEY="woKHPYOPyNkSUHFkkqAf90snZ1T9kqH7"
+API_KEY="${DEEPINFRA_KEY}"
 ENDPOINT="https://api.deepinfra.com/v1/openai/chat/completions"
 OUTDIR="/home/phoenix/.openclaw/workspace/baton-experiments/cross-model-seeding"
 
