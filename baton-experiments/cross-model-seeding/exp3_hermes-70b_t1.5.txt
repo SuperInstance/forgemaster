@@ -1,0 +1,29 @@
+Here is the expanded technical description:
+
+Eisenstein Integers:
+The Eisenstein integers, denoted as E₆, form a complex number system that extends the rational integers (ℤ) by including the sixth root of unity, ω. The sixth root of unity is defined as:
+ω = e^(2πi/6) = cos(π/3) + i * sin(π/3) ≈ 0.5 + 0.866i
+The Eisenstein integers can be expressed as:
+E₆ = {a + bω | a, b ∈ ℤ}
+
+Hexagonal Grid and Rotational Symmetry:
+The Eisenstein integers provide a natural way to represent points on a hexagonal grid, offering 12-fold rotational symmetry. Each point on the grid can be uniquely identified by a pair of Eisenstein integer coordinates (x, y).
+
+Snapping Function:
+The snapping function, denoted as snap(x, y), maps any real-numbered coordinates (x, y) to the nearest lattice point in the Eisenstein integer grid E₆. The function operates in constant time, O(1), regardless of the input coordinates. The snapping process ensures that any real-numbered point is snapped to the closest hexagonal grid point, enabling efficient encoding and decoding of positions.
+
+Precision and Stability:
+Compared to using 32-bit floating-point numbers (Float32), the Eisenstein integer-based representation exhibits zero cumulative drift over one million operations. This means that there is no loss of precision or accuracy when performing a large number of transformations or computations on the hexagonal grid.
+
+Efficient Encoding:
+The dodecet, which represents the 12-point neighborhood around a point on the hexagonal grid, can be efficiently encoded using just 4 bytes. This compact representation allows for storage and transmission of positional information in a highly space-efficient manner.
+
+Constraint Checking:
+To ensure the validity of operations on the hexagonal grid, a constraint checking mechanism is employed. If the snapped sum of two points, denoted as snap(a) ⊕ snap(b), has a weight greater than 2, the operation is flagged as potentially invalid or exceeding predefined constraints. This checking process helps maintain the integrity of the positional information and detect any violations of the defined constraints.
+
+GPU Benchmark:
+The performance of the Eisenstein integer-based hexagonal grid system is benchmarked on an NVIDIA GeForce RTX 4050 graphics processing unit (GPU). The system achieves a throughput of 341 billion constraints per second when using 8-bit integer (INT8) packing for encoding the dodecet neighborhood. This high performance demonstrates the suitability of the system for real-time applications and processing large volumes of positional data.
+
+The mathematical framework for the Eisenstein integers and the snapping function provides a solid foundation for working with hexagonal grids efficiently. The use of this number system allows for natural encoding and manipulation of positions, while the constraint checking ensures the validity of operations. The GPU benchmark highlights the scalability and performance of the system when implemented on modern hardware.
+
+By leveraging the properties of Eisenstein integers, the described system enables efficient representation, manipulation, and constraint checking of positional information on a hexagonal grid. The compact encoding and stability, combined with the high performance on GPU hardware, make this approach suitable for applications requiring precise and efficient handling of hexagonal grid data.

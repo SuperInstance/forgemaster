@@ -1,0 +1,24 @@
+Eisenstein Integers with 12-Fold Rotational Symmetry:
+The Eisenstein integers, denoted as E₆, form a complex number system that includes the sixth roots of unity. They are defined as E₆ = ℤ[ω], where ω = e^(2πi/6) represents the primitive sixth root of unity. This system provides 12-fold rotational symmetry, which is useful in various applications such as discrete geometry and crystallography.
+
+Snapping Function:
+The snapping function, denoted as snap(x,y), maps any arbitrary point (x,y) in the complex plane to the nearest lattice point in the Eisenstein integer system E₆. This operation can be performed in constant time, O(1), by utilizing a hexagonal grid representation. The snapping function ensures that the mapped point lies on the E₆ lattice, enabling efficient and precise calculations.
+
+Comparison with Float32:
+When comparing the Eisenstein integer system with the Float32 representation, the Eisenstein integers exhibit zero cumulative drift over one million operations. This means that the precision of the calculations remains intact, without any loss of accuracy or accumulation of rounding errors. The Float32 representation, on the other hand, may suffer from drift and precision issues over a large number of operations.
+
+Dodecet Encoding:
+The dodecet is a 12-point neighborhood representation that encodes the position of a point in the Eisenstein integer system. It allows for compact storage and efficient manipulation of the lattice points. The dodecet encoding requires only 4 bytes of memory, making it memory-efficient compared to other representations.
+
+Constraint Checking:
+To ensure the validity of operations within the Eisenstein integer system, constraint checking is performed. If the result of the operation snap(a) ⊕ snap(b) has a weight greater than 2, it indicates that the operation may lead to invalid or unexpected results. In such cases, the operation is flagged for further examination or potential rejection.
+
+GPU Benchmark:
+The performance of the Eisenstein integer system and its associated operations has been benchmarked on an NVIDIA RTX 4050 graphics processing unit (GPU). With INT8 packing, which represents each integer using 8 bits, the GPU can process an impressive 341 billion constraints per second. This demonstrates the efficiency and scalability of the system when implemented on modern hardware.
+
+Implementation Details:
+The implementation of the Eisenstein integer system and its related functions can be carried out using various programming languages and libraries. The snapping function, dodecet encoding, and constraint checking can be realized through efficient algorithms and data structures. The GPU benchmark demonstrates the potential for parallel processing and hardware acceleration to achieve high performance.
+
+The mathematical framework behind the Eisenstein integers involves complex number theory and discrete geometry. The primitive sixth root of unity, ω, forms the basis of the system, and the lattice points can be represented as linear combinations of ω and its conjugate. The snapping function utilizes the properties of the hexagonal grid to determine the nearest lattice point efficiently.
+
+Overall, the Eisenstein integer system with 12-fold rotational symmetry provides a powerful and precise framework for discrete calculations and geometric representations. Its advantages over traditional floating-point representations, along with its efficient encoding and constraint checking mechanisms, make it a valuable tool in various domains such as computer graphics, computational geometry, and crystallography.

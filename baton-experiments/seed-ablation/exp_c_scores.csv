@@ -1,0 +1,16 @@
+prompt_id,prompt_name,trial,score
+1,reconstruct,1,0
+1,reconstruct,2,7
+1,reconstruct,3,7
+2,original-text,1,8
+2,original-text,2,0
+2,original-text,3,8
+3,expand-tile,1,8
+3,expand-tile,2,8
+3,expand-tile,3,8
+4,research-note,1,8
+4,research-note,2,8
+4,research-note,3,8
+5,decode-expand,1,8
+5,decode-expand,2,0
+5,decode-expand,3,7

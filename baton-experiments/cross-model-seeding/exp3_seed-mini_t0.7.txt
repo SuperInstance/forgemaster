@@ -1,0 +1,94 @@
+# Full Technical Description of the Eisenstein Integer Hexagonal Lattice Snap System
+## 1. Foundational Definitions & Abbreviation Expansion
+### 1.1 Standardized Symbol & Abbreviation Breakdown
+| Abbreviation/Symbol | Full Expansion & Explanation |
+|---------------------|-------------------------------|
+| $\mathbb{Z}$ | Set of all integers: $\mathbb{Z} = \{\dots, -2, -1, 0, 1, 2, \dots\}$ |
+| $E_6$ | Custom hexagonal Eisenstein integer ring, defined as $\mathbb{Z}[\omega]$ where $\omega = e^{2\pi i/6}$ (distinct from standard triangular-lattice Eisenstein integers, which use $\omega = e^{2\pi i/3}$) |
+| $\omega = e^{2\pi i/6}$ | Primitive 6th root of unity, expanded via Euler's identity: $e^{i\theta} = \cos\theta + i\sin\theta$, so $\omega = \cos(\pi/3) + i\sin(\pi/3) = \frac{1}{2} + i\frac{\sqrt{3}}{2}$ |
+| $\text{snap}(x,y)$ | Hexagonal lattice snapping function, maps 2D Cartesian coordinates to the nearest $E_6$ lattice point |
+| $O(1)$ | Big O constant-time complexity notation: the snap function executes a fixed number of operations regardless of input size |
+| Float32 | IEEE 754-2008 single-precision floating-point format: 32-bit representation with 1 sign bit, 8 exponent bits, 23 mantissa bits (~7 decimal digits of precision) |
+| Dodecet | 12-element set, here referring to the full first- and second-neighbor radial neighborhood of a single $E_6$ lattice point |
+| $\oplus$ | Bitwise exclusive OR (XOR) logical operation: outputs 1 when input bits differ, 0 when they match |
+| Weight (Hamming Weight) | Number of set (1) bits in a bitstring, also called population count (`POPCNT` on modern GPUs) |
+| INT8 | Signed 8-bit two's complement integer format, range $[-128, 127]$, used for compact memory packing and fast GPU arithmetic |
+| RTX 4050 | NVIDIA Ada Lovelace mobile GPU (2023 release): 2560 CUDA cores, 80 Tensor cores, 6GB GDDR6 VRAM, native support for INT8 tensor operations and `POPCNT` |
+| B | SI giga prefix: $1\ \text{B} = 10^9$, so $341\ \text{B} = 341 \times 10^9$ |
+
+---
+
+## 2. Formal Mathematical Framework of the $E_6$ Hexagonal Lattice
+### 2.1 Lattice Coordinate System
+The $E_6$ ring consists of all complex numbers of the form:
+$$z = q + r\omega \quad \text{where } q, r \in \mathbb{Z}$$
+Converting to Cartesian $(x,y)$ coordinates using $\omega = \frac{1}{2} + i\frac{\sqrt{3}}{2}$:
+$$
+\begin{cases}
+x = q + \frac{r}{2} \\
+y = \frac{r\sqrt{3}}{2}
+\end{cases}
+$$
+This defines a 2D hexagonal lattice with:
+- Lattice spacing $L=1$ (distance between adjacent lattice points)
+- Maximum Voronoi cell radius (maximum distance from any lattice point to a point in its fundamental domain): $\frac{\sqrt{3}}{6}L \approx 0.288$
+- Symmetry group: Dihedral group $D_6$, with 12 total symmetry operations (6 rotations by $k\cdot60^\circ$, $k=0\dots5$; 6 reflections across lattice-aligned axes), hence the 12-fold rotational/reflection symmetry cited in the original summary.
+
+---
+
+## 3. The $\text{snap}(x,y)$ Function: O(1) Hexagonal Grid Snapping
+### 3.1 Full Mathematical Derivation
+The snap function maps any real-valued 2D Cartesian input $(x,y)$ to the unique nearest $E_6$ lattice point, implemented via a fixed number of constant-time operations:
+1.  **Cartesian to Floating-Point Axial Cube Coordinate Conversion**
+    Convert $(x,y)$ to unrounded axial cube coordinates $(q, r, s)$ (constrained to $q + r + s = 0$):
+    $$
+    \begin{cases}
+    q = x - \frac{y}{\sqrt{3}} \\
+    r = \frac{2y}{\sqrt{3}} \\
+    s = -q - r
+    \end{cases}
+    $$
+    A precomputed constant $\sqrt{3} \approx 1.7320508075688772$ is used to avoid runtime square root computation.
+2.  **Rounding & Tiebreaker Correction**
+    Round each floating-point coordinate to the nearest integer: $\hat{q} = \text{round}(q)$, $\hat{r} = \text{round}(r)$, $\hat{s} = \text{round}(s)$. Calculate absolute differences from the unrounded values:
+    $$\Delta q = |q - \hat{q}|,\quad \Delta r = |r - \hat{r}|,\quad \Delta s = |s - \hat{s}|$$
+    Adjust the coordinate with the largest $\Delta$ by $\pm1$ to resolve ties and select the exact nearest lattice point.
+3.  **Lattice Point Output**
+    Return the corrected integer axial coordinates $(\hat{q}, \hat{r})$, which map directly to an $E_6$ lattice point $z = \hat{q} + \hat{r}\omega$.
+
+### 3.2 GPU Implementation Details
+Each GPU thread executes the snap function for a single $(x,y)$ input:
+- Uses single-precision floating-point registers for arithmetic operations
+- Avoids loops or dynamic branching via fixed compare-and-select logic for tiebreakers
+- Outputs a packed 4-byte (32-bit) integer: $\hat{q}$ stored in the lower 16 bits, $\hat{r}$ stored in the upper 16 bits (standard INT16 packing for GPU memory efficiency).
+
+---
+
+## 4. 12-Fold Rotational Symmetry
+The $E_6$ hexagonal lattice's dihedral symmetry group $D_6$ has exactly 12 distinct symmetry operations that preserve the lattice:
+1.  6 rotational symmetries: Identity, $60^\circ$, $120^\circ$, $180^\circ$, $240^\circ$, $300^\circ$ rotations around any lattice point
+2.  6 reflection symmetries: Reflections across axes aligned with lattice vectors or their bisectors
+This matches the original summary's claim of 12-fold rotational symmetry (encompassing both rotations and rotoreflections).
+
+---
+
+## 5. Zero Cumulative Drift Over 1M Operations
+### 5.1 Formal Drift Definition
+Cumulative drift refers to the total accumulated error between the ideal lattice position and the stored system position over a sequence of operations. For Float32:
+- Each snap operation introduces a bounded per-step rounding error $\epsilon_k \in [-\frac{\sqrt{3}}{6}, \frac{\sqrt{3}}{6}]$
+- Over $1,000,000$ operations, total drift scales linearly with the number of steps: $|\sum_{k=0}^{999,999} \epsilon_k| \leq 500,000 \cdot \frac{\sqrt{3}}{6} \approx 144,338$ times the maximum per-step error.
+
+For the $E_6$ snap system:
+- Every snapped point is an exact lattice point with zero per-step rounding error
+- Stored positions are always locked to the discrete $E_6$ lattice, so no error accumulates across sequential operations. Even for continuous input motion, the snapped position resets to an exact lattice point at each step, eliminating cumulative drift entirely.
+
+---
+
+## 6. Dodecet 12-Point Neighborhood & 4-Byte Position Encoding
+### 6.1 Dodecet Neighborhood Definition
+The 12-point dodecet is the set of all $E_6$ lattice points within Euclidean distance $\leq 2$ of a reference lattice point:
+- 6 first neighbors (distance = 1): $(\pm1, 0), (0, \pm1), (\mp1, \pm1)$ in axial coordinates
+- 6 second neighbors (distance = $\sqrt{3}$): $(\pm2, 0), (0, \pm2), (\pm2, \pm2)$ in axial coordinates
+
+### 6.2 4-Byte Position Encoding
+Each $E_6$ lattice point is encoded as two signed 16-bit integers (INT16) representing axial coordinates $(\

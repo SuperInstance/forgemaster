@@ -1,0 +1,24 @@
+Eisenstein Integers with 12-fold Rotational Symmetry:
+The Eisenstein integers E₆ is a number system that extends the integers to the complex plane, defined as E₆ = ℤ[ω], where ω = e^(2πi/6). This system provides 12-fold rotational symmetry, which is useful in various applications such as computer graphics, computational geometry, and discrete mathematics.
+
+Hexagonal Grid Snapping Function:
+The snapping function, denoted as snap(x,y), maps any point (x,y) in the 2D plane to the nearest lattice point in the Eisenstein integer system E₆. This function operates in O(1) time complexity, making it efficient for real-time applications. The hexagonal grid is used as the underlying discretization for the snapping process.
+
+Improved Precision and Stability:
+Compared to the 32-bit floating-point representation (Float32), the Eisenstein integer-based snapping function exhibits zero cumulative drift over one million operations. This enhanced precision and stability are crucial for applications that require high accuracy and robustness in geometric computations.
+
+Compact Encoding of Dodecet (12-point Neighborhood):
+The dodecet, which represents the 12-point neighborhood in the Eisenstein integer system, can be efficiently encoded using only 4 bytes. This compact representation enables memory-efficient storage and processing of geometric data.
+
+Constraint Checking:
+To ensure the validity of operations in the Eisenstein integer system, a constraint checking mechanism is implemented. If the result of the operation snap(a) ⊕ snap(b) has a weight greater than 2, the operation is flagged as invalid. This constraint checking helps maintain the integrity of the geometric computations.
+
+GPU Benchmark:
+The performance of the Eisenstein integer-based system is benchmarked on an NVIDIA RTX 4050 graphics card. With INT8 packing, the system achieves a throughput of 341 billion constraints per second. This high performance demonstrates the suitability of the system for real-time applications that require fast geometric processing.
+
+Implementation Details:
+The Eisenstein integer system is implemented using complex number arithmetic in a programming language that supports complex numbers, such as Python or C++. The snapping function is realized by finding the nearest lattice point in the E₆ system to a given point (x,y) using a combination of integer division and modulo operations. The constraint checking is performed by calculating the weight of the result of the operation snap(a) ⊕ snap(b) and comparing it against the threshold of 2.
+
+The compact encoding of the dodecet is achieved by representing each lattice point in the 12-point neighborhood using a 4-byte integer. The GPU benchmark is conducted by implementing the snapping function and constraint checking on the GPU using CUDA or OpenCL, leveraging the parallel processing capabilities of the graphics card. The INT8 packing refers to the use of 8-bit integers for efficient storage and computation of the lattice points.
+
+Overall, the Eisenstein integer-based system with 12-fold rotational symmetry provides a powerful and efficient framework for geometric computations, offering improved precision, stability, and performance compared to traditional floating-point representations.

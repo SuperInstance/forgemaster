@@ -1,0 +1,129 @@
+### Penrose Memory Palace (PMP) Core Context
+PMPs integrate 5D→2D cut-and-project aperiodic tiling, Fibonacci word tile labeling, and golden ratio (φ) hashing for semantic retrieval. Below are 3 novel, falsifiable research questions, with rationale and lightweight Python tests (<100 lines each):
+
+---
+
+#### Q1: Does the false positive retrieval rate of a PMP hit a local minimum when Fibonacci word tile label prefixes have length equal to the 7th Fibonacci number (F₇=13)?
+**Falsifiability Rationale**: We can measure false positive rates across label lengths 5–20. If no local minimum exists, or the minimum falls outside 12–14, the hypothesis is definitively disproven via measurable counterevidence.
+**Python Test**:
+```python
+import numpy as np
+from collections import Counter
+
+# Generate Fibonacci word prefixes
+def fib_prefix(n):
+    a, b = "0", "1"
+    for _ in range(n-2):
+        a, b = b, a + b
+    return b if n>1 else a
+
+phi = (1+5**0.5)/2
+# Simulate 2D Penrose tile coords via cut-and-project
+def generate_tiles(n=500):
+    return np.mod(np.outer(np.arange(n), [phi, 1/phi]), 1)
+
+# Golden ratio hashing
+def phi_hash(vec, buckets):
+    return int(np.floor((vec[0]*phi + vec[1]) % 1 * buckets))
+
+# Run test
+tile_coords = generate_tiles(500)
+sem_vecs = np.random.randn(500, 128)
+test_lengths = range(5, 21)
+false_rates = []
+
+for L in test_lengths:
+    labels = [fib_prefix(L)[:L] for _ in range(500)]
+    hashes = [phi_hash(c, 128) for c in tile_coords]
+    false_pos = 0
+    for i in range(500):
+        matches = [j for j in range(500) if hashes[j]==hashes[i] and labels[j]==labels[i]]
+        false_pos += len(matches)-1
+    false_rates.append(false_pos/500)
+
+min_len = test_lengths[np.argmin(false_rates)]
+print(f"Min false rate at label length: {min_len}")
+```
+
+---
+
+#### Q2: Does golden ratio hashing of PMP tile coordinates have the lowest collision rate when bucket count equals φ⁻¹ * N (N = total tiles)?
+**Falsifiability Rationale**: We can compare collision rates across bucketing factors near φ⁻¹N. If the lowest collision rate does not land at this target bucket count, the hypothesis is disproven.
+**Python Test**:
+```python
+import numpy as np
+from collections import Counter
+
+phi = (1+5**0.5)/2
+n_tiles = 1000
+# Simulate PMP tile coordinates
+tile_coords = np.mod(np.outer(np.arange(n_tiles), [phi, 1/phi]), 1)
+
+def phi_hash(vec, buckets):
+    return int(np.floor((vec[0]*phi + vec[1]) %1 * buckets))
+
+target_bucks = int((1/phi)*n_tiles)
+buckets_range = range(int(0.5*target_bucks), int(1.5*target_bucks))
+collision_rates = []
+
+for b in buckets_range:
+    hashes = [phi_hash(c, b) for c in tile_coords]
+    counts = Counter(hashes)
+    total_collisions = sum(v*(v-1)//2 for v in counts.values())
+    collision_rates.append(total_collisions / (n_tiles*(n_tiles-1)/2))
+
+min_buck = buckets_range[np.argmin(collision_rates)]
+print(f"Lowest collision rate at {min_buck} buckets; target={target_bucks}")
+```
+
+---
+
+#### Q3: Do PMP tile sequences following a Fibonacci word retain more semantic context after 20% random tile replacements than identical-length periodic sequences?
+**Falsifiability Rationale**: We can quantify retention via correlation between recovered and original semantic vectors. If periodic sequences match or outperform Fibonacci sequences, the hypothesis is disproven.
+**Python Test**:
+```python
+import numpy as np
+from collections import defaultdict
+
+phi = (1+5**0.5)/2
+
+def fib_seq(length):
+    seq, a, b = [], 0, 1
+    for _ in range(length):
+        seq.append(a)
+        a, b = b, a+b
+    return seq[:length]
+
+def periodic_seq(length, period=5):
+    return [i%period for i in range(length)]
+
+def corrupt(seq, pct=0.2):
+    seq = seq.copy()
+    flips = np.random.choice(len(seq), int(len(seq)*pct), replace=False)
+    for i in flips: seq[i] = np.random.randint(0,10)
+    return seq
+
+def recover(seq, tiles, buckets=128):
+    hash_map = defaultdict(list)
+    for idx, c in enumerate(tiles[:len(seq)]):
+        h = int(np.floor((c[0]*phi + c[1])%1 * buckets))
+        hash_map[h].append(sem_vecs[idx])
+    return np.array([np.mean(hash_map[int(np.floor((c[0]*phi + c[1])%1 * buckets))]) for c in tiles[:len(seq)]])
+
+# Run test
+n_tiles = 100
+sem_vecs = np.random.randn(n_tiles, 128)
+tiles = np.mod(np.outer(np.arange(n_tiles), [phi, 1/phi]),1)
+
+# Fibonacci sequence test
+fib = fib_seq(n_tiles)
+rec_fib = recover(corrupt(fib), tiles)
+fib_acc = np.corrcoef(rec_fib.flatten(), sem_vecs.flatten())[0,1]
+
+# Periodic sequence test
+period = periodic_seq(n_tiles)
+rec_period = recover(corrupt(period), tiles)
+period_acc = np.corrcoef(rec_period.flatten(), sem_vecs.flatten())[0,1]
+
+print(f"Fibonacci retention: {fib_acc:.3f} | Periodic: {period_acc:.3f}")
+```

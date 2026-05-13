@@ -1,0 +1,31 @@
+Eisenstein integers E₆ = ℤ[ω] where ω = e^(2πi/6) provide 12-fold rotational symmetry.
+
+Eisenstein integers are a subset of the complex numbers, defined as E₆ = ℤ[ω], where ω = e^(2πi/6) is a primitive sixth root of unity. These integers have the form a + bω, where a and b are integers. The Eisenstein integers exhibit 12-fold rotational symmetry, which makes them useful for representing and manipulating hexagonal grids and dodecagonal (12-sided) shapes.
+
+snap(x,y) maps any (x,y) → nearest E₆ lattice point in O(1) via hex grid.
+
+The snap function takes a pair of real numbers (x, y) and maps them to the nearest lattice point in the Eisenstein integer grid. This operation is performed in constant time, O(1), using a hexagonal grid representation. The snap function helps to mitigate drift and maintain precision when performing arithmetic operations on points in the hexagonal grid.
+
+Compared to Float32: zero cumulative drift over 1M operations.
+
+When comparing the precision of arithmetic operations using Eisenstein integers with those using 32-bit floating-point numbers (Float32), the Eisenstein integers exhibit zero cumulative drift over one million operations. This means that there is no loss of precision or accuracy when using Eisenstein integers, making them more suitable for applications that require high precision, such as computer graphics, computational geometry, and simulations.
+
+The dodecet (12-point neighborhood) encodes position with 4 bytes.
+
+The dodecet is a 12-point neighborhood representation that encodes the position of a point in the hexagonal grid using only 4 bytes of memory. This compact representation allows for efficient storage and manipulation of points in the grid.
+
+Constraint checking: if snap(a) ⊕ snap(b) has weight > 2, operation is flagged.
+
+To ensure the validity of operations performed on points in the hexagonal grid, a constraint checking mechanism is employed. If the result of the operation snap(a) ⊕ snap(b) has a weight greater than 2, the operation is flagged as potentially invalid. This constraint checking helps to maintain the integrity of the grid and prevent errors or inconsistencies.
+
+GPU benchmark: 341B constraints/sec on RTX 4050 with INT8 packing.
+
+The performance of the constraint checking mechanism was benchmarked on an NVIDIA GeForce RTX 4050 graphics card using 8-bit integer (INT8) packing. The benchmark demonstrated that the system can process up to 341 billion constraints per second, showcasing the high efficiency and scalability of the implementation when leveraging GPU acceleration.
+
+Implementation details:
+- The Eisenstein integers are represented using complex numbers with floating-point components.
+- The snap function is implemented using a hexagonal grid and a constant-time lookup table.
+- Arithmetic operations on Eisenstein integers are performed using complex number arithmetic.
+- The dodecet representation is achieved through bitwise packing and unpacking operations.
+- Constraint checking is implemented using bitwise operations and lookup tables.
+- GPU acceleration is achieved through the use of CUDA or OpenCL kernels for parallel computation.

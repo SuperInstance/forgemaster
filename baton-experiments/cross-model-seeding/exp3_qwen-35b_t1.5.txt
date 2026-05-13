@@ -1,0 +1,13 @@
+[REASONING-ONLY, NO CONTENT OUTPUT]
+Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Task:** Reconstruct a FULL technical description from a compressed summary.
+   - **Requirements:** 
+     - Expand every abbreviation
+     - Explain every symbol
+     - Derive the full mathematical framework
+     - Include implementation details that were compressed away
+   - **Compressed Summary:**
+     - "Eisenstein integers E6 = Z[w] where w = e^(2*pi*i/6) provide 12-fold rotational symmetry."
+     - "snap(x,y) maps any (x,y) to ne

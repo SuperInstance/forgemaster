@@ -1,0 +1,82 @@
+Here are 3 novel, falsifiable research questions related to the Penrose Memory Palace architecture, along with explanations of why they are falsifiable and how to test them in Python:
+
+1. Does the aperiodicity of the coordinates lead to more robust retrieval compared to periodic coordinates? 
+
+This is falsifiable because we can construct periodic coordinate systems, train memory palaces with both, and compare retrieval performance on held-out data. To test:
+
+```python
+import numpy as np
+
+# Generate aperiodic Fibonacci word coordinates 
+def fibonacci_word(n):
+    if n == 0: return 'a'
+    if n == 1: return 'b'
+    return fibonacci_word(n-1) + fibonacci_word(n-2)
+
+aperiodic_coords = [fibonacci_word(i) for i in range(1000)]
+
+# Generate periodic coordinates
+periodic_coords = ['a' if i%2==0 else 'b' for i in range(1000)]
+
+# Train memory palaces on data, one with aperiodic, one with periodic coords
+aperiodic_retrieval_scores = train_and_test_memory_palace(aperiodic_coords)
+periodic_retrieval_scores = train_and_test_memory_palace(periodic_coords)
+
+# Compare retrieval performance
+t_stat, p_val = ttest_ind(aperiodic_retrieval_scores, periodic_retrieval_scores) 
+print(f"p-value for difference in retrieval scores: {p_val}")
+```
+
+2. Does the specific choice of dimensions to project from 5D to 2D affect performance? We can test projecting along different combinations of dimensions and measure the impact on retrieval accuracy.
+
+```python
+from itertools import combinations
+
+# Generate 5D coordinates 
+coordinates_5d = np.random.uniform(size=(1000,5))
+
+# Project to 2D along all possible dimension pairs
+dimension_pairs = list(combinations(range(5), 2))
+projection_scores = {}
+
+for pair in dimension_pairs:
+    proj_coords = coordinates_5d[:,pair]
+    scores = train_and_test_memory_palace(proj_coords)
+    projection_scores[pair] = np.mean(scores)
+
+# Check if some projections perform significantly better than others
+best_pair = max(projection_scores, key=projection_scores.get)
+print(f"Best dimension pair: {best_pair} with mean score {projection_scores[best_pair]}")
+
+anova_f_stat, anova_p_val = f_oneway(*[projection_scores[p] for p in dimension_pairs])
+print(f"ANOVA p-value for difference between projections: {anova_p_val}")
+```
+
+3. Does using the golden ratio for hashing provide benefits over other irrational numbers? We can compare golden ratio-based hashing to hashing using other constants like sqrt(2) or e.
+
+```python
+import math
+
+# Generate hashes using different irrational constants
+def hashcoords(coords, constant):
+    return [hash(f"{coord}*{constant}") for coord in coords]
+
+golden_ratio = (1 + math.sqrt(5))/2
+sqrt_2 = math.sqrt(2)  
+e = math.e
+
+golden_hashes = hashcoords(coordinates_2d, golden_ratio)
+sqrt_2_hashes = hashcoords(coordinates_2d, sqrt_2)  
+e_hashes = hashcoords(coordinates_2d, e)
+
+# Train and test memory palaces with each set of hashes
+golden_scores = train_and_test_memory_palace(golden_hashes)
+sqrt_2_scores = train_and_test_memory_palace(sqrt_2_hashes)
+e_scores = train_and_test_memory_palace(e_hashes)
+
+# Compare retrieval performance
+anova_f_stat, anova_p_val = f_oneway(golden_scores, sqrt_2_scores, e_scores)
+print(f"ANOVA p-value for difference between hash types: {anova_p_val}")
+```
+
+The key to falsifiability in each case is having a clear way to compare the Penrose Memory Palace approach to alternatives, using objective performance metrics like retrieval accuracy scores. The Python code provides concrete implementations to empirically test each hypothesis.

@@ -1,0 +1,28 @@
+Here is the full technical description reconstructed from the compressed summary:
+
+Eisenstein Integers with 12-Fold Rotational Symmetry:
+The Eisenstein integers E₆ form a number system that includes complex numbers of the form a + bω, where a and b are integers, and ω = e^(2πi/6) = (-1/2 + √3/2i) is a primitive 6th root of unity. This number system provides 12-fold rotational symmetry, as multiplying an Eisenstein integer by ω rotates it by 60 degrees in the complex plane.
+
+Snapping to Nearest Lattice Point:
+The function snap(x, y) maps any point (x, y) in the complex plane to the nearest lattice point in the E₆ number system. This can be done in O(1) time by converting the Cartesian coordinates (x, y) to a hexagonal grid coordinate system, then rounding each component to the nearest integer. The hexagonal grid aligns with the E₆ lattice, allowing for efficient snapping.
+
+Comparison to Float32:
+When performing 1 million operations using Float32 floating-point numbers, cumulative drift can occur due to rounding errors, leading to inaccuracies in the results. In contrast, using Eisenstein integers with the snap() function results in zero cumulative drift over the same number of operations, ensuring exact precision.
+
+Dodecet Encoding:
+The dodecet is a 12-point neighborhood system that encodes positions using 4 bytes. Each byte represents a direction (0-11) corresponding to one of the 12 neighbors, and the value in the byte indicates the distance in that direction. This compact encoding allows for efficient storage and manipulation of positions.
+
+Constraint Checking:
+To check if an operation violates constraints, the function snap(a) ⊕ snap(b) is used, where ⊕ represents component-wise addition of the snapped values a and b. If the resulting value has a weight (sum of absolute values of components) greater than 2, the operation is flagged as potentially invalid or out-of-bounds.
+
+GPU Benchmark:
+On an NVIDIA GeForce RTX 4050 graphics card, the system can process 341 billion constraints per second when using INT8 packing. This involves packing multiple values into a single 8-bit integer, allowing for efficient parallel processing on the GPU.
+
+Implementation Details:
+- The Eisenstein integers are implemented using a complex number class with integer components.
+- The snap() function is implemented by converting Cartesian coordinates to hexagonal grid coordinates and rounding each component to the nearest integer.
+- The dodecet encoding is implemented using bitwise operations to pack and unpack the 4-byte representation.
+- Constraint checking is performed using component-wise addition and comparison against a threshold value.
+- The GPU benchmark is conducted using CUDA or OpenCL to parallelize the constraint checking process across multiple threads.
+
+This reconstructed description provides a more detailed explanation of the compressed summary, including the mathematical framework, implementation details, and performance characteristics of the system.

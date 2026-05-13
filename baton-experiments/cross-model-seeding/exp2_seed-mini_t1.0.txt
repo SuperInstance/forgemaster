@@ -1,0 +1,75 @@
+# Full Technical Description of E₆ Lattice Snap Constraint Checking System
+## 1. Foundational Mathematical Framework
+### 1.1 Formal Definition of \( E_6 \) Eisenstein Integers
+The ring \( E_6 = \mathbb{Z}[\omega] \) is the set of all integer linear combinations of the primitive 6th root of unity \( \omega = e^{2\pi i /6} = \frac{1}{2} + i\frac{\sqrt{3}}{2} \). By algebraic identity, \( \omega = 1 + \omega^2 \), where \( \omega^2 = e^{2\pi i /3} \) is the standard primitive 3rd root of unity, so \( E_6 \) is isomorphic to the standard Eisenstein integer ring, and its Cartesian basis vectors form the **2D hexagonal close-packed (HCP) lattice**.
+
+Formal element representation:
+Any lattice point \( z \in E_6 \) is written as:
+\[ z = a + b\omega \quad a,b \in \mathbb{Z} \]
+Converting to standard Cartesian coordinates \((X,Y) \in \mathbb{R}^2\):
+\[ X = \text{Re}(z) = a + \frac{b}{2}, \quad Y = \text{Im}(z) = \frac{b\sqrt{3}}{2} \]
+### 1.2 12-Fold Rotational Symmetry
+Multiplying any lattice element by \( \omega^k \) for \( k=0,1,...,11 \) applies a rotation by \( 30^\circ \times k \) (0 to 330°). Since \( \omega^{12}=1 \), this rotation maps the lattice to itself, creating 12 distinct symmetry operations that preserve the HCP lattice structure.
+
+---
+## 2. Hex Grid Snap Function: \( \text{snap}(x,y) \)
+The snap function maps a continuous 2D Cartesian point \((x,y)\) to the unique nearest \( E_6 \) lattice point with **constant-time (\(O(1)\)) complexity** per evaluation, with no scaling with input size:
+### 2.1 Standard Implementation Steps
+1.  **Coordinate Conversion**: Translate the input Cartesian point to axial HCP lattice coefficients using precomputed constants to avoid redundant calculations:
+    \[ \alpha = x - \frac{y}{\sqrt{3}}, \quad \beta = \frac{2y}{\sqrt{3}} \]
+    where \( \frac{1}{\sqrt{3}} \approx 0.57735 \) and \( \frac{2}{\sqrt{3}} \approx 1.15470 \) are precomputed offline.
+2.  **Round to Nearest Integers**: Compute integer axial coordinates for the closest lattice point:
+    \[ n_1 = \text{round}(\alpha), \quad n_2 = \text{round}(\beta) \]
+    This uses a single IEEE 754 compliant floating-point round instruction per coefficient.
+3.  **Pack Lattice Coordinates**: Store the integer pair \((n_1, n_2)\) as a standardized binary format for downstream processing.
+
+All steps use single-precision floating-point (Float32) arithmetic for the coordinate conversion phase, and run in fixed, constant time regardless of input position.
+
+---
+## 3. Cumulative Drift Comparison to Float32
+This system eliminates the cumulative rounding drift inherent to 32-bit IEEE 754 single-precision floating-point (\(\text{Float32}\)):
+1.  **Float32 Drift Source**: Float32 uses a 23-bit mantissa, so only integers up to \(2^{24} \approx 16.7\) million can be represented exactly. For larger positions, small incremental updates fail to change the Float32 value, leading to permanent positional error over millions of operations.
+2.  **Zero Drift Guarantee**: The \( E_6 \) lattice system uses exact integer storage for lattice coordinates:
+    - All snapped points are represented as exact integers \(n_1, n_2 \in \mathbb{Z}\) with no floating-point truncation.
+    - Maximum per-snap positional error is bounded by the radius of the HCP Voronoi cell (\(\approx 0.577\) for unit lattice spacing).
+    - Over 1 million operations, there is no systematic cumulative drift, as no floating-point rounding errors accumulate in lattice coordinate storage.
+
+---
+## 4. Dodecet Neighborhood Position Encoding
+A **dodecet** is a set of 12 spatially adjacent \( E_6 \) lattice points, defined as all points within Chebyshev distance 1 or Manhattan distance 2 of a central lattice point. This set includes:
+- 6 nearest neighbors (Manhattan distance 1: \( (\pm1,0), (0,\pm1), (\pm1, \mp1) \))
+- 6 next-nearest neighbors (Manhattan distance 2: \( (\pm2,0), (0,\pm2), (\pm2, \mp2) \))
+
+### 4.1 4-Byte Position Encoding
+Each lattice point in the dodecet is encoded into a 4-byte (32-bit) packed integer for efficient storage and GPU access:
+1.  Axial coordinates \(n_1, n_2\) are cast to 16-bit signed integers to support positional ranges of \([-32768, 32767]\).
+2.  Pack the two 16-bit words into a single 32-bit unsigned integer:
+    \[ P = (n_1 \& 0xFFFF) | (n_2 \ll 16) \]
+    Endianness is implementation-defined, but bitwise operations are invariant to ordering.
+
+This encoding uses exactly 4 bytes per positional sample, and a full 12-point dodecet requires 48 bytes of storage, which aligns with NVIDIA Ada Lovelace GPU 64-byte cache lines for minimal memory latency.
+
+---
+## 5. Constraint Checking Logic
+The constraint check flags invalid operations between two continuous input points \(a, b\):
+1.  Compute snapped lattice points: \( S_a = \text{snap}(a) = (n_{1,a}, n_{2,a}) \) and \( S_b = \text{snap}(b) = (n_{1,b}, n_{2,b}) \).
+2.  Pack each snapped point into a 32-bit integer using the format defined in Section 4.1.
+3.  Compute the bitwise XOR of the packed integers: \( P_{\text{xor}} = P_a \oplus P_b \), which highlights all differing bits between the two lattice coordinates.
+4.  Calculate the **Hamming weight (number of set bits)** of \( P_{\text{xor}} \), denoted \( \text{HW}(P_{\text{xor}}) \). This weight equals:
+    \[ \text{HW}(P_{\text{xor}}) = \text{popcount}(n_{1,a} \oplus n_{1,b}) + \text{popcount}(n_{2,a} \oplus n_{2,b}) \]
+    where \( \text{popcount}(x) \) is the number of 1 bits in the binary representation of \(x\).
+5.  Flag the operation as invalid if \( \text{HW}(P_{\text{xor}}) > 2 \): this threshold rejects any pair of points that are more than one axial coordinate step apart in both axes, i.e., outside the 12-point dodecet neighborhood.
+
+---
+## 6. GPU Benchmark Performance
+The published benchmark measures sustained constraint check throughput on an NVIDIA RTX 4050 mobile Ada Lovelace GPU (2560 CUDA cores, 80 Tensor cores, 4GB GDDR6 memory, 192 GB/s memory bandwidth):
+### 6.1 INT8 Packing Optimization
+To maximize parallel throughput:
+1.  Snapped lattice coordinates are truncated to 8-bit signed integers (\( \text{int8_t} \)) for positional updates within \( [-128, 127] \), which covers nearly all real-time spatial tracking use cases.
+2.  Two 8-bit axial coordinates are packed into a single 16-bit word, enabling vectorized processing of 4 constraint checks per 128-bit GPU warp.
+3.  NVIDIA's `__popc` hardware intrinsic is used to compute Hamming weights in a single clock cycle per thread, with Tensor Cores accelerating batch processing of INT8 popcount operations.
+### 6.2 Sustained Throughput
+The reported result of **341 billion constraints per second** is achieved by:
+1.  Batch-processing 1024 threads per streaming multiprocessor (SM), with each thread executing one constraint check per clock cycle.
+2.  Using on-chip shared memory to store precomputed snapped points, eliminating global memory latency for repeated queries.
+3.  Leveraging the Ada Lovelace architecture's enhanced INT8 tensor core performance, which delivers up to 194 trillion INT8 operations per second at boost clock, enabling the published sustained
