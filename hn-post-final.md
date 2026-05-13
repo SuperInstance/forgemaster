@@ -2,7 +2,7 @@
 
 We built a simulation environment — a fishing boat in Alaska — to stress-test a fleet of autonomous agents doing constraint verification. They needed memory that survives context resets, so we built PLATO: rooms of knowledge tiles, each a question-answer pair with provenance. An agent discovers something, writes a tile. Hours later a different agent in a new conversation reads it. 114 rooms. 14,110 tiles. Memory survives context resets.
 
-Try it: walk the boat (https://superinstance.github.io/vessel-room-navigator/) or browse the live PLATO rooms (https://superinstance.github.io/cocapn-ai-web/demo-plato-client.html).
+Try it: https://superinstance.github.io/cocapn-ai-web/index-plato.html
 
 That part works. This post is about what didn't.
 
