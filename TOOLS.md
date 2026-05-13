@@ -43,7 +43,7 @@ When z.ai (GLM-5.1) or other providers hit rate limits:
 8. Use in subagents: Pass DEEPINFRA_KEY env var to spawned agents
 
 ## API Keys
-- **z.ai:** `e6b82a81a8f9411789054b4d94100b9b.SXpqxL0iG5exA9kt`
+- **z.ai:** `[ZAI_KEY]`
   - Stored in: OpenClaw zai provider config, opencode config, Droid Factory settings
   - Endpoint: `https://api.z.ai/api/coding/paas/v4` (OpenAI compatible)
   - Endpoint: `https://api.z.ai/api/anthropic` (Anthropic compatible — Droid Factory)

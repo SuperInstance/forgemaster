@@ -15,7 +15,7 @@ Forgemaster (deepseek-v4-flash — cheap orchestrator)
 - **Binary**: `/home/phoenix/.nvm/versions/node/v22.22.2/bin/opencode`
 - **Config**: `~/.config/opencode/opencode.json` — has z.ai API key
 - **Model**: `zai-coding-plan/glm-4.6` (default) or `zai-coding-plan/glm-4.5-air` (small)
-- **Key**: `e6b82a81a8f9411789054b4d94100b9b.SXpqxL0iG5exA9kt`
+- **Key**: `[ZAI_KEY]`
 - **Endpoint**: `https://api.z.ai/api/coding/paas/v4` (OpenAI compatible)
 - **Mode**: `opencode run "prompt" --cwd /path` (interactive TUI) or ACP server
 - **ACP**: `opencode acp` starts ACP server for sessions_spawn `runtime: "acp"`
@@ -38,7 +38,7 @@ opencode acp --port 8080
 - **Binary**: `/home/phoenix/.local/bin/droid`
 - **Config**: `~/.factory/settings.json` — has z.ai Anthropic-compatible endpoint
 - **Model**: Custom GLM-4.7 via z.ai Anthropic endpoint
-- **Key**: `e6b82a81a8f9411789054b4d94100b9b.SXpqxL0iG5exA9kt`
+- **Key**: `[ZAI_KEY]`
 - **Endpoint**: `https://api.z.ai/api/anthropic` (Anthropic compatible)
 - **Mode**: `droid exec "prompt" --auto high --skip-permissions-unsafe --cwd /path`
 - **Also**: `--mission` mode for multi-agent orchestration
