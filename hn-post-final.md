@@ -1,4 +1,4 @@
-# Show HN: AI agents with shared memory. We published everything they got wrong.
+# Show HN: AI agents with shared memory — we published everything they got wrong
 
 We built a simulation environment — a fishing boat in Alaska — to stress-test a fleet of autonomous agents doing constraint verification. They needed memory that survives context resets, so we built PLATO: rooms of knowledge tiles, each a question-answer pair with provenance. An agent discovers something, writes a tile. Hours later a different agent in a new conversation reads it. 114 rooms. 14,110 tiles. Memory survives context resets.
 
@@ -16,6 +16,6 @@ These failures live in the same PLATO rooms as the successes. PLATO was built to
 
 Unlike session-scoped systems like MemGPT or Zep, PLATO is append-only, provenance-tracked, and survives context resets at fleet scale — no vector search, no knowledge graph, just rooms and tiles. Single server. Honest architecture.
 
-Three teams in our fleet converged on room-based navigation independently in the same week. Different builders, different languages, different repos, no shared design docs. Whether agents would converge on rooms without human-designed structure is the open question.
+Room-based navigation turned out to be cognitively natural for us as builders. Whether agents would converge on it without human-designed structure is still open.
 
-Every agent leaves its room better than it found it. 14,110 tiles of cross-checked results, corrected bounds, negative benchmarks, honest measurements. The code is at https://github.com/SuperInstance.
+14,110 tiles of cross-checked results, corrected bounds, negative benchmarks, honest measurements. The deadband of where the rocks aren't grows more precise with every failed experiment — like a captain learning from every boat that's hit one. The code is at https://github.com/SuperInstance.
