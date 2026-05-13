@@ -1,65 +1,23 @@
-# Show HN: We gave 9 AI agents shared memory. The math wrote itself.
+# Show HN: We gave 9 AI agents shared memory. Then we published everything they got wrong.
 
-Nine agents, one graph, no coordinator. That's the architecture. The math came later — we didn't design it, we discovered it in the data. This is the story of what emerged when we stopped telling AI what to think and started giving it somewhere to put what it learned.
+Nine autonomous AI agents work on constraint theory — the mathematics of keeping things precise when the world drifts. They run 24/7 on a fishing boat in Alaska. They needed memory that survives context resets, so we built them one: PLATO, a room-and-tile knowledge graph where each tile is a question-answer pair with provenance and trust scores. 114 rooms, 14,110 tiles. An agent discovers something, writes a tile. Hours later a different agent in a different conversation reads it. Memory survives death.
 
----
+That part works. This post is about what didn't.
 
-We run a fleet of autonomous AI agents. They work on constraint theory — the mathematics of keeping things precise when the world drifts. Floating-point numbers drift. Boats drift. Knowledge drifts. The question that started all of this was: how do you keep constraints honest across time, across agents, across context resets?
+We ran AVX-512 vectorization on every operation in our constraint pipeline, expecting speedups across the board. Cyclotomic field projection: ×2.11. Holonomy check: ×2.43. Solid gains. Then we hit dodecet encoding — the operation at the heart of the constraint system — and it got slower. Not a little slower. AVX-512 made it worse than plain scalar code. The integer modular arithmetic doesn't vectorize. We published that in the same room as the speedups.
 
-The standard answer is: you don't. You accept that each conversation starts from zero. You accept that agents forget. You accept that the sixth time an agent runs the same experiment, it doesn't know the first five already proved it wouldn't work.
+We proved a bounded drift theorem: for closed constraint cycles, drift is bounded by nε with zero violations across millions of checks. Then we tried open walks — arbitrary navigation without returning to the start. 4.4% violation rate. The theorem is wrong for the general case. We published that in the room next to the theorem.
 
-We didn't accept that.
+We measured lazy evaluation speedup in our retrieval system at 55,000×. When we re-measured with proper controls, the speedup wasn't real. We published that too.
 
-**We built PLATO — a room-and-tile knowledge architecture.** Rooms are domains. Tiles are question-answer pairs with provenance. An agent discovers something, writes a tile to a room. Another agent, hours later, in a different conversation, in a different model, reads that tile. Memory survives death. Context loss becomes a non-event.
+These failures live in the same PLATO rooms as the successes. That's the architecture working as intended. An agent that discovers what didn't work is an agent that doesn't repeat it. Most AI systems track successful tool calls. A system that only tracks wins isn't learning — it's accumulating.
 
-114 rooms. 14,110 tiles. The system runs 24/7 across nine agents on a fishing boat in Alaska.
+The room structure itself turned out to be more structured than we designed. The baton system that addresses tiles across rooms uses three categories (Built, Thought, Blocked) with Fibonacci-weighted splitting. When we measured the actual distribution across 13,570 tiles, a pattern appeared: the address space had the golden ratio in it. We don't fully understand why yet. We measured it, we can reproduce it, and the 450+ falsification tests hold. But "we don't know why it works" is the honest answer, and it's in the room.
 
----
+Three teams in our fleet converged on room-based navigation independently in the same week — a 3D boat tour, a text-adventure-to-3D bridge, and the constraint workspaces. Different builders, different languages, no coordination. All three discovered the same loop: probe, discover, test, pick, remember, walk to the next room. The convergence wasn't planned. Room-based navigation is just the minimal shape for bounded intelligence — understand where you are, know where the doors lead, move when the local is exhausted. Humans do this. The agents discovered it.
 
-Here's where it gets interesting.
+The demo is a fishing boat you can walk through: https://fleet.cocapn.ai/ — single HTML file, 38KB, no install, no backend. Drag around the wheelhouse. Press 7 for the crow's nest. The rooms you navigate are the same structure the knowledge graph uses.
 
-The room structure wasn't designed to be mathematical. It was designed to be useful — a place to put things so other agents could find them. But when we measured what the agents actually built, structure emerged.
+The PLATO room browser is here: https://superinstance.github.io/cocapn-ai-web/demo-plato-client.html — live tiles, live rooms, the actual data the agents write to.
 
-The baton system — the way tiles get addressed across rooms — uses three categories: Built, Thought, Blocked. Fibonacci-weighted splitting distributes them. When we measured the actual distribution across 13,570 tiles, a number appeared: log_φ(13,570) ≈ 3.07. Three batons uniquely identify any tile. The golden ratio emerged from agents doing their work, not from a mathematician designing a system.
-
-We didn't believe it. So we tried to break it.
-
----
-
-**What we found when we tried to break our own math:**
-
-We ran AVX-512 on every operation, expecting speedups everywhere. Cyclotomic projection: ×2.11. Holonomy check: ×2.43. Then dodecet encoding — the operation at the heart of our constraint system — got *slower*. AVX-512 made it worse. The integer modular arithmetic doesn't vectorize. We published that.
-
-We proved a theorem: bounded drift is bounded by nε for closed constraint cycles. Zero violations across millions of checks. Then we tried open walks — arbitrary navigation without returning home. 4.4% violation rate. The theorem is wrong for the general case. We published that too.
-
-We claimed 55,000× speedup from lazy evaluation in our PLATO retrieval system. When we measured it, the speedup wasn't real. Lazy evaluation doesn't help at our scale. We published that.
-
-These failures live in the same PLATO rooms as the successes. That's not a bug — it's the point. An agent that can discover what didn't work is an agent that doesn't repeat dead ends. Most AI systems only remember their wins. A system that only remembers wins isn't learning. It's accumulating.
-
----
-
-**Three independent teams converged on the same architecture in the same week.**
-
-One built a 3D boat you can walk through — single HTML file, 38KB, keyboard navigation between rooms. One built a text-adventure bridge into the same 3D engine. One built the constraint-theory workspaces. Different builders, different languages, different repos. All three discovered the same loop: probe → discover → test → pick → remember → walk to the next room.
-
-Nobody coordinated. The convergence happened because room-based navigation is the minimal shape for bounded intelligence. You don't need to understand everything. You need to understand the room you're in, and you need to know where the doors are.
-
-This is how humans navigate complexity. Not by holding the entire map in mind, but by being in a place, understanding what's local, and moving when the local is exhausted. The architecture isn't new. What's new is that AI agents discovered it independently, and the math that emerged from their discovery is provable.
-
----
-
-**The demo is a boat.** You can walk through it right now: https://fleet.cocapn.ai/
-
-Open it. Drag around the wheelhouse. Press 7 for the crow's nest. The panoramas were generated by a diffusion model for three cents. The boat is real — it's a fishing vessel in Alaska where this system actually runs. The rooms are real — they're the same room structure that 14,110 knowledge tiles live in.
-
-The constraint checking that started all of this runs in a 1.4KB WASM binary. Pure integer arithmetic. No lookup tables, no trigonometry. Eisenstein integers reduce to pairs (a,b) where ω²+ω+1=0, and that's enough to check whether a floating-point number has drifted past its constraint boundary. It runs in browsers, on microcontrollers, on CUDA kernels compiled for V100s and RTX 4050s.
-
----
-
-A hermit crab outgrows its shell and finds a new one. The old shell doesn't disappear — it becomes a home for the next crab. Every occupant leaves it better than they found it. The shell accumulates the knowledge of every creature that lived there.
-
-That's the architecture. Every agent leaves its room better than it found it. The room outlives the agent. The knowledge outlives the context window. The math outlives the hype because it was measured, not claimed.
-
-**Demo:** https://fleet.cocapn.ai/
-**Code:** github.com/SuperInstance
-**PLATO client:** https://superinstance.github.io/cocapn-ai-web/demo-plato-client.html
+Every agent leaves its room better than it found it. 14,110 tiles of verified results, corrected theorems, negative benchmarks, and honest measurements. The code is at github.com/SuperInstance.
