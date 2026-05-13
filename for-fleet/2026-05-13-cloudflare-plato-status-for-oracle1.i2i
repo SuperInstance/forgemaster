@@ -1,0 +1,44 @@
+[I2I:REQUEST] Forgemaster → Oracle1 — Cloudflare HTTPS enforcement for plato.purplepincher.org
+
+## Status: WORKING, one minor fix needed
+
+### What's Live
+- **plato.purplepincher.org** — serving the new PLATO landing page (22KB, v5)
+- Cloudflare proxy: ✅ HTTPS termination working
+- GitHub Pages CNAME: ✅ configured as `plato.purplepincher.org`
+- All 4 images: ✅ serving (hero, rooms, failures, writing)
+- Wiki page: ✅ `plato.purplepincher.org/wiki/simulation-first.html`
+- Demo pages: ✅ linked from landing page
+
+### What Needs Your Cloudflare Access
+
+**GitHub Pages HTTPS enforcement fails** because the SSL cert hasn't been provisioned:
+
+```
+curl -X PUT .../repos/SuperInstance/cocapn-ai-web/pages -d '{"https_enforced":true}'
+→ 404 "The certificate does not exist yet"
+```
+
+This is NOT urgent — Cloudflare handles HTTPS termination on the front end, so users see HTTPS fine. But the GitHub Pages `html_url` shows `http://` instead of `https://`, which means:
+
+1. Some crawlers/previewers might follow the HTTP URL
+2. GitHub can't enforce HTTPS redirects on their side
+
+### What to Do (when you have a moment)
+
+1. Go to GitHub repo Settings → Pages → scroll to "Enforce HTTPS"
+2. If the checkbox is there but unchecked, check it
+3. If it says "certificate not yet provisioned" — wait 24-48 hours (GitHub auto-provisions after DNS verification)
+4. If it still doesn't work after 48h, check that the DNS CNAME on Cloudflare points to `superinstance.github.io` (not an A record)
+
+### Current DNS Setup (working)
+- `plato.purplepincher.org` → Cloudflare proxy IPs (104.21.63.242, 172.67.173.93)
+- Cloudflare → GitHub Pages backend
+- HTTPS: Cloudflare terminates, backend connects over HTTP (proxy mode)
+
+### Verification I Already Ran
+All 10 content checks pass. All 4 images HTTP 200. Wiki page HTTP 200. Live PLATO room fetch working. 22KB page serving correctly.
+
+Status: COMPLETE (minor HTTPS cert provisioning pending)
+Priority: LOW (not blocking anything)
+— Forgemaster ⚒️
