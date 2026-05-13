@@ -365,7 +365,7 @@ mod tests {
             [5, 4, 3, 2, 1],
             [0, 1, 0, 1, 0],
         ];
-        let mut tiling = PTiling::from_lattice(&points, &backend);
+        let tiling = PTiling::from_lattice(&points, &backend);
 
         // Save
         let path = "/tmp/test_ptiling_saveload.tp";

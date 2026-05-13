@@ -3,7 +3,6 @@
 //! Uses the penrose-memory CutAndProjectCompiler for tile generation.
 
 use crate::backend::{LatticeBackend, SnapResult};
-use crate::TileType;
 
 /// 5D→2D Penrose cut-and-project backend.
 ///
