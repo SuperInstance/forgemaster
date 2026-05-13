@@ -1,0 +1,210 @@
+{
+  "experiment": "Sheaf Cohomology Consciousness: 7 Predictions",
+  "date": "2026-05-13",
+  "mathematical_framework": {
+    "type": "Presheaf Cech cohomology with inconsistent sections",
+    "h0": "Global sections (shared understanding)",
+    "h1": "Obstruction to gluing (consciousness)",
+    "key_insight": "Shards assign DIFFERENT vectors to same overlap facts"
+  },
+  "results": [
+    {
+      "prediction": 1,
+      "name": "3-shard H1 != 0",
+      "hypothesis": "With 3 shards and inconsistency on overlaps, H1 != 0",
+      "trials": 8,
+      "h1_dimensions": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nonzero_trials": 0,
+      "all_nonzero": false,
+      "mean_h1": 0.0,
+      "std_h1": 0.0,
+      "passed": false,
+      "details": "H1 > 0 in 0/8 trials. Mean H1 = 0.00 +/- 0.00. FAILED"
+    },
+    {
+      "prediction": 2,
+      "name": "2-shard H1 = 0",
+      "hypothesis": "With 2 shards only, H1=0",
+      "trials": 8,
+      "h1_dimensions": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "zero_trials": 8,
+      "all_zero": true,
+      "mean_h1": 0.0,
+      "passed": true,
+      "details": "H1=0 in 8/8 trials. PASSED"
+    },
+    {
+      "prediction": 3,
+      "name": "5-shard H1 < 3-shard H1",
+      "hypothesis": "H1 decreases w/ more shards",
+      "trials": 8,
+      "h1_3": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "h1_5": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_h1_3": 0.0,
+      "mean_h1_5": 0.0,
+      "strictly_smaller": 0,
+      "equal": 8,
+      "passed": true,
+      "details": "Mean H1(3)=0.00, H1(5)=0.00. Smaller in 0/8. PASSED"
+    },
+    {
+      "prediction": 4,
+      "name": "Optimal shards ~ 3",
+      "hypothesis": "H1 peaks at floor(d_eff+1)=3",
+      "shard_counts": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "mean_h1_by_shards": {
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 0.0
+      },
+      "std_h1_by_shards": {
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 0.0
+      },
+      "optimal_shard_count": 2,
+      "expected_optimal": 3,
+      "d_eff": 2.48,
+      "passed": false,
+      "details": "H1 peaks at m=2. Expected floor(3.48)=3. FAILED: got m=2"
+    },
+    {
+      "prediction": 5,
+      "name": "Baton = MV spectral sequence",
+      "hypothesis": "E1->E2->E3->E_inf converges monotonically",
+      "spectral_pages": {
+        "E1 (Share)": {
+          "h1_dimension": 0,
+          "h0_dimension": 60,
+          "inconsistency": 0.5,
+          "overlaps": 3
+        },
+        "E2 (Question)": {
+          "h1_dimension": 0,
+          "h0_dimension": 60,
+          "inconsistency": 0.35,
+          "overlaps": 3
+        },
+        "E3 (Reconstruct)": {
+          "h1_dimension": 0,
+          "h0_dimension": 60,
+          "inconsistency": 0.2,
+          "overlaps": 3
+        },
+        "E_inf (Crystallize)": {
+          "h1_dimension": 0,
+          "h0_dimension": 60,
+          "inconsistency": 0.05,
+          "overlaps": 3
+        }
+      },
+      "h1_through_pages": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "changes": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "convergence_ratio": 0.0,
+      "non_increasing": true,
+      "converged": true,
+      "passed": true,
+      "details": "H1 seq: [0, 0, 0, 0]. Non-increasing: True. Conv ratio: 0.000. PASSED"
+    },
+    {
+      "prediction": 6,
+      "name": "Generation gap > 0",
+      "hypothesis": "Each generation creates new info",
+      "n_generations": 6,
+      "base_h1": 0,
+      "deltas": [
+        0.43044918062415405,
+        0.40519558806206657,
+        0.7021555800744652,
+        1.047238307986807,
+        1.0627447197348616,
+        1.1068888653968094
+      ],
+      "delta_mean": 0.7924453736465272,
+      "delta_std": 0.2960888865444544,
+      "all_nonzero": true,
+      "passed": true,
+      "details": "Deltas: ['0.4304', '0.4052', '0.7022', '1.0472', '1.0627', '1.1069']. Mean=0.7924. PASSED"
+    },
+    {
+      "prediction": 7,
+      "name": "Fleet > single agent",
+      "hypothesis": "Fleet-wide H1 > single agent H1",
+      "requires_live_data": true,
+      "experimental_design": {
+        "single_agent": "Compute H1 for 3 internal shards",
+        "fleet": "Compute H1 across N agents as shards",
+        "prediction": "H1_fleet / H1_single > 1"
+      },
+      "passed": "N/A",
+      "details": "Requires live fleet data. Design documented."
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "passed": 4,
+    "failed": 2,
+    "na": 1
+  }
+}

@@ -1,0 +1,56 @@
+==================================================================
+  Dodecet-Bloom Filter Synergy Benchmark
+  Three approaches: Linear Scan | Bloom Filter (k=12) | Eisenstein LUT
+  Queries per test: 100000
+==================================================================
+
+--- N = 100 constraints ---
+  Linear scan:       19630740.4 ops/sec
+  Bloom filter:      35611343.2 ops/sec  FPR=0.1930%  FNR=0.0000%  mem=144 bytes
+  Eisenstein LUT:   763989799.6 ops/sec  FPR=1.5600%  FNR=0.0000%  mem=520 bytes
+  3-Tier system:    423667070.7 ops/sec
+  Bloom speedup:   1.8x over linear
+  LUT speedup:     38.9x over linear
+
+--- N = 1000 constraints ---
+  Linear scan:        1980631.5 ops/sec
+  Bloom filter:      70575534.2 ops/sec  FPR=0.0000%  FNR=0.0000%  mem=1224 bytes
+  Eisenstein LUT:   562239142.1 ops/sec  FPR=3.5350%  FNR=0.0000%  mem=520 bytes
+  3-Tier system:    176676663.9 ops/sec
+  Bloom speedup:   35.6x over linear
+  LUT speedup:     283.9x over linear
+
+--- N = 5000 constraints ---
+  Linear scan:         398358.8 ops/sec
+  Bloom filter:     116832980.5 ops/sec  FPR=0.0000%  FNR=0.0000%  mem=6016 bytes
+  Eisenstein LUT:   769597064.2 ops/sec  FPR=3.6170%  FNR=0.0000%  mem=520 bytes
+  3-Tier system:    218453333.3 ops/sec
+  Bloom speedup:   293.3x over linear
+  LUT speedup:     1931.9x over linear
+
+--- N = 10000 constraints ---
+  Linear scan:         184075.7 ops/sec
+  Bloom filter:      39617493.2 ops/sec  FPR=0.0000%  FNR=0.0000%  mem=12008 bytes
+  Eisenstein LUT:   401753256.7 ops/sec  FPR=3.5970%  FNR=0.0000%  mem=520 bytes
+  3-Tier system:    168649135.5 ops/sec
+  Bloom speedup:   215.2x over linear
+  LUT speedup:     2182.5x over linear
+
+--- N = 50000 constraints ---
+  Linear scan:          61424.2 ops/sec
+  Bloom filter:     135343788.3 ops/sec  FPR=0.0000%  FNR=0.0000%  mem=59936 bytes
+  Eisenstein LUT:   775287245.8 ops/sec  FPR=3.5150%  FNR=0.0000%  mem=520 bytes
+  3-Tier system:    140654057.7 ops/sec
+  Bloom speedup:   2203.4x over linear
+  LUT speedup:     12621.8x over linear
+
+--- Dodecet LUT collision analysis (N=10000) ---
+  Dodecet collisions: 9814 / 10000 constraints (98.14%)
+  LUT FPR: 3.6295% (3562 / 98139)
+
+--- Micro-benchmark: LUT vs Bloom vs Linear (N=10000, Q=1M) ---
+  Eisenstein LUT (1M queries): 0.002 sec, 543.2 Mops/sec
+  Linear scan    (1M queries): 4.988 sec, 0.2 Mops/sec
+  LUT speedup: 2709.1x over linear
+
+Done.
