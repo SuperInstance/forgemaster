@@ -7,16 +7,18 @@ use std::fmt;
 pub mod ffi {
     use std::os::raw::c_float;
 
-    #[repr(C)]
+    #[repr(C, packed)]
     #[derive(Clone, Copy, Debug)]
     pub struct EisensteinResult {
         pub error: c_float,
         pub dodecet: u16,
         pub chamber: u8,
         pub flags: u8,
+        pub snap_a: i32,
+        pub snap_b: i32,
     }
 
-    const _: () = assert!(size_of::<EisensteinResult>() == 8);
+    const _: () = assert!(size_of::<EisensteinResult>() == 16);
 
     pub const FLAG_SAFE: u8 = 0x01;
     pub const FLAG_PARITY: u8 = 0x02;
@@ -50,26 +52,51 @@ pub struct SnapResult {
     pub is_safe: bool,
     /// Parity flag.
     pub parity: bool,
+    /// Eisenstein a-coordinate of the snapped lattice point.
+    pub snap_a: i32,
+    /// Eisenstein b-coordinate of the snapped lattice point.
+    pub snap_b: i32,
 }
 
 impl SnapResult {
     pub fn from_ffi(r: ffi::EisensteinResult) -> Self {
-        Self {
-            error: r.error,
-            dodecet: r.dodecet,
-            chamber: r.chamber,
-            is_safe: (r.flags & ffi::FLAG_SAFE) != 0,
-            parity: (r.flags & ffi::FLAG_PARITY) != 0,
+        // Use addr_of! to avoid creating references to packed fields (UB in Rust 1.95+)
+        #[allow(unused_unsafe)]
+        unsafe {
+            let error = std::ptr::read_unaligned(std::ptr::addr_of!(r.error));
+            let dodecet = std::ptr::read_unaligned(std::ptr::addr_of!(r.dodecet));
+            let chamber = std::ptr::read_unaligned(std::ptr::addr_of!(r.chamber));
+            let flags = std::ptr::read_unaligned(std::ptr::addr_of!(r.flags));
+            let snap_a = std::ptr::read_unaligned(std::ptr::addr_of!(r.snap_a));
+            let snap_b = std::ptr::read_unaligned(std::ptr::addr_of!(r.snap_b));
+            Self {
+                error,
+                dodecet,
+                chamber,
+                is_safe: (flags & ffi::FLAG_SAFE) != 0,
+                parity: (flags & ffi::FLAG_PARITY) != 0,
+                snap_a,
+                snap_b,
+            }
         }
     }
 }
 
 impl fmt::Display for SnapResult {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        // Use addr_of! to avoid creating references to packed fields
+        #[allow(unused_unsafe)]
+        let e = unsafe { std::ptr::read_unaligned(std::ptr::addr_of!(self.error)) };
+        let d = unsafe { std::ptr::read_unaligned(std::ptr::addr_of!(self.dodecet)) };
+        let c = unsafe { std::ptr::read_unaligned(std::ptr::addr_of!(self.chamber)) };
+        let s = self.is_safe;  // bool, Copy
+        let p = self.parity;    // bool, Copy
+        let sa = unsafe { std::ptr::read_unaligned(std::ptr::addr_of!(self.snap_a)) };
+        let sb = unsafe { std::ptr::read_unaligned(std::ptr::addr_of!(self.snap_b)) };
         write!(
             f,
-            "SnapResult {{ error: {:.6}, dodecet: 0x{:04x}, chamber: {}, safe: {}, parity: {} }}",
-            self.error, self.dodecet, self.chamber, self.is_safe, self.parity
+            "SnapResult {{ error: {:.6}, dodecet: 0x{:04x}, chamber: {}, safe: {}, parity: {}, snap:({}, {}) }}",
+            e, d, c, s, p, sa, sb
         )
     }
 }
@@ -123,11 +150,19 @@ fn to_ffi(r: &SnapResult) -> ffi::EisensteinResult {
     let mut flags = 0u8;
     if r.is_safe { flags |= ffi::FLAG_SAFE; }
     if r.parity { flags |= ffi::FLAG_PARITY; }
+    // Copy values to locals before constructing the packed result
+    let e = r.error;
+    let d = r.dodecet;
+    let c = r.chamber;
+    let sa = r.snap_a;
+    let sb = r.snap_b;
     ffi::EisensteinResult {
-        error: r.error,
-        dodecet: r.dodecet,
-        chamber: r.chamber,
+        error: e,
+        dodecet: d,
+        chamber: c,
         flags,
+        snap_a: sa,
+        snap_b: sb,
     }
 }
 
@@ -168,4 +203,12 @@ mod tests {
             v
         })
     }
+}
+#[test]
+fn test_debug() {
+    let r = snap(0.0, 0.0);
+    println!("snap(0,0): error={} dodecet=0x{:04x} chamber={} safe={} snap_a={} snap_b={}",
+        r.error, r.dodecet, r.chamber, r.is_safe, r.snap_a, r.snap_b);
+    assert_eq!(r.snap_a, 0);
+    assert_eq!(r.snap_b, 0);
 }
