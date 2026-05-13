@@ -1067,17 +1067,19 @@ All live at github.com/SuperInstance/{name}
 - [x] SEED-INTEGRATION-AUDIT.md + GROUND-TRUTH-FINAL.md
 
 **Active Tasks**
-- [ ] Run structure-vs-scale with Groq models (llama-4-scout, gpt-oss-20b) — structured vs naive
-- [ ] Run with 0.6B-2B models locally (ollama) when WSL restarts
+- [x] Run structure-vs-scale with Groq models (llama-4-scout, gpt-oss-20b) — DONE
+- [x] Run with DeepInfra models (Hermes-70B, Qwen3-235B, Qwen3.6-35B) — DONE
+- [ ] Run with 0.6B-2B models (ollama or new Groq key) — THE critical test
 - [ ] Test JEPA/flow models for information-flow rooms
 - [ ] Publish penrose-memory v1.0 to crates.io
-- [ ] Run z.ai P3 experiment: domain tags shift routing 15-25%
+- [ ] Build common expertise modules (5 rooms) when rate limits reset
 - [ ] Wire dynamic MoE routing into lighthouse.py
 
 **Key Credentials**
-- Groq key: `~/.openclaw/workspace/.credentials/groq-api-key.txt`
+- Groq key: `~/.openclaw/workspace/.credentials/groq-api-key.txt` (rate limited, need new key)
 - Models: llama-3.1-8b-instant, llama-4-scout-17b, gpt-oss-20b
 - All Groq models respond in <2 seconds, essentially free
+- DeepInfra: Hermes-70B, Qwen3-235B, Qwen3.6-35B, Seed-2.0-mini
 
-**Total This Session: ~450 tests | 25+ papers | 10 experiments | 5 code modules | 1 fundamental finding**
+**Total This Session: ~450 tests | 27+ papers | 12 experiments | 6 code modules | 2 fundamental findings**
 

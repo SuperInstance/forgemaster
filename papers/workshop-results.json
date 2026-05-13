@@ -1,0 +1,253 @@
+{
+  "tile": "Penrose P3 tiling, 5D cut-and-project, golden-ratio hash vertex IDs, Fibonacci word encoding, dead-reckoning navigation, deflation consolidation, 3-color baton sharding, C9 locality failure, PCA projection 1.7x better than golden for neighbor preservation, 56% recall@20 end-to-end, 230B/23B MoE Seed integration",
+  "ground_truth": [
+    "Penrose P3 tiling",
+    "5D cut-and-project",
+    "golden-ratio hash vertex IDs",
+    "Fibonacci word encoding",
+    "dead-reckoning navigation",
+    "deflation consolidation",
+    "3-color baton sharding",
+    "C9 locality failure",
+    "PCA 1.7x better than golden",
+    "230B/23B MoE Seed integration"
+  ],
+  "fork_results": [
+    {
+      "model": "ByteDance/Seed-2.0-mini",
+      "tokens": 8245,
+      "latency_ms": 53607.534646987915,
+      "reconstructions": [],
+      "raw": "{\"reconstructions\": [\n  {\n    \"approach\": \"Literal Core Tiling Anchor\",\n    \"confidence\": 0.82,\n    \"facts_recovered\": [\n      \"Penrose P3 aperiodic tiling\",\n      \"5D cut-and-project tiling method\",\n      \"golden-ratio hash vertex identification\",\n      \"Fibonacci word tile labeling\",\n      \"3-color baton sharding\",\n      \"PCA projection for neighbor preservation\"\n    ],\n    \"facts_uncertain\": [\n      \"?exact PCA projection kernel parameters\",\n      \"?dead-reckoning navigation vertex tracking logic\",\n      \"?C9 locality failure specific trigger conditions\"\n    ],\n    \"facts_missed\": [\n      \"56% recall@20 end-to-end metric specifics\",\n      \"230B/23B MoE Seed integration architecture\",\n      \"deflation consolidation exact iteration rules\"\n    ],\n    \"reasoning\": \"Builds directly from canonical Penrose P3 tiling fundamentals, maps vertices to unique hashes using golden ratio multiples, labels tiles via Fibonacci word sequences to track orientation, splits tiles into 3 color-coded baton shards for boundary tracking, replaces standard golden-ratio neighbor projection with PCA to boost neighbor retention, acknowledges that C9 locality failures occur but does not specify their exact causes, omits undisclosed production ML integration and concrete performance metric breakdowns.\",\n    \"validation_code\": \"import numpy as np\\nfrom sklearn.decomposition import PCA\\n\\ndef test_golden_hash_vertices(vertices):\\n    phi = (1 + 5**0.5) / 2\\n    return [hash(f\\\"{v[0]*phi:.6f}{v[1]*phi:.6f}{v[2]*phi:.6f}\\\") for v in vertices]\\n\\ndef test_pca_vs_golden_projection(points):\\n    phi = (1 + 5**0.5)/2\\n    golden_proj = points @ np.array([[phi, 0, 0], [0, 1, 0], [0, 0, 1]])[:, :2]\\n    pca = PCA(n_components=2)\\n    pca_proj = pca.fit_transform(points)\\n    assert golden_proj.shape == pca_proj.shape, \\\"Projection dimensions mismatch\\\"\\n    return True\\n\\n# Run validations\\nif __name__ == \\\"__main__\\\":\\n    mock_vertices = np.random.rand(100, 3)\\n    hashes = test_golden_hash_vertices(mock_vertices)\\n    assert len(hashes) == 100, \\\"Vertex hashing failed\\\"\\n    proj_valid = test_pca_vs_golden_projection(mock_vertices)\\n    print(\\\"All core tiling validations passed\\\")\"\n  },\n  {\n    \"approach\": \"Deflation-Consolidated Tiling Pipeline\",\n    \"confidence\": 0.78,\n    \"facts_recovered\": [\n      \"deflation consolidation\",\n      \"3-color baton sharding\",\n      \"Fibonacci word encoding for generation sequence\",\n      \"dead-reckoning navigation between adjacent tiles\",\n      \"C9 locality failure as adjacency inconsistency\"\n    ],\n    \"facts_uncertain\": [\n      \"?5D cut-and-project lattice vector scaling factors\",\n      \"?golden-ratio hash exact seed value\",\n      \"?1.7x PCA performance improvement exact baseline measurement\"\n    ],\n    \"facts_missed\": [\n      \"230B/23B MoE Seed integration details\",\n      \"56% recall@20 end-to-end performance metrics\",\n      \"exact 3-color baton color assignment rules\"\n    ],\n    \"reasoning\": \"Focuses on the deflation-based expansion of Penrose P3 tiles, using Fibonacci words to track each generation\u2019s tile substitution rules, splits expanded tiles into 3-color baton shards to track parent-child tile relationships, uses dead reckoning to navigate between physically adjacent tiles during deflation, notes that C9 locality failures arise when adjacent tiles use inconsistent deflation scaling factors, omits ML integration specifics and quantitative performance benchmarks.\",\n    \"validation_code\": \"import numpy as np\\n\\ndef deflate_p3_tile(parent_tile):\\n    phi = (1 + 5**0.5)/2\\n    scale = 1 / phi\\n    # Simplified P3 deflation: 5 child tiles per parent\\n    children = [parent_tile * scale for _ in range(5)]\\n    return children\\n\\ndef check_c9_locality_failure(tile_set):\\n    # Simplified: C9 = ~9% of adjacent tile pairs have invalid adjacency\\n    adjacent_checks = 0\\n    failed_checks = 0\\n    for i, t1 in enumerate(tile_set):\\n        for t2 in tile_set[i+1:]:\\n            distance = np.linalg.norm(t1 - t2)\\n            # Assume valid adjacency within 0.1 distance threshold\\n            if 0.09 < distance < 0.11:\\n                adjacent_checks +=1\\n                # Mock invalid adjacency if tile IDs don't match\\n                if hash(str(t1)) % 10 == hash(str(t2)) %10:\\n                    failed_checks +=1\\n    failure_rate = failed_checks / max(adjacent_checks, 1)\\n    # Allow for 8-10% failure rate to match C9\\n    assert 0.08 < failure_rate < 0.10, f\\\"C9 locality failure rate mismatch: {failure_rate:.2%}\\\"\\n    return True\\n\\n# Run validations\\nif __name__ == \\\"__main__\\\":\\n    mock_parent = np.array([0, 0, 0])\\n    children = deflate_p3_tile(mock_parent)\\n    assert len(children) ==5, \\\"Deflation produced wrong number of child tiles\\\"\\n    locality_valid = check_c9_locality_failure(children + np.random.rand(5,3)*0.2)\\n    print(\\\"All deflation pipeline validations passed\\\")\"\n  },\n  {\n    \"approach\": \"End-to-End MoE-Seed Tiling Model\",\n    \"confidence\": 0.61,\n    \"facts_recovered\": [\n      \"230B/23B MoE Seed integration\",\n      \"56% recall@20 end-to-end tiling reconstruction\",\n      \"PCA projection superior to golden ratio for neighbor preservation\",\n      \"C9 locality failure as 9% of reconstruction errors\"\n    ],\n    \"facts_uncertain\": [\n      \"?golden-ratio hash integration within MoE expert routing\",\n      \"?Fibonacci word encoding as expert prompt token\",\n      \"?dead-reckoning as inference-time navigation heuristic\"\n    ],\n    \"facts_missed\": [\n      \"exact Penrose P3 substitution rules\",\n      \"5D cut-and-project lattice parameters\",\n      \"3-color baton sharding physical implementation details\"\n    ],\n    \"reasoning\": \"Frames the entire tile description as an end-to-end machine learning pipeline: a Mixture-of-Experts model with 230B total parameters and 23B activated experts handles tiling subtasks, uses PCA projection instead of standard golden-ratio scaling to preserve tile neighbor relationships better, achieves 56% recall@20 for reconstructing full tilings from partial inputs, notes that C9 locality failures occur in 9% of reconstructions where the model fails to enforce correct adjacency, treats the tiling-related terms as sub-modules within the MoE framework rather than core tiling physics.\",\n    \"validation_code\": \"import numpy as np\\nfrom sklearn.decomposition import PCA\\n\\ndef mock_moe_tiling_reconstruction(partial_input):\\n    # Mock MoE model that expands partial tiling to full set\\n    phi = (1 +5**0.5)/2\\n    full_tiling = partial_input * phi * np.random.rand(len(partial_input), 1)\\n    return full_tiling\\n\\ndef calculate_recall_at_20(ground_truth, predictions):\\n    # Simplified recall@20: match top 20 nearest neighbors\\n    gt_neighbors = []\\n    pred_neighbors = []\\n    # Get first tile's neighbors\\n    for i in range(1, len(ground_truth)):\\n        gt_neighbors.append(np.linalg.norm(ground_truth[0] - ground_truth[i]))\\n        pred_neighbors.append(np.linalg.norm(predictions[0] - predictions[i]))\\n    # Sort by distance\\n    gt_neighbors.sort()\\n    pred_neighbors.sort()\\n    # Count common top 20\\n    top_k_gt = set(gt_neighbors[:20])\\n    top_k_pred = set(pred_neighbors[:20])\\n"
+    },
+    {
+      "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tokens": 1347,
+      "latency_ms": 35331.72154426575,
+      "reconstructions": [
+        {
+          "approach": "literal interpretation",
+          "confidence": 0.7,
+          "facts_recovered": [
+            "Penrose P3 tiling is used",
+            "5D cut-and-project method is used",
+            "Golden ratio is used for vertex IDs",
+            "Fibonacci word encoding is used",
+            "Dead-reckoning navigation is used",
+            "Deflation consolidation is used",
+            "3-color baton sharding is used",
+            "C9 locality failure occurs",
+            "PCA projection is 1.7x better than golden ratio for neighbor preservation",
+            "56% recall@20 end-to-end",
+            "230B/23B MoE Seed is integrated"
+          ],
+          "facts_uncertain": [
+            "?How golden ratio relates to vertex IDs",
+            "?What dead-reckoning navigation entails in this context",
+            "?Deflation consolidation mechanism",
+            "?3-color baton sharding details",
+            "?C9 locality failure specifics",
+            "?PCA projection and golden ratio comparison methodology"
+          ],
+          "facts_missed": [
+            "Purpose of Fibonacci word encoding",
+            "Overall goal of the tiling system",
+            "Specifics of 230B/23B MoE Seed integration"
+          ],
+          "reasoning": "The literal approach directly extracts facts from the prompt text, while noting uncertainties and gaps in knowledge. Confidence is moderate since many specifics are unclear.",
+          "validation_code": "print(\"Literal approach is too naive to validate facts\")",
+          "validation": {
+            "passed": true,
+            "output": "Literal approach is too naive to validate facts\n",
+            "returncode": 0
+          },
+          "score": {
+            "ground_truth_count": 10,
+            "hits": 7,
+            "recall": 0.7,
+            "claimed_count": 17,
+            "uncertain_count": 6,
+            "confidence": 0.7
+          }
+        },
+        {
+          "approach": "creative synthesis",
+          "confidence": 0.4,
+          "facts_recovered": [
+            "A Penrose P3 tiling is being used",
+            "The tiling is generated from 5D space",
+            "Golden ratio and Fibonacci sequence are used",
+            "Localization and navigation are key challenges",
+            "Efficiency and performance are being optimized"
+          ],
+          "facts_uncertain": [
+            "?The tiling represents a physical structure or space",
+            "?The 5D cut-and-project method is a novel approach",
+            "?Golden ratio and Fibonacci sequence are used for aesthetics",
+            "?Dead-reckoning implies error accumulation over distance",
+            "?3-color baton sharding is for parallel processing or rendering",
+            "?C9 locality refers to 9-dimensional locality",
+            "?PCA projection is used to reduce dimensions while preserving structure",
+            "?230B/23B MoE Seed is a machine learning model"
+          ],
+          "facts_missed": [
+            "Specific applications or goals of the tiling system",
+            "How the different components fit together",
+            "Why this particular combination of techniques was chosen"
+          ],
+          "reasoning": "The creative approach attempts to synthesize the disparate facts into a coherent whole, making educated guesses and inferences. However, the result is still speculative due to the many uncertainties.",
+          "validation_code": "print(\"Creative synthesis is too speculative to validate facts\")",
+          "validation": {
+            "passed": true,
+            "output": "Creative synthesis is too speculative to validate facts\n",
+            "returncode": 0
+          },
+          "score": {
+            "ground_truth_count": 10,
+            "hits": 3,
+            "recall": 0.3,
+            "claimed_count": 13,
+            "uncertain_count": 8,
+            "confidence": 0.4
+          }
+        },
+        {
+          "approach": "systematic analysis",
+          "confidence": 0.6,
+          "facts_recovered": [
+            "Penrose P3 is a specific type of aperiodic tiling",
+            "Cut-and-project method is a way to generate aperiodic tilings from higher dimensional lattices",
+            "Golden ratio is an irrational number with interesting mathematical properties",
+            "Fibonacci words are a sequence of letters related to the Fibonacci sequence",
+            "Dead-reckoning is a navigation method that calculates position based on previous position and movement",
+            "Deflation is a term often used in computer graphics to mean removing redundancy",
+            "Sharding is a way to break up a problem or dataset into smaller pieces",
+            "PCA is a dimensionality reduction technique that finds principal components",
+            "Recall is a metric used to evaluate information retrieval systems",
+            "MoE Seed likely refers to a type of machine learning model or architecture"
+          ],
+          "facts_uncertain": [
+            "?How exactly the 5D cut-and-project method is implemented for Penrose P3",
+            "?Why golden ratio is used for vertex IDs specifically",
+            "?How Fibonacci word encoding is applied to the tiling",
+            "?Deflation consolidation and 3-color baton sharding specifics",
+            "?What C9 locality failure means precisely",
+            "?How PCA projection relates to neighbor preservation",
+            "?What the 230B/23B MoE Seed integration entails"
+          ],
+          "facts_missed": [
+            "The overall goal or application of this tiling system",
+            "How the different components and techniques are integrated",
+            "Why Penrose P3 tiling was chosen over other aperiodic tilings"
+          ],
+          "reasoning": "The systematic analysis breaks down the facts into their individual components and provides definitions and context. However, it does not attempt to synthesize a complete picture, leaving out the overall integration and purpose.",
+          "validation_code": "print(\"Systematic analysis has isolated facts but not validated integration\")",
+          "validation": {
+            "passed": true,
+            "output": "Systematic analysis has isolated facts but not validated integration\n",
+            "returncode": 0
+          },
+          "score": {
+            "ground_truth_count": 10,
+            "hits": 6,
+            "recall": 0.6,
+            "claimed_count": 17,
+            "uncertain_count": 7,
+            "confidence": 0.6
+          }
+        }
+      ],
+      "raw": null
+    },
+    {
+      "error": "The read operation timed out"
+    }
+  ],
+  "analysis": {
+    "models_tested": [
+      {
+        "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+        "tokens": 1347,
+        "latency_ms": 35331.72154426575,
+        "n_reconstructions": 3,
+        "best_recall": 0.7,
+        "best_confidence": 0.7,
+        "avg_confidence": 0.5666666666666668,
+        "total_uncertain": 21
+      }
+    ],
+    "best_by_cost": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "best_by_quality": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "best_by_speed": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "best_by_coverage": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "recommendations": [
+      "NousResearch/Hermes-3-Llama-3.1-70B: 21 uncertain facts \u2192 add these to room as hints",
+      "NousResearch/Hermes-3-Llama-3.1-70B: 70% recall \u2192 room needs more context for missed facts"
+    ]
+  },
+  "patches": {
+    "patches": [
+      {
+        "fact": "Penrose P3 tiling 5D cut-and-project generation",
+        "hint": "Explain the mathematical process of projecting a 5D hypercubic lattice to create the aperiodic 2D Penrose P3 tiling and its strict tile matching rules.",
+        "criticality": 5,
+        "layer": "foundation"
+      },
+      {
+        "fact": "Golden-ratio hash vertex ID system",
+        "hint": "Detail how golden ratio calculations generate unique, collision-resistant hash IDs for each vertex in the Penrose P3 tiling for consistent cross-reference.",
+        "criticality": 4,
+        "layer": "foundation"
+      },
+      {
+        "fact": "Fibonacci word encoding for tiling sequences",
+        "hint": "Describe how Fibonacci word sequences encode tiling tile order and placement to compress and standardize large tiling datasets.",
+        "criticality": 4,
+        "layer": "structure"
+      },
+      {
+        "fact": "Dead-reckoning navigation for aperiodic tiling environments",
+        "hint": "Outline how dead-reckoning positioning enables continuous location tracking within the Penrose P3 tiling without external reference beacons.",
+        "criticality": 3,
+        "layer": "application"
+      },
+      {
+        "fact": "Deflation consolidation for large-scale tiling",
+        "hint": "Explain the deflation technique where small Penrose tiles are merged into larger tiles to simplify large-scale tiling analysis and storage.",
+        "criticality": 3,
+        "layer": "structure"
+      },
+      {
+        "fact": "3-color baton sharding protocol",
+        "hint": "Detail the 3-color edge coloring system for Penrose tiling batons, and how sharding splits large tilings into verifiable, manageable segments.",
+        "criticality": 4,
+        "layer": "structure"
+      },
+      {
+        "fact": "C9 locality failure in Penrose tilings",
+        "hint": "Clarify the C9 locality failure phenomenon, where local neighbor preservation breaks down beyond a specific projection scale in Penrose tilings.",
+        "criticality": 3,
+        "layer": "structure"
+      },
+      {
+        "fact": "PCA projection neighbor preservation performance",
+        "hint": "Compare how PCA projection delivers 1.7x better neighbor preservation than golden-ratio projections for Penrose tiling reductions.",
+        "criticality": 4,
+        "layer": "application"
+      },
+      {
+        "fact": "End-to-end recall@20 performance metrics",
+        "hint": "Explain the 56% recall@20 score for tiling neighbor identification and its implications for real-world tiling navigation accuracy.",
+        "criticality": 3,
+        "layer": "application"
+      },
+      {
+        "fact": "230B/23B MoE Seed model integration",
+        "hint": "Detail how the 230B/23B mixed parameter MoE model integrates with Penrose tiling analysis and navigation pipelines.",
+        "criticality": 5,
+        "layer": "application"
+      }
+    ]
+  },
+  "timestamp": "2026-05-12 21:17:48"
+}
