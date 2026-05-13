@@ -23,6 +23,9 @@ pub mod tiling;
 pub mod backend;
 pub mod ops;
 
+#[cfg(feature = "python")]
+pub mod python;
+
 pub use tile::PTile;
 pub use tiling::{PTiling, PTilingInfo};
 

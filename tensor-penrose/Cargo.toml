@@ -7,12 +7,15 @@ description = "Constraint tensor framework — tensors on Penrose tilings with p
 [dependencies]
 fleet-math-c = { path = "../fleet-math-c" }
 penrose-memory = { path = "../penrose-memory" }
+pyo3 = { version = "0.22", features = ["extension-module"], optional = true }
+numpy = { version = "0.22", optional = true }
 
 [features]
 default = ["eisenstein-backend", "penrose-backend"]
 eisenstein-backend = []
 penrose-backend = []
 cli = []
+python = ["pyo3", "numpy"]
 
 [dev-dependencies]
 criterion = "0.5"
@@ -20,6 +23,10 @@ criterion = "0.5"
 [[bin]]
 name = "pt"
 path = "src/main.rs"
+
+[lib]
+name = "tensor_penrose"
+crate-type = ["rlib", "cdylib"]
 
 [[bench]]
 name = "tiling_bench"
