@@ -1,16 +1,23 @@
-CC = gcc
-CFLAGS = -O3 -march=native -Wall -Wextra -std=c11
-LDFLAGS = -lm
+CC       = gcc
+CFLAGS   = -O3 -march=native -Wall -Wextra -pedantic
+LDFLAGS  = -lm
 
-all: bridge_bench
+TEST_SRC = test/test_fleet_math.c
+TEST_BIN = test_fleet_math
 
-bridge_bench: bridge_bench.c eisenstein_bridge.c eisenstein_bridge.h
-	$(CC) $(CFLAGS) -o $@ bridge_bench.c eisenstein_bridge.c $(LDFLAGS)
+.PHONY: all test clean
 
-run: bridge_bench
-	./bridge_bench
+all: $(TEST_BIN)
+
+$(TEST_BIN): $(TEST_SRC) include/fleet_math.h
+	$(CC) $(CFLAGS) -Iinclude $(TEST_SRC) -o $(TEST_BIN) $(LDFLAGS)
+
+test: $(TEST_BIN)
+	./$(TEST_BIN)
+
+# Also compile a standalone example
+example: example.c include/fleet_math.h
+	$(CC) $(CFLAGS) example.c -o example $(LDFLAGS)
 
 clean:
-	rm -f bridge_bench
-
-.PHONY: all run clean
+	rm -f $(TEST_BIN) example *.o
