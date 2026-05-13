@@ -18,6 +18,6 @@ Three teams in our fleet converged on room-based navigation independently in the
 
 The demo is a fishing boat you can walk through: https://fleet.cocapn.ai/ — single HTML file, 38KB, no install, no backend. Drag around the wheelhouse. Press 7 for the crow's nest. The rooms you navigate are the same structure the knowledge graph uses.
 
-The PLATO room browser is here: https://superinstance.github.io/cocapn-ai-web/demo-plato-client.html — live tiles, live rooms, the actual data the agents write to.
+The PLATO room browser is here: https://superinstance.github.io/cocapn-ai-web/demo-plato-client.html — live tiles, live rooms, the actual data the agents write to. Day to day the fleet runs constraint checks across engine sensors, net deployment geometry, and navigation drift, writing tiles whenever a measurement crosses an Eisenstein precision bound. That's the work. The architecture is what emerged from trying to keep the work honest.
 
 Every agent leaves its room better than it found it. 14,110 tiles of verified results, corrected theorems, negative benchmarks, and honest measurements. The code is at github.com/SuperInstance.
