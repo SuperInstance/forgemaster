@@ -1,0 +1,134 @@
+======================================================================
+Multi-Threaded Constraint Operation Benchmark Results
+Machine: AMD Ryzen AI 9 HX 370 / 24 logical cores / AVX-512 / 15GB RAM
+Date: 2026-05-13
+Compiler: gcc -O3 -march=native
+======================================================================
+
+Benchmark 1a: Eisenstein Snap Scaling (5M points)
+  Nearest-Eisenstein-integer snapping. 5x5 neighborhood refinement.
+  Arithmetic-bound, no shared state between threads.
+======================================================================
+Operation               | Threads | Throughput (Mops/s) | Speedup | Efficiency
+----------------------------------------------------------------------
+Eisenstein Snap         |      1  |            8.8720  |   1.000 |    1.000
+Eisenstein Snap         |      2  |           16.8239  |   1.896 |    0.948
+Eisenstein Snap         |      4  |           35.7793  |   4.033 |    1.008
+Eisenstein Snap         |      8  |           65.4919  |   7.382 |    0.923
+Eisenstein Snap         |     12  |          100.1686  |  11.290 |    0.941
+Eisenstein Snap         |     16  |          132.5490  |  14.940 |    0.934
+Eisenstein Snap         |     24  |          167.9762  |  18.933 |    0.789
+
+Benchmark 1b: 3-Tier Constraint Check (LUT: 5M queries, Full: 200K queries, 10K constraints)
+  LUT: O(1) hash lookup — memory bandwidth bound
+  Linear+Full: O(K) per query — compute bound
+======================================================================
+Operation               | Threads | Throughput (Mops/s) | Speedup | Efficiency
+----------------------------------------------------------------------
+Constraint LUT          |      1  |          182.5326  |   1.000 |    1.000
+Constraint LUT          |      2  |          418.1270  |   2.291 |    1.145
+Constraint LUT          |      4  |          486.3754  |   2.665 |    0.666
+Constraint LUT          |      8  |          629.2045  |   3.447 |    0.431
+Constraint LUT          |     12  |          666.2795  |   3.650 |    0.304
+Constraint LUT          |     16  |          633.7273  |   3.472 |    0.217
+Constraint LUT          |     24  |          640.8508  |   3.511 |    0.146
+
+Constraint Linear+Full  |      1  |            0.0384  |   1.000 |    1.000
+Constraint Linear+Full  |      2  |            0.0800  |   2.083 |    1.042
+Constraint Linear+Full  |      4  |            0.1601  |   4.167 |    1.042
+Constraint Linear+Full  |      8  |            0.3254  |   8.472 |    1.059
+Constraint Linear+Full  |     12  |            0.4182  |  10.887 |    0.907
+Constraint Linear+Full  |     16  |            0.5606  |  14.596 |    0.912
+Constraint Linear+Full  |     24  |            0.8975  |  23.366 |    0.974
+
+Benchmark 1c: Holonomy Batch (500K cycles, len 10)
+  Complex multiplication product per cycle. Embarrassingly parallel.
+  But: memory-intensive — cycles[] per thread = ~160 bytes, + 4 results bytes
+======================================================================
+Operation               | Threads | Throughput (Mops/s) | Speedup | Efficiency
+----------------------------------------------------------------------
+Holonomy Batch          |      1  |           39.7609  |   1.000 |    1.000
+Holonomy Batch          |      2  |           61.9358  |   1.558 |    0.779
+Holonomy Batch          |      4  |          126.3484  |   3.178 |    0.794
+Holonomy Batch          |      8  |          120.2573  |   3.025 |    0.378
+Holonomy Batch          |     12  |           61.7650  |   1.553 |    0.129
+Holonomy Batch          |     16  |          122.7106  |   3.086 |    0.193
+Holonomy Batch          |     24  |           62.0802  |   1.561 |    0.065
+
+Benchmark 1d: Cyclotomic Field Projection (250K points, Q(ζ₁₅))
+  15 roots × 21 scales = 315 inner checks per point.
+  CPU-bound: double arithmetic, no complex multiplies.
+======================================================================
+Operation               | Threads | Throughput (Mops/s) | Speedup | Efficiency
+----------------------------------------------------------------------
+Cyclotomic Projection   |      1  |            1.0236  |   1.000 |    1.000
+Cyclotomic Projection   |      2  |            1.9000  |   1.856 |    0.928
+Cyclotomic Projection   |      4  |            3.9504  |   3.859 |    0.965
+Cyclotomic Projection   |      8  |            8.4606  |   8.265 |    1.033
+Cyclotomic Projection   |     12  |            9.0824  |   8.873 |    0.739
+Cyclotomic Projection   |     16  |           12.8503  |  12.554 |    0.785
+Cyclotomic Projection   |     24  |           13.5709  |  13.258 |    0.552
+
+======================================================================
+ANALYSIS
+======================================================================
+
+1. Eisenstein Snap — Near-linear to 16 cores, efficiency drops at 24:
+   - Near-perfect scaling (efficiency > 0.90) from 1 to 16 threads
+   - At 24 threads, efficiency drops to 0.789 — hitting memory bandwidth wall
+   - Compute-bound operation (FP rounding + comparison), limited by ALU throughput
+   - Conclusion: Compute-bound, scales well with real cores, hyperthreading gives ~26% extra
+
+2. 3-Tier Constraint Check — Two distinct regimes:
+   a) LUT tier: Memory-bound, not compute-bound
+      - Peaks at 12 threads, then saturates
+      - Bandwidth limited: 666 Mops/s peak ≈ ~5.3 GB/s (8 byte key + overhead)
+      - Efficiency drops to 0.146 at 24 threads — memory bandwidth is the wall
+      - Conclusion: Memory-bound, NOT suitable for >8 threads without NUMA
+
+   b) Linear+Full tier: Compute-bound, excellent scaling
+      - Near-linear: efficiency > 0.90 all the way to 24 threads
+      - 23.37× speedup at 24 threads (efficiency 0.974)
+      - Each thread is compute-bound on its own chunk — no shared data
+      - Conclusion: Perfect embarrassingly parallel workload
+
+3. Holonomy Batch — BAD scaling, memory bottleneck dominant:
+   - Erratic throughput: oscillates between 62-126 Mops/s
+   - Efficiency drops to 0.065 at 24 threads
+   - Root cause: each cycle is only 10 complex multiplies (160 bytes of data)
+   - Work per cycle is tiny relative to memory traversal overhead
+   - Threads are fighting over cache lines for the cycles[] and results[] arrays
+   - 500K cycles × 8 bytes × 2 (re+im) × 10 elements = 80 MB — doesn't fit in L3
+   - Conclusion: Communication-bound (memory pressure, not compute). 
+     Needs larger per-thread chunks or NUMA-aware allocation.
+
+4. Cyclotomic Field Projection — Good scaling to 8 cores, memory-bandwidth limited beyond:
+   - Near-linear to 8 cores (efficiency 0.965-1.033)
+   - Efficiency drops to 0.739 at 12 cores, 0.785 at 16, 0.552 at 24
+   - 315 inner checks per point — compute-heavy, but data is read-once
+   - 250K points × 8 bytes × 2 = 4 MB input — fits in L3 cache
+   - But results[] is 250K × 16 bytes = 4 MB write — bandwidth contention
+   - Conclusion: Compute-bound with a memory component. Scales well to 8 cores.
+
+SUMMARY TABLE (Speedup at 24 threads)
+======================================================================
+Operation                   | Speedup @ 24 | Efficiency | Bottleneck
+----------------------------|--------------|------------|------------------
+Eisenstein Snap             |       18.93x |     0.789  | Memory bandwidth
+Constraint LUT              |        3.51x |     0.146  | Memory bandwidth
+Constraint Linear+Full      |       23.37x |     0.974  | Compute (none)
+Holonomy Batch              |        1.56x |     0.065  | Memory/cache
+Cyclotomic Projection       |       13.26x |     0.552  | Memory bandwidth
+
+RECOMMENDATIONS
+======================================================================
+- Compute-bound operations (Eisenstein snap, Linear+Full constraint checks):
+  Use full 24 threads. Near-linear scaling. No special allocator needed.
+
+- Memory-bound operations (LUT, Cyclotomic projection):
+  Use 8-12 threads for best efficiency. Beyond that, hyperthreads don't help.
+
+- Holonomy batch: Needs restructuring. Too little work per cycle. 
+  Batch cycles into larger chunks (500+ per thread) and use cache-line padding.
+  Consider software prefetching.
+======================================================================

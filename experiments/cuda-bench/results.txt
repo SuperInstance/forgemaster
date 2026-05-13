@@ -1,0 +1,79 @@
+==============================================================
+  CUDA Constraint Kernel Benchmark
+  Date: Wed May 13 11:06:05 AKDT 2026
+  Host: eileen
+==============================================================
+
+nvcc found: V11.5.119
+
+Building fat binary (sm_70, sm_75, sm_80, sm_86)...
+Build log: build.log
+Build OK
+
+Building sm_86-only binary...
+
+--- GPU Check ---
+nvidia-smi not found — no CUDA GPU available on this host
+Running CPU reference tests only...
+
+NO_GPU: CPU reference tests only
+==============================================================
+  CUDA Constraint Checking Kernel Benchmarks
+  Compiled for sm_86 (RTX 4050 laptop compute capability)
+==============================================================
+
+CPU Reference Tests:
+====================
+
+--- Eisenstein Snap Test ---
+  PASS — 12/12 points verified correct
+
+--- Dodecet Encode Test ---
+  Lattice points → codes:
+    (  0,  0) → code=0x0000  sector=0  radial=0  parity=0
+    (  1,  0) → code=0x0000  sector=0  radial=0  parity=0
+    (  0,  1) → code=0x0120  sector=2  radial=0  parity=1
+    (  1,  1) → code=0x0110  sector=1  radial=0  parity=1
+    ( -1,  0) → code=0x0060  sector=6  radial=0  parity=0
+    (  2,  0) → code=0x0101  sector=0  radial=1  parity=1
+    ( -2, -4) → code=0x0072  sector=7  radial=2  parity=0
+    ( 10,  5) → code=0x0006  sector=0  radial=6  parity=0
+  PASS — all parity bits correct
+
+--- Constraint Check Test ---
+  Query → member?
+    (1.000, 0.000) → YES
+    (0.500, 0.866) → YES
+    (0.000, 0.000) → YES
+    (2.000, 0.000) → YES
+    (-1.000, 0.000) → YES
+    (10.000, 0.000) → NO
+    (1.500, 0.866) → YES
+    (3.000, 5.196) → NO
+  PASS (manual inspection)
+
+--- Holonomy Test ---
+  Cycle 0 (hexagon, L=6):  holonomy = 0.000000 (expect ~0)
+  Cycle 1 (square,  L=4):  holonomy = 0.000000 (expect ~0)
+  Cycle 2 (triangle,L=3):  holonomy = 0.000000 (expect ~0)
+  PASS — all closed cycles have near-zero holonomy
+
+--- Cyclotomic Rotation Test ---
+  PASS — 90° rotation correct
+  PASS — identity rotation correct
+  Q(ζ₁₅) rotation (24°): output
+    (1.000000,0.000000) → (0.913545,0.406737)
+    (0.000000,1.000000) → (-0.406737,0.913545)
+    (-1.000000,0.000000) → (-0.913545,-0.406737)
+    (0.000000,-1.000000) → (0.406737,-0.913545)
+  PASS (manual verification)
+
+====================
+Tests: 7 passed, 0 failed
+
+
+--- Benchmark Complete ---
+
+Binary info:
+constraint_cuda: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=bdbfecf4e32ab59164379fee7755f55d403535d1, for GNU/Linux 3.2.0, not stripped
+constraint_cuda_sm86: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=6520133c6584c19a585b2f04bdeaff0441acc687, for GNU/Linux 3.2.0, not stripped

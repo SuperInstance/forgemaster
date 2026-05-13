@@ -1,0 +1,23 @@
+[workspace]
+
+[package]
+name = "holonomy-bounded"
+version = "0.1.0"
+edition = "2021"
+description = "Bounded Drift Theorem implementation for Eisenstein lattice snap operations"
+license = "Apache-2.0"
+authors = ["SuperInstance <forgemaster@superinstance.com>"]
+repository = "https://github.com/SuperInstance/holonomy-bounded"
+keywords = ["holonomy", "drift", "eisenstein", "lattice", "constraint"]
+categories = ["science", "mathematics"]
+
+[dependencies]
+rand = { version = "0.8", optional = true }
+
+[features]
+default = ["std"]
+std = []
+rand-mock = ["rand"]
+
+[package.metadata.docs.rs]
+features = ["std"]

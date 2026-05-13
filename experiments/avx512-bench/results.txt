@@ -1,0 +1,25 @@
+AVX-512 Constraint Checking Benchmark — AMD Ryzen AI 9 HX 370
+==============================================================
+Date: 2026-05-13
+CPU: AMD Ryzen AI 9 HX 370 w/ Radeon 890M (24 threads, 12 cores)
+Flags: AVX512F AVX512BW AVX512DQ AVX512VL AVX512_VNNI AVX512_BF16 AVX512_VBMI2 AVX512_IFMA AVX512_VPOPCNTDQ
+Compiler: GCC 11.4.0, -O3 -march=native
+OS: Linux 6.6.87.2-microsoft-standard-WSL2 (Ubuntu 22.04)
+
+Results (points/sec)
+--------------------------------------------------------------
+Operation                          | Scalar     | AVX2       | AVX-512    | Speedup(512/scalar)
+-----------------------------------+------------+------------+------------+---------------------
+Eisenstein Snap                    | 45,648,125 | 43,334,992 | 63,332,945 |              x1.39
+Dodecet Encoding                   | 41,933,836 |        N/A | 38,861,769 |              x0.93
+Bounded Drift Holonomy             |114,985,351 |        N/A |279,594,362 |              x2.43
+Cyclotomic Projection (Q(zeta15))  | 43,951,919 |        N/A | 92,753,125 |              x2.11
+3-Tier Constraint Check            |  4,111,349 |        N/A |  4,015,947 |              x0.98
+
+Notes
+-----
+- Eisenstein Snap x1.39: Parity-check branch limits SIMD gains. ~30% of points hit parity fix.
+- Dodecet x0.93: Mod 12 operation is SIMD-hostile. Store/reload for abs/mod12 kills gains.
+- Bounded Holonomy x2.43: SIMD-friendly data layout (step-major). Clean 8-wide accumulation.
+- Cyclotomic Projection x2.11: Pure FMA with 8-wide 512-bit doubles. Each zeta kernel does 2 FMAs + store.
+- 3-Tier Check x0.98: Bloom filter is memory-bound (random access). Linear cascade dominates.

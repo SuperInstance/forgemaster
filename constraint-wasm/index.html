@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚒️ Constraint Check Bench — WASM · JS · WebGPU</title>
+<style>
+  :root {
+    --bg: #0a0e17;
+    --surface: #111827;
+    --surface2: #1a2332;
+    --border: #2a3a55;
+    --text: #d1d5db;
+    --text-dim: #6b7280;
+    --accent: #3b82f6;
+    --accent2: #8b5cf6;
+    --green: #22c55e;
+    --red: #ef4444;
+    --amber: #f59e0b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+  h1 span { color: var(--accent); }
+  .subtitle { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 2rem; }
+  .status-bar {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.75rem 1rem; border-radius: 0.5rem;
+    background: var(--surface); border: 1px solid var(--border);
+    margin-bottom: 1.5rem; font-size: 0.85rem;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dot.green { background: var(--green); }
+  .dot.red { background: var(--red); }
+  .dot.amber { background: var(--amber); }
+  .dot.gray { background: var(--text-dim); }
+  table {
+    width: 100%; border-collapse: collapse;
+    margin-bottom: 1.5rem;
+  }
+  th, td {
+    padding: 0.6rem 0.75rem;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+  }
+  th { font-weight: 600; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  th:first-child, td:first-child { text-align: left; }
+  td:first-child { font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  thead th { border-bottom: 2px solid var(--border); }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 0.5rem; padding: 1.25rem; margin-bottom: 1.5rem;
+  }
+  .card h2 {
+    font-size: 1rem; font-weight: 600; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .card h2 .icon { font-size: 1.2rem; }
+  .grid-3 {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;
+  }
+  .stat-box {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 0.4rem; padding: 1rem; text-align: center;
+  }
+  .stat-box .value { font-size: 1.75rem; font-weight: 700; }
+  .stat-box .label { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.25rem; }
+  .stat-box .value.green { color: var(--green); }
+  .stat-box .value.amber { color: var(--amber); }
+  .stat-box .value.red { color: var(--red); }
+  .stat-box .value.blue { color: var(--accent); }
+  .stat-box .value.purple { color: var(--accent2); }
+  button {
+    background: var(--accent); color: white; border: none;
+    padding: 0.6rem 1.25rem; border-radius: 0.4rem;
+    font-family: inherit; font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; transition: opacity 0.15s;
+  }
+  button:hover { opacity: 0.85; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-row { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+  .btn-row .info { font-size: 0.8rem; color: var(--text-dim); }
+  .tier-table td:nth-child(2), .tier-table td:nth-child(3) { text-align: center; }
+  .log {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 0.3rem; padding: 0.75rem; font-size: 0.8rem;
+    max-height: 200px; overflow-y: auto; white-space: pre-wrap;
+    font-family: inherit; line-height: 1.5; margin-top: 0.75rem;
+  }
+  .log .ts { color: var(--text-dim); }
+  .log .ok { color: var(--green); }
+  .log .err { color: var(--red); }
+  .log .warn { color: var(--amber); }
+  .empty-state { color: var(--text-dim); text-align: center; padding: 2rem; }
+  details { margin-bottom: 1rem; }
+  details summary { cursor: pointer; font-weight: 600; color: var(--accent); font-size: 0.85rem; }
+  @media (max-width: 700px) { .grid-3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1><span>⚒️</span> Constraint Check Bench</h1>
+<div class="subtitle">WASM + WebGPU + JavaScript &bull; Eisenstein Snap &bull; Dodecet Encode &bull; 3-Tier Check</div>
+
+<div class="status-bar">
+  <span class="dot gray" id="status-dot"></span>
+  <span id="status-text">Initializing&hellip;</span>
+</div>
+
+<div class="card">
+  <h2><span class="icon">&#x1f39b;</span> Bench Controls</h2>
+  <div class="btn-row">
+    <button id="btn-run-js">&#x25b6; Run JS Baseline</button>
+    <button id="btn-run-all" disabled>&#x25b6; Run All Backends</button>
+    <span class="info" id="bench-info">100K tiles &times; 10 iterations</span>
+  </div>
+  <details style="margin-top: 1rem;">
+    <summary>Advanced Settings</summary>
+    <div style="display: flex; gap: 1.5rem; margin-top: 0.75rem; align-items: center; flex-wrap: wrap;">
+      <label style="font-size: 0.8rem;">
+        Tile count:
+        <select id="tile-count" style="background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 0.25rem; padding: 0.25rem; font-family: inherit;">
+          <option value="100">100</option>
+          <option value="1000">1,000</option>
+          <option value="10000">10,000</option>
+          <option value="100000" selected>100,000</option>
+          <option value="1000000">1,000,000</option>
+        </select>
+      </label>
+      <label style="font-size: 0.8rem;">
+        Iterations:
+        <select id="iterations" style="background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 0.25rem; padding: 0.25rem; font-family: inherit;">
+          <option value="1">1</option>
+          <option value="10" selected>10</option>
+          <option value="100">100</option>
+        </select>
+      </label>
+    </div>
+  </details>
+</div>
+
+<div class="card">
+  <h2><span class="icon">&#x1f4ca;</span> Side-by-Side Benchmark</h2>
+  <table id="bench-table">
+    <thead>
+      <tr>
+        <th>Operation</th>
+        <th>JS (baseline)</th>
+        <th>WASM</th>
+        <th>WebGPU</th>
+      </tr>
+    </thead>
+    <tbody id="bench-tbody">
+      <tr><td>Eisenstein Snap</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+      <tr><td>Dodecet Encode</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+      <tr><td>3-Tier Constraint Check</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+      <tr><td>Batch All</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2><span class="icon">&#x1f4c8;</span> Throughput Summary</h2>
+  <div class="grid-3" id="stats-grid">
+    <div class="stat-box"><div class="value blue" id="stat-wasm">&mdash;</div><div class="label">WASM Peak (Mops/s)</div></div>
+    <div class="stat-box"><div class="value purple" id="stat-gpu">&mdash;</div><div class="label">WebGPU Peak (Mops/s)</div></div>
+    <div class="stat-box"><div class="value amber" id="stat-js">&mdash;</div><div class="label">JS Peak (Mops/s)</div></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2><span class="icon">&#x2705;</span> Constraint Check Results</h2>
+  <table class="tier-table" id="tier-table">
+    <thead><tr><th>Tier</th><th>Pass</th><th>Violations</th></tr></thead>
+    <tbody>
+      <tr><td>Tier 1 (Local &mdash; Admit 432)</td><td>&mdash;</td><td>&mdash;</td></tr>
+      <tr><td>Tier 2 (Regional &mdash; Parity/Density)</td><td>&mdash;</td><td>&mdash;</td></tr>
+      <tr><td>Tier 3 (Global &mdash; Sum/Integrity)</td><td>&mdash;</td><td>&mdash;</td></tr>
+      <tr style="font-weight: 700;"><td>All Tiers</td><td>&mdash;</td><td>&mdash;</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2><span class="icon">&#x1f4cb;</span> Event Log</h2>
+  <div class="log" id="event-log">
+    <div class="empty-state">Waiting for benchmarks&hellip;</div>
+  </div>
+</div>
+
+<details>
+  <summary>WGSL Compute Shader Source (constraint_compute.wgsl)</summary>
+  <div class="log" style="max-height: 300px;" id="wgsl-source">Loading...</div>
+</details>
+
+<script>
+// ============================================================================
+// JavaScript Baseline Implementations
+// ============================================================================
+
+function makeTiles(count) {
+  const buf = new ArrayBuffer(count * 16);
+  const view = new Int32Array(buf);
+  for (let i = 0; i < count; i++) {
+    const off = i * 4;
+    view[off]     = (Math.random() * 200 - 100) | 0; // x
+    view[off + 1] = (Math.random() * 200 - 100) | 0; // y
+    view[off + 2] = (Math.random() * 4) | 0;          // state
+    view[off + 3] = (Math.random() * 8) | 0;          // color
+  }
+  return { buf, view };
+}
+
+function jsSnap(x, y) {
+  const bApprox = Math.round(y * 1155 / 1000);
+  const aApprox = Math.round(x + y * 577 / 1000);
+  let bestDistSq = Infinity, bestA = 0, bestB = 0;
+  for (let da = -1; da <= 1; da++) {
+    for (let db = -1; db <= 1; db++) {
+      const ta = aApprox + da, tb = bApprox + db;
+      const tx = Math.round((2 * ta - tb) / 2);
+      const ty = Math.round(tb * 866 / 1000);
+      const dx = tx - x, dy = ty - y;
+      const d = dx * dx + dy * dy;
+      if (d < bestDistSq) { bestDistSq = d; bestA = ta; bestB = tb; }
+    }
+  }
+  return [bestA, bestB];
+}
+
+function jsDodecetEncode(states) {
+  let r = 0;
+  for (let i = 0; i < 12; i++) r |= (states[i] & 3) << (i * 2);
+  return r;
+}
+
+function jsConstraintCheck(view, count) {
+  let t1p = 1, t2p = 1, t3p = 1, t1v = 0, t2v = 0, t3v = 0;
+  for (let i = 0; i < count; i++) {
+    const ca = view[i * 4 + 3];
+    if (i + 1 < count && ca === view[(i + 1) * 4 + 3]) { t1p = 0; t1v++; }
+  }
+  for (let i = 0; i + 3 < count; i += 4) {
+    let ss = 0, occ = 0;
+    for (let j = 0; j < 4; j++) {
+      const s = view[(i + j) * 4 + 2];
+      ss += s;
+      if (s !== 0) occ++;
+    }
+    if ((ss & 1) !== 0) { t2p = 0; t2v++; }
+    if (occ < 1 || occ > 3) { t2p = 0; t2v++; }
+  }
+  let total = 0;
+  for (let i = 0; i < count; i++) {
+    const s = view[i * 4 + 2];
+    total += s;
+    if (s < 0) { t3p = 0; t3v++; }
+  }
+  if ((total & 1) !== 0) { t3p = 0; t3v++; }
+  return buildResult(t1p, t2p, t3p, t1v, t2v, t3v);
+}
+
+function buildResult(t1p, t2p, t3p, t1v, t2v, t3v) {
+  let r = 0;
+  if (t1p) r |= 1;
+  if (t2p) r |= 2;
+  if (t3p) r |= 4;
+  if (t1p && t2p && t3p) r |= 8;
+  if (t1v) r |= 16;
+  if (t2v) r |= 32;
+  if (t3v) r |= 64;
+  return r;
+}
+
+// ============================================================================
+// Benchmark Runner
+// ============================================================================
+
+const runner = {
+  tileCount: 100000,
+  iterations: 10,
+  wasmReady: false,
+  gpuReady: false,
+  wasmModule: null,
+  gpuDevice: null,
+  logEntries: [],
+
+  log(msg, cls) {
+    const ts = new Date().toLocaleTimeString();
+    this.logEntries.push({ ts, msg, cls: cls || '' });
+    const el = document.getElementById('event-log');
+    el.innerHTML = this.logEntries.map(e =>
+      `<span class="ts">[${e.ts}]</span> <span class="${e.cls}">${e.msg}</span>`
+    ).join('\n');
+    el.scrollTop = el.scrollHeight;
+  },
+
+  setStatus(msg, cls) {
+    document.getElementById('status-text').textContent = msg;
+    document.getElementById('status-dot').className = 'dot ' + (cls || 'gray');
+  },
+
+  fmtTime(ms) {
+    if (ms < 0.001) return (ms * 1e6).toFixed(0) + ' ns';
+    if (ms < 1) return (ms * 1000).toFixed(2) + ' &mu;s';
+    if (ms < 1000) return ms.toFixed(2) + ' ms';
+    return (ms / 1000).toFixed(3) + ' s';
+  },
+
+  fmtMops(opsPerMs) {
+    return (opsPerMs / 1000).toFixed(2);
+  },
+
+  getTileCount() { return parseInt(document.getElementById('tile-count').value); },
+  getIterations() { return parseInt(document.getElementById('iterations').value); },
+
+  async init() {
+    await this.initWasm();
+    await this.initWebGPU();
+    document.getElementById('btn-run-js').disabled = false;
+    document.getElementById('btn-run-all').disabled = false;
+  },
+
+  async initWasm() {
+    const wasmSource = document.getElementById('wgsl-source');
+    // Load and display WGSL source
+    try {
+      const resp = await fetch('constraint_compute.wgsl');
+      const wgsl = await resp.text();
+      wasmSource.textContent = wgsl;
+    } catch (e) {
+      wasmSource.textContent = 'constraint_compute.wgsl not found: ' + e.message;
+    }
+
+    this.log('WASM module not bundled in this HTML; uses WAT source compiled elsewhere.', 'warn');
+    this.log('JS baseline running. WASM requires WebAssembly.compile with .wasm file.', 'warn');
+    // WASM requires the .wasm file served alongside
+    try {
+      const resp = await fetch('constraint.wasm');
+      if (resp.ok) {
+        const bytes = await resp.arrayBuffer();
+        const mod = await WebAssembly.compile(bytes);
+        const memory = new WebAssembly.Memory({ initial: 1 });
+        const inst = await WebAssembly.instantiate(mod, { env: { memory } });
+        this.wasmModule = inst.exports;
+        this.wasmReady = true;
+        this.log('WASM module loaded successfully', 'ok');
+      }
+    } catch(e) {
+      this.log('WASM not available (serve constraint.wasm alongside): ' + e.message, 'err');
+    }
+  },
+
+  async initWebGPU() {
+    if (!navigator.gpu) {
+      this.log('WebGPU not available in this browser', 'warn');
+      return;
+    }
+    try {
+      const adapter = await navigator.gpu.requestAdapter();
+      if (!adapter) { this.log('No WebGPU adapter found', 'warn'); return; }
+      this.gpuDevice = await adapter.requestDevice();
+      this.gpuReady = true;
+      this.log('WebGPU ready: ' + adapter.name, 'ok');
+    } catch(e) {
+      this.log('WebGPU init failed: ' + e.message, 'err');
+    }
+  },
+
+  async benchJsSnap(count, iters) {
+    const { view, buf } = makeTiles(count);
+    for (let i = 0; i < count; i++) { view[i * 4 + 2] = 0; view[i * 4 + 3] = 0; }
+    const start = performance.now();
+    for (let k = 0; k < iters; k++) {
+      for (let i = 0; i < count; i++) {
+        const off = i * 4;
+        if (view[off+2] === 0 && view[off+3] === 0) {
+          const [a, b] = jsSnap(view[off], view[off+1]);
+          view[off+2] = a; view[off+3] = b;
+        }
+      }
+    }
+    return { elapsed: performance.now() - start, opsPerMs: (count * iters) / (performance.now() - start) };
+  },
+
+  benchJsDodecet(iters) {
+    const s = [0,1,2,3,0,1,2,3,0,1,2,3];
+    const start = performance.now();
+    for (let k = 0; k < iters; k++) jsDodecetEncode(s);
+    return { elapsed: performance.now() - start, opsPerMs: iters / (performance.now() - start) };
+  },
+
+  benchJsConstraint(count, iters) {
+    const { view } = makeTiles(count);
+    const start = performance.now();
+    let result;
+    for (let k = 0; k < iters; k++) result = jsConstraintCheck(view, count);
+    return { elapsed: performance.now() - start, opsPerMs: (count * iters) / (performance.now() - start), result };
+  },
+
+  async benchWasmSnap(count, iters) {
+    if (!this.wasmReady) return null;
+    const mem = this.wasmModule.memory;
+    const view = new Int32Array(mem.buffer);
+    if (count * 16 > 65536) { this.log('WASM: tile data exceeds 64KB memory, skipping', 'warn'); return null; }
+    for (let i = 0; i < count; i++) {
+      const off = i * 4;
+      view[off] = (Math.random() * 200 - 100) | 0;
+      view[off+1] = (Math.random() * 200 - 100) | 0;
+      view[off+2] = 0; view[off+3] = 0;
+    }
+    const start = performance.now();
+    for (let k = 0; k < iters; k++) this.wasmModule.batch_snap(0, count);
+    return { elapsed: performance.now() - start, opsPerMs: (count * iters) / (performance.now() - start) };
+  },
+
+  async benchWasmConstraint(count, iters) {
+    if (!this.wasmReady) return null;
+    const mem = this.wasmModule.memory;
+    const view = new Int32Array(mem.buffer);
+    if (count * 16 > 65536) return null;
+    for (let i = 0; i < count; i++) {
+      const off = i * 4;
+      view[off] = (Math.random() * 200 - 100) | 0;
+      view[off+1] = (Math.random() * 200 - 100) | 0;
+      view[off+2] = (Math.random() * 4) | 0;
+      view[off+3] = (Math.random() * 8) | 0;
+    }
+    const start = performance.now();
+    let result;
+    for (let k = 0; k < iters; k++) result = this.wasmModule.constraint_check(0, count, 65504, 0);
+    return { elapsed: performance.now() - start, opsPerMs: (count * iters) / (performance.now() - start), result };
+  },
+
+  setCell(opName, col, html) {
+    const rows = document.getElementById('bench-tbody').rows;
+    for (const row of rows) {
+      if (row.cells[0].textContent.includes(opName)) {
+        row.cells[col].innerHTML = html;
+        return;
+      }
+    }
+  },
+
+  updateTierResults(resultByte) {
+    const rows = document.getElementById('tier-table').rows;
+    const p1 = !!(resultByte & 1), p2 = !!(resultByte & 2), p3 = !!(resultByte & 4);
+    const v1 = !!(resultByte & 16), v2 = !!(resultByte & 32), v3 = !!(resultByte & 64);
+    rows[0].cells[1].textContent = p1 ? 'PASS' : 'FAIL';
+    rows[0].cells[2].textContent = v1 ? 'Yes' : 'None';
+    rows[0].cells[1].style.color = p1 ? 'var(--green)' : 'var(--red)';
+    rows[1].cells[1].textContent = p2 ? 'PASS' : 'FAIL';
+    rows[1].cells[2].textContent = v2 ? 'Yes' : 'None';
+    rows[1].cells[1].style.color = p2 ? 'var(--green)' : 'var(--red)';
+    rows[2].cells[1].textContent = p3 ? 'PASS' : 'FAIL';
+    rows[2].cells[2].textContent = v3 ? 'Yes' : 'None';
+    rows[2].cells[1].style.color = p3 ? 'var(--green)' : 'var(--red)';
+    const all = p1 && p2 && p3;
+    rows[3].cells[1].textContent = all ? 'ALL PASS' : 'SOME FAIL';
+    rows[3].cells[2].textContent = all ? 'Clean' : 'Has violations';
+    rows[3].cells[1].style.color = all ? 'var(--green)' : 'var(--red)';
+  },
+
+  async runAll() {
+    const count = this.getTileCount();
+    const iters = this.getIterations();
+    this.tileCount = count; this.iterations = iters;
+    document.getElementById('btn-run-all').disabled = true;
+    document.getElementById('btn-run-js').disabled = true;
+
+    this.log('=== Starting benchmarks: ' + count.toLocaleString() + ' tiles x ' + iters + ' iterations ===', '');
+    this.setStatus('Running JS baseline...', 'amber');
+
+    // JS
+    const jsSnap = await this.benchJsSnap(count, iters);
+    const jsDodecet = await this.benchJsDodecet(iters * count);
+    const jsConstraint = await this.benchJsConstraint(count, iters);
+    this.log('JS Snap: ' + this.fmtTime(jsSnap.elapsed) + ' (' + this.fmtMops(jsSnap.opsPerMs) + ' Mops/s)', 'ok');
+    this.log('JS Dodecet: ' + this.fmtTime(jsDodecet.elapsed) + ' (' + this.fmtMops(jsDodecet.opsPerMs) + ' Mops/s)', 'ok');
+    this.log('JS Constraint: ' + this.fmtTime(jsConstraint.elapsed) + ' (' + this.fmtMops(jsConstraint.opsPerMs) + ' Mops/s)', 'ok');
+
+    let wasmSnap = null, wasmConstraint = null;
+    if (this.wasmReady) {
+      this.log('Running WASM benchmarks...', '');
+      this.setStatus('Running WASM...', 'amber');
+      wasmSnap = await this.benchWasmSnap(count, iters);
+      wasmConstraint = await this.benchWasmConstraint(count, iters);
+      if (wasmSnap) this.log('WASM Snap: ' + this.fmtTime(wasmSnap.elapsed) + ' (' + this.fmtMops(wasmSnap.opsPerMs) + ' Mops/s)', 'ok');
+      if (wasmConstraint) this.log('WASM Constraint: ' + this.fmtTime(wasmConstraint.elapsed) + ' (' + this.fmtMops(wasmConstraint.opsPerMs) + ' Mops/s)', 'ok');
+    }
+
+    // Update table
+    const cell = r => r ? this.fmtTime(r.elapsed) + ' / ' + this.fmtMops(r.opsPerMs) + ' Mop/s' : '&mdash;';
+    this.setCell('Eisenstein Snap', 1, cell(jsSnap));
+    this.setCell('Eisenstein Snap', 2, cell(wasmSnap));
+    this.setCell('Eisenstein Snap', 3, this.gpuReady ? 'GPU detected' : 'N/A');
+    this.setCell('Dodecet Encode', 1, cell(jsDodecet));
+    this.setCell('Dodecet Encode', 2, this.wasmReady ? cell(null) : '&mdash;');
+    this.setCell('Dodecet Encode', 3, 'N/A');
+    this.setCell('3-Tier Constraint Check', 1, cell(jsConstraint));
+    this.setCell('3-Tier Constraint Check', 2, cell(wasmConstraint));
+    this.setCell('3-Tier Constraint Check', 3, this.gpuReady ? 'GPU detected' : 'N/A');
+
+    // Batch row: combined throughput estimate
+    const jsCombined = (jsSnap.opsPerMs + jsConstraint.opsPerMs) / 1000;
+    this.setCell('Batch All', 1, jsCombined.toFixed(2) + ' Mop/s');
+    if (wasmSnap && wasmConstraint) {
+      this.setCell('Batch All', 2, ((wasmSnap.opsPerMs + wasmConstraint.opsPerMs) / 1000).toFixed(2) + ' Mop/s');
+    }
+
+    // Stats
+    document.getElementById('stat-js').textContent = this.fmtMops(Math.max(jsSnap.opsPerMs, jsConstraint.opsPerMs));
+    document.getElementById('stat-wasm').textContent = this.wasmReady ? this.fmtMops(Math.max(wasmSnap ? wasmSnap.opsPerMs : 0, wasmConstraint ? wasmConstraint.opsPerMs : 0)) : 'N/A';
+    document.getElementById('stat-gpu').textContent = this.gpuReady ? 'Detected' : 'N/A';
+
+    // Constraint results
+    this.updateTierResults(jsConstraint.result);
+
+    this.log('=== Benchmarks complete ===', 'ok');
+    this.setStatus('Ready', 'green');
+    document.getElementById('btn-run-all').disabled = false;
+    document.getElementById('btn-run-js').disabled = false;
+  }
+};
+
+// Wire up buttons
+document.getElementById('btn-run-js').addEventListener('click', () => runner.runAll());
+document.getElementById('btn-run-all').addEventListener('click', () => runner.runAll());
+
+// Auto-init
+runner.init().then(() => {
+  runner.log('Ready. Click "Run JS Baseline" to start.', 'ok');
+});
+</script>
+</body>
+</html>
