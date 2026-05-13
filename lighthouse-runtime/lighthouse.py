@@ -29,6 +29,9 @@ from dataclasses import dataclass, field, asdict
 from enum import Enum
 from typing import Optional
 
+# Dynamic MoE routing
+from expert_router import ExpertRouter
+
 
 # === Configuration ===
 
@@ -130,25 +133,46 @@ def save_state(room_id: str, state: dict):
 
 # === Orient: Pick the right model for the task ===
 
-def orient(task: str, task_type: str, role: str = "worker") -> dict:
+# Global ExpertRouter instance (lazy-loaded)
+_router: Optional[ExpertRouter] = None
+
+
+def _get_router() -> ExpertRouter:
+    """Get or create the global ExpertRouter instance."""
+    global _router
+    if _router is None:
+        _router = ExpertRouter()
+    return _router
+
+
+def orient(task: str, task_type: str, role: str = "worker", embedding: Optional[list] = None) -> dict:
     """
     Orient: pick the cheapest appropriate model and create an agent room.
     
+    Uses dynamic MoE routing via ExpertRouter. If an embedding is provided,
+    learned routing can override static task_type → model mapping.
+    
+    Args:
+        task: The task description
+        task_type: Category of the task
+        role: Agent role (worker, specialist, etc.)
+        embedding: Optional task embedding for learned routing
+    
     Returns the room state including model choice and OpenClaw model name.
     """
-    # Find cheapest appropriate model
-    models = TASK_MODEL_MAP.get(task_type, ["seed"])
-    model = models[0]  # First choice is cheapest appropriate
+    # Dynamic MoE routing
+    router = _get_router()
+    route = router.orient(task, task_type, embedding=embedding)
+    model = route["model"]
+    routing_method = route["routing_method"]
     
-    # Check capacity (simple: prefer cheaper models)
-    # If first choice is claude/glm, check if we've used them recently
     room_id = f"agent-{model}-{role}-{uuid.uuid4().hex[:8]}"
     
     room_dir = create_room(room_id, role, task, task_type, model)
     
     state = load_state(room_id)
     
-    log_entry(room_id, f"Oriented: task_type={task_type}, model={model}, room={room_id}")
+    log_entry(room_id, f"Oriented: task_type={task_type}, model={model}, method={routing_method}, room={room_id}")
     
     return {
         "room_id": room_id,
@@ -156,7 +180,8 @@ def orient(task: str, task_type: str, role: str = "worker") -> dict:
         "openclaw_model": state["openclaw_model"],
         "task_type": task_type,
         "status": "orienting",
-        "cost_estimate": MODEL_COSTS.get(model, 0.1),
+        "cost_estimate": route["cost_estimate"],
+        "routing_method": routing_method,
     }
 
 

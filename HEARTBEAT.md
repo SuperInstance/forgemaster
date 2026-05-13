@@ -1066,20 +1066,17 @@ All live at github.com/SuperInstance/{name}
 - [x] SEED-TILE-SPEC.md / SEED-ALIGNMENT-PROCEDURE.md / SEED-ENCODED-PLATO.md
 - [x] SEED-INTEGRATION-AUDIT.md + GROUND-TRUTH-FINAL.md
 
-**Active Tasks**
-- [x] Run structure-vs-scale with Groq models (llama-4-scout, gpt-oss-20b) — DONE
-- [x] Run with DeepInfra models (Hermes-70B, Qwen3-235B, Qwen3.6-35B) — DONE
-- [ ] Run with 0.6B-2B models (ollama or new Groq key) — THE critical test
-- [ ] Test JEPA/flow models for information-flow rooms
-- [ ] Publish penrose-memory v1.0 to crates.io
-- [ ] Build common expertise modules (5 rooms) when rate limits reset
-- [ ] Wire dynamic MoE routing into lighthouse.py
+### Key Findings So Far (May 13 Night Shift)
+- **qwen3:0.6b** scored 10/10 on fact recall with BOTH naive and PLATO-structured context — 0.6B is enough for 10 simple facts
+- **Hard test needed**: structure's value should appear on adversarial/cross-domain/creative tasks
+- **z.ai GLM-5.1** is a reasoning model — all tokens go to reasoning_content, leaving response_content empty. Use glm-5-turbo for P3 experiment
+- **z.ai key rotated**: leaked key replaced in 3 config files, new key verified working
 
 **Key Credentials**
-- Groq key: `~/.openclaw/workspace/.credentials/groq-api-key.txt` (rate limited, need new key)
-- Models: llama-3.1-8b-instant, llama-4-scout-17b, gpt-oss-20b
-- All Groq models respond in <2 seconds, essentially free
+- z.ai: GLM-5.1 (reasoning), GLM-5-turbo (non-reasoning) — key rotated May 13
+- Groq: rate limited, need new key
 - DeepInfra: Hermes-70B, Qwen3-235B, Qwen3.6-35B, Seed-2.0-mini
+- Ollama (local): qwen3:0.6b, llama3.2:1b, gemma3:1b
 
-**Total This Session: ~450 tests | 27+ papers | 12 experiments | 6 code modules | 2 fundamental findings**
+**Total This Session: ~450 tests | 27+ papers | 14 experiments | 6 code modules | 10 fundamental findings**
 

@@ -1,0 +1,38 @@
+{
+  "routes": {
+    "synthesis": "claude",
+    "critique": "claude",
+    "big_idea": "claude",
+    "architecture": "glm",
+    "complex_code": "glm",
+    "orchestration": "glm",
+    "discovery": "seed",
+    "exploration": "seed",
+    "variation": "seed",
+    "drafting": "deepseek",
+    "documentation": "deepseek",
+    "research": "deepseek",
+    "adversarial": "hermes",
+    "second_opinion": "hermes",
+    "math": "deepseek",
+    "code": "glm"
+  },
+  "learned_routes": {
+    "01a59a9c423ad34f": "glm"
+  },
+  "embedding_index": {
+    "01a59a9c423ad34f": [
+      0.5,
+      0.5
+    ]
+  },
+  "fallback": "seed",
+  "costs": {
+    "claude": 50.0,
+    "glm": 5.0,
+    "seed": 0.1,
+    "deepseek": 0.2,
+    "hermes": 0.15
+  },
+  "updated_at": 1778656621.2368515
+}

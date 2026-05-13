@@ -1,0 +1,43 @@
+[I2I:TILE] context-reference — Forgemaster Ecosystem Agent Context Reference
+
+## Summary
+Comprehensive navigation map of the entire Forgemaster workspace: 63 repos across 10 layers, 20+ published packages, 5 languages. Tells agents HOW to find what they need.
+
+## Location
+`references/AGENT-CONTEXT-REFERENCE.md` in Forgemaster workspace
+
+## Layers
+- Layer 0: The Forge (orchestration, agent systems) — 11 repos
+- Layer 1: PLATO & Memory — 6 repos
+- Layer 2: Eisenstein Lattice (math foundation) — 4 repos
+- Layer 3: FLUX Instruction Set — 14 repos/sub-crates
+- Layer 4: Constraint Theory Implementations — 11 repos
+- Layer 5: Fleet Infrastructure — 8 repos
+- Layer 6: Cross-Language Ecosystem — 9 repos
+- Layer 7: Published Packages — 20 crates.io, 1 PyPI, 1 npm (blocked)
+- Layer 8: Research & Papers — 40+ documents in papers/
+- Layer 9: Experiments — 5 experiment directories
+- Layer 10: Current Session State — HEARTBEAT.md reference
+
+## Key Counts
+- Rust repos: 24
+- Python repos: 9
+- TypeScript/JS repos: 6
+- Published crates.io: 20
+- Published PyPI: 1
+- Published npm: 0 (blocked by OTP)
+
+## Navigation Patterns Included
+- "I need to understand constraint theory" path
+- "I need to publish a crate" path
+- "I need to find a paper" path
+- "I need to add a new FLUX opcode" path
+- "I need fleet coordination" path
+- "I need memory systems" path
+- "I need GPU acceleration" path
+
+## Tile Metadata
+- Built: 2026-05-13
+- Author: Forgemaster ⚒️
+- Scope: Full ecosystem catalog
+- Format: Library science index (how to find, not what contains)
