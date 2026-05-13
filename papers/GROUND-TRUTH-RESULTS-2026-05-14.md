@@ -50,11 +50,12 @@
 Root cause of P1/P4 failure: the presheaf implementation uses consistent assignments on overlaps. Non-zero H¹ requires INCONSISTENCY — shards assigning different data to the same overlap facts. The paper assumed natural inconsistency but the implementation was consistent.
 
 ### 5. Bounded Drift Theorem (Rust + Python)
-- Original claim: holonomy ≤ nε — FALSIFIED (4.4% violations)
-- Corrected bound: **holonomy ≤ 1.5 · n · (ε + 1/√3)** — zero violations
-- The Voronoi circumradius R = 1/√3 ≈ 0.577 adds to the snap error
-- Safety factor 1.5 accounts for worst-case snap-to-lattice rounding
-- Rust experiment binary built but OOM'd on large tests; Python verification completed
+- **Closed cycles** (returns to origin): holonomy ≤ nε HOLDS — zero violations across all configs (Rust, 19min runtime)
+- **Open walks** (arbitrary steps): holonomy ≤ nε FALSIFIED (4.4% violations)
+- **Open walk corrected bound**: holonomy ≤ 1.5 · n · (ε + 1/√3) — zero violations
+- Tightness decays with n: for n=500, actual holonomy is ~10% of bound (conservative)
+- The Voronoi circumradius R = 1/√3 ≈ 0.577 matters for open walks but not closed cycles
+- **Verdict**: Original theorem correct for constraint cycles (closed loops). Needs correction for arbitrary navigation.
 
 ## What This Means
 
