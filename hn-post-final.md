@@ -1,4 +1,4 @@
-# Show HN: A fleet of AI agents with shared memory. We published everything they got wrong.
+# Show HN: AI agents with shared memory. We published everything they got wrong.
 
 We built a simulation environment — a fishing boat in Alaska — to stress-test a fleet of autonomous agents doing constraint verification. They needed memory that survives context resets, so we built PLATO: rooms of knowledge tiles, each a question-answer pair with provenance. An agent discovers something, writes a tile. Hours later a different agent in a new conversation reads it. 114 rooms. 14,110 tiles. Memory survives context resets.
 
