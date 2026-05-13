@@ -36,64 +36,103 @@ fn lattice_steps() -> [(i32, i32); 6] {
 
 /// Generate a closed cycle efficiently.
 ///
-/// Strategy: generate a random vector of n steps, compute cumulative sum.
-/// The cycle is closed iff final sum = 0. In the Eisenstein lattice,
-/// Σda = 0 and Σdb = 0 defines closure.
+/// Strategy: generate all n steps freely, then check if the net displacement
+/// is 0. The default is to use the first free+close approach for small n,
+/// and a Markov-chain approach for large n (bias steps toward closure).
 ///
-/// Rather than rejection-sampling, we note that for uniform random steps,
-/// the expected value of each coordinate after n steps is 0 (by symmetry),
-/// and the variance is O(√n). For n up to 1000, rejection sampling can take
-/// hundreds of attempts per cycle.
-///
-/// Instead, we use a different strategy: generate n-2 random steps, then
-/// compute the required remaining steps to close the cycle. Since the lattice
-/// is 2D (a,b), 2 steps with 6 choices each = 36 combos, which is usually
-/// enough to close any residual.
+/// Key insight: on the Eisenstein lattice, the 6 steps sum to 0, so any
+/// random walk's net displacement is a 2D random walk with variance ~ n/3
+/// in each coordinate. The probability of exact closure after n steps is
+/// ~ 1/(πn/3) ≈ 3/(πn), so for n=1000, ~1/1000 walks are closed.
+/// We use the 2-step closure method which works whenever the residual
+/// (da, db) is representable as the sum of two primitive steps.
+/// The set {step[i] + step[j] for i,j in 0..5} = all vectors with
+/// |da| ≤ 2, |db| ≤ 2 where da + db ∈ {-2,-1,0,1,2}.
+/// Unreachable residuals require 3+ steps.
 fn random_cycle(n: usize, rng: &mut ThreadRng) -> Vec<usize> {
-    const MAX_ATTEMPTS: usize = 100_000;
+    if n <= 2 {
+        // Trivial: must be all zeros, which only works if n=0
+        // n=3: special case, generate and check
+        return random_cycle_fallback(n, rng);
+    }
+
     let steps = lattice_steps();
 
-    for _ in 0..MAX_ATTEMPTS {
-        let mut a: i64 = 0;
-        let mut b: i64 = 0;
+    // Precompute the 2-step closure table
+    // Maps (da, db) -> [(i, j)] where steps[i] + steps[j] = (da, db)
+    let mut close2: std::collections::HashMap<(i64,i64),Vec<(usize,usize)>> = std::collections::HashMap::new();
+    for i in 0..6 { for j in 0..6 {
+        let (d1,d2) = (steps[i].0 as i64 + steps[j].0 as i64, steps[i].1 as i64 + steps[j].1 as i64);
+        close2.entry((d1,d2)).or_default().push((i,j));
+    }}
+
+    // Precompute the 3-step closure table
+    let mut close3: std::collections::HashMap<(i64,i64),Vec<(usize,usize,usize)>> = std::collections::HashMap::new();
+    for i in 0..6 { for j in 0..6 { for k in 0..6 {
+        let d = (steps[i].0 as i64 + steps[j].0 as i64 + steps[k].0 as i64,
+                 steps[i].1 as i64 + steps[j].1 as i64 + steps[k].1 as i64);
+        close3.entry(d).or_default().push((i,j,k));
+    }}}
+
+    // Precompute the 4-step closure table
+    let mut close4: std::collections::HashMap<(i64,i64),Vec<(usize,usize,usize,usize)>> = std::collections::HashMap::new();
+    for i in 0..6 { for j in 0..6 { for k in 0..6 { for l in 0..6 {
+        let d = (steps[i].0 as i64 + steps[j].0 as i64 + steps[k].0 as i64 + steps[l].0 as i64,
+                 steps[i].1 as i64 + steps[j].1 as i64 + steps[k].1 as i64 + steps[l].1 as i64);
+        close4.entry(d).or_default().push((i,j,k,l));
+    }}}}
+
+    // Determine how many steps to reserve for closure
+    // 2 steps close most residuals; 3 or 4 cover everything
+    let reserve = if n >= 6 { 4 } else { 2.max(n.saturating_sub(1)) };
+    let free = n.saturating_sub(reserve);
+
+    for _ in 0..1000 {
+        let mut a: i64 = 0; let mut b: i64 = 0;
         let mut cycle = Vec::with_capacity(n);
 
-        // Generate first n-2 steps freely
-        for _ in 0..(n.saturating_sub(2)) {
+        for _ in 0..free {
             let idx = rng.gen_range(0..6);
             cycle.push(idx);
             let (da, db) = steps[idx];
-            a += da as i64;
-            b += db as i64;
+            a += da as i64; b += db as i64;
         }
 
-        // Find 2 steps that close the cycle
-        if n >= 2 {
-            let mut found = false;
-            for i in 0..6 {
-                let (da1, db1) = steps[i];
-                for j in 0..6 {
-                    let (da2, db2) = steps[j];
-                    if a + (da1 as i64) + (da2 as i64) == 0 && b + (db1 as i64) + (db2 as i64) == 0 {
-                        cycle.push(i);
-                        cycle.push(j);
-                        found = true;
-                        break;
-                    }
-                }
-                if found { break; }
+        let residual = (-a, -b);
+
+        if reserve == 2 {
+            if let Some(closures) = close2.get(&residual) {
+                let &(i, j) = &closures[rng.gen_range(0..closures.len())];
+                cycle.push(i); cycle.push(j);
+                return cycle;
             }
-            if found { return cycle; }
-        } else if n == 1 {
-            // For n=1, we need a step of (0,0) which doesn't exist
-            // Skip this (not used in tests)
-            if a == 0 && b == 0 { return cycle; }
-        } else if n == 0 {
-            return vec![];
+        } else if reserve == 3 {
+            if let Some(closures) = close3.get(&residual) {
+                let &(i,j,k) = &closures[rng.gen_range(0..closures.len())];
+                cycle.push(i); cycle.push(j); cycle.push(k);
+                return cycle;
+            }
+        } else if reserve >= 4 {
+            if let Some(closures) = close4.get(&residual) {
+                let &(i,j,k,l) = &closures[rng.gen_range(0..closures.len())];
+                cycle.push(i); cycle.push(j); cycle.push(k); cycle.push(l);
+                return cycle;
+            }
+            // Also try 2+2 combination
+            if let Some(closures) = close4.get(&residual) {
+                let &(i,j,k,l) = &closures[rng.gen_range(0..closures.len())];
+                cycle.push(i); cycle.push(j); cycle.push(k); cycle.push(l);
+                return cycle;
+            }
         }
     }
 
-    // Fallback: rejection sampling for pathological cases
+    // Fallback
+    random_cycle_fallback(n, rng)
+}
+
+fn random_cycle_fallback(n: usize, rng: &mut ThreadRng) -> Vec<usize> {
+    let steps = lattice_steps();
     loop {
         let mut a: i64 = 0; let mut b: i64 = 0;
         let mut cycle = Vec::with_capacity(n);
