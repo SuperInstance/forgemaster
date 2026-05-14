@@ -1,0 +1,9 @@
+[
+  "delta-detect/test_delta_detect.py::test_linear_no_saturation",
+  "delta-detect/test_delta_detect.py::test_spiral_saturation",
+  "delta-detect/test_delta_detect.py::test_xor_saturation",
+  "sheaf-h1/test_sheaf.py::test_compatible_models",
+  "sheaf-h1/test_sheaf.py::test_incompatible_models",
+  "sheaf-h1/test_sheaf.py::test_incompatible_sheaf",
+  "sheaf-h1/test_sheaf.py::test_sheaf_construction"
+]
