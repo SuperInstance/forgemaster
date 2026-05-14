@@ -49,3 +49,9 @@ neural-plato/
 __pycache__/
 *.pyc
 *.egg-info/
+acg_protocol/
+automerge/
+pbft-rust/
+penrose/
+tri-quarter-toolbox/
+.flux.fvt

@@ -1,0 +1,167 @@
+/**
+ * Cocapn Core — Unified Design System
+ * Import in every demo: <link rel="stylesheet" href="../core/design-system.css">
+ */
+:root {
+  /* Backgrounds — depth layers */
+  --bg-0:      #06060f;
+  --bg-1:      #080810;
+  --bg-2:      #0d1117;
+  --bg-3:      #161b22;
+  --bg-4:      #21262d;
+
+  /* Borders */
+  --border-0:  #1a1a2e;
+  --border-1:  #30363d;
+
+  /* Semantic accent colors — one per demo */
+  --drift:     #f85149;
+  --lattice:   #00d4ff;
+  --funnel:    #a855f7;
+  --arm:       #3fb950;
+  --vm:        #58a6ff;
+  --fleet:     #f59e0b;
+  --memory:    #7c5cfc;
+
+  /* Text */
+  --text:      #e6edf3;
+  --text-dim:  #8b949e;
+  --text-muted:#484f58;
+
+  /* Typography */
+  --font-ui:   'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+
+  /* Motion curves */
+  --ease-snap:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-drift:   cubic-bezier(0.4, 0, 1, 1);
+  --ease-resolve: cubic-bezier(0, 0, 0.2, 1);
+
+  /* Glow intensities */
+  --glow-safe:    0 0 20px rgba(0, 212, 255, 0.3);
+  --glow-danger:  0 0 20px rgba(248, 81, 73, 0.4), 0 0 40px rgba(248, 81, 73, 0.15);
+  --glow-active:  0 0 12px rgba(88, 166, 255, 0.25);
+}
+
+/* Shared component styles */
+.cocapn-panel {
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.cocapn-btn {
+  background: var(--bg-4);
+  border: 1px solid var(--border-1);
+  color: var(--text);
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: .85rem;
+  font-family: var(--font-ui);
+  transition: all .2s var(--ease-snap);
+}
+.cocapn-btn:hover {
+  background: var(--border-1);
+  border-color: var(--vm);
+}
+.cocapn-btn:active {
+  transform: scale(0.96);
+}
+
+.cocapn-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 9px;
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cocapn-stat {
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Lattice background — shared animated layer */
+@keyframes lattice-pulse {
+  0%, 100% { opacity: var(--lattice-bg-opacity, 0.03); }
+  50%      { opacity: calc(var(--lattice-bg-opacity, 0.03) * 2.5); }
+}
+
+.cocapn-lattice-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  animation: lattice-pulse 4s ease-in-out infinite;
+}
+
+/* Cross-navigation bar */
+.cocapn-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(6, 6, 15, 0.92);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-0);
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+}
+.cocapn-nav .hub-link {
+  color: var(--memory);
+  font-weight: 700;
+  text-decoration: none;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(124, 92, 252, 0.25);
+  background: rgba(124, 92, 252, 0.06);
+  transition: all .2s;
+  white-space: nowrap;
+}
+.cocapn-nav .hub-link:hover {
+  background: rgba(124, 92, 252, 0.18);
+  border-color: var(--memory);
+}
+.cocapn-nav .sep { color: #333; }
+.cocapn-nav .link {
+  color: #668;
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: 4px;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.cocapn-nav .link:hover {
+  color: #aab;
+  background: rgba(255,255,255,0.03);
+}
+.cocapn-nav .label {
+  color: #444;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Live indicator pulse */
+@keyframes live-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px currentColor; }
+  50%      { opacity: 0.4; box-shadow: 0 0 2px currentColor; }
+}
+.live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--arm);
+  color: var(--arm);
+  display: inline-block;
+  animation: live-dot 1.5s ease-in-out infinite;
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cocapn Control Room</title>
+<link rel="stylesheet" href="core/design-system.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg-0);color:var(--text);font-family:var(--font-ui);overflow:hidden;height:100vh}
+h1{position:absolute;top:12px;left:50%;transform:translateX(-50%);font-size:14px;font-weight:600;color:#888;letter-spacing:3px;z-index:10;text-transform:uppercase}
+#grid{position:absolute;top:44px;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);gap:4px;padding:4px}
+.panel{background:var(--bg-2);border:1px solid var(--border-0);border-radius:8px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.panel-header{padding:6px 10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-0);flex-shrink:0}
+.panel-header .live{width:6px;height:6px;border-radius:50%;animation:live-dot 1.5s ease-in-out infinite}
+.panel-body{flex:1;position:relative;overflow:hidden}
+.panel-body iframe{width:100%;height:100%;border:none;transform-origin:top left}
+.panel-metrics{position:absolute;bottom:4px;left:6px;right:6px;display:flex;gap:8px;z-index:5}
+.metric{background:rgba(6,6,15,.85);border:1px solid var(--border-0);border-radius:4px;padding:2px 8px;font-size:9px;font-family:var(--font-mono);color:var(--text-dim)}
+.metric .v{color:var(--text);font-weight:600;margin-left:4px}
+#conn-canvas{position:absolute;top:44px;left:0;width:100%;height:calc(100% - 44px);pointer-events:none;z-index:2}
+</style>
+</head>
+<body>
+<h1>⚒️ Control Room</h1>
+<canvas id="conn-canvas"></canvas>
+<div id="grid"></div>
+
+<script type="module">
+import { emit, subscribe, EVENTS } from './core/event-bus.js';
+
+const DEMOS = [
+  { id:'drift', icon:'⚡', title:'Drift Race', url:'constraint-demos/drift-race.html', color:'var(--drift)', col:1, row:1, metrics:[{id:'m-drift',label:'Drift'}] },
+  { id:'snap', icon:'⬡', title:'Hex Snap', url:'constraint-demos/hex-snap-playground.html', color:'var(--lattice)', col:2, row:1, metrics:[{id:'m-snap',label:'Points'}] },
+  { id:'funnel', icon:'🔽', title:'Funnel', url:'constraint-demos/constraint-funnel.html', color:'var(--funnel)', col:3, row:1, metrics:[{id:'m-temp',label:'T'}] },
+  { id:'arm', icon:'🦾', title:'Safe Arm', url:'simulators/safe-arm.html', color:'var(--arm)', col:4, row:1, metrics:[{id:'m-arm',label:'Violations'}] },
+  { id:'vm', icon:'⚙️', title:'FLUX VM', url:'simulators/flux-vm.html', color:'var(--vm)', col:1, row:2, metrics:[{id:'m-pc',label:'PC'}] },
+  { id:'fleet', icon:'🌐', title:'Fleet', url:'simulators/fleet-topology.html', color:'var(--fleet)', col:2, row:2, metrics:[{id:'m-consensus',label:'Consensus'}] },
+  { id:'palace', icon:'🏛️', title:'Palace', url:'penrose-memory-palace/index.html', color:'var(--memory)', col:3, row:2, metrics:[] },
+];
+
+const grid = document.getElementById('grid');
+const panels = {};
+
+DEMOS.forEach(d => {
+  const panel = document.createElement('div');
+  panel.className = 'panel';
+  panel.style.gridColumn = d.col;
+  panel.style.gridRow = d.row;
+  
+  const metricsHtml = d.metrics.map(m => 
+    `<div class="metric">${m.label}<span class="v" id="${m.id}">—</span></div>`
+  ).join('');
+  
+  panel.innerHTML = `
+    <div class="panel-header" style="color:${d.color}">
+      <span>${d.icon} ${d.title}</span>
+      <div class="live" style="color:${d.color};background:${d.color}"></div>
+    </div>
+    <div class="panel-body">
+      <iframe src="${d.url}" sandbox="allow-scripts allow-same-origin"></iframe>
+      <div class="panel-metrics">${metricsHtml}</div>
+    </div>
+  `;
+  grid.appendChild(panel);
+  panels[d.id] = panel;
+});
+
+// Wire live metrics from event bus
+subscribe(EVENTS.DRIFT_LAP, (payload) => {
+  const el = document.getElementById('m-drift');
+  if (el) el.textContent = (payload.float32_error_mm || 0).toFixed(2) + 'mm';
+});
+
+subscribe(EVENTS.FUNNEL_TEMP, (payload) => {
+  const el = document.getElementById('m-temp');
+  if (el) el.textContent = (payload.temperature || 0).toFixed(3);
+});
+
+subscribe(EVENTS.ARM_VIOLATION, (payload) => {
+  const el = document.getElementById('m-arm');
+  if (el) el.textContent = (payload.count || '—');
+});
+
+subscribe(EVENTS.VM_STEP, (payload) => {
+  const el = document.getElementById('m-pc');
+  if (el) el.textContent = payload.pc || '0';
+});
+
+subscribe(EVENTS.FLEET_STATE, (payload) => {
+  const el = document.getElementById('m-consensus');
+  if (el) el.textContent = (payload.consensus_pct || 0) + '%';
+});
+
+subscribe(EVENTS.SNAP_EVENT, (payload) => {
+  const el = document.getElementById('m-snap');
+  if (el) el.textContent = (payload.total || '—');
+});
+
+// Draw connection lines between panels on overlay canvas
+const connCanvas = document.getElementById('conn-canvas');
+const cctx = connCanvas.getContext('2d');
+
+const CONNECTIONS = [
+  ['drift','fleet'],['snap','arm'],['snap','drift'],['snap','vm'],
+  ['funnel','fleet'],['vm','arm'],['fleet','palace'],['funnel','vm'],
+];
+
+function drawConnections() {
+  connCanvas.width = innerWidth;
+  connCanvas.height = innerHeight - 44;
+  cctx.clearRect(0, 0, connCanvas.width, connCanvas.height);
+  
+  for (const [from, to] of CONNECTIONS) {
+    const p1 = panels[from];
+    const p2 = panels[to];
+    if (!p1 || !p2) continue;
+    
+    const r1 = p1.getBoundingClientRect();
+    const r2 = p2.getBoundingClientRect();
+    const x1 = r1.left + r1.width / 2;
+    const y1 = r1.top + r1.height / 2 - 44;
+    const x2 = r2.left + r2.width / 2;
+    const y2 = r2.top + r2.height / 2 - 44;
+    
+    cctx.beginPath();
+    cctx.moveTo(x1, y1);
+    cctx.lineTo(x2, y2);
+    cctx.strokeStyle = 'rgba(124,92,252,0.08)';
+    cctx.lineWidth = 1;
+    cctx.stroke();
+  }
+}
+
+setTimeout(drawConnections, 500);
+addEventListener('resize', drawConnections);
+
+// Heartbeat
+setInterval(() => emit(EVENTS.UNIVERSE_HEARTBEAT, { page: 'control-room' }), 5000);
+</script>
+</body>
+</html>

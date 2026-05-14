@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cocapn Constraint Universe — Live Demos</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080810;color:#e0e0e0;font-family:'SF Pro Display','Segoe UI',system-ui,sans-serif;overflow:hidden;height:100vh}
+canvas{display:block;position:absolute;top:0;left:0;z-index:0}
+
+#overlay{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
+#header{position:absolute;top:20px;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none}
+#header h1{font-size:22px;font-weight:700;color:#e8e8f0;letter-spacing:2px;margin-bottom:4px}
+#header .sub{font-size:12px;color:#555;letter-spacing:3px;text-transform:uppercase}
+
+.node-card{position:absolute;pointer-events:auto;background:rgba(12,12,24,0.88);backdrop-filter:blur(16px);border:1px solid #1a1a30;border-radius:14px;padding:16px 20px;width:220px;cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1);overflow:hidden}
+.node-card:hover{border-color:var(--accent);transform:translateY(-4px) scale(1.03);box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.node-card .card-preview{height:60px;margin-bottom:8px;border-radius:6px;overflow:hidden;position:relative}
+.node-card .card-preview canvas{width:100%;height:100%}
+.node-card .card-icon{font-size:28px;margin-bottom:6px}
+.node-card .card-title{font-size:14px;font-weight:700;color:#e8e8f0;margin-bottom:4px}
+.node-card .card-desc{font-size:11px;color:#777;line-height:1.5;margin-bottom:8px}
+.node-card .card-tags{display:flex;gap:4px;flex-wrap:wrap}
+.node-card .tag{font-size:9px;padding:2px 8px;border-radius:10px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)}
+.node-card .synergy{font-size:9px;color:#555;margin-top:6px;border-top:1px solid #1a1a2e;padding-top:6px}
+.node-card .synergy b{color:var(--accent)}
+
+#stats-bar{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:16px;pointer-events:none}
+#stats-bar .stat{background:rgba(12,12,24,0.8);backdrop-filter:blur(8px);border:1px solid #1a1a30;border-radius:10px;padding:8px 16px;text-align:center}
+#stats-bar .stat .label{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:1px}
+#stats-bar .stat .val{font-size:16px;font-weight:700;color:var(--accent,#58a6ff);margin-top:2px}
+
+#legend{position:absolute;bottom:20px;right:20px;pointer-events:none;font-size:10px;color:#444;line-height:1.8;text-align:right}
+#legend .line{display:flex;align-items:center;gap:6px;justify-content:flex-end}
+#legend .swatch{width:20px;height:2px;border-radius:1px}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.node-card{animation:fadeIn .6s ease-out both}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div id="overlay">
+<div id="header">
+  <h1>⚒️ Constraint Theory Universe</h1>
+  <div class="sub">7 Interactive Demos · Zero Dependencies · Just Math · <a href="tour.html" style="color:#7c5cfc;text-decoration:none">Take the Tour →</a></div>
+</div>
+<div id="cards"></div>
+<div id="stats-bar">
+  <div class="stat"><div class="label">Demos</div><div class="val">7</div></div>
+  <div class="stat"><div class="label">Connections</div><div class="val" id="conn-count">0</div></div>
+  <div class="stat"><div class="label">Run Locally</div><div class="val" style="font-size:11px;color:#7c5cfc">python3 -m http.server</div></div>
+  <div class="stat"><div class="label">Source</div><div class="val" style="font-size:11px"><a href="https://github.com/SuperInstance/cocapn-ai-web" style="color:#58a6ff;text-decoration:none">GitHub ↗</a></div></div>
+</div>
+<div id="legend">
+  <div class="line"><span>Shared Lattice</span><span class="swatch" style="background:#3b82f6"></span></div>
+  <div class="line"><span>Constraint Flow</span><span class="swatch" style="background:#22c55e"></span></div>
+  <div class="line"><span>Fleet Protocol</span><span class="swatch" style="background:#f59e0b"></span></div>
+  <div class="line"><span>Cross-Domain</span><span class="swatch" style="background:#a855f7"></span></div>
+</div>
+</div>
+
+<script>
+const DEMOS = [
+  {
+    id: 'drift-race', icon: '⚡', title: 'Drift Race',
+    desc: 'E12 vs Float32 on a circular track. Watch rounding error spiral outward in real-time.',
+    tags: ['precision', 'E12', 'visualization'],
+    url: '../constraint-demos/drift-race.html',
+    pos: [0.12, 0.35],
+    accent: '#f85149', accentBg: '#f8514920', accentBorder: '#f8514940',
+    synergy: 'Feeds <b>Fleet Topology</b> drift metrics. Output of <b>Hex Snap</b> algorithm.'
+  },
+  {
+    id: 'hex-snap', icon: '⬡', title: 'Hex Snap Playground',
+    desc: 'Click the Eisenstein lattice. Snap to exact lattice points. See Weyl sectors and error distances.',
+    tags: ['lattice', 'snap', 'interactive'],
+    url: '../constraint-demos/hex-snap-playground.html',
+    pos: [0.30, 0.18],
+    accent: '#00d4ff', accentBg: '#00d4ff15', accentBorder: '#00d4ff30',
+    synergy: 'Core algorithm for <b>Safe Arm</b>, <b>FLUX VM</b>, and <b>Drift Race</b>.'
+  },
+  {
+    id: 'funnel', icon: '🔽', title: 'Constraint Funnel',
+    desc: 'Temporal intelligence: 6 control knobs drive a system through 4 phases to crystallization.',
+    tags: ['potts', 'temperature', 'control'],
+    url: '../constraint-demos/constraint-funnel.html',
+    pos: [0.50, 0.12],
+    accent: '#a855f7', accentBg: '#a855f720', accentBorder: '#a855f740',
+    synergy: 'Potts model underpins <b>Fleet Topology</b> consensus. Phase model mirrors <b>FLUX VM</b> execution.'
+  },
+  {
+    id: 'safe-arm', icon: '🦾', title: 'Safe Arm Simulator',
+    desc: 'Side-by-side: UNSAFE arm crashes into obstacles vs SAFE arm using Eisenstein constraint checking.',
+    tags: ['robotics', 'safety', 'FLUX'],
+    url: '../simulators/safe-arm.html',
+    pos: [0.72, 0.25],
+    accent: '#3fb950', accentBg: '#3fb95015', accentBorder: '#3fb95030',
+    synergy: 'Runs <b>FLUX VM</b> bytecode internally. Uses <b>Hex Snap</b> for angle discretization.'
+  },
+  {
+    id: 'flux-vm', icon: '⚙️', title: 'FLUX VM',
+    desc: 'Bytecode VM with 23 opcodes including T_SNAP, T_PARITY, T_PREDICT. Step through constraint programs.',
+    tags: ['bytecode', 'VM', 'execution'],
+    url: '../simulators/flux-vm.html',
+    pos: [0.88, 0.45],
+    accent: '#58a6ff', accentBg: '#58a6ff15', accentBorder: '#58a6ff30',
+    synergy: 'Executes programs that control <b>Safe Arm</b>. Lattice ops powered by <b>Hex Snap</b>.'
+  },
+  {
+    id: 'fleet', icon: '🌐', title: 'Fleet Topology',
+    desc: 'Device consensus with holonomy checking, spoof detection, and Betti number computation.',
+    tags: ['consensus', 'BFT', 'topology'],
+    url: '../simulators/fleet-topology.html',
+    pos: [0.65, 0.70],
+    accent: '#f59e0b', accentBg: '#f59e0b15', accentBorder: '#f59e0b30',
+    synergy: 'Consensus feeds <b>Constraint Funnel</b> phase. Holonomy uses <b>Hex Snap</b> lattice paths.'
+  },
+  {
+    id: 'memory-palace', icon: '🏛️', title: 'Memory Palace',
+    desc: 'PLATO knowledge base mapped onto a Penrose P3 tiling. 20 domains, golden-ratio indexed.',
+    tags: ['PLATO', 'Penrose', 'knowledge'],
+    url: '../penrose-memory-palace/index.html',
+    pos: [0.28, 0.72],
+    accent: '#7c5cfc', accentBg: '#7c5cfc15', accentBorder: '#7c5cfc30',
+    synergy: 'Index system connects to <b>Fleet Topology</b> agents. Memory patterns inform <b>Funnel</b> convergence.'
+  }
+];
+
+// Connection edges between demos (synergy links)
+const CONNECTIONS = [
+  ['hex-snap', 'drift-race', '#3b82f6'],     // Shared lattice
+  ['hex-snap', 'safe-arm', '#3b82f6'],        // Shared lattice
+  ['hex-snap', 'flux-vm', '#3b82f6'],         // Shared lattice
+  ['drift-race', 'fleet', '#f59e0b'],         // Fleet protocol (drift metrics)
+  ['funnel', 'fleet', '#22c55e'],             // Constraint flow
+  ['flux-vm', 'safe-arm', '#22c55e'],         // Constraint flow
+  ['memory-palace', 'fleet', '#a855f7'],      // Cross-domain
+  ['funnel', 'flux-vm', '#a855f7'],           // Cross-domain
+  ['memory-palace', 'funnel', '#a855f7'],     // Cross-domain
+  ['drift-race', 'safe-arm', '#f59e0b'],      // Fleet protocol
+];
+
+document.getElementById('conn-count').textContent = CONNECTIONS.length;
+
+// Canvas background — animated Eisenstein lattice constellation
+const bg = document.getElementById('bg');
+const bctx = bg.getContext('2d');
+let BW, BH;
+
+function resizeBg() {
+  BW = bg.width = window.innerWidth;
+  BH = bg.height = window.innerHeight;
+}
+resizeBg();
+window.addEventListener('resize', () => { resizeBg(); positionCards(); });
+
+// Lattice points for background
+const SQ3 = Math.sqrt(3);
+const SCALE = 60;
+let latticePts = [];
+function buildLattice() {
+  latticePts = [];
+  for (let a = -20; a < 20; a++) {
+    for (let b = -20; b < 20; b++) {
+      const x = BW/2 + (a - b*0.5) * SCALE;
+      const y = BH/2 + (b * SQ3/2) * SCALE;
+      if (x > -50 && x < BW+50 && y > -50 && y < BH+50) {
+        latticePts.push({ x, y, a, b, phase: Math.random() * Math.PI * 2 });
+      }
+    }
+  }
+}
+buildLattice();
+
+let tick = 0;
+function drawBg() {
+  tick += 0.005;
+  bctx.clearRect(0, 0, BW, BH);
+  bctx.fillStyle = '#080810';
+  bctx.fillRect(0, 0, BW, BH);
+
+  // Subtle lattice points
+  for (const p of latticePts) {
+    const brightness = 0.03 + 0.02 * Math.sin(tick + p.phase);
+    bctx.beginPath();
+    bctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+    bctx.fillStyle = `rgba(100,100,180,${brightness})`;
+    bctx.fill();
+  }
+
+  // Draw connection lines between demo nodes
+  for (const [from, to, color] of CONNECTIONS) {
+    const fd = DEMOS.find(d => d.id === from);
+    const td = DEMOS.find(d => d.id === to);
+    if (!fd || !td) continue;
+    const fx = fd.pos[0] * BW, fy = fd.pos[1] * BH;
+    const tx = td.pos[0] * BW, ty = td.pos[1] * BH;
+
+    // Curved line with pulse
+    const mx = (fx + tx) / 2, my = (fy + ty) / 2;
+    const offset = Math.sin(tick * 2 + fx * 0.01) * 15;
+    const cpx = mx + offset * (ty - fy) / Math.max(1, Math.hypot(tx-fx, ty-fy));
+    const cpy = my - offset * (tx - fx) / Math.max(1, Math.hypot(tx-fx, ty-fy));
+
+    bctx.beginPath();
+    bctx.moveTo(fx, fy);
+    bctx.quadraticCurveTo(cpx, cpy, tx, ty);
+    bctx.strokeStyle = color + '25';
+    bctx.lineWidth = 1.5;
+    bctx.stroke();
+
+    // Traveling pulse
+    const pulseT = (tick * 0.3 + fx * 0.001) % 1;
+    const pt = pulseT;
+    const px = (1-pt)*(1-pt)*fx + 2*(1-pt)*pt*cpx + pt*pt*tx;
+    const py = (1-pt)*(1-pt)*fy + 2*(1-pt)*pt*cpy + pt*pt*ty;
+    bctx.beginPath();
+    bctx.arc(px, py, 3, 0, Math.PI * 2);
+    bctx.fillStyle = color + '80';
+    bctx.fill();
+  }
+
+  requestAnimationFrame(drawBg);
+}
+drawBg();
+
+// Build card elements
+const cardsEl = document.getElementById('cards');
+
+function positionCards() {
+  const cards = document.querySelectorAll('.node-card');
+  cards.forEach((card, i) => {
+    const d = DEMOS[i];
+    card.style.left = (d.pos[0] * BW - 110) + 'px';
+    card.style.top = (d.pos[1] * BH - 60) + 'px';
+    card.style.animationDelay = (i * 0.08) + 's';
+  });
+}
+
+DEMOS.forEach(d => {
+  const card = document.createElement('div');
+  card.className = 'node-card';
+  card.style.setProperty('--accent', d.accent);
+  card.style.setProperty('--accent-bg', d.accentBg);
+  card.style.setProperty('--accent-border', d.accentBorder);
+  card.innerHTML = `
+    <div class="card-icon">${d.icon}</div>
+    <div class="card-title">${d.title}</div>
+    <div class="card-desc">${d.desc}</div>
+    <div class="card-tags">${d.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+    <div class="synergy">${d.synergy}</div>
+  `;
+  card.onclick = () => {
+    // Flash effect + launch with synergy params
+    card.style.boxShadow = `0 0 60px ${d.accent}66`;
+    let url = d.url;
+    // Add URL params for synergistic demos
+    if (d.id === 'funnel') url += '?decay=0.8&sigma=0.15';
+    if (d.id === 'fleet') url += '?topo=mesh&devices=15&adversarial=true';
+    setTimeout(() => window.open(url, '_blank'), 200);
+  };
+  cardsEl.appendChild(card);
+});
+
+positionCards();
+window.addEventListener('resize', buildLattice);
+</script>
+</body>
+</html>

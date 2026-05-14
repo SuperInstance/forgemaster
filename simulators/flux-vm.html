@@ -91,6 +91,18 @@ h1 .badge { background: var(--accent); color: var(--bg); padding: 1px 6px; borde
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 3px; }
 </style>
+
+<style id="crossnav-style">
+#crossnav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(8,8,16,.92);backdrop-filter:blur(12px);border-top:1px solid #1a1a30;padding:6px 16px;display:flex;align-items:center;gap:12px;font-family:system-ui,sans-serif;font-size:11px}
+#crossnav .hub{color:#7c5cfc;font-weight:700;text-decoration:none;padding:4px 12px;border-radius:6px;border:1px solid #7c5cfc40;background:#7c5cfc10;transition:all .2s;white-space:nowrap}
+#crossnav .hub:hover{background:#7c5cfc30;border-color:#7c5cfc}
+#crossnav .sep{color:#333}
+#crossnav .link{color:#668;text-decoration:none;padding:3px 8px;border-radius:4px;transition:all .2s;white-space:nowrap}
+#crossnav .link:hover{color:#aab;background:#ffffff08}
+#crossnav .label{color:#444;font-size:10px;text-transform:uppercase;letter-spacing:1px}
+body{padding-bottom:38px!important}
+</style>
+
 </head>
 <body>
 
@@ -289,8 +301,9 @@ function executeStep() {
       VM.regs[args[0]] = resolveVal(args[1]) >= resolveVal(args[2]) ? 1 : 0;
       break;
     case 'JNZ': {
+      // JNZ reg label — jump to label if register is non-zero
       const val = isReg(args[0]) ? (VM.regs[args[0]] || 0) : resolveVal(args[0]);
-      if (val !== 0) { VM.pc = VM.labels[args[isReg(args[0]) ? 1 : 0]] || VM.pc; updateUI(instr); addTrace(op, args, traceClass); return true; }
+      if (val !== 0) { VM.pc = VM.labels[args[1]] !== undefined ? VM.labels[args[1]] : VM.pc; updateUI(instr); addTrace(op, args, traceClass); return true; }
       break;
     }
     case 'JMP':
@@ -321,11 +334,12 @@ function executeStep() {
       break;
     }
     case 'T_PARITY': {
+      // T_PARITY r1 r2 — check if two values agree, store 1/0 in r1
       const v1 = resolveVal(args[0]);
       const v2 = resolveVal(args[1]);
-      const r = args[0]; // store result in first reg
-      VM.regs[r] = Math.abs(v1 - v2) < 0.001 ? 1 : 0;
-      // Record paths for canvas
+      // Use r0 as result register if first arg is a reg, to avoid destroying input
+      const resultReg = isReg(args[0]) ? args[0] : 'r0';
+      VM.regs[resultReg] = Math.abs(v1 - v2) < 0.001 ? 1 : 0;
       VM.parityPaths = [[v1, 0], [v2, 0]];
       break;
     }
@@ -748,5 +762,13 @@ function animateCanvas() {
 // ─── Init ───
 setTimeout(() => { resizeCanvas(); animateCanvas(); resetVM(); }, 50);
 </script>
+
+<div id="crossnav">
+  <a class="hub" href="index.html" target="_blank">⚒️ Universe</a>
+  <span class="sep">·</span>
+  <span class="label">Related</span>
+  <a class="link" href="../constraint-demos/hex-snap-playground.html" target="_blank">⬡ Hex Snap</a> <a class="link" href="safe-arm.html" target="_blank">🦾 Safe Arm</a> <a class="link" href="../constraint-demos/constraint-funnel.html" target="_blank">🔽 Funnel</a>
+</div>
+
 </body>
 </html>

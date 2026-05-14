@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cocapn — Guided Tour</title>
+<link rel="stylesheet" href="core/design-system.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg-0);color:var(--text);font-family:var(--font-ui);overflow:hidden;height:100vh}
+
+#tour-frame{position:absolute;top:0;left:0;width:100%;height:100%;border:none;z-index:1}
+
+/* Tour overlay — sits on top of the iframe but doesn't block it */
+#tour-overlay{position:fixed;inset:0;z-index:100;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-end}
+
+/* Bottom narration bar */
+#narration{
+  pointer-events:auto;
+  background:rgba(6,6,15,.94);
+  backdrop-filter:blur(24px);
+  border-top:1px solid rgba(124,92,252,.2);
+  padding:24px 32px 28px;
+  transform:translateY(100%);
+  transition:transform .5s cubic-bezier(.22,1,.36,1);
+  max-width:100%;
+}
+#narration.visible{transform:translateY(0)}
+
+#narration .act-badge{
+  display:inline-block;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  padding:3px 10px;
+  border-radius:10px;
+  margin-bottom:10px;
+  border:1px solid;
+}
+#narration .step-title{
+  font-size:20px;
+  font-weight:600;
+  color:#e6edf3;
+  margin-bottom:6px;
+  line-height:1.3;
+}
+#narration .step-body{
+  font-size:14px;
+  color:#8b949e;
+  line-height:1.6;
+  max-width:640px;
+  margin-bottom:16px;
+}
+#narration .step-body strong{color:#e6edf3}
+
+#narration .controls{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.nbtn{
+  padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;
+  cursor:pointer;border:1px solid;font-family:var(--font-ui);
+  transition:all .2s cubic-bezier(.22,1,.36,1);
+}
+.nbtn:active{transform:scale(.95)}
+.nbtn-next{background:rgba(0,212,255,.12);border-color:rgba(0,212,255,.3);color:#00d4ff}
+.nbtn-next:hover{background:rgba(0,212,255,.22);border-color:rgba(0,212,255,.6);box-shadow:0 0 16px rgba(0,212,255,.2)}
+.nbtn-next:disabled{opacity:.3;cursor:not-allowed}
+.nbtn-prev{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);color:#8b949e}
+.nbtn-prev:hover{background:rgba(255,255,255,.08);color:#e6edf3}
+.nbtn-skip{background:none;border:none;color:#484f58;cursor:pointer;font-size:12px;font-family:var(--font-ui)}
+.nbtn-skip:hover{color:#8b949e}
+
+/* Progress bar */
+#progress{height:3px;background:var(--border-0);margin-bottom:0;flex-shrink:0}
+#progress-bar{height:100%;background:linear-gradient(90deg,#00d4ff,#7c5cfc);transition:width .5s cubic-bezier(.22,1,.36,1);width:0}
+
+/* Step counter */
+.step-counter{font-size:11px;color:#484f58;font-variant-numeric:tabular-nums;margin-left:auto}
+
+/* Action prompt */
+.action-prompt{
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:8px;
+  font-size:12px;
+  color:#f59e0b;
+  background:rgba(245,158,11,.08);
+  border:1px solid rgba(245,158,11,.2);
+  margin-top:8px;
+  animation:pulse-prompt 2s ease-in-out infinite;
+}
+@keyframes pulse-prompt{
+  0%,100%{opacity:.7}50%{opacity:1}
+}
+
+/* Transition screen */
+#transition-screen{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(6,6,15,.97);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .6s ease;
+}
+#transition-screen.active{opacity:1;pointer-events:auto}
+#transition-inner{
+  text-align:center;max-width:520px;
+  animation:fadeSlide .6s ease-out;
+}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+#transition-inner .t-act{
+  font-size:11px;text-transform:uppercase;letter-spacing:3px;
+  color:rgba(124,92,252,.7);margin-bottom:16px;
+}
+#transition-inner .t-text{
+  font-size:22px;font-weight:300;color:#e6edf3;line-height:1.5;
+}
+#transition-inner .t-continue{
+  margin-top:28px;padding:12px 32px;
+  background:rgba(124,92,252,.12);border:1px solid rgba(124,92,252,.35);
+  border-radius:10px;color:#a78bfa;font-size:14px;font-weight:600;
+  cursor:pointer;font-family:var(--font-ui);transition:all .2s;
+}
+#transition-inner .t-continue:hover{background:rgba(124,92,252,.25);box-shadow:0 0 30px rgba(124,92,252,.2)}
+
+/* Finale */
+#finale{
+  position:fixed;inset:0;z-index:300;
+  background:rgba(6,6,15,.97);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .8s ease;
+}
+#finale.active{opacity:1;pointer-events:auto}
+#finale-inner{text-align:center;max-width:600px;animation:fadeSlide .8s ease-out}
+#finale-inner h1{font-size:32px;font-weight:200;letter-spacing:.2em;color:#e6edf3;margin-bottom:16px}
+#finale-inner p{font-size:16px;color:#8b949e;line-height:1.6;margin-bottom:24px}
+#finale-inner .links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+#finale-inner .link-btn{
+  padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;
+  cursor:pointer;border:1px solid;text-decoration:none;font-family:var(--font-ui);
+  transition:all .2s;
+}
+</style>
+</head>
+<body>
+
+<div id="progress"><div id="progress-bar"></div></div>
+<iframe id="tour-frame"></iframe>
+
+<div id="tour-overlay">
+  <div id="narration">
+    <div class="act-badge" id="act-badge"></div>
+    <div class="step-title" id="step-title"></div>
+    <div class="step-body" id="step-body"></div>
+    <div class="controls">
+      <button class="nbtn nbtn-prev" id="btn-prev">← Back</button>
+      <button class="nbtn nbtn-next" id="btn-next">Next →</button>
+      <button class="nbtn-skip" id="btn-skip">Skip tour</button>
+      <span class="step-counter" id="step-counter"></span>
+    </div>
+  </div>
+</div>
+
+<div id="transition-screen">
+  <div id="transition-inner">
+    <div class="t-act" id="t-act"></div>
+    <div class="t-text" id="t-text"></div>
+    <button class="t-continue" id="t-continue">Continue →</button>
+  </div>
+</div>
+
+<div id="finale">
+  <div id="finale-inner">
+    <h1>WELCOME TO COCAPN</h1>
+    <p>You just experienced the full arc:<br>
+    <strong style="color:#f85149">Float32 drift</strong> →
+    <strong style="color:#00d4ff">Eisenstein snap</strong> →
+    <strong style="color:#3fb950">Safe constraints</strong> →
+    <strong style="color:#58a6ff">VM execution</strong> →
+    <strong style="color:#f59e0b">Fleet consensus</strong></p>
+    <p>Explore any demo at your own pace.</p>
+    <div class="links">
+      <a class="link-btn" href="control-room.html" style="color:#7c5cfc;border-color:rgba(124,92,252,.3);background:rgba(124,92,252,.08)">🏛️ Control Room</a>
+      <a class="link-btn" href="simulators/index.html" style="color:#00d4ff;border-color:rgba(0,212,255,.3);background:rgba(0,212,255,.08)">🌐 Universe Hub</a>
+      <a class="link-btn" href="constraint-demos/drift-race.html" style="color:#f85149;border-color:rgba(248,81,73,.3);background:rgba(248,81,73,.08)">⚡ Drift Race</a>
+      <a class="link-btn" href="constraint-demos/hex-snap-playground.html" style="color:#00d4ff;border-color:rgba(0,212,255,.3);background:rgba(0,212,255,.08)">⬡ Hex Snap</a>
+      <a class="link-btn" href="simulators/safe-arm.html" style="color:#3fb950;border-color:rgba(63,185,80,.3);background:rgba(63,185,80,.08)">🦾 Safe Arm</a>
+      <a class="link-btn" href="simulators/fleet-topology.html" style="color:#f59e0b;border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.08)">🌐 Fleet</a>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+// ─── Tour Data ──────────────────────────────────────────────────────────
+
+const ACTS = [
+  { id: 'drift',   url: 'constraint-demos/drift-race.html',          color: '#f85149', label: 'ACT 1 · THE PROBLEM' },
+  { id: 'snap',    url: 'constraint-demos/hex-snap-playground.html',  color: '#00d4ff', label: 'ACT 2 · THE SOLUTION' },
+  { id: 'arm',     url: 'simulators/safe-arm.html',                   color: '#3fb950', label: 'ACT 3 · THE MACHINE' },
+  { id: 'vm',      url: 'simulators/flux-vm.html',                    color: '#58a6ff', label: 'ACT 4 · THE BRAIN' },
+  { id: 'fleet',   url: 'simulators/fleet-topology.html',             color: '#f59e0b', label: 'ACT 5 · THE FLEET' },
+];
+
+const STEPS = [
+  // ACT 1: Drift Race
+  {
+    act: 0,
+    title: 'Floating point seems precise.',
+    body: 'Watch what actually happens when you add numbers in IEEE 754. Two racers on the same track — one uses Eisenstein E12 integers, the other uses standard Float32.',
+    action: { type: 'manual', prompt: 'Click the Start button to begin the race' },
+  },
+  {
+    act: 0,
+    title: 'The red dot spirals outward.',
+    body: 'The <strong style="color:#f85149">Float32</strong> racer accumulates rounding error every lap. The <strong style="color:#00d4ff">E12</strong> racer stays pixel-perfect. This is not a simulation bug — this is how floating point actually works.',
+    action: { type: 'timer', duration: 12000 },
+  },
+  {
+    act: 0,
+    title: 'Every lap, error compounds.',
+    body: 'This is happening in <em>every</em> floating-point system — games, robotics, aerospace, finance. The drift is small per step, but it never stops growing.',
+    action: { type: 'timer', duration: 8000 },
+  },
+
+  // ACT 2: Hex Snap
+  {
+    act: 1,
+    transition: 'The Eisenstein lattice catches rounding errors before they compound. Let us show you how.',
+    transitionTitle: 'ACT 2 · THE SOLUTION',
+  },
+  {
+    act: 1,
+    title: 'Click anywhere on this lattice.',
+    body: 'You\'ll see your click snap to the nearest Eisenstein lattice point. That <strong>snap is the constraint</strong>. It guarantees your value lives in Z[ω] — no drift possible.',
+    action: { type: 'click', target: '#grid', count: 1, prompt: 'Click anywhere on the hexagonal grid' },
+  },
+  {
+    act: 1,
+    title: 'See the Weyl sector and error distance.',
+    body: 'Each snap tells you which 60° sector you landed in (there are exactly 6) and how far your click was from perfect. Even "bad" clicks land within Δ < 0.6.',
+    action: { type: 'click', target: '#grid', count: 2, prompt: 'Place 2 more points to see the pattern' },
+  },
+
+  // ACT 3: Safe Arm
+  {
+    act: 2,
+    transition: 'Now let us give those constraints a physical body.',
+    transitionTitle: 'ACT 3 · THE MACHINE',
+  },
+  {
+    act: 2,
+    title: 'Two arms. Same sliders. Different math.',
+    body: 'The <strong style="color:#f85149">UNSAFE</strong> arm uses raw floating-point angles. The <strong style="color:#3fb950">SAFE</strong> arm snaps every angle to an Eisenstein lattice point before moving.',
+    action: { type: 'manual', prompt: 'Drag the Shoulder slider to ~90°' },
+  },
+  {
+    act: 2,
+    title: 'The UNSAFE arm crashes. The SAFE arm stops.',
+    body: 'Every red flash on the left is a violation — the arm hit an obstacle. The right arm <em>never</em> violates because Eisenstein constraints are discrete guarantees, not probabilistic.',
+    action: { type: 'manual', prompt: 'Try ⚡ Stress Test or 🌀 Chaos Mode' },
+  },
+
+  // ACT 4: FLUX VM
+  {
+    act: 3,
+    transition: 'The FLUX VM is the brain that makes these decisions at the bytecode level.',
+    transitionTitle: 'ACT 4 · THE BRAIN',
+  },
+  {
+    act: 3,
+    title: 'A real bytecode VM with 23 opcodes.',
+    body: 'Select <strong>Snap to Safety</strong> from the preset menu. This loads a real constraint-checking program that runs T_SNAP — the Eisenstein snap instruction.',
+    action: { type: 'manual', prompt: 'Select "Snap to Safety" from the presets dropdown' },
+  },
+  {
+    act: 3,
+    title: 'Step through execution.',
+    body: 'Hit <strong>Step</strong> to execute one instruction at a time. Watch the registers change. When you hit <code style="color:#58a6ff">T_SNAP</code>, the value snaps to the nearest Eisenstein integer.',
+    action: { type: 'manual', prompt: 'Click ⏭ Step several times to see T_SNAP execute' },
+  },
+
+  // ACT 5: Fleet Topology
+  {
+    act: 4,
+    transition: 'Now scale it to a whole fleet of coordinating agents.',
+    transitionTitle: 'ACT 5 · THE FLEET',
+  },
+  {
+    act: 4,
+    title: '15 devices reaching consensus.',
+    body: 'Each node has an Eisenstein state vector. They pull toward their neighbors\' states. Consensus = all nodes agree. The <strong>Betti numbers</strong> count topological features (components and cycles).',
+    action: { type: 'timer', duration: 6000 },
+  },
+  {
+    act: 4,
+    title: 'Inject a malicious node.',
+    body: 'Hit <strong style="color:#f85149">🎭 Spoof Device</strong>. The spoofed node drifts away from consensus. Watch the consensus percentage drop and the holonomy check flag it.',
+    action: { type: 'manual', prompt: 'Click 🎭 Spoof Device' },
+  },
+  {
+    act: 4,
+    title: 'The math catches attackers.',
+    body: 'Holonomy checking detects that the spoofed node\'s state is inconsistent with the fleet\'s topology. This is <em>Byzantine fault detection</em> powered by Eisenstein geometry.',
+    action: { type: 'timer', duration: 8000 },
+  },
+];
+
+// ─── Tour Controller ────────────────────────────────────────────────────
+
+const frame = document.getElementById('tour-frame');
+const narration = document.getElementById('narration');
+const progressBar = document.getElementById('progress-bar');
+const actBadge = document.getElementById('act-badge');
+const stepTitle = document.getElementById('step-title');
+const stepBody = document.getElementById('step-body');
+const stepCounter = document.getElementById('step-counter');
+const btnNext = document.getElementById('btn-next');
+const btnPrev = document.getElementById('btn-prev');
+const btnSkip = document.getElementById('btn-skip');
+const transScreen = document.getElementById('transition-screen');
+const tAct = document.getElementById('t-act');
+const tText = document.getElementById('t-text');
+const tContinue = document.getElementById('t-continue');
+const finale = document.getElementById('finale');
+
+let currentStep = 0;
+let currentAct = -1;
+let actionFulfilled = false;
+let actionTimer = null;
+let clickCount = 0;
+
+function loadAct(actIdx) {
+  if (actIdx >= ACTS.length) {
+    showFinale();
+    return;
+  }
+  const act = ACTS[actIdx];
+  currentAct = actIdx;
+  frame.src = act.url;
+  narration.classList.remove('visible');
+}
+
+function showStep(idx) {
+  if (idx >= STEPS.length) {
+    showFinale();
+    return;
+  }
+  if (idx < 0) { idx = 0; }
+
+  const step = STEPS[idx];
+  currentStep = idx;
+
+  // Check if we need to switch acts
+  const act = ACTS[step.act];
+  if (step.act !== currentAct) {
+    // Show transition if the step has one
+    if (step.transition) {
+      tAct.textContent = step.transitionTitle || act.label;
+      tText.textContent = step.transition;
+      transScreen.classList.add('active');
+
+      tContinue.onclick = () => {
+        transScreen.classList.remove('active');
+        loadAct(step.act);
+        // Wait for iframe to load, then show step
+        frame.onload = () => {
+          setTimeout(() => renderStep(idx), 500);
+        };
+      };
+      updateProgress(idx);
+      return;
+    }
+
+    // No transition — just load the act
+    loadAct(step.act);
+    frame.onload = () => {
+      setTimeout(() => renderStep(idx), 500);
+    };
+    updateProgress(idx);
+    return;
+  }
+
+  renderStep(idx);
+}
+
+function renderStep(idx) {
+  const step = STEPS[idx];
+  const act = ACTS[step.act];
+
+  // Act badge
+  actBadge.textContent = act.label;
+  actBadge.style.color = act.color;
+  actBadge.style.borderColor = act.color + '40';
+  actBadge.style.background = act.color + '12';
+
+  // Content
+  stepTitle.textContent = step.title;
+  stepBody.innerHTML = step.body;
+  stepCounter.textContent = `${idx + 1} / ${STEPS.length}`;
+
+  // Action state
+  actionFulfilled = false;
+  clickCount = 0;
+  if (actionTimer) { clearTimeout(actionTimer); actionTimer = null; }
+
+  if (step.action) {
+    const a = step.action;
+    const promptHtml = `<div class="action-prompt">${a.prompt || 'Follow the instruction to continue'}</div>`;
+    stepBody.innerHTML += promptHtml;
+    btnNext.disabled = true;
+
+    if (a.type === 'timer') {
+      actionTimer = setTimeout(() => {
+        actionFulfilled = true;
+        btnNext.disabled = false;
+        // Remove prompt
+        const prompt = stepBody.querySelector('.action-prompt');
+        if (prompt) prompt.remove();
+      }, a.duration);
+    } else if (a.type === 'click') {
+      // Listen for clicks in the iframe
+      try {
+        const iframeDoc = frame.contentDocument;
+        if (iframeDoc) {
+          const target = iframeDoc.querySelector(a.target);
+          if (target) {
+            const handler = () => {
+              clickCount++;
+              if (clickCount >= (a.count || 1)) {
+                actionFulfilled = true;
+                btnNext.disabled = false;
+                const prompt = stepBody.querySelector('.action-prompt');
+                if (prompt) prompt.remove();
+              } else {
+                const prompt = stepBody.querySelector('.action-prompt');
+                if (prompt) prompt.textContent = `${a.count - clickCount} more clicks needed`;
+              }
+            };
+            target.addEventListener('click', handler);
+            // Cleanup on next step
+            const origNext = btnNext.onclick;
+          }
+        }
+      } catch (e) {
+        // Cross-origin — fall through to manual
+        btnNext.disabled = false;
+      }
+    } else if (a.type === 'manual') {
+      // User must perform an action, then click Next
+      btnNext.disabled = false;
+    }
+  } else {
+    btnNext.disabled = false;
+  }
+
+  // Show narration
+  narration.classList.add('visible');
+  updateProgress(idx);
+}
+
+function updateProgress(idx) {
+  const pct = ((idx + 1) / STEPS.length) * 100;
+  progressBar.style.width = pct + '%';
+}
+
+function showFinale() {
+  narration.classList.remove('visible');
+  finale.classList.add('active');
+}
+
+// ─── Controls ───────────────────────────────────────────────────────────
+
+btnNext.onclick = () => {
+  if (btnNext.disabled) return;
+  showStep(currentStep + 1);
+};
+
+btnPrev.onclick = () => {
+  showStep(currentStep - 1);
+};
+
+btnSkip.onclick = () => {
+  showFinale();
+};
+
+// ─── Start ──────────────────────────────────────────────────────────────
+
+// Load first act
+loadAct(0);
+frame.onload = () => {
+  setTimeout(() => showStep(0), 800);
+};
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') {
+    e.preventDefault();
+    if (!btnNext.disabled) showStep(currentStep + 1);
+  }
+  if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    showStep(currentStep - 1);
+  }
+  if (e.key === 'Escape') {
+    showFinale();
+  }
+});
+</script>
+</body>
+</html>

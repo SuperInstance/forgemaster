@@ -38,6 +38,18 @@ canvas{display:block}
 .preset-row{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px}
 .preset-row button{font-size:10px;padding:3px 8px}
 </style>
+
+<style id="crossnav-style">
+#crossnav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(8,8,16,.92);backdrop-filter:blur(12px);border-top:1px solid #1a1a30;padding:6px 16px;display:flex;align-items:center;gap:12px;font-family:system-ui,sans-serif;font-size:11px}
+#crossnav .hub{color:#7c5cfc;font-weight:700;text-decoration:none;padding:4px 12px;border-radius:6px;border:1px solid #7c5cfc40;background:#7c5cfc10;transition:all .2s;white-space:nowrap}
+#crossnav .hub:hover{background:#7c5cfc30;border-color:#7c5cfc}
+#crossnav .sep{color:#333}
+#crossnav .link{color:#668;text-decoration:none;padding:3px 8px;border-radius:4px;transition:all .2s;white-space:nowrap}
+#crossnav .link:hover{color:#aab;background:#ffffff08}
+#crossnav .label{color:#444;font-size:10px;text-transform:uppercase;letter-spacing:1px}
+body{padding-bottom:38px!important}
+</style>
+
 </head>
 <body>
 
@@ -180,6 +192,7 @@ class Device {
     this.id = id;
     this.x = x; this.y = y;
     this.vx = 0; this.vy = 0;
+    this.fx = 0; this.fy = 0;
     // Eisenstein state (2D)
     this.sx = (Math.random() - 0.5) * 100;
     this.sy = (Math.random() - 0.5) * 100;
@@ -599,8 +612,8 @@ function runHolonomyCheck() {
       for (let end of adj[next]) {
         if (end !== start && adj[end].includes(start)) {
           const path = [start, next, end, start];
-          const key = [...path].sort().join(',');
-          if (!holonomyPaths.find(p => [...p].sort().join(',') === key)) {
+          const key = [...new Set(path)].sort().join(',');
+          if (!holonomyPaths.find(p => [...new Set(p)].sort().join(',') === key)) {
             holonomyPaths.push(path);
           }
         }
@@ -796,7 +809,29 @@ document.getElementById('speed').addEventListener('input', (e) => {
 });
 
 // ===== INIT =====
+// URL param support — ?topo=ring&devices=20&adversarial=true
+function applyUrlParams(){
+  const p=new URLSearchParams(location.search);
+  if(p.has('topo')){
+    const t=p.get('topo');
+    const btn=document.querySelector(`[data-topo="${t}"]`);
+    if(btn){setTopology(t);document.querySelectorAll('[data-topo]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+  }
+  if(p.has('devices')){const n=Math.max(3,Math.min(50,parseInt(p.get('devices'))));document.getElementById('dev-count').value=n;document.getElementById('dev-count-val').textContent=n;initFleet(n);}
+  if(p.has('adversarial')){document.getElementById('adversarial').checked=true;adversarialMode=true;}
+  if(p.has('spoof')){spoofedId=parseInt(p.get('spoof'))||0;document.getElementById('spoof-list').innerHTML=`<div style="color:#f85149">Device ${spoofedId} 🎭 SPOOFED</div>`;}
+}
+
 initFleet(12);
+applyUrlParams();
 </script>
+
+<div id="crossnav">
+  <a class="hub" href="index.html" target="_blank">⚒️ Universe</a>
+  <span class="sep">·</span>
+  <span class="label">Related</span>
+  <a class="link" href="../constraint-demos/drift-race.html" target="_blank">⚡ Drift Race</a> <a class="link" href="../constraint-demos/constraint-funnel.html" target="_blank">🔽 Funnel</a> <a class="link" href="../penrose-memory-palace/index.html" target="_blank">🏛️ Palace</a>
+</div>
+
 </body>
 </html>

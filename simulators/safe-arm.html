@@ -74,6 +74,18 @@ button.danger:hover { background: #f8514922; border-color: #f85149; color: #f851
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
+
+<style id="crossnav-style">
+#crossnav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(8,8,16,.92);backdrop-filter:blur(12px);border-top:1px solid #1a1a30;padding:6px 16px;display:flex;align-items:center;gap:12px;font-family:system-ui,sans-serif;font-size:11px}
+#crossnav .hub{color:#7c5cfc;font-weight:700;text-decoration:none;padding:4px 12px;border-radius:6px;border:1px solid #7c5cfc40;background:#7c5cfc10;transition:all .2s;white-space:nowrap}
+#crossnav .hub:hover{background:#7c5cfc30;border-color:#7c5cfc}
+#crossnav .sep{color:#333}
+#crossnav .link{color:#668;text-decoration:none;padding:3px 8px;border-radius:4px;transition:all .2s;white-space:nowrap}
+#crossnav .link:hover{color:#aab;background:#ffffff08}
+#crossnav .label{color:#444;font-size:10px;text-transform:uppercase;letter-spacing:1px}
+body{padding-bottom:38px!important}
+</style>
+
 </head>
 <body>
 
@@ -180,6 +192,7 @@ let stressTimer = null;
 let chaosTimer = null;
 
 let unsafeViolations = 0;
+let safeViolations = 0;
 let safeSnaps = 0;
 let commands = 0;
 let margins = [];
@@ -282,7 +295,7 @@ document.getElementById('btnReset').addEventListener('click', () => {
   sliders = [0, 0, 0];
   unsafeAngles = [0, 0, 0];
   safeAngles = [0, 0, 0];
-  unsafeViolations = 0; safeSnaps = 0; commands = 0; margins = [];
+  unsafeViolations = 0; safeViolations = 0; safeSnaps = 0; commands = 0; margins = [];
   unsafeTrail = []; safeTrail = []; impacts = [];
   for (let i = 0; i < 3; i++) {
     document.getElementById('s' + i).value = 0;
@@ -387,8 +400,6 @@ function updateStats() {
   document.getElementById('stMargin').textContent = avg + (avg !== '—' ? '°' : '');
 }
 
-let safeViolations = 0;
-
 // === Render ===
 let animFrame;
 let fluxLine = 0;
@@ -477,7 +488,7 @@ function drawArm(ctx, w, h, angles, isSafe) {
   for (let i = 0; i < trail.length; i++) {
     const alpha = (i / trail.length) * 0.5;
     ctx.beginPath();
-    ctx.arc(trail[i].x * scale + bx - bx, trail[i].y * scale + by - by, 2 * scale, 0, Math.PI * 2);
+    ctx.arc(trail[i].x, trail[i].y, 2 * scale, 0, Math.PI * 2);
     ctx.fillStyle = `rgba(${isSafe ? '63,185,80' : '248,81,73'},${alpha})`;
     ctx.fill();
   }
@@ -621,12 +632,12 @@ function render() {
   // Update trails
   if (uResult.joints.length) {
     const ee = uResult.joints[3];
-    unsafeTrail.push({ x: ee.x / (window.devicePixelRatio || 1), y: ee.y / (window.devicePixelRatio || 1) });
+    unsafeTrail.push({ x: ee.x, y: ee.y });
     if (unsafeTrail.length > TRAIL_MAX) unsafeTrail.shift();
   }
   if (sResult.joints.length) {
     const ee = sResult.joints[3];
-    safeTrail.push({ x: ee.x / (window.devicePixelRatio || 1), y: ee.y / (window.devicePixelRatio || 1) });
+    safeTrail.push({ x: ee.x, y: ee.y });
     if (safeTrail.length > TRAIL_MAX) safeTrail.shift();
   }
   
@@ -683,5 +694,13 @@ setInterval(() => {
 applyCommand();
 render();
 </script>
+
+<div id="crossnav">
+  <a class="hub" href="index.html" target="_blank">⚒️ Universe</a>
+  <span class="sep">·</span>
+  <span class="label">Related</span>
+  <a class="link" href="../constraint-demos/hex-snap-playground.html" target="_blank">⬡ Hex Snap</a> <a class="link" href="flux-vm.html" target="_blank">⚙️ FLUX VM</a> <a class="link" href="../constraint-demos/drift-race.html" target="_blank">⚡ Drift Race</a>
+</div>
+
 </body>
 </html>
