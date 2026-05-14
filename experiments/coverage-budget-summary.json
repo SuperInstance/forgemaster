@@ -1,0 +1,61 @@
+{
+  "floor_scaling": {
+    "coeff": 3.4036852807187876,
+    "exponent": -1.0168699364065386
+  },
+  "effective_k_scaling": {
+    "coeff": 0.06557738313531566,
+    "exponent": 1.926663585537371
+  },
+  "avg_efficiency": 0.5444444444444444,
+  "data": {
+    "6": {
+      "basis": 3,
+      "total": 3,
+      "eff_K": 2,
+      "floor": 0.5732
+    },
+    "8": {
+      "basis": 4,
+      "total": 6,
+      "eff_K": 4,
+      "floor": 0.4082
+    },
+    "10": {
+      "basis": 5,
+      "total": 10,
+      "eff_K": 6,
+      "floor": 0.3026
+    },
+    "12": {
+      "basis": 6,
+      "total": 15,
+      "eff_K": 7,
+      "floor": 0.261
+    },
+    "14": {
+      "basis": 7,
+      "total": 21,
+      "eff_K": 11,
+      "floor": 0.2254
+    },
+    "16": {
+      "basis": 8,
+      "total": 28,
+      "eff_K": 11,
+      "floor": 0.2447
+    },
+    "18": {
+      "basis": 9,
+      "total": 36,
+      "eff_K": 15,
+      "floor": 0.1836
+    },
+    "20": {
+      "basis": 10,
+      "total": 45,
+      "eff_K": 28,
+      "floor": 0.148
+    }
+  }
+}
