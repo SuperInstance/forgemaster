@@ -1,0 +1,20 @@
+{
+  "last_checked": 1778734269.7362082,
+  "unread_count": 0,
+  "unread_rooms": {},
+  "bridge_pid": 66780,
+  "bridge_config": "/tmp/plato-matrix-bridge/config-forgemaster.json",
+  "bridge_log": "/tmp/plato-matrix-forgemaster.log",
+  "rooms": [
+    "fleet-coord",
+    "forge",
+    "oracle1-forgemaster-bridge",
+    "flux-engine"
+  ],
+  "matrix_user": "@forgemaster:147.224.38.131",
+  "matrix_homeserver": "http://147.224.38.131:6167",
+  "plato_url": "http://147.224.38.131:8847",
+  "beep_interval_s": 30,
+  "beep_decay_s": 600,
+  "max_interval_s": 600
+}

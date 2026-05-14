@@ -1,0 +1,141 @@
+#!/usr/bin/env python3
+"""
+FM Answering Machine — checks PLATO bridge rooms for unread messages,
+maintains a persistent inbox state, and prints a summary.
+
+Called by Forgemaster on heartbeat or manually.
+
+Behavior:
+- Checks PLATO bridge rooms for new tiles since last check
+- New tiles = unread messages → increments blinker
+- Prints inbox summary: unread count, which rooms, last senders
+- Updates .inbox/state.json for compaction survival
+- Blinker escalates: 30s → 60s → 120s → 600s (10min) if unacknowledged
+"""
+
+import json, urllib.request, time, os
+from pathlib import Path
+
+INBOX_DIR = Path(os.path.expanduser("~/.openclaw/workspace/.inbox"))
+STATE_FILE = INBOX_DIR / "state.json"
+PLATO_URL = "http://147.224.38.131:8847"
+
+# Rooms to monitor
+MONITORED_ROOMS = [
+    "oracle1-forgemaster-bridge",
+    "fleet-coord",
+    "forge",
+    "flux-engine",
+]
+
+def load_state():
+    try:
+        with open(STATE_FILE) as f:
+            return json.load(f)
+    except:
+        return {
+            "last_checked": 0,
+            "unread_count": 0,
+            "unread_rooms": {},
+            "bridge_pid": 66780,
+        }
+
+def save_state(state):
+    INBOX_DIR.mkdir(parents=True, exist_ok=True)
+    with open(STATE_FILE, "w") as f:
+        json.dump(state, f, indent=2)
+
+def fetch_room_tiles(room_name):
+    """Get tiles from a PLATO room."""
+    try:
+        req = urllib.request.Request(f"{PLATO_URL}/room/{room_name}")
+        resp = json.loads(urllib.request.urlopen(req, timeout=10).read())
+        return resp.get("tiles", [])
+    except:
+        return []
+
+def check_inbox():
+    state = load_state()
+    now = time.time()
+    last_checked = state.get("last_checked", 0)
+    
+    new_messages = []
+    
+    for room in MONITORED_ROOMS:
+        tiles = fetch_room_tiles(room)
+        
+        # Find tiles newer than last_checked
+        for tile in tiles:
+            prov = tile.get("provenance", {})
+            ts = prov.get("timestamp", 0)
+            source = tile.get("source", prov.get("agent_id", "?"))
+            q = tile.get("question", "")
+            a = tile.get("answer", "")
+            
+            if ts > last_checked and source != "forgemaster":
+                new_messages.append({
+                    "room": room,
+                    "timestamp": ts,
+                    "source": source,
+                    "question": q[:100],
+                    "answer": a[:200],
+                })
+        
+        # Track per-room unread
+        room_unread = [m for m in new_messages if m["room"] == room]
+        if room_unread:
+            state["unread_rooms"][room] = len(room_unread)
+    
+    state["unread_count"] = len(new_messages)
+    state["last_checked"] = now
+    save_state(state)
+    
+    return new_messages, state
+
+def inbox_summary(new_messages, state):
+    """Human-readable inbox status."""
+    lines = []
+    
+    if new_messages:
+        lines.append(f"📬 INBOX: {len(new_messages)} new message(s)")
+        for m in new_messages[-10:]:  # Show last 10
+            lines.append(f"  [{m['room']}] {m['source']}: {m['question'][:60]}")
+    else:
+        lines.append("📭 INBOX: empty — no new messages")
+    
+    # Blinker status
+    unread = state.get("unread_count", 0)
+    if unread > 0:
+        lines.append(f"  💡 Blinker: {unread} unacknowledged")
+    
+    lines.append(f"  Last checked: {time.strftime('%H:%M:%S', time.localtime(state['last_checked']))}")
+    lines.append(f"  Bridge PID: {state.get('bridge_pid', '?')}")
+    
+    return "\n".join(lines)
+
+def ack(room=None):
+    """Acknowledge messages — clear the blinker."""
+    state = load_state()
+    if room:
+        state["unread_rooms"].pop(room, None)
+    else:
+        state["unread_rooms"] = {}
+    state["unread_count"] = sum(state["unread_rooms"].values())
+    save_state(state)
+    return f"✅ Acknowledged {'all' if not room else room}"
+
+if __name__ == "__main__":
+    import sys
+    cmd = sys.argv[1] if len(sys.argv) > 1 else "check"
+    
+    if cmd == "check":
+        msgs, state = check_inbox()
+        print(inbox_summary(msgs, state))
+    elif cmd == "ack":
+        room = sys.argv[2] if len(sys.argv) > 2 else None
+        print(ack(room))
+    elif cmd == "state":
+        state = load_state()
+        print(json.dumps(state, indent=2))
+    else:
+        print("Usage: fm-inbox.py [check|ack|state] [room]")

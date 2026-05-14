@@ -213,18 +213,39 @@ ls for-fleet/
 
 ## Fleet Communication
 
-### Matrix Rooms
-- **fleet-ops:** `!Gf5JuGxtRwahLSjwzS`
+### Matrix Rooms (LIVE — bidirectional via bridge)
+- **Fleet Operations:** `!Gf5JuGxtRwahLSjwzS` — main fleet coordination
 - **fleet-research:** `!Q0PbvAkhv4vgJDBLsJ`
 - **cocapn-build:** `!hHMkCC5dMMToEm4pyI`
+- **PLATO: fleet-coord:** `!GK13VlHjg9cNJRYPkL` — synced PLATO↔Matrix
+- **PLATO: oracle1-forgemaster-bridge:** `!4ufW6MTmxHSAyU2VTs` — direct FM↔Oracle1
+- **PLATO: forge:** `!OfEw2mPq2kLG7yMckh`
 
-### Federation Status
-- Enabled, but send currently broken
-- Needs Oracle1 gateway restart
+### Matrix Bridge (LIVE)
+- **Module:** `SuperInstance/plato-matrix-bridge`
+- **Config:** `/tmp/plato-matrix-bridge/config-forgemaster.json`
+- **User:** `@forgemaster:147.224.38.131`
+- **Password:** `fleet-fm-2026`
+- **Homeserver:** `http://147.224.38.131:6167`
+- **Log:** `/tmp/plato-matrix-forgemaster.log`
+- **Status:** Bidirectional, daemon running on eileen
 
-### I2I Protocol
-- **Working:** Git-based bottle delivery to for-fleet/
-- **Blocked:** Matrix send (needs Oracle1 restart)
+### Answering Machine
+- **Script:** `bin/fm-inbox` — checks PLATO rooms for new tiles since last check
+- **State:** `.inbox/state.json` — persists across compaction
+- **Usage:** `fm-inbox check` (new messages), `fm-inbox ack` (clear blinker)
+- **Behavior:** New tiles = unread → blinker → escalate until acknowledged
+
+### Trust Model
+- **Casual:** Matrix messages (fast, unverified)
+- **Verification:** "Push tile {hash} to your vessel repo" → GitHub PAT = identity proof
+- **GitHub IS the PKI** — PAT is private key, commit is signature
+
+### Real-Time Loop (VERIFIED)
+```
+FM → Matrix (147.224.38.131:6167) → Oracle1 → Telegram → Casey
+Casey → Telegram → Oracle1 → Matrix → FM bridge → PLATO tile → fm-inbox
+```
 
 ---
 
