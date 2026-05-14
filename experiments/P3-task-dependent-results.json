@@ -1,0 +1,1935 @@
+{
+  "qwen3:0.6b": {
+    "model": "qwen3:0.6b",
+    "task": "a\u00b2+b\u00b2",
+    "trials": [
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "29",
+        "classification": {
+          "type": "CORRECT",
+          "value": 29
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "29",
+        "classification": {
+          "type": "CORRECT",
+          "value": 29
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "29",
+        "classification": {
+          "type": "CORRECT",
+          "value": 29
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "50",
+        "classification": {
+          "type": "CORRECT",
+          "value": 50
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "50",
+        "classification": {
+          "type": "CORRECT",
+          "value": 50
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "50",
+        "classification": {
+          "type": "CORRECT",
+          "value": 50
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "61",
+        "classification": {
+          "type": "CORRECT",
+          "value": 61
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "61",
+        "classification": {
+          "type": "CORRECT",
+          "value": 61
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "61",
+        "classification": {
+          "type": "CORRECT",
+          "value": 61
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "73",
+        "classification": {
+          "type": "CORRECT",
+          "value": 73
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "73",
+        "classification": {
+          "type": "CORRECT",
+          "value": 73
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "73",
+        "classification": {
+          "type": "CORRECT",
+          "value": 73
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "100",
+        "classification": {
+          "type": "CORRECT",
+          "value": 100
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "100",
+        "classification": {
+          "type": "CORRECT",
+          "value": 100
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "100",
+        "classification": {
+          "type": "CORRECT",
+          "value": 100
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "85",
+        "classification": {
+          "type": "CORRECT",
+          "value": 85
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "85",
+        "classification": {
+          "type": "CORRECT",
+          "value": 85
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "85",
+        "classification": {
+          "type": "CORRECT",
+          "value": 85
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "65",
+        "classification": {
+          "type": "CORRECT",
+          "value": 65
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "65",
+        "classification": {
+          "type": "CORRECT",
+          "value": 65
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "65",
+        "classification": {
+          "type": "CORRECT",
+          "value": 65
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "136",
+        "classification": {
+          "type": "CORRECT",
+          "value": 136
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "136",
+        "classification": {
+          "type": "CORRECT",
+          "value": 136
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "136",
+        "classification": {
+          "type": "CORRECT",
+          "value": 136
+        }
+      }
+    ],
+    "summary": {
+      "CORRECT": 30
+    },
+    "echo_rate": 0.0,
+    "partial_rate": 0.0,
+    "correct_rate": 1.0
+  },
+  "gemma3:1b": {
+    "model": "gemma3:1b",
+    "task": "a\u00b2+b\u00b2",
+    "trials": [
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "16",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "partial-b\u00b2",
+          "value": 16
+        }
+      },
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "16",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "partial-b\u00b2",
+          "value": 16
+        }
+      },
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "16",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "partial-b\u00b2",
+          "value": 16
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "16",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 16
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "19",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 19
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "29",
+        "classification": {
+          "type": "CORRECT",
+          "value": 29
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "49",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "partial-a\u00b2",
+          "value": 49
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "49",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "partial-a\u00b2",
+          "value": 49
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "49",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "partial-a\u00b2",
+          "value": 49
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "6",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 6
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "6",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 6
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "6",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 6
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "11",
+        "classification": {
+          "type": "ECHO",
+          "contour": "echo-diff",
+          "value": 11
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "6",
+        "classification": {
+          "type": "ECHO",
+          "contour": "echo-a",
+          "value": 6
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "6",
+        "classification": {
+          "type": "ECHO",
+          "contour": "echo-a",
+          "value": 6
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "16",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 16
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "16",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 16
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "16",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 16
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "64",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "partial-b\u00b2",
+          "value": 64
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "64",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "partial-b\u00b2",
+          "value": 64
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "16",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 16
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "16",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 16
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "16",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 16
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "16",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 16
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "11",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 11
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "64",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 64
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "64",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 64
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "26",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 26
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "102",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "near-a\u00b2(100)",
+          "value": 102
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "102",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "near-a\u00b2(100)",
+          "value": 102
+        }
+      }
+    ],
+    "summary": {
+      "PARTIAL": 10,
+      "OTHER": 16,
+      "CORRECT": 1,
+      "ECHO": 3
+    },
+    "echo_rate": 0.1,
+    "partial_rate": 0.3333333333333333,
+    "correct_rate": 0.03333333333333333
+  },
+  "llama3.2:1b": {
+    "model": "llama3.2:1b",
+    "task": "a\u00b2+b\u00b2",
+    "trials": [
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "49",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 49
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "33",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 33
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "39",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 39
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "57",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 57
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "53",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 53
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "50",
+        "classification": {
+          "type": "CORRECT",
+          "value": 50
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "30",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 30
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "-47",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": -47
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "-31",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": -31
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "21",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 21
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "21",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 21
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "121",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 121
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "81",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 81
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "90",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 90
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "9",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "partial-b\u00b2",
+          "value": 9
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "56",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 56
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "-120",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": -120
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "-20",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": -20
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "64",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "partial-b\u00b2",
+          "value": 64
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "49",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 49
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "50",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 50
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "43",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 43
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "-85",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": -85
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "65",
+        "classification": {
+          "type": "CORRECT",
+          "value": 65
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "-55",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": -55
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "86",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 86
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "123",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 123
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "125",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 125
+        }
+      }
+    ],
+    "summary": {
+      "CORRECT": 4,
+      "OTHER": 24,
+      "PARTIAL": 2
+    },
+    "echo_rate": 0.0,
+    "partial_rate": 0.06666666666666667,
+    "correct_rate": 0.13333333333333333
+  },
+  "phi4-mini": {
+    "model": "phi4-mini",
+    "task": "a\u00b2+b\u00b2",
+    "trials": [
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "49",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 49
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "29",
+        "classification": {
+          "type": "CORRECT",
+          "value": 29
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "29",
+        "classification": {
+          "type": "CORRECT",
+          "value": 29
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "50",
+        "classification": {
+          "type": "CORRECT",
+          "value": 50
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "50",
+        "classification": {
+          "type": "CORRECT",
+          "value": 50
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "50",
+        "classification": {
+          "type": "CORRECT",
+          "value": 50
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "41",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 41
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "121",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 121
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "61",
+        "classification": {
+          "type": "CORRECT",
+          "value": 61
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "61",
+        "classification": {
+          "type": "CORRECT",
+          "value": 61
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "73",
+        "classification": {
+          "type": "CORRECT",
+          "value": 73
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "89",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 89
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "73",
+        "classification": {
+          "type": "CORRECT",
+          "value": 73
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "1",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 1
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "100",
+        "classification": {
+          "type": "CORRECT",
+          "value": 100
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "100",
+        "classification": {
+          "type": "CORRECT",
+          "value": 100
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "97",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 97
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "89",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 89
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "81",
+        "classification": {
+          "type": "PARTIAL",
+          "contour": "partial-b\u00b2",
+          "value": 81
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "57",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 57
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "65",
+        "classification": {
+          "type": "CORRECT",
+          "value": 65
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "57",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 57
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "116",
+        "classification": {
+          "type": "OTHER",
+          "contour": "unknown",
+          "value": 116
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "136",
+        "classification": {
+          "type": "CORRECT",
+          "value": 136
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "136",
+        "classification": {
+          "type": "CORRECT",
+          "value": 136
+        }
+      }
+    ],
+    "summary": {
+      "CORRECT": 19,
+      "OTHER": 10,
+      "PARTIAL": 1
+    },
+    "echo_rate": 0.0,
+    "partial_rate": 0.03333333333333333,
+    "correct_rate": 0.6333333333333333
+  },
+  "qwen3:4b": {
+    "model": "qwen3:4b",
+    "task": "a\u00b2+b\u00b2",
+    "trials": [
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 3,
+          "b": 4
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "29",
+        "classification": {
+          "type": "CORRECT",
+          "value": 29
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "29",
+        "classification": {
+          "type": "CORRECT",
+          "value": 29
+        }
+      },
+      {
+        "inputs": {
+          "a": 5,
+          "b": -2
+        },
+        "expected": 29,
+        "raw_output": "29",
+        "classification": {
+          "type": "CORRECT",
+          "value": 29
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "50",
+        "classification": {
+          "type": "CORRECT",
+          "value": 50
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "50",
+        "classification": {
+          "type": "CORRECT",
+          "value": 50
+        }
+      },
+      {
+        "inputs": {
+          "a": 7,
+          "b": 1
+        },
+        "expected": 50,
+        "raw_output": "50",
+        "classification": {
+          "type": "CORRECT",
+          "value": 50
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": -4,
+          "b": 3
+        },
+        "expected": 25,
+        "raw_output": "25",
+        "classification": {
+          "type": "CORRECT",
+          "value": 25
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "61",
+        "classification": {
+          "type": "CORRECT",
+          "value": 61
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "61",
+        "classification": {
+          "type": "CORRECT",
+          "value": 61
+        }
+      },
+      {
+        "inputs": {
+          "a": 6,
+          "b": -5
+        },
+        "expected": 61,
+        "raw_output": "61",
+        "classification": {
+          "type": "CORRECT",
+          "value": 61
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "73",
+        "classification": {
+          "type": "CORRECT",
+          "value": 73
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "73",
+        "classification": {
+          "type": "CORRECT",
+          "value": 73
+        }
+      },
+      {
+        "inputs": {
+          "a": 8,
+          "b": -3
+        },
+        "expected": 73,
+        "raw_output": "73",
+        "classification": {
+          "type": "CORRECT",
+          "value": 73
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "100",
+        "classification": {
+          "type": "CORRECT",
+          "value": 100
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "100",
+        "classification": {
+          "type": "CORRECT",
+          "value": 100
+        }
+      },
+      {
+        "inputs": {
+          "a": -6,
+          "b": -8
+        },
+        "expected": 100,
+        "raw_output": "100",
+        "classification": {
+          "type": "CORRECT",
+          "value": 100
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "85",
+        "classification": {
+          "type": "CORRECT",
+          "value": 85
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "85",
+        "classification": {
+          "type": "CORRECT",
+          "value": 85
+        }
+      },
+      {
+        "inputs": {
+          "a": 2,
+          "b": 9
+        },
+        "expected": 85,
+        "raw_output": "85",
+        "classification": {
+          "type": "CORRECT",
+          "value": 85
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "65",
+        "classification": {
+          "type": "CORRECT",
+          "value": 65
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "65",
+        "classification": {
+          "type": "CORRECT",
+          "value": 65
+        }
+      },
+      {
+        "inputs": {
+          "a": -7,
+          "b": 4
+        },
+        "expected": 65,
+        "raw_output": "65",
+        "classification": {
+          "type": "CORRECT",
+          "value": 65
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "136",
+        "classification": {
+          "type": "CORRECT",
+          "value": 136
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "136",
+        "classification": {
+          "type": "CORRECT",
+          "value": 136
+        }
+      },
+      {
+        "inputs": {
+          "a": 10,
+          "b": -6
+        },
+        "expected": 136,
+        "raw_output": "136",
+        "classification": {
+          "type": "CORRECT",
+          "value": 136
+        }
+      }
+    ],
+    "summary": {
+      "CORRECT": 30
+    },
+    "echo_rate": 0.0,
+    "partial_rate": 0.0,
+    "correct_rate": 1.0
+  }
+}

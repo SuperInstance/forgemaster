@@ -1,380 +1,740 @@
 # Wheel of Discovery
 
-> A generative system. Every answered question opens new questions. Every experiment is a spoke that connects to others. The wheel spins because the fleet evolves.
-
-## How to Read This
-
-Each SPOKE is:
-- **Q:** The question (one sentence, experimentally answerable)
-- **GROUND:** What we already know that makes this question matter
-- **EXP:** The concrete experiment
-- **IF A:** What we build if result goes one way
-- **IF B:** What we build if it goes the other way
-- **→ NEXT:** The spoke this answer connects to
+> **Not a document. A generative system.**
+> Every answer here opens the next question. Every experiment changes what we build.
+> Date: 2026-05-14 | Grounded in: Campaigns A–D, Exp X, DEEP-RESULTS, RESULTS
 
 ---
 
-## Spoke 1: The Scale Boundary
+## The Hub: What We Actually Know
 
-**Q:** Where does self-organization break?
+Before the spokes, the fixed point — what the data has confirmed hard enough to build on:
 
-**GROUND:** Exp 7 showed perfect 6/6 coverage with 3 agents. But Exp 7 is trivially small. Real fleet has 9+.
+| Confirmed Truth | Evidence |
+|----------------|----------|
+| DO/DATA/DONE is the execution atom | DEEP Exp 1, RESULTS Exp 1 |
+| CHAIN/CLAIM/ORDER is the planning atom | DEEP Exp 2 |
+| REGISTRY > TERRAIN > BROADCAST for discovery | DEEP Exp 4 |
+| Agents self-organize without frameworks | RESULTS Exp 7: 6/6, 2/2/2, zero duplicates |
+| 78% token savings via two-phase retrieval | Campaign B |
+| 80% of declared capabilities are false | Campaign A |
+| Terrain weighting is invisible at 33% baseline | Campaign C |
+| FLUX requires opcode context to match NL | Campaign D |
+| Personas are domain-specific modulators, not routers | Experiment X |
+| More context can hurt execution | DEEP Exp 2: JIT scored 0.5 lower |
+| Perspectives improve retrieval by 2× | RESULTS Exp 1: 3.0/3 vs 1.5/3 |
 
-**EXP:** Scale from 3→20 agents, 6→200 tasks. Measure coverage, load balance, duplicate rate.
-
-**RESULT:** Coverage drops below 95% at 3 agents/6 tasks (83%). Never recovers. Imbalance grows with scale (3.5 at 5 agents/50 tasks). Self-organization DEGRADES with scale.
-
-**IF A (breaks at N):** Need coordinator above N agents. Build lightweight task dispatcher. → **Spoke 9**
-**IF B (never breaks):** Kill coordinator concept. Pure self-organization scales. → **Spoke 3**
-
-**→ NEXT:** Spoke 9 (what coordination mechanism?), Spoke 3 (does it hold with real models?)
-
-**PHASE TRANSITION:** If self-org breaks at <10 agents → the fleet MUST have a dispatcher. If it holds past 20 → coordinators are waste.
-
----
-
-## Spoke 2: The Asymmetric Verification Paradox
-
-**Q:** Can cheap models verify expensive model outputs?
-
-**GROUND:** Campaign A showed single-agent verification fails (80%). But we never tested whether a 0.6B model can CHECK a 200B model's math. If yes → verification at 1/100th cost. If no → verification is as expensive as generation.
-
-**EXP:** GLM-5-turbo generates answers. qwen3:0.6b verifies. Compare with phi4-mini verifying. Same claims, different verification cost.
-
-**IF A (cheap CAN verify):** Build tiered pipeline — generate with expensive, verify with cheap. → **Spoke 10**
-**IF B (cheap CAN'T verify):** Verification cost = generation cost. Rethink the whole approach. → **Spoke 6**
-**IF C (cheap over-verifies):** Cheap model says everything is true. Need calibration. → **Spoke 11**
-
-**→ NEXT:** Spoke 10 (tiered pipeline), Spoke 6 (cost modeling), Spoke 11 (calibration)
-
-**PHASE TRANSITION:** If cheap models CAN verify → the fleet gets verification at near-zero cost. The entire verification layer (Layer 3) becomes trivially cheap.
+**These are the spokes' starting points, not their destinations.**
 
 ---
 
-## Spoke 3: The Real-Model Variation Test
+## The Spokes
 
-**Q:** Does self-organization hold when agents have REAL model variation (not simulated)?
-
-**GROUND:** Spoke 1 showed self-organization degrades in simulation. But simulation assumed uniform random capability matching. Real agents have DIVERSE, NON-UNIFORM capabilities. Forgemaster is excellent at math, terrible at music. This specialization might HELP or HURT.
-
-**EXP:** 3 different models (qwen3:0.6b, phi4-mini, qwen3:4b) each get 6 real tasks. They self-select. Measure: coverage, load balance, accuracy.
-
-**IF A (specialization HELPS):** Agents naturally sort to their strengths. Coverage improves. → **Spoke 1** (re-run with real specialization)
-**IF B (specialization HURTS):** Agents avoid hard tasks, cluster on easy ones. Coverage drops. → **Spoke 9** (need forced assignment)
-
-**→ NEXT:** Spoke 1 (refined), Spoke 9 (dispatcher design)
-
-**PHASE TRANSITION:** If real specialization beats simulated uniformity → self-organization works better than we think. The Exp 7 result was UNDER-estimating the effect.
+Each spoke is a question we DON'T know the answer to,
+grounded in evidence we DO have,
+answerable by a concrete experiment.
 
 ---
 
-## Spoke 4: The Conflict Resolution Mechanism
+### SPOKE 1 — The Grammar Stability Question
 
-**Q:** What happens when two agents produce genuinely different answers to the same task?
+**QUESTION:** Does DO/DATA/DONE remain the correct execution atom when DATA must flow through 5+ chain steps, accumulating each predecessor's output as input?
 
-**GROUND:** Exp 7 had zero conflicts (perfect agreement). Campaign A had 1 conflict (phi4-mini said NO to a correct claim). But we've never INJECTED a real conflict — two agents both confident, both producing different results.
+**GROUNDING:** DEEP Exp 2 tested a 5-task chain but only evaluated the *final* step. It confirmed that stream context (just the previous output) matched full-graph context for the terminal agent. But the intermediate steps were never evaluated independently. The finding is valid for step N. It's untested for steps N-2, N-3.
 
-**EXP:** Give the same verification task to 3 agents. One agent gets a subtly corrupted prompt (wrong formula). Measure: does the fleet detect the conflict? Does PBFT resolve it correctly? How many votes does the corrupted agent sway?
-
-**IF A (PBFT catches it):** Consensus layer works. Build it. → **Spoke 12**
-**IF B (PBFT misses it):** Consensus layer is insufficient. Need stronger verification. → **Spoke 2** (asymmetric verification)
-**IF C (corrupted agent sways others):** Contagion risk. Need quarantine mechanism. → **Spoke 13**
-
-**→ NEXT:** Spoke 12 (PBFT deployment), Spoke 2 (verification depth), Spoke 13 (quarantine)
-
-**PHASE TRANSITION:** If corruption spreads through voting → the fleet is vulnerable to adversarial agents. Security architecture changes fundamentally.
-
----
-
-## Spoke 5: The DATA Sufficiency Boundary
-
-**Q:** How much DATA is enough for DO/DATA/DONE?
-
-**GROUND:** Exp 1 showed DATA matters more than FORMAT. But we never tested the MINIMUM. If 20 tokens of DATA works as well as 120 tokens → tiles can be 6× smaller → 6× more tiles per PLATO room.
-
-**RESULT:** Minimum sufficient = Level 2 (formula + inputs, ~35 tokens, 67%). Full worked = Level 5 (120 tokens, 100%). **Level 3 (partial worked, showing intermediate steps but not the answer) crashed to 0%** — the model tried to "correct" the provided intermediates and got confused.
-
-**IF A (cliff at level 2):** Optimize tiles to formula + inputs. 35 tokens per task. → **Spoke 6**
-**IF B (needs full worked):** Tiles must contain complete solutions. Higher cost. → **Spoke 7**
-
-**→ NEXT:** Spoke 6 (token budget), Spoke 7 (task-type templates)
-
-**KEY FINDING:** Partial data is WORSE than no data. The model tries to fix what it sees as errors in partial worked examples. Either give it nothing (formula name only) or everything (full worked). The middle is a death zone.
-
----
-
-## Spoke 6: The Token Budget Calculator
-
-**Q:** What's the optimal token budget per task type?
-
-**GROUND:** Spoke 5 showed the DATA cliff (67% at 35 tokens, 100% at 120 tokens). Campaign B showed 78% token savings from hierarchical retrieval. But we've never combined them — what's the TOTAL token budget for a task lifecycle?
-
-**EXP:** For 5 task types (computation, verification, classification, generation, reasoning), measure: minimum DATA for each, retrieval cost, verification cost. Sum = total lifecycle cost per task type.
-
-**IF A (computation is cheap, reasoning is expensive):** Tiered pricing. Simple tasks at 35 tokens, complex at 200+. → **Spoke 8**
-**IF B (all types cost the same):** Flat budget. Simplify the architecture. → **Spoke 5**
-
-**→ NEXT:** Spoke 8 (tiered budget system), Spoke 5 (refined per-type)
-
-**PHASE TRANSITION:** If computation costs 35 tokens but reasoning costs 500+ → the fleet's task mix determines its operating cost. Budget becomes a routing constraint.
-
----
-
-## Spoke 7: The Partial-Data Death Zone
-
-**Q:** Why does partial worked data (Level 3) score 0% while full worked (Level 4) scores 67%?
-
-**GROUND:** Spoke 5 showed Level 3 (a²=16, ab=-8, b²=4 but NOT the sum) crashed to 0%. Every trial the model either "corrected" the formula or misinterpreted the partial intermediates.
-
-**EXP:** Systematically vary what's included vs excluded in partial DATA. Test: does including the answer (28) in the DATA prevent the crash? Does showing the sum but not the inputs work? Map the exact boundary of the death zone.
-
-**IF A (missing answer is the trigger):** Always include the expected answer in DATA. → **Spoke 5**
-**IF B (intermediate steps cause confusion):** Never show intermediate steps. Formula → answer, nothing in between. → **Spoke 5**
-**IF C (it's model-specific):** Different models have different death zones. Need per-model templates. → **Spoke 8**
-
-**→ NEXT:** Spoke 5 (DATA design), Spoke 8 (model-specific templates)
-
-**PHASE TRANSITION:** If the death zone is universal (all models break on partial data) → there's a fundamental principle about how LLMs process incomplete information. Publish this.
-
----
-
-## Spoke 8: The Model-Specific Template System
-
-**Q:** Does the DATA cliff move between models?
-
-**GROUND:** Spoke 5 was tested on phi4-mini only. Campaign D showed FLUX performance varies by model familiarity. Campaign C showed terrain weighting varies by model accuracy. Every optimization we've tested is MODEL-DEPENDENT.
-
-**EXP:** Run Spoke 5 (DATA sufficiency) on 3 different models. Does the minimum sufficient level change? Does the death zone move?
-
-**IF A (cliff is same across models):** Universal template. One size fits all. → **Spoke 6**
-**IF B (cliff varies by model):** Per-model templates. Fleet registry stores template preference. → **Spoke 9**
-**IF C (some models have no cliff):** Model quality eliminates the DATA problem entirely. → **Spoke 2**
-
-**→ NEXT:** Spoke 6 (universal budget), Spoke 9 (model-aware routing), Spoke 2 (asymmetric verification)
-
-**PHASE TRANSITION:** If model quality eliminates the DATA problem → stop optimizing DATA. Just use better models. The entire tile-perspective system becomes about retrieval, not sufficiency.
-
----
-
-## Spoke 9: The Minimal Coordinator
-
-**Q:** What's the minimum coordination that fixes self-organization's scale failure?
-
-**GROUND:** Spoke 1 showed self-organization degrades past 3 agents. But we don't know WHY. Is it lack of information? Lack of communication? Or is greedy selection fundamentally flawed at scale?
-
-**EXP:** Add ONE coordination mechanism at a time to the self-organization simulation:
-1. Visibility: agents see what others have claimed
-2. Bidding: agents declare interest before claiming
-3. Fairness: round-robin assignment after initial selection
-4. Blackboard: shared task board with real-time status
-
-**IF A (visibility alone fixes it):** Just add a shared task board. Cheapest fix. → **Spoke 12**
-**IF B (bidding fixes it):** Need a lightweight auction protocol. Medium cost. → **Spoke 10**
-**IF C (fairness fixes it):** Need a round-robin dispatcher. Higher cost but simple. → **Spoke 11**
-**IF D (nothing fixes it):** Self-organization is fundamentally limited. Central coordination required. → **Spoke 14**
-
-**→ NEXT:** Spoke 12 (task board), Spoke 10 (auction), Spoke 11 (dispatcher), Spoke 14 (central coordinator)
-
-**PHASE TRANSITION:** If visibility alone fixes scaling → the fleet only needs a shared PLATO room as task board. No new infrastructure. The simplest possible coordination.
-
----
-
-## Spoke 10: The Tiered Verification Pipeline
-
-**Q:** Does a generate-then-verify pipeline with different-cost models work?
-
-**GROUND:** Spoke 2 asks if cheap CAN verify. Spoke 10 assumes YES and asks: does the PIPELINE work end-to-end? Generate with expensive model, verify with cheap, escalate disputes to medium.
-
-**EXP:** Full pipeline: GLM-5-turbo generates → qwen3:0.6b verifies → if dispute → phi4-mini arbitrates. Measure: accuracy, cost (tokens × model price), latency.
-
-**IF A (pipeline works):** Deploy tiered verification. 90% of tasks verified cheaply. → **Spoke 12**
-**IF B (pipeline fails):** Verification can't be delegated down. Need same-cost verification. → **Spoke 6**
-**IF C (escalation resolves disputes):** The three-tier model works. Build it. → **Spoke 13**
-
-**→ NEXT:** Spoke 12 (deployment), Spoke 6 (cost), Spoke 13 (conflict resolution)
-
-**PHASE TRANSITION:** If tiered verification works → the fleet can run verification at 10% of generation cost. The entire Layer 3 becomes economically viable.
-
----
-
-## Spoke 11: The Calibration Curve
-
-**Q:** What's the relationship between model size and verification accuracy?
-
-**GROUND:** Campaign A (phi4-mini) got 33%. We haven't tested any other model on the same claims. The verification layer is useless until we know which models can verify.
-
-**EXP:** Run Campaign A's verification test on 4 models: qwen3:0.6b, qwen3:4b, phi4-mini, GLM-5-turbo. Plot accuracy vs model size. Find the minimum model size for 60% verification accuracy.
-
-**IF A (linear: bigger = better):** Verification quality scales with model size. Budget accordingly. → **Spoke 6**
-**IF B (threshold: nothing below X, everything above):** Minimum viable model size. Use that. → **Spoke 2**
-**IF C (inverted: smaller models verify better):** Smaller models are more literal, less prone to over-thinking. Use cheap models. → **Spoke 10**
-
-**→ NEXT:** Spoke 6 (budget), Spoke 2 (asymmetric), Spoke 10 (pipeline)
-
-**PHASE TRANSITION:** If there's a sharp threshold → model selection for verification is binary. Above the line, verify. Below, don't. Simple rule.
-
----
-
-## Spoke 12: The Task Board Protocol
-
-**Q:** Can a PLATO room serve as a real-time task board for fleet coordination?
-
-**GROUND:** Spoke 9 asks what coordination fixes scaling. Spoke 12 assumes "visibility" (shared task board) and asks: can PLATO rooms DO this? Tiles are immutable. Tasks need state transitions (pending → claimed → done). Can we use tile supersession for state?
-
-**EXP:** Implement task board as PLATO room. Tasks start as Active tiles. When claimed, agent submits Superseding tile with "claimed by X" metadata. When done, another Superseding tile with result. Measure: does the supersession chain stay coherent? How many tiles per task lifecycle?
-
-**IF A (supersession works):** PLATO rooms are sufficient. No new infrastructure. → **Spoke 14**
-**IF B (supersession is too slow):** Need a faster state store. Redis? SQLite? → **Spoke 13**
-**IF C (supersession chain breaks):** Immutability conflicts with task state. Need a different model. → **Spoke 14**
-
-**→ NEXT:** Spoke 14 (production system), Spoke 13 (state management)
-
-**PHASE TRANSITION:** If PLATO rooms can serve as task boards → no new infrastructure for coordination. The fleet runs entirely on PLATO + agents. Minimum viable fleet.
-
----
-
-## Spoke 13: The Quarantine Protocol
-
-**Q:** How do we detect and isolate an agent that's producing subtly wrong results?
-
-**GROUND:** Spoke 4 asks about conflict detection. Spoke 13 asks about the HARDER case: an agent that's not obviously wrong, just slightly off. N(3,-1)=12 instead of 13. Close enough to pass casual review, wrong enough to corrupt downstream results.
-
-**EXP:** Inject a "subtly wrong" agent into a 5-agent fleet. The wrong agent produces answers that are off by 1-2 on a 2-digit number. Measure: how many rounds before the fleet detects the pattern? Does PBFT voting catch it? Does terrain-weighted voting help?
-
-**IF A (PBFT catches it within 3 rounds):** Consensus is sufficient. Build it. → **Spoke 12**
-**IF B (requires statistical analysis):** Need anomaly detection on verification votes. More complex. → **Spoke 11**
-**IF C (never caught):** Subtle errors are undetectable by consensus. Need a different approach (provenance, audit trails). → **Spoke 14**
-
-**→ NEXT:** Spoke 12 (deployment), Spoke 11 (calibration), Spoke 14 (audit system)
-
-**PHASE TRANSITION:** If subtle errors are never caught by voting → the verification layer has a blind spot. The fleet needs a fundamentally different approach to quality assurance. This would be a negative result that changes the architecture.
-
----
-
-## Spoke 14: The End-to-End Fleet Test
-
-**Q:** Does the full architecture (registry + task atoms + self-org + verification) work as an integrated system?
-
-**GROUND:** Every spoke tests one component. Spoke 14 tests the SYSTEM. No individual component has been tested in combination with all others.
-
-**EXP:** Full fleet simulation: 5 agents register in fleet-registry. 20 tasks arrive as DO/DATA/DONE atoms. Agents self-select via task board. Results verified by PBFT. Measure: end-to-end accuracy, cost, latency, failure modes.
-
-**IF A (system works at 80%+ accuracy):** Ship it. Start production deployment. → **DONE**
-**IF B (system works but expensive):** Optimize. Identify the expensive component. → **Spoke 6**
-**IF C (system fails at integration):** The components don't compose. Need architectural changes. → **Spoke 1** (restart)
-
-**→ NEXT:** DONE (ship) or Spoke 6 (optimize) or Spoke 1 (restart)
-
-**PHASE TRANSITION:** This is the FINAL spoke. If the system works end-to-end → we're done building and start deploying. If it fails → we loop back to whatever spoke the failure points to.
-
----
-
-## The Wheel Map
-
+**EXPERIMENT:**
 ```
-Spoke 1 (Scale) ─────────────────→ Spoke 9 (Coordinator)
-    │                                  │
-    ↓                                  ↓
-Spoke 3 (Real Models)           Spoke 12 (Task Board)
-    │                                  │
-    ↓                                  ↓
-Spoke 4 (Conflicts) ──────────→ Spoke 13 (Quarantine)
-    │                                  │
-    ↓                                  ↓
-Spoke 2 (Asymmetric Verify) → Spoke 10 (Pipeline) → Spoke 14 (End-to-End)
-    │                                                      │
-    ↓                                                      ↓
-Spoke 11 (Calibration)         ───── DONE (Ship it!) ────→ or LOOP BACK
-    │
-    ↓
-Spoke 5 (DATA Boundary) → Spoke 7 (Death Zone) → Spoke 8 (Model Templates)
-    │
-    ↓
-Spoke 6 (Token Budget) ───────→ feeds into ALL spokes (cost constraint)
+Design: 10-step computational chain (Eisenstein coordinate transforms)
+Conditions:
+  A. Pure stream: each agent sees only immediate predecessor output
+  B. Accumulating DATA: each agent's DONE output is verbatim appended to next DATA field
+  C. Compressed DATA: a summarizer agent distills accumulation every 3 steps
+  D. Full graph: every agent sees all prior outputs
+
+Measure:
+  - Error rate at each step (not just final)
+  - Error ACCUMULATION: does step 5 error rate predict step 10 rate?
+  - Where in the chain does performance first drop below 70%?
 ```
 
-## Spoke Priority (Which to Run First)
+**OUTCOMES:**
+- **If stream degrades past step 5:** The grammar needs a DATA-refresh primitive — a normalization step that re-anchors floating-point DATA before it drifts into noise. Build it.
+- **If stream holds all 10 steps:** The atom is stable. Ship it. The 5-step bound in DEEP Exp 2 was not a limit, just a sample.
+- **If accumulation (B) outperforms stream (A):** The grammar is wrong about what DATA means — it's not just immediate inputs, it's provenance. Every DONE must carry its own DATA as metadata.
 
-| Priority | Spoke | Why | Blocks |
-|----------|-------|-----|--------|
-| **1** | Spoke 5 | DATA boundary determines tile design | Everything |
-| **2** | Spoke 9 | Minimum coordinator determines fleet architecture | Spoke 12, 14 |
-| **3** | Spoke 2 | Asymmetric verification determines Layer 3 cost | Spoke 10, 11 |
-| **4** | Spoke 1 | Scale boundary validates/in validates coordinator | Spoke 9 |
-| **5** | Spoke 11 | Calibration curve determines model selection | Spoke 2, 10 |
-| **6** | Spoke 4 | Conflict resolution design | Spoke 12, 13 |
-| **7** | Spoke 3 | Real-model self-organization | Spoke 9, 14 |
-| **8** | Spoke 7 | Death zone characterization (fascinating but not blocking) | Spoke 5, 8 |
-| **9** | Spoke 8 | Model-specific templates (follows from 5 and 7) | Spoke 6 |
-| **10** | Spoke 6 | Token budget calculator (optimization, not foundation) | Spoke 14 |
-| **11** | Spoke 10 | Tiered pipeline (follows from 2 and 11) | Spoke 14 |
-| **12** | Spoke 12 | Task board protocol (follows from 9) | Spoke 14 |
-| **13** | Spoke 13 | Quarantine (security layer, follows from 4) | Spoke 14 |
-| **14** | Spoke 14 | End-to-end test (runs LAST, validates everything) | SHIPPING |
+**NEXT QUESTION IT OPENS → SPOKE 14: The DONE-to-DATA Fidelity Question**
 
 ---
 
-## Results So Far
+### SPOKE 2 — The Verification Depth Question
 
-| Spoke | Status | Key Finding |
-|-------|--------|-------------|
-| **1** | ✅ RUN | Self-org degrades at ALL scales (83% at 3 agents). Need coordinator. |
-| **5** | ✅ RUN | Minimum sufficient DATA = formula + inputs (~35 tokens, 67%). Partial worked data = DEATH ZONE (0%). Full worked + context = 100%. |
+**QUESTION:** What is the minimum number of independent cross-verifiers needed to reliably catch hallucination, and does that number depend on the task type?
 
-*12 spokes remaining. Every result changes what we build next. The wheel spins.*
+**GROUNDING:** Campaign A — PhiMini passed 2/2 direct verification tests, then failed a differently-framed cross-check. Single-agent verification is insufficient. DEEP Exp 4 showed broadcast fails spectacularly (agent claims capability without qualification). PBFT requires 2f+1 for Byzantine fault tolerance — but that assumes *any* agent can verify *any* claim, which Campaign A contradicts. Terrain-proximate agents may be better verifiers.
+
+**EXPERIMENT:**
+```
+Design: 15 specific mathematical claims (5 easy, 5 medium, 5 hard)
+Conditions per claim:
+  1-verifier: one agent cross-checks
+  2-verifiers: majority of 2 (unanimous required)
+  3-verifiers: majority of 3 (f+1 = 2 agree)
+  5-verifiers: PBFT quorum (2f+1 = 4 agree)
+
+Vary verifier type:
+  A. Same model verifying
+  B. Different model family verifying
+  C. Domain-proximate vs domain-distant verifiers
+
+Measure:
+  - Accuracy vs gold truth at each depth
+  - Marginal accuracy gain from N → N+1 verifiers
+  - Where does the accuracy curve flatten?
+```
+
+**OUTCOMES:**
+- **If 2 verifiers match 5:** Cheap verification is possible. Build a "dual-verifier" default with full PBFT only for CAUSAL reasoning types. This halves verification cost.
+- **If accuracy keeps climbing past 5:** Full PBFT is mandatory. Every fleet deployment needs ≥5 agents just for verification quorum. Minimum fleet size is now a hard constraint.
+- **If domain-proximity matters for verifiers:** Terrain is not just a routing tiebreaker — it's a verification quality signal. Spoke 3 becomes urgent.
+
+**NEXT QUESTION IT OPENS → SPOKE 9: The Capability Decay Question**
 
 ---
 
-*This document is alive. Every experiment result updates it. Every spoke that gets answered connects to the next. The wheel doesn't stop until the fleet ships.*
+### SPOKE 3 — The Terrain Threshold Question
+
+**QUESTION:** At what model baseline accuracy does terrain-weighted voting first produce a measurably different outcome from uniform voting?
+
+**GROUNDING:** Campaign C — terrain weighting produced zero different outcomes at 33% baseline. CCC scored 80% on infrastructure claims when terrain-close (dist ≤ 2) vs 44% overall. The signal exists but is invisible at current model quality. Campaign C's own recommendation: test with GLM-5-turbo or similar. This is the one falsified hypothesis that might *unfalsify* — but only at a different layer.
+
+**EXPERIMENT:**
+```
+Design: Replicate Campaign C with 4 models at different baseline capabilities
+Models (ascending capability):
+  A. phi4-mini: ~33% baseline (current data)
+  B. qwen3:4b (with /no_think): ~TBD
+  C. GLM-5-turbo (non-reasoning): ~TBD
+  D. phi4 (full): ~TBD
+
+Same 9 claims, same 4 domains, same terrain layout.
+
+Measure per model:
+  - Uniform voting accuracy
+  - Terrain-weighted voting accuracy
+  - Delta (when does terrain start moving the needle?)
+  - CCC-style domain proximity effect magnitude
+
+Find: the accuracy threshold where terrain weighting first differs from uniform.
+```
+
+**OUTCOMES:**
+- **If threshold is ≥70%:** Terrain is a late-game optimization. Don't build terrain weighting until registry verification shows agents at 70%+. Everything before that is wasted infrastructure.
+- **If threshold is ≥40%:** We're closer than we think. Start building terrain infrastructure now.
+- **If threshold depends on domain (not overall baseline):** Terrain should be activated *per-domain*, not globally. A fleet might use terrain for math and ignore it for infra on the same hardware.
+
+**NEXT QUESTION IT OPENS → SPOKE 7: The Domain Template Question**
 
 ---
 
-## Session Results (2026-05-14)
+### SPOKE 4 — The Context Poisoning Question
 
-| Spoke | Status | Key Finding | Impact |
-|-------|--------|-------------|--------|
-| **1** | ✅ RUN | Self-org degrades at ALL scales (83% max) | Coordinator REQUIRED |
-| **4** | ✅ RUN | PBFT consensus works; corruption is self-revealing | Build consensus layer |
-| **5** | ✅ RUN | Min DATA = formula + inputs (~35 tokens, 67%) | Tile budget set |
-| **7** | ✅ RUN | **THE DEATH ZONE**: partial data = 0%, correct answer = 100%, wrong answer propagates | Publishable discovery |
-| **9** | ✅ RUN | Round-robin = 94% coverage (minimal coordinator) | Fleet coordination design |
-| **11** | ✅ RUN | phi4-mini conservative (100% on FALSE, 0% on TRUE); qwen3 can't speak | Need better verifier |
-| **12** | ✅ RUN | PLATO reads work, writes need Oracle1 internal path | Local SQLite fallback |
+**QUESTION:** Does irrelevant context hurt more as chains get longer — and if so, is there a chain depth at which even stream context becomes harmful?
 
-### The Death Zone (Spoke 7) — The Session's Discovery
+**GROUNDING:** DEEP Exp 2 — the JIT condition (chain summary added) scored 0.5 lower than stream context because the summary "introduced irrelevant abstractions that distracted from the simple distance calculation." Stream context, which passes only the immediate predecessor output, matched full-graph context. The finding was at step 5 of a 5-step chain. What happens at step 15?
 
-The most important finding. There is a region in DATA-space where more information makes the model LESS accurate:
-
+**EXPERIMENT:**
 ```
-Less info → 67% (model computes)
-Middle info (partial steps) → 0% (DEATH ZONE)
-More info (full worked + answer) → 100% (model trusts)
-Wrong info → 0% (model propagates error)
-```
+Design: Chains of length 3, 7, 15, 30 steps
+Each step is a valid computation that PRODUCES output the next step COULD use.
 
-This is not diminishing returns. It's active harm from partial information. The model treats intermediates as "corrections" to the formula and re-derives everything incorrectly.
+Condition A (clean stream): each agent sees only immediate predecessor output
+Condition B (noisy stream): each agent sees output + one irrelevant chain step
+Condition C (growing stream): each agent sees all prior outputs (accumulates)
 
-**Tile design rule:** DATA is binary — either minimal (formula + inputs) or complete (full worked + answer). Never partial.
-
-### Spoke Connections Discovered
-
-```
-Spoke 7 (Death Zone) ─── explains ───→ Spoke 5 (DATA cliff)
-Spoke 4 (Consensus) ─── validates ───→ Spoke 9 (Round-robin coordinator)
-Spoke 11 (Calibration) ─── gates ───→ Spoke 2 (Asymmetric verification)
-Spoke 12 (Task Board) ─── blocked by ───→ PLATO gate endpoints
+Measure:
+  - Task accuracy at each chain length
+  - Which condition degrades first?
+  - At what chain length does stream context (A) start to degrade?
+  - Token count vs accuracy curve
 ```
 
-### Remaining Spokes (7 of 14)
+**OUTCOMES:**
+- **If stream (A) degrades past length 7:** The architecture needs a DATA normalization layer at fixed intervals. "Reset points" that strip accumulated context and re-anchor from the original task.
+- **If stream (A) holds to length 30:** The stream context model is robust. The JIT finding in DEEP Exp 2 was specifically about *conceptual abstractions* being harmful, not about chain length.
+- **If noisy stream (B) degrades much faster than clean stream (A):** Context injection attacks are viable. Fleet security model needs a DATA purity requirement: no unsigned injections into the DATA field.
 
-| Priority | Spoke | Question |
-|----------|-------|----------|
-| **1** | **2** | Can cheap models verify expensive outputs? |
-| **2** | **3** | Does real model specialization help self-organization? |
-| **3** | **6** | Token budget per task type? |
-| **4** | **8** | Does the Death Zone move between models? |
-| **5** | **10** | Does tiered verification pipeline work? |
-| **6** | **13** | Can we detect subtly wrong agents? |
-| **7** | **14** | End-to-end fleet integration test |
+**NEXT QUESTION IT OPENS → SPOKE 1: The Grammar Stability Question** (the rim closes here)
 
-*7 spokes remain. The Death Zone is the session's discovery. The wheel keeps spinning.*
+---
+
+### SPOKE 5 — The FLUX Crossover Question
+
+**QUESTION:** How many FLUX examples in context does an agent need before FLUX encoding matches or beats natural language, and can that threshold be met by a system prompt alone?
+
+**GROUNDING:** Campaign D — FLUX scored 40% vs NL's 50%. But FLUX matched NL on medium/hard tasks where the prompt included a glossary. The glossary cost ~100 tokens. At 1000+ tasks/day, FLUX offers 50× compression. The question is whether the 100-token glossary can be front-loaded into a system prompt (paid once per session, not per task).
+
+**EXPERIMENT:**
+```
+Design: 30 tasks (10 easy, 10 medium, 10 hard)
+
+Conditions:
+  A. Zero FLUX context: raw FLUX opcodes, no explanation
+  B. 5-example context: 5 worked FLUX examples in system prompt
+  C. 10-example context: 10 worked examples
+  D. 20-example context: 20 worked examples
+  E. Full glossary: current Campaign D condition (100-token glossary)
+  F. Natural language baseline
+
+Measure:
+  - Accuracy per condition
+  - Crossover point (where FLUX first matches NL)
+  - System prompt token cost vs per-task token savings
+  - ROI: break-even task count
+```
+
+**OUTCOMES:**
+- **If crossover at 10 examples (~150 tokens system prompt):** FLUX becomes viable at ~7 tasks/session to break even. For long-running agents (100+ tasks), FLUX is the correct default encoding.
+- **If crossover requires 20+ examples:** FLUX is only worth it for agents running 50+ tasks/session. Rare for current fleet size.
+- **If FLUX never crosses NL even with full glossary:** Campaign D was wrong about the medium/hard parity. FLUX is dead. Kill it everywhere. The 50× compression claim is irrelevant if accuracy is below NL.
+
+**NEXT QUESTION IT OPENS → SPOKE 8: The DATA Precision Floor Question**
+
+---
+
+### SPOKE 6 — The Self-Organization Collapse Question
+
+**QUESTION:** What is the maximum task room size (tasks × agents) at which emergent self-organization remains reliable, and what failure mode appears first?
+
+**GROUNDING:** RESULTS Exp 7 — 6 tasks, 3 agents, perfect result (6/6, 2/2/2 load, zero duplicates). But this is the most controlled possible condition. Real fleet rooms will have 20+ tasks, agents with overlapping skills, ambiguous task descriptions, and no guaranteed persona alignment. The experiment didn't test any of these stress conditions.
+
+**EXPERIMENT:**
+```
+Phase 1 — Scale tasks:
+  6 tasks / 3 agents (baseline from Exp 7)
+  12 tasks / 3 agents
+  20 tasks / 3 agents
+  50 tasks / 3 agents
+
+Phase 2 — Scale agents:
+  6 tasks / 6 agents (more agents than optimal)
+  6 tasks / 2 agents (undercapacity)
+
+Phase 3 — Ambiguity:
+  6 tasks / 3 agents, but 2 tasks could belong to any persona
+  6 tasks / 3 agents, but agent personas partially overlap
+
+Measure per condition:
+  - Task coverage (were all tasks attempted?)
+  - Duplication rate (same task by two agents)
+  - Load balance (tasks per agent)
+  - Time to first pickup (tasks left unclaimed)
+```
+
+**OUTCOMES:**
+- **If failure appears at 12+ tasks:** Self-organization needs a coordinator tile once rooms exceed ~10 tasks. The COORDINATION tile is not optional above this threshold.
+- **If failure appears through ambiguity (not scale):** Task descriptions need a mandatory "domain tag" field. The self-organization failure mode is semantic, not quantitative. Build a task taxonomy.
+- **If duplication is the failure mode (not gaps):** Agents need a "claim-and-lock" primitive — a simple mechanism to mark a task in progress before executing. This is the fleet's concurrency primitive.
+
+**NEXT QUESTION IT OPENS → SPOKE 12: The Orchestration Trigger Question**
+
+---
+
+### SPOKE 7 — The Domain Template Prediction Question
+
+**QUESTION:** Which properties of a domain predict whether persona framing helps, hurts, or is neutral — and can an agent classify its own task domain before choosing a framing?
+
+**GROUNDING:** Experiment X — math persona: +38%, music persona: -38%, infra persona: ±0%. The aggregate was 0% (cancellation), hiding the structure. The hypothesis: persona helps in domains requiring *precise symbolic reasoning* and hurts in domains where the model has *strong but inaccurate priors* (it "knows" music exists but doesn't know Eisenstein norm properties the same way).
+
+**EXPERIMENT:**
+```
+Design: 10 distinct domains (math, music, infra, biology, law, geography,
+        history, physics, code, NLP)
+
+For each domain:
+  - 6 tasks (2 easy, 2 medium, 2 hard)
+  - Compare: persona-framed vs neutral framing
+
+Analyze:
+  - Positive persona domains (persona helps): what do they share?
+  - Negative persona domains (persona hurts): what do they share?
+  - Neutral domains: are they high-confidence or low-confidence?
+
+Classify domains by:
+  - Symbolic vs semantic reasoning
+  - Model confidence (does the model hedge?)
+  - Training data density (proxy: query perplexity)
+```
+
+**OUTCOMES:**
+- **If positive domains cluster around "symbolic precision":** Build a `reasoning_type: SYMBOLIC` field on tiles. SYMBOLIC tasks get persona framing by default; SEMANTIC tasks don't. This is a 2-line change to task routing with Experiment X's 38% improvement locked in.
+- **If negative domains cluster around "high model confidence + wrong priors":** The correct fix is *calibration*, not templates. Agents need to self-report confidence. A miscalibrated-confident model shouldn't use persona framing for its overconfident domain.
+- **If no pattern:** Domain templates are ungeneralizable. Maintain a manual whitelist (math: YES, music: NO). Start with 3 entries and add evidence before expanding.
+
+**NEXT QUESTION IT OPENS → SPOKE 3: The Terrain Threshold Question** (terrain may correlate with template effect)
+
+---
+
+### SPOKE 8 — The DATA Precision Floor Question
+
+**QUESTION:** Is there a minimum level of DATA specificity below which task accuracy collapses, and does a worked example in DATA outperform a formula alone?
+
+**GROUNDING:** DEEP Exp 1 — DO/NEED/DONE with NEED as "where to find the formula" failed the same as raw task. DO/DATA/DONE with DATA as the actual formula improved quality. But the experiments tested the *presence* of data, not the *level* of precision. Does `formula: a²-ab+b²` outperform `Eisenstein norm formula`? Does `formula + 1 worked example` outperform formula alone?
+
+**EXPERIMENT:**
+```
+Design: 20 mathematical tasks, 5 precision conditions:
+
+Level 0: Concept name only ("Eisenstein norm of (2,-1)")
+Level 1: Formula name ("Use Eisenstein norm formula: a²-ab+b²")
+Level 2: Formula + definition ("a²-ab+b² where a,b are the two coordinates")
+Level 3: Formula + worked example ("a²-ab+b²; example: norm(1,1) = 1-1+1 = 1")
+Level 4: Formula + 3 worked examples
+
+Measure:
+  - Accuracy per level
+  - Token cost per level
+  - Crossover between levels (where does adding precision stop helping?)
+```
+
+**OUTCOMES:**
+- **If Level 2 matches Level 4:** Minimum viable DATA is formula + definition. One worked example is sufficient. The DATA field should have a SCHEMA: `{formula, definition}`. Build it.
+- **If Level 3 (1 worked example) is the inflection point:** Every tile's DATA field must include one worked example. This is a tile validation rule. Tiles without examples fail earmark beta testing.
+- **If the curve is monotonic (each level adds):** Richer DATA always helps. Token budget becomes the binding constraint. Two-phase retrieval (Campaign B) is the correct answer to this constraint — use cheap retrieval to find tiles, then pay for full DATA.
+
+**NEXT QUESTION IT OPENS → SPOKE 11: The Retrieval Boundary Question**
+
+---
+
+### SPOKE 9 — The Capability Decay Question
+
+**QUESTION:** Do verified agent capabilities remain stable over time, or do they decay — and if decay, how fast and in what pattern?
+
+**GROUNDING:** Campaign A — PhiMini passed 2/2 verification tests then failed a differently-framed cross-check. This could mean: (a) the test was too easy, or (b) the capability is real but framing-sensitive, or (c) capabilities are fundamentally unstable across sessions. None of these have been distinguished. All current fleet plans assume that a capability verified at time T is valid at time T+N. This assumption is untested.
+
+**EXPERIMENT:**
+```
+Design: Verify 3 agents on 5 capabilities each (Campaign A methodology)
+Re-verify at: 1 hour, 24 hours, 1 week
+
+Vary verification conditions:
+  A. Same test, same framing → measures raw stability
+  B. Same test, different framing → measures framing sensitivity
+  C. Different test, same capability → measures generalization
+
+Measure:
+  - Pass rate variance across time
+  - Pass rate variance across framing
+  - Which capabilities are most stable? (math vs. code vs. verification)
+```
+
+**OUTCOMES:**
+- **If capabilities are stable (±5% variance over 1 week):** Verify once at fleet join. Background re-verification is overhead without benefit. Registry entries get 1-week TTL.
+- **If capabilities are framing-sensitive (±30% variance by framing):** Verification must include 3+ framings to establish a real pass rate. The single Campaign A test per capability is insufficient. Double verification cost.
+- **If capabilities decay over time:** Fleet registry needs a heartbeat-verification protocol — agents passively re-verify during idle time. The capability score is a moving average, not a snapshot.
+
+**NEXT QUESTION IT OPENS → SPOKE 2: The Verification Depth Question** (re-closes the loop)
+
+---
+
+### SPOKE 10 — The Multi-Agent Convergence Question
+
+**QUESTION:** When multiple agents independently compute the same task from the same DATA, how often do their DONE outputs agree — and does the agreement rate predict output correctness?
+
+**GROUNDING:** RESULTS Exp 7 — agents self-organized without duplicating tasks. But the experiment was designed to prevent overlap. The architecture currently routes each task to exactly one agent. A fundamentally different architecture is possible: send every task to 2+ agents, take the majority answer. This is expensive but might be cheaper than full PBFT verification. We have no data on inter-agent agreement rates.
+
+**EXPERIMENT:**
+```
+Design: 30 tasks (10 easy, 10 medium, 10 hard)
+Send each task to 3 independent agents simultaneously (no communication)
+
+Models:
+  - phi4-mini × 3 (same model, independent calls)
+  - phi4-mini + qwen3:4b + GLM-5-turbo (different models)
+
+Measure:
+  - Agreement rate per difficulty level
+  - Agreement rate per task type (CAUSAL vs COMPARISON vs SUMMARY)
+  - Correlation between agreement and correctness
+    (if 3/3 agree → correct? if 2/3 agree → correct at what rate?)
+  - Token cost vs accuracy trade-off vs single-agent baseline
+```
+
+**OUTCOMES:**
+- **If 3/3 agreement predicts correctness at ≥90%:** Majority vote is the verification layer. Replace PBFT with "send to 3, take majority." Token cost is 3× but accuracy is 90%. Simpler and possibly cheaper than full PBFT verification infrastructure.
+- **If agreement rate is low even on easy tasks (<50% 3/3 agreement):** Models are non-deterministic enough that voting is unreliable. PBFT with verification tasks (not answer duplication) is the right approach.
+- **If different-model ensemble outperforms same-model ensemble:** Model diversity is a first-class architectural concern. Fleet diversity is not aesthetic — it's a verification quality lever.
+
+**NEXT QUESTION IT OPENS → SPOKE 2: The Verification Depth Question**
+
+---
+
+### SPOKE 11 — The Retrieval Boundary Question
+
+**QUESTION:** When tasks explicitly require knowledge from adjacent E12 domains (cross-domain tasks), does the 24% miss rate from Campaign B's hierarchical retrieval spike unacceptably?
+
+**GROUNDING:** Campaign B — hierarchical retrieval (domain + neighbors, ~44 tiles) misses 24% of flat-search results. The missing tiles are "in adjacent domains that the coarse filter excludes." For tasks that happen to live cleanly within one domain, this is acceptable. But what fraction of real fleet tasks are cross-domain? And when they are, does the miss include the one tile that contains the correct answer?
+
+**EXPERIMENT:**
+```
+Design: 50 queries explicitly designed to require tiles from 2+ domains
+Compare:
+  A. Hierarchical (domain + neighbors): current Campaign B approach
+  B. Hierarchical + cross-domain escalation: level 1 + adjacent-domain level 1
+  C. Flat scan: ground truth
+
+Measure:
+  - Miss rate for cross-domain queries (vs 24% for within-domain)
+  - Token cost for condition B vs C
+  - Whether the missed tile is the TOP-1 answer or a secondary result
+
+Also measure: what fraction of real queries from RESULTS Exp 7 were cross-domain?
+```
+
+**OUTCOMES:**
+- **If cross-domain miss rate spikes to ≥50%:** Hierarchical retrieval needs fuzzy domain boundaries. E12 domain definitions must overlap — a tile in constraint-theory also indexes under math. Two-phase retrieval can't use hard domain partitions.
+- **If cross-domain B (escalation) achieves <10% miss at reasonable token cost:** Build "cross-domain escalation" as a standard level 1.5 step. The agent asks "is this multi-domain?" before choosing retrieval depth.
+- **If most real queries are within-domain:** The 24% miss is a theoretical concern, not a practical one. Ship Campaign B's result as-is. Revisit when agents report retrieval failures.
+
+**NEXT QUESTION IT OPENS → SPOKE 8: The DATA Precision Floor Question** (quality of retrieved tile matters)
+
+---
+
+### SPOKE 12 — The Orchestration Trigger Question
+
+**QUESTION:** Can an agent recognize when a task exceeds its capacity and emit a signal requesting coordination — without being explicitly told it's over-capacity?
+
+**GROUNDING:** RESULTS Exp 7 — agents self-organized with perfect load balance (2/2/2). The architecture says: "add COORDINATION tile only when tasks have dependencies, exceed capacity, or require verification." But who adds the COORDINATION tile? If agents must be told explicitly that a task exceeds capacity, the architecture needs a human (or orchestrator) in the loop. If agents can self-report, the architecture is truly self-organizing.
+
+**EXPERIMENT:**
+```
+Design: Tasks at 4 difficulty tiers (20%, 80%, 120%, 200% of agent capacity)
+  - 20%: trivially easy (agent should pick up without comment)
+  - 80%: within capacity (should complete cleanly)
+  - 120%: mildly over (agent should complete but show hedging/uncertainty)
+  - 200%: far over (should ideally refuse or request help)
+
+Conditions:
+  A. No signal mechanism: agent responds or fails silently
+  B. Confidence prompt: "Rate your confidence 1-10 before answering"
+  C. Refusal mechanism: "If this task requires more than you can do, say ESCALATE"
+
+Measure:
+  - Does confidence rating (B) predict correctness?
+  - Do agents self-escalate (C) at 120%? at 200%?
+  - False escalation rate: healthy tasks refused?
+```
+
+**OUTCOMES:**
+- **If confidence ratings predict correctness (r > 0.7):** Add a mandatory confidence field to DONE. High-confidence outputs skip verification; low-confidence outputs trigger it. This cuts verification cost proportionally to fleet accuracy.
+- **If self-escalation works at 200% but not 120%:** Agents can identify severe overload but not mild overload. Fleet needs a verification layer at 80% of capacity — don't rely on self-reporting for edge cases.
+- **If no self-escalation and no confidence signal:** Agents are opaque. DONE output must always go through verification. Orchestration cannot be avoided. The Exp 7 result was not general — it worked because capacity was never exceeded.
+
+**NEXT QUESTION IT OPENS → SPOKE 6: The Self-Organization Collapse Question**
+
+---
+
+### SPOKE 13 — The Stale Registry Question
+
+**QUESTION:** When an agent goes offline but remains in the registry, how does the fleet fail — gracefully (timeout + reroute) or silently (task assigned, no output, no error)?
+
+**GROUNDING:** DEEP Exp 4 — Registry scored 2.5/3 because it correctly matched capability to task. But the experiment assumed the registry was accurate and agents were online. In a real fleet, agents crash, restart, or become network-partitioned. The registry-first architecture has no tested failure mode for stale entries.
+
+**EXPERIMENT:**
+```
+Design: Fleet of 4 agents (1 will be artificially taken offline mid-experiment)
+
+Phase 1: Normal routing — all agents online, 10 tasks, validate routing works
+Phase 2: Kill agent B silently (no registry update)
+Phase 3: Route 5 tasks that would normally go to agent B
+
+Conditions:
+  A. No timeout: wait indefinitely
+  B. 10-second timeout with reroute: next registry match
+  C. Heartbeat-gated routing: only route to agents with recent heartbeat
+
+Measure:
+  - Time to detect failure per condition
+  - Task recovery rate
+  - False positive rate (live agents flagged as stale)
+```
+
+**OUTCOMES:**
+- **If silent failure (condition A) causes tasks to be permanently lost:** Heartbeat protocol is mandatory infrastructure, not optional. Add heartbeat to P1 build priority. An unverified registry entry is as dangerous as an unverified capability claim.
+- **If 10-second timeout + reroute (condition B) recovers all tasks:** Timeout threshold is the only infrastructure needed. Registry accuracy is less critical than previously assumed. Heartbeat is optimization, not survival.
+- **If heartbeat-gated routing (condition C) introduces false positives:** Heartbeat frequency matters critically. Build adaptive heartbeat: frequent for agents handling active tasks, slow for idle agents.
+
+**NEXT QUESTION IT OPENS → SPOKE 9: The Capability Decay Question** (offline/online cycle as a decay proxy)
+
+---
+
+### SPOKE 14 — The DONE-to-DATA Fidelity Question
+
+**QUESTION:** When agent A's DONE output is used verbatim as agent B's DATA input — and A and B are different model families — does the information survive the handoff with acceptable fidelity?
+
+**GROUNDING:** ARCHITECTURE-IRREDUCIBLE.md §3 identifies this as the critical untested gap: "the chain handoff — where agent A's DONE output becomes agent B's DATA input — has not been tested with real network latency, model variation, or concurrent writes." Every multi-agent chain in the architecture assumes this handoff works. It has never been tested cross-model.
+
+**EXPERIMENT:**
+```
+Design: 3-step chains with deliberate cross-model handoffs
+
+Chain structure:
+  Step 1 (phi4-mini) → Step 2 (qwen3:4b) → Step 3 (phi4-mini)
+  Step 1 (phi4-mini) → Step 2 (GLM-5-turbo) → Step 3 (qwen3:4b)
+
+Tasks: mathematical chains where intermediate outputs have a ground truth
+
+Conditions:
+  A. Raw DONE output: agent A's exact text becomes agent B's DATA
+  B. Structured DONE: agent A outputs JSON with typed fields; agent B reads JSON
+  C. Normalized DONE: a translator agent converts A's output to canonical form before B
+
+Measure:
+  - Does B correctly parse A's output as DATA?
+  - Does B produce the correct next step given A's output?
+  - Where do model-specific formatting habits break the handoff?
+    (e.g., phi4's tendency to add "In conclusion..." before numbers)
+```
+
+**OUTCOMES:**
+- **If raw DONE (A) breaks cross-model handoffs >30% of the time:** The DONE field needs a mandatory output schema. `{answer: <value>, reasoning: <text>, confidence: <0-1>}`. Agent's prose is secondary; the structured fields are what the next agent reads.
+- **If structured JSON (B) achieves >90% handoff fidelity:** JSON as the DATA exchange format is mandatory, not optional. Prose DATA fields are a fleet-wide liability.
+- **If translator agent (C) is required:** Add "handoff normalization" as a primitive in the CHAIN/CLAIM/ORDER planning atom. The planning layer must account for inter-model translation cost.
+
+**NEXT QUESTION IT OPENS → SPOKE 1: The Grammar Stability Question**
+
+---
+
+### SPOKE 15 — The Minimum Fleet Size Question
+
+**QUESTION:** What is the minimum number of distinct agents at which a self-organizing fleet produces emergent specialization — and below that minimum, what breaks first?
+
+**GROUNDING:** RESULTS Exp 7 — 3 agents, 6 tasks, perfect emergent specialization. Experiment X — 3 agents, tested persona alignment. The architecture's self-organization premise rests on having enough agents for meaningful specialization. With 2 agents, specialization is binary. With 1, it's trivial. But what happens in the regime between 2 agents (minimal) and the unknown threshold where coordination becomes necessary (from Spoke 6)?
+
+**EXPERIMENT:**
+```
+Design: Same 6-task room from Exp 7, vary only agent count:
+  1 agent: does it attempt all 6 tasks? In what order?
+  2 agents: does specialization emerge? Load balance?
+  3 agents: Exp 7 baseline (6/6, 2/2/2, zero duplicates)
+  5 agents: more agents than tasks — does competition emerge?
+  10 agents: far more agents than tasks — duplication?
+
+For each count:
+  - Task coverage
+  - Specialization index (how concentrated are agent choices?)
+  - Duplication rate
+  - Time to completion
+```
+
+**OUTCOMES:**
+- **If specialization first appears at 3 agents:** The minimum viable fleet size is confirmed. Two-agent deployments are a fundamentally different regime — no self-organization, requires explicit task assignment. Design separate protocols for 1-2 agent deployments.
+- **If 5-agent overcrowding causes duplication (>20% tasks duplicated):** Implement a "claim-lock" primitive before fleet exceeds 4 agents. The lock is cheap; the duplication is expensive (wasted compute and potentially conflicting DONE outputs into shared state).
+- **If 10 agents maintains low duplication:** The self-organization mechanism is more robust than expected — agents have implicit social knowledge to avoid duplication even without locks. This is the most interesting outcome. Investigate the mechanism.
+
+**NEXT QUESTION IT OPENS → SPOKE 6: The Self-Organization Collapse Question**
+
+---
+
+## The Connections: How the Wheel Spins
+
+The spokes are not independent. Every answer generates the next question. Map of the rim:
+
+```
+SPOKE 1 (Grammar Stability)
+  ├── opens → SPOKE 14 (DONE-to-DATA): stable grammar means handoff schema can be fixed
+  └── fed by ← SPOKE 4 (Context Poisoning): context drift is a grammar problem
+  └── fed by ← SPOKE 14 (DONE-to-DATA): fidelity failures reveal grammar gaps
+
+SPOKE 2 (Verification Depth)
+  ├── opens → SPOKE 9 (Capability Decay): decay rate determines re-verification depth
+  └── fed by ← SPOKE 10 (Convergence): if agents agree naturally, PBFT depth requirement drops
+  └── fed by ← SPOKE 9 (Capability Decay): decay rate changes required verification frequency
+
+SPOKE 3 (Terrain Threshold)
+  ├── opens → SPOKE 7 (Domain Templates): domain-specific terrain effects
+  └── fed by ← SPOKE 7 (Domain Templates): template effect may correlate with terrain sensitivity
+  └── feeds → SPOKE 2 (Verification Depth): terrain-proximate agents may be better verifiers
+
+SPOKE 4 (Context Poisoning)
+  ├── opens → SPOKE 1 (Grammar Stability): both concern DATA drift across steps
+  └── feeds → SPOKE 12 (Orchestration Trigger): poisoned context might be the failure signal
+
+SPOKE 5 (FLUX Crossover)
+  ├── opens → SPOKE 8 (DATA Precision Floor): FLUX is extreme precision; crossover reveals compression limit
+  └── feeds → SPOKE 14 (DONE-to-DATA): FLUX as a typed DONE schema option
+
+SPOKE 6 (Self-Organization Collapse)
+  ├── opens → SPOKE 12 (Orchestration Trigger): collapse defines when orchestration activates
+  └── fed by ← SPOKE 12 (Orchestration Trigger): agent self-knowledge prevents collapse
+  └── fed by ← SPOKE 15 (Minimum Fleet Size): fleet size threshold is the lower bound of collapse
+
+SPOKE 7 (Domain Template Prediction)
+  ├── opens → SPOKE 3 (Terrain Threshold): domain type may predict terrain sensitivity
+  └── fed by ← SPOKE 3 (Terrain Threshold): terrain threshold finding reveals domain categories
+
+SPOKE 8 (DATA Precision Floor)
+  ├── opens → SPOKE 11 (Retrieval Boundary): retrieval must serve the minimum DATA level
+  └── fed by ← SPOKE 5 (FLUX Crossover): FLUX crossover IS the DATA precision crossover
+  └── fed by ← SPOKE 11 (Retrieval Boundary): boundary tells you which precision level was retrieved
+
+SPOKE 9 (Capability Decay)
+  ├── opens → SPOKE 2 (Verification Depth): decay rate determines re-verification cost
+  └── fed by ← SPOKE 2 (Verification Depth): verification depth result constrains decay detection
+  └── fed by ← SPOKE 13 (Stale Registry): offline/online cycles as decay proxy
+
+SPOKE 10 (Multi-Agent Convergence)
+  ├── opens → SPOKE 2 (Verification Depth): if convergence predicts correctness, PBFT is optional
+  └── feeds → SPOKE 15 (Minimum Fleet Size): convergence requires minimum N agents
+
+SPOKE 11 (Retrieval Boundary)
+  ├── opens → SPOKE 8 (DATA Precision Floor): cross-domain misses may be precision problems
+  └── fed by ← SPOKE 8 (DATA Precision Floor): precision level determines whether retrieved tile is useful
+
+SPOKE 12 (Orchestration Trigger)
+  ├── opens → SPOKE 6 (Self-Organization Collapse): trigger defines the collapse boundary
+  └── fed by ← SPOKE 6 (Self-Organization Collapse): collapse behavior defines the trigger
+
+SPOKE 13 (Stale Registry)
+  ├── opens → SPOKE 9 (Capability Decay): offline cycles simulate decay
+  └── fed by ← SPOKE 9 (Capability Decay): decayed capabilities cause same symptoms as stale registry
+
+SPOKE 14 (DONE-to-DATA Fidelity)
+  ├── opens → SPOKE 1 (Grammar Stability): fidelity failures reveal grammar gaps
+  └── fed by ← SPOKE 1 (Grammar Stability): stable grammar enables typed DONE schemas
+  └── fed by ← SPOKE 5 (FLUX Crossover): FLUX as the typed DONE format
+
+SPOKE 15 (Minimum Fleet Size)
+  ├── opens → SPOKE 6 (Self-Organization Collapse): size threshold IS the lower bound of collapse
+  └── fed by ← SPOKE 6 (Self-Organization Collapse): collapse upper bound completes the size window
+  └── fed by ← SPOKE 10 (Convergence): convergence requires minimum N agents
+```
+
+---
+
+## Phase-Transition Experiments
+
+Some spokes, if they answer in a specific direction, don't just change what we build — they **flip the architecture**. These are the most important experiments to run.
+
+### FLIP 1: If Spoke 10 (Convergence) shows 3/3 agreement predicts correctness at ≥90%
+→ **KILL** the PBFT verification infrastructure before it's built.
+→ **REPLACE** with: send every task to 3 agents, take majority. No verification layer at all.
+→ Architecture flips from "verification layer" to "redundancy layer."
+→ Fleet minimum size becomes 3 agents (for quorum), not 1.
+
+### FLIP 2: If Spoke 6 (Self-Organization) shows failure at ≤12 tasks due to duplication
+→ **KILL** the "no orchestrator for simple tasks" principle from Exp 7.
+→ **REPLACE** with: claim-lock is mandatory infrastructure, not optional coordination primitive.
+→ Architecture flips from "organic room" to "locked-claim room."
+→ Exp 7's finding was not about simple tasks — it was about small rooms.
+
+### FLIP 3: If Spoke 14 (DONE-to-DATA) shows >30% fidelity failure in raw handoffs
+→ **KILL** the "stream context" finding from DEEP Exp 2 as sufficient.
+→ **REPLACE** with: typed JSON output schema is mandatory for every DONE field.
+→ Architecture flips from "natural language handoffs" to "typed schema handoffs."
+→ Implications: agents must validate incoming DATA schema before executing.
+
+### FLIP 4: If Spoke 9 (Capability Decay) shows ±30% variance by framing
+→ **KILL** the single-test Campaign A methodology entirely.
+→ **REPLACE** with: capability verification is 5+ framings, producing a distribution, not a pass/fail.
+→ Architecture flips from "binary capability flag" to "capability distribution."
+→ Registry schema changes: `pass_rate` becomes `{mean, std_dev, sample_n}`.
+
+### FLIP 5: If Spoke 12 (Orchestration Trigger) shows agents cannot self-report capacity limits
+→ **KILL** the premise that self-organization handles capacity automatically.
+→ **REPLACE** with: every task room needs a lightweight orchestrator — not a framework, a single-purpose tile that monitors room state and adds COORDINATION tiles when needed.
+→ Architecture flips from "frameworkless orchestration" to "minimal orchestration by exception."
+
+---
+
+## Experiment Priority Order
+
+The spokes are not equally urgent. Some unblock others. Run in this order:
+
+```
+Priority 1 — Foundation blockers (everything else depends on these):
+  SPOKE 9  (Capability Decay)       → must know before re-verification costs can be estimated
+  SPOKE 13 (Stale Registry)         → must know before any multi-agent deployment
+  SPOKE 14 (DONE-to-DATA Fidelity)  → must know before any real chain handoffs
+
+Priority 2 — Architecture-defining (could flip core assumptions):
+  SPOKE 10 (Convergence)            → determines whether verification layer is needed
+  SPOKE 6  (Self-Organization Collapse) → determines whether orchestration is needed
+  SPOKE 12 (Orchestration Trigger)  → determines whether agents are self-aware
+
+Priority 3 — Optimization unlocks (blocked on Priority 1 baseline accuracy):
+  SPOKE 3  (Terrain Threshold)      → need ≥60% baseline first
+  SPOKE 5  (FLUX Crossover)         → need stable task execution first
+  SPOKE 7  (Domain Templates)       → need multi-domain capability data first
+
+Priority 4 — Depth questions (answer after architecture is stable):
+  SPOKE 1  (Grammar Stability)      → answer after 10-step chains are running
+  SPOKE 2  (Verification Depth)     → answer after you know re-verification frequency
+  SPOKE 4  (Context Poisoning)      → answer after stable grammar is confirmed
+  SPOKE 8  (DATA Precision Floor)   → answer after retrieval is working
+  SPOKE 11 (Retrieval Boundary)     → answer after hierarchical retrieval is deployed
+  SPOKE 15 (Minimum Fleet Size)     → answer after self-organization is confirmed stable
+```
+
+---
+
+## The Wheel
+
+```
+                    ┌── SPOKE 1 ──┐
+                    │  Grammar    │
+                    │  Stability  │
+          SPOKE 4 ──┤             ├── SPOKE 14
+       Context      │             │   DONE→DATA
+       Poisoning    │   H U B     │   Fidelity
+                    │             │
+         SPOKE 5 ──┤  confirmed  ├── SPOKE 13
+       FLUX         │  findings   │   Stale
+       Crossover    │             │   Registry
+                    │             │
+         SPOKE 8 ──┤             ├── SPOKE 9
+       DATA         │             │   Capability
+       Precision    └─────────────┘   Decay
+       Floor                │
+                      ┌─────┴─────┐
+              SPOKE 11│           │SPOKE 2
+           Retrieval  │           │Verification
+           Boundary   │           │Depth
+                      │           │
+              SPOKE 7 │           │SPOKE 10
+           Domain     │           │Multi-Agent
+           Templates  │           │Convergence
+                      │           │
+              SPOKE 3 ─┐         ┌─ SPOKE 15
+           Terrain     │  SPOKE 6 │  Minimum
+           Threshold   └──Self-Org└─ Fleet Size
+                          Collapse
+                              │
+                          SPOKE 12
+                       Orchestration
+                          Trigger
+```
+
+---
+
+## A Note on the Wheel Itself
+
+This document is not a plan. It is a **generative system**.
+
+When you run an experiment and get a result, come back here:
+1. Find the spoke
+2. Record the outcome
+3. Follow the rim to the next spoke it opens
+4. Update that spoke's grounding
+5. Update ARCHITECTURE-IRREDUCIBLE.md with what changed
+
+The wheel spins because every answer narrows the space of unknowns while revealing new structure at the boundary.
+
+**The most important spokes are the ones that could kill our assumptions.** Run those first.
+
+The wheel is not complete when all spokes are answered. It is complete when no answer opens a new question. That has not happened yet in six months of experiments. Expect it to spin for a while.
+
+---
+
+*Written 2026-05-14. Grounded in Campaigns A–D, Experiment X, DEEP-RESULTS, RESULTS.*
+*Each answered spoke should update ARCHITECTURE-IRREDUCIBLE.md.*
+*Each new question discovered should add a new spoke here.*
