@@ -1,0 +1,15 @@
+{
+  "z12_best_pair_cr": 0.6157267520969463,
+  "z12_best_pair": [
+    1,
+    5
+  ],
+  "z12_percentile": 95.6,
+  "hexagonal_cr": 0.6161016427592195,
+  "hexagonal_percentile": 95.36666666666666,
+  "random_mean": 0.7538023403493531,
+  "random_std": 0.16208379554657468,
+  "random_min": 0.5953639337747741,
+  "n_random": 3000,
+  "z12_beats_hexagonal": true
+}
