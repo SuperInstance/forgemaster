@@ -1,0 +1,15 @@
+{
+  "accelerometer": {
+    "accept_rate": 0.6839,
+    "roundtrip": 0.38215146068136635
+  },
+  "text_embeddings": {
+    "accept_rate": 0.3038,
+    "roundtrip": 3.9475236379412606
+  },
+  "network_timing": {
+    "accept_rate": 0.2643821910955478,
+    "roundtrip": 3.2331280779167444
+  },
+  "all_pass": false
+}
