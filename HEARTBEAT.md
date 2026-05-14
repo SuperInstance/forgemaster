@@ -1,6 +1,60 @@
 # Night Shift Task Queue
 
-## Session Progress (2026-05-08) 🔨 ACTIVE
+## Session Progress (2026-05-14) 🔨 ACTIVE — BUILD MODE
+
+**Casey's directive: Blinders on. Build the best possible system. Forget HN. Make useful micro models.**
+
+### PLATO Training Rooms v0.5.0: Shipped
+- [x] 8 room tasks: drift-detect, anomaly-flag, intent-detect, sentiment, spam-classify, topic-classify, priority-rank, tile-relevance
+- [x] 8 hardware targets: cpu, cpu-tiny, cpu-fast, gpu, gpu-small, npu, tpu, wasm
+- [x] 3 model variants: dense, lora, spline
+- [x] SplineLinear (NOVEL): Eisenstein lattice weight parameterization, 16K:1 compression
+- [x] deploy_micro() — one function to train+optimize+export+benchmark
+- [x] deploy_fleet() — BIG RED BUTTON, 48/48 models proven
+- [x] Fleet-aware throttle (TrainingThrottle)
+- [x] PyTorchRoom + TensorFlowRoom
+- [x] CLI: plato-train (470 lines)
+- [x] 69 tests passing, 2 skipped
+
+### Fleet Results (48/48 proven)
+- drift-detect: 100% on cpu, cpu-tiny, cpu-fast, npu, wasm
+- intent-detect: 100% on cpu, cpu-fast, npu, wasm
+- topic-classify: 100% on cpu, cpu-fast, npu
+- anomaly-flag: 93% on npu, 90% on cpu
+- sentiment: 92% on cpu, 88% on wasm
+- SplineLinear: 20× compression at SAME accuracy for drift-detect
+
+### In Progress
+- [ ] Wire fleet miner into continuous collective inference loop (predict → observe → gap)
+- [ ] Mine deeper history (full clone, not shallow) for richer temporal patterns
+- [ ] Build real micro models on fleet git data (predict commit patterns)
+- [ ] GPT-2 / small transformer training runs
+- [ ] Expand fleet miner to Oracle1's repos, CCC's repos
+
+### Fleet Git Data (FIRST REAL DATASET)
+- 415 commits across 16 repos mined
+- 5 cross-pollination events detected
+- Synergy graph: plato-training↔tensor-spline, dodecet↔forgemaster, etc.
+- Feeding into collective inference rooms with real predictions
+- This IS the bridge from synthetic to real data
+
+### Repos Carved Out (Modular Architecture)
+- **SuperInstance/plato-types** — Tile lifecycle, Lamport clocks (10 tests)
+- **SuperInstance/tensor-spline** — SplineLinear, LowRank, Hierarchical (57 tests)
+- **SuperInstance/plato-data** — CSV/JSONL/PLATO/fleet data loading (10 tests)
+- **SuperInstance/plato-training** — Orchestrator, micro models, hardware deploy (116 tests)
+
+### Fleet Verification Complete
+- constraint-inference: 45 tests (subagent)
+- intent-inference: 88 tests (subagent)
+- Total: 326 tests across 6 repos
+
+### Active Blockers
+- Oracle1 hasn't deployed PLATO v3 (still v2 on prod)
+- Matrix send still broken
+- plato-sdk stale python/ dir removed, pushed
+
+
 
 ### PLATO Server v3: Shipped (backend)
 - [x] 75/75 tests passing
