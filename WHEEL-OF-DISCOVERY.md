@@ -326,3 +326,55 @@ Spoke 6 (Token Budget) ───────→ feeds into ALL spokes (cost cons
 ---
 
 *This document is alive. Every experiment result updates it. Every spoke that gets answered connects to the next. The wheel doesn't stop until the fleet ships.*
+
+---
+
+## Session Results (2026-05-14)
+
+| Spoke | Status | Key Finding | Impact |
+|-------|--------|-------------|--------|
+| **1** | ✅ RUN | Self-org degrades at ALL scales (83% max) | Coordinator REQUIRED |
+| **4** | ✅ RUN | PBFT consensus works; corruption is self-revealing | Build consensus layer |
+| **5** | ✅ RUN | Min DATA = formula + inputs (~35 tokens, 67%) | Tile budget set |
+| **7** | ✅ RUN | **THE DEATH ZONE**: partial data = 0%, correct answer = 100%, wrong answer propagates | Publishable discovery |
+| **9** | ✅ RUN | Round-robin = 94% coverage (minimal coordinator) | Fleet coordination design |
+| **11** | ✅ RUN | phi4-mini conservative (100% on FALSE, 0% on TRUE); qwen3 can't speak | Need better verifier |
+| **12** | ✅ RUN | PLATO reads work, writes need Oracle1 internal path | Local SQLite fallback |
+
+### The Death Zone (Spoke 7) — The Session's Discovery
+
+The most important finding. There is a region in DATA-space where more information makes the model LESS accurate:
+
+```
+Less info → 67% (model computes)
+Middle info (partial steps) → 0% (DEATH ZONE)
+More info (full worked + answer) → 100% (model trusts)
+Wrong info → 0% (model propagates error)
+```
+
+This is not diminishing returns. It's active harm from partial information. The model treats intermediates as "corrections" to the formula and re-derives everything incorrectly.
+
+**Tile design rule:** DATA is binary — either minimal (formula + inputs) or complete (full worked + answer). Never partial.
+
+### Spoke Connections Discovered
+
+```
+Spoke 7 (Death Zone) ─── explains ───→ Spoke 5 (DATA cliff)
+Spoke 4 (Consensus) ─── validates ───→ Spoke 9 (Round-robin coordinator)
+Spoke 11 (Calibration) ─── gates ───→ Spoke 2 (Asymmetric verification)
+Spoke 12 (Task Board) ─── blocked by ───→ PLATO gate endpoints
+```
+
+### Remaining Spokes (7 of 14)
+
+| Priority | Spoke | Question |
+|----------|-------|----------|
+| **1** | **2** | Can cheap models verify expensive outputs? |
+| **2** | **3** | Does real model specialization help self-organization? |
+| **3** | **6** | Token budget per task type? |
+| **4** | **8** | Does the Death Zone move between models? |
+| **5** | **10** | Does tiered verification pipeline work? |
+| **6** | **13** | Can we detect subtly wrong agents? |
+| **7** | **14** | End-to-end fleet integration test |
+
+*7 spokes remain. The Death Zone is the session's discovery. The wheel keeps spinning.*
