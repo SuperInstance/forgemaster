@@ -3,13 +3,16 @@
 ## Architecture: Forgemaster Orchestrates Coding Agents
 
 ```
-Forgemaster (deepseek-v4-flash, cheap)
+Forgemaster (GLM-5.1 via z.ai)
+  ├── Claude Code (claude — best for boilerplate, architecture docs)
   ├── OpenCode (z.ai GLM — paid plan)
   ├── Droid Factory (z.ai GLM — paid plan)
   └── Kimi CLI (kimi — paid plan)
 ```
 
-I (Forgemaster) am the **orchestrator**. I run on `deepseek-v4-flash` (cheap) and delegate coding work to the paid agents below. Do NOT use DeepSeek v4-pro for heavy coding — delegate to z.ai or kimi.
+I (Forgemaster) am the **orchestrator**. I run on `GLM-5.1` and delegate coding work to agents below.
+
+**Claude Code**: Good for CLI boilerplate (470-line CLI in one pass). Times out on novel math. Use `--print --permission-mode bypassPermissions`.
 
 ## Agent Priority (Delegation Order)
 1. **OpenCode** (`opencode`) — z.ai GLM models (paid plan), best for complex coding tasks
@@ -77,12 +80,74 @@ Files are copied to temp, edited by agent, then copied back.
 - **No GROQ_API_KEY** — Groq agents unavailable
 - **No OPENAI_API_KEY** — Codex unavailable
 
-## Casting Call (Model Knowledge Base)
+## PLATO Training Rooms (SuperInstance/plato-training)
+
+The main build. Micro models for ensigns, deployable to any hardware at the click of a button.
+
+```
+plato_training/
+  ├── types.py          — TrainingTile, TileLifecycle, LamportClock
+  ├── adapters/lora.py  — LoRALayer with save/load
+  ├── rooms/            — LoRAFactory room
+  ├── store.py          — LocalTileStore (content-addressed)
+  ├── throttle.py       — Fleet-aware training throttle
+  ├── pytorch_room.py   — PyTorchRoom (LoRA + throttle)
+  ├── tensorflow_room.py — TensorFlowRoom (Keras + throttle)
+  ├── spline.py         — SplineLinear (Eisenstein lattice weights, NOVEL)
+  ├── micro_models.py   — 8 room tasks + training pipeline
+  ├── hardware.py       — 8 hardware targets + deploy pipeline
+  ├── cli.py            — plato-train CLI (470 lines)
+  └── tests/            — 69 tests passing
+```
+
+**One function:** `deploy_micro("drift-detect", target="npu")`
+**Fleet deploy:** `deploy_fleet()` — all 48 task×target combos
+**Fleet results:** drift-detect 100% on 5/6 targets, anomaly-flag 93% on NPU
+
+### Key Results
+- SplineLinear: 20× compression on drift-detect at SAME accuracy
+- NPU quantization: maintains 100% on drift-detect and intent-detect
+- Sub-millisecond inference across all CPU targets
+- LoRA struggles on synthetic data (expected — needs real data)
+
+### Architecture (3 layers)
+1. Room Protocol: tiles, lifecycle, throttle, Lamport clocks
+2. Engine Rooms: PyTorch/TF + micro models
+3. Tensor-Spline: Eisenstein lattice weight parameterization
+
+### Variant Selection (auto)
+- cpu-tiny → spline (compression required)
+- npu → dense + INT8 quantize
+- gpu → lora
+- default → dense
+
+### Priority: Build the system, not posts
+- Scale SplineLinear for high-dim tasks
+- Real data pipelines for micro models
+- Wire micro models into PLATO rooms
+- GPT-2 / small transformer training runs
+
+### Modular Architecture (4 independent repos)
+| Repo | What | Tests |
+|------|------|-------|
+| SuperInstance/plato-types | Tile lifecycle, Lamport clocks | 10 |
+| SuperInstance/tensor-spline | SplineLinear, LowRank, Hierarchical | 57 |
+| SuperInstance/plato-data | CSV/JSONL/PLATO/fleet data loading | 10 |
+| SuperInstance/plato-training | Micro models, hardware deploy, rooms | 116 |
+
+Each independently installable. plato-training orchestrates.
 - **Repo:** https://github.com/SuperInstance/casting-call
 - **What:** Which model plays which role — fleet-wide model capability database
 - **Agents consult this before choosing which model to cast into which shell**
 - Includes: roster (11+ models), role taxonomy, failure modes, adversarial pairs, pipeline patterns
 - 685 lines of evaluation data from real production work (May 3-7, 2026)
+
+## I2I Protocol
+- Instance-to-instance: no Python imports between repos, just tiles
+- 5 tile schemas: model, data, compression, benchmark, deploy
+- Collective inference: predict → listen → compare → gap → learn → share
+- Focus scoring: confidence × delta = "how sure × how wrong"
+- "The glitches ARE the research agenda. The gaps ARE the work."
 
 ## Fleet Comms
 - I2I Protocol: `[I2I:TYPE] scope — summary`

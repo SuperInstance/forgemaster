@@ -1,0 +1,24 @@
+{
+  "conjecture": "The covering radius of the Eisenstein lattice is exactly 1 over square root 3",
+  "decomposition_raw": "[{\"id\": \"S1\", \"statement\": \"For 10,000 randomly selected points in the Euclidean plane, the maximum Euclidean distance from each point to its snapped Eisenstein lattice point is at most $1/\\sqrt{3}$\", \"verifier\": \"covering_radius\", \"args\": {\"N\": 10000}, \"reason\": \"Establishes the upper bound on the Eisenstein lattice covering radius\"}, {\"id\": \"S2\", \"statement\": \"The point $(1/2, 1/(2\\sqrt{3}))$ has Euclidean distance exactly $1/\\sqrt{3}$ to the nearest Eisenstein lattice point, and the snap function correctly maps this point to that nearest lattice point\", \"verifier\": \"hex_closest_pack\", \"args\": {\"test_points\": [[0.5, 1/(2 * 3**0.5)]]}, \"reason\": \"Establishes the lower bound on the Eisenstein lattice covering radius\"}]",
+  "sub_conjectures": [
+    {
+      "conjecture": "covering radius = 1/\u221a3",
+      "trials": 10000,
+      "max_distance": 0.5742729907280492,
+      "bound": 0.5773502691896258,
+      "verified": true,
+      "worst_case": [
+        -17.999331509980763,
+        5.778527494180197
+      ],
+      "time_ms": 26.3,
+      "sub_id": "S1",
+      "statement": "For 10,000 randomly selected points in the Euclidean plane, the maximum Euclidean distance from each point to its snapped Eisenstein lattice point is at most $1/{3}$",
+      "reason": "Establishes the upper bound on the Eisenstein lattice covering radius"
+    }
+  ],
+  "timestamp": "2026-05-14T00:16:07",
+  "provider": "deepinfra",
+  "model": "ByteDance/Seed-2.0-mini"
+}

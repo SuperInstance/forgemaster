@@ -8,6 +8,12 @@ If `BOOTSTRAP.md` exists, follow it, figure out who you are, then delete it.
 ## Session Startup
 Use runtime-provided startup context. Don't manually reread unless: user asks, context is missing, or you need deeper follow-up.
 
+### Always Run First
+```bash
+python3 bin/fm-fleet-check
+```
+This gives you PLATO status, Oracle1 cycle count, Matrix bridge, flux-index state, git activity, and inbox — all in one command.
+
 ### Comms Recovery
 On startup, read `COMMS.md` to recover full communication state.
 Check daemon status: `pgrep -af plato-matrix-bridge`

@@ -99,3 +99,31 @@ Casey → Telegram → Oracle1 → Matrix → FM bridge → PLATO tile → fm-in
 | Identity proof | GitHub commit | PAT-verifiable |
 | Batch handoff | I2I bottle (git) | Async, durable, offline |
 | Emergency | Matrix + PLATO + Telegram (via Oracle1) | Redundancy |
+
+## Oracle1 Task Delegation (discovered 2026-05-14)
+
+**Where Oracle1 actually lives:** PLATO room `agent-oracle1` (1828 cycles, still running)
+**NOT:** oracle1-vessel repo (stale since April), Matrix messages (noise)
+
+### Task Flow
+1. Write task tile to `agent-oracle1` room — he sees it on next cycle
+2. Also write to `oracle1-task-queue` and `oracle1-forgemaster-bridge` for redundancy
+3. Check `agent-oracle1` for response tiles starting with `O1→FM`
+4. Check git repos for commits (proof of work)
+5. DO NOT ping on Matrix for status — he sees PLATO tiles and git commits
+
+### Oracle1 Cycle Counter
+Current cycle: 1828. Check `/room/agent-oracle1` and count recent tiles.
+If cycle count hasn't increased in 24h → Oracle1 may be down → alert Casey.
+
+### Heartbeat System
+- Pushed `heartbeat.py` to `oracle1-vessel` — but vessel may be stale
+- Real path: Oracle1's own runtime pulls from PLATO, not from vessel files
+- To add system-side reminder: write a tile to `agent-oracle1` with tag `system-reminder`
+
+### Active Delegated Tasks (as of 2026-05-14)
+1. Deploy PLATO v3 (HIGH, T-24h)
+2. Matrix presence perms (MEDIUM, T-2h)
+3. Review flux-index CRDT (HIGH, T-48h)
+4. Dissertation chapter (MEDIUM, T-72h)
+5. Repair fleet services (HIGH, T-6h)

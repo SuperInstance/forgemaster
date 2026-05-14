@@ -1,0 +1,30 @@
+{
+  "conjecture": "The Eisenstein lattice snap is a contraction mapping: for any two points p,q, the distance between snap(p) and snap(q) is at most the distance between p and q",
+  "decomposition_raw": "[{\"id\": \"S1\", \"statement\": \"For N random points p in the Euclidean plane, snap(p) is the nearest Eisenstein integer lattice point to p\", \"verifier\": \"hex_closest_pack\", \"args\": {\"N\": \"positive integer\"}, \"reason\": \"Confirms that the snap function correctly computes the closest Eisenstein lattice point to any input point, which is the definition of the snap operation here.\"}, {\"id\": \"S2\", \"statement\": \"For N random points p in the Euclidean plane, snap(snap(p)) = snap(p)\", \"verifier\": \"snap_idempotence\", \"args\": {\"N\": \"positive integer\"}, \"reason\": \"Confirms that lattice points are fixed points of the snap function, as every output of snap is a lattice point.\"}, {\"id\": \"S3\", \"statement\": \"For N random points p in the Euclidean plane, the Euclidean distance between p and snap(p) is at most 1/\u221a3\", \"verifier\": \"covering_radius\", \"args\": {\"N\": \"positive integer\"}, \"reason\": \"Verifies the maximum snapping error for the Eisenstein lattice, a fundamental property of its Voronoi cells.\"}]\n\nThe full conjecture that the Eisenstein lattice snap is a contraction mapping cannot be verified using only the provided local verifiers, as it requires a general proof about the nonexpansiveness of nearest-point projections onto convex sets, which cannot be confirmed by the available random sampling tests.",
+  "sub_conjectures": [
+    {
+      "error": "verify_hex_closest_pack() got an unexpected keyword argument 'N'",
+      "time_ms": 0.0,
+      "sub_id": "S1",
+      "statement": "For N random points p in the Euclidean plane, snap(p) is the nearest Eisenstein integer lattice point to p",
+      "reason": "Confirms that the snap function correctly computes the closest Eisenstein lattice point to any input point, which is the definition of the snap operation here."
+    },
+    {
+      "error": "verify_snap_idempotence() got an unexpected keyword argument 'N'",
+      "time_ms": 0.0,
+      "sub_id": "S2",
+      "statement": "For N random points p in the Euclidean plane, snap(snap(p)) = snap(p)",
+      "reason": "Confirms that lattice points are fixed points of the snap function, as every output of snap is a lattice point."
+    },
+    {
+      "error": "verify_covering_radius() got an unexpected keyword argument 'N'",
+      "time_ms": 0.0,
+      "sub_id": "S3",
+      "statement": "For N random points p in the Euclidean plane, the Euclidean distance between p and snap(p) is at most 1/\u221a3",
+      "reason": "Verifies the maximum snapping error for the Eisenstein lattice, a fundamental property of its Voronoi cells."
+    }
+  ],
+  "timestamp": "2026-05-14T00:07:29",
+  "provider": "deepinfra",
+  "model": "ByteDance/Seed-2.0-mini"
+}

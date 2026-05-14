@@ -1,0 +1,54 @@
+{
+  "conjecture": "Closed constraint walks where you snap back to the lattice after each step stay bounded",
+  "decomposition_raw": "[{\"id\": \"S1\", \"statement\": \"For 1000 random points in the Euclidean plane, snap(snap(p)) = snap(p)\", \"verifier\": \"snap_idempotence\", \"args\": {\"N\": 1000}, \"reason\": \"Confirms snapping a lattice point leaves it unchanged, ensuring each walk step starts at a valid lattice point\"}, {\"id\": \"S2\", \"statement\": \"For 1000 random points in the Euclidean plane, the distance between p and snap(p) is at most 1/\u221a3\", \"verifier\": \"covering_radius\", \"args\": {\"N\": 1000}, \"reason\": \"Ensures post-step points are within a fixed bounded distance of the hexagonal lattice, preventing arbitrarily large jumps between lattice points\"}, {\"id\": \"S3\", \"statement\": \"For 1000 random points in the Euclidean plane, snap(p) lands in exactly 12 sectors relative to the nearest lattice point\", \"verifier\": \"dodecet_cardinality\", \"args\": {\"N\": 1000}, \"reason\": \"Confirms the snap function is well-defined with no ambiguous nearest lattice points\"}, {\"id\": \"S4\", \"statement\": \"Any closed constraint walk of 100 steps where each step is followed by snapping to the hexagonal lattice stays within distance 5 of the origin\", \"verifier\": \"drift_bounded\", \"args\": {\"steps\": 100, \"bound\": 5}, \"reason\": \"Directly verifies the core claim that closed constraint walks do not drift unbounded from the origin\"}]",
+  "sub_conjectures": [
+    {
+      "conjecture": "snap is idempotent",
+      "trials": 1000,
+      "failures": 0,
+      "verified": true,
+      "time_ms": 4.5,
+      "sub_id": "S1",
+      "statement": "For 1000 random points in the Euclidean plane, snap(snap(p)) = snap(p)",
+      "reason": "Confirms snapping a lattice point leaves it unchanged, ensuring each walk step starts at a valid lattice point"
+    },
+    {
+      "conjecture": "covering radius = 1/\u221a3",
+      "trials": 1000,
+      "max_distance": 0.5724195096707335,
+      "bound": 0.5773502691896258,
+      "verified": true,
+      "worst_case": [
+        3.5051204134810954,
+        -4.908475016748915
+      ],
+      "time_ms": 2.5,
+      "sub_id": "S2",
+      "statement": "For 1000 random points in the Euclidean plane, the distance between p and snap(p) is at most 1/\u221a3",
+      "reason": "Ensures post-step points are within a fixed bounded distance of the hexagonal lattice, preventing arbitrarily large jumps between lattice points"
+    },
+    {
+      "conjecture": "dodecet has exactly 12 sectors",
+      "secters_found": 12,
+      "verified": true,
+      "time_ms": 0.6,
+      "sub_id": "S3",
+      "statement": "For 1000 random points in the Euclidean plane, snap(p) lands in exactly 12 sectors relative to the nearest lattice point",
+      "reason": "Confirms the snap function is well-defined with no ambiguous nearest lattice points"
+    },
+    {
+      "conjecture": "closed constraint walk stays bounded",
+      "steps": 100,
+      "max_drift": 0.026199454222188518,
+      "bound": 5,
+      "verified": true,
+      "time_ms": 0.1,
+      "sub_id": "S4",
+      "statement": "Any closed constraint walk of 100 steps where each step is followed by snapping to the hexagonal lattice stays within distance 5 of the origin",
+      "reason": "Directly verifies the core claim that closed constraint walks do not drift unbounded from the origin"
+    }
+  ],
+  "timestamp": "2026-05-14T00:16:48",
+  "provider": "deepinfra",
+  "model": "ByteDance/Seed-2.0-mini"
+}

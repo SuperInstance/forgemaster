@@ -1,0 +1,19 @@
+{
+  "conjecture": "Eisenstein integer norm is multiplicative N(alpha*beta) = N(alpha)*N(beta) for all integer pairs",
+  "decomposition_raw": "[{\"id\": \"S1\", \"statement\": \"For all pairs of Eisenstein integers $\\alpha, \\beta$, $N(\\alpha\\beta) = N(\\alpha) \\cdot N(\\beta)$\", \"verifier\": \"norm_multiplicative\", \"args\": {\"N\": 1000}, \"reason\": \"This verifier directly tests the multiplicative norm identity across randomly sampled Eisenstein integer pairs, which validates the conjecture as the identity is a polynomial equation in the integer coordinates defining Eisenstein integers, making random sampling a sound local verification method.\"}]",
+  "sub_conjectures": [
+    {
+      "conjecture": "norm is multiplicative for Eisenstein integers",
+      "trials": 1000,
+      "failures": 0,
+      "verified": true,
+      "time_ms": 2.2,
+      "sub_id": "S1",
+      "statement": "For all pairs of Eisenstein integers $, $, $N() = N()  N()$",
+      "reason": "This verifier directly tests the multiplicative norm identity across randomly sampled Eisenstein integer pairs, which validates the conjecture as the identity is a polynomial equation in the integer coordinates defining Eisenstein integers, making random sampling a sound local verification method."
+    }
+  ],
+  "timestamp": "2026-05-14T00:15:46",
+  "provider": "deepinfra",
+  "model": "ByteDance/Seed-2.0-mini"
+}

@@ -1,0 +1,16 @@
+{
+  "conjecture": "The Eisenstein integer norm N(a plus b omega) equals a squared minus ab plus b squared and is multiplicative for all products",
+  "decomposition_raw": "[{\"id\": \"S1\", \"statement\": \"For all Eisenstein integers $x$ and $y$, $N(xy) = N(x)N(y)$\", \"verifier\": \"norm_multiplicative\", \"args\": {\"N\": \"positive integer number of random test pairs\"}, \"reason\": \"Verifies the multiplicative property of the Eisenstein integer norm stated in the original conjecture\"}]\n\nThe first claim of the conjecture (that $N(a + b\\omega) = a^2 - ab + b^2$) cannot be verified using the provided local verifiers, as no dedicated verifier exists for this norm formula identity.",
+  "sub_conjectures": [
+    {
+      "error": "'str' object cannot be interpreted as an integer",
+      "time_ms": 0.0,
+      "sub_id": "S1",
+      "statement": "For all Eisenstein integers $x$ and $y$, $N(xy) = N(x)N(y)$",
+      "reason": "Verifies the multiplicative property of the Eisenstein integer norm stated in the original conjecture"
+    }
+  ],
+  "timestamp": "2026-05-14T00:12:15",
+  "provider": "deepinfra",
+  "model": "ByteDance/Seed-2.0-mini"
+}

@@ -315,6 +315,7 @@ class FluxVectorTwin:
         
         self.entries = []
         self.embeddings = []
+        self._magnitudes = []
         for e_data in data.get("entries", []):
             entry = VectorEntry(
                 tile_id=e_data["tile_id"],
@@ -325,5 +326,6 @@ class FluxVectorTwin:
             )
             self.entries.append(entry)
             self.embeddings.append(entry.embedding)
+            self._magnitudes.append(math.sqrt(sum(x * x for x in entry.embedding)))
         
         return len(self.entries)

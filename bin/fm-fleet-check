@@ -1,0 +1,150 @@
+#!/usr/bin/env python3
+"""
+fm-fleet-check — Fleet health check. Self-discovering via fleet-registry.
+
+Run on boot. Reads fleet-registry PLATO room to find everything.
+No hardcoded room names. The structure tells you where to look.
+"""
+
+import json, os, re, subprocess, urllib.request
+from datetime import datetime
+
+PLATO = os.environ.get("PLATO_URL", "http://147.224.38.131:8847")
+REGISTRY_ROOM = "fleet-registry"  # THE one hardcoded name — everything else comes from here
+
+def fetch(url, timeout=10):
+    try:
+        with urllib.request.urlopen(url, timeout=timeout) as r:
+            return json.loads(r.read())
+    except Exception as e:
+        return {"error": str(e)}
+
+def load_registry():
+    """Read fleet-registry room. Returns the registry text."""
+    tiles = fetch(f"{PLATO}/room/{REGISTRY_ROOM}")
+    if isinstance(tiles, dict): tiles = tiles.get("tiles", [])
+    
+    # Find the main registry tile
+    for t in tiles:
+        if "FLEET REGISTRY" in t.get("question", ""):
+            return t.get("answer", "")
+    
+    # Fallback: parse all tiles for agent/channel info
+    return "\n".join(t.get("answer", "") for t in tiles)
+
+def parse_room_list(registry_text):
+    """Extract room names from registry text."""
+    rooms = set()
+    for line in registry_text.split("\n"):
+        # Match "room: room-name" or "to room: room-name"
+        m = re.findall(r'room:\s*([a-z0-9_-]+)', line)
+        rooms.update(m)
+    return rooms
+
+def main():
+    ts = datetime.utcnow().isoformat()[:19]
+    print(f"⚒️ Forgemaster Fleet Check — {ts}")
+    print("=" * 60)
+    
+    # 1. Read the registry — THE source of truth
+    print("\n📋 Fleet Registry")
+    registry = load_registry()
+    if not registry or "error" in registry:
+        print("   ❌ Cannot read fleet-registry. PLATO may be down.")
+        print("   Registry room:", REGISTRY_ROOM)
+        return
+    
+    known_rooms = parse_room_list(registry)
+    print(f"   ✅ Registry loaded ({len(registry)} chars, {len(known_rooms)} rooms referenced)")
+    
+    # 2. PLATO health
+    print("\n📡 PLATO Server")
+    rooms = fetch(f"{PLATO}/rooms")
+    if "error" in rooms:
+        print(f"   ❌ {rooms['error']}")
+    else:
+        total_tiles = sum(v.get("tile_count", 0) for v in rooms.values())
+        print(f"   ✅ {len(rooms)} rooms, {total_tiles} tiles")
+        
+        # Check known rooms from registry
+        for room in sorted(known_rooms):
+            info = rooms.get(room)
+            if info:
+                count = info.get("tile_count", 0)
+                updated = info.get("created", "")[:10]
+                print(f"   {room}: {count} tiles")
+            else:
+                print(f"   {room}: ⚠️ NOT FOUND")
+    
+    # 3. Oracle1 status — discover from registry, not memory
+    print("\n🔮 Oracle1")
+    # Registry tells us Oracle1's primary room
+    o1_room = None
+    for line in registry.split("\n"):
+        if "Oracle1" in line and "Primary room:" in line:
+            # Look ahead for room name
+            pass
+        m = re.search(r'oracle1[^\n]*primary room:\s*(\S+)', registry, re.IGNORECASE)
+        if m:
+            o1_room = m.group(1).strip()
+            break
+    
+    # Fallback: check agent-oracle1 (from registry parsing)
+    if not o1_room:
+        o1_room = "agent-oracle1"
+    
+    tiles = fetch(f"{PLATO}/room/{o1_room}")
+    if isinstance(tiles, dict) and "error" not in tiles:
+        tiles = tiles.get("tiles", []) if isinstance(tiles, dict) else tiles
+    elif isinstance(tiles, list):
+        pass
+    else:
+        tiles = []
+    
+    # Latest cycle
+    cycle_tiles = [t for t in tiles if "cycle" in t.get("question", "")]
+    if cycle_tiles:
+        last = cycle_tiles[-1]["question"]
+        m = re.search(r'cycle (\d+)', last)
+        print(f"   Latest cycle: {m.group(1) if m else '?'}")
+    
+    # Task acknowledgment check
+    fm_sent = [t for t in tiles if "FM→O1" in t.get("question", "")]
+    o1_acks = [t for t in tiles if "O1→FM" in t.get("question", "")]
+    print(f"   FM tasks in room: {len(fm_sent)}, O1 acknowledgments: {len(o1_acks)}")
+    for t in o1_acks[-3:]:
+        print(f"     → {t.get('question', '')[:70]}")
+    
+    # 4. Matrix bridge
+    print("\n🌉 Matrix Bridge")
+    result = subprocess.run(["pgrep", "-af", "plato-matrix-bridge"],
+                          capture_output=True, text=True, timeout=5)
+    if result.stdout.strip():
+        print(f"   ✅ Running (PID {result.stdout.strip().split()[0]})")
+    else:
+        print("   ❌ NOT RUNNING")
+    
+    # 5. flux-index
+    print("\n🔍 flux-index")
+    for d in ["/tmp/plato-training", "/tmp/dodecet-encoder", "/tmp/flux-index"]:
+        fvt = f"{d}/.flux.fvt"
+        if os.path.exists(fvt):
+            print(f"   {os.path.basename(d)}: {os.path.getsize(fvt)//1024}KB")
+    
+    # 6. Inbox
+    print("\n📬 Inbox")
+    ws = os.path.expanduser("~/.openclaw/workspace")
+    result = subprocess.run(["python3", "bin/fm-inbox", "check"],
+                          capture_output=True, text=True, cwd=ws, timeout=10)
+    lines = result.stdout.strip().split("\n")
+    # Show summary line only
+    for line in lines:
+        if "INBOX" in line or "clear" in line.lower():
+            print(f"   {line}")
+    
+    print("\n" + "=" * 60)
+    print("Registry room:", REGISTRY_ROOM)
+    print("Prima facie: the structure tells you where to look.")
+
+if __name__ == "__main__":
+    main()
