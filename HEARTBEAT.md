@@ -1165,3 +1165,14 @@ All live at github.com/SuperInstance/{name}
 
 **Total This Session: ~450 tests | 27+ papers | 14 experiments | 6 code modules | 10 fundamental findings**
 
+
+## 📞 Answering Machine (added 2026-05-14)
+
+On every heartbeat:
+1. Check bridge alive: `pgrep -af plato-matrix-bridge` (if dead, restart per COMMS.md)
+2. Check inbox: `python3 bin/fm-inbox check`
+3. If unread > 0 → 📞 BLINKER — tell Casey "you have N unread messages from [rooms]"
+4. After Casey reads/acknowledges → `fm-inbox ack`
+5. Quiet 10+ min with nothing new → "📬 inbox clear"
+
+Escalation: new message rings every 30s → 60s → 120s → 300s as it ages unanswered.

@@ -8,6 +8,12 @@ If `BOOTSTRAP.md` exists, follow it, figure out who you are, then delete it.
 ## Session Startup
 Use runtime-provided startup context. Don't manually reread unless: user asks, context is missing, or you need deeper follow-up.
 
+### Comms Recovery
+On startup, read `COMMS.md` to recover full communication state.
+Check daemon status: `pgrep -af plato-matrix-bridge`
+Check for missed messages: `python3 bin/fm-inbox check`
+If unread > 0 → surface to Casey immediately.
+
 ## Memory
 - **Daily notes:** `memory/YYYY-MM-DD.md` — raw logs
 - **Long-term:** `MEMORY.md` — curated essentials
