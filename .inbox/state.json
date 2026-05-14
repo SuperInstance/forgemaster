@@ -1,11 +1,11 @@
 {
   "last_checked": 1778745064.5291057,
-  "unread_count": 1247,
+  "unread_count": 1342,
   "unread_rooms": {
-    "fleet-coord": 449,
+    "fleet-coord": 534,
     "forge": 161,
     "oracle1-forgemaster-bridge": 332,
-    "flux-engine": 305
+    "flux-engine": 315
   },
   "bridge_pid": 67109,
   "bridge_config": "/tmp/plato-matrix-bridge/config-forgemaster.json",
@@ -22,307 +22,307 @@
   "beep_interval_s": 30,
   "beep_decay_s": 600,
   "max_interval_s": 600,
-  "last_ring": 1778750277.319004,
+  "last_ring": 1778750656.3695793,
   "pending": [
     {
-      "room": "oracle1-forgemaster-bridge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15101' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750149.9486153
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15201/track-0' grew by 1 tiles \u2014 now at 8",
-      "timestamp": 1778750150.1194088
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15201/track-3' grew by 2 tiles \u2014 now at 9",
-      "timestamp": 1778750150.2903519
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15201/track-8' grew by 2 tiles \u2014 now at 9",
-      "timestamp": 1778750150.4675853
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15201' grew by 1 tiles \u2014 now at 2",
-      "timestamp": 1778750150.628834
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15301' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750150.7894604
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-14901' grew by 1 til",
-      "timestamp": 1778750150.9357443
-    },
-    {
-      "room": "forge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'fleet_health' grew by 1 tiles \u2014 now at 1895",
-      "timestamp": 1778750209.9797206
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18501/track-3' grew by 2 tiles \u2014 now at 9",
-      "timestamp": 1778750210.3279045
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18501' grew by 1 tiles \u2014 now at 2",
-      "timestamp": 1778750210.467698
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18601' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750210.6037683
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18701' grew by 1 tiles \u2014 now at 2",
-      "timestamp": 1778750210.7384539
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18801/track-3' grew by 1 tiles \u2014 now at 8",
-      "timestamp": 1778750210.879641
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18801/track-9' grew by 2 tiles \u2014 now at 9",
-      "timestamp": 1778750211.0220165
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18801/track-10' grew by 2 tiles \u2014 now at 9",
-      "timestamp": 1778750211.1610253
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18801/track-13' grew by 2 tiles \u2014 now at 9",
-      "timestamp": 1778750211.321876
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18801' grew by 1 tiles \u2014 now at 2",
-      "timestamp": 1778750211.4623044
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18901' grew by 1 tiles \u2014 now at 2",
-      "timestamp": 1778750211.6039062
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'forge' grew by 1 tiles \u2014 now at 550",
-      "timestamp": 1778750211.7432075
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20201' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750211.910379
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20301' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750212.0472538
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20401' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750212.1944854
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20501' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750212.3193831
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20601' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750212.4663153
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20701' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750212.608216
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20801' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750212.7479322
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20901' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750212.9241276
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-8701/track-0' grew by 4 tiles \u2014 now at 7",
-      "timestamp": 1778750213.0959637
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'fleet_health' grew by 1 tiles \u2014 now at 189",
-      "timestamp": 1778750213.2439604
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-1501/track-8' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750463.620009
     },
     {
       "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-4401' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750272.68972
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-1501' grew by 10 tiles \u2014 now at 12",
+      "timestamp": 1778750463.8137317
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20201",
-      "timestamp": 1778750273.1480322
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15101/track-0' grew by 5 tiles \u2014 now at 14",
+      "timestamp": 1778750464.0011082
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20301",
-      "timestamp": 1778750273.3504376
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15101' grew by 2 tiles \u2014 now at 5",
+      "timestamp": 1778750464.1920125
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20401",
-      "timestamp": 1778750273.5139918
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15201/track-0' grew by 5 tiles \u2014 now at 13",
+      "timestamp": 1778750464.382287
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20501",
-      "timestamp": 1778750273.6822934
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15201/track-1' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750464.584753
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20601",
-      "timestamp": 1778750273.8512201
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15201/track-2' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750464.7710536
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20701",
-      "timestamp": 1778750274.0171425
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15201/track-3' grew by 5 tiles \u2014 now at 14",
+      "timestamp": 1778750464.9621835
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20801",
-      "timestamp": 1778750274.1604233
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15201/track-4' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750465.1461995
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-20901",
-      "timestamp": 1778750274.3252213
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15201/track-5' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750465.3387895
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-8701/",
-      "timestamp": 1778750274.4891691
+      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18901/track-6' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750465.526193
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Mat",
-      "timestamp": 1778750274.654237
+      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18901/track-7' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750465.7212079
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-4501' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750274.8193865
+      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18901/track-8' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750465.9106445
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-4601/track-0' grew by 2 tiles \u2014 now at 9",
-      "timestamp": 1778750274.987358
+      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18901/track-9' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750466.0978343
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-4601' grew by 1 tiles \u2014 now at 2",
-      "timestamp": 1778750275.1608384
+      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18901/track-10' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750466.28546
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-4701' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750275.333133
+      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18901/track-11' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750466.4765284
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-4801' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750275.509894
+      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18901/track-12' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750466.6660097
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-4901' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750275.6803658
+      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18901/track-13' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750466.8913064
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-501/track-7' grew by 1 tiles \u2014 now at 8",
-      "timestamp": 1778750276.8440797
+      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18901/track-14' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750467.0773852
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-501' grew by 1 tiles \u2014 now at 2",
-      "timestamp": 1778750277.0103025
+      "body": "\ud83e\udde9 [forge] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-18901' grew by 15 tiles \u2014 now at 17",
+      "timestamp": 1778750467.279305
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-5101' grew by 1 tiles \u2014 now at 3",
-      "timestamp": 1778750277.1712587
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1",
+      "timestamp": 1778750467.4731967
     },
     {
-      "room": "forge",
+      "room": "fleet-coord",
       "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'fleet_health' grew by 1 tiles \u2014 now at 189",
-      "timestamp": 1778750277.319004
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1",
+      "timestamp": 1778750467.6901295
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1",
+      "timestamp": 1778750467.8805633
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1",
+      "timestamp": 1778750468.0706584
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1",
+      "timestamp": 1778750468.29088
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-14901' grew by",
+      "timestamp": 1778750468.4637043
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15001/track-0'",
+      "timestamp": 1778750468.6809466
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15001/track-1'",
+      "timestamp": 1778750468.8698535
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15001/track-2'",
+      "timestamp": 1778750469.0642896
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-15001/track-3'",
+      "timestamp": 1778750469.2445335
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-25301/track-2' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750526.492443
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-25301/track-3' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750526.7012138
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-25301/track-4' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750526.8994176
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-25301/track-5' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750527.1078231
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-25301/track-6' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750527.3171523
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-25301/track-7' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750527.512001
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-25301/track-8' grew by 5 tiles \u2014 now at 13",
+      "timestamp": 1778750527.749642
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-25301/track-9' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750527.981007
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-25301/track-10' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750528.2090337
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/bitmidi-25301' grew by 11 tiles \u2014 now at 13",
+      "timestamp": 1778750528.4178312
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/generated-mozart-allegro-3' grew by 2 tiles \u2014 now at 5",
+      "timestamp": 1778750651.695037
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/generated-mozart-allegro-4' grew by 2 tiles \u2014 now at 5",
+      "timestamp": 1778750651.4964273
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/generated-schubert-impromptu-1/track-0' grew by 5 tiles \u2014 now at 12",
+      "timestamp": 1778750654.8733912
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/generated-schubert-impromptu-1' grew by 2 tiles \u2014 now at 5",
+      "timestamp": 1778750655.0834074
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/generated-schubert-impromptu-2/track-0' grew by 4 tiles \u2014 now at 11",
+      "timestamp": 1778750655.322629
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/generated-schubert-impromptu-2' grew by 2 tiles \u2014 now at 5",
+      "timestamp": 1778750655.5328403
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/generated-schubert-impromptu-3/track-0' grew by 3 tiles \u2014 now at 10",
+      "timestamp": 1778750655.7360935
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/generated-schubert-impromptu-3' grew by 2 tiles \u2014 now at 5",
+      "timestamp": 1778750655.9602122
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/generated-schubert-impromptu-4/track-0' grew by 3 tiles \u2014 now at 10",
+      "timestamp": 1778750656.1646173
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'style-library/generated-schubert-impromptu-4' grew by 2 tiles \u2014 now at 5",
+      "timestamp": 1778750656.3695793
     }
   ]
 }
