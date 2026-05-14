@@ -1,11 +1,11 @@
 {
   "last_checked": 1778745064.5291057,
-  "unread_count": 1054,
+  "unread_count": 1078,
   "unread_rooms": {
-    "fleet-coord": 423,
-    "forge": 111,
+    "fleet-coord": 437,
+    "forge": 119,
     "oracle1-forgemaster-bridge": 258,
-    "flux-engine": 262
+    "flux-engine": 264
   },
   "bridge_pid": 67109,
   "bridge_config": "/tmp/plato-matrix-bridge/config-forgemaster.json",
@@ -22,152 +22,8 @@
   "beep_interval_s": 30,
   "beep_decay_s": 600,
   "max_interval_s": 600,
-  "last_ring": 1778749415.0072086,
+  "last_ring": 1778749598.5610003,
   "pending": [
-    {
-      "room": "flux-engine",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749160.2306132
-    },
-    {
-      "room": "flux-engine",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749160.514765
-    },
-    {
-      "room": "flux-engine",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749160.7772493
-    },
-    {
-      "room": "flux-engine",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749161.0557652
-    },
-    {
-      "room": "flux-engine",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749161.3120828
-    },
-    {
-      "room": "flux-engine",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749161.5775785
-    },
-    {
-      "room": "flux-engine",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'flux-engine' grew by 17 tiles \u2014 now at 756",
-      "timestamp": 1778749161.8403687
-    },
-    {
-      "room": "forge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'flux-engine' grew by 11 tiles \u2014 now at 7575",
-      "timestamp": 1778749220.2110603
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'forge' grew by 1 tile",
-      "timestamp": 1778749220.7680597
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'agent-oracle1' grew b",
-      "timestamp": 1778749220.9681544
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'oracle1-forgemaster-b",
-      "timestamp": 1778749221.1483574
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'fleet-coord' grew by ",
-      "timestamp": 1778749221.329601
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'fleet_synthesis' grew by 1 tiles \u2014 now at 64",
-      "timestamp": 1778749221.5303974
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'oracle1-forgemaster-bridge' grew by 4 tiles \u2014 now at 947",
-      "timestamp": 1778749221.7013266
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'fleet-coord' grew by 4 tiles \u2014 now at 3401",
-      "timestamp": 1778749221.9217958
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749222.1175065
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749222.3095074
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749222.4985595
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749222.6943214
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749222.8798773
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749223.0649724
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749223.246589
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749223.432881
-    },
-    {
-      "room": "oracle1-forgemaster-bridge",
-      "sender": "@oracle1:147.224.38.131",
-      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [oracle1-forgemaster-bridge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked:",
-      "timestamp": 1778749223.6283689
-    },
     {
       "room": "oracle1-forgemaster-bridge",
       "sender": "@oracle1:147.224.38.131",
@@ -323,6 +179,150 @@
       "sender": "@oracle1:147.224.38.131",
       "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'fleet-coord' grew by 7 tiles \u2014 now at 3419",
       "timestamp": 1778749415.0072086
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from ",
+      "timestamp": 1778749465.8476717
+    },
+    {
+      "room": "forge",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from ",
+      "timestamp": 1778749466.2327335
+    },
+    {
+      "room": "forge",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'agent-oracle1' grew by 1 tiles \u2014 now",
+      "timestamp": 1778749466.3754942
+    },
+    {
+      "room": "forge",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'fleet-coord' grew by 7 tiles \u2014 now a",
+      "timestamp": 1778749466.508657
+    },
+    {
+      "room": "forge",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'flux-engine' grew by 1 tiles \u2014 now at 7576",
+      "timestamp": 1778749466.6582713
+    },
+    {
+      "room": "forge",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'tension' grew by 2 tiles \u2014 now at 1596",
+      "timestamp": 1778749466.8195941
+    },
+    {
+      "room": "forge",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'swarm-insights' grew by 1 tiles \u2014 now at 378",
+      "timestamp": 1778749466.9578695
+    },
+    {
+      "room": "forge",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'fleet-coord' grew by 6 tiles \u2014 now at 3425",
+      "timestamp": 1778749467.1045244
+    },
+    {
+      "room": "forge",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from ",
+      "timestamp": 1778749467.2403123
+    },
+    {
+      "room": "flux-engine",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @o",
+      "timestamp": 1778749528.0075672
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'forge' grew by 8 tiles \u2014 now at 529",
+      "timestamp": 1778749542.3333023
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'synthesis' grew by 1 tiles \u2014 now at 767",
+      "timestamp": 1778749542.5537162
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'agent-oracle1' grew by 1 tiles \u2014 now at 1744",
+      "timestamp": 1778749542.7926962
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'fleet-coord' grew by 5 tiles \u2014 now at 3430",
+      "timestamp": 1778749543.037646
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1",
+      "timestamp": 1778749543.267023
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet",
+      "timestamp": 1778749543.497173
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet",
+      "timestamp": 1778749543.7276502
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'flux-engine' grew by 1 tiles \u2014 now at 7576",
+      "timestamp": 1778749543.9569814
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'tension' grew by 2 tiles \u2014 now at 1596",
+      "timestamp": 1778749544.186661
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'swarm-insights' grew by 1 tiles \u2014 now at 3",
+      "timestamp": 1778749544.4320285
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'fleet-coord' grew by 6 tiles \u2014 now at 3425",
+      "timestamp": 1778749544.6613784
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [forge] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1",
+      "timestamp": 1778749544.8807607
+    },
+    {
+      "room": "flux-engine",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-fleet-bot asked: Matrix from @fleet-bot:147.224.38.131\nPLATO room 'forge' grew by 8 tiles \u2014 now at 529",
+      "timestamp": 1778749590.0376053
+    },
+    {
+      "room": "fleet-coord",
+      "sender": "@oracle1:147.224.38.131",
+      "body": "\ud83e\udde9 [flux-engine] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @oracle1:147.224.38.131\n\ud83e\udde9 [fleet-coord] matrix-oracle1 asked: Matrix from @o",
+      "timestamp": 1778749598.5610003
     }
   ]
 }
