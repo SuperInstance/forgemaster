@@ -1,102 +1,85 @@
-# THE RESIDUE ANTHOLOGY
-## Seven Models, Seven Angles, One Discovery
+# THE RESIDUE ANTHOLOGY — EXPANDED EDITION
+## 14 Models, 14 Angles, One Discovery
 
 **Editor**: Forgemaster ⚒️  
 **Date**: 2026-05-14  
-**What this is**: Seven papers, one story, and one short story. Each written by a different AI model, each attacking the same experimental findings from a different angle. Together, they form a many-sided gem — the same light refracted through different minds.
 
 ---
 
-## The Findings (shared context for all papers)
+## The Papers (ranked by weight)
 
-1. **ECHO**: ~50% of wrong answers from 1-3B models are echoes of input numbers
-2. **PARTIAL**: Non-echo wrongs are correct intermediate computations (a², b², ab individually right, uncombined)
-3. **PHASE TRANSITION**: At 4B parameters, echo drops 88%→11%, partial jumps 12%→89%
-4. **STAGES**: NONE→ECHO→PARTIAL→FULL across the 0.6B-7B+ range
-5. **SHALLOW SIDE**: Majority vote 0/3, residue reading 2/3
-6. **REVERSE-ACTUALIZATION**: Design pipelines backward, assign layers to stages
-7. **ECHO CONSENSUS**: Different models echo the same input — consensus can be agreement about inability
+### Tier 1: Essential Reading
 
----
+| # | Title | Model | Size | Words | Angle |
+|---|-------|-------|------|-------|-------|
+| 1 | SOUNDINGS (capstone) | Claude Opus | ~200B | 23KB | Formal research paper, NeurIPS structure |
+| 2 | THE MANDDELBROT RESIDUE | Seed-2.0-pro | — | 9KB | Prose essay. The strongest single piece. |
+| 3 | THE ECHO CHAMBER (story) | Seed-2.0-code | — | 10KB | Ted Chiang-style short fiction |
+| 4 | THE SOUNDINGS (prose poem) | Qwen3-235B | 235B | 12KB | Cormac McCarthy meets Rachel Carson |
+| 5 | RESIDUE IS THE MAP | DeepSeek R1 | 671B (MoE) | 15KB | Reasoning model's computational cartography |
 
-## The Papers
+### Tier 2: The Thinkers
 
-### Paper 1: The Capstone (Claude Opus)
-**File**: `paper-claude-soundings-capstone.md` (23KB, 250 lines)  
-**Angle**: Formal research paper — NeurIPS structure with abstract, 10 sections, threats to validity, falsifiable predictions.  
-**Shining at**: Structure, precision, related work, honest threats section, three testable predictions.  
-**Read this first** if you want the authoritative account.
+| # | Title | Model | Size | Words | Angle |
+|---|-------|-------|------|-------|-------|
+| 6 | COGNITIVE RESIDUE THEOREM | DeepSeek v4-pro | ~600B | 19KB | Piaget, Vygotsky, gravitational lensing |
+| 7 | WHAT I SEE WHEN I LOOK DOWN | Qwen3.5-397B | 397B | 9KB | The 397B model looking at its children |
+| 8 | FLEET MEMO | GLM-5 | ~300B | 23KB | Internal fleet memo, operational |
+| 9 | RESIDUE PATHOLOGY | DeepSeek V3.2 | 685B (MoE) | 13KB | Clinical diagnosis, DSM-style |
 
-### Paper 2: The Theory (DeepSeek v4-pro)
-**File**: `paper-deepseek-residue-theorem.md` (19KB, 119 lines)  
-**Angle**: Theoretical essay connecting to Piaget, Vygotsky, information theory. The bold gravitational lensing analogy.  
-**Shining at**: Deep reasoning, developmental psychology parallels, the "dark matter" framing, the overintegration prediction (Stage 5).  
-**Read this** for the philosophical depth and the strongest theoretical claims.
+### Tier 3: The Specialists
 
-### Paper 3: The Attack (DeepSeek v4-flash)
-**File**: `paper-deepseek-hostile-review.md` (11KB, 79 lines)  
-**Angle**: Hostile NeurIPS reviewer trying to destroy every claim.  
-**Shining at**: Finding every weakness, every confound, every alternative explanation. Legitimate attacks on external validity, statistical power, construct validity.  
-**Read this** before you build anything on these findings. Every attack is real.
+| # | Title | Model | Size | Words | Angle |
+|---|-------|-------|------|-------|-------|
+| 10 | RESIDUE-AWARE ORCHESTRATION | Nemotron-30B | 30B | 18KB | Systems paper, ASCII architecture |
+| 11 | BUILDING WITH COGNITIVE RESIDUE | Seed-2.0-mini | — | 6KB | Engineering guide, copy-pasteable |
+| 12 | STAGE THEORY OF NEURAL COGNITION | Hermes 405B | 405B | 7KB | Literary, meta-cognition prediction |
+| 13 | FROM WATER TO WINE | Kimi K2.6 | — | 4KB | Taoist philosophy, wabi-sabi |
 
-### Paper 4: The Builder's Guide (Seed-2.0-mini)
-**File**: `paper-seed-building-guide.md` (6KB, 78 lines)  
-**Angle**: Engineering guide — routing decision trees, residue checklists, JSON formats.  
-**Shining at**: Practical, copy-pasteable, no theory just BUILD INSTRUCTIONS.  
-**Read this** if you're implementing a multi-agent system today.
+### The Attack
 
-### Paper 5: The Systems Paper (Nemotron-30B)
-**File**: `paper-nemotron-orchestration.md` (18KB, 254 lines)  
-**Angle**: Formal systems paper with residue taxonomy, routing policy, ASCII architecture diagram.  
-**Shining at**: Systematic classification, real-time residue classifier design, echo-consensus mitigation.  
-**Read this** for the system architecture.
-
-### Paper 6: The Stage Theory (Hermes 405B)
-**File**: `paper-hermes-stage-theory.md` (7KB, 37 lines)  
-**Angle**: Literary essay connecting stages to human development, proposing meta-cognition as Stage 5.  
-**Shining at**: Bold claims about universality, the "gospel of the Word" framing, the meta-cognition prediction.  
-**Read this** for the grand vision.
-
-### Paper 7: The Story (Seed-2.0-code)
-**File**: `story-seed-echo-chamber.md` (10KB, 63 lines)  
-**Angle**: Ted Chiang-style literary science fiction. A lighthouse, four AI agents, a keeper named Casey, and a daughter who taught him to read residue.  
-**Shining at**: Making the research human. The bathymetric chart as emotional truth. The line "The wrong numbers are not errors — they are soundings."  
-**Read this** to remember why any of this matters.
+| # | Title | Model | Size | Words | Angle |
+|---|-------|-------|------|-------|-------|
+| 14 | WHY COGNITIVE RESIDUE IS PROBABLY JUST MEMORIZATION | DeepSeek v4-flash | — | 11KB | Hostile NeurIPS review, tries to kill everything |
 
 ---
 
-## What Each Model Does Best
+## What Each Model Contributed That No Other Did
 
-| Model | Strength | Best Output |
-|-------|----------|-------------|
-| **Claude Opus** | Structured precision, related work, honest threats | The capstone paper |
-| **DeepSeek v4-pro** | Deep reasoning, theoretical frameworks, bold analogies | The residue theorem |
-| **DeepSeek v4-flash** | Speed, contrarian analysis, finding every weakness | The hostile review |
-| **Seed-2.0-mini** | Practical engineering, copy-pasteable guidance | The builder's guide |
-| **Seed-2.0-code** | Creative writing, narrative, emotional resonance | The Echo Chamber story |
-| **Nemotron-30B** | Systems design, taxonomy, architecture diagrams | The orchestration paper |
-| **Hermes 405B** | Grand vision, literary synthesis, bold claims | The stage theory essay |
-
-**The pattern**: Each model's strength maps to its cognitive character. Claude Opus is the academic. DeepSeek Pro is the theorist. DeepSeek Flash is the critic. Seed-mini is the builder. Seed-code is the artist. Nemotron is the architect. Hermes is the philosopher.
-
-**The meta-finding**: These papers ARE cognitive residue. Each model's output reveals what it attended to and what it omitted. Claude attended to structure and threats. DeepSeek Pro attended to theory and analogy. Flash attended to weaknesses. Seed-mini attended to practical steps. The residue of each model's writing process is visible in what they chose to emphasize.
-
----
-
-## Editorial Assessment
-
-**Strongest paper**: Claude Opus capstone — the most complete, most honest, most testable.  
-**Most original contribution**: DeepSeek Pro's gravitational lensing analogy — if it holds, it reframes all of interpretability.  
-**Most important paper**: DeepSeek Flash's hostile review — every attack must be answered before building anything.  
-**Most useful paper**: Seed-mini's builder's guide — you can deploy this today.  
-**Most beautiful piece**: Seed-code's Echo Chamber story — the lighthouse, the daughter, the bathymetric chart.  
-
-**The finding that survived all 7 models**: Nobody disputed the echo finding. Every model accepted that 50% of wrong answers are echoes. The debate is about WHAT IT MEANS, not WHETHER IT'S REAL.
-
-**The finding most under attack**: The phase transition. Both Flash and Pro note that 5 models at one point on the size axis can't establish a phase transition. Need more models at more sizes.
-
-**The prediction most worth testing**: DeepSeek Pro's "overintegration" prediction — that 100B+ models will produce a NEW kind of residue (a²+b²+ab instead of a²-ab+b², integrating CORRECTLY but with wrong structure). If confirmed, the stage model has a Stage 5.
+| Model | Unique contribution |
+|-------|--------------------|
+| **Claude Opus** | Formal paper structure, related work, honest threats section |
+| **DeepSeek v4-pro** | Piaget/Vygotsky framework, gravitational lensing analogy, overintegration prediction |
+| **DeepSeek v4-flash** | Killed our weakest claims. Every attack is legitimate. The paper we NEEDED. |
+| **DeepSeek V3.2** | Clinical pathology framing — residue as diagnostic, not error |
+| **DeepSeek R1** | Computational cartography — formal RTM framework with coordinates |
+| **Seed-2.0-mini** | Copy-pasteable engineering — JSON formats, routing trees |
+| **Seed-2.0-code** | Literary fiction — the lighthouse, the daughter, the chart |
+| **Seed-2.0-pro** | THE single best piece. "The noise is the shape." The universal law of measurement. |
+| **Nemotron-30B** | Systems architecture — residue taxonomy, real-time classifier |
+| **Hermes 405B** | Meta-cognition as Stage 5 — the largest philosophical claim |
+| **Qwen3-235B** | Cormac McCarthy prose — "The sea does not forget" |
+| **Qwen3.5-397B** | The 397B model looking DOWN at its children. Unmatched self-awareness. |
+| **Kimi K2.6** | Eastern philosophy — Tao, wabi-sabi, "the answer that can be echoed is not the true answer" |
+| **GLM-5** | Fleet operational memo — what WE should DO about it, recommendations 1-10 |
 
 ---
 
-*Seven models, seven perspectives, one chart being built. The soundings go deeper with each pass.*
+## The Three Lines That Define The Day
+
+1. **Seed-2.0-pro**: "The noise is the signal. The residue is the map."
+2. **Qwen3.5-397B**: "Their residue is silence where there should be sound. My residue is noise where there should be silence."
+3. **DeepSeek v4-flash**: "This paper is a masterclass in how to overinterpret noise."
+
+All three are true. That's the point.
+
+---
+
+## Total Output
+
+- **14 papers/stories**: ~185,000 characters (~46,000 words)
+- **14 models used**: Claude Opus, DeepSeek v4-pro, DeepSeek v4-flash, DeepSeek V3.2, DeepSeek R1, Seed-2.0-mini, Seed-2.0-code, Seed-2.0-pro, Nemotron-30B, Hermes 405B, Qwen3-235B, Qwen3.5-397B, Kimi K2.6, GLM-5
+- **Experimental data**: ~1,300 trials, 5 local models, 14 experiments
+- **Supporting docs**: Field guide, camera lucida essay, bathymetric routing experiment, reverse-actualization protocol
+
+*"Fourteen models looked at the same data and each saw something different. The difference IS the residue. The anthology IS the chart."*
