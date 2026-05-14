@@ -1,0 +1,437 @@
+{
+  "findings": {
+    "R1": {
+      "id": "R1",
+      "statement": "Echo rate is a continuous variable, not binary. Models echo at rates from 0% to 90%.",
+      "confidence": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+      "variables": [
+        "echo_rate"
+      ],
+      "open_questions": [
+        "What determines echo rate within ECHO-stage models?"
+      ]
+    },
+    "R2": {
+      "id": "R2",
+      "statement": "Echo consensus \u2260 truth consensus. All models echoing the same input = agreement about inability.",
+      "confidence": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+      "variables": [
+        "echo_rate",
+        "consensus"
+      ],
+      "open_questions": [
+        "Can echo consensus be used as a reliability signal?"
+      ]
+    },
+    "R3": {
+      "id": "R3",
+      "statement": "Error tiers are: stochastic (retry helps), deterministic (retry wastes), reliable.",
+      "confidence": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+      "variables": [
+        "error_tier"
+      ],
+      "open_questions": [
+        "What determines which tier a specific error falls into?"
+      ]
+    },
+    "R4": {
+      "id": "R4",
+      "statement": "Phase transition at ~4B params: ECHO\u2192PARTIAL. 77-point echo rate swing in 0.2B gap.",
+      "confidence": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+      "variables": [
+        "total_params",
+        "echo_rate",
+        "partial_rate"
+      ],
+      "open_questions": [
+        "What architectural variable drives this transition?"
+      ]
+    },
+    "R5": {
+      "id": "R5",
+      "statement": "qwen3:4b (4B) partial-computes: outputs correct sub-expressions (a\u00b2, b\u00b2, ab) 89% of the time.",
+      "confidence": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+      "variables": [
+        "partial_rate",
+        "n_heads"
+      ],
+      "open_questions": [
+        "What prevents the combination step?"
+      ]
+    },
+    "R6": {
+      "id": "R6",
+      "statement": "Full answer in DATA = 100% accuracy for ALL stages. DATA format is the dominant variable.",
+      "confidence": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+      "variables": [
+        "data_format",
+        "accuracy"
+      ],
+      "open_questions": [
+        "What is the minimal effective DATA for each stage?"
+      ]
+    },
+    "R16": {
+      "id": "R16",
+      "statement": "Stage model: NONE(<1B) \u2192 ECHO(1-3.8B) \u2192 PARTIAL(4B+) \u2192 FULL(7B+). Discrete stages.",
+      "confidence": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+      "variables": [
+        "stage",
+        "total_params"
+      ],
+      "open_questions": [
+        "Is this universal or task-specific?"
+      ]
+    },
+    "R17": {
+      "id": "R17",
+      "statement": "Shallow-side constraint: majority vote fails (0/3), residue reading succeeds (2/3).",
+      "confidence": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+      "variables": [
+        "consensus_method",
+        "residue_type"
+      ],
+      "open_questions": [
+        "What is the optimal aggregation method for residue?"
+      ]
+    },
+    "R27": {
+      "id": "R27",
+      "statement": "Task-dependent percolation CONFIRMED: phi4-mini (12h) gets 60% on peak=2 task, 20% on peak=3.",
+      "confidence": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+      "variables": [
+        "n_heads",
+        "peak_intermediates",
+        "dependency_width"
+      ],
+      "open_questions": [
+        "What is the exact relationship between dependency width and n_heads?",
+        "Does serial execution reduce the effective dependency width?"
+      ]
+    },
+    "R28": {
+      "id": "R28",
+      "statement": "qwen3:0.6b (0.6B, 8h) gets 100% on a\u00b2+b\u00b2 but 0% on a\u00b2-ab+b\u00b2. Smallest model perfect on simple task.",
+      "confidence": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+      "variables": [
+        "total_params",
+        "n_heads",
+        "dependency_width",
+        "training_coverage"
+      ],
+      "open_questions": [
+        "Is this capability from training data coverage or architectural sufficiency?",
+        "Can 0.6B models solve ANY width-1 dependency task?"
+      ]
+    },
+    "R29": {
+      "id": "R29",
+      "statement": "Training coverage is a CONFOUND: qwen3:0.6b (8h) = 100% on a\u00b2+b\u00b2, gemma3:1b (8h) = 38% partial.",
+      "confidence": "Tier 2 \u2014 SOLID (verified, not yet replicated)",
+      "variables": [
+        "training_coverage",
+        "n_heads"
+      ],
+      "open_questions": [
+        "How to disentangle training coverage from architectural capacity?",
+        "Is there a task where training CAN'T compensate for low n_heads?"
+      ]
+    },
+    "H1": {
+      "id": "H1",
+      "statement": "n_heads ALONE determines the ECHO\u2192PARTIAL transition.",
+      "confidence": "FALSIFIED (experimentally disproven)",
+      "variables": [
+        "n_heads"
+      ],
+      "open_questions": [
+        "What IS the determining variable?"
+      ]
+    },
+    "H2": {
+      "id": "H2",
+      "statement": "Peak intermediates determines the percolation threshold.",
+      "confidence": "FALSIFIED (experimentally disproven)",
+      "variables": [
+        "peak_intermediates"
+      ],
+      "open_questions": [
+        "Is dependency width the real variable?"
+      ]
+    }
+  },
+  "variables": {
+    "n_heads": {
+      "name": "n_heads",
+      "type": "interdependent \u2014 interacts with other variables",
+      "novelty": 0,
+      "interacts_with": [
+        "dependency_width",
+        "training_coverage"
+      ]
+    },
+    "dependency_width": {
+      "name": "dependency_width",
+      "type": "independent \u2014 operates alone",
+      "novelty": 2,
+      "interacts_with": [
+        "n_heads",
+        "training_coverage"
+      ]
+    },
+    "training_coverage": {
+      "name": "training_coverage",
+      "type": "confound \u2014 correlates with causal variable but isn't causal",
+      "novelty": 2,
+      "interacts_with": [
+        "n_heads",
+        "dependency_width"
+      ]
+    },
+    "peak_intermediates": {
+      "name": "peak_intermediates",
+      "type": "mediator \u2014 mechanism through which causal variable operates",
+      "novelty": 1,
+      "interacts_with": [
+        "dependency_width"
+      ]
+    },
+    "d_model": {
+      "name": "d_model",
+      "type": "independent \u2014 operates alone",
+      "novelty": 0,
+      "interacts_with": []
+    },
+    "d_head": {
+      "name": "d_head",
+      "type": "independent \u2014 operates alone",
+      "novelty": 0,
+      "interacts_with": [
+        "n_heads"
+      ]
+    },
+    "echo_rate": {
+      "name": "echo_rate",
+      "type": "mediator \u2014 mechanism through which causal variable operates",
+      "novelty": 0,
+      "interacts_with": [
+        "stage"
+      ]
+    },
+    "temperature": {
+      "name": "temperature",
+      "type": "moderator \u2014 changes the STRENGTH of another variable's effect",
+      "novelty": 0,
+      "interacts_with": [
+        "echo_rate",
+        "partial_rate"
+      ]
+    },
+    "quantization": {
+      "name": "quantization",
+      "type": "moderator \u2014 changes the STRENGTH of another variable's effect",
+      "novelty": 0,
+      "interacts_with": [
+        "echo_rate"
+      ]
+    }
+  },
+  "spokes_completed": 0,
+  "next_spoke": {
+    "spoke_number": 1,
+    "candidates": [
+      {
+        "source": "Open question from R1",
+        "question": "What determines echo rate within ECHO-stage models?",
+        "confidence_of_parent": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+        "priority": 1,
+        "type": "EXTEND_VERIFIED"
+      },
+      {
+        "source": "Open question from R2",
+        "question": "Can echo consensus be used as a reliability signal?",
+        "confidence_of_parent": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+        "priority": 1,
+        "type": "EXTEND_VERIFIED"
+      },
+      {
+        "source": "Open question from R3",
+        "question": "What determines which tier a specific error falls into?",
+        "confidence_of_parent": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+        "priority": 1,
+        "type": "EXTEND_VERIFIED"
+      },
+      {
+        "source": "Open question from R4",
+        "question": "What architectural variable drives this transition?",
+        "confidence_of_parent": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+        "priority": 1,
+        "type": "EXTEND_VERIFIED"
+      },
+      {
+        "source": "Open question from R5",
+        "question": "What prevents the combination step?",
+        "confidence_of_parent": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+        "priority": 1,
+        "type": "EXTEND_VERIFIED"
+      },
+      {
+        "source": "Open question from R6",
+        "question": "What is the minimal effective DATA for each stage?",
+        "confidence_of_parent": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+        "priority": 1,
+        "type": "EXTEND_VERIFIED"
+      },
+      {
+        "source": "Open question from R16",
+        "question": "Is this universal or task-specific?",
+        "confidence_of_parent": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+        "priority": 1,
+        "type": "EXTEND_VERIFIED"
+      },
+      {
+        "source": "Open question from R17",
+        "question": "What is the optimal aggregation method for residue?",
+        "confidence_of_parent": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+        "priority": 1,
+        "type": "EXTEND_VERIFIED"
+      },
+      {
+        "source": "Open question from R27",
+        "question": "What is the exact relationship between dependency width and n_heads?",
+        "confidence_of_parent": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+        "priority": 1,
+        "type": "EXTEND_VERIFIED"
+      },
+      {
+        "source": "Open question from R27",
+        "question": "Does serial execution reduce the effective dependency width?",
+        "confidence_of_parent": "Tier 1 \u2014 BEDROCK (verified, replicated, falsification-resistant)",
+        "priority": 1,
+        "type": "EXTEND_VERIFIED"
+      }
+    ],
+    "edge_of_knowledge": [],
+    "confounds_to_resolve": [
+      "training_coverage"
+    ],
+    "unknown_interactions": [
+      [
+        "n_heads",
+        "peak_intermediates"
+      ],
+      [
+        "n_heads",
+        "temperature"
+      ],
+      [
+        "n_heads",
+        "quantization"
+      ],
+      [
+        "dependency_width",
+        "echo_rate"
+      ],
+      [
+        "dependency_width",
+        "temperature"
+      ],
+      [
+        "dependency_width",
+        "quantization"
+      ],
+      [
+        "peak_intermediates",
+        "training_coverage"
+      ],
+      [
+        "peak_intermediates",
+        "temperature"
+      ],
+      [
+        "peak_intermediates",
+        "quantization"
+      ],
+      [
+        "d_model",
+        "n_heads"
+      ],
+      [
+        "d_model",
+        "dependency_width"
+      ],
+      [
+        "d_model",
+        "training_coverage"
+      ],
+      [
+        "d_model",
+        "peak_intermediates"
+      ],
+      [
+        "d_model",
+        "echo_rate"
+      ],
+      [
+        "d_model",
+        "temperature"
+      ],
+      [
+        "d_model",
+        "quantization"
+      ],
+      [
+        "d_head",
+        "dependency_width"
+      ],
+      [
+        "d_head",
+        "training_coverage"
+      ],
+      [
+        "d_head",
+        "peak_intermediates"
+      ],
+      [
+        "d_head",
+        "d_model"
+      ],
+      [
+        "d_head",
+        "echo_rate"
+      ],
+      [
+        "d_head",
+        "temperature"
+      ],
+      [
+        "d_head",
+        "quantization"
+      ],
+      [
+        "echo_rate",
+        "n_heads"
+      ],
+      [
+        "echo_rate",
+        "training_coverage"
+      ],
+      [
+        "echo_rate",
+        "peak_intermediates"
+      ],
+      [
+        "temperature",
+        "training_coverage"
+      ],
+      [
+        "quantization",
+        "training_coverage"
+      ],
+      [
+        "quantization",
+        "temperature"
+      ]
+    ]
+  }
+}
