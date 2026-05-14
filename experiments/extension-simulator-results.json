@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-05-14T01:15:00",
+  "cycles": [
+    {
+      "cycle": 1,
+      "open_question": "Covering radius of cyclotomic fields beyond Z[ζ₃]",
+      "constraint": "Compare Z[i], Z[ω], Z[ζ₅] covering radii with random sampling",
+      "results": {
+        "gaussian_Zi": {"max_d": 0.7069, "bound": 0.7071, "verified": true},
+        "eisenstein_Zw": {"max_d": 0.5767, "bound": 0.5774, "verified": true},
+        "zeta5_Zz5": {"max_d": 0.0738, "search_range": 3, "trials": 100}
+      },
+      "opened": "Why is Z[ζ₅] 8× denser? Overcomplete basis in 2D projection."
+    },
+    {
+      "cycle": 2,
+      "open_question": "How does covering radius scale with cyclotomic order n?",
+      "constraint": "Sweep n=3,4,5,6,7,8,10,12 with 50 points each",
+      "results": {
+        "n3": {"phi": 1, "max_d": 3.524},
+        "n4": {"phi": 1, "max_d": 3.524},
+        "n5": {"phi": 2, "max_d": 0.717, "ratio_vs_1_sqrt_phi": 1.01},
+        "n6": {"phi": 2, "max_d": 0.959},
+        "n7": {"phi": 3, "max_d": 0.395},
+        "n8": {"phi": 3, "max_d": 0.354},
+        "n10": {"phi": 4, "max_d": 0.126},
+        "n12": {"phi": 5, "max_d": 0.129}
+      },
+      "falsified": "Covering radius is NOT simply 1/√φ(n). Geometry of basis rotations matters.",
+      "opened": "Exact formula for covering radius of Z[ζ_n] in 2D projection"
+    },
+    {
+      "cycle": 3,
+      "open_question": "Can Z[ζ₅] give tighter constraint checking than Z[ζ₃]?",
+      "constraint": "Compare snap distances on 10K points, constraint walks on 100K steps",
+      "results": {
+        "eisenstein_max_d": 0.574,
+        "zeta5_fast_max_d": 0.615,
+        "eisenstein_walk_max_drift": 0.048,
+        "zeta5_walk_max_drift": 0.048
+      },
+      "negative_result": "Z[ζ₅] with search=2 does NOT improve over Eisenstein. The snap algorithm can't efficiently find the true nearest point in the overcomplete lattice. The earlier positive result (0.074) was with search_range=3 and biased sampling near origin.",
+      "opened": "Efficient nearest-point algorithms for overcomplete lattice representations"
+    }
+  ],
+  "on_curve_anchors": [
+    "Gaussian covering radius = 1/√2",
+    "Eisenstein covering radius = 1/√3",
+    "Z[ζ₅] with 4 basis vectors in 2D is overcomplete by factor 2"
+  ],
+  "off_curve_handles": [
+    "Covering radius does NOT follow 1/√φ(n) (falsified)",
+    "Z[ζ₅] fast snap doesn't improve over Eisenstein (negative result)"
+  ],
+  "gaps": [
+    "Exact covering radius formula for Z[ζ_n] in 2D",
+    "Efficient nearest-point algorithm for overcomplete lattices",
+    "Optimal cyclotomic field for constraint checking",
+    "Multi-scale approach: coarse Z[ζ₃] + fine Z[ζ₅]"
+  ]
+}
