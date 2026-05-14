@@ -92,6 +92,40 @@ These are the rocks. We can build on them.
 
 ---
 
+## Tier 2.5: NEW — Interference & Echo Studies (2026-05-14 afternoon)
+
+### R16: ~50% of wrong answers are input echoes (cognitive residue)
+**Claim:** When models fail, they echo input numbers instead of computing.
+**Evidence:** 4 models, 6 tasks, 240 trials. phi4-mini 49%, gemma3:1b 46%, llama3.2:1b 41% echo-of-wrong.
+**Threat:** Only tested on math computation tasks. May not generalize to text/code.
+
+### R17: Non-echo wrongs are partial computations
+**Claim:** Wrong answers that aren't echoes are intermediate computation steps (a², b², ab).
+**Evidence:** Classified all non-echo wrongs across 6 tasks. N(5,-3) → 25 (=a²), 9 (=b²).
+**Threat:** Only observed for quadratic form. May not apply to other computation types.
+
+### R18: Cross-model echo correlation
+**Claim:** Different models echo the same input number (all echo `b` preferentially).
+**Evidence:** 3/3 Eisenstein tasks, all 3 working models echo `b` > `a`.
+**Threat:** Could be specific to how N(a,b) is written in the prompt (recency bias).
+
+### R19: Echo rate = 0% for simple arithmetic
+**Claim:** Models don't echo when the task is within their computation capacity.
+**Evidence:** 11×13 and 23+19 show 0% echo across all models.
+**Threat:** Only 2 simple arithmetic tasks tested.
+
+### R22: Three error tiers: stochastic, deterministic, reliable
+**Claim:** Model errors fall into 3 categories with different retry economics.
+**Evidence:** 4 models, 3 norm tasks, 180 trials. Stochastic (phi4-mini 13-53%), deterministic (gemma3:1b 0%), reliable (phi4-mini 100% on 7×9).
+**Threat:** Only phi4-mini showed stochastic behavior; smaller models were all deterministic.
+
+### R23: Plan-data mismatch is interference
+**Claim:** Same data is SIGNAL under one execution plan and NOISE under another.
+**Evidence:** COMPUTE×V_ANSWER=100% (echo), VERIFY×V_THEORY=80% > VERIFY×V_ANSWER=40%.
+**Threat:** Only 5 trials per condition, phi4-mini only, one task.
+
+---
+
 ## Tier 3: SUGGESTIVE — Single experiment, small sample, or simulation-only
 
 ### R12: Two-phase retrieval saves 78% tokens
@@ -241,7 +275,21 @@ These are the gaps. Every one is an experiment opportunity.
 
 If phi4-mini is not representative — if GLM-5-turbo or Claude behave differently — then R7, R8, R9, R10, R11, R14, R15 all shift.
 
-**The most valuable next experiment is W1 (cross-model Death Zone).** If the Death Zone exists across models → it's a universal principle → publishable → R7 promoted to Tier 1. If it's phi4-mini-specific → R7 demoted to Tier 3.
+### W11: Does echo rate predict task difficulty?
+**What:** If we can measure echo rate from answer distribution, can we infer task difficulty without knowing the answer?
+**Why:** Would enable automatic difficulty calibration for fleet routing.
+**Blocker:** Need ground-truth difficulty ratings across many task types.
+
+### W12: Do 7B+ models echo?
+**What:** Run the echo analysis on a 7B model (qwen3:4b is available locally).
+**Why:** If echo drops to 0% at 7B, it's a small-model-only phenomenon. If it persists, it's fundamental.
+**Blocker:** qwen3:4b may have thinking mode issues (returns empty content).
+
+---
+
+**W1 RESOLVED**: Death Zone is model-size dependent (constructive for small, destructive for medium). R7 stays Tier 2.
+
+**Most valuable next experiment is W12** (7B echo analysis). If echo drops at 7B → echo-based routing is small-fleet only. If it persists → echo is a universal diagnostic.
 
 **The most dangerous unknown is W8 (distributed composition).** If the grammar doesn't compose across real networked agents → the entire DO/DATA/DONE handoff needs redesign. Everything builds on this.
 
