@@ -106,10 +106,10 @@ FLEET = {
         max_tokens=80,
         critical_angles={
             QueryAxis.ADDITION_DEPTH: 25,
-            QueryAxis.MULTIPLICATION_DEPTH: 6,
+            QueryAxis.MULTIPLICATION_DEPTH: 9,
             QueryAxis.MAGNITUDE: None,  # Works through 100K+
             QueryAxis.COEFFICIENT_FAMILIARITY: 3,
-            QueryAxis.NESTING: 3,
+            QueryAxis.NESTING: 5,
             QueryAxis.WORD_COMPLEXITY: 4,
         },
     ),
