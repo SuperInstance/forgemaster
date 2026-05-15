@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+# spawn-monitor — Run a Python experiment with live progress monitoring
+# Usage: spawn-monitor <script.py> [args...]
+# 
+# Features:
+#   - Unbuffered Python output
+#   - 600s default timeout (override with TIMEOUT= env var)
+#   - Progress monitoring every 30s
+#   - Early kill if output stalls for 120s
+#   - Summary on exit
+
+set -euo pipefail
+
+SCRIPT=""
+ARGS=()
+TIMEOUT="${TIMEOUT:-600}"
+STALL_KILL="${STALL_KILL:-120}"
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --timeout) TIMEOUT="$2"; shift 2;;
+        --stall) STALL_KILL="$2"; shift 2;;
+        *)
+            if [ -z "$SCRIPT" ]; then
+                SCRIPT="$1"
+            else
+                ARGS+=("$1")
+            fi
+            shift
+            ;;
+    esac
+done
+
+if [ -z "$SCRIPT" ]; then
+    echo "Usage: spawn-monitor <script.py> [args...]"
+    echo "       TIMEOUT=900 spawn-monitor script.py --full"
+    exit 1
+fi
+
+echo "⚡ spawn-monitor: $SCRIPT ${ARGS[*]}"
+echo "   timeout=${TIMEOUT}s, stall_kill=${STALL_KILL}s"
+echo "   pid=$$"
+echo ""
+
+# Run with unbuffered Python, capture output to temp file + tee to stdout
+OUTFILE=$(mktemp /tmp/spawn-monitor.XXXXXX)
+trap "rm -f $OUTFILE" EXIT
+
+python3 -u "$SCRIPT" "${ARGS[@]}" > "$OUTFILE" 2>&1 &
+PID=$!
+
+SECONDS=0
+LAST_LINE_COUNT=0
+STALL_SECONDS=0
+
+while kill -0 "$PID" 2>/dev/null; do
+    sleep 10
+    SECONDS=$((SECONDS + 10))
+    
+    # Count lines
+    CURRENT_LINES=$(wc -l < "$OUTFILE" 2>/dev/null || echo 0)
+    NEW_LINES=$((CURRENT_LINES - LAST_LINE_COUNT))
+    LAST_LINE_COUNT=$CURRENT_LINES
+    
+    # Stall detection
+    if [ "$NEW_LINES" -eq 0 ]; then
+        STALL_SECONDS=$((STALL_SECONDS + 10))
+    else
+        STALL_SECONDS=0
+    fi
+    
+    # Progress report
+    ELAPSED="${SECONDS}s"
+    echo "⏱  ${ELAPSED} — ${CURRENT_LINES} lines, ${NEW_LINES} new — stall=${STALL_SECONDS}s — pid=${PID}"
+    
+    # Show last 2 lines of output
+    tail -2 "$OUTFILE" 2>/dev/null | sed 's/^/   │ /'
+    
+    # Timeout check
+    if [ "$SECONDS" -ge "$TIMEOUT" ]; then
+        echo "⏰ TIMEOUT after ${TIMEOUT}s — killing ${PID}"
+        kill "$PID" 2>/dev/null
+        wait "$PID" 2>/dev/null || true
+        echo ""
+        echo "LAST 20 LINES:"
+        tail -20 "$OUTFILE"
+        exit 1
+    fi
+    
+    # Stall kill check
+    if [ "$STALL_SECONDS" -ge "$STALL_KILL" ]; then
+        echo "💀 STALLED for ${STALL_KILL}s — killing ${PID}"
+        kill "$PID" 2>/dev/null
+        wait "$PID" 2>/dev/null || true
+        echo ""
+        echo "LAST 20 LINES:"
+        tail -20 "$OUTFILE"
+        exit 2
+    fi
+done
+
+# Process finished
+wait "$PID" 2>/dev/null
+EXIT_CODE=$?
+TOTAL=$(wc -l < "$OUTFILE" 2>/dev/null || echo 0)
+
+echo ""
+echo "✅ Done — exit=${EXIT_CODE}, ${TOTAL} lines in ${SECONDS}s"
