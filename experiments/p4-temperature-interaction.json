@@ -1,0 +1,116 @@
+{
+  "seed-mini": {
+    "0.0": {
+      "correct": 7,
+      "total": 8,
+      "accuracy": 0.875,
+      "by_domain": {
+        "arithmetic": 1.0,
+        "pattern": 1.0,
+        "knowledge": 1.0,
+        "reasoning": 0.0
+      }
+    },
+    "0.3": {
+      "correct": 7,
+      "total": 8,
+      "accuracy": 0.875,
+      "by_domain": {
+        "arithmetic": 1.0,
+        "pattern": 1.0,
+        "knowledge": 1.0,
+        "reasoning": 0.0
+      }
+    },
+    "0.5": {
+      "correct": 7,
+      "total": 8,
+      "accuracy": 0.875,
+      "by_domain": {
+        "arithmetic": 1.0,
+        "pattern": 1.0,
+        "knowledge": 1.0,
+        "reasoning": 0.0
+      }
+    },
+    "0.7": {
+      "correct": 7,
+      "total": 8,
+      "accuracy": 0.875,
+      "by_domain": {
+        "arithmetic": 1.0,
+        "pattern": 1.0,
+        "knowledge": 1.0,
+        "reasoning": 0.0
+      }
+    },
+    "1.0": {
+      "correct": 6,
+      "total": 8,
+      "accuracy": 0.75,
+      "by_domain": {
+        "arithmetic": 0.75,
+        "pattern": 1.0,
+        "knowledge": 1.0,
+        "reasoning": 0.0
+      }
+    }
+  },
+  "llama-3.1-8b": {
+    "0.0": {
+      "correct": 8,
+      "total": 8,
+      "accuracy": 1.0,
+      "by_domain": {
+        "arithmetic": 1.0,
+        "pattern": 1.0,
+        "knowledge": 1.0,
+        "reasoning": 1.0
+      }
+    },
+    "0.3": {
+      "correct": 8,
+      "total": 8,
+      "accuracy": 1.0,
+      "by_domain": {
+        "arithmetic": 1.0,
+        "pattern": 1.0,
+        "knowledge": 1.0,
+        "reasoning": 1.0
+      }
+    },
+    "0.5": {
+      "correct": 8,
+      "total": 8,
+      "accuracy": 1.0,
+      "by_domain": {
+        "arithmetic": 1.0,
+        "pattern": 1.0,
+        "knowledge": 1.0,
+        "reasoning": 1.0
+      }
+    },
+    "0.7": {
+      "correct": 8,
+      "total": 8,
+      "accuracy": 1.0,
+      "by_domain": {
+        "arithmetic": 1.0,
+        "pattern": 1.0,
+        "knowledge": 1.0,
+        "reasoning": 1.0
+      }
+    },
+    "1.0": {
+      "correct": 8,
+      "total": 8,
+      "accuracy": 1.0,
+      "by_domain": {
+        "arithmetic": 1.0,
+        "pattern": 1.0,
+        "knowledge": 1.0,
+        "reasoning": 1.0
+      }
+    }
+  }
+}
