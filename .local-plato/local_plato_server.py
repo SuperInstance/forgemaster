@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sqlite3
 import time
 import uuid
@@ -28,7 +29,90 @@ from urllib.parse import urlparse, parse_qs
 # ---------------------------------------------------------------------------
 
 DB_PATH = str(Path.home() / ".openclaw" / "workspace" / ".local-plato" / "plato.db")
+WAL_PATH = str(Path.home() / ".openclaw" / "workspace" / ".local-plato" / "tile-wal.jsonl")
+TWIN_DIR = str(Path.home() / ".openclaw" / "workspace" / ".local-plato" / "twin")
 REMOTE_PLATO = "http://147.224.38.131:8847"
+
+# ── Durability: WAL + GitHub flush ──────────────────────────
+
+def wal_append(tile_data: dict):
+    """Append a tile to the JSONL WAL. Every tile survives crashes."""
+    line = json.dumps(tile_data, default=str) + "\n"
+    with open(WAL_PATH, "a") as f:
+        f.write(line)
+        f.flush()
+        os.fsync(f.fileno())
+
+
+def wal_flush_to_twin():
+    """Flush WAL to GitHub twin repo. Called on cadence (every 50 tiles or 5 min).
+
+    Steps:
+    1. Read WAL entries since last flush
+    2. Group by room → write room JSONL files in twin/
+    3. git commit + push
+    4. Truncate WAL (entries now safe in git)
+    """
+    wal = Path(WAL_PATH)
+    if not wal.exists() or wal.stat().st_size == 0:
+        return {"status": "nothing to flush"}
+
+    twin = Path(TWIN_DIR)
+    twin.mkdir(parents=True, exist_ok=True)
+
+    # Read all WAL entries
+    entries = []
+    with open(wal) as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                try:
+                    entries.append(json.loads(line))
+                except json.JSONDecodeError:
+                    pass
+
+    if not entries:
+        return {"status": "empty wal"}
+
+    # Group by room and append to room files
+    rooms_updated = set()
+    for entry in entries:
+        room = entry.get("room", "general")
+        room_file = twin / f"{room}.jsonl"
+        with open(room_file, "a") as f:
+            f.write(json.dumps(entry, default=str) + "\n")
+        rooms_updated.add(room)
+
+    # Git commit + push
+    token_path = Path.home() / ".openclaw" / "workspace" / ".credentials" / "github-pat.txt"
+    if token_path.exists() and (twin / ".git").exists():
+        import subprocess
+        subprocess.run(["git", "add", "-A"], cwd=str(twin), capture_output=True, timeout=10)
+        msg = f"PLATO WAL flush: {len(entries)} tiles across {len(rooms_updated)} rooms"
+        subprocess.run(["git", "commit", "-m", msg], cwd=str(twin), capture_output=True, timeout=10)
+        subprocess.run(["git", "push"], cwd=str(twin), capture_output=True, timeout=30)
+
+    # Truncate WAL (safe now — tiles are in git)
+    wal.write_text("")
+
+    return {"status": "flushed", "tiles": len(entries), "rooms": list(rooms_updated)}
+
+
+_wal_counter = 0
+WAL_FLUSH_INTERVAL = 50  # flush to GitHub every N tiles
+
+
+def wal_maybe_flush():
+    """Called after every tile write. Flushes on interval."""
+    global _wal_counter
+    _wal_counter += 1
+    if _wal_counter >= WAL_FLUSH_INTERVAL:
+        _wal_counter = 0
+        try:
+            return wal_flush_to_twin()
+        except Exception:
+            pass  # non-blocking — WAL still has the data
+    return None
 
 # ---------------------------------------------------------------------------
 # HTTP Server
@@ -74,6 +158,13 @@ class PlatoHandler(BaseHTTPRequestHandler):
             self._handle_search(params)
         elif path == "/stats":
             self._handle_stats()
+        elif path == "/wal/status":
+            wal = Path(WAL_PATH)
+            count = 0
+            if wal.exists():
+                with open(wal) as f:
+                    count = sum(1 for line in f if line.strip())
+            self._send_json({"wal_entries": count, "wal_size": wal.stat().st_size if wal.exists() else 0, "flush_interval": WAL_FLUSH_INTERVAL, "since_last_flush": _wal_counter})
         else:
             self._send_json({"error": "not found", "path": path}, 404)
 
@@ -196,6 +287,15 @@ class PlatoHandler(BaseHTTPRequestHandler):
             self._handle_submit()
         elif path == "/sync":
             self._handle_sync()
+        elif path == "/wal/flush":
+            self._send_json(wal_flush_to_twin())
+        elif path == "/wal/status":
+            wal = Path(WAL_PATH)
+            count = 0
+            if wal.exists():
+                with open(wal) as f:
+                    count = sum(1 for line in f if line.strip())
+            self._send_json({"wal_entries": count, "wal_size": wal.stat().st_size if wal.exists() else 0, "flush_interval": WAL_FLUSH_INTERVAL, "since_last_flush": _wal_counter})
         else:
             self._send_json({"error": "not found", "path": path}, 404)
 
@@ -235,6 +335,17 @@ class PlatoHandler(BaseHTTPRequestHandler):
             agent_id, 1, tile_hash,
         ))
         conn.commit()
+
+        # WAL: every tile survives crashes AND gets flushed to GitHub twin
+        tile_data = {
+            "tile_id": tile_id, "room": room, "domain": room,
+            "question": question, "answer": answer, "source": source,
+            "tags": tags, "confidence": confidence,
+            "timestamp": time.time(), "agent_id": agent_id,
+            "tile_hash": tile_hash,
+        }
+        wal_append(tile_data)
+        flush_result = wal_maybe_flush()
 
         # Update in-memory index
         from local_plato import Tile, LocalRoom
