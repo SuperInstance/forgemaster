@@ -69,6 +69,42 @@ try:
 except ImportError:
     HAS_MYTHOS = False
 
+# ---------------------------------------------------------------------------
+# Dual Fault Detector integration (Study 63)
+# ---------------------------------------------------------------------------
+try:
+    from dual_fault_detector import (
+        DualFaultDetector, FaultReport, FaultType, DetectionSource,
+    )
+    HAS_DUAL_FAULT = True
+except ImportError:
+    HAS_DUAL_FAULT = False
+
+# ---------------------------------------------------------------------------
+# Math utilities (numpy or pure-python fallback)
+# ---------------------------------------------------------------------------
+try:
+    import numpy as np
+    HAS_NUMPY = True
+except ImportError:
+    HAS_NUMPY = False
+
+
+def _cosine_sim(a: Sequence[float], b: Sequence[float]) -> float:
+    if HAS_NUMPY:
+        va, vb = np.array(a, dtype=float), np.array(b, dtype=float)
+        na, nb = np.linalg.norm(va), np.linalg.norm(vb)
+        if na == 0 or nb == 0:
+            return 0.0
+        return float(np.dot(va, vb) / (na * nb))
+    # pure-python fallback
+    dot = sum(x * y for x, y in zip(a, b))
+    na = sum(x * x for x in a) ** 0.5
+    nb = sum(x * x for x in b) ** 0.5
+    if na == 0 or nb == 0:
+        return 0.0
+    return dot / (na * nb)
+
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -646,6 +682,365 @@ class CriticalAngleRouter:
 
 
 # =========================================================================
+# Self-Healing Mixin (Study 63)
+# =========================================================================
+
+@dataclass
+class ExpertHealthRecord:
+    """Per-expert health tracking for self-healing."""
+    expert_id: str
+    intent_vector: List[float] = field(default_factory=lambda: [0.0] * 9)
+    baseline_intent: List[float] = field(default_factory=lambda: [0.0] * 9)
+    baseline_set: bool = False
+    consecutive_detections: int = 0
+    consecutive_clean: int = 0
+    quarantine_count: int = 0
+    quarantined: bool = False
+    quarantine_rounds_remaining: int = 0
+    last_answer: Optional[float] = None
+    last_check_time: float = 0.0
+    detection_history: List[Dict[str, Any]] = field(default_factory=list)
+
+
+@dataclass
+class QuarantineConfig:
+    """Configuration for quarantine behavior (Study 63 findings)."""
+    min_active_experts: int = 4          # Never quarantine below this
+    consecutive_for_quarantine: int = 2   # Confirmations before quarantine
+    clean_for_restore: int = 3           # Clean checks needed for restore
+    progressive_rounds: List[int] = field(default_factory=lambda: [5, 10, 0])  # 0 = permanent
+    intent_similarity_threshold: float = 0.85
+    answer_error_threshold: float = 0.5
+    conservation_threshold: float = 0.85  # Below this, increase quarantine caution
+
+
+class SelfHealingMixin:
+    """
+    Self-healing for fleet router using dual fault detection (Study 63).
+
+    Features:
+    - Intent drift detection (9D CI facets, cosine similarity)
+    - Answer consensus checking (relative error vs fleet median)
+    - Progressive quarantine with confirmation rounds
+    - Auto-restore after healthy rounds
+    - Conservation-aware: more cautious when compliance < 85%
+    - Fleet protection: never drop below 4 active experts
+    """
+
+    def __init__(self, registry: ModelRegistry, config: Optional[QuarantineConfig] = None):
+        self.registry = registry
+        self.config = config or QuarantineConfig()
+        self._health_records: Dict[str, ExpertHealthRecord] = {}
+        self._detector = DualFaultDetector() if HAS_DUAL_FAULT else None
+        self._lock = threading.Lock()
+        self._detection_log: List[Dict[str, Any]] = []
+        self._restoration_log: List[Dict[str, Any]] = []
+
+    def _get_record(self, expert_id: str) -> ExpertHealthRecord:
+        if expert_id not in self._health_records:
+            self._health_records[expert_id] = ExpertHealthRecord(expert_id=expert_id)
+        return self._health_records[expert_id]
+
+    # ------------------------------------------------------------------
+    # Core: check_expert_health
+    # ------------------------------------------------------------------
+    def check_expert_health(
+        self,
+        expert_id: str,
+        intent_vector: Sequence[float],
+        answer: float,
+        fleet_answers: Optional[Sequence[float]] = None,
+    ) -> Dict[str, Any]:
+        """
+        Run health check on an expert's output.
+
+        Args:
+            expert_id: The model/expert identifier.
+            intent_vector: 9D CI facet vector from the expert.
+            answer: The expert's numerical answer.
+            fleet_answers: All expert answers for consensus (if None, uses history).
+
+        Returns:
+            Dict with health status, flags, and action recommendation.
+        """
+        intent_list = list(intent_vector[:9])
+        while len(intent_list) < 9:
+            intent_list.append(0.0)
+
+        with self._lock:
+            rec = self._get_record(expert_id)
+            rec.intent_vector = intent_list
+            rec.last_answer = answer
+            rec.last_check_time = time.time()
+
+            # Set baseline on first observation
+            if not rec.baseline_set:
+                rec.baseline_intent = intent_list[:]
+                rec.baseline_set = True
+
+        # --- Signal 1: Intent drift ---
+        intent_sim = _cosine_sim(rec.baseline_intent, intent_list)
+        intent_flag = intent_sim < self.config.intent_similarity_threshold
+
+        # --- Signal 2: Answer consensus ---
+        answer_flag = False
+        relative_error = 0.0
+        if fleet_answers and len(fleet_answers) >= 2:
+            if HAS_NUMPY:
+                median_val = float(np.median(fleet_answers))
+            else:
+                sorted_ans = sorted(fleet_answers)
+                mid = len(sorted_ans) // 2
+                median_val = sorted_ans[mid] if len(sorted_ans) % 2 else (
+                    sorted_ans[mid - 1] + sorted_ans[mid]) / 2
+            if abs(median_val) > 1e-12:
+                relative_error = abs(answer - median_val) / abs(median_val)
+            answer_flag = relative_error > self.config.answer_error_threshold
+
+        # Combined detection
+        both_flagged = intent_flag and answer_flag
+        either_flagged = intent_flag or answer_flag
+
+        # Conservation-aware adjustment
+        conservation_elevated = False
+        if hasattr(self, '_conservation_rate'):
+            if self._conservation_rate < self.config.conservation_threshold:
+                conservation_elevated = True
+                # When conservation is low, require BOTH signals (stricter)
+                fault_detected = both_flagged
+            else:
+                fault_detected = either_flagged
+        else:
+            fault_detected = either_flagged
+
+        # --- Confirmation logic ---
+        with self._lock:
+            rec = self._get_record(expert_id)
+            if fault_detected:
+                rec.consecutive_detections += 1
+                rec.consecutive_clean = 0
+            else:
+                rec.consecutive_clean += 1
+                # Don't reset consecutive_detections immediately — only on restore
+                if rec.consecutive_clean >= self.config.clean_for_restore:
+                    rec.consecutive_detections = max(0, rec.consecutive_detections - 1)
+
+            # Determine action
+            action = "healthy"
+            if rec.quarantined:
+                # Check for auto-restore
+                if rec.consecutive_clean >= self.config.clean_for_restore:
+                    self._do_restore(expert_id, reason="auto")
+                    action = "restored"
+                else:
+                    action = "quarantined"
+            elif rec.consecutive_detections >= self.config.consecutive_for_quarantine:
+                # Try quarantine
+                if self._can_quarantine():
+                    self._do_quarantine(expert_id)
+                    action = "quarantined"
+                else:
+                    action = "flagged_but_protected"  # fleet protection active
+
+            # Log detection
+            detection = {
+                "expert_id": expert_id,
+                "timestamp": time.time(),
+                "intent_similarity": round(intent_sim, 4),
+                "intent_flag": intent_flag,
+                "relative_error": round(relative_error, 4),
+                "answer_flag": answer_flag,
+                "both_flagged": both_flagged,
+                "fault_detected": fault_detected,
+                "action": action,
+                "conservation_elevated": conservation_elevated,
+            }
+            rec.detection_history.append(detection)
+            self._detection_log.append(detection)
+            # Keep log bounded
+            if len(self._detection_log) > 10000:
+                self._detection_log = self._detection_log[-5000:]
+
+        return detection
+
+    # ------------------------------------------------------------------
+    # Quarantine / Restore
+    # ------------------------------------------------------------------
+    def _can_quarantine(self) -> bool:
+        """Check if we can quarantine without dropping below min_active_experts.
+        Must be called within self._lock. Counts registered available models."""
+        # Count all registry models that are still available
+        with self.registry._lock:
+            active_count = sum(1 for e in self.registry._models.values() if e.available)
+        return active_count > self.config.min_active_experts
+
+    def _do_quarantine(self, expert_id: str) -> None:
+        """Quarantine an expert. Must be called within _lock."""
+        rec = self._get_record(expert_id)
+        rec.quarantined = True
+        rec.quarantine_count += 1
+        rec.consecutive_detections = 0
+        rec.consecutive_clean = 0
+
+        # Progressive penalty
+        idx = min(rec.quarantine_count - 1, len(self.config.progressive_rounds) - 1)
+        rec.quarantine_rounds_remaining = self.config.progressive_rounds[idx]
+        # 0 = permanent
+
+        # Mark unavailable in registry
+        self.registry.set_available(expert_id, False)
+        logger.warning(
+            "Quarantined expert %s (offense #%d, rounds=%s)",
+            expert_id, rec.quarantine_count,
+            rec.quarantine_rounds_remaining or "permanent",
+        )
+
+    def _do_restore(self, expert_id: str, reason: str = "auto") -> None:
+        """Restore an expert. Must be called within _lock."""
+        rec = self._get_record(expert_id)
+        rec.quarantined = False
+        rec.consecutive_clean = 0
+        rec.consecutive_detections = 0
+        rec.quarantine_rounds_remaining = 0
+        # Reset baseline so re-calibration is fresh
+        rec.baseline_intent = rec.intent_vector[:]
+
+        self.registry.set_available(expert_id, True)
+        self._restoration_log.append({
+            "expert_id": expert_id,
+            "timestamp": time.time(),
+            "reason": reason,
+            "total_quarantines": rec.quarantine_count,
+        })
+        logger.info("Restored expert %s (reason=%s, total_quarantines=%d)",
+                     expert_id, reason, rec.quarantine_count)
+
+    def quarantine_expert(self, expert_id: str) -> Dict[str, Any]:
+        """Manually quarantine an expert."""
+        with self._lock:
+            rec = self._get_record(expert_id)
+            if rec.quarantined:
+                return {"expert_id": expert_id, "status": "already_quarantined"}
+            if not self._can_quarantine():
+                return {"expert_id": expert_id, "status": "blocked_fleet_protection"}
+            self._do_quarantine(expert_id)
+            return {"expert_id": expert_id, "status": "quarantined"}
+
+    def restore_expert(self, expert_id: str) -> Dict[str, Any]:
+        """Manually restore an expert (overrides quarantine)."""
+        with self._lock:
+            rec = self._get_record(expert_id)
+            if not rec.quarantined:
+                return {"expert_id": expert_id, "status": "not_quarantined"}
+            self._do_restore(expert_id, reason="manual")
+            return {"expert_id": expert_id, "status": "restored"}
+
+    # ------------------------------------------------------------------
+    # Query
+    # ------------------------------------------------------------------
+    def get_active_experts(self) -> List[str]:
+        """Return list of non-quarantined expert IDs."""
+        with self._lock:
+            return [
+                eid for eid, rec in self._health_records.items()
+                if not rec.quarantined
+            ]
+
+    def get_quarantined_experts(self) -> List[Dict[str, Any]]:
+        """Return details of all quarantined experts."""
+        with self._lock:
+            results = []
+            for eid, rec in self._health_records.items():
+                if rec.quarantined:
+                    results.append({
+                        "expert_id": eid,
+                        "quarantine_count": rec.quarantine_count,
+                        "rounds_remaining": rec.quarantine_rounds_remaining,
+                        "consecutive_clean": rec.consecutive_clean,
+                        "last_check_time": rec.last_check_time,
+                    })
+            return results
+
+    def tick_recovery(self) -> List[Dict[str, Any]]:
+        """Decrement recovery counters. Call once per routing round."""
+        with self._lock:
+            results = []
+            for eid, rec in self._health_records.items():
+                if rec.quarantined and rec.quarantine_rounds_remaining > 0:
+                    rec.quarantine_rounds_remaining -= 1
+                    if rec.quarantine_rounds_remaining == 0:
+                        # Auto-restore (progressive rounds elapsed)
+                        self._do_restore(eid, reason="rounds_elapsed")
+                        results.append({"expert_id": eid, "action": "restored", "reason": "rounds_elapsed"})
+                    else:
+                        results.append({"expert_id": eid, "action": "ticking", "remaining": rec.quarantine_rounds_remaining})
+            return results
+
+    # ------------------------------------------------------------------
+    # Dashboard
+    # ------------------------------------------------------------------
+    def get_status(self) -> Dict[str, Any]:
+        """Full self-healing status for the dashboard."""
+        with self._lock:
+            quarantined = []
+            for eid, rec in self._health_records.items():
+                if rec.quarantined:
+                    quarantined.append({
+                        "expert_id": eid,
+                        "quarantine_count": rec.quarantine_count,
+                        "rounds_remaining": rec.quarantine_rounds_remaining,
+                        "consecutive_clean": rec.consecutive_clean,
+                        "last_check_time": rec.last_check_time,
+                    })
+            active = [eid for eid, rec in self._health_records.items() if not rec.quarantined]
+            recent_detections = self._detection_log[-50:]
+            recent_restorations = self._restoration_log[-20:]
+
+            per_expert = {}
+            for eid, rec in self._health_records.items():
+                per_expert[eid] = {
+                    "quarantined": rec.quarantined,
+                    "quarantine_count": rec.quarantine_count,
+                    "consecutive_detections": rec.consecutive_detections,
+                    "consecutive_clean": rec.consecutive_clean,
+                    "baseline_set": rec.baseline_set,
+                    "last_answer": rec.last_answer,
+                    "last_check_time": rec.last_check_time,
+                    "detection_count": len(rec.detection_history),
+                }
+
+        return {
+            "active_experts": active,
+            "active_count": len(active),
+            "quarantined_experts": quarantined,
+            "quarantined_count": len(quarantined),
+            "min_active": self.config.min_active_experts,
+            "fleet_protection_active": len(active) <= self.config.min_active_experts,
+            "recent_detections": recent_detections,
+            "recent_restorations": recent_restorations,
+            "per_expert": per_expert,
+            "total_detections": len(self._detection_log),
+            "total_restorations": len(self._restoration_log),
+            "dual_fault_available": HAS_DUAL_FAULT,
+        }
+
+    def set_conservation_rate(self, rate: float) -> None:
+        """Update conservation compliance rate for awareness."""
+        self._conservation_rate = max(0.0, min(1.0, rate))
+
+    def get_detection_history(self, expert_id: Optional[str] = None,
+                              limit: int = 100) -> List[Dict[str, Any]]:
+        """Get detection history, optionally filtered by expert."""
+        with self._lock:
+            if expert_id:
+                rec = self._health_records.get(expert_id)
+                if rec:
+                    return rec.detection_history[-limit:]
+                return []
+            return self._detection_log[-limit:]
+
+
+# =========================================================================
 # Pydantic request/response models
 # =========================================================================
 
@@ -675,6 +1070,19 @@ class SetAvailabilityRequest(BaseModel):
     available: bool
 
 
+class HealthCheckRequest(BaseModel):
+    """Submit an expert's output for health checking."""
+    expert_id: str = Field(..., description="Expert/model ID to check")
+    intent_vector: List[float] = Field(..., description="9D CI facet intent vector")
+    answer: float = Field(..., description="Expert's numerical answer")
+    fleet_answers: Optional[List[float]] = Field(None, description="All expert answers for consensus")
+
+
+class RestoreExpertRequest(BaseModel):
+    """Manual override to restore a quarantined expert."""
+    expert_id: str
+
+
 # =========================================================================
 # FastAPI Application
 # =========================================================================
@@ -702,6 +1110,9 @@ def create_app(
     # Create router
     hebbian = hebbian_url or "http://localhost:8849"
     router = CriticalAngleRouter(registry, stats, hebbian_url=hebbian)
+
+    # Self-healing mixin
+    healing = SelfHealingMixin(registry)
 
     # Store hebbian_service reference if provided
     if hebbian_service:
@@ -785,10 +1196,41 @@ def create_app(
         """Detailed routing statistics."""
         return stats.snapshot()
 
+    # -------------------------------------------------------------------
+    # Self-Healing Endpoints (Study 63)
+    # -------------------------------------------------------------------
+
+    @app.get("/fleet/healing/status")
+    async def healing_status():
+        """Self-healing dashboard: quarantined experts, recovery progress, history."""
+        return healing.get_status()
+
+    @app.post("/fleet/healing/restore", response_model=None)
+    async def healing_restore(req: RestoreExpertRequest):
+        """Manual override to restore a quarantined expert."""
+        result = healing.restore_expert(req.expert_id)
+        if result["status"] == "not_quarantined":
+            return JSONResponse(content=result, status_code=200)
+        return result
+
+    @app.post("/fleet/healing/report", response_model=None)
+    async def healing_report(req: HealthCheckRequest):
+        """Submit an expert's output for health checking."""
+        result = healing.check_expert_health(
+            expert_id=req.expert_id,
+            intent_vector=req.intent_vector,
+            answer=req.answer,
+            fleet_answers=req.fleet_answers,
+        )
+        if result.get("action") == "quarantined":
+            return JSONResponse(content=result, status_code=202)
+        return result
+
     # Expose internals for testing
     app.state.registry = registry
     app.state.stats = stats
     app.state.router = router
+    app.state.healing = healing
 
     return app
 
