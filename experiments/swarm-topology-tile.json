@@ -1,0 +1,43 @@
+{
+  "id": "swarm-topology-catalog",
+  "type": "meta",
+  "trigger": "Need to organize multiple agents for a collaborative or competitive task",
+  "topologies": {
+    "arena": {
+      "best_for": "speed, simple tasks, residue collection",
+      "worst_for": "complex verification, deep exploration",
+      "agents": "N identical-role",
+      "plato_pattern": "shared room, individual results",
+      "cost": "N \u00d7 26ms per round (Groq)"
+    },
+    "duel": {
+      "best_for": "verification, adversarial testing, catching shared blind spots",
+      "worst_for": "speed, exploration",
+      "agents": "2 teams of M",
+      "plato_pattern": "team rooms + shared room",
+      "cost": "2M \u00d7 26ms per round"
+    },
+    "bootcamp": {
+      "best_for": "capability mapping, guided discovery, specialization",
+      "worst_for": "speed, competitive tasks",
+      "agents": "1 teacher + N students",
+      "plato_pattern": "lecture + individual labs + hallway",
+      "cost": "(N+1) \u00d7 26ms per round + teacher cost"
+    },
+    "collective": {
+      "best_for": "exploration, emergent coverage, discovering unknown unknowns",
+      "worst_for": "directed tasks, verification",
+      "agents": "N equals",
+      "plato_pattern": "commons + individual labs",
+      "cost": "N \u00d7 26ms per round"
+    },
+    "tournament": {
+      "best_for": "meta-learning about orchestration patterns",
+      "worst_for": "single-task efficiency",
+      "agents": "4+ teams with different topologies",
+      "plato_pattern": "parallel topology rooms + judges room",
+      "cost": "4N \u00d7 26ms per round"
+    }
+  },
+  "routing_rules": "\n  ROUTING: Match task type to topology\n  \n  task_type = \"compute\"           \u2192 arena (fastest correct wins)\n  task_type = \"verify\"            \u2192 duel (adversarial catch)\n  task_type = \"map_capability\"    \u2192 bootcamp (guided discovery)\n  task_type = \"explore\"           \u2192 collective (emergent coverage)\n  task_type = \"meta_experiment\"   \u2192 tournament (compare all)\n  task_type = unknown             \u2192 collective (safest default)\n  \n  The routing is itself a PLATO tile. The fleet learns which\n  topology works for which task through accumulated tournament results.\n"
+}

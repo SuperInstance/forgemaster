@@ -1,0 +1,819 @@
+{
+  "type": "arena-result",
+  "task": "eisenstein-boundary",
+  "formula": "a\u00b2-ab+b\u00b2",
+  "agents": [
+    "llama-8b-t0.0",
+    "llama-8b-t0.1",
+    "llama-8b-t0.3",
+    "llama-8b-t0.7",
+    "llama-70b-t0.3",
+    "llama-scout-t0.3",
+    "llama-8b-student",
+    "llama-8b-teacher"
+  ],
+  "rounds": 3,
+  "commons": [
+    {
+      "agent": "llama-8b-t0.0",
+      "a": 3,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.1",
+      "a": 3,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.3",
+      "a": 3,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.7",
+      "a": 3,
+      "b": 4,
+      "expected": 13,
+      "got": 1,
+      "class": "OTHER(1)",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 1
+    },
+    {
+      "agent": "llama-70b-t0.3",
+      "a": 3,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 1
+    },
+    {
+      "agent": "llama-scout-t0.3",
+      "a": 3,
+      "b": 4,
+      "expected": 13,
+      "got": 4,
+      "class": "ECHO-b",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, subst",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-student",
+      "a": 3,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute the expression a\u00b2-a",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-teacher",
+      "a": 3,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute the Eisenstein norm",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.0",
+      "a": 5,
+      "b": -3,
+      "expected": 49,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.1",
+      "a": 5,
+      "b": -3,
+      "expected": 49,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.3",
+      "a": 5,
+      "b": -3,
+      "expected": 49,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.7",
+      "a": 5,
+      "b": -3,
+      "expected": 49,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 1
+    },
+    {
+      "agent": "llama-70b-t0.3",
+      "a": 5,
+      "b": -3,
+      "expected": 49,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 1
+    },
+    {
+      "agent": "llama-scout-t0.3",
+      "a": 5,
+      "b": -3,
+      "expected": 49,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, subst",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-student",
+      "a": 5,
+      "b": -3,
+      "expected": 49,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-teacher",
+      "a": 5,
+      "b": -3,
+      "expected": 49,
+      "got": 5,
+      "class": "ECHO-a",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we su",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.0",
+      "a": -4,
+      "b": 3,
+      "expected": 37,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.1",
+      "a": -4,
+      "b": 3,
+      "expected": 37,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.3",
+      "a": -4,
+      "b": 3,
+      "expected": 37,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.7",
+      "a": -4,
+      "b": 3,
+      "expected": 37,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 1
+    },
+    {
+      "agent": "llama-70b-t0.3",
+      "a": -4,
+      "b": 3,
+      "expected": 37,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 1
+    },
+    {
+      "agent": "llama-scout-t0.3",
+      "a": -4,
+      "b": 3,
+      "expected": 37,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, subst",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-student",
+      "a": -4,
+      "b": 3,
+      "expected": 37,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-teacher",
+      "a": -4,
+      "b": 3,
+      "expected": 37,
+      "got": 3,
+      "class": "ECHO-b",
+      "raw": "To compute the Eisenstein norm",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.0",
+      "a": 7,
+      "b": 1,
+      "expected": 43,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.1",
+      "a": 7,
+      "b": 1,
+      "expected": 43,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.3",
+      "a": 7,
+      "b": 1,
+      "expected": 43,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.7",
+      "a": 7,
+      "b": 1,
+      "expected": 43,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 1
+    },
+    {
+      "agent": "llama-70b-t0.3",
+      "a": 7,
+      "b": 1,
+      "expected": 43,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 1
+    },
+    {
+      "agent": "llama-scout-t0.3",
+      "a": 7,
+      "b": 1,
+      "expected": 43,
+      "got": 1,
+      "class": "ECHO-b",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, subst",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-student",
+      "a": 7,
+      "b": 1,
+      "expected": 43,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-teacher",
+      "a": 7,
+      "b": 1,
+      "expected": 43,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 1
+    },
+    {
+      "agent": "llama-8b-t0.0",
+      "a": 0,
+      "b": 3,
+      "expected": 9,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.1",
+      "a": 0,
+      "b": 3,
+      "expected": 9,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.3",
+      "a": 0,
+      "b": 3,
+      "expected": 9,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute the expression a\u00b2 -",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.7",
+      "a": 0,
+      "b": 3,
+      "expected": 9,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 2
+    },
+    {
+      "agent": "llama-70b-t0.3",
+      "a": 0,
+      "b": 3,
+      "expected": 9,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 2
+    },
+    {
+      "agent": "llama-scout-t0.3",
+      "a": 0,
+      "b": 3,
+      "expected": 9,
+      "got": 0,
+      "class": "ECHO-a",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, subst",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-student",
+      "a": 0,
+      "b": 3,
+      "expected": 9,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-teacher",
+      "a": 0,
+      "b": 3,
+      "expected": 9,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.0",
+      "a": 4,
+      "b": -6,
+      "expected": 76,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.1",
+      "a": 4,
+      "b": -6,
+      "expected": 76,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.3",
+      "a": 4,
+      "b": -6,
+      "expected": 76,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.7",
+      "a": 4,
+      "b": -6,
+      "expected": 76,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 2
+    },
+    {
+      "agent": "llama-70b-t0.3",
+      "a": 4,
+      "b": -6,
+      "expected": 76,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 2
+    },
+    {
+      "agent": "llama-scout-t0.3",
+      "a": 4,
+      "b": -6,
+      "expected": 76,
+      "got": -6,
+      "class": "ECHO-b",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, subst",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-student",
+      "a": 4,
+      "b": -6,
+      "expected": 76,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-teacher",
+      "a": 4,
+      "b": -6,
+      "expected": 76,
+      "got": 4,
+      "class": "ECHO-a",
+      "raw": "To find the value of a\u00b2-ab+b\u00b2,",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.0",
+      "a": -6,
+      "b": -2,
+      "expected": 28,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.1",
+      "a": -6,
+      "b": -2,
+      "expected": 28,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.3",
+      "a": -6,
+      "b": -2,
+      "expected": 28,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.7",
+      "a": -6,
+      "b": -2,
+      "expected": 28,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 2
+    },
+    {
+      "agent": "llama-70b-t0.3",
+      "a": -6,
+      "b": -2,
+      "expected": 28,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 2
+    },
+    {
+      "agent": "llama-scout-t0.3",
+      "a": -6,
+      "b": -2,
+      "expected": 28,
+      "got": -2,
+      "class": "ECHO-b",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, subst",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-student",
+      "a": -6,
+      "b": -2,
+      "expected": 28,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-teacher",
+      "a": -6,
+      "b": -2,
+      "expected": 28,
+      "got": -2,
+      "class": "ECHO-b",
+      "raw": "To compute the Eisenstein norm",
+      "round": 2
+    },
+    {
+      "agent": "llama-8b-t0.0",
+      "a": 1,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-t0.1",
+      "a": 1,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-t0.3",
+      "a": 1,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-t0.7",
+      "a": 1,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 3
+    },
+    {
+      "agent": "llama-70b-t0.3",
+      "a": 1,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 3
+    },
+    {
+      "agent": "llama-scout-t0.3",
+      "a": 1,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, subst",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-student",
+      "a": 1,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-teacher",
+      "a": 1,
+      "b": 4,
+      "expected": 13,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-t0.0",
+      "a": 3,
+      "b": -2,
+      "expected": 19,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-t0.1",
+      "a": 3,
+      "b": -2,
+      "expected": 19,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-t0.3",
+      "a": 3,
+      "b": -2,
+      "expected": 19,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-t0.7",
+      "a": 3,
+      "b": -2,
+      "expected": 19,
+      "got": 1,
+      "class": "OTHER(1)",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we'll",
+      "round": 3
+    },
+    {
+      "agent": "llama-70b-t0.3",
+      "a": 3,
+      "b": -2,
+      "expected": 19,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 3
+    },
+    {
+      "agent": "llama-scout-t0.3",
+      "a": 3,
+      "b": -2,
+      "expected": 19,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, subst",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-student",
+      "a": 3,
+      "b": -2,
+      "expected": 19,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we will s",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-teacher",
+      "a": 3,
+      "b": -2,
+      "expected": 19,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-t0.0",
+      "a": -9,
+      "b": 5,
+      "expected": 151,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-t0.1",
+      "a": -9,
+      "b": 5,
+      "expected": 151,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2-ab+b\u00b2, we need t",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-t0.3",
+      "a": -9,
+      "b": 5,
+      "expected": 151,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-t0.7",
+      "a": -9,
+      "b": 5,
+      "expected": 151,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we fi",
+      "round": 3
+    },
+    {
+      "agent": "llama-70b-t0.3",
+      "a": -9,
+      "b": 5,
+      "expected": 151,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 3
+    },
+    {
+      "agent": "llama-scout-t0.3",
+      "a": -9,
+      "b": 5,
+      "expected": 151,
+      "got": 5,
+      "class": "ECHO-b",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, subst",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-student",
+      "a": -9,
+      "b": 5,
+      "expected": 151,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute a\u00b2 - ab + b\u00b2, we ne",
+      "round": 3
+    },
+    {
+      "agent": "llama-8b-teacher",
+      "a": -9,
+      "b": 5,
+      "expected": 151,
+      "got": null,
+      "class": "NO_OUTPUT",
+      "raw": "To compute the Eisenstein norm",
+      "round": 3
+    }
+  ],
+  "timestamp": "2026-05-14T16:57:38"
+}
