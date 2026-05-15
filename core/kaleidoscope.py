@@ -71,6 +71,11 @@ class KaleidoscopeTile:
     partial_result: Optional[str] = None  # Extracted intermediate answer
     confidence: float = 0.0     # Convergence-derived confidence
     
+    # Cognitive origin (THE NATIVE PRINCIPLE)
+    cognitive_origin: str = "native"  # native | translated | cross_pollinated | bootstrapped
+    draft: float = 0.0          # Measured capability depth for this tile
+    safe_depth: float = 0.0     # Minimum safe depth for this model+task
+    
     # Cross-pollination
     read_tiles: List[str] = field(default_factory=list)  # Which tiles this one read
     agrees_with: List[str] = field(default_factory=list)  # Which tiles agree with this result
@@ -604,3 +609,165 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# ─── Navigation Layer ─────────────────────────────────────────────────────────
+# The large model encodes PRINCIPLES about safe cognitive navigation.
+# The small model executes PROCEDURES within those principles.
+# The kaleidoscope tags each tile with its cognitive origin and safety margin.
+
+class CognitiveOrigin(Enum):
+    """Was this tile produced from native understanding or translated understanding?"""
+    NATIVE = "native"           # Model's training topology directly covers this
+    TRANSLATED = "translated"   # Model is mapping from a different cognitive landscape
+    BOOTSTRAPPED = "bootstrapped"  # Model learned this through kaleidoscope iteration
+    CROSS_POLLINATED = "cross_pollinated"  # Model read another model's native tile
+
+@dataclass
+class NavigationProfile:
+    """The cognitive navigation chart for a model on a task.
+    
+    Like a nautical chart: shows depths, shoals, channels, and safe passages.
+    """
+    model: str
+    task_type: str
+    
+    # The draft: minimum capability needed
+    draft: float = 0.0  # 0.0-1.0, how deep the model needs to go
+    
+    # The margin: buffer for unexpected complexity
+    margin: float = 0.2  # Default 20% margin
+    
+    # Pinnacles: known failure modes that require extra wide turns
+    pinnacles: List[str] = field(default_factory=list)
+    
+    # Bights: well-mapped territory where shortcuts are safe
+    bights: List[str] = field(default_factory=list)
+    
+    # Cognitive origin: native, translated, or bootstrapped
+    origin: str = "native"
+    
+    @property
+    def safe_depth(self) -> float:
+        """Minimum safe cognitive depth for this model+task combination."""
+        pinnacle_penalty = 0.1 * len(self.pinnacles)
+        bight_credit = 0.05 * len(self.bights)
+        return self.draft + self.margin + pinnacle_penalty - bight_credit
+    
+    def is_safe(self, measured_depth: float) -> bool:
+        """Is the measured capability deep enough for this task?"""
+        return measured_depth >= self.safe_depth
+
+
+def compute_navigation_profile(
+    model_key: str,
+    task_type: str,
+    accuracy_history: List[float],
+    known_failure_modes: List[str] = None,
+) -> NavigationProfile:
+    """Compute a navigation profile from experimental history.
+    
+    This is the large model's job — abstract the safety principles
+    that the small model can't discover on its own.
+    """
+    known_failure_modes = known_failure_modes or []
+    
+    # Draft = minimum observed accuracy (shallow side constraint)
+    draft = min(accuracy_history) if accuracy_history else 0.0
+    
+    # Margin increases with variance (uncertain waters need more buffer)
+    if len(accuracy_history) > 1:
+        import statistics
+        variance = statistics.variance(accuracy_history)
+        margin = 0.2 + min(variance * 2, 0.3)  # 20-50% margin
+    else:
+        margin = 0.3  # Default high margin for unknowns
+    
+    # Pinnacles: categories where accuracy drops significantly
+    pinnacles = []
+    for failure in known_failure_modes:
+        pinnacles.append(failure)
+    
+    # Bights: categories where accuracy is consistently high
+    bights = []
+    if accuracy_history and min(accuracy_history) > 0.8:
+        bights.append(task_type)
+    
+    # Cognitive origin
+    origin = "native"
+    if "translated" in task_type or "cross" in task_type:
+        origin = "translated"
+    elif "bootstrap" in task_type:
+        origin = "bootstrapped"
+    
+    return NavigationProfile(
+        model=model_key,
+        task_type=task_type,
+        draft=draft,
+        margin=margin,
+        pinnacles=pinnacles,
+        bights=bights,
+        origin=origin,
+    )
+
+
+def augment_kaleidoscope_with_navigation(tensor: PerspectiveTensor) -> Dict:
+    """Add navigation profiles to a perspective tensor.
+    
+    For each model, compute the cognitive navigation chart showing:
+    - Where it's safe to proceed (bights)
+    - Where to turn wide (pinnacles)
+    - What the minimum safe depth is (draft + margin)
+    - Whether its understanding is native or translated
+    """
+    profiles = {}
+    
+    for model_key in set(t.model for t in tensor.tiles):
+        model_tiles = [t for t in tensor.tiles if t.model == model_key]
+        
+        # Accuracy across steps
+        accuracies = [
+            1.0 if t.partial_result == tensor.expected else 0.0
+            for t in model_tiles
+        ]
+        
+        # Failure modes (steps where model got wrong answer)
+        failures = [
+            f"step_{t.step}_{t.facet}"
+            for t in model_tiles
+            if t.partial_result != tensor.expected
+        ]
+        
+        profile = compute_navigation_profile(
+            model_key=model_key,
+            task_type="arithmetic",
+            accuracy_history=accuracies,
+            known_failure_modes=failures,
+        )
+        
+        profiles[model_key] = {
+            "draft": profile.draft,
+            "margin": profile.margin,
+            "safe_depth": profile.safe_depth,
+            "pinnacles": profile.pinnacles,
+            "bights": profile.bights,
+            "origin": profile.origin,
+            "accuracy_trajectory": accuracies,
+            "recommendation": _navigation_recommendation(profile, tensor.expected),
+        }
+    
+    return profiles
+
+
+def _navigation_recommendation(profile: NavigationProfile, expected: str) -> str:
+    """Generate a navigation recommendation for this model on this task.
+    
+    Like a pilot's advice: 'turn wide around the reef, cut inside the bay.'
+    """
+    if profile.draft >= 0.8:
+        return f"NATIVE PATHWAY: Safe to proceed at full speed. Accuracy {profile.draft:.0%}. Cut inside on bights."
+    elif profile.draft >= 0.5:
+        return f"TRANSLATED PATHWAY: Proceed with caution. Draft {profile.draft:.0%}, safe depth {profile.safe_depth:.0%}. Turn wide around pinnacles: {profile.pinnacles}."
+    elif profile.draft > 0:
+        return f"SHALLOW WATERS: Draft {profile.draft:.0%} below safe depth {profile.safe_depth:.0%}. Anchor here, send a different model. This model is running aground."
+    else:
+        return f"DRY GROUND: No native pathway to {expected}. This model cannot navigate here. Use only as a cross-pollination source, never as primary navigator."
