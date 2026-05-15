@@ -1,0 +1,74 @@
+{
+  "primary": {
+    "arithmetic": {
+      "model": "ByteDance/Seed-2.0-mini",
+      "provider": "deepinfra",
+      "temperature": 0.0,
+      "cost": 0.05,
+      "accuracy": 1.0
+    },
+    "analysis": {
+      "model": "ByteDance/Seed-2.0-mini",
+      "provider": "deepinfra",
+      "temperature": 0.0,
+      "cost": 0.05,
+      "accuracy": 0.95
+    },
+    "strategy": {
+      "model": "ByteDance/Seed-2.0-mini",
+      "provider": "deepinfra",
+      "temperature": 0.7,
+      "cost": 0.05,
+      "accuracy": 0.9
+    },
+    "reasoning": {
+      "model": "google/gemini-3.1-flash-lite",
+      "provider": "deepinfra",
+      "temperature": 0.0,
+      "cost": 0.002,
+      "accuracy": 0.825
+    },
+    "code": {
+      "model": "glm-5-turbo",
+      "provider": "zai",
+      "temperature": 0.3,
+      "cost": 0.3,
+      "accuracy": 0.4
+    },
+    "conversation": {
+      "model": "glm-5-turbo",
+      "provider": "zai",
+      "temperature": 0.5,
+      "cost": 0.3,
+      "accuracy": null
+    }
+  },
+  "alternatives": {
+    "arithmetic": [
+      {
+        "model": "XiaomiMiMo/MiMo-V2.5",
+        "provider": "deepinfra",
+        "cost": 0.05,
+        "accuracy": 1.0
+      },
+      {
+        "model": "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+        "provider": "deepinfra",
+        "cost": 0.1,
+        "accuracy": 1.0
+      },
+      {
+        "model": "llama-3.1-8b-instant",
+        "provider": "groq",
+        "cost": 0.005,
+        "accuracy": 0.86
+      },
+      {
+        "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+        "provider": "groq",
+        "cost": 0.01,
+        "accuracy": 0.86
+      }
+    ]
+  }
+}

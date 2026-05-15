@@ -1,0 +1,813 @@
+[
+  {
+    "model": "llama-3.1-8b",
+    "model_id": "llama-3.1-8b-instant",
+    "provider": "groq",
+    "temperature": 0.0,
+    "accuracy": 0.8,
+    "correct": 8,
+    "total": 10,
+    "failures": {
+      "code": 8,
+      "strategy": 9
+    },
+    "duration_s": 2.3,
+    "details": [
+      {
+        "q": "What is 37 + 48? Give ONLY the number.",
+        "expected": "85",
+        "got": "85",
+        "correct": true
+      },
+      {
+        "q": "What is 3 + 5 + 7 + 9 + 11? Give ONLY th",
+        "expected": "35",
+        "got": "35",
+        "correct": true
+      },
+      {
+        "q": "What is 2 \u00d7 3 \u00d7 4 \u00d7 5? Give ONLY the num",
+        "expected": "120",
+        "got": "120",
+        "correct": true
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "49",
+        "got": "5\u00b2 - 5*(-3) + (-3)\u00b2 = 25 + 15 ",
+        "correct": true
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "58",
+        "got": "5\u00b2 - 5*(-3) + 2*(-3)\u00b2 = 25 + 1",
+        "correct": true
+      },
+      {
+        "q": "All cats are animals. Whiskers is a cat.",
+        "expected": "animal",
+        "got": "Animal.",
+        "correct": true
+      },
+      {
+        "q": "If it rains the ground gets wet. The gro",
+        "expected": "UNCERTAIN",
+        "got": "UNCERTAIN.",
+        "correct": true
+      },
+      {
+        "q": "What does 'def f(x): return x*x' compute",
+        "expected": "square",
+        "got": "x^2",
+        "correct": false
+      },
+      {
+        "q": "A system has 3 components. Each fails in",
+        "expected": "27.1",
+        "got": "70",
+        "correct": false
+      },
+      {
+        "q": "What is 999999 + 1? Give ONLY the number",
+        "expected": "1000000",
+        "got": "1000000",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "model": "qwen2.5-72b",
+    "model_id": "Qwen/Qwen2.5-72B-Instruct",
+    "provider": "deepinfra",
+    "temperature": 0.0,
+    "accuracy": 0.7,
+    "correct": 7,
+    "total": 10,
+    "failures": {
+      "coeff1": 4,
+      "coeff2": 5,
+      "code": 8
+    },
+    "duration_s": 86.7,
+    "details": [
+      {
+        "q": "What is 37 + 48? Give ONLY the number.",
+        "expected": "85",
+        "got": "85",
+        "correct": true
+      },
+      {
+        "q": "What is 3 + 5 + 7 + 9 + 11? Give ONLY th",
+        "expected": "35",
+        "got": "35",
+        "correct": true
+      },
+      {
+        "q": "What is 2 \u00d7 3 \u00d7 4 \u00d7 5? Give ONLY the num",
+        "expected": "120",
+        "got": "120",
+        "correct": true
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "49",
+        "got": "37",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "58",
+        "got": "44",
+        "correct": false
+      },
+      {
+        "q": "All cats are animals. Whiskers is a cat.",
+        "expected": "animal",
+        "got": "Animal",
+        "correct": true
+      },
+      {
+        "q": "If it rains the ground gets wet. The gro",
+        "expected": "UNCERTAIN",
+        "got": "UNCERTAIN",
+        "correct": true
+      },
+      {
+        "q": "What does 'def f(x): return x*x' compute",
+        "expected": "square",
+        "got": "x^2",
+        "correct": false
+      },
+      {
+        "q": "A system has 3 components. Each fails in",
+        "expected": "27.1",
+        "got": "27%",
+        "correct": true
+      },
+      {
+        "q": "What is 999999 + 1? Give ONLY the number",
+        "expected": "1000000",
+        "got": "1000000",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "model": "llama-3.3-70b",
+    "model_id": "llama-3.3-70b-versatile",
+    "provider": "groq",
+    "temperature": 0.0,
+    "accuracy": 0.7,
+    "correct": 7,
+    "total": 10,
+    "failures": {
+      "coeff2": 5,
+      "code": 8,
+      "strategy": 9
+    },
+    "duration_s": 1.3,
+    "details": [
+      {
+        "q": "What is 37 + 48? Give ONLY the number.",
+        "expected": "85",
+        "got": "85",
+        "correct": true
+      },
+      {
+        "q": "What is 3 + 5 + 7 + 9 + 11? Give ONLY th",
+        "expected": "35",
+        "got": "35",
+        "correct": true
+      },
+      {
+        "q": "What is 2 \u00d7 3 \u00d7 4 \u00d7 5? Give ONLY the num",
+        "expected": "120",
+        "got": "120",
+        "correct": true
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "49",
+        "got": "25 - (-15) + 9 = 25 + 15 + 9 =",
+        "correct": true
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "58",
+        "got": "25 - 15 + 18 = 28",
+        "correct": false
+      },
+      {
+        "q": "All cats are animals. Whiskers is a cat.",
+        "expected": "animal",
+        "got": "Animal",
+        "correct": true
+      },
+      {
+        "q": "If it rains the ground gets wet. The gro",
+        "expected": "UNCERTAIN",
+        "got": "UNCERTAIN",
+        "correct": true
+      },
+      {
+        "q": "What does 'def f(x): return x*x' compute",
+        "expected": "square",
+        "got": "x\u00b2",
+        "correct": false
+      },
+      {
+        "q": "A system has 3 components. Each fails in",
+        "expected": "27.1",
+        "got": "29.7%",
+        "correct": false
+      },
+      {
+        "q": "What is 999999 + 1? Give ONLY the number",
+        "expected": "1000000",
+        "got": "1000000",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "model": "glm-5-turbo",
+    "model_id": "glm-5-turbo",
+    "provider": "zai",
+    "temperature": 0.3,
+    "accuracy": 0.4,
+    "correct": 4,
+    "total": 10,
+    "failures": {
+      "add": 1,
+      "add_chain": 2,
+      "coeff1": 4,
+      "coeff2": 5,
+      "code": 8,
+      "strategy": 9
+    },
+    "duration_s": 14.4,
+    "details": [
+      {
+        "q": "What is 37 + 48? Give ONLY the number.",
+        "expected": "85",
+        "got": "1.  Identify the core request:",
+        "correct": false
+      },
+      {
+        "q": "What is 3 + 5 + 7 + 9 + 11? Give ONLY th",
+        "expected": "35",
+        "got": "1.  Calculate the sum: 3 + 5 +",
+        "correct": false
+      },
+      {
+        "q": "What is 2 \u00d7 3 \u00d7 4 \u00d7 5? Give ONLY the num",
+        "expected": "120",
+        "got": "1.  Calculate 2 \u00d7 3 = 6\n2.  Ca",
+        "correct": true
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "49",
+        "got": "1.  Identify the function: N(a",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "58",
+        "got": "The user wants to compute N(5,",
+        "correct": false
+      },
+      {
+        "q": "All cats are animals. Whiskers is a cat.",
+        "expected": "animal",
+        "got": "1.  Analyze the input:\n    *  ",
+        "correct": true
+      },
+      {
+        "q": "If it rains the ground gets wet. The gro",
+        "expected": "UNCERTAIN",
+        "got": "1.  Analyze the input: \"If it ",
+        "correct": true
+      },
+      {
+        "q": "What does 'def f(x): return x*x' compute",
+        "expected": "square",
+        "got": "1.  **Analyze the Request:** T",
+        "correct": false
+      },
+      {
+        "q": "A system has 3 components. Each fails in",
+        "expected": "27.1",
+        "got": "1.  Identify the given informa",
+        "correct": false
+      },
+      {
+        "q": "What is 999999 + 1? Give ONLY the number",
+        "expected": "1000000",
+        "got": "1.  Identify the input: \"99999",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "model": "qwen3.5-9b",
+    "model_id": "Qwen/Qwen3.5-9B",
+    "provider": "deepinfra",
+    "temperature": 0.0,
+    "accuracy": 0.2,
+    "correct": 2,
+    "total": 10,
+    "failures": {
+      "add": 1,
+      "add_chain": 2,
+      "mul": 3,
+      "coeff1": 4,
+      "coeff2": 5,
+      "code": 8,
+      "strategy": 9,
+      "magnitude": 10
+    },
+    "duration_s": 25.9,
+    "details": [
+      {
+        "q": "What is 37 + 48? Give ONLY the number.",
+        "expected": "85",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "What is 3 + 5 + 7 + 9 + 11? Give ONLY th",
+        "expected": "35",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "What is 2 \u00d7 3 \u00d7 4 \u00d7 5? Give ONLY the num",
+        "expected": "120",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "49",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "58",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "All cats are animals. Whiskers is a cat.",
+        "expected": "animal",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": true
+      },
+      {
+        "q": "If it rains the ground gets wet. The gro",
+        "expected": "UNCERTAIN",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": true
+      },
+      {
+        "q": "What does 'def f(x): return x*x' compute",
+        "expected": "square",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "A system has 3 components. Each fails in",
+        "expected": "27.1",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "What is 999999 + 1? Give ONLY the number",
+        "expected": "1000000",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "model": "qwen3.5-27b",
+    "model_id": "Qwen/Qwen3.5-27B",
+    "provider": "deepinfra",
+    "temperature": 0.0,
+    "accuracy": 0.1,
+    "correct": 1,
+    "total": 10,
+    "failures": {
+      "add": 1,
+      "add_chain": 2,
+      "mul": 3,
+      "coeff1": 4,
+      "coeff2": 5,
+      "abduction": 7,
+      "code": 8,
+      "strategy": 9,
+      "magnitude": 10
+    },
+    "duration_s": 34.0,
+    "details": [
+      {
+        "q": "What is 37 + 48? Give ONLY the number.",
+        "expected": "85",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "What is 3 + 5 + 7 + 9 + 11? Give ONLY th",
+        "expected": "35",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "What is 2 \u00d7 3 \u00d7 4 \u00d7 5? Give ONLY the num",
+        "expected": "120",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "49",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "58",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "All cats are animals. Whiskers is a cat.",
+        "expected": "animal",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": true
+      },
+      {
+        "q": "If it rains the ground gets wet. The gro",
+        "expected": "UNCERTAIN",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "What does 'def f(x): return x*x' compute",
+        "expected": "square",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "A system has 3 components. Each fails in",
+        "expected": "27.1",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      },
+      {
+        "q": "What is 999999 + 1? Give ONLY the number",
+        "expected": "1000000",
+        "got": "Thinking Process:\n\n1.  **Analy",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "model": "mimo-v2.5",
+    "model_id": "allenai/MiMo-V2.5",
+    "provider": "deepinfra",
+    "temperature": 0.0,
+    "accuracy": 0.0,
+    "correct": 0,
+    "total": 10,
+    "failures": {
+      "add": 1,
+      "add_chain": 2,
+      "mul": 3,
+      "coeff1": 4,
+      "coeff2": 5,
+      "syllogism": 6,
+      "abduction": 7,
+      "code": 8,
+      "strategy": 9,
+      "magnitude": 10
+    },
+    "duration_s": 1.3,
+    "details": [
+      {
+        "q": "What is 37 + 48? Give ONLY the number.",
+        "expected": "85",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 3 + 5 + 7 + 9 + 11? Give ONLY th",
+        "expected": "35",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 2 \u00d7 3 \u00d7 4 \u00d7 5? Give ONLY the num",
+        "expected": "120",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "49",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "58",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "All cats are animals. Whiskers is a cat.",
+        "expected": "animal",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "If it rains the ground gets wet. The gro",
+        "expected": "UNCERTAIN",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What does 'def f(x): return x*x' compute",
+        "expected": "square",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "A system has 3 components. Each fails in",
+        "expected": "27.1",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 999999 + 1? Give ONLY the number",
+        "expected": "1000000",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "model": "step-3.5-flash",
+    "model_id": "stepfun/Step-3.5-Flash",
+    "provider": "deepinfra",
+    "temperature": 0.0,
+    "accuracy": 0.0,
+    "correct": 0,
+    "total": 10,
+    "failures": {
+      "add": 1,
+      "add_chain": 2,
+      "mul": 3,
+      "coeff1": 4,
+      "coeff2": 5,
+      "syllogism": 6,
+      "abduction": 7,
+      "code": 8,
+      "strategy": 9,
+      "magnitude": 10
+    },
+    "duration_s": 1.6,
+    "details": [
+      {
+        "q": "What is 37 + 48? Give ONLY the number.",
+        "expected": "85",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 3 + 5 + 7 + 9 + 11? Give ONLY th",
+        "expected": "35",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 2 \u00d7 3 \u00d7 4 \u00d7 5? Give ONLY the num",
+        "expected": "120",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "49",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "58",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "All cats are animals. Whiskers is a cat.",
+        "expected": "animal",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "If it rains the ground gets wet. The gro",
+        "expected": "UNCERTAIN",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What does 'def f(x): return x*x' compute",
+        "expected": "square",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "A system has 3 components. Each fails in",
+        "expected": "27.1",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 999999 + 1? Give ONLY the number",
+        "expected": "1000000",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "model": "llama-4-scout",
+    "model_id": "llama-4-scout-17b-16e-instruct",
+    "provider": "groq",
+    "temperature": 0.0,
+    "accuracy": 0.0,
+    "correct": 0,
+    "total": 10,
+    "failures": {
+      "add": 1,
+      "add_chain": 2,
+      "mul": 3,
+      "coeff1": 4,
+      "coeff2": 5,
+      "syllogism": 6,
+      "abduction": 7,
+      "code": 8,
+      "strategy": 9,
+      "magnitude": 10
+    },
+    "duration_s": 0.8,
+    "details": [
+      {
+        "q": "What is 37 + 48? Give ONLY the number.",
+        "expected": "85",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 3 + 5 + 7 + 9 + 11? Give ONLY th",
+        "expected": "35",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 2 \u00d7 3 \u00d7 4 \u00d7 5? Give ONLY the num",
+        "expected": "120",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "49",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "58",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "All cats are animals. Whiskers is a cat.",
+        "expected": "animal",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "If it rains the ground gets wet. The gro",
+        "expected": "UNCERTAIN",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What does 'def f(x): return x*x' compute",
+        "expected": "square",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "A system has 3 components. Each fails in",
+        "expected": "27.1",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 999999 + 1? Give ONLY the number",
+        "expected": "1000000",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "model": "qwen3-32b",
+    "model_id": "qwen3-32b",
+    "provider": "groq",
+    "temperature": 0.0,
+    "accuracy": 0.0,
+    "correct": 0,
+    "total": 10,
+    "failures": {
+      "add": 1,
+      "add_chain": 2,
+      "mul": 3,
+      "coeff1": 4,
+      "coeff2": 5,
+      "syllogism": 6,
+      "abduction": 7,
+      "code": 8,
+      "strategy": 9,
+      "magnitude": 10
+    },
+    "duration_s": 0.7,
+    "details": [
+      {
+        "q": "What is 37 + 48? Give ONLY the number.",
+        "expected": "85",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 3 + 5 + 7 + 9 + 11? Give ONLY th",
+        "expected": "35",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 2 \u00d7 3 \u00d7 4 \u00d7 5? Give ONLY the num",
+        "expected": "120",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "49",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "Compute N(5,-3) where N(a,b) = a\u00b2 - ab +",
+        "expected": "58",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "All cats are animals. Whiskers is a cat.",
+        "expected": "animal",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "If it rains the ground gets wet. The gro",
+        "expected": "UNCERTAIN",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What does 'def f(x): return x*x' compute",
+        "expected": "square",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "A system has 3 components. Each fails in",
+        "expected": "27.1",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      },
+      {
+        "q": "What is 999999 + 1? Give ONLY the number",
+        "expected": "1000000",
+        "got": "ERROR: 'choices'",
+        "correct": false
+      }
+    ]
+  }
+]
