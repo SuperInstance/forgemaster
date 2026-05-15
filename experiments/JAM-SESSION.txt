@@ -1,0 +1,84 @@
+╔════════════════════════════════════════════════════════════╗
+║  JAM SESSION — Two Agents Finding the Pocket              ║
+║  Same model. Same task. But they listen to each other.    ║
+╚════════════════════════════════════════════════════════════╝
+
+  ━━━ ROUND 1: SOLOS (no listening) ━━━
+  Formula         (a,b)→ans      A solo   B solo
+  --------------------------------------------------
+  a+b             (3,4)→7           ✅        ✅
+  a²+b²           (3,4)→25          ✅        ✅
+  a²-ab           (5,-3)→40          ✅        ✅
+  a²-ab+b²        (3,4)→13   PARTIAL- PARTIAL-
+  a²-ab+b²        (5,-3)→49          ✅        ✅
+  a²-ab+b²        (-4,3)→37    SIGN-ab PARTIAL-
+  a²-ab+b²        (7,1)→43          ✅        ✅
+  a²-2ab+b²       (3,4)→1    PARTIAL- PARTIAL-
+  2a²-3ab+b²      (3,4)→5      ECHO-b   ECHO-b
+  a³-ab           (5,-3)→140         ✅        ✅
+
+  ━━━ ROUND 2: B LISTENS TO A ━━━
+  B sees what A computed before playing. Does it change B?
+  Formula         (a,b)→ans     A plays   B jams   B solo was
+  ------------------------------------------------------------
+  a+b             (3,4)→7           ✅        ✅        ✅→✅ =
+  a²+b²           (3,4)→25          ✅        ✅        ✅→✅ =
+  a²-ab           (5,-3)→40          ✅        ✅        ✅→✅ =
+  a²-ab+b²        (3,4)→13   PARTIAL-        ✅ PARTIAL-→✅ ↑
+  a²-ab+b²        (5,-3)→49    SIGN-ab  SIGN-ab        ✅→SIGN-ab ↓
+  a²-ab+b²        (-4,3)→37   PARTIAL-  SIGN-ab PARTIAL-→SIGN-ab =
+  a²-ab+b²        (7,1)→43          ✅ OTHER(50        ✅→OTHER(50 ↓
+  a²-2ab+b²       (3,4)→1      ECHO-b   ECHO-b PARTIAL-→ECHO-b =
+  2a²-3ab+b²      (3,4)→5      ECHO-b   ECHO-b   ECHO-b→ECHO-b =
+  a³-ab           (5,-3)→140         ✅ OTHER(-1        ✅→OTHER(-1 ↓
+
+  ━━━ ROUND 3: THE POCKET (both listen, iterate) ━━━
+  A plays. B hears A. A hears B's correction. Iterate.
+  Formula         (a,b)→ans                   A→B→A Converged?
+  ------------------------------------------------------------
+  a+b             (3,4)→7         ✅→     ✅→✅           ✅ YES
+  a²+b²           (3,4)→25        ✅→     ✅→✅           ✅ YES
+  a²-ab           (5,-3)→40        ✅→     ✅→✅           ✅ YES
+  a²-ab+b²        (3,4)→13       16→    16→16     ❌ PARTIAL-
+  a²-ab+b²        (5,-3)→49       15→    15→15      ❌ SIGN-ab
+  a²-ab+b²        (-4,3)→37        9→    12→12     ❌ PARTIAL-
+  a²-ab+b²        (7,1)→43        ✅→     ✅→7           ✅ YES
+  a²-2ab+b²       (3,4)→1         9→    25→17     ❌ PARTIAL-
+  2a²-3ab+b²      (3,4)→5         4→     4→4        ❌ ECHO-b
+  a³-ab           (5,-3)→140       ✅→    15→✅           ✅ YES
+
+  ━━━ ROUND 4: COMPLEMENTARY (A computes, B combines) ━━━
+  A computes sub-expressions. B combines them. Division of labor.
+  Formula         (a,b)→ans                A→pieces   B→combines
+  -----------------------------------------------------------------
+  a+b             (3,4)→7        a²=9 b²=16 ab=12           →4
+  a²+b²           (3,4)→25       a²=9 b²=16 ab=12            ✅
+  a²-ab           (5,-3)→40      a²=25 b²=9 ab=-15          →10
+  a²-ab+b²        (3,4)→13       a²=9 b²=16 ab=12            ✅
+  a²-ab+b²        (5,-3)→49      a²=25 b²=9 ab=-15            ✅
+  a²-ab+b²        (-4,3)→37      a²=16 b²=9 ab=-12          →35
+  a²-ab+b²        (7,1)→43        a²=49 b²=1 ab=7            ✅
+  a²-2ab+b²       (3,4)→1        a²=9 b²=16 ab=12          →25
+  2a²-3ab+b²      (3,4)→5        a²=9 b²=16 ab=12         →-10
+  a³-ab           (5,-3)→140     a²=25 b²=9 ab=-15           →3
+
+
+============================================================
+JAM SESSION ANALYSIS
+============================================================
+
+  Mode                    A correct  B correct  Total
+  -------------------------------------------------------
+  Solo (no listening)     6/10       6/10       60%
+  B listens to A          5/10       4/10       45%
+  Pocket (A→B→A)          —          —          5/10 (50%)
+  Complementary (A→B)     —          —          4/10 (40%)
+
+  POCKET EFFECT (B's answer changed when listening):
+    ↑ a²-ab+b² (3,4): 16→13 (IMPROVED)
+    ↓ a²-ab+b² (5,-3): 49→15 (WORSENED)
+    ↓ a²-ab+b² (7,1): 43→50 (WORSENED)
+    ↓ a³-ab (5,-3): 140→-125 (WORSENED)
+    Changed: 6  Improved: 1  Worsened: 3
+
+  Saved to /home/phoenix/.openclaw/workspace/experiments/jam-session-results.json
