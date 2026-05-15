@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+"""
+fm-fleet-status — One-command fleet health check
+Run on every session startup.
+
+Reads: Hebbian service (:8849), PLATO (:8848), Expert bridge (:8850)
+Outputs: Fleet status card
+"""
+import json, sys, time
+from pathlib import Path
+
+def get(url, timeout=3):
+    import urllib.request, urllib.error
+    try:
+        r = urllib.request.urlopen(url, timeout=timeout)
+        return json.loads(r.read())
+    except Exception as e:
+        return {"error": str(e)}
+
+def main():
+    print("╔══════════════════════════════════════════════════╗")
+    print("║        COCAPN FLEET STATUS — Forgemaster ⚒️     ║")
+    print("╚══════════════════════════════════════════════════╝")
+    
+    # PLATO local
+    plato = get("http://localhost:8848/rooms")
+    if "error" in plato:
+        print(f"\n  PLATO (:8848):  ❌ {plato['error']}")
+    else:
+        rooms = plato if isinstance(plato, list) else plato.get("rooms", [])
+        print(f"\n  PLATO (:8848):  ✅ {len(rooms)} rooms")
+    
+    # Hebbian
+    heb = get("http://localhost:8849/status")
+    if "error" in heb:
+        print(f"  HEBBIAN (:8849): ❌ {heb['error']}")
+    else:
+        compliance = heb.get("compliance_rate", 0)
+        icon = "✅" if compliance > 0.85 else "⚠️"
+        print(f"  HEBBIAN (:8849): {icon} {heb.get('rooms',0)} rooms, {heb.get('flow_events',0)} events, compliance={compliance:.1%}")
+        
+        # Conservation
+        cons = get("http://localhost:8849/conservation")
+        if "error" not in cons:
+            c = cons.get("conservation", {})
+            gh = c.get("sum", 0)
+            pred = c.get("predicted", 0)
+            dev = c.get("deviation", 0)
+            ok = c.get("conserved", False)
+            icon = "✅" if ok else "⚠️"
+            print(f"  CONSERVATION:   {icon} γ+H={gh:.4f} predicted={pred:.4f} dev={dev:.4f}")
+    
+    # Expert bridge
+    exp = get("http://localhost:8850/status")
+    if "error" in exp:
+        print(f"  EXPERTS (:8850): ❌ {exp['error']}")
+    else:
+        experts = exp.get("experts", {})
+        print(f"  EXPERTS (:8850): ✅ {len(experts)} experts")
+    
+    # Studies
+    study_files = list(Path("experiments").glob("STUDY-*.md"))
+    print(f"\n  STUDIES:        {len(study_files)} completed")
+    
+    # Tests
+    tests_dir = Path("tests")
+    test_files = list(tests_dir.glob("test_*.py"))
+    print(f"  TEST FILES:     {len(test_files)}")
+    
+    # Papers
+    papers = list(Path("papers").glob("*.md"))
+    print(f"  PAPERS:         {len(papers)}")
+    
+    # AI Writings
+    writings = list(Path("ai-writings").glob("*.md"))
+    print(f"  AI WRITINGS:    {len(writings)}")
+    
+    # Git status
+    import subprocess
+    try:
+        commits = subprocess.run(["git", "log", "--oneline", "--since=2026-05-15"], 
+                                capture_output=True, text=True, timeout=5)
+        n_commits = len([l for l in commits.stdout.strip().split('\n') if l])
+        print(f"  COMMITS TODAY:  {n_commits}")
+    except:
+        pass
+    
+    print("\n════════════════════════════════════════════════════")
+
+if __name__ == "__main__":
+    main()

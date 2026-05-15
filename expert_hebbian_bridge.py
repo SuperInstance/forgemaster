@@ -33,6 +33,13 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 
 import numpy as np
 
+# MythosTile integration
+try:
+    from mythos_tile import MythosTile
+    HAS_MYTHOS = True
+except ImportError:
+    HAS_MYTHOS = False
+
 # Inline the conservation math from fleet_hebbian_service (no cross-import)
 CONSERVATION_INTERCEPT = 1.283
 CONSERVATION_LOG_COEFF = -0.159
@@ -218,6 +225,30 @@ class ExpertRoomAdapter:
             "activation_keys": activation_keys,
             "tile_count": self._tile_counts[expert_type],
         }
+
+    def convert_to_mythos_tile(self, expert_type: str, output: str,
+                                confidence: float = 0.9,
+                                tile_type: str = "model") -> 'MythosTile':
+        """Convert expert output directly to a MythosTile.
+
+        Uses MythosTile.from_expert_output() for proper protocol conformance.
+        Falls back to convert_tile() dict if MythosTile is not available.
+        """
+        if not HAS_MYTHOS:
+            # Return a dict wrapper that mimics MythosTile interface
+            return self.convert_tile(expert_type, output, confidence, tile_type)
+
+        expert_output = {
+            "domain": self.expert_to_domain(expert_type),
+            "output": output,
+            "confidence": confidence,
+            "tags": [expert_type, tile_type],
+            "meta": {
+                "tile_type": tile_type,
+                "activation_keys": self._compute_activation_keys(expert_type, confidence),
+            },
+        }
+        return MythosTile.from_expert_output(expert_type, expert_output)
 
     def _compute_activation_keys(self, expert_type: str,
                                   confidence: float) -> List[str]:
@@ -464,6 +495,7 @@ class ConservationConstrainedCrossConsult:
         """Request a cross-consultation between experts.
 
         Routes based on coupling strength and conservation compliance.
+        If MythosTile is available, produces a MythosTile in the result.
         """
         strength = self.coupling.get_coupling_strength(source_expert, target_expert)
 
@@ -524,6 +556,18 @@ class ConservationConstrainedCrossConsult:
 
         request["status"] = "completed"
         request["post_conservation"] = post_conservation
+
+        # Attach MythosTile if available
+        if HAS_MYTHOS:
+            mythos = MythosTile.from_expert_output(source_expert, {
+                "domain": self.adapter.expert_to_domain(source_expert),
+                "output": query or f"consultation to {target_expert}",
+                "confidence": confidence,
+                "tags": ["cross-consultation", source_expert, target_expert],
+                "meta": {"mode": mode, "target_expert": target_expert},
+            })
+            request["mythos_tile"] = json.loads(mythos.to_json())
+            request["mythos_tile_id"] = mythos.tile_id
 
         with self._lock:
             self._completed.append(request)
@@ -843,6 +887,32 @@ class ExpertHebbianDashboard:
                         query=body.get("query", ""),
                         confidence=body.get("confidence", 0.9),
                     )
+                    self._json(result, 201)
+
+                elif self.path == "/consult/mythos":
+                    # Consultation that returns MythosTile via adapter
+                    body = self._read_body()
+                    required = ["source", "target"]
+                    for k in required:
+                        if k not in body:
+                            self._json({"error": f"missing field: {k}"}, 400)
+                            return
+                    result = dashboard.cross_consult.request_consultation(
+                        source_expert=body["source"],
+                        target_expert=body["target"],
+                        query=body.get("query", ""),
+                        confidence=body.get("confidence", 0.9),
+                    )
+                    # Also produce a MythosTile via the adapter
+                    if HAS_MYTHOS:
+                        source = body["source"]
+                        query_text = body.get("query", "")
+                        conf = body.get("confidence", 0.9)
+                        tile = dashboard.adapter.convert_to_mythos_tile(
+                            source, query_text, conf
+                        )
+                        if isinstance(tile, MythosTile):
+                            result["mythos_tile_via_adapter"] = json.loads(tile.to_json())
                     self._json(result, 201)
 
                 elif self.path == "/batch-consult":

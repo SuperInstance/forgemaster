@@ -21,7 +21,7 @@ from __future__ import annotations
 import json, time, hashlib
 from dataclasses import dataclass, field, asdict
 from enum import IntEnum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 
 class ModelTier(IntEnum):
@@ -131,6 +131,163 @@ class MythosTile:
     def from_json(cls, data: str) -> "MythosTile":
         d = json.loads(data)
         return cls(**{k: v for k, v in d.items() if k in cls.__dataclass_fields__})
+
+
+# ---------------------------------------------------------------------------
+# MythosPipeline — chains all services through the unified tile
+# ---------------------------------------------------------------------------
+
+class MythosPipeline:
+    """End-to-end pipeline that chains expert output → MythosTile → PLATO/Hebbian/Translator.
+
+    Every data flow through the fleet goes through this pipeline:
+    1. accept_expert_output() — convert expert daemon output into a MythosTile
+    2. route_to_plato()      — format for PLATO storage
+    3. track_hebbian()       — emit a Hebbian flow event
+    4. check_conservation()  — verify γ+H across a batch of tiles
+    5. translate_for_model() — format content for a given model tier
+    """
+
+    def __init__(self):
+        self._tiles: List[MythosTile] = []
+        self._expert_index: Dict[str, int] = {}  # expert_name → position in _tiles
+
+    # -- Step 1: Accept expert output -----------------------------------------
+
+    def accept_expert_output(self, expert: str, output: dict) -> MythosTile:
+        """Convert expert daemon output into a MythosTile.
+
+        Parameters
+        ----------
+        expert : str
+            Expert daemon name (e.g. 'conservation', 'architect').
+        output : dict
+            Expert output dict with keys like 'domain', 'output', 'confidence',
+            'tags', 'meta'.
+
+        Returns
+        -------
+        MythosTile
+        """
+        tile = MythosTile.from_expert_output(expert, output)
+        self._tiles.append(tile)
+        self._expert_index[expert] = len(self._tiles) - 1
+        return tile
+
+    # -- Step 2: Route to PLATO ----------------------------------------------
+
+    def route_to_plato(self, tile: MythosTile) -> dict:
+        """Format a MythosTile for PLATO storage.
+
+        Returns the PLATO-compatible dict representation.
+        """
+        return tile.to_plato_format()
+
+    # -- Step 3: Track Hebbian -----------------------------------------------
+
+    def track_hebbian(self, tile: MythosTile) -> dict:
+        """Emit a Hebbian flow event from a tile.
+
+        Returns a dict suitable for consumption by the Hebbian service.
+        """
+        return tile.to_hebbian_event()
+
+    # -- Step 4: Conservation check ------------------------------------------
+
+    def check_conservation(self, tiles: Optional[List[MythosTile]] = None) -> bool:
+        """Check that a set of tiles satisfies conservation constraints.
+
+        A simple heuristic: the sum of confidence values should be roughly
+        proportional to the number of tiles (no single tile dominates), and
+        no tile has drifted to zero confidence.
+
+        Returns True if conservation is satisfied.
+        """
+        tiles = tiles or self._tiles
+        if not tiles:
+            return True
+
+        confidences = [t.confidence for t in tiles]
+        total = sum(confidences)
+        if total == 0:
+            return False
+
+        # Check: no single tile dominates (> 80% of total confidence)
+        for c in confidences:
+            if c / total > 0.8:
+                return False
+
+        # Check: average confidence is reasonable (> 0.2)
+        avg = total / len(confidences)
+        if avg < 0.2:
+            return False
+
+        return True
+
+    # -- Step 5: Translate for model tier ------------------------------------
+
+    def translate_for_model(self, tile: MythosTile, tier: int) -> str:
+        """Translate tile content for a given model tier.
+
+        Parameters
+        ----------
+        tile : MythosTile
+        tier : int
+            1 = TIER_1_DIRECT, 2 = TIER_2_SCAFFOLDED, 3 = TIER_3_INCOMPETENT
+
+        Returns
+        -------
+        str — formatted content string
+        """
+        model_tier = ModelTier(tier)
+        return tile.format_for_model(model_tier)
+
+    # -- Batch operations ---------------------------------------------------
+
+    def batch_accept(self, expert_outputs: List[Tuple[str, dict]]) -> List[MythosTile]:
+        """Accept multiple expert outputs at once."""
+        return [self.accept_expert_output(exp, out) for exp, out in expert_outputs]
+
+    def batch_route_to_plato(self, tiles: Optional[List[MythosTile]] = None) -> List[dict]:
+        """Route multiple tiles to PLATO format."""
+        tiles = tiles or self._tiles
+        return [self.route_to_plato(t) for t in tiles]
+
+    def batch_track_hebbian(self, tiles: Optional[List[MythosTile]] = None) -> List[dict]:
+        """Track Hebbian events for multiple tiles."""
+        tiles = tiles or self._tiles
+        return [self.track_hebbian(t) for t in tiles]
+
+    def batch_translate(self, tiles: Optional[List[MythosTile]] = None,
+                        tier: int = 1) -> List[str]:
+        """Translate multiple tiles for a given model tier."""
+        tiles = tiles or self._tiles
+        return [self.translate_for_model(t, tier) for t in tiles]
+
+    # -- Accessors -----------------------------------------------------------
+
+    @property
+    def tiles(self) -> List[MythosTile]:
+        return list(self._tiles)
+
+    def get_by_expert(self, expert: str) -> Optional[MythosTile]:
+        """Get the most recent tile from a specific expert."""
+        idx = self._expert_index.get(expert)
+        if idx is not None:
+            return self._tiles[idx]
+        return None
+
+    def summary(self) -> Dict[str, Any]:
+        """Return pipeline summary."""
+        return {
+            "total_tiles": len(self._tiles),
+            "experts": list(self._expert_index.keys()),
+            "conservation_ok": self.check_conservation(),
+            "avg_confidence": (
+                sum(t.confidence for t in self._tiles) / len(self._tiles)
+                if self._tiles else 0.0
+            ),
+        }
 
 
 if __name__ == "__main__":

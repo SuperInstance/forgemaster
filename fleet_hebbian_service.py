@@ -40,6 +40,13 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from typing import Any, Dict, List, Optional, Set, Tuple
 from socketserver import ThreadingMixIn
 
+# MythosTile integration
+try:
+    from mythos_tile import MythosTile
+    HAS_MYTHOS = True
+except ImportError:
+    HAS_MYTHOS = False
+
 import numpy as np
 
 # ---------------------------------------------------------------------------
@@ -802,6 +809,36 @@ class FleetHebbianService:
         }
 
     # ------------------------------------------------------------------
+    # MythosTile-aware submission
+    # ------------------------------------------------------------------
+
+    def submit_mythos_tile(self, tile: 'MythosTile') -> Dict[str, Any]:
+        """Submit a MythosTile through the Hebbian layer.
+
+        Converts MythosTile to the internal flow format, routes it,
+        and returns routing results with the tile_id attached.
+        """
+        dest_room = tile.meta.get('dest_room')
+        result = self.submit_tile(
+            tile_type=tile.content_type or 'model',
+            source_room=tile.room or 'unknown',
+            dest_room=dest_room,
+            tile_hash=tile.tile_id,
+            confidence=tile.confidence,
+            tags=tile.tags,
+        )
+        result['mythos_tile_id'] = tile.tile_id
+        result['mythos_domain'] = tile.domain
+        return result
+
+    def get_mythos_tile(self, tile_id: str) -> Optional[Dict[str, Any]]:
+        """Look up flow events for a specific MythosTile ID."""
+        for event in reversed(self._recent_flow):
+            if event.get('tile_hash') == tile_id:
+                return event
+        return None
+
+    # ------------------------------------------------------------------
     # Persistence
     # ------------------------------------------------------------------
 
@@ -857,6 +894,14 @@ class FleetHebbianService:
                             for i, r in enumerate(service._rooms)
                         ]
                     })
+                elif self.path.startswith("/tile/"):
+                    # GET /tile/<tile_id> — look up MythosTile flow event
+                    tile_id = self.path.split("/tile/", 1)[1].split("?")[0]
+                    event = service.get_mythos_tile(tile_id)
+                    if event:
+                        self._json(event)
+                    else:
+                        self._json({"error": f"tile not found: {tile_id}"}, 404)
                 else:
                     self._json({"error": f"unknown endpoint: {self.path}"}, 404)
 
@@ -876,6 +921,19 @@ class FleetHebbianService:
                         confidence=body.get("confidence", 0.9),
                         tags=body.get("tags"),
                     )
+                    self._json(result, 201)
+                elif self.path == "/tile/mythos":
+                    # Accept MythosTile JSON body → MythosTile.from_json()
+                    if not HAS_MYTHOS:
+                        self._json({"error": "mythos_tile module not available"}, 500)
+                        return
+                    body = self._read_body()
+                    try:
+                        tile = MythosTile.from_json(json.dumps(body))
+                    except Exception as e:
+                        self._json({"error": f"invalid MythosTile: {e}"}, 400)
+                        return
+                    result = service.submit_mythos_tile(tile)
                     self._json(result, 201)
                 elif self.path == "/calibrate":
                     body = self._read_body()
