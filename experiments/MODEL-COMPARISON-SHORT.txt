@@ -1,0 +1,15 @@
+QUICK MODEL COMPARISON — 7 probes × 8 models (corrected extraction)
+
+Seed-2.0-mini:  95% (champion, no depth cliff through D10)
+Seed-2.0-pro:   95% (no advantage over mini)  
+MiMo-V2.5:      86% (366ms, good for safety layer)
+Step-3.5-Flash: 71% (needs max_tokens=100+)
+Qwen3.5-0.8B:   57% (0.3s, surprisingly capable for 0.8B)
+Qwen3.5-2B:     57% (same as 0.8B — scaling doesn't help)
+Qwen3.5-4B:     29% (WORSE than 0.8B! Thinking process hurts)
+llama-3.1-8b:   38% (Groq, depth cliff at D5-6)
+
+KEY INSIGHT: Qwen3.5-4B is WORSE than Qwen3.5-0.8B.
+The 4B model uses "Thinking Process" chains and gets confused.
+The 0.8B model just answers directly and gets more right.
+THINKING HURTS SMALL MODELS. This confirms the Ender Protocol finding.
