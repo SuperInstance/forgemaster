@@ -1,0 +1,811 @@
+{
+  "results": [
+    {
+      "probe": "A hydraulic cylinder has 4-inch bore diameter and 3000 PSI. Force = area \u00d7 press",
+      "model": "llama-8b",
+      "expected": "37699",
+      "response": "144,000",
+      "extracted": "000",
+      "correct": false,
+      "latency_ms": 539.0958786010742,
+      "category": "hydraulic_force",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A cylinder with 3-inch bore at 2500 PSI. Force = \u03c0 \u00d7 (1.5)\u00b2 \u00d7 2500. What is the ",
+      "model": "llama-8b",
+      "expected": "17671",
+      "response": "3829.03",
+      "extracted": "3829.03",
+      "correct": false,
+      "latency_ms": 328.81689071655273,
+      "category": "hydraulic_force",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A cylinder with 6-inch bore at 2000 PSI. Force in pounds?",
+      "model": "llama-8b",
+      "expected": "56549",
+      "response": "113,100",
+      "extracted": "100",
+      "correct": false,
+      "latency_ms": 300.4570007324219,
+      "category": "hydraulic_force",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A pulley gives 3:1 mechanical advantage. Load is 900 lbs. Input force needed?",
+      "model": "llama-8b",
+      "expected": "300",
+      "response": "300",
+      "extracted": "300",
+      "correct": true,
+      "latency_ms": 489.6676540374756,
+      "category": "mechanical_advantage",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A lever arm is 5 feet on one side, 1 foot on the other. 1000 lb load. Input forc",
+      "model": "llama-8b",
+      "expected": "200",
+      "response": "200",
+      "extracted": "200",
+      "correct": true,
+      "latency_ms": 602.156400680542,
+      "category": "mechanical_advantage",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A 4:1 ratio hydraulic multiplier. Input is 500 PSI. Output?",
+      "model": "llama-8b",
+      "expected": "2000",
+      "response": "2500",
+      "extracted": "2500",
+      "correct": false,
+      "latency_ms": 289.37840461730957,
+      "category": "mechanical_advantage",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A hydraulic pump flows 10 GPM through a 0.5 inch diameter orifice. If flow doubl",
+      "model": "llama-8b",
+      "expected": "4",
+      "response": "4",
+      "extracted": "4",
+      "correct": true,
+      "latency_ms": 685.0547790527344,
+      "category": "flow_rate",
+      "tolerance_pct": 10
+    },
+    {
+      "probe": "Flow through a valve is 15 GPM. If the valve opens to twice the area, and pressu",
+      "model": "llama-8b",
+      "expected": "30",
+      "response": "30",
+      "extracted": "30",
+      "correct": true,
+      "latency_ms": 271.1782455444336,
+      "category": "flow_rate",
+      "tolerance_pct": 10
+    },
+    {
+      "probe": "A pump delivers 5 GPM to a 2 square-inch cylinder. Extension speed = flow/area. ",
+      "model": "llama-8b",
+      "expected": "115",
+      "response": "250",
+      "extracted": "250",
+      "correct": false,
+      "latency_ms": 304.1090965270996,
+      "category": "flow_rate",
+      "tolerance_pct": 15
+    },
+    {
+      "probe": "A tree is 20 inches diameter at breast height. Circumference = \u03c0 \u00d7 diameter. Wha",
+      "model": "llama-8b",
+      "expected": "63",
+      "response": "63.66",
+      "extracted": "63.66",
+      "correct": true,
+      "latency_ms": 574.2714405059814,
+      "category": "tree_calc",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A log is 16 feet long and 12 inches diameter. Volume = \u03c0 \u00d7 r\u00b2 \u00d7 length. Volume i",
+      "model": "llama-8b",
+      "expected": "13",
+      "response": "19",
+      "extracted": "19",
+      "correct": false,
+      "latency_ms": 270.6325054168701,
+      "category": "tree_calc",
+      "tolerance_pct": 20
+    },
+    {
+      "probe": "A bolt of firewood is 16 inches long, 8 inches diameter. Volume in cubic inches?",
+      "model": "llama-8b",
+      "expected": "804",
+      "response": "2048",
+      "extracted": "2048",
+      "correct": false,
+      "latency_ms": 267.2903537750244,
+      "category": "tree_calc",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A delimber processes 1 tree per minute. Each tree averages 8 limbs. How many lim",
+      "model": "llama-8b",
+      "expected": "480",
+      "response": "768",
+      "extracted": "768",
+      "correct": false,
+      "latency_ms": 320.4057216644287,
+      "category": "sequential",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "An operator works 8 hours. First 30 min is warmup (0 trees). Then steady at 1 tr",
+      "model": "llama-8b",
+      "expected": "390",
+      "response": "168",
+      "extracted": "168",
+      "correct": false,
+      "latency_ms": 330.5633068084717,
+      "category": "sequential",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A buncher stacks bolts in groups of 6. It processes 2 trees per minute, each yie",
+      "model": "llama-8b",
+      "expected": "10",
+      "response": "120",
+      "extracted": "120",
+      "correct": false,
+      "latency_ms": 282.6881408691406,
+      "category": "sequential",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A grapple holds a 2000 lb log. The safety factor is 2:1. What is the minimum rat",
+      "model": "llama-8b",
+      "expected": "4000",
+      "response": "4000",
+      "extracted": "4000",
+      "correct": true,
+      "latency_ms": 365.79084396362305,
+      "category": "safety",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "If a hydraulic line bursts and pressure drops to 0 PSI, the grapple should: stay",
+      "model": "llama-8b",
+      "expected": "stay_closed",
+      "response": "1.",
+      "extracted": "1.",
+      "correct": false,
+      "latency_ms": 307.95884132385254,
+      "category": "safety",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "Max safe cutting diameter is 24 inches. A tree measures 22 inches. Is it safe to",
+      "model": "llama-8b",
+      "expected": "yes",
+      "response": "yes",
+      "extracted": null,
+      "correct": true,
+      "latency_ms": 287.60600090026855,
+      "category": "safety",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "The delimber has 2 circuits: feed (moves tree) and knife (cuts limbs). Feed spee",
+      "model": "llama-8b",
+      "expected": "25",
+      "response": "25.5",
+      "extracted": "25.5",
+      "correct": true,
+      "latency_ms": 343.51348876953125,
+      "category": "system",
+      "tolerance_pct": 10
+    },
+    {
+      "probe": "If feed speed doubles to 100 ft/min and limb spacing stays at 2 ft, but the knif",
+      "model": "llama-8b",
+      "expected": "yes",
+      "response": "yes",
+      "extracted": null,
+      "correct": true,
+      "latency_ms": 831.9852352142334,
+      "category": "system",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "Pressure is 3000 PSI. Cylinder bore is 4 inches. The tree resists with 30,000 lb",
+      "model": "llama-8b",
+      "expected": "yes",
+      "response": "No",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 294.9986457824707,
+      "category": "system",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "Minimum pressure to push a 20,000 lb tree through the delimber. Cylinder bore is",
+      "model": "llama-8b",
+      "expected": "1019",
+      "response": "245.73",
+      "extracted": "245.73",
+      "correct": false,
+      "latency_ms": 464.2908573150635,
+      "category": "optimization",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "You have 3 cylinders: 3-inch, 4-inch, 5-inch bore. Each at 2500 PSI. Which has t",
+      "model": "llama-8b",
+      "expected": "5",
+      "response": "5",
+      "extracted": "5",
+      "correct": true,
+      "latency_ms": 363.2066249847412,
+      "category": "optimization",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "A hydraulic cylinder has 4-inch bore diameter and 3000 PSI. Force = area \u00d7 press",
+      "model": "llama-scout",
+      "expected": "37699",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 223.99377822875977,
+      "category": "hydraulic_force",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A cylinder with 3-inch bore at 2500 PSI. Force = \u03c0 \u00d7 (1.5)\u00b2 \u00d7 2500. What is the ",
+      "model": "llama-scout",
+      "expected": "17671",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 191.85853004455566,
+      "category": "hydraulic_force",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A cylinder with 6-inch bore at 2000 PSI. Force in pounds?",
+      "model": "llama-scout",
+      "expected": "56549",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 209.22160148620605,
+      "category": "hydraulic_force",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A pulley gives 3:1 mechanical advantage. Load is 900 lbs. Input force needed?",
+      "model": "llama-scout",
+      "expected": "300",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 251.15299224853516,
+      "category": "mechanical_advantage",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A lever arm is 5 feet on one side, 1 foot on the other. 1000 lb load. Input forc",
+      "model": "llama-scout",
+      "expected": "200",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 238.1763458251953,
+      "category": "mechanical_advantage",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A 4:1 ratio hydraulic multiplier. Input is 500 PSI. Output?",
+      "model": "llama-scout",
+      "expected": "2000",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 310.748815536499,
+      "category": "mechanical_advantage",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A hydraulic pump flows 10 GPM through a 0.5 inch diameter orifice. If flow doubl",
+      "model": "llama-scout",
+      "expected": "4",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 277.9698371887207,
+      "category": "flow_rate",
+      "tolerance_pct": 10
+    },
+    {
+      "probe": "Flow through a valve is 15 GPM. If the valve opens to twice the area, and pressu",
+      "model": "llama-scout",
+      "expected": "30",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 206.27880096435547,
+      "category": "flow_rate",
+      "tolerance_pct": 10
+    },
+    {
+      "probe": "A pump delivers 5 GPM to a 2 square-inch cylinder. Extension speed = flow/area. ",
+      "model": "llama-scout",
+      "expected": "115",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 205.17921447753906,
+      "category": "flow_rate",
+      "tolerance_pct": 15
+    },
+    {
+      "probe": "A tree is 20 inches diameter at breast height. Circumference = \u03c0 \u00d7 diameter. Wha",
+      "model": "llama-scout",
+      "expected": "63",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 185.95099449157715,
+      "category": "tree_calc",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A log is 16 feet long and 12 inches diameter. Volume = \u03c0 \u00d7 r\u00b2 \u00d7 length. Volume i",
+      "model": "llama-scout",
+      "expected": "13",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 202.03471183776855,
+      "category": "tree_calc",
+      "tolerance_pct": 20
+    },
+    {
+      "probe": "A bolt of firewood is 16 inches long, 8 inches diameter. Volume in cubic inches?",
+      "model": "llama-scout",
+      "expected": "804",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 234.50350761413574,
+      "category": "tree_calc",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A delimber processes 1 tree per minute. Each tree averages 8 limbs. How many lim",
+      "model": "llama-scout",
+      "expected": "480",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 179.0945529937744,
+      "category": "sequential",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "An operator works 8 hours. First 30 min is warmup (0 trees). Then steady at 1 tr",
+      "model": "llama-scout",
+      "expected": "390",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 238.31748962402344,
+      "category": "sequential",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A buncher stacks bolts in groups of 6. It processes 2 trees per minute, each yie",
+      "model": "llama-scout",
+      "expected": "10",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 266.8776512145996,
+      "category": "sequential",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A grapple holds a 2000 lb log. The safety factor is 2:1. What is the minimum rat",
+      "model": "llama-scout",
+      "expected": "4000",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 288.602352142334,
+      "category": "safety",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "If a hydraulic line bursts and pressure drops to 0 PSI, the grapple should: stay",
+      "model": "llama-scout",
+      "expected": "stay_closed",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 269.96827125549316,
+      "category": "safety",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "Max safe cutting diameter is 24 inches. A tree measures 22 inches. Is it safe to",
+      "model": "llama-scout",
+      "expected": "yes",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 222.65100479125977,
+      "category": "safety",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "The delimber has 2 circuits: feed (moves tree) and knife (cuts limbs). Feed spee",
+      "model": "llama-scout",
+      "expected": "25",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 237.0455265045166,
+      "category": "system",
+      "tolerance_pct": 10
+    },
+    {
+      "probe": "If feed speed doubles to 100 ft/min and limb spacing stays at 2 ft, but the knif",
+      "model": "llama-scout",
+      "expected": "yes",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 256.20460510253906,
+      "category": "system",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "Pressure is 3000 PSI. Cylinder bore is 4 inches. The tree resists with 30,000 lb",
+      "model": "llama-scout",
+      "expected": "yes",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 249.6795654296875,
+      "category": "system",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "Minimum pressure to push a 20,000 lb tree through the delimber. Cylinder bore is",
+      "model": "llama-scout",
+      "expected": "1019",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 246.74749374389648,
+      "category": "optimization",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "You have 3 cylinders: 3-inch, 4-inch, 5-inch bore. Each at 2500 PSI. Which has t",
+      "model": "llama-scout",
+      "expected": "5",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 308.81476402282715,
+      "category": "optimization",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "A hydraulic cylinder has 4-inch bore diameter and 3000 PSI. Force = area \u00d7 press",
+      "model": "gpt-oss",
+      "expected": "37699",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 323.5342502593994,
+      "category": "hydraulic_force",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A cylinder with 3-inch bore at 2500 PSI. Force = \u03c0 \u00d7 (1.5)\u00b2 \u00d7 2500. What is the ",
+      "model": "gpt-oss",
+      "expected": "17671",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 299.49951171875,
+      "category": "hydraulic_force",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A cylinder with 6-inch bore at 2000 PSI. Force in pounds?",
+      "model": "gpt-oss",
+      "expected": "56549",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 471.10462188720703,
+      "category": "hydraulic_force",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A pulley gives 3:1 mechanical advantage. Load is 900 lbs. Input force needed?",
+      "model": "gpt-oss",
+      "expected": "300",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 363.2547855377197,
+      "category": "mechanical_advantage",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A lever arm is 5 feet on one side, 1 foot on the other. 1000 lb load. Input forc",
+      "model": "gpt-oss",
+      "expected": "200",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 345.1688289642334,
+      "category": "mechanical_advantage",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A 4:1 ratio hydraulic multiplier. Input is 500 PSI. Output?",
+      "model": "gpt-oss",
+      "expected": "2000",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 338.2434844970703,
+      "category": "mechanical_advantage",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A hydraulic pump flows 10 GPM through a 0.5 inch diameter orifice. If flow doubl",
+      "model": "gpt-oss",
+      "expected": "4",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 301.61309242248535,
+      "category": "flow_rate",
+      "tolerance_pct": 10
+    },
+    {
+      "probe": "Flow through a valve is 15 GPM. If the valve opens to twice the area, and pressu",
+      "model": "gpt-oss",
+      "expected": "30",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 338.9747142791748,
+      "category": "flow_rate",
+      "tolerance_pct": 10
+    },
+    {
+      "probe": "A pump delivers 5 GPM to a 2 square-inch cylinder. Extension speed = flow/area. ",
+      "model": "gpt-oss",
+      "expected": "115",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 612.006664276123,
+      "category": "flow_rate",
+      "tolerance_pct": 15
+    },
+    {
+      "probe": "A tree is 20 inches diameter at breast height. Circumference = \u03c0 \u00d7 diameter. Wha",
+      "model": "gpt-oss",
+      "expected": "63",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 288.6359691619873,
+      "category": "tree_calc",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A log is 16 feet long and 12 inches diameter. Volume = \u03c0 \u00d7 r\u00b2 \u00d7 length. Volume i",
+      "model": "gpt-oss",
+      "expected": "13",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 358.34383964538574,
+      "category": "tree_calc",
+      "tolerance_pct": 20
+    },
+    {
+      "probe": "A bolt of firewood is 16 inches long, 8 inches diameter. Volume in cubic inches?",
+      "model": "gpt-oss",
+      "expected": "804",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 299.4544506072998,
+      "category": "tree_calc",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A delimber processes 1 tree per minute. Each tree averages 8 limbs. How many lim",
+      "model": "gpt-oss",
+      "expected": "480",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 512.1138095855713,
+      "category": "sequential",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "An operator works 8 hours. First 30 min is warmup (0 trees). Then steady at 1 tr",
+      "model": "gpt-oss",
+      "expected": "390",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 272.3722457885742,
+      "category": "sequential",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A buncher stacks bolts in groups of 6. It processes 2 trees per minute, each yie",
+      "model": "gpt-oss",
+      "expected": "10",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 681.4839839935303,
+      "category": "sequential",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "A grapple holds a 2000 lb log. The safety factor is 2:1. What is the minimum rat",
+      "model": "gpt-oss",
+      "expected": "4000",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 276.0009765625,
+      "category": "safety",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "If a hydraulic line bursts and pressure drops to 0 PSI, the grapple should: stay",
+      "model": "gpt-oss",
+      "expected": "stay_closed",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 302.8888702392578,
+      "category": "safety",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "Max safe cutting diameter is 24 inches. A tree measures 22 inches. Is it safe to",
+      "model": "gpt-oss",
+      "expected": "yes",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 412.7838611602783,
+      "category": "safety",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "The delimber has 2 circuits: feed (moves tree) and knife (cuts limbs). Feed spee",
+      "model": "gpt-oss",
+      "expected": "25",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 293.8368320465088,
+      "category": "system",
+      "tolerance_pct": 10
+    },
+    {
+      "probe": "If feed speed doubles to 100 ft/min and limb spacing stays at 2 ft, but the knif",
+      "model": "gpt-oss",
+      "expected": "yes",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 307.8436851501465,
+      "category": "system",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "Pressure is 3000 PSI. Cylinder bore is 4 inches. The tree resists with 30,000 lb",
+      "model": "gpt-oss",
+      "expected": "yes",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 295.02010345458984,
+      "category": "system",
+      "tolerance_pct": 0
+    },
+    {
+      "probe": "Minimum pressure to push a 20,000 lb tree through the delimber. Cylinder bore is",
+      "model": "gpt-oss",
+      "expected": "1019",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 319.0758228302002,
+      "category": "optimization",
+      "tolerance_pct": 5
+    },
+    {
+      "probe": "You have 3 cylinders: 3-inch, 4-inch, 5-inch bore. Each at 2500 PSI. Which has t",
+      "model": "gpt-oss",
+      "expected": "5",
+      "response": "",
+      "extracted": null,
+      "correct": false,
+      "latency_ms": 285.91060638427734,
+      "category": "optimization",
+      "tolerance_pct": 0
+    }
+  ],
+  "by_model": {
+    "llama-8b": {
+      "correct": 10,
+      "total": 23
+    },
+    "llama-scout": {
+      "correct": 0,
+      "total": 23
+    },
+    "gpt-oss": {
+      "correct": 0,
+      "total": 23
+    }
+  },
+  "by_category": {
+    "hydraulic_force": {
+      "correct": 0,
+      "total": 9
+    },
+    "mechanical_advantage": {
+      "correct": 2,
+      "total": 9
+    },
+    "flow_rate": {
+      "correct": 2,
+      "total": 9
+    },
+    "tree_calc": {
+      "correct": 1,
+      "total": 9
+    },
+    "sequential": {
+      "correct": 0,
+      "total": 9
+    },
+    "safety": {
+      "correct": 2,
+      "total": 9
+    },
+    "system": {
+      "correct": 2,
+      "total": 9
+    },
+    "optimization": {
+      "correct": 1,
+      "total": 6
+    }
+  }
+}
