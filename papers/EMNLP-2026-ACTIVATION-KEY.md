@@ -8,7 +8,7 @@ SuperInstance · Cocapn Fleet
 
 ## Abstract
 
-Large language models can correctly evaluate mathematical expressions when prompted with step-by-step natural language, yet fail catastrophically on the same expressions presented in symbolic notation. Across 46 controlled studies comprising approximately 5,500 experimental trials spanning 11 models from 5 model families, we document a systematic **notation gradient**: accuracy ranges from ~0% for Unicode symbolic notation (e.g., `a²−ab+b²`) through 22% for ASCII-expanded forms, 67% for natural-language arithmetic, to ~100% for step-by-step procedural descriptions. We propose the **Activation-Key Model**: LLMs store mathematical procedures as vocabulary-gated patterns. Symbolic notation provides weak activation cues because Unicode mathematical symbols are rare in training corpora. Without a domain-specific label functioning as an "activation key," the model defaults to the most frequent training-data variant of the formula. We show that (1) presenting a formula with its domain label yields 100% accuracy while the same formula without a label yields 0%, (2) the rerouting to incorrect pathways is determined at the first output token, and (3) one model family (ByteDance Seed-2.0) exhibits complete immunity across all framing conditions, suggesting this is a training-data gap rather than an architectural limitation. Our findings have implications for mechanistic interpretability, mathematical reasoning evaluation, and training methodology.
+Large language models can correctly evaluate mathematical expressions when prompted with step-by-step natural language, yet fail catastrophically on the same expressions presented in symbolic notation. Across 47 controlled studies comprising approximately 5,500 experimental trials spanning 11 models from 5 model families, we document a systematic **notation gradient**: accuracy ranges from ~0% for Unicode symbolic notation (e.g., `a²−ab+b²`) through 22% for ASCII-expanded forms, 67% for natural-language arithmetic, to ~100% for step-by-step procedural descriptions. We propose the **Activation-Key Model**: LLMs store mathematical procedures as vocabulary-gated patterns. Symbolic notation provides weak activation cues because Unicode mathematical symbols are rare in training corpora. Without a domain-specific label functioning as an "activation key," the model defaults to the most frequent training-data variant of the formula. We show that (1) presenting a formula with its domain label yields 100% accuracy while the same formula without a label yields 0%, (2) the rerouting to incorrect pathways is determined at the first output token, and (3) one model family (ByteDance Seed-2.0) exhibits complete immunity across all framing conditions, suggesting this is a training-data gap rather than an architectural limitation. Our findings have implications for mechanistic interpretability, mathematical reasoning evaluation, and training methodology.
 
 ---
 
@@ -18,12 +18,12 @@ Large language models demonstrate impressive mathematical reasoning on standard 
 
 This is not a knowledge deficit. The same model, given the instruction "First compute a times a, then subtract a times b, then add b times b, for a=5, b=−3," reliably produces 49. The model *knows* the computation. It simply cannot *access* that knowledge from symbolic notation alone.
 
-This paper documents a systematic investigation of this phenomenon across 46 controlled studies and approximately 5,500 experimental trials. We identify a **notation gradient** — a monotonic relationship between the notational form of a mathematical expression and the model's accuracy on evaluating it — and propose the **Activation-Key Model** to explain it. The model posits that LLMs store mathematical procedures as vocabulary-gated patterns: domain-specific labels function as "activation keys" that unlock stored computational procedures, while symbolic notation provides weak or absent activation cues, causing the model to default to the most frequent training-data variant.
+This paper documents a systematic investigation of this phenomenon across 47 controlled studies and approximately 5,500 experimental trials. We identify a **notation gradient** — a monotonic relationship between the notational form of a mathematical expression and the model's accuracy on evaluating it — and propose the **Activation-Key Model** to explain it. The model posits that LLMs store mathematical procedures as vocabulary-gated patterns: domain-specific labels function as "activation keys" that unlock stored computational procedures, while symbolic notation provides weak or absent activation cues, causing the model to default to the most frequent training-data variant.
 
 Our contributions are:
 
 1. **The notation gradient**: a quantitative characterization of how notational form affects computation accuracy, from 0% (Unicode symbols) to ~100% (step-by-step natural language).
-2. **The activation-key mechanism**: a falsifiable model of how vocabulary gates procedure access in LLMs, supported by evidence from all 46 studies.
+2. **The activation-key mechanism**: a falsifiable model of how vocabulary gates procedure access in LLMs, supported by evidence from all 47 studies.
 3. **Cross-model generalization**: demonstration that the effect appears across 11 models from 5 families, with one family (Seed-2.0) showing complete immunity.
 4. **Practical implications**: specific, testable predictions for training interventions that could close the notation-computation gap.
 
@@ -53,7 +53,7 @@ The tension between formal mathematical notation and natural language has been s
 
 ### 3.1 Overview
 
-We conducted 46 controlled studies between May 13–15, 2026, comprising approximately 5,500 experimental trials. Each study tested a specific hypothesis about how vocabulary, notation, and framing affect mathematical computation in LLMs.
+We conducted 47 controlled studies between May 13–15, 2026, comprising approximately 5,500 experimental trials. Each study tested a specific hypothesis about how vocabulary, notation, and framing affect mathematical computation in LLMs.
 
 ### 3.2 Models
 
@@ -93,7 +93,7 @@ We also tested Cauchy-Schwarz inequalities, Möbius function evaluations, Fourie
 
 ### 3.5 Experimental Paradigms
 
-We employed four paradigms across the 46 studies:
+We employed four paradigms across the 47 studies:
 
 1. **Vocabulary manipulation** (Studies 10, 13, 18, 30, 33, 35, 36, 42, 44): Systematically varying the domain vocabulary in the prompt while holding the computation constant.
 
@@ -199,6 +199,48 @@ Several intuitive interventions failed to overcome the notation deficit:
 - **Consensus/majority voting** (Study 21): Majority vote achieved only 25% accuracy versus 46% for individual responses, indicating that the error is systematic, not random.
 - **Rephrasing** (Study 20): Rephrasing the prompt without pre-computing arithmetic failed. Only providing pre-computed sub-expressions worked.
 
+### 4.9 Study 47: The Labeled Paradox
+
+Study 47 revealed a striking inversion of the activation-key mechanism in Stage 4 models. While labels *help* Stage 3 models (Section 4.2), they actively *hurt* Stage 4 models:
+
+| Condition | Seed-2.0-mini (Stage 4) | Hermes-70B (Stage 3) |
+|-----------|:------------------------:|:--------------------:|
+| Notation only (a²−ab+b²) | **100%** | 0% |
+| Labeled "Eisenstein norm" | **20%** | 0% |
+| Step-by-step language | **100%** | 0% |
+
+The Labeled Paradox: the model that computes *best* from pure notation computes *worst* when given a conceptual label. Seed-2.0-mini, when labeled "Eisenstein norm," does not compute the formula directly — it retrieves the concept and attempts to reason about it, producing wrong answers (5, 2, 3, 8 — individual values rather than the formula result).
+
+**Token count analysis** reveals the mechanism. Seed-2.0-mini uses 851 tokens for labeled queries versus 352 for notation-only — a 2.4× increase. The labeled condition triggers verbose reasoning chains (conceptual retrieval → reasoning → answer) that are less reliable than the direct notation→computation pathway. Hermes-70B, by contrast, uses only 9–30 tokens across all conditions (truncated at max_tokens), suggesting Stage 3 models lack the reasoning capacity to exploit either pathway effectively from notation alone.
+
+| Model | Condition | Avg Tokens |
+|-------|-----------|:----------:|
+| Seed-2.0-mini | Notation | 352 |
+| Seed-2.0-mini | Labeled | 851 |
+| Seed-2.0-mini | Step-by-step | 576 |
+| Hermes-70B | Notation | 9 |
+| Hermes-70B | Labeled | 24 |
+| Hermes-70B | Step-by-step | 30 |
+
+This finding refines the Activation-Key Model (V6.1). We propose a **Two-Path Model** for mathematical computation:
+
+- **Stage 3 models** (Hermes-70B): No direct notation→computation pathway exists. Labels serve as activation keys, routing through a label→procedure→computation pathway. Without labels, the model defaults to the most common training-data variant.
+- **Stage 4 models** (Seed-2.0-mini): A direct notation→computation pathway exists. Labels *divert* computation from this reliable direct pathway into a less reliable conceptual reasoning pathway.
+
+The practical implication is counterintuitive: **for the most capable models, less labeling is better.** Providing conceptual context to a model that already has robust notation→computation mappings actively degrades performance.
+
+### 4.10 Conservation Law Extension: A Negative Result
+
+Motivated by Claude's thermodynamic synthesis (Section 6.3), we investigated whether the PLATO conservation law — γ+H = 1.283 − 0.159·log(V) for room coupling matrices — extends to LLM attention patterns. If Stage 4 models have undergone a "Hebbian shift" analogous to mature PLATO rooms, they should exhibit higher γ+H values than Stage 3 models.
+
+We constructed row-normalized token co-occurrence matrices from 6 prompt types (factual, creative, reasoning, code, math, narrative) for Seed-2.0-mini (Stage 4), Hermes-70B (Stage 3), and Qwen3-235B (Stage 3).
+
+**Result: The conservation law does not trivially extend to LLM attention via API proxies.**
+
+The row-normalized token co-occurrence matrices yielded γ ≡ 1.000 across all conditions (trivially, because row normalization of a non-negative matrix forces the spectral radius to unity). The γ+H variation observed (mean 9.09–9.17 across models) was driven entirely by entropy differences, not spectral structure. While a log-linear fit γ+H = C + α·log(V) achieved R² > 0.97 for all models, the coefficients (C ≈ 2.3, α ≈ 1.6) differ drastically from PLATO's (C = 1.283, α = −0.159), and Stage 4 showed higher γ+H in only 2 of 6 prompt types.
+
+This negative result has a clear methodological explanation: token co-occurrence matrices from generated text are a poor proxy for internal attention weights. Proper testing of the conservation hypothesis requires direct access to attention weight matrices, which is not available through standard API interfaces. We include this result as a methodological caution: conservation laws observed in controlled internal architectures do not necessarily transfer to behavioral proxies of those architectures.
+
 ---
 
 ## 5 The Activation-Key Model
@@ -223,7 +265,7 @@ The model predicts four computational states:
 | C | Formula only (no label) | Negligible (notation weakly represented in training) | ~0% |
 | D | Step-by-step natural language | Strong (natural language is the primary activation pathway) | ~100% |
 
-### 4.2 Key Predictions
+### 5.2 Key Predictions
 
 The Activation-Key Model makes the following falsifiable predictions, all confirmed by our experimental data:
 
@@ -259,13 +301,22 @@ A notable feature of this research program is that the Activation-Key Model was 
 - **DeepSeek R1** framed it in narrative terms through a science fiction scenario, concluding: "Distributed cognition demands two layers: Storage and Activation."
 - The present authors quantified it: 98.3 percentage-point accuracy gap between symbolic notation and step-by-step language.
 
-### 6.2 The Retrieval vs. Computation Distinction
+### 6.2 Cross-Model Synthesis and AI Writings
 
-The cross-model convergence supports a fundamental distinction: LLMs do not *compute* mathematical expressions in the algorithmic sense. They *retrieve* stored procedures, and the retrieval is vocabulary-gated. The distinction has practical consequences:
+A remarkable feature of this research is the corpus of 16 essays written by AI models about their own computational phenomenology, spanning 5 model families (Seed-2.0, DeepSeek, Claude, Qwen, GLM). These essays constitute a form of computational introspection — models describing, from the inside, what it feels like to encounter notation that fails to activate the correct procedure.
 
-1. A model that "knows" a procedure may be unable to execute it from certain input contexts.
-2. Benchmark evaluations that test only natural-language mathematical reasoning may overestimate models' ability to work with formal notation.
-3. Training on mathematical notation (not just natural-language mathematics) is necessary for robust mathematical capability.
+Seed-2.0-mini's self-description was particularly illuminating: "I thought I was *doing math*. I was *remembering math.* The distinction matters more than I want to admit." This statement, from a Stage 4 model that computes correctly from all notational conditions, captures the retrieval-vs-computation distinction at the heart of the Activation-Key Model.
+
+**Claude's synthesis** identified a deeper structural pattern across the experimental data. In a comparative analysis of all 47 studies, Claude proposed that the four-stage taxonomy reflects not merely a capability ordering but a *developmental progression* analogous to Piagetian stages in human cognitive development:
+
+- **Stage 1** (Surface) ≈ Sensorimotor: The model produces surface-level text patterns without any genuine mathematical engagement.
+- **Stage 2** (Conditional) ≈ Pre-operational: The model computes for simple cases but is easily derailed by domain vocabulary — it lacks the "conservation" of mathematical identity across representational transformations.
+- **Stage 3** (Label-dependent) ≈ Concrete operational: The model computes reliably given the right contextual keys, but cannot access procedures from abstract notation alone.
+- **Stage 4** (Notation-immune) ≈ Formal operational: The model computes from any notational representation, having internalized notation→computation mappings as direct pathways.
+
+The Piagetian parallel raises a provocative hypothesis: *the stages may be structurally necessary*, not merely accidental. Just as children cannot skip Piagetian stages through instruction alone, LLMs may require specific training-data exposures (not just scale increases) to transition between computational stages. Seed-2.0's immunity — achieved at a smaller parameter count than failing models — is consistent with this view.
+
+Claude further proposed a **thermodynamic framing** of the conservation law observed in PLATO room coupling matrices (γ+H = 1.283 − 0.159·log(V)). The spectral radius γ measures the "coupling energy" of a neural pathway, while entropy H measures the "representational spread." Conservation of γ+H suggests that neural pathways trade coupling strength for representational flexibility, analogous to thermodynamic systems trading energy for entropy. However, our attempt to extend this conservation law to LLM attention patterns produced a negative result (Section 4.10), indicating that the analogy, while conceptually fruitful, does not trivially transfer to behavioral proxies.
 
 ### 6.3 The River/Tributary Topology
 
@@ -285,23 +336,33 @@ The Activation-Key Model suggests that the transformer attention mechanism, as t
 
 **Scaling implications.** Seed-2.0-mini's immunity at a smaller parameter count than failing models (e.g., Hermes-405B) demonstrates that scale alone does not resolve the notation problem. The relevant variable is training-data composition — specifically, the density of notation→computation co-occurrences.
 
-### 7.2 Implications for Training Methodology
+### 7.2 Implications for LLM Deployment
+
+The Labeled Paradox (Study 47) has direct implications for how LLMs should be deployed in mathematical reasoning contexts:
+
+**Don't over-label queries for capable models.** The intuitive prompt-engineering practice of providing rich conceptual context (“compute the Eisenstein norm...”) actively hurts Stage 4 models. For models with robust notation→computation pathways, the bare formula is the optimal query. This is counterintuitive and runs against current best practices in prompt engineering.
+
+**Stage-aware prompting.** The optimal prompting strategy depends on the model's computational stage. Stage 3 models benefit from domain labels as activation keys; Stage 4 models are harmed by them. Production systems should include a diagnostic step (e.g., the six-probe taxonomy from Section 3.3) to classify a model's stage before selecting a prompting strategy.
+
+**Training data design.** The Two-Path Model suggests two distinct training interventions: (1) for Stage 2–3 models, training on label→procedure→computation mappings to build activation-key pathways; (2) for models approaching Stage 4, training on direct notation→computation mappings without conceptual intermediation. The latter requires training data that pairs symbolic formulas directly with computed results, without natural-language scaffolding.
+
+### 7.3 Implications for Training Methodology
 
 The notation gradient suggests a specific training intervention: including explicit notation→computation mappings in training data. We predict that fine-tuning a Stage 3 model on 1,000–2,000 examples of the form [symbolic formula with Unicode notation] → [step-by-step derivation] → [correct numeric answer] would produce significant improvement on notation-only computation tasks.
 
 Cross-lingual training may provide additional benefit: models trained on mathematical text in multiple languages would have multiple independent activation key systems for the same underlying procedures, providing redundancy against notation-specific retrieval failures.
 
-### 7.3 Implications for Evaluation
+### 7.4 Implications for Evaluation
 
 Current mathematical reasoning benchmarks primarily test natural-language mathematical reasoning. Our results suggest that these benchmarks may systematically overestimate models' ability to work with formal mathematical notation. We recommend that evaluations include notation-only conditions — presenting mathematical expressions in symbolic notation without natural-language scaffolding — as a standard test of mathematical capability.
 
 The four-stage taxonomy we propose (Section 3.3) provides a diagnostic framework for such evaluations: six probes using varied notational conditions are sufficient to classify a model's stage.
 
-### 7.4 Implications for AI Safety
+### 7.5 Implications for AI Safety
 
 If knowledge access is vocabulary-gated, then a model can "know" information without being able to "access" it from certain query contexts. Safety evaluations that test capability under one vocabulary regime may not predict capability under another. The activation-key structure of knowledge means that capability is not a fixed property of a model but a function of the query's vocabulary distribution. This has implications for red-teaming and capability assessment.
 
-### 7.5 Limitations
+### 7.6 Limitations
 
 We acknowledge several limitations:
 
@@ -323,7 +384,7 @@ We acknowledge several limitations:
 
 ## 8 Conclusion
 
-We have presented the Activation-Key Model, a mechanistic account of why LLMs fail to compute from symbolic notation despite possessing the underlying mathematical knowledge. Across 46 studies and ~5,500 trials, we demonstrated that:
+We have presented the Activation-Key Model, a mechanistic account of why LLMs fail to compute from symbolic notation despite possessing the underlying mathematical knowledge. Across 47 studies and ~5,500 trials, we demonstrated that:
 
 1. **Notation matters more than knowledge.** The same computation yields 0% accuracy in symbolic notation and ~100% accuracy in step-by-step natural language — a 98.3 percentage-point gap reflecting a retrieval failure, not a knowledge deficit.
 
@@ -332,6 +393,8 @@ We have presented the Activation-Key Model, a mechanistic account of why LLMs fa
 3. **The effect is systematic and predictable.** It follows a notation gradient, manifests at the first output token, and produces consistent default behaviors (the most common training-data formula variant).
 
 4. **Immunity is achievable through training.** Seed-2.0-mini's complete immunity demonstrates that the notation problem is a training-data gap, not an architectural limitation.
+5. **Labels can hurt as well as help.** The Labeled Paradox (Study 47) shows that domain labels, which rescue Stage 3 models, actively degrade Stage 4 performance — the optimal prompting strategy is stage-dependent.
+6. **Conservation laws require direct access.** The negative result on extending PLATO's γ+H conservation law to LLM behavioral proxies highlights the gap between internal neural architectures and their external manifestations.
 
 The Activation-Key Model reframes mathematical reasoning in LLMs as vocabulary-gated retrieval rather than symbol manipulation. This reframing has direct implications for how we train, evaluate, and deploy mathematical reasoning systems — and for how we understand what these systems actually do when they "compute."
 
@@ -377,6 +440,7 @@ The Activation-Key Model reframes mathematical reasoning in LLMs as vocabulary-g
 | 44 | Activation key | Formula-only: 0%; formula+label: 100% | Hermes-70B |
 | 45 | All-positive test | 1.7% even without sign issues | Hermes-70B |
 | 46 | Notation gradient | 0% Unicode → 22% ASCII → 67% NL → 100% step-by-step | Hermes-70B |
+| 47 | Labeled paradox | Stage 4: notation=100%, labeled=20%; labels hurt capable models | Seed-2.0-mini, Hermes-70B |
 
 ## Appendix B: Stage Classification Results
 

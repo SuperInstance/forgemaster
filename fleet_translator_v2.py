@@ -47,7 +47,7 @@ class ModelStage(IntEnum):
     NONE = 0       # untested / unreachable
     ECHO = 1       # Stage 1: can barely echo, no math
     META_ECHO = 2  # Stage 2: follows meta-prompts, spotty math
-    CAPEABLE = 3   # Stage 3: handles most arithmetic, struggles with domain vocab
+    CAPABLE = 3    # Stage 3: handles most arithmetic, struggles with domain vocab
     FULL = 4       # Stage 4: understands domain vocabulary natively
 
 
@@ -61,11 +61,11 @@ KNOWN_STAGES: Dict[str, ModelStage] = {
     "ByteDance/Seed-2.0-code": ModelStage.FULL,
     "ByteDance/Seed-2.0-pro":  ModelStage.FULL,
     # Stage 3 — need activation keys
-    "NousResearch/Hermes-3-Llama-3.1-405B": ModelStage.CAPEABLE,
-    "NousResearch/Hermes-3-Llama-3.1-70B":  ModelStage.CAPEABLE,
-    "Qwen/Qwen3-235B-A22B-Instruct-2507":  ModelStage.CAPEABLE,
-    "Qwen/Qwen3.5-397B-A17B":              ModelStage.CAPEABLE,
-    "Qwen/Qwen3.6-35B-A3B":                ModelStage.CAPEABLE,
+    "NousResearch/Hermes-3-Llama-3.1-405B": ModelStage.CAPABLE,
+    "NousResearch/Hermes-3-Llama-3.1-70B":  ModelStage.CAPABLE,
+    "Qwen/Qwen3-235B-A22B-Instruct-2507":  ModelStage.CAPABLE,
+    "Qwen/Qwen3.5-397B-A17B":              ModelStage.CAPABLE,
+    "Qwen/Qwen3.6-35B-A3B":                ModelStage.CAPABLE,
     # Stage 2 — need pre-computed arithmetic
     "deepseek-chat": ModelStage.META_ECHO,
     # Stage 1 — barely functional
@@ -138,13 +138,15 @@ class NotationNormalizer:
         """
         Convert notation to ASCII math form.
         Gradient position: ~22% accuracy.
-        a² → a^2, ab → a*b
+        a² → a^2, a^2 → a*a
+        Only inserts * between single-letter variables, not inside words.
         """
         result = cls.normalize_unicode(text)
-        # Convert implicit multiplication: 'ab' → 'a*b' between single letters
-        result = re.sub(r'(?<=[a-zA-Z])(?=[a-zA-Z])', '*', result)
         # Convert x^2 to x*x form for clarity
         result = re.sub(r'(\w)\^(\d)', lambda m: '*'.join([m.group(1)] * int(m.group(2))), result)
+        # Convert implicit multiplication ONLY between single-letter variables
+        # e.g. "ab" → "a*b" but NOT inside words like "Compute" or "squared"
+        result = re.sub(r'\b([a-zA-Z])([a-zA-Z])\b', r'\1*\2', result)
         return result
 
     @classmethod
@@ -356,10 +358,12 @@ def translate_for_stage(
     """
     if stage >= ModelStage.FULL:
         # Stage 4: model is notation-immune, pass through
-        logger.debug("Stage 4: passthrough")
+        # Labeled Paradox (Study 47): DON'T inject activation keys for Stage 4.
+        # Labels hurt Stage 4 models — they already have correct procedures.
+        logger.debug("Stage 4: passthrough (Labeled Paradox: no key injection)")
         return prompt
 
-    if stage >= ModelStage.CAPEABLE:
+    if stage >= ModelStage.CAPABLE:
         # Stage 3: inject activation key, normalize unicode to ASCII
         result = ActivationKeyEngineer.inject_key(prompt, task_type)
         result = NotationNormalizer.normalize_unicode(result)
@@ -376,17 +380,19 @@ def translate_for_stage(
         logger.debug("Stage 2: natural language + activation key")
         return result
 
-    # Stage 1: pre-compute everything, bare arithmetic only
+    # Stage 0/1: pre-compute everything, bare arithmetic only
     if task_type:
         result = _pre_compute(task_type, prompt)
         if result:
             return result
     # Fallback: strip all domain vocab, keep only numbers and operators
-    result = NotationNormalizer.to_ascii_math(prompt)
+    # Use natural language instead of ascii_math to avoid garbling
+    result = NotationNormalizer.to_natural_language(prompt)
+    # Remove domain-specific terms
     for pattern in NotationNormalizer._DOMAIN_PATTERNS:
         result = re.sub(pattern, '', result, flags=re.IGNORECASE)
     result = re.sub(r'\s+', ' ', result).strip()
-    logger.debug("Stage 1: bare arithmetic")
+    logger.debug("Stage 0/1: bare natural language")
     return result
 
 
@@ -538,7 +544,7 @@ def translate(
     if stage >= ModelStage.FULL:
         return _translate_full(task_type, params)
 
-    # Stage 1: bare arithmetic (same as V1)
+    # Stage 0/1: bare arithmetic (same as V1)
     if stage <= ModelStage.ECHO:
         return _translate_arithmetic(task_type, params)
 
@@ -609,7 +615,7 @@ def _translate_activation_key(
     """
     if task_type == "eisenstein_norm":
         a, b = params["a"], params["b"]
-        if stage >= ModelStage.CAPEABLE:
+        if stage >= ModelStage.CAPABLE:
             return _eisenstein_norm_stage3(a, b)
         else:
             return _eisenstein_norm_stage2(a, b)
@@ -619,7 +625,7 @@ def _translate_activation_key(
         s3 = math.sqrt(3)
         b_raw = 2 * y / s3
         a_raw = x + y / s3
-        if stage >= ModelStage.CAPEABLE:
+        if stage >= ModelStage.CAPABLE:
             return (
                 f"Using the Eisenstein lattice snap: find lattice coordinates "
                 f"for point ({x}, {y}). Compute a = {a_raw:.4f}, b = {b_raw:.4f}, "
@@ -634,7 +640,7 @@ def _translate_activation_key(
             )
 
     elif task_type == "covering_radius":
-        if stage >= ModelStage.CAPEABLE:
+        if stage >= ModelStage.CAPABLE:
             return "Using the covering radius of the Eisenstein lattice: compute 1/sqrt(3)."
         else:
             return "Step by step, compute the covering radius: first compute sqrt of 3, then compute 1 divided by that value."
@@ -642,28 +648,28 @@ def _translate_activation_key(
     elif task_type == "mobius":
         n = params["n"]
         factors_msg = _mobius_arithmetic(n)
-        if stage >= ModelStage.CAPEABLE:
+        if stage >= ModelStage.CAPABLE:
             return f"Using the Möbius function: {factors_msg}"
         else:
             return f"Step by step, compute the Möbius function of {n}: {factors_msg}"
 
     elif task_type == "legendre":
         a, p = params["a"], params["p"]
-        if stage >= ModelStage.CAPEABLE:
+        if stage >= ModelStage.CAPABLE:
             return f"Using the Legendre symbol (quadratic residue): {_legendre_arithmetic(a, p)}"
         else:
             return f"Step by step, check if {a} is a quadratic residue mod {p}: {_legendre_arithmetic(a, p)}"
 
     elif task_type == "modular_inverse":
         a, m = params["a"], params["m"]
-        if stage >= ModelStage.CAPEABLE:
+        if stage >= ModelStage.CAPABLE:
             return f"Using modular inverse (number theory): {_modular_inverse_arithmetic(a, m)}"
         else:
             return f"Step by step, find the modular inverse of {a} mod {m}: {_modular_inverse_arithmetic(a, m)}"
 
     elif task_type == "cyclotomic_eval":
         n, x = params["n"], params["x"]
-        if stage >= ModelStage.CAPEABLE:
+        if stage >= ModelStage.CAPABLE:
             return _cyclotomic_arithmetic(n, x)
         else:
             return f"Step by step, evaluate the cyclotomic polynomial: {_cyclotomic_arithmetic(n, x)}"
@@ -671,7 +677,7 @@ def _translate_activation_key(
     elif task_type == "generic":
         expr = params.get("expression", "")
         result = ActivationKeyEngineer.inject_key(expr, task_type="generic")
-        if stage >= ModelStage.CAPEABLE:
+        if stage >= ModelStage.CAPABLE:
             result = NotationNormalizer.normalize_unicode(result)
         else:
             result = NotationNormalizer.to_natural_language(result)
@@ -733,7 +739,7 @@ class FleetRouter:
             return self._registry[model_id]
         # Default to Stage 3 for unknown models (activation-key territory)
         logger.info("unknown model %s, defaulting to CAPABLE (Stage 3)", model_id)
-        return ModelStage.CAPEABLE
+        return ModelStage.CAPABLE
 
     # -- routing ------------------------------------------------------------
 
@@ -968,7 +974,7 @@ def _run_tests():
     assert_contains("stage4 mobius", r, "Möbius")
 
     # Stage 3 (CAPABLE): activation key + ASCII
-    r = translate("eisenstein_norm", {"a": 3, "b": 5}, ModelStage.CAPEABLE)
+    r = translate("eisenstein_norm", {"a": 3, "b": 5}, ModelStage.CAPABLE)
     assert_contains("stage3 eisenstein key", r, "Eisenstein norm")
     assert_contains("stage3 ascii notation", r, "a^2")
 
@@ -1015,7 +1021,7 @@ def _run_tests():
     # Same task across all stages — should get progressively more translated
     params = {"a": 2, "b": 3}
     r4 = translate("eisenstein_norm", params, ModelStage.FULL)
-    r3 = translate("eisenstein_norm", params, ModelStage.CAPEABLE)
+    r3 = translate("eisenstein_norm", params, ModelStage.CAPABLE)
     r2 = translate("eisenstein_norm", params, ModelStage.META_ECHO)
     r1 = translate("eisenstein_norm", params, ModelStage.ECHO)
 
@@ -1036,7 +1042,7 @@ def _run_tests():
 
     router = FleetRouter()
     router.register("Seed-2.0-mini", ModelStage.FULL)
-    router.register("hermes-405b", ModelStage.CAPEABLE)
+    router.register("hermes-405b", ModelStage.CAPABLE)
     router.register("tinyllama", ModelStage.ECHO)
 
     p1 = router.route("Seed-2.0-mini", "eisenstein_norm", {"a": 3, "b": 5})
@@ -1051,7 +1057,7 @@ def _run_tests():
 
     assert_eq("router log count", len(router.log), 3)
     assert_eq("router log[0] stage", router.log[0].stage, ModelStage.FULL)
-    assert_eq("router log[1] stage", router.log[1].stage, ModelStage.CAPEABLE)
+    assert_eq("router log[1] stage", router.log[1].stage, ModelStage.CAPABLE)
     assert_eq("router log[2] stage", router.log[2].stage, ModelStage.ECHO)
 
     # Batch routing
@@ -1093,6 +1099,86 @@ def _run_tests():
         print("✅ ALL TESTS PASSED")
 
     print(f"\n{router.audit_summary()}")
+
+
+def auto_detect_stage(query: str, model_id: Optional[str] = None) -> ModelStage:
+    """
+    Auto-detect the appropriate model stage from query complexity and model name.
+
+    Labeled Paradox (Study 47) awareness:
+    - Stage 4 models get NO activation key injection
+    - Stage 3+ models get activation keys
+    - Stage 1-2 get natural language / pre-computed arithmetic
+
+    Args:
+        query: The prompt or expression to translate.
+        model_id: Optional model identifier to look up in KNOWN_STAGES.
+
+    Returns:
+        Detected ModelStage.
+    """
+    # 1. Check known model registry first
+    if model_id and model_id in KNOWN_STAGES:
+        return KNOWN_STAGES[model_id]
+
+    # 2. Heuristic from model name
+    if model_id:
+        name_lower = model_id.lower()
+        # Stage 4 indicators
+        if any(k in name_lower for k in ['seed-2', 'gpt-4', 'claude-3.5', 'claude-opus', 'gemini-2']):
+            return ModelStage.FULL
+        # Stage 2 indicators
+        if any(k in name_lower for k in ['deepseek-chat', 'llama-3', 'mistral-7b']):
+            return ModelStage.META_ECHO
+        # Stage 1 indicators (very small models)
+        if any(k in name_lower for k in ['tinyllama', 'phi-1', 'opt-125']):
+            return ModelStage.ECHO
+
+    # 3. Heuristic from query complexity
+    has_notation = NotationNormalizer.has_symbolic_notation(query)
+    has_domain_labels = bool(NotationNormalizer.detect_domain_labels(query))
+    has_unicode = any(c in NotationNormalizer._SUPERSCRIPT_MAP for c in query)
+
+    # Simple plain text → Stage 3 (should work with activation keys)
+    if not has_notation and not has_domain_labels:
+        return ModelStage.CAPABLE
+
+    # Domain notation present → needs higher stage or activation keys
+    if has_domain_labels and has_notation:
+        return ModelStage.CAPABLE  # activation keys will help
+
+    # Complex notation → default Stage 3
+    return ModelStage.CAPABLE
+
+
+def translate_batch(
+    queries: Sequence[str],
+    model: Optional[str] = None,
+    stage: Optional[ModelStage] = None,
+    task_type: Optional[str] = None,
+) -> List[str]:
+    """
+    Translate multiple queries efficiently.
+
+    Args:
+        queries: List of prompts/expressions to translate.
+        model: Optional model ID for stage auto-detection.
+        stage: Optional explicit stage (overrides model-based detection).
+        task_type: Optional task type for activation key injection.
+
+    Returns:
+        List of translated prompts, one per input query.
+    """
+    if stage is None:
+        stage = auto_detect_stage(
+            queries[0] if queries else "",
+            model_id=model,
+        )
+
+    results = []
+    for query in queries:
+        results.append(translate_for_stage(query, stage, task_type=task_type))
+    return results
 
 
 if __name__ == "__main__":

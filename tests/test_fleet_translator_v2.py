@@ -24,6 +24,8 @@ from fleet_translator_v2 import (
     ActivationKeyEngineer as AK,
     translate,
     translate_for_stage,
+    translate_batch,
+    auto_detect_stage,
     FleetRouter,
     TranslationLog,
     KNOWN_STAGES,
@@ -74,6 +76,18 @@ class TestNotationNormalizer:
     def test_ascii_cubed(self):
         result = NN.to_ascii_math("x³")
         assert "x*x*x" in result
+
+    def test_ascii_no_word_garbling(self):
+        """Bug fix: to_ascii_math should NOT insert * inside words."""
+        result = NN.to_ascii_math("Compute the value")
+        assert "C*o*m*p*u*t*e" not in result
+        assert "Compute" in result
+
+    def test_ascii_preserves_words(self):
+        """Words should not be mangled by implicit multiplication."""
+        result = NN.to_ascii_math("Calculate squared norm")
+        assert "Calculate" in result
+        assert "squared" in result
 
     # -- Natural language ----------------------------------------------------
 
@@ -209,17 +223,17 @@ class TestTranslate:
     # -- Stage 3 (CAPABLE): activation key + ASCII --------------------------
 
     def test_stage3_eisenstein_key(self):
-        r = translate("eisenstein_norm", {"a": 3, "b": 5}, ModelStage.CAPEABLE)
+        r = translate("eisenstein_norm", {"a": 3, "b": 5}, ModelStage.CAPABLE)
         assert "Eisenstein norm" in r
         assert "a^2" in r  # ASCII notation
         assert "²" not in r  # no unicode
 
     def test_stage3_mobius_key(self):
-        r = translate("mobius", {"n": 30}, ModelStage.CAPEABLE)
+        r = translate("mobius", {"n": 30}, ModelStage.CAPABLE)
         assert "Möbius" in r
 
     def test_stage3_covering_radius(self):
-        r = translate("covering_radius", {}, ModelStage.CAPEABLE)
+        r = translate("covering_radius", {}, ModelStage.CAPABLE)
         assert "Eisenstein" in r
         assert "covering radius" in r.lower()
 
@@ -293,7 +307,7 @@ class TestStageGradient:
     def test_eisenstein_gradient(self):
         params = {"a": 2, "b": 3}
         r4 = translate("eisenstein_norm", params, ModelStage.FULL)
-        r3 = translate("eisenstein_norm", params, ModelStage.CAPEABLE)
+        r3 = translate("eisenstein_norm", params, ModelStage.CAPABLE)
         r2 = translate("eisenstein_norm", params, ModelStage.META_ECHO)
         r1 = translate("eisenstein_norm", params, ModelStage.ECHO)
 
@@ -328,7 +342,7 @@ class TestFleetRouter:
     def setup_method(self):
         self.router = FleetRouter()
         self.router.register("Seed-2.0-mini", ModelStage.FULL)
-        self.router.register("hermes-405b", ModelStage.CAPEABLE)
+        self.router.register("hermes-405b", ModelStage.CAPABLE)
         self.router.register("deepseek-chat", ModelStage.META_ECHO)
         self.router.register("tinyllama", ModelStage.ECHO)
 
@@ -403,13 +417,20 @@ class TestTranslateForStage:
         assert r == "Eisenstein norm: a²-ab+b²"
 
     def test_stage3_normalizes_unicode(self):
-        r = translate_for_stage("a²-ab+b²", ModelStage.CAPEABLE, "eisenstein_norm")
+        r = translate_for_stage("a²-ab+b²", ModelStage.CAPABLE, "eisenstein_norm")
         assert "Eisenstein" in r  # key injected
         assert "²" not in r  # unicode normalized
 
     def test_stage2_natural_language(self):
         r = translate_for_stage("a²-ab+b²", ModelStage.META_ECHO, "eisenstein_norm")
         assert "Eisenstein" in r or "squared" in r
+
+    def test_stage1_no_garbling(self):
+        """Bug fix: ECHO stage should not garble output with * between chars."""
+        r = translate_for_stage("Compute f(a,b) = a² − ab + b² where a=5, b=-3", ModelStage.ECHO)
+        assert "C*o*m*p*u*t*e" not in r
+        assert "c*o*m" not in r.lower()
+        assert "Eisenstein" not in r  # domain vocab stripped
 
     def test_stage1_bare_arithmetic(self):
         r = translate_for_stage("Compute the Eisenstein norm of a=3, b=1", ModelStage.ECHO)
@@ -430,7 +451,7 @@ class TestKnownStages:
         assert KNOWN_STAGES["ByteDance/Seed-2.0-code"] == ModelStage.FULL
 
     def test_hermes_405b_is_capable(self):
-        assert KNOWN_STAGES["NousResearch/Hermes-3-Llama-3.1-405B"] == ModelStage.CAPEABLE
+        assert KNOWN_STAGES["NousResearch/Hermes-3-Llama-3.1-405B"] == ModelStage.CAPABLE
 
     def test_deepseek_chat_is_meta_echo(self):
         assert KNOWN_STAGES["deepseek-chat"] == ModelStage.META_ECHO
@@ -438,7 +459,7 @@ class TestKnownStages:
     def test_router_uses_known_stages(self):
         router = FleetRouter()
         assert router.get_stage("ByteDance/Seed-2.0-mini") == ModelStage.FULL
-        assert router.get_stage("NousResearch/Hermes-3-Llama-3.1-70B") == ModelStage.CAPEABLE
+        assert router.get_stage("NousResearch/Hermes-3-Llama-3.1-70B") == ModelStage.CAPABLE
 
 
 # ========================================================================
@@ -453,6 +474,75 @@ def deepinfra_key():
     with open(key_path) as f:
         return f.read().strip()
 
+
+# ========================================================================
+# Auto-Stage Detection Tests
+# ========================================================================
+
+class TestAutoDetectStage:
+    """Test automatic stage detection from model name and query."""
+
+    def test_known_model_seed_mini(self):
+        stage = auto_detect_stage("compute something", "ByteDance/Seed-2.0-mini")
+        assert stage == ModelStage.FULL
+
+    def test_known_model_hermes(self):
+        stage = auto_detect_stage("compute something", "NousResearch/Hermes-3-Llama-3.1-70B")
+        assert stage == ModelStage.CAPABLE
+
+    def test_heuristic_seed_model(self):
+        stage = auto_detect_stage("hello", "ByteDance/Seed-2.0-code")
+        assert stage == ModelStage.FULL
+
+    def test_heuristic_unknown_model(self):
+        stage = auto_detect_stage("compute 3 + 5", "some-unknown-model")
+        assert stage == ModelStage.CAPABLE  # default
+
+    def test_heuristic_plain_query(self):
+        stage = auto_detect_stage("plain text query")
+        assert stage == ModelStage.CAPABLE
+
+    def test_heuristic_notation_query(self):
+        stage = auto_detect_stage("a² - ab + b²")
+        assert stage == ModelStage.CAPABLE
+
+
+# ========================================================================
+# Batch Translation Tests
+# ========================================================================
+
+class TestTranslateBatch:
+    """Test batch translation of multiple queries."""
+
+    def test_batch_basic(self):
+        queries = ["a²-ab+b²", "x³+1", "simple text"]
+        results = translate_batch(queries, stage=ModelStage.CAPABLE)
+        assert len(results) == 3
+
+    def test_batch_preserves_order(self):
+        queries = ["first query", "second query", "third query"]
+        results = translate_batch(queries, stage=ModelStage.FULL)
+        assert results == queries  # Stage 4 = passthrough
+
+    def test_batch_with_model(self):
+        queries = ["a²-ab+b²"]
+        results = translate_batch(queries, model="ByteDance/Seed-2.0-mini")
+        assert len(results) == 1
+        # Stage 4 passthrough
+        assert results[0] == queries[0]
+
+    def test_batch_empty(self):
+        results = translate_batch([], stage=ModelStage.FULL)
+        assert results == []
+
+    def test_batch_auto_stage(self):
+        queries = ["a²-ab+b²"]
+        results = translate_batch(queries, model="ByteDance/Seed-2.0-mini")
+        # Should auto-detect Stage 4 from model name
+        assert results[0] == queries[0]
+
+
+# Labeled Paradox Tests
 
 @pytest.mark.live
 class TestLiveAPI:
@@ -475,7 +565,7 @@ class TestLiveAPI:
     def test_hermes_eisenstein_with_key(self, deepinfra_key):
         """Hermes (Stage 3) should get activation key injection."""
         router = FleetRouter(deepinfra_key=deepinfra_key)
-        router.register("NousResearch/Hermes-3-Llama-3.1-70B", ModelStage.CAPEABLE)
+        router.register("NousResearch/Hermes-3-Llama-3.1-70B", ModelStage.CAPABLE)
         resp = router.send_to_model(
             "NousResearch/Hermes-3-Llama-3.1-70B",
             "eisenstein_norm",
@@ -493,7 +583,7 @@ class TestLiveAPI:
 
         models = [
             ("ByteDance/Seed-2.0-mini", ModelStage.FULL),
-            ("NousResearch/Hermes-3-Llama-3.1-70B", ModelStage.CAPEABLE),
+            ("NousResearch/Hermes-3-Llama-3.1-70B", ModelStage.CAPABLE),
         ]
 
         results = {}

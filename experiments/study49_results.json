@@ -1,0 +1,51 @@
+[
+  {
+    "cond": "bare",
+    "num": 49,
+    "ok": true,
+    "tok": 387,
+    "resp": "49"
+  },
+  {
+    "cond": "eisenstein",
+    "num": 49,
+    "ok": true,
+    "tok": 1170,
+    "resp": "49"
+  },
+  {
+    "cond": "hermitian",
+    "num": 49,
+    "ok": true,
+    "tok": 408,
+    "resp": "49"
+  },
+  {
+    "cond": "quadratic",
+    "num": 49,
+    "ok": true,
+    "tok": 397,
+    "resp": "49"
+  },
+  {
+    "cond": "norm",
+    "num": 5,
+    "ok": false,
+    "tok": 723,
+    "resp": "To solve \\( N(5,-3) = a^2 - ab + b^2 \\) where \\( a=5 \\) and \\( b=-3 \\):\n\n1.  Cal"
+  },
+  {
+    "cond": "step",
+    "num": 1,
+    "ok": false,
+    "tok": 488,
+    "resp": "Let's verify each step as laid out:\n1.  $5^2 = 25$\n2.  $5 \\times -3 = -15$\n3.  $"
+  },
+  {
+    "cond": "explain",
+    "num": 49,
+    "ok": true,
+    "tok": 513,
+    "resp": "49"
+  }
+]
