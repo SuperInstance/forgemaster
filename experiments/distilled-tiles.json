@@ -1,0 +1,1809 @@
+{
+  "source": "rapid-distillation-loop",
+  "model": "llama-3.1-8b-instant",
+  "timestamp": "2026-05-14T16:22:33",
+  "tiles": [
+    {
+      "id": "verify_snap_idempotence-what",
+      "type": "knowledge",
+      "content": "Verifies the idempotence of the snap function, i.e., snap(snap(p)) == snap(p) for all points p.",
+      "deps": []
+    },
+    {
+      "id": "verify_snap_idempotence-how",
+      "type": "operation",
+      "content": "Generates random points, applies snap twice, and checks for equality. If the equality holds for all points, the function returns True.",
+      "deps": [
+        "random.seed",
+        "random.gauss",
+        "eisenstein_snap",
+        "to_complex"
+      ]
+    },
+    {
+      "id": "verify_snap_idempotence-edge-cases",
+      "type": "knowledge",
+      "content": "Handles edge cases where N is provided, overriding the default value of n. Also, handles the case where the seed is not provided, using the default value of 42.",
+      "deps": [
+        "N",
+        "seed"
+      ]
+    },
+    {
+      "id": "verify_snap_idempotence-constraints",
+      "type": "knowledge",
+      "content": "Constraints: n must be a positive integer, seed must be an integer, and N must be an integer if provided.",
+      "deps": [
+        "n",
+        "seed",
+        "N"
+      ]
+    },
+    {
+      "id": "verify_snap_idempotence-dependencies",
+      "type": "knowledge",
+      "content": "Dependencies: random, eisenstein_snap, to_complex.",
+      "deps": [
+        "random",
+        "eisenstein_snap",
+        "to_complex"
+      ]
+    },
+    {
+      "id": "verify_covering_radius-function-topic",
+      "type": "operation",
+      "content": "Verifies the conjecture that the covering radius of the Eisenstein integers is 1/\u221a3.",
+      "deps": [
+        "Eisenstein integers",
+        "covering radius"
+      ]
+    },
+    {
+      "id": "verify_covering_radius-how-topic",
+      "type": "knowledge",
+      "content": "The function generates random points within a 20x20 square centered at the origin, snaps them to the nearest Eisenstein integer, and calculates the distance between the original and snapped points. It keeps track of the maximum distance found and returns whether it is within the conjectured bound.",
+      "deps": [
+        "random number generation",
+        "Eisenstein integer snapping",
+        "distance calculation"
+      ]
+    },
+    {
+      "id": "verify_covering_radius-edge-cases-topic",
+      "type": "verification",
+      "content": "The function assumes that the input parameters are valid. It does not handle cases where the seed is not an integer or where the number of trials is negative. It also assumes that the math and random modules are available.",
+      "deps": [
+        "input validation",
+        "module availability"
+      ]
+    },
+    {
+      "id": "verify_covering_radius-constraints-topic",
+      "type": "knowledge",
+      "content": "The function has the following constraints: the number of trials must be a positive integer, the seed must be an integer, and the bound is approximately 1/\u221a3.",
+      "deps": [
+        "positive integer constraint",
+        "integer constraint",
+        "approximate bound"
+      ]
+    },
+    {
+      "id": "verify_covering_radius-dependencies-topic",
+      "type": "knowledge",
+      "content": "The function depends on the following modules and functions: math, random, eisenstein_snap, to_complex.",
+      "deps": [
+        "math module",
+        "random module",
+        "eisenstein_snap function",
+        "to_complex function"
+      ]
+    },
+    {
+      "id": "verify_dodecet_cardinality/what-it-does",
+      "type": "knowledge",
+      "content": "Verifies that a dodecet (a set of points in a 2D plane) has exactly 12 sectors.",
+      "deps": []
+    },
+    {
+      "id": "verify_dodecet_cardinality/how-it-works",
+      "type": "operation",
+      "content": "Generates a specified number of random points within a 2D plane, calculates their angles, and groups them into sectors based on these angles. It then checks if the number of unique sectors is equal to 12.",
+      "deps": [
+        "random.seed",
+        "math.atan2",
+        "round"
+      ]
+    },
+    {
+      "id": "verify_dodecet_cardinality/edge-cases",
+      "type": "knowledge",
+      "content": "The function assumes that the random number generator is seeded with a fixed value (42). It also assumes that the points are generated within a 2D plane with a standard deviation of 5 units. If the number of points is not specified, it defaults to 100,000.",
+      "deps": [
+        "random.seed"
+      ]
+    },
+    {
+      "id": "verify_dodecet_cardinality/constraints",
+      "type": "knowledge",
+      "content": "The function requires the math and random modules to be available. It also assumes that the points are generated within a 2D plane with a standard deviation of 5 units.",
+      "deps": [
+        "math",
+        "random"
+      ]
+    },
+    {
+      "id": "verify_dodecet_cardinality/dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the math and random modules.",
+      "deps": [
+        "math",
+        "random"
+      ]
+    },
+    {
+      "id": "verify_norm_multiplicative.what-it-does",
+      "type": "knowledge",
+      "content": "Verifies the multiplicative property of the norm for Eisenstein integers.",
+      "deps": []
+    },
+    {
+      "id": "verify_norm_multiplicative.how-it-works",
+      "type": "operation",
+      "content": "Generates random Eisenstein integers, computes their norms, and checks if the product of the norms equals the norm of the product.",
+      "deps": [
+        "Eisenstein integers",
+        "norm of Eisenstein integers"
+      ]
+    },
+    {
+      "id": "verify_norm_multiplicative.edge-cases",
+      "type": "knowledge",
+      "content": "Handles edge cases where the product of two Eisenstein integers results in a non-Eisenstein integer.",
+      "deps": [
+        "Eisenstein integers"
+      ]
+    },
+    {
+      "id": "verify_norm_multiplicative.constraints",
+      "type": "knowledge",
+      "content": "Requires the number of trials (n) to be a positive integer.",
+      "deps": []
+    },
+    {
+      "id": "verify_norm_multiplicative.dependencies",
+      "type": "knowledge",
+      "content": "Depends on the random module for generating random numbers.",
+      "deps": [
+        "random module"
+      ]
+    },
+    {
+      "id": "verify_norm_multiplicative.constraints-N",
+      "type": "knowledge",
+      "content": "If N is provided, it must be a positive integer.",
+      "deps": []
+    },
+    {
+      "id": "verify_drift_bounded.what",
+      "type": "knowledge",
+      "content": "Verifies the conjecture that a closed constraint walk stays bounded.",
+      "deps": []
+    },
+    {
+      "id": "verify_drift_bounded.how",
+      "type": "operation",
+      "content": "Simulates a closed constraint walk by iteratively adding Gaussian noise to the current position and snapping back to the lattice neighborhood.",
+      "deps": [
+        "random.seed",
+        "random.gauss"
+      ]
+    },
+    {
+      "id": "verify_drift_bounded.edge_cases",
+      "type": "knowledge",
+      "content": "Handles edge cases where N is provided, in which case it overrides the default number of steps.",
+      "deps": []
+    },
+    {
+      "id": "verify_drift_bounded.constraints",
+      "type": "knowledge",
+      "content": "Requires the bound to be a positive float and the number of steps to be a positive integer.",
+      "deps": []
+    },
+    {
+      "id": "verify_drift_bounded.dependencies",
+      "type": "knowledge",
+      "content": "Depends on the random module for generating Gaussian noise.",
+      "deps": []
+    },
+    {
+      "id": "verify_drift_bounded.return_value",
+      "type": "knowledge",
+      "content": "Returns a dictionary containing the conjecture, number of steps, maximum drift, bound, and verification result.",
+      "deps": []
+    },
+    {
+      "id": "verify_hex_closest_pack/what",
+      "type": "knowledge",
+      "content": "Verifies the conjecture that hexagonal packing is densest when points snap to the nearest lattice point.",
+      "deps": []
+    },
+    {
+      "id": "verify_hex_closest_pack/how",
+      "type": "operation",
+      "content": "Generates random points, snaps them to the nearest lattice point using the Eisenstein integer snapping function, and checks if there are any unsnapped points closer to the lattice point.",
+      "deps": [
+        "eisenstein_snap",
+        "to_complex"
+      ]
+    },
+    {
+      "id": "verify_hex_closest_pack/edge_cases",
+      "type": "knowledge",
+      "content": "Handles edge cases where the number of trials (n) is set to a specific value (100000 by default), and the seed for the random number generator is fixed (42).",
+      "deps": []
+    },
+    {
+      "id": "verify_hex_closest_pack/constraints",
+      "type": "knowledge",
+      "content": "Constraints: n must be a positive integer, and N must be an integer if provided.",
+      "deps": []
+    },
+    {
+      "id": "verify_hex_closest_pack/dependencies",
+      "type": "knowledge",
+      "content": "Depends on the following functions: random.seed, random.gauss, eisenstein_snap, to_complex, math.sqrt.",
+      "deps": []
+    },
+    {
+      "id": "eisenstein_snap-what",
+      "type": "knowledge",
+      "content": "The function eisenstein_snap(x, y) returns the closest Eisenstein integer to the complex number x + iy.",
+      "deps": []
+    },
+    {
+      "id": "eisenstein_snap-how",
+      "type": "operation",
+      "content": "The function first calculates the initial Eisenstein integer a + b\u03c9 using the given x and y. Then it iterates over all possible values of a and b within a 1-unit radius and calculates the distance between the complex number and each of these Eisenstein integers. The Eisenstein integer with the smallest distance is returned.",
+      "deps": [
+        "math.sqrt",
+        "math.round"
+      ]
+    },
+    {
+      "id": "eisenstein_snap-edge-cases",
+      "type": "verification",
+      "content": "The function may return incorrect results if the input complex number is very close to an Eisenstein integer that is not within the 1-unit radius. Additionally, the function assumes that the input complex number is not NaN or infinity.",
+      "deps": [
+        "math.isnan",
+        "math.isinf"
+      ]
+    },
+    {
+      "id": "eisenstein_snap-constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the input complex number x + iy is a real number. It does not handle complex numbers with non-zero imaginary part.",
+      "deps": []
+    },
+    {
+      "id": "eisenstein_snap-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the math module for the sqrt and round functions.",
+      "deps": [
+        "math"
+      ]
+    },
+    {
+      "id": "decompose-function",
+      "type": "operation",
+      "content": "Decompose a conjecture into locally-verifiable sub-conjectures.",
+      "deps": [
+        "_load_key",
+        "json.dumps",
+        "urllib.request.Request",
+        "json.loads",
+        "re.search",
+        "re.sub",
+        "json.loads"
+      ]
+    },
+    {
+      "id": "decomposition-process",
+      "type": "knowledge",
+      "content": "The function sends a request to an OpenAI API endpoint with the conjecture and model information. It then parses the response to extract sub-conjectures.",
+      "deps": [
+        "OpenAI API",
+        "JSON parsing"
+      ]
+    },
+    {
+      "id": "error-handling",
+      "type": "verification",
+      "content": "The function handles exceptions and returns an error message if the key is not found or if the response is invalid.",
+      "deps": [
+        "try-except block"
+      ]
+    },
+    {
+      "id": "edge-case-1",
+      "type": "knowledge",
+      "content": "If the response contains LaTeX commands, they are stripped before parsing the JSON.",
+      "deps": [
+        "LaTeX commands"
+      ]
+    },
+    {
+      "id": "edge-case-2",
+      "type": "knowledge",
+      "content": "If the response does not contain a valid JSON array, individual objects are extracted and parsed.",
+      "deps": [
+        "invalid JSON"
+      ]
+    },
+    {
+      "id": "constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the provider is either 'deepinfra' or 'deepseek'.",
+      "deps": [
+        "provider"
+      ]
+    },
+    {
+      "id": "dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the _load_key function, urllib, and the re module.",
+      "deps": [
+        "_load_key",
+        "urllib",
+        "re"
+      ]
+    },
+    {
+      "id": "run_experiment-what",
+      "type": "knowledge",
+      "content": "The run_experiment function decomposes a conjecture into sub-conjectures, runs local verifiers on each sub-conjecture, and returns the full results.",
+      "deps": []
+    },
+    {
+      "id": "run_experiment-how",
+      "type": "operation",
+      "content": "The function uses the decompose function to decompose the conjecture, then iterates over the sub-conjectures, running local verifiers and collecting results.",
+      "deps": [
+        "decompose"
+      ]
+    },
+    {
+      "id": "run_experiment-edge-cases",
+      "type": "verification",
+      "content": "The function handles edge cases such as errors in decomposition, unknown verifiers, and exceptions during verifier execution.",
+      "deps": []
+    },
+    {
+      "id": "run_experiment-constraints",
+      "type": "knowledge",
+      "content": "The function assumes the presence of a decompose function and a dictionary of local verifiers (LOCAL_VERIFIERS).",
+      "deps": [
+        "decompose",
+        "LOCAL_VERIFIERS"
+      ]
+    },
+    {
+      "id": "run_experiment-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the decompose function and the LOCAL_VERIFIERS dictionary.",
+      "deps": [
+        "decompose",
+        "LOCAL_VERIFIERS"
+      ]
+    },
+    {
+      "id": "lighthouse.can_solve_locally.what",
+      "type": "knowledge",
+      "content": "Checks if a request can be solved with local math.",
+      "deps": []
+    },
+    {
+      "id": "lighthouse.can_solve_locally.how",
+      "type": "operation",
+      "content": "Compares the request body against a list of local math keywords.",
+      "deps": [
+        "lighthouse.can_solve_locally.what"
+      ]
+    },
+    {
+      "id": "lighthouse.can_solve_locally.edge_cases",
+      "type": "verification",
+      "content": "Fails if the request body is empty or contains non-string values.",
+      "deps": [
+        "lighthouse.can_solve_locally.what"
+      ]
+    },
+    {
+      "id": "lighthouse.can_solve_locally.constraints",
+      "type": "knowledge",
+      "content": "Requires a non-empty request body and a string value.",
+      "deps": [
+        "lighthouse.can_solve_locally.what"
+      ]
+    },
+    {
+      "id": "lighthouse.can_solve_locally.dependencies",
+      "type": "knowledge",
+      "content": "Depends on the local_keywords list.",
+      "deps": []
+    },
+    {
+      "id": "solve_locally-function",
+      "type": "operation",
+      "content": "Solves a mathematical problem locally using the LocalMath class.",
+      "deps": [
+        "LocalMath-class"
+      ]
+    },
+    {
+      "id": "solve_locally-input",
+      "type": "knowledge",
+      "content": "The function takes two inputs: request_type (str) and request_body (str).",
+      "deps": []
+    },
+    {
+      "id": "solve_locally-output",
+      "type": "knowledge",
+      "content": "The function returns a dictionary containing the solver, input, result, and time taken.",
+      "deps": []
+    },
+    {
+      "id": "solve_locally-edge-cases",
+      "type": "verification",
+      "content": "The function handles edge cases such as invalid input, missing required parameters, and unexpected request types.",
+      "deps": [
+        "solve_locally-function"
+      ]
+    },
+    {
+      "id": "solve_locally-constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the request_body contains specific keywords to determine the type of problem to solve.",
+      "deps": []
+    },
+    {
+      "id": "solve_locally-how-it-works",
+      "type": "knowledge",
+      "content": "The function uses regular expressions to extract numbers from the request_body and then calls the corresponding method on the LocalMath class.",
+      "deps": [
+        "LocalMath-class"
+      ]
+    },
+    {
+      "id": "solve_locally-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the LocalMath class and the re module.",
+      "deps": [
+        "LocalMath-class",
+        "re-module"
+      ]
+    },
+    {
+      "id": "fetch_plato-what",
+      "type": "knowledge",
+      "content": "Fetches Plato data from a given URL.",
+      "deps": []
+    },
+    {
+      "id": "fetch_plato-how",
+      "type": "operation",
+      "content": "Uses urllib to send a request to the provided URL, sets a timeout of 10 seconds, and returns the JSON response. If an error occurs, returns None.",
+      "deps": [
+        "urllib.request.urlopen",
+        "json.loads"
+      ]
+    },
+    {
+      "id": "fetch_plato-edge",
+      "type": "verification",
+      "content": "Handles exceptions, but does not provide specific error messages. May return None for any type of error.",
+      "deps": []
+    },
+    {
+      "id": "fetch_plato-constraints",
+      "type": "knowledge",
+      "content": "Requires a valid URL as input. The URL should return a JSON response.",
+      "deps": []
+    },
+    {
+      "id": "fetch_plato-dependencies",
+      "type": "knowledge",
+      "content": "Depends on the urllib and json libraries.",
+      "deps": [
+        "urllib",
+        "json"
+      ]
+    },
+    {
+      "id": "lighthouse.process_requests.what",
+      "type": "knowledge",
+      "content": "The function processes requests from the Plato platform, fetching tiles, and attempting to solve them locally or via API.",
+      "deps": []
+    },
+    {
+      "id": "lighthouse.process_requests.how",
+      "type": "operation",
+      "content": "The function loads the state from a file, fetches tiles from Plato, and iterates over them. It attempts to solve each tile locally and, if unsuccessful, uses the API. The result is submitted back to Plato.",
+      "deps": [
+        "lighthouse.process_requests.what"
+      ]
+    },
+    {
+      "id": "lighthouse.process_requests.edge_cases",
+      "type": "verification",
+      "content": "The function handles edge cases such as empty tiles, tiles with unknown sources, and tiles that cannot be solved locally or via API. It also handles cases where the tile ID is already processed.",
+      "deps": [
+        "lighthouse.process_requests.what"
+      ]
+    },
+    {
+      "id": "lighthouse.process_requests.constraints",
+      "type": "knowledge",
+      "content": "The function assumes the existence of the STATE_FILE, PLATO, REQUEST_ROOM, and RESPONSE_ROOM variables. It also assumes the presence of the can_solve_locally, solve_locally, fetch_plato, submit_plato, and api_decompose functions.",
+      "deps": []
+    },
+    {
+      "id": "lighthouse.process_requests.dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the os, json, and pathlib modules. It also depends on the STATE_FILE, PLATO, REQUEST_ROOM, and RESPONSE_ROOM variables, as well as the can_solve_locally, solve_locally, fetch_plato, submit_plato, and api_decompose functions.",
+      "deps": []
+    },
+    {
+      "id": "classify_residue.what-it-does",
+      "type": "knowledge",
+      "content": "Classify a residue based on its output and inputs.",
+      "deps": []
+    },
+    {
+      "id": "classify_residue.how-it-works",
+      "type": "operation",
+      "content": "The function uses sub-expressions in the computation graph to calculate partial sums and full results. It then checks the output against these values to determine the residue type.",
+      "deps": [
+        "classify_residue.what-it-does"
+      ]
+    },
+    {
+      "id": "classify_residue.edge-cases",
+      "type": "verification",
+      "content": "The function handles edge cases such as when the output is equal to a, b, a+b, or -b. It also checks for division by zero when calculating the echo sign flip residue.",
+      "deps": [
+        "classify_residue.what-it-does"
+      ]
+    },
+    {
+      "id": "classify_residue.constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the inputs are dictionaries with keys 'a' and 'b', and that the computation graph is a dictionary.",
+      "deps": [
+        "classify_residue.what-it-does"
+      ]
+    },
+    {
+      "id": "classify_residue.dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the ResidueType enum and the computation graph.",
+      "deps": [
+        "classify_residue.what-it-does"
+      ]
+    },
+    {
+      "id": "chord_substitution-what",
+      "type": "knowledge",
+      "content": "Finds chord substitutions \u2014 models that serve the same function.",
+      "deps": []
+    },
+    {
+      "id": "chord_substitution-how",
+      "type": "operation",
+      "content": "Iterates over the fleet of models, checking each model's stage and name against the written model. If preserve_guide_tones is True, it only adds models with the same stage. If False, it adds models with a higher stage value.",
+      "deps": []
+    },
+    {
+      "id": "chord_substitution-edge-cases",
+      "type": "verification",
+      "content": "Handles edge cases where the written model's name is the same as another model's name, and where the preserve_guide_tones parameter is False and the written model's stage is the highest in the fleet.",
+      "deps": []
+    },
+    {
+      "id": "chord_substitution-constraints",
+      "type": "knowledge",
+      "content": "The preserve_guide_tones parameter must be a boolean. The written_model and fleet parameters must be of type ModelSensor and list[ModelSensor] respectively.",
+      "deps": []
+    },
+    {
+      "id": "chord_substitution-dependencies",
+      "type": "knowledge",
+      "content": "Depends on the ModelSensor class and the list type.",
+      "deps": [
+        "/home/phoenix/.openclaw/workspace/bin/fleet-navigator.py",
+        "ModelSensor"
+      ]
+    },
+    {
+      "id": "modal_scale-what-it-does",
+      "type": "knowledge",
+      "content": "The modal_scale function returns a list of ResidueType that fit over a given Stage.",
+      "deps": [
+        "ResidueType",
+        "Stage"
+      ]
+    },
+    {
+      "id": "modal_scale-how-it-works",
+      "type": "operation",
+      "content": "The function uses a dictionary to map each Stage to a list of ResidueType. It then returns the list of ResidueType for the given Stage, or [ResidueType.NONE] if the Stage is not found.",
+      "deps": [
+        "dictionary",
+        "Stage",
+        "ResidueType"
+      ]
+    },
+    {
+      "id": "modal_scale-edge-cases",
+      "type": "verification",
+      "content": "The function returns [ResidueType.NONE] if the given Stage is not found in the dictionary. This is the expected behavior.",
+      "deps": [
+        "Stage",
+        "ResidueType"
+      ]
+    },
+    {
+      "id": "modal_scale-constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the given Stage is a valid Stage enum value.",
+      "deps": [
+        "Stage"
+      ]
+    },
+    {
+      "id": "modal_scale-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the ResidueType and Stage enums.",
+      "deps": [
+        "ResidueType",
+        "Stage"
+      ]
+    },
+    {
+      "id": "tune-pipeline-what",
+      "type": "knowledge",
+      "content": "The tune_pipeline function configures a pipeline by selecting and assigning models to layers based on their characteristics.",
+      "deps": []
+    },
+    {
+      "id": "tune-pipeline-how",
+      "type": "operation",
+      "content": "The function iterates over a list of models, assigning each model to a layer based on its stage (ECHO, PARTIAL, or FULL) and characteristics.",
+      "deps": [
+        "tune-pipeline-what"
+      ]
+    },
+    {
+      "id": "tune-pipeline-edge-cases",
+      "type": "verification",
+      "content": "The function assumes that the input models have a 'stage' attribute and that the pipeline layers are defined with the correct keys (attention, computation, combination, verification).",
+      "deps": [
+        "tune-pipeline-what"
+      ]
+    },
+    {
+      "id": "tune-pipeline-constraints",
+      "type": "knowledge",
+      "content": "The function requires a list of models with a 'stage' attribute and a dictionary of pipeline layers with specific keys.",
+      "deps": [
+        "tune-pipeline-what"
+      ]
+    },
+    {
+      "id": "tune-pipeline-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the ModelSensor class and the Stage enum.",
+      "deps": []
+    },
+    {
+      "id": "residue_spline.what-it-does",
+      "type": "knowledge",
+      "content": "The residue_spline function generates a B-spline through the scale dimension with shallow-side constraint.",
+      "deps": []
+    },
+    {
+      "id": "residue_spline.how-it-works",
+      "type": "operation",
+      "content": "The function sorts models by effective parameters, generates control points from the sorted models, and then generates spline points with the shallow-side constraint.",
+      "deps": [
+        "residue_spline.what-it-does"
+      ]
+    },
+    {
+      "id": "residue_spline.edge-cases",
+      "type": "knowledge",
+      "content": "The function handles edge cases where the input scale is below all control points (NONE stage) or above all control points (extrapolate conservatively).",
+      "deps": [
+        "residue_spline.what-it-does"
+      ]
+    },
+    {
+      "id": "residue_spline.constraints",
+      "type": "knowledge",
+      "content": "The function has a shallow-side constraint, which means it never claims more capability than the evidence supports and never goes above the verified data.",
+      "deps": [
+        "residue_spline.what-it-does"
+      ]
+    },
+    {
+      "id": "residue_spline.dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the ModelSensor class and its attributes (effective_params, stage, echo_rate, partial_rate, correct_rate, trials_logged, name).",
+      "deps": []
+    },
+    {
+      "id": "residue_spline.control-points",
+      "type": "knowledge",
+      "content": "The function generates control points from the sorted models, which are used to generate spline points.",
+      "deps": [
+        "residue_spline.how-it-works"
+      ]
+    },
+    {
+      "id": "residue_spline.spline-generation",
+      "type": "operation",
+      "content": "The function generates spline points with the shallow-side constraint by finding the two nearest control points for each scale value.",
+      "deps": [
+        "residue_spline.how-it-works"
+      ]
+    },
+    {
+      "id": "cmd_stage-what",
+      "type": "knowledge",
+      "content": "The cmd_stage function displays a model's stage, room, and medium.",
+      "deps": []
+    },
+    {
+      "id": "cmd_stage-how",
+      "type": "operation",
+      "content": "The function iterates through the FLEET list to find the model with the matching name. If found, it prints the model's details, including its stage, room, medium, and other parameters.",
+      "deps": [
+        "FLEET"
+      ]
+    },
+    {
+      "id": "cmd_stage-edge-cases",
+      "type": "verification",
+      "content": "The function handles the case where the model is not found in the FLEET list by printing an error message and returning without further execution.",
+      "deps": [
+        "FLEET"
+      ]
+    },
+    {
+      "id": "cmd_stage-constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the FLEET list is populated with models and that the model's name is a valid string.",
+      "deps": [
+        "FLEET"
+      ]
+    },
+    {
+      "id": "cmd_stage-modal-scale",
+      "type": "operation",
+      "content": "The function calls the modal_scale function to retrieve the modal scale of the model's stage.",
+      "deps": [
+        "modal_scale"
+      ]
+    },
+    {
+      "id": "cmd_stage-chord-substitution",
+      "type": "operation",
+      "content": "The function calls the chord_substitution function to retrieve the chord substitutions for the model.",
+      "deps": [
+        "chord_substitution"
+      ]
+    },
+    {
+      "id": "cmd_chart-what-it-does",
+      "type": "knowledge",
+      "content": "Draws the bathymetric chart for the FLEET, displaying navigator competence, trials logged, classification accuracy, and model information.",
+      "deps": []
+    },
+    {
+      "id": "cmd_chart-how-it-works",
+      "type": "operation",
+      "content": "Iterates over the sorted FLEET, printing model information, including name, effective parameters, stage, echo rate, partial rate, and room. It also displays phase transitions in the B-spline.",
+      "deps": [
+        "cmd_chart-what-it-does"
+      ]
+    },
+    {
+      "id": "cmd_chart-edge-cases",
+      "type": "verification",
+      "content": "Handles edge cases where a model has no trials logged, displaying '???'. Also, it assumes that the room name is in the format 'room(name)' or just 'room'.",
+      "deps": [
+        "cmd_chart-how-it-works"
+      ]
+    },
+    {
+      "id": "cmd_chart-constraints",
+      "type": "knowledge",
+      "content": "Requires the FLEET and NAVIGATOR objects to be defined and accessible.",
+      "deps": []
+    },
+    {
+      "id": "cmd_chart-dependencies",
+      "type": "knowledge",
+      "content": "Depends on the FLEET and NAVIGATOR objects, as well as the effective_params attribute of the models in the FLEET.",
+      "deps": [
+        "cmd_chart-constraints"
+      ]
+    },
+    {
+      "id": "cmd_spline.what-it-does",
+      "type": "knowledge",
+      "content": "Generates a B-spline through scale, interpolating between obelisks.",
+      "deps": []
+    },
+    {
+      "id": "cmd_spline.how-it-works",
+      "type": "operation",
+      "content": "Calls `residue_spline` function with `FLEET`, `args.from_scale`, `args.to_scale`, and `resolution=50`.",
+      "deps": [
+        "residue_spline"
+      ]
+    },
+    {
+      "id": "cmd_spline.printing-points",
+      "type": "operation",
+      "content": "Prints points in the spline, including scale, predicted stage, confidence, and warning.",
+      "deps": []
+    },
+    {
+      "id": "cmd_spline.edge-cases",
+      "type": "verification",
+      "content": "Handles edge cases where `point['predicted_stage']` is not found in the stage_char dictionary.",
+      "deps": []
+    },
+    {
+      "id": "cmd_spline.constraints",
+      "type": "knowledge",
+      "content": "Imposes a shallow-side constraint: never claim more capability than evidence supports.",
+      "deps": []
+    },
+    {
+      "id": "cmd_spline.dependencies",
+      "type": "knowledge",
+      "content": "Depends on the `residue_spline` function and the `FLEET` variable.",
+      "deps": [
+        "residue_spline",
+        "FLEET"
+      ]
+    },
+    {
+      "id": "fleet-navigator.what-it-does",
+      "type": "knowledge",
+      "content": "The Fleet Navigator is a command-line tool for navigating and interacting with a fleet of models.",
+      "deps": []
+    },
+    {
+      "id": "fleet-navigator.how-it-works",
+      "type": "operation",
+      "content": "The tool uses the argparse library to parse command-line arguments and execute different subcommands based on the provided arguments.",
+      "deps": [
+        "argparse"
+      ]
+    },
+    {
+      "id": "fleet-navigator.edge-cases",
+      "type": "verification",
+      "content": "The tool does not handle cases where the provided command-line arguments are invalid or missing required arguments.",
+      "deps": [
+        "fleet-navigator.how-it-works"
+      ]
+    },
+    {
+      "id": "fleet-navigator.constraints",
+      "type": "knowledge",
+      "content": "The tool requires the argparse library to be installed and imported.",
+      "deps": [
+        "argparse"
+      ]
+    },
+    {
+      "id": "fleet-navigator.dependencies",
+      "type": "knowledge",
+      "content": "The tool depends on the argparse library.",
+      "deps": []
+    },
+    {
+      "id": "eisenstein_norm_dag.what",
+      "type": "knowledge",
+      "content": "The function eisenstein_norm_dag generates a computation graph for calculating the Eisenstein norm N(a,b) = a\u00b2 - ab + b\u00b2.",
+      "deps": []
+    },
+    {
+      "id": "eisenstein_norm_dag.how",
+      "type": "operation",
+      "content": "The function creates a ComputationDAG object and adds nodes for each operation in the computation graph. The nodes are connected to represent the dependencies between operations.",
+      "deps": [
+        "ComputationDAG",
+        "OpNode"
+      ]
+    },
+    {
+      "id": "eisenstein_norm_dag.edge_cases",
+      "type": "verification",
+      "content": "The function assumes that the inputs 'a' and 'b' are valid numbers. It does not handle cases where 'a' or 'b' are non-numeric or NaN.",
+      "deps": [
+        "numeric input validation"
+      ]
+    },
+    {
+      "id": "eisenstein_norm_dag.constraints",
+      "type": "knowledge",
+      "content": "The function requires that the inputs 'a' and 'b' are numbers. It does not enforce any additional constraints on the values of 'a' and 'b'.",
+      "deps": []
+    },
+    {
+      "id": "eisenstein_norm_dag.dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the ComputationDAG and OpNode classes, as well as the 'square', 'multiply', 'negate', and 'add' operations.",
+      "deps": [
+        "ComputationDAG",
+        "OpNode",
+        "square",
+        "multiply",
+        "negate",
+        "add"
+      ]
+    },
+    {
+      "id": "simple_sum_dag-what-it-does",
+      "type": "knowledge",
+      "content": "The function simple_sum_dag creates a ComputationDAG representing a 2-step task: squaring two input values 'a' and 'b', and then adding the results.",
+      "deps": []
+    },
+    {
+      "id": "simple_sum_dag-how-it-works",
+      "type": "operation",
+      "content": "The function creates a ComputationDAG with three nodes: two OpNodes for squaring 'a' and 'b', and one OpNode for adding the squared results. The function uses the add_input method to specify the input values, and the add_node method to create the nodes.",
+      "deps": [
+        "simple_sum_dag-what-it-does"
+      ]
+    },
+    {
+      "id": "simple_sum_dag-edge-cases",
+      "type": "knowledge",
+      "content": "The function assumes that the input values 'a' and 'b' are numeric. If the inputs are not numeric, the function may raise an error or produce incorrect results.",
+      "deps": [
+        "simple_sum_dag-what-it-does"
+      ]
+    },
+    {
+      "id": "simple_sum_dag-constraints",
+      "type": "knowledge",
+      "content": "The function requires the ComputationDAG and OpNode classes to be defined. It also assumes that the environment dictionary 'env' contains the input values 'a' and 'b'.",
+      "deps": [
+        "simple_sum_dag-what-it-does"
+      ]
+    },
+    {
+      "id": "simple_sum_dag-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the ComputationDAG and OpNode classes, as well as the environment dictionary 'env'.",
+      "deps": [
+        "simple_sum_dag-what-it-does"
+      ]
+    },
+    {
+      "id": "three_step_product_dag-what",
+      "type": "knowledge",
+      "content": "The function three_step_product_dag creates a ComputationDAG representing the three-step product P(a,b,c) = ab + bc - ac.",
+      "deps": []
+    },
+    {
+      "id": "three_step_product_dag-how",
+      "type": "operation",
+      "content": "The function creates a ComputationDAG with 7 nodes: 3 input nodes, 3 multiplication nodes, 1 negate node, 1 add node, and 1 output node.",
+      "deps": [
+        "three_step_product_dag-what"
+      ]
+    },
+    {
+      "id": "three_step_product_dag-edge_cases",
+      "type": "verification",
+      "content": "The function assumes that the inputs a, b, and c are valid numbers. It does not handle cases where the inputs are invalid or missing.",
+      "deps": [
+        "three_step_product_dag-what"
+      ]
+    },
+    {
+      "id": "three_step_product_dag-constraints",
+      "type": "knowledge",
+      "content": "The function is designed to work with the ComputationDAG data structure and the OpNode class. It assumes that these classes are properly implemented.",
+      "deps": [
+        "three_step_product_dag-what"
+      ]
+    },
+    {
+      "id": "three_step_product_dag-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the ComputationDAG and OpNode classes, as well as the dataclass decorator.",
+      "deps": []
+    },
+    {
+      "id": "percolation_model_validation",
+      "type": "knowledge",
+      "content": "The function `validate_percolation_model` validates the percolation model against experimental data.",
+      "deps": []
+    },
+    {
+      "id": "percolation_model_validation_process",
+      "type": "operation",
+      "content": "The function builds an Eisenstein norm graph, computes its percolation threshold, and compares it with expected outputs for a given input.",
+      "deps": [
+        "eisenstein_norm_dag"
+      ]
+    },
+    {
+      "id": "percolation_model_validation_edge_cases",
+      "type": "verification",
+      "content": "The function handles edge cases such as invalid inputs, missing expected outputs, and incorrect percolation thresholds.",
+      "deps": [
+        "percolation_model_validation_process"
+      ]
+    },
+    {
+      "id": "percolation_model_constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the percolation model is defined by a set of parameters, including the number of nodes, edges, and percolation threshold.",
+      "deps": [
+        "percolation_model_validation"
+      ]
+    },
+    {
+      "id": "percolation_model_dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the `eisenstein_norm_dag` function to build the graph and compute its percolation threshold.",
+      "deps": [
+        "eisenstein_norm_dag"
+      ]
+    },
+    {
+      "id": "percolation_model_known_data_points",
+      "type": "knowledge",
+      "content": "The function uses known data points from echo studies to validate the percolation model.",
+      "deps": [
+        "percolation_model_validation"
+      ]
+    },
+    {
+      "id": "build_wheel-what",
+      "type": "knowledge",
+      "content": "Builds the WheelOfDiscovery from all experimental data to date.",
+      "deps": []
+    },
+    {
+      "id": "build_wheel-how",
+      "type": "operation",
+      "content": "Creates a WheelOfDiscovery instance and adds findings to it using the add_finding method.",
+      "deps": [
+        "WheelOfDiscovery",
+        "add_finding"
+      ]
+    },
+    {
+      "id": "build_wheel-edge-cases",
+      "type": "verification",
+      "content": "Handles edge cases where experimental data is incomplete or missing.",
+      "deps": [
+        "incomplete_data",
+        "missing_data"
+      ]
+    },
+    {
+      "id": "build_wheel-constraints",
+      "type": "knowledge",
+      "content": "Requires a list of experimental data to build the WheelOfDiscovery.",
+      "deps": [
+        "experimental_data"
+      ]
+    },
+    {
+      "id": "build_wheel-dependencies",
+      "type": "knowledge",
+      "content": "Depends on the WheelOfDiscovery class and the add_finding method.",
+      "deps": [
+        "WheelOfDiscovery",
+        "add_finding"
+      ]
+    },
+    {
+      "id": "design_next_experiments-what",
+      "type": "knowledge",
+      "content": "Designs the most valuable next experiments based on current knowledge.",
+      "deps": []
+    },
+    {
+      "id": "design_next_experiments-how",
+      "type": "operation",
+      "content": "Creates a list of Experiment objects by iterating over spokes (designated as SPOKE 1, SPOKE 2, etc.) and appending Experiment objects to the list.",
+      "deps": [
+        "Experiment"
+      ]
+    },
+    {
+      "id": "design_next_experiments-edge-cases",
+      "type": "verification",
+      "content": "Handles edge cases where dependency width is 1 but training coverage is 0, and where models have not seen tasks in training.",
+      "deps": [
+        "WheelOfDiscovery"
+      ]
+    },
+    {
+      "id": "design_next_experiments-constraints",
+      "type": "knowledge",
+      "content": "Constraints include the use of novel width-1 arithmetic tasks, the consideration of training coverage, and the evaluation of correct and partial rates.",
+      "deps": []
+    },
+    {
+      "id": "design_next_experiments-dependencies",
+      "type": "knowledge",
+      "content": "Depends on the WheelOfDiscovery object, which contains information about the current state of knowledge.",
+      "deps": [
+        "WheelOfDiscovery"
+      ]
+    },
+    {
+      "id": "wheel_of_discovery.main.what_it_does",
+      "type": "knowledge",
+      "content": "The main function orchestrates the Wheel of Discovery process, which involves building a wheel, designing next experiments, and saving the wheel state.",
+      "deps": []
+    },
+    {
+      "id": "wheel_of_discovery.main.how_it_works",
+      "type": "operation",
+      "content": "The function works by calling the build_wheel function to create a wheel, then it prints the wheel's render state. It then designs next experiments using the design_next_experiments function, adds them to the wheel, and prints their details. Finally, it saves the wheel state to a JSON file.",
+      "deps": [
+        "wheel_of_discovery.build_wheel",
+        "wheel_of_discovery.design_next_experiments"
+      ]
+    },
+    {
+      "id": "wheel_of_discovery.main.edge_cases",
+      "type": "verification",
+      "content": "Edge cases to consider include handling empty or invalid wheel states, and ensuring that the design_next_experiments function returns a valid list of experiments.",
+      "deps": [
+        "wheel_of_discovery.build_wheel",
+        "wheel_of_discovery.design_next_experiments"
+      ]
+    },
+    {
+      "id": "wheel_of_discovery.main.constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the build_wheel function returns a valid wheel object, and that the design_next_experiments function returns a list of valid experiments.",
+      "deps": [
+        "wheel_of_discovery.build_wheel",
+        "wheel_of_discovery.design_next_experiments"
+      ]
+    },
+    {
+      "id": "wheel_of_discovery.main.dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the build_wheel and design_next_experiments functions, as well as the json and openclaw libraries.",
+      "deps": [
+        "wheel_of_discovery.build_wheel",
+        "wheel_of_discovery.design_next_experiments"
+      ]
+    },
+    {
+      "id": "groq-function",
+      "type": "operation",
+      "content": "Makes a POST request to a specified URL with a JSON payload containing a prompt and model parameters.",
+      "deps": [
+        "requests",
+        "json",
+        "URL",
+        "KEY",
+        "MODEL"
+      ]
+    },
+    {
+      "id": "groq-response-processing",
+      "type": "operation",
+      "content": "Extracts the content of the first choice from the response and strips any leading/trailing whitespace.",
+      "deps": [
+        "r.json()",
+        "strip()"
+      ]
+    },
+    {
+      "id": "groq-number-extraction",
+      "type": "operation",
+      "content": "Uses regular expressions to find and extract numbers from the response content.",
+      "deps": [
+        "re.findall()"
+      ]
+    },
+    {
+      "id": "groq-return-value",
+      "type": "operation",
+      "content": "Returns the extracted number as an integer, or None if no number was found.",
+      "deps": [
+        "int()",
+        "None"
+      ]
+    },
+    {
+      "id": "groq-edge-case-empty-response",
+      "type": "verification",
+      "content": "Handles the case where the response is empty or does not contain a number.",
+      "deps": [
+        "None"
+      ]
+    },
+    {
+      "id": "groq-edge-case-invalid-response",
+      "type": "verification",
+      "content": "Handles the case where the response is invalid or does not contain the expected structure.",
+      "deps": [
+        "r.json()",
+        "KeyError"
+      ]
+    },
+    {
+      "id": "groq-constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the response from the API will contain a JSON object with a 'choices' key, and that the first choice will contain a 'message' key with a 'content' key.",
+      "deps": [
+        "API response structure"
+      ]
+    },
+    {
+      "id": "groq-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the 'requests' library for making HTTP requests, and the 'json' library for parsing JSON responses.",
+      "deps": [
+        "requests",
+        "json"
+      ]
+    },
+    {
+      "id": "groq-functionality",
+      "type": "knowledge",
+      "content": "The groq function sends a Groq query to a server, receives a response, and extracts the final number from the response.",
+      "deps": []
+    },
+    {
+      "id": "groq-how-it-works",
+      "type": "operation",
+      "content": "The function sends a POST request to the Groq server with the provided prompt, system message, temperature, and max tokens. It then parses the response to extract the final number.",
+      "deps": [
+        "requests.post",
+        "json",
+        "re.findall"
+      ]
+    },
+    {
+      "id": "groq-edge-cases",
+      "type": "verification",
+      "content": "The function returns None if no numbers are found in the response. It also assumes that the response contains a single number at the end.",
+      "deps": [
+        "re.findall",
+        "int"
+      ]
+    },
+    {
+      "id": "groq-constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the GROQ_URL, GROQ_KEY, and MODEL are defined elsewhere. It also assumes that the response from the server is in the expected format.",
+      "deps": [
+        "GROQ_URL",
+        "GROQ_KEY",
+        "MODEL"
+      ]
+    },
+    {
+      "id": "groq-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the requests library for sending HTTP requests and the re library for parsing regular expressions.",
+      "deps": [
+        "requests",
+        "re"
+      ]
+    },
+    {
+      "id": "groq_batch-what",
+      "type": "knowledge",
+      "content": "Runs a batch of prompts using the groq function and returns the results.",
+      "deps": []
+    },
+    {
+      "id": "groq_batch-how",
+      "type": "operation",
+      "content": "Iterates over the prompts, calls groq for each one, and appends the results to a list.",
+      "deps": [
+        "groq"
+      ]
+    },
+    {
+      "id": "groq_batch-edge-cases",
+      "type": "verification",
+      "content": "Handles empty prompts list, but does not handle non-list prompts. May cause issues if prompts are not processed in order due to time.sleep(0.1).",
+      "deps": []
+    },
+    {
+      "id": "groq_batch-constraints",
+      "type": "knowledge",
+      "content": "Requires the groq function to be defined. The temp parameter must be a float between 0 and 1.",
+      "deps": [
+        "groq"
+      ]
+    },
+    {
+      "id": "groq_batch-dependencies",
+      "type": "knowledge",
+      "content": "Depends on the groq function and the time module.",
+      "deps": [
+        "groq",
+        "time"
+      ]
+    },
+    {
+      "id": "classify_output-what",
+      "type": "knowledge",
+      "content": "Classifies a single output against expected values.",
+      "deps": []
+    },
+    {
+      "id": "classify_output-how",
+      "type": "operation",
+      "content": "Checks for invalid output, correct output, echoes, partials, near-miss, and other cases.",
+      "deps": []
+    },
+    {
+      "id": "classify_output-edge-cases",
+      "type": "verification",
+      "content": "Handles edge cases where output is None, and when intermediates are provided.",
+      "deps": []
+    },
+    {
+      "id": "classify_output-constraints",
+      "type": "knowledge",
+      "content": "Assumes input values are numbers.",
+      "deps": []
+    },
+    {
+      "id": "classify_output-dependencies",
+      "type": "knowledge",
+      "content": "Depends on the presence of expected values (a, b, answer, and intermediates).",
+      "deps": []
+    },
+    {
+      "id": "width_sweep.what-it-does",
+      "type": "knowledge",
+      "content": "The width_sweep function tests a model across different dependency widths by executing a series of tasks and measuring the accuracy of the model's output.",
+      "deps": []
+    },
+    {
+      "id": "width_sweep.how-it-works",
+      "type": "operation",
+      "content": "The function iterates over tasks grouped by width, executes each task multiple times, classifies the output, and aggregates the results to calculate accuracy metrics.",
+      "deps": [
+        "groq",
+        "classify_output"
+      ]
+    },
+    {
+      "id": "width_sweep.edge-cases",
+      "type": "knowledge",
+      "content": "The function assumes that the tasks_by_width dictionary contains tasks grouped by width, and that each task has a 'prompt' key. It also assumes that the groq and classify_output functions are correctly implemented.",
+      "deps": [
+        "groq",
+        "classify_output"
+      ]
+    },
+    {
+      "id": "width_sweep.constraints",
+      "type": "knowledge",
+      "content": "The function requires a model, tasks_by_width dictionary, and an optional trials parameter. It returns a dictionary with accuracy metrics for each width.",
+      "deps": []
+    },
+    {
+      "id": "width_sweep.dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the groq and classify_output functions, as well as the tasks_by_width dictionary.",
+      "deps": [
+        "groq",
+        "classify_output"
+      ]
+    },
+    {
+      "id": "design_experiments-what-it-does",
+      "type": "knowledge",
+      "content": "Designs experiments to test a research finding using Groq.",
+      "deps": []
+    },
+    {
+      "id": "design_experiments-how-it-works",
+      "type": "operation",
+      "content": "Generates a prompt, uses Groq to generate a response, and parses the response to extract JSON data.",
+      "deps": [
+        "groq",
+        "json.loads",
+        "re.search"
+      ]
+    },
+    {
+      "id": "design_experiments-edge-cases",
+      "type": "verification",
+      "content": "Handles cases where the response is not a valid JSON array, and returns an empty list in such cases.",
+      "deps": []
+    },
+    {
+      "id": "design_experiments-constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the Groq response is a JSON array containing experiment designs.",
+      "deps": []
+    },
+    {
+      "id": "design_experiments-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the Groq library and the `json` and `re` modules.",
+      "deps": [
+        "groq",
+        "json",
+        "re"
+      ]
+    },
+    {
+      "id": "read_results-what",
+      "type": "knowledge",
+      "content": "The read_results function interprets probe results and generates follow-up questions.",
+      "deps": []
+    },
+    {
+      "id": "read_results-how",
+      "type": "operation",
+      "content": "The function iterates over the probe results, checking the correct rate and residue. It appends findings to a list based on these values.",
+      "deps": []
+    },
+    {
+      "id": "read_results-edge-cases",
+      "type": "verification",
+      "content": "Edge cases include when the correct rate is near-zero, high echo rate, or high OTHER rate. The function handles these cases by appending specific findings to the list.",
+      "deps": []
+    },
+    {
+      "id": "read_results-constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the probe results contain the keys 'correct_rate', 'residue', and 'n'. It also assumes that the residue dictionary contains the keys 'ECHO-a', 'ECHO-b', and 'OTHER'.",
+      "deps": []
+    },
+    {
+      "id": "read_results-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the probe_results dictionary, which is expected to contain the keys 'correct_rate', 'residue', and 'n'.",
+      "deps": []
+    },
+    {
+      "id": "sound_for_rocks.what-it-does",
+      "type": "knowledge",
+      "content": "The function sound_for_rocks systematically probes the dependency width space to find interesting rocks, where a 'rock' is a (model, width, novelty) combination where the result is unexpected.",
+      "deps": []
+    },
+    {
+      "id": "sound_for_rocks.how-it-works",
+      "type": "operation",
+      "content": "The function iterates over a list of operations, each defined by a width, formula, function, and intermediates. It then tests each operation at each width within a specified range, computing the result and classifying it as correct or unexpected.",
+      "deps": [
+        "sound_for_rocks.what-it-does"
+      ]
+    },
+    {
+      "id": "sound_for_rocks.edge-cases",
+      "type": "knowledge",
+      "content": "The function handles edge cases where the width is outside the specified range, and where the function or intermediates are not callable or are None.",
+      "deps": [
+        "sound_for_rocks.what-it-does"
+      ]
+    },
+    {
+      "id": "sound_for_rocks.constraints",
+      "type": "knowledge",
+      "content": "The function has constraints on the width range, which must be within the specified range (1, 5).",
+      "deps": [
+        "sound_for_rocks.what-it-does"
+      ]
+    },
+    {
+      "id": "sound_for_rocks.dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the groq and classify_output functions, which are not shown in this code snippet.",
+      "deps": []
+    },
+    {
+      "id": "/home/phoenix/.openclaw/workspace/experiments/rapid_loop.py-run_rapid_loop",
+      "type": "operation",
+      "content": "The main rapid experimentation loop.",
+      "deps": []
+    },
+    {
+      "id": "/home/phoenix/.openclaw/workspace/experiments/rapid_loop.py-run_rapid_loop-what-it-does",
+      "type": "knowledge",
+      "content": "The function runs three phases: verifying known rocks, sounding for new rocks, and probing the most interesting rock.",
+      "deps": []
+    },
+    {
+      "id": "/home/phoenix/.openclaw/workspace/experiments/rapid_loop.py-run_rapid_loop-how-it-works",
+      "type": "knowledge",
+      "content": "The function uses the `groq` function to compute formulas and the `sound_for_rocks` function to find new rocks.",
+      "deps": [
+        "/home/phoenix/.openclaw/workspace/experiments/rapid_loop.py-groq",
+        "/home/phoenix/.openclaw/workspace/experiments/rapid_loop.py-sound_for_rocks"
+      ]
+    },
+    {
+      "id": "/home/phoenix/.openclaw/workspace/experiments/rapid_loop.py-run_rapid_loop-edge-cases",
+      "type": "knowledge",
+      "content": "The function assumes that the `groq` function is available and that the `sound_for_rocks` function returns a list of rocks.",
+      "deps": [
+        "/home/phoenix/.openclaw/workspace/experiments/rapid_loop.py-groq",
+        "/home/phoenix/.openclaw/workspace/experiments/rapid_loop.py-sound_for_rocks"
+      ]
+    },
+    {
+      "id": "/home/phoenix/.openclaw/workspace/experiments/rapid_loop.py-run_rapid_loop-constraints",
+      "type": "knowledge",
+      "content": "The function does not have any explicit constraints, but it assumes that the `groq` function is available and that the `sound_for_rocks` function returns a list of rocks.",
+      "deps": [
+        "/home/phoenix/.openclaw/workspace/experiments/rapid_loop.py-groq",
+        "/home/phoenix/.openclaw/workspace/experiments/rapid_loop.py-sound_for_rocks"
+      ]
+    },
+    {
+      "id": "query-function-what",
+      "type": "knowledge",
+      "content": "The query function sends a POST request to a chat API endpoint to retrieve a response to a given prompt.",
+      "deps": []
+    },
+    {
+      "id": "query-function-how",
+      "type": "operation",
+      "content": "The function uses the requests library to send a POST request to the API endpoint with the model, prompt, and options. It then parses the JSON response to extract the message content.",
+      "deps": [
+        "requests-library"
+      ]
+    },
+    {
+      "id": "query-function-edge-cases",
+      "type": "verification",
+      "content": "The function may fail if the API endpoint is down, the request times out, or the response is invalid JSON. It also returns an error message if an exception occurs.",
+      "deps": []
+    },
+    {
+      "id": "query-function-constraints",
+      "type": "knowledge",
+      "content": "The function has a maximum token limit of 60, which can be adjusted using the max_tokens parameter.",
+      "deps": []
+    },
+    {
+      "id": "query-function-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the requests library and the chat API endpoint.",
+      "deps": [
+        "requests-library",
+        "chat-api-endpoint"
+      ]
+    },
+    {
+      "id": "query-function-file-location",
+      "type": "knowledge",
+      "content": "The function is located in the file /home/phoenix/.openclaw/workspace/experiments/echo_analysis.py.",
+      "deps": []
+    },
+    {
+      "id": "extract_number-what-it-does",
+      "type": "knowledge",
+      "content": "Extracts the last number found in a given text.",
+      "deps": []
+    },
+    {
+      "id": "extract_number-how-it-works",
+      "type": "operation",
+      "content": "Uses regular expression to find all numbers in the text, then returns the last one.",
+      "deps": [
+        "re.findall"
+      ]
+    },
+    {
+      "id": "extract_number-edge-cases",
+      "type": "verification",
+      "content": "Returns None if no numbers are found in the text. May return incorrect result if the text contains multiple numbers and the last one is not the intended one.",
+      "deps": []
+    },
+    {
+      "id": "extract_number-constraints",
+      "type": "knowledge",
+      "content": "Assumes the input text is a string. Does not handle non-string inputs.",
+      "deps": []
+    },
+    {
+      "id": "extract_number-dependencies",
+      "type": "knowledge",
+      "content": "Depends on the re module for regular expression functionality.",
+      "deps": []
+    },
+    {
+      "id": "is_echo-what",
+      "type": "knowledge",
+      "content": "Checks if the given answer is one of the numbers from the prompt.",
+      "deps": []
+    },
+    {
+      "id": "is_echo-how",
+      "type": "operation",
+      "content": "Iterates over the prompt numbers and checks for membership using the 'in' operator.",
+      "deps": []
+    },
+    {
+      "id": "is_echo-edge",
+      "type": "verification",
+      "content": "Returns False if the answer is None, as None is not considered a valid answer.",
+      "deps": []
+    },
+    {
+      "id": "is_echo-constraints",
+      "type": "knowledge",
+      "content": "The answer and prompt numbers must be hashable and comparable.",
+      "deps": []
+    },
+    {
+      "id": "is_echo-deps",
+      "type": "knowledge",
+      "content": "None, as this function is a standalone utility.",
+      "deps": []
+    },
+    {
+      "id": "echo_analysis-function",
+      "type": "knowledge",
+      "content": "The function run_echo_study() is designed to analyze the echo effect in model answers.",
+      "deps": []
+    },
+    {
+      "id": "echo_analysis-how-it-works",
+      "type": "operation",
+      "content": "The function iterates over a list of tasks and models, generating answers for each task using each model. It then calculates the echo rate for each task and model.",
+      "deps": [
+        "echo_analysis-function"
+      ]
+    },
+    {
+      "id": "echo_analysis-edge-cases",
+      "type": "verification",
+      "content": "The function assumes that the input numbers in the task prompts are correctly identified and that the model answers are integers. It also assumes that the echo rate calculation is accurate.",
+      "deps": [
+        "echo_analysis-how-it-works"
+      ]
+    },
+    {
+      "id": "echo_analysis-constraints",
+      "type": "knowledge",
+      "content": "The function requires a list of models and tasks, where each task has a name, prompt, target answer, and input numbers. It also requires a number of iterations (N) to generate answers.",
+      "deps": [
+        "echo_analysis-function"
+      ]
+    },
+    {
+      "id": "echo_analysis-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the echo_analysis.py file in the /home/phoenix/.openclaw/workspace/experiments directory.",
+      "deps": [
+        "echo_analysis-function"
+      ]
+    },
+    {
+      "id": "query-function-what",
+      "type": "knowledge",
+      "content": "The query function sends a POST request to a chat API to get a response to a given prompt.",
+      "deps": []
+    },
+    {
+      "id": "query-function-how",
+      "type": "operation",
+      "content": "The function uses the requests library to send a POST request to the chat API with the model, prompt, and options. It then parses the response JSON to extract the message content.",
+      "deps": [
+        "requests-library"
+      ]
+    },
+    {
+      "id": "query-function-edge-cases",
+      "type": "verification",
+      "content": "The function catches all exceptions and returns an empty string. This means it will not handle specific exceptions that may occur during the request or JSON parsing.",
+      "deps": []
+    },
+    {
+      "id": "query-function-constraints",
+      "type": "knowledge",
+      "content": "The function has a timeout of 120 seconds and a maximum token limit of 80. It also assumes the chat API is running on localhost at port 11434.",
+      "deps": []
+    },
+    {
+      "id": "query-function-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the requests library and the chat API being running on localhost.",
+      "deps": [
+        "requests-library",
+        "chat-api"
+      ]
+    },
+    {
+      "id": "extract_number-function-what",
+      "type": "knowledge",
+      "content": "Extracts the last number found in a given text.",
+      "deps": []
+    },
+    {
+      "id": "extract_number-function-how",
+      "type": "operation",
+      "content": "Uses regular expression to find all numbers in the text, then returns the last one.",
+      "deps": [
+        "re.findall"
+      ]
+    },
+    {
+      "id": "extract_number-function-edge-cases",
+      "type": "verification",
+      "content": "Returns None if no numbers are found in the text. May return incorrect result if the text contains multiple numbers and the last one is not the intended one.",
+      "deps": []
+    },
+    {
+      "id": "extract_number-function-constraints",
+      "type": "knowledge",
+      "content": "Assumes the input text is a string. Does not handle non-ASCII characters or non-string inputs.",
+      "deps": []
+    },
+    {
+      "id": "extract_number-function-dependencies",
+      "type": "knowledge",
+      "content": "Uses the re module for regular expression operations.",
+      "deps": [
+        "re"
+      ]
+    },
+    {
+      "id": "classify_output-function-what",
+      "type": "knowledge",
+      "content": "Classify the output of a model as CORRECT, ECHO, PARTIAL, or UNKNOWN based on the target and input values.",
+      "deps": []
+    },
+    {
+      "id": "classify_output-function-how",
+      "type": "operation",
+      "content": "The function checks the answer against the target and input values in a specific order: None, target, inputs, partials, and finally returns UNKNOWN.",
+      "deps": []
+    },
+    {
+      "id": "classify_output-function-edge-cases",
+      "type": "verification",
+      "content": "The function handles edge cases where the answer is None, equal to the target, or present in the inputs or partials.",
+      "deps": []
+    },
+    {
+      "id": "classify_output-function-constraints",
+      "type": "knowledge",
+      "content": "The function assumes that the answer, target, inputs, and partials are strings or lists of strings.",
+      "deps": []
+    },
+    {
+      "id": "classify_output-function-dependencies",
+      "type": "knowledge",
+      "content": "The function depends on the STUDIO and TARGET variables, which are defined in the same file.",
+      "deps": [
+        "STUDIO",
+        "TARGET"
+      ]
+    }
+  ]
+}
