@@ -1,0 +1,912 @@
+[
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "The Eisenstein integer norm for an element $ z = a + bw $, where $ w = e^{2\\pi i / 3} $ (a primitive third root of unity), is defined as:\n\n$$\nN(z) = |z|^2 = a^2 - ab + b^2\n$$\n\nThis formula arises from the algebraic structure of the Eisenstein integers and the properties of the complex conjugate in t"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "The Eisenstein integers are a subset of the complex numbers of the form $ z = a + bw $, where $ a, b \\in \\mathbb{Z} $ and $ w = e^{2\\pi i / 3} $ is a primitive third root of unity. The **Eisenstein integer norm** of such an element is defined as:\n\n$$\nN(z) = |z|^2 = a^2 - ab + b^2\n$$\n\nThis formula ar"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "The Eisenstein integers are complex numbers of the form $ z = a + bw $, where $ a, b \\in \\mathbb{Z} $ and $ w = e^{2\\pi i / 3} $ is a primitive third root of unity satisfying $ w^2 + w + 1 = 0 $. The **norm** of such an element is defined as:\n\n$$\nN(z) = |z|^2 = a^2 - ab + b^2\n$$\n\n---\n\n### Step-by-St"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = (6, -5) $, we interpret this notation as follows:\n\nIn the ring of **Eisenstein integers**, every element is of the form:\n$$\nz = a + b w\n$$\nwhere $ a, b \\in \\mathbb{Z} $ and $ w = e^{2\\pi i / 3} = \\frac{-1 + i\\sqrt{3}}{2} $ is a primitive third roo"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = a + bw $, where $ w = e^{2\\pi i / 3} $ (a primitive cube root of unity), we use the formula:\n\n$$\n\\text{Norm}(z) = |z|^2 = a^2 - ab + b^2\n$$\n\nThis expression is derived from the fact that in the ring of Eisenstein integers, the norm of an element $"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = 7 + 2w $, where $ w = e^{2\\pi i / 3} $ (a primitive third root of unity), we use the standard formula:\n\n$$\nN(z) = a^2 - ab + b^2\n$$\n\nHere, $ a = 7 $ and $ b = 2 $. Let's follow the steps as outlined in the examples.\n\n---\n\n### Step-by-Step Computat"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "The Eisenstein integer norm for $ z = a + bw $, where $ w = e^{2\\pi i/3} $, is defined as $ |z|^2 = a^2 - ab + b^2 $. For the given $ z = (4, -6) $, we identify $ a = 4 $ and $ b = -6 $.\n\n**Step-by-step computation:**\n\n1. **Compute $ a^2 $:**  \n   $ a^2 = 4^2 = 16 $\n\n2. **Compute $ -ab $:**  \n   $ -"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = (6, -5) $, we follow the standard definition of the Eisenstein norm in the ring $ \\mathbb{Z}[w] $, where $ w = e^{2\\pi i / 3} $ is a primitive third root of unity. The norm of an element $ z = a + bw $ is given by:\n\n$$\nN(z) = a^2 - ab + b^2\n$$\n\n--"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = a + bw $, where $ w = e^{2\\pi i / 3} $ (a primitive third root of unity), we use the formula:\n\n$$\nN(z) = |z|^2 = a^2 - ab + b^2\n$$\n\nThis is the standard definition of the norm in the ring of Eisenstein integers $ \\mathbb{Z}[w] $.\n\n---\n\n### Step-by"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = a + bw $, where $ w = e^{2\\pi i / 3} $ (a primitive third root of unity), we use the standard formula:\n\n$$\nN(z) = |z|^2 = a^2 - ab + b^2\n$$\n\nThis expression is derived from the fact that in the ring of Eisenstein integers, the norm of an element $"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = a + b\\omega $, where $ \\omega = e^{2\\pi i / 3} $ is a primitive third root of unity, we use the standard formula:\n\n$$\nN(z) = |z|^2 = a^2 - ab + b^2\n$$\n\nThis expression represents the squared norm of the Eisenstein integer $ z = a + b\\omega $ in th"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = a + bw $, where $ w = e^{2\\pi i / 3} $ (a primitive third root of unity), we use the formula:\n\n$$\n\\text{Norm}(z) = |z|^2 = a^2 - ab + b^2\n$$\n\n---\n\n### Step 1: Interpret the given value\n\nThe problem states: *Compute for $ z = (6, -5) $.*\n\nIn the co"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = (5, -3) $, we follow the standard definition and structure of Eisenstein integers.\n\n---\n\n### \ud83d\udd39 Step 1: Understand the Notation\n\nIn the context of **Eisenstein integers**, any element is of the form:\n\n$$\nz = a + b\\omega\n$$\n\nwhere:\n- $ a, b \\in \\mat"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = (7, 2) $, we interpret this notation as follows:\n\nIn the context of **Eisenstein integers**, an element is typically written in the form:\n$$\nz = a + b\\omega\n$$\nwhere $ \\omega = e^{2\\pi i / 3} $ is a primitive third root of unity (satisfying $ \\ome"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = (4, -6) $, we interpret this as $ z = a + bw $, where:\n\n- $ a = 4 $\n- $ b = -6 $\n- $ w = e^{2\\pi i / 3} $, a primitive cube root of unity satisfying $ w^2 + w + 1 = 0 $\n\n---\n\n### Step 1: Understand the Norm Formula\n\nThe **Eisenstein integer norm**"
+  },
+  {
+    "model": "qwen3:4b",
+    "model_id": "ollama:qwen3:4b",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the **Eisenstein integer norm** for $ z = a + bw $, where $ w = e^{2\\pi i / 3} $ (a primitive third root of unity), we use the formula:\n\n$$\nN(z) = |z|^2 = a^2 - ab + b^2\n$$\n\n---\n\n### Step 1: Identify $ a $ and $ b $\n\nThe problem states:  \n> *Compute for $ z = (6, -5) $*\n\nThis notation is "
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": false,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm of \\( z = 5 - 3w \\) with \\( w = e^{\\frac{2\\pi i}{3}} \\), we first need to express \\( w \\) in terms of its real and imaginary parts. Since \\( w^3 = (e^{\\frac{2\\pi i}{3}})^3 = e^{2\\pi i} = 1 \\), the cube roots of unity are:\n\n\\( w_0 = 1 \\)\n\\( w_1 = -\\frac{1}{2} + "
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": false,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm of \\( z = a + bw \\) with given values and using the formula provided:\n\nGiven:\n\\( w = e^{\\frac{2\\pi i}{3}} \\)\nSo,\n\\[ w = -\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i \\]\n\nFor Eisenstein integers, we have \\( a = 7 \\) and \\( b = 2 \\).\n\nThe norm of an Eisenstein integer is gi"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": false,
+    "error": "HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=180)",
+    "response_preview": "ERROR: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=180)"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": false,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for \\( z = 6 + (-5)w \\), we first need to express w in terms of its real and imaginary parts using Euler's formula:\n\n\\( w = e^{\\frac{2\\pi i}{3}} = \\cos(\\frac{2\\pi}{3}) + i\\sin(\\frac{2\\pi}{3}) \\)\n\nThe cosine and sine values for \\( \\frac{2\\pi}{3} \\) are as follow"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for \\( z = 5 - 3w \\), we first need to recognize that in this context, w represents one of the cube roots of unity other than 1 and itself; specifically it is given as:\n\n\\( w = e^{\\frac{2\\pi i}{3}} = -\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i \\)\n\nHowever, since we are "
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": false,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for \\( z = a + bw \\) with given values of \\( a = 7 \\), and \\( b = 2 \\):\n\n\nRecall that in this context:\n\n\\( w = e^{\\frac{2\\pi i}{3}} = -\\frac{1}{2} + j\\frac{\\sqrt{3}}{2} \\)\n\nwhere \\( j^2 = -1 \\) (note: typically, the imaginary unit is denoted as 'i' in mathemati"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": false,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm of \\( z = 4 - 6w \\), we first need to express w in terms of its real and imaginary parts using Euler's formula:\n\n\\( w = e^{\\frac{2\\pi i}{3}} = \\cos(\\frac{2\\pi}{3}) + i\\sin(\\frac{2\\pi}{3}) \\)\n\nThe cosine and sine values for \\( \\frac{2\\pi}{3} \\) are:\n- \\( \\cos(\\f"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "Step 1: Identify values of 'a' and 'b'. In this case, \\( a=6 \\) and \\( b=-5 \\).\n\nStep 2: Apply the formula to compute |z|^2.\n\n\\( |z|^2 = a^2 - ab + b^2 \\)\n\nPlugging in our numbers:\n\n\\( |z|^2 = (6)^2 - (6)(-5) + (-5)^2 \\)\n\\( |z|^2 = 36 + 30 + 25 \\)\n\\( |z|^2 = 91 \\)\n\n\nAnswer: The Eisenstein integer no"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": false,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm of \\( z = 5 - 3w \\), we first need to express w in terms of its real and imaginary parts.\n\n\nGiven that:\n\n\\[ w = e^{\\frac{2\\pi i}{3}} \\]\n\nWe can use Euler's formula, which states:\n\n\n\\[ e^{ix} = \\cos(x) + i\\sin(x) \\]\n\n\nSo for \\( x = \\frac{2\\pi}{3} \\), we have:\n\n\n"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm of \\( z = a + bw \\) with given values and using the formula provided:\n\n\nGiven:\n\n\\( w = e^{\\frac{2\\pi i}{3}} \\)\n\nand \n\n\\( z = (a,b) = (7,2) \\)\n\n\nThe norm is calculated as follows: \n\n\n\\[ |z|^2 = a^2 - ab + b^2 \\]\n\n\nSubstitute the given values for \\( a \\) and \\( b"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm of \\( z = 4 - 6w \\), we first need to understand what an Eisenstein integer looks like and how it relates to complex numbers.\n\n\nAn Eisenstein integer is a number in the form:\n\n\\[ w = e^{2\\pi i/3} + e^{-2\\pi i/3} \\]\n\nThese are roots of unity, specifically they c"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for \\( z = 6 - 5w \\) with \\( w = e^{\\frac{2\\pi i}{3}} \\), we first need to understand that an Eisenstein integer is of the form \\( a + bw \\), where both \\( a \\) and \\( b \\) are integers, and \\( w^2 = u - v/w \\). Here, since we're given specific values for `a` ("
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": false,
+    "error": null,
+    "response_preview": "To calculate the Eisenstein integer norm of \\( z \\), we first need to express it in terms of its components:\n\nGiven:\n\\( w = e^{\\frac{2\\pi i}{3}} \\)\nSo,\n\\( w = cos(\\frac{2\\pi}{3}) + isin(\\frac{2\\pi}{3}) = -1/2 + (sqrt(3)/2)i \\)\n\nFor \\( z = a + bw \\), we have:\na = 5\nb = -3\n\nNow, let's compute the norm"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "To calculate the Eisenstein integer norm of \\( z \\) where \\( w = e^{\\frac{2\\pi i}{3}} \\), we first need to understand that an Eisenstein integer is given by:\n\n\\( z = a + bw \\)\n\nwhere:\n- \\( a \\) and \\( b \\) are integers,\n- \\( w^3 = 1 \\),\n- And the norm of this complex number, denoted as |z|\u00b2 or N(z),"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": false,
+    "error": null,
+    "response_preview": "To calculate the Eisenstein integer norm of \\( z = 4 - 6w \\) where \\( w = e^{\\frac{2\\pi i}{3}} \\), we first need to understand that in this context:\n\n- The real part (a) is given as a coefficient for '1' or, simply put: the number itself.\n- Since there isn't an explicit representation of b with resp"
+  },
+  {
+    "model": "phi4-mini",
+    "model_id": "ollama:phi4-mini:latest",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": false,
+    "error": null,
+    "response_preview": "To calculate the Eisenstein integer norm of \\( z \\) given by its components as an ordered pair (\\(a\\),\\(b\\)) where \\( w = e^{2\\pi i/3} \\):\n\n1. Identify values for a and b: In this case,\n   - \\( a = 6 \\)\n   - \\( b = -5 \\)\n\n2. Compute the squares of each component:\n   - \\( a^2 = (6)^2 = 36 \\)\n   - Sin"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = a + bw, where w = e^(2\u03c0i/3), we need to substitute the given values of a and b into the norm formula |z|^2 = a^2 - ab + b^2.\n\nGiven:\n- z = (5, -3)\n- a = 5\n- b = -3\n\nStep 1: Substitute the values of a and b into the norm formula.\n|z|^2 = a^2 - ab + b^2\n|"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = (7, 2), we need to substitute a = 7 and b = 2 into the norm formula |z|^2 = a^2 - ab + b^2.\n\nGiven:\n- a = 7\n- b = 2\n- w = e^(2pi*i/3)\n\nStep 1: Substitute a and b into the norm formula.\n|z|^2 = a^2 - ab + b^2\n|z|^2 = 7^2 - 7 \u00d7 2 + 2^2\n\nStep 2: Simplify t"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = a + bw, where w = e^(2\u03c0i/3), we need to substitute the given values of a and b into the norm formula |z|^2 = a^2 - ab + b^2.\n\nGiven:\n- z = (4, -6)\n- a = 4\n- b = -6\n\nStep 1: Substitute the values of a and b into the norm formula.\n|z|^2 = a^2 - ab + b^2\n|"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = a + bw where w = e^(2pi*i/3), we need to substitute the given values of a and b into the formula |z|^2 = a^2 - ab + b^2.\n\nGiven:\nz = (6, -5)\na = 6\nb = -5\n\nStep 1: Substitute the values of a and b into the formula |z|^2 = a^2 - ab + b^2.\n|z|^2 = 6^2 - 6("
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "For z = (5, -3), a=5, and b=-3.\n\nStep 1: a^2 = 5^2 = 25\nStep 2: -ab = -(5)(-3) = 15\nStep 3: b^2 = (-3)^2 = 9\nStep 4: 25+15+9 = 49\n\nThe Eisenstein integer norm for z = (5, -3) is 49."
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "For z = (7, 2), a=7, and b=2.\n\nStep 1: a^2 = 7^2 = 49\nStep 2: -ab = -(7*2) = -14\nStep 3: b^2 = 2^2 = 4\nStep 4: 49 - 14 + 4 = 39\n\nThe Eisenstein integer norm for z = (7, 2) is 39."
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "For z = (4, -6), a=4, b=-6.\nStep 1: a^2 = 16, Step 2: -ab = 24, Step 3: b^2 = 36, Step 4: 16+24+36 = 76. Answer: 76"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "For z = (6, -5), a = 6 and b = -5.\n\nStep 1: Compute a^2\na^2 = 6^2 = 36\n\nStep 2: Compute -ab\n-ab = -6 * -5 = 30\n\nStep 3: Compute b^2\nb^2 = (-5)^2 = 25\n\nStep 4: Compute the sum a^2 - ab + b^2\n36 + 30 + 25 = 91\n\nTherefore, the Eisenstein integer norm for z = (6, -5) is 91."
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = (5, -3), we need to substitute the values of a and b into the norm formula |z|^2 = a^2 - ab + b^2.\n\nGiven z = (5, -3), we have a = 5 and b = -3.\n\nNow, let's substitute these values into the formula:\n\n|z|^2 = a^2 - ab + b^2\n|z|^2 = (5)^2 - (5)(-3) + (-3)"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = (7, 2), we need to substitute the values of a and b into the norm formula |z|^2 = a^2 - ab + b^2.\n\nGiven z = (7, 2), we have:\na = 7\nb = 2\n\nNow, let's substitute these values into the norm formula:\n\n|z|^2 = a^2 - ab + b^2\n|z|^2 = (7)^2 - (7)(2) + (2)^2\n|"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = (4, -6), we need to substitute the values of a and b into the norm formula |z|^2 = a^2 - ab + b^2.\n\nGiven z = (4, -6), we have:\na = 4\nb = -6\n\nNow, let's substitute these values into the norm formula:\n\n|z|^2 = a^2 - ab + b^2\n|z|^2 = (4)^2 - (4)(-6) + (-6"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = (6, -5), we need to substitute the values of a and b into the norm formula |z|^2 = a^2 - ab + b^2.\n\nGiven z = (6, -5), we have a = 6 and b = -5.\n\nNow, let's substitute these values into the norm formula:\n\n|z|^2 = a^2 - ab + b^2\n|z|^2 = (6)^2 - (6)(-5) +"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = a + bw, where w = e^(2\u03c0i/3), we need to identify the values of a and b, and then calculate a^2, -ab, and b^2. Finally, we sum these values to get the norm.\n\nGiven:\nz = (5, -3)\n\nStep 1: Identify a and b.\na = 5\nb = -3\n\nStep 2: Compute a^2.\na^2 = 5^2 = 25\n"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": false,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = a + bw where w = e^(2\u03c0i/3), we need to identify the values of a and b from the given z = (7, 2).\n\nStep 1: Identify a and b\na = 7\nb = 2\n\nStep 2: Compute a^2\na^2 = 7^2 = 49\n\nStep 3: Compute -ab\n-ab = -(7 \u00d7 2) = -14\n\nStep 4: Compute b^2\nb^2 = 2^2 = 4\n\nStep"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = (4, -6), we need to identify the values of a and b, and then calculate a^2, -ab, and b^2. Finally, we sum these values to get the norm.\n\nGiven:\n- z = (4, -6)\n- w = e^(2\u03c0i/3)\n- Norm = |z|^2 = a^2 - ab + b^2\n\nStep 1: Identify a and b.\na = 4\nb = -6\n\nStep 2"
+  },
+  {
+    "model": "Hermes-70B",
+    "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "To compute the Eisenstein integer norm for z = a + bw, where w = e^(2\u03c0i/3), we need to identify the values of a and b from the given z = (6, -5). Then, we'll compute a^2, -ab, and b^2, and sum them to get the norm.\n\nGiven:\n- z = (6, -5)\n- w = e^(2\u03c0i/3)\n\nStep 1: Identify a and b.\na = 6\nb = -5\n\nStep 2"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer of the form:\n\n$$\nz = a + b\\omega\n$$\n\nwhere $\\omega = e^{2\\pi i/3}$ is a primitive cube root of unity, satisfying:\n\n$$\n\\omega^2 + \\omega + 1 = 0 \\quad \\text{and} \\quad \\omega^3 = 1\n$$\n\nThe **norm** of an Eisenstein integer $z = a + b\\omega$ is given by the formula:\n"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an **Eisenstein integer** of the form:\n\n$$\nz = a + b\\omega\n$$\n\nwhere $\\omega = e^{2\\pi i / 3}$, a primitive cube root of unity. It satisfies:\n\n$$\n\\omega^2 + \\omega + 1 = 0 \\quad \\text{and} \\quad \\omega^3 = 1\n$$\n\nThe **norm** of an Eisenstein integer $z = a + b\\omega$ is given by the for"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer of the form:\n\n$$\nz = a + b\\omega\n$$\n\nwhere $\\omega = e^{2\\pi i/3}$, a primitive cube root of unity, and the **norm** of $z$ is given by the formula:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are told $z = (4, -6)$, which means $a = 4$, $b = -6$.\n\nNow compute the norm:\n\n$$\n"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "A",
+    "cell_name": "Baseline",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer of the form:\n\n$$\nz = a + b\\omega\n$$\n\nwhere $\\omega = e^{2\\pi i / 3}$, a primitive cube root of unity, and the **norm** of $z$ is defined as:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are asked to compute the norm for $z = (6, -5)$, which means $a = 6$, $b = -5$.\n\nPlug into"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer $ z = (a, b) $, which corresponds to $ z = a + b\\omega $, where $ \\omega = e^{2\\pi i/3} $, a primitive cube root of unity. The **norm** of $ z $ is given by the formula:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are asked to compute this for $ z = (5, -3) $, so $ a = 5 $, "
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer $ z = a + b\\omega $, where $ \\omega = e^{2\\pi i/3} $, and the norm is defined as:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are asked to compute this norm for $ z = (7, 2) $, meaning $ a = 7 $, $ b = 2 $.\n\n### Step-by-step:\n\n**Step 1:** Compute $ a^2 $  \n$$\na^2 = 7^2 = 49\n"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer $ z = (a, b) $, which represents $ z = a + b\\omega $, where $ \\omega = e^{2\\pi i/3} $, a primitive cube root of unity. The **norm** of such an Eisenstein integer is given by the formula:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are to compute this for $ z = (4, -6) $, so "
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "B",
+    "cell_name": "Tier1-Fewshot",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer $ z = a + b\\omega $, where $ \\omega = e^{2\\pi i/3} $, and the norm is defined as:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are given $ z = (6, -5) $, which means $ a = 6 $, $ b = -5 $.\n\nNow compute step by step:\n\n**Step 1:** $ a^2 = 6^2 = 36 $\n\n**Step 2:** $ -ab = - (6)(-"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer $ z = a + b\\omega $, where $ \\omega = e^{2\\pi i/3} $, and the **norm** of $ z $ is defined as:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are to compute this norm for $ z = (5, -3) $, which means $ a = 5 $, $ b = -3 $.\n\n---\n\n### Step 1: Plug into the norm formula\n\n$$\n|z|^2 "
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer $ z = a + b\\omega $, where $ \\omega = e^{2\\pi i/3} $, and the norm is defined as:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are asked to compute this norm for $ z = (7, 2) $, meaning $ a = 7 $, $ b = 2 $.\n\n### Step 1: Plug into the formula\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n$$\n="
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an **Eisenstein integer** of the form:\n\n$$\nz = a + b\\omega\n$$\n\nwhere $\\omega = e^{2\\pi i/3}$, a primitive cube root of unity, satisfying:\n\n$$\n\\omega^2 + \\omega + 1 = 0, \\quad \\omega^3 = 1\n$$\n\nThe **norm** of an Eisenstein integer $z = a + b\\omega$ is given by the formula:\n\n$$\n|z|^2 = a^"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "C",
+    "cell_name": "Generic-Fewshot",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer $ z = a + b\\omega $, where $ \\omega = e^{2\\pi i/3} $, and the norm is defined as:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are to compute this norm for $ z = (6, -5) $, which means $ a = 6 $, $ b = -5 $.\n\n### Step 1: Plug into the norm formula\n$$\n|z|^2 = a^2 - ab + b^2\n$$"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer of the form:\n\n$$\nz = a + b\\omega\n$$\n\nwhere $ \\omega = e^{2\\pi i / 3} $, a complex cube root of unity, and the **norm** of $ z $ is defined as:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are given $ z = (5, -3) $, which means $ a = 5 $, $ b = -3 $.\n\nWe will now compute the n"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      5,
+      -3
+    ],
+    "expected": 49,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer of the form:\n\n$$\nz = a + b\\omega, \\quad \\text{where } \\omega = e^{2\\pi i / 3}\n$$\n\nThe **norm** of an Eisenstein integer is defined as:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are given $ z = (5, -3) $, which means:\n\n- $ a = 5 $\n- $ b = -3 $\n\nNow compute step by step:\n\n--"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      7,
+      2
+    ],
+    "expected": 39,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an Eisenstein integer of the form:\n\n$$\nz = a + b\\omega\n$$\n\nwhere $\\omega = e^{2\\pi i/3}$, a primitive cube root of unity, and the **norm** of $z$ is defined as:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are asked to compute the norm for $z = (7, 2)$, which means $a = 7$, $b = 2$.\n\n---\n\n### Step"
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      4,
+      -6
+    ],
+    "expected": 76,
+    "correct": true,
+    "error": null,
+    "response_preview": "We are given an **Eisenstein integer** of the form:\n\n$$\nz = a + b\\omega\n$$\n\nwhere $ \\omega = e^{2\\pi i / 3} $, a primitive cube root of unity. The **norm** of such a number is given by the formula:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are asked to compute this norm for $ z = (4, -6) $, which means:\n\n- "
+  },
+  {
+    "model": "Qwen3-235B",
+    "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "cell": "D",
+    "cell_name": "Self-Scaffold",
+    "point": [
+      6,
+      -5
+    ],
+    "expected": 91,
+    "correct": false,
+    "error": null,
+    "response_preview": "We are given an **Eisenstein integer** of the form:\n\n$$\nz = a + b\\omega\n$$\n\nwhere $\\omega = e^{2\\pi i / 3}$, a primitive cube root of unity, and the **norm** of $z$ is defined as:\n\n$$\n|z|^2 = a^2 - ab + b^2\n$$\n\nWe are given $z = (6, -5)$, which means $a = 6$, $b = -5$.\n\n---\n\n### Step 1: Identify $a$"
+  }
+]
