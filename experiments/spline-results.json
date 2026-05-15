@@ -1,0 +1,126 @@
+{
+  "results": [
+    {
+      "formula": "a\u00b2-ab+b\u00b2",
+      "a": 3,
+      "b": 4,
+      "ans": 13,
+      "levels": {
+        "0": 0.0,
+        "1": 1.0,
+        "2": 0.4,
+        "3": 0.4
+      },
+      "min_scaffold": 1
+    },
+    {
+      "formula": "a\u00b2-ab+b\u00b2",
+      "a": 5,
+      "b": -3,
+      "ans": 49,
+      "levels": {
+        "0": 0.0,
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      },
+      "min_scaffold": 1
+    },
+    {
+      "formula": "a\u00b2-ab+b\u00b2",
+      "a": -4,
+      "b": 3,
+      "ans": 37,
+      "levels": {
+        "0": 0.0,
+        "1": 0.2,
+        "2": 0.0,
+        "3": 1.0
+      },
+      "min_scaffold": 3
+    },
+    {
+      "formula": "a\u00b2-ab+b\u00b2",
+      "a": 7,
+      "b": 1,
+      "ans": 43,
+      "levels": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      },
+      "min_scaffold": 0
+    },
+    {
+      "formula": "a\u00b2-2ab+b\u00b2",
+      "a": 3,
+      "b": 4,
+      "ans": 1,
+      "levels": {
+        "0": 0.0,
+        "1": 0.8,
+        "2": 0.0,
+        "3": 0.0
+      },
+      "min_scaffold": 1
+    },
+    {
+      "formula": "a\u00b2-2ab+b\u00b2",
+      "a": 5,
+      "b": -3,
+      "ans": 49,
+      "levels": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 1.0,
+        "3": 1.0
+      },
+      "min_scaffold": 2
+    },
+    {
+      "formula": "2a\u00b2-3ab+b\u00b2",
+      "a": 3,
+      "b": 4,
+      "ans": 5,
+      "levels": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0
+      },
+      "min_scaffold": null
+    },
+    {
+      "formula": "a\u00b3-ab",
+      "a": 5,
+      "b": -3,
+      "ans": 140,
+      "levels": {
+        "0": 1.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0
+      },
+      "min_scaffold": 0
+    }
+  ],
+  "tile": {
+    "id": "spline-combination-boundary",
+    "type": "spline",
+    "trigger": "Model computes sub-expressions correctly but fails to combine them into final result",
+    "boundary": "a\u00b2, b\u00b2, ab each 100% correct; a\u00b2-ab+b\u00b2 only 25% correct",
+    "anchor_points": [
+      "a\u00b2 = a*a (Level 1, always correct)",
+      "b\u00b2 = b*b (Level 1, always correct)",
+      "ab = a*b (Level 1, always correct)"
+    ],
+    "spline_path": "Provide Level 1 anchors \u2192 model combines correctly",
+    "min_scaffold_level": "TBD (measuring now)",
+    "confidence": 0.8,
+    "evidence": [
+      "GROUND-TRUTH-PORTRAIT.md: sub-expressions 100%, combination 25%"
+    ],
+    "negative": "Only tested on arithmetic. Unknown if combination scaffolding transfers to code generation or reasoning."
+  }
+}
