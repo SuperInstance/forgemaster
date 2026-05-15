@@ -1,0 +1,354 @@
+[
+  {
+    "model": "seed-mini",
+    "domain": "magnitude",
+    "critical_angle": "\u221e",
+    "last_success": 6,
+    "accuracy": 1.0,
+    "results": [
+      {
+        "depth": 1,
+        "correct": true,
+        "got": "8"
+      },
+      {
+        "depth": 2,
+        "correct": true,
+        "got": "85"
+      },
+      {
+        "depth": 3,
+        "correct": true,
+        "got": "1245"
+      },
+      {
+        "depth": 4,
+        "correct": true,
+        "got": "80235"
+      },
+      {
+        "depth": 5,
+        "correct": true,
+        "got": "1000000"
+      },
+      {
+        "depth": 6,
+        "correct": true,
+        "got": "1111111110"
+      }
+    ]
+  },
+  {
+    "model": "seed-mini",
+    "domain": "operations",
+    "critical_angle": "\u221e",
+    "last_success": 8,
+    "accuracy": 1.0,
+    "results": [
+      {
+        "depth": 1,
+        "correct": true,
+        "got": "12"
+      },
+      {
+        "depth": 2,
+        "correct": true,
+        "got": "2"
+      },
+      {
+        "depth": 3,
+        "correct": true,
+        "got": "35"
+      },
+      {
+        "depth": 4,
+        "correct": true,
+        "got": "5"
+      },
+      {
+        "depth": 5,
+        "correct": true,
+        "got": "49"
+      },
+      {
+        "depth": 6,
+        "correct": true,
+        "got": "7"
+      },
+      {
+        "depth": 7,
+        "correct": true,
+        "got": "5040"
+      },
+      {
+        "depth": 8,
+        "correct": true,
+        "got": "256"
+      }
+    ]
+  },
+  {
+    "model": "seed-mini",
+    "domain": "code_depth",
+    "critical_angle": "\u221e",
+    "last_success": 8,
+    "accuracy": 1.0,
+    "results": [
+      {
+        "depth": 1,
+        "correct": true,
+        "got": "`int`"
+      },
+      {
+        "depth": 2,
+        "correct": true,
+        "got": "2"
+      },
+      {
+        "depth": 3,
+        "correct": true,
+        "got": "`el`"
+      },
+      {
+        "depth": 4,
+        "correct": true,
+        "got": "{2, 3}"
+      },
+      {
+        "depth": 5,
+        "correct": true,
+        "got": "1"
+      },
+      {
+        "depth": 6,
+        "correct": true,
+        "got": "`['1', '2']`"
+      },
+      {
+        "depth": 7,
+        "correct": true,
+        "got": "10"
+      },
+      {
+        "depth": 8,
+        "correct": true,
+        "got": "14"
+      }
+    ]
+  },
+  {
+    "model": "seed-mini",
+    "domain": "reasoning_depth",
+    "critical_angle": "\u221e",
+    "last_success": 6,
+    "accuracy": 1.0,
+    "results": [
+      {
+        "depth": 1,
+        "correct": true,
+        "got": "TRUE"
+      },
+      {
+        "depth": 2,
+        "correct": true,
+        "got": "FALSE."
+      },
+      {
+        "depth": 3,
+        "correct": true,
+        "got": "FALSE. For example, let A be c"
+      },
+      {
+        "depth": 4,
+        "correct": true,
+        "got": "FALSE"
+      },
+      {
+        "depth": 5,
+        "correct": true,
+        "got": "TRUE"
+      },
+      {
+        "depth": 6,
+        "correct": true,
+        "got": "TRUE"
+      }
+    ]
+  },
+  {
+    "model": "glm-5-turbo",
+    "domain": "magnitude",
+    "critical_angle": 3,
+    "last_success": 6,
+    "accuracy": 0.833,
+    "results": [
+      {
+        "depth": 1,
+        "correct": true,
+        "got": "8"
+      },
+      {
+        "depth": 2,
+        "correct": true,
+        "got": "85"
+      },
+      {
+        "depth": 3,
+        "correct": false,
+        "got": "1.  Identify the core request:"
+      },
+      {
+        "depth": 4,
+        "correct": true,
+        "got": "1.  Identify the core operatio"
+      },
+      {
+        "depth": 5,
+        "correct": true,
+        "got": "1000000"
+      },
+      {
+        "depth": 6,
+        "correct": true,
+        "got": "1.  Identify the core operatio"
+      }
+    ]
+  },
+  {
+    "model": "glm-5-turbo",
+    "domain": "operations",
+    "critical_angle": 7,
+    "last_success": 6,
+    "accuracy": 0.75,
+    "results": [
+      {
+        "depth": 1,
+        "correct": true,
+        "got": "12"
+      },
+      {
+        "depth": 2,
+        "correct": true,
+        "got": "2"
+      },
+      {
+        "depth": 3,
+        "correct": true,
+        "got": "35"
+      },
+      {
+        "depth": 4,
+        "correct": true,
+        "got": "5"
+      },
+      {
+        "depth": 5,
+        "correct": true,
+        "got": "49"
+      },
+      {
+        "depth": 6,
+        "correct": true,
+        "got": "7"
+      },
+      {
+        "depth": 7,
+        "correct": false,
+        "got": "1.  Identify the core question"
+      },
+      {
+        "depth": 8,
+        "correct": false,
+        "got": "1.  Identify the core request:"
+      }
+    ]
+  },
+  {
+    "model": "glm-5-turbo",
+    "domain": "code_depth",
+    "critical_angle": 4,
+    "last_success": 7,
+    "accuracy": 0.625,
+    "results": [
+      {
+        "depth": 1,
+        "correct": true,
+        "got": "1.  **Analyze the Request:** T"
+      },
+      {
+        "depth": 2,
+        "correct": true,
+        "got": "1.  Identify the core question"
+      },
+      {
+        "depth": 3,
+        "correct": true,
+        "got": "1.  Analyze the input: The use"
+      },
+      {
+        "depth": 4,
+        "correct": false,
+        "got": "1.  Identify the operation: Th"
+      },
+      {
+        "depth": 5,
+        "correct": true,
+        "got": "1.  **Analyze the Request:** T"
+      },
+      {
+        "depth": 6,
+        "correct": false,
+        "got": "1.  **Analyze the Request:** T"
+      },
+      {
+        "depth": 7,
+        "correct": true,
+        "got": "1.  Identify the core question"
+      },
+      {
+        "depth": 8,
+        "correct": false,
+        "got": "The user wants to evaluate the"
+      }
+    ]
+  },
+  {
+    "model": "glm-5-turbo",
+    "domain": "reasoning_depth",
+    "critical_angle": 3,
+    "last_success": 6,
+    "accuracy": 0.833,
+    "results": [
+      {
+        "depth": 1,
+        "correct": true,
+        "got": "1.  Analyze the input:\n    *  "
+      },
+      {
+        "depth": 2,
+        "correct": true,
+        "got": "1.  Analyze the input:\n    *  "
+      },
+      {
+        "depth": 3,
+        "correct": false,
+        "got": "The user wants to know if \"All"
+      },
+      {
+        "depth": 4,
+        "correct": true,
+        "got": "1.  Analyze the input: \"If it "
+      },
+      {
+        "depth": 5,
+        "correct": true,
+        "got": "TRUE"
+      },
+      {
+        "depth": 6,
+        "correct": true,
+        "got": "1.  Analyze the Request:\n    *"
+      }
+    ]
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "seed-mini": {
+    "P1_direct": {
+      "correct": 8,
+      "total": 10,
+      "accuracy": 0.8
+    },
+    "P2_student": {
+      "correct": 1,
+      "total": 10,
+      "accuracy": 0.1
+    },
+    "P3_scaffold": {
+      "correct": 5,
+      "total": 10,
+      "accuracy": 0.5
+    },
+    "P4_format": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "P5_cot": {
+      "correct": 2,
+      "total": 10,
+      "accuracy": 0.2
+    }
+  },
+  "glm-5-turbo": {
+    "P1_direct": {
+      "correct": 4,
+      "total": 10,
+      "accuracy": 0.4
+    },
+    "P2_student": {
+      "correct": 2,
+      "total": 10,
+      "accuracy": 0.2
+    },
+    "P3_scaffold": {
+      "correct": 1,
+      "total": 10,
+      "accuracy": 0.1
+    },
+    "P4_format": {
+      "correct": 5,
+      "total": 10,
+      "accuracy": 0.5
+    },
+    "P5_cot": {
+      "correct": 1,
+      "total": 10,
+      "accuracy": 0.1
+    }
+  }
+}

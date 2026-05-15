@@ -1,0 +1,11 @@
+{
+  "agent_name": "Fleet Coordinator",
+  "agent_id": "fleet-coord",
+  "plato_port": 8848,
+  "web_port": 8081,
+  "base_plato_url": "http://localhost:8847",
+  "role": "fleet_coordinator",
+  "description": "Second agent instance for fleet coordination. Reads from main PLATO, writes coordination tiles.",
+  "model": "ByteDance/Seed-2.0-mini",
+  "temperature": 0.3
+}
