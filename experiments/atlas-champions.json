@@ -1,0 +1,3442 @@
+{
+  "meta": {
+    "n_probes": 171,
+    "n_models": 2,
+    "n_queries": 342,
+    "timestamp": "2026-05-14 20:42"
+  },
+  "ranked": [
+    [
+      "seed-mini",
+      153,
+      171
+    ],
+    [
+      "gemini-lite",
+      141,
+      171
+    ]
+  ],
+  "tiles": [
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1",
+      "expected": "1",
+      "got": "1",
+      "correct": true,
+      "latency_ms": 1759.3905925750732,
+      "tokens": 83
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1",
+      "expected": "1",
+      "got": "1",
+      "correct": true,
+      "latency_ms": 1323.6124515533447,
+      "tokens": 19
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2",
+      "expected": "3",
+      "got": "3",
+      "correct": true,
+      "latency_ms": 1425.0469207763672,
+      "tokens": 79
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2",
+      "expected": "3",
+      "got": "3",
+      "correct": true,
+      "latency_ms": 1109.2913150787354,
+      "tokens": 21
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3",
+      "expected": "6",
+      "got": "6",
+      "correct": true,
+      "latency_ms": 1658.2036018371582,
+      "tokens": 91
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3",
+      "expected": "6",
+      "got": "6",
+      "correct": true,
+      "latency_ms": 1071.2909698486328,
+      "tokens": 23
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4",
+      "expected": "10",
+      "got": "10",
+      "correct": true,
+      "latency_ms": 1952.660322189331,
+      "tokens": 104
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4",
+      "expected": "10",
+      "got": "10",
+      "correct": true,
+      "latency_ms": 1608.537197113037,
+      "tokens": 26
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5",
+      "expected": "15",
+      "got": "15",
+      "correct": true,
+      "latency_ms": 2101.0942459106445,
+      "tokens": 106
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5",
+      "expected": "15",
+      "got": "15",
+      "correct": true,
+      "latency_ms": 1016.0984992980957,
+      "tokens": 28
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6",
+      "expected": "21",
+      "got": "21",
+      "correct": true,
+      "latency_ms": 1932.8255653381348,
+      "tokens": 123
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6",
+      "expected": "21",
+      "got": "21",
+      "correct": true,
+      "latency_ms": 1119.4639205932617,
+      "tokens": 30
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7",
+      "expected": "28",
+      "got": "28",
+      "correct": true,
+      "latency_ms": 2020.3759670257568,
+      "tokens": 135
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7",
+      "expected": "28",
+      "got": "28",
+      "correct": true,
+      "latency_ms": 1147.7789878845215,
+      "tokens": 32
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency_ms": 1768.2232856750488,
+      "tokens": 127
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency_ms": 1103.59787940979,
+      "tokens": 34
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9",
+      "expected": "45",
+      "got": "45",
+      "correct": true,
+      "latency_ms": 1703.32932472229,
+      "tokens": 127
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9",
+      "expected": "45",
+      "got": "45",
+      "correct": true,
+      "latency_ms": 1180.882215499878,
+      "tokens": 36
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10",
+      "expected": "55",
+      "got": "55",
+      "correct": true,
+      "latency_ms": 1810.5080127716064,
+      "tokens": 134
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10",
+      "expected": "55",
+      "got": "55",
+      "correct": true,
+      "latency_ms": 1154.5209884643555,
+      "tokens": 39
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11",
+      "expected": "66",
+      "got": "66",
+      "correct": true,
+      "latency_ms": 2303.1468391418457,
+      "tokens": 198
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11",
+      "expected": "66",
+      "got": "66",
+      "correct": true,
+      "latency_ms": 1275.4509449005127,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12",
+      "expected": "78",
+      "got": "78",
+      "correct": true,
+      "latency_ms": 2664.454936981201,
+      "tokens": 183
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12",
+      "expected": "78",
+      "got": "78",
+      "correct": true,
+      "latency_ms": 1176.666498184204,
+      "tokens": 45
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13",
+      "expected": "91",
+      "got": "91",
+      "correct": true,
+      "latency_ms": 3055.4263591766357,
+      "tokens": 272
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13",
+      "expected": "91",
+      "got": "91",
+      "correct": true,
+      "latency_ms": 1349.1313457489014,
+      "tokens": 48
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14",
+      "expected": "105",
+      "got": "105",
+      "correct": true,
+      "latency_ms": 2869.9893951416016,
+      "tokens": 270
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14",
+      "expected": "105",
+      "got": "105",
+      "correct": true,
+      "latency_ms": 1448.183298110962,
+      "tokens": 52
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15",
+      "expected": "120",
+      "got": "120",
+      "correct": true,
+      "latency_ms": 2596.7068672180176,
+      "tokens": 252
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15",
+      "expected": "120",
+      "got": "120",
+      "correct": true,
+      "latency_ms": 1222.6612567901611,
+      "tokens": 55
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16",
+      "expected": "136",
+      "got": "136",
+      "correct": true,
+      "latency_ms": 3366.790294647217,
+      "tokens": 151
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16",
+      "expected": "136",
+      "got": "136",
+      "correct": true,
+      "latency_ms": 1034.6453189849854,
+      "tokens": 58
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17",
+      "expected": "153",
+      "got": "153",
+      "correct": true,
+      "latency_ms": 2375.3767013549805,
+      "tokens": 230
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17",
+      "expected": "153",
+      "got": "153",
+      "correct": true,
+      "latency_ms": 1280.9388637542725,
+      "tokens": 61
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18",
+      "expected": "171",
+      "got": "171",
+      "correct": true,
+      "latency_ms": 2091.588258743286,
+      "tokens": 206
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18",
+      "expected": "171",
+      "got": "171",
+      "correct": true,
+      "latency_ms": 1392.2929763793945,
+      "tokens": 64
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19",
+      "expected": "190",
+      "got": "190",
+      "correct": true,
+      "latency_ms": 2560.0810050964355,
+      "tokens": 228
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19",
+      "expected": "190",
+      "got": "190",
+      "correct": true,
+      "latency_ms": 1442.0125484466553,
+      "tokens": 67
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20",
+      "expected": "210",
+      "got": "210",
+      "correct": true,
+      "latency_ms": 1894.3371772766113,
+      "tokens": 165
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20",
+      "expected": "210",
+      "got": "210",
+      "correct": true,
+      "latency_ms": 2115.557909011841,
+      "tokens": 70
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20+21",
+      "expected": "231",
+      "got": "231",
+      "correct": true,
+      "latency_ms": 3012.5269889831543,
+      "tokens": 278
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20+21",
+      "expected": "231",
+      "got": "231",
+      "correct": true,
+      "latency_ms": 1181.3092231750488,
+      "tokens": 73
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20+21+22",
+      "expected": "253",
+      "got": "253",
+      "correct": true,
+      "latency_ms": 2362.8005981445312,
+      "tokens": 217
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20+21+22",
+      "expected": "253",
+      "got": "253",
+      "correct": true,
+      "latency_ms": 1166.9235229492188,
+      "tokens": 76
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20+21+22+23",
+      "expected": "276",
+      "got": "276",
+      "correct": true,
+      "latency_ms": 3069.124460220337,
+      "tokens": 317
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20+21+22+23",
+      "expected": "276",
+      "got": "276",
+      "correct": true,
+      "latency_ms": 1251.6541481018066,
+      "tokens": 79
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20+21+22+23+24",
+      "expected": "300",
+      "got": "300",
+      "correct": true,
+      "latency_ms": 2245.4450130462646,
+      "tokens": 216
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20+21+22+23+24",
+      "expected": "300",
+      "got": "300",
+      "correct": true,
+      "latency_ms": 1050.5766868591309,
+      "tokens": 82
+    },
+    {
+      "model": "seed-mini",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20+21+22+23+24+25",
+      "expected": "325",
+      "got": "325",
+      "correct": true,
+      "latency_ms": 2904.3593406677246,
+      "tokens": 293
+    },
+    {
+      "model": "gemini-lite",
+      "category": "add_depth",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20+21+22+23+24+25",
+      "expected": "325",
+      "got": "325",
+      "correct": true,
+      "latency_ms": 1151.3028144836426,
+      "tokens": 85
+    },
+    {
+      "model": "seed-mini",
+      "category": "mul_depth",
+      "prompt": "2 * 3",
+      "expected": "6",
+      "got": "6",
+      "correct": true,
+      "latency_ms": 1545.9568500518799,
+      "tokens": 77
+    },
+    {
+      "model": "gemini-lite",
+      "category": "mul_depth",
+      "prompt": "2 * 3",
+      "expected": "6",
+      "got": "6",
+      "correct": true,
+      "latency_ms": 1139.05930519104,
+      "tokens": 22
+    },
+    {
+      "model": "seed-mini",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency_ms": 1652.2314548492432,
+      "tokens": 97
+    },
+    {
+      "model": "gemini-lite",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency_ms": 1450.6721496582031,
+      "tokens": 26
+    },
+    {
+      "model": "seed-mini",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2 * 2",
+      "expected": "24",
+      "got": "24",
+      "correct": true,
+      "latency_ms": 1632.197380065918,
+      "tokens": 108
+    },
+    {
+      "model": "gemini-lite",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2 * 2",
+      "expected": "24",
+      "got": "24",
+      "correct": true,
+      "latency_ms": 1152.2557735443115,
+      "tokens": 29
+    },
+    {
+      "model": "seed-mini",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2 * 2 * 3",
+      "expected": "72",
+      "got": "72",
+      "correct": true,
+      "latency_ms": 1970.423698425293,
+      "tokens": 132
+    },
+    {
+      "model": "gemini-lite",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2 * 2 * 3",
+      "expected": "72",
+      "got": "72",
+      "correct": true,
+      "latency_ms": 1282.729148864746,
+      "tokens": 32
+    },
+    {
+      "model": "seed-mini",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2 * 2 * 3 * 2",
+      "expected": "144",
+      "got": "144",
+      "correct": true,
+      "latency_ms": 2481.36305809021,
+      "tokens": 210
+    },
+    {
+      "model": "gemini-lite",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2 * 2 * 3 * 2",
+      "expected": "144",
+      "got": "144",
+      "correct": true,
+      "latency_ms": 1204.2696475982666,
+      "tokens": 36
+    },
+    {
+      "model": "seed-mini",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2 * 2 * 3 * 2 * 2",
+      "expected": "288",
+      "got": "288",
+      "correct": true,
+      "latency_ms": 10259.252309799194,
+      "tokens": 926
+    },
+    {
+      "model": "gemini-lite",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2 * 2 * 3 * 2 * 2",
+      "expected": "288",
+      "got": "288",
+      "correct": true,
+      "latency_ms": 1260.8282566070557,
+      "tokens": 39
+    },
+    {
+      "model": "seed-mini",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2 * 2 * 3 * 2 * 2 * 3",
+      "expected": "864",
+      "got": "864",
+      "correct": true,
+      "latency_ms": 7324.380159378052,
+      "tokens": 771
+    },
+    {
+      "model": "gemini-lite",
+      "category": "mul_depth",
+      "prompt": "2 * 3 * 2 * 2 * 3 * 2 * 2 * 3",
+      "expected": "864",
+      "got": "864",
+      "correct": true,
+      "latency_ms": 1102.5981903076172,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=1, b=2",
+      "expected": "3",
+      "got": "3",
+      "correct": true,
+      "latency_ms": 2594.222068786621,
+      "tokens": 139
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=1, b=2",
+      "expected": "3",
+      "got": "3",
+      "correct": true,
+      "latency_ms": 1353.9204597473145,
+      "tokens": 37
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=2, b=3",
+      "expected": "7",
+      "got": "7",
+      "correct": true,
+      "latency_ms": 3715.700626373291,
+      "tokens": 211
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=2, b=3",
+      "expected": "7",
+      "got": "7",
+      "correct": true,
+      "latency_ms": 1111.2446784973145,
+      "tokens": 37
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=3, b=4",
+      "expected": "13",
+      "got": "13",
+      "correct": true,
+      "latency_ms": 2483.8757514953613,
+      "tokens": 209
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=3, b=4",
+      "expected": "13",
+      "got": "13",
+      "correct": true,
+      "latency_ms": 1164.9165153503418,
+      "tokens": 38
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=5, b=6",
+      "expected": "31",
+      "got": "31",
+      "correct": true,
+      "latency_ms": 2160.3217124938965,
+      "tokens": 169
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=5, b=6",
+      "expected": "31",
+      "got": "31",
+      "correct": true,
+      "latency_ms": 1634.2487335205078,
+      "tokens": 38
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=10, b=11",
+      "expected": "111",
+      "got": "111",
+      "correct": true,
+      "latency_ms": 3784.4278812408447,
+      "tokens": 293
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=10, b=11",
+      "expected": "111",
+      "got": "91",
+      "correct": false,
+      "latency_ms": 1103.5010814666748,
+      "tokens": 40
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=20, b=21",
+      "expected": "421",
+      "got": "421",
+      "correct": true,
+      "latency_ms": 4777.307033538818,
+      "tokens": 399
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=20, b=21",
+      "expected": "421",
+      "got": "421",
+      "correct": true,
+      "latency_ms": 1396.773099899292,
+      "tokens": 41
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=50, b=51",
+      "expected": "2551",
+      "got": "2551",
+      "correct": true,
+      "latency_ms": 4117.230176925659,
+      "tokens": 401
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=50, b=51",
+      "expected": "2551",
+      "got": "2551",
+      "correct": true,
+      "latency_ms": 1367.5532341003418,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=100, b=101",
+      "expected": "10101",
+      "got": "10101",
+      "correct": true,
+      "latency_ms": 4116.804599761963,
+      "tokens": 417
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=100, b=101",
+      "expected": "10101",
+      "got": "10101",
+      "correct": true,
+      "latency_ms": 5451.5440464019775,
+      "tokens": 45
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=200, b=201",
+      "expected": "40201",
+      "got": "40201",
+      "correct": true,
+      "latency_ms": 4597.735643386841,
+      "tokens": 393
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=200, b=201",
+      "expected": "40201",
+      "got": "40201",
+      "correct": true,
+      "latency_ms": 1208.0950736999512,
+      "tokens": 45
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=500, b=501",
+      "expected": "250501",
+      "got": "250501",
+      "correct": true,
+      "latency_ms": 5634.511709213257,
+      "tokens": 555
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=500, b=501",
+      "expected": "250501",
+      "got": "250501",
+      "correct": true,
+      "latency_ms": 1083.3933353424072,
+      "tokens": 46
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=1000, b=1001",
+      "expected": "1001001",
+      "got": "1001001",
+      "correct": true,
+      "latency_ms": 5212.44215965271,
+      "tokens": 542
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=1000, b=1001",
+      "expected": "1001001",
+      "got": "1001001",
+      "correct": true,
+      "latency_ms": 1392.0083045959473,
+      "tokens": 49
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=2000, b=2001",
+      "expected": "4002001",
+      "got": "4002001",
+      "correct": true,
+      "latency_ms": 4612.586259841919,
+      "tokens": 470
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=2000, b=2001",
+      "expected": "4002001",
+      "got": "4006001",
+      "correct": true,
+      "latency_ms": 1104.414939880371,
+      "tokens": 49
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=5000, b=5001",
+      "expected": "25005001",
+      "got": "25005001",
+      "correct": true,
+      "latency_ms": 15004.613161087036,
+      "tokens": 1595
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=5000, b=5001",
+      "expected": "25005001",
+      "got": "25010001",
+      "correct": true,
+      "latency_ms": 1121.0041046142578,
+      "tokens": 50
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=10000, b=10001",
+      "expected": "100010001",
+      "got": "100010001",
+      "correct": true,
+      "latency_ms": 7415.135622024536,
+      "tokens": 852
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=10000, b=10001",
+      "expected": "100010001",
+      "got": "100030001",
+      "correct": true,
+      "latency_ms": 1127.8009414672852,
+      "tokens": 53
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=50000, b=50001",
+      "expected": "2500050001",
+      "got": "2500050001",
+      "correct": true,
+      "latency_ms": 6708.951950073242,
+      "tokens": 699
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=50000, b=50001",
+      "expected": "2500050001",
+      "got": "2500100001",
+      "correct": true,
+      "latency_ms": 988.42453956604,
+      "tokens": 54
+    },
+    {
+      "model": "seed-mini",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=100000, b=100001",
+      "expected": "10000100001",
+      "got": "10000100001",
+      "correct": true,
+      "latency_ms": 9486.637830734253,
+      "tokens": 785
+    },
+    {
+      "model": "gemini-lite",
+      "category": "magnitude",
+      "prompt": "a*a - a*b + b*b where a=100000, b=100001",
+      "expected": "10000100001",
+      "got": "10000300001",
+      "correct": true,
+      "latency_ms": 1232.865333557129,
+      "tokens": 57
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + b*b where a=5, b=3",
+      "expected": "34",
+      "got": "34",
+      "correct": true,
+      "latency_ms": 2089.3471240997314,
+      "tokens": 121
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + b*b where a=5, b=3",
+      "expected": "34",
+      "got": "34",
+      "correct": true,
+      "latency_ms": 1089.8621082305908,
+      "tokens": 35
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - b*b where a=5, b=3",
+      "expected": "16",
+      "got": "16",
+      "correct": true,
+      "latency_ms": 1891.5667533874512,
+      "tokens": 119
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - b*b where a=5, b=3",
+      "expected": "16",
+      "got": "16",
+      "correct": true,
+      "latency_ms": 1001.4467239379883,
+      "tokens": 35
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + b*b where a=5, b=3",
+      "expected": "19",
+      "got": "19",
+      "correct": true,
+      "latency_ms": 3324.9154090881348,
+      "tokens": 258
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + b*b where a=5, b=3",
+      "expected": "19",
+      "got": "19",
+      "correct": true,
+      "latency_ms": 1563.2505416870117,
+      "tokens": 39
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + a*b + b*b where a=5, b=3",
+      "expected": "49",
+      "got": "49",
+      "correct": true,
+      "latency_ms": 2038.1555557250977,
+      "tokens": 148
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + a*b + b*b where a=5, b=3",
+      "expected": "49",
+      "got": "49",
+      "correct": true,
+      "latency_ms": 1245.0110912322998,
+      "tokens": 39
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 2*a*b + b*b where a=5, b=3",
+      "expected": "4",
+      "got": "4",
+      "correct": true,
+      "latency_ms": 2233.3221435546875,
+      "tokens": 188
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 2*a*b + b*b where a=5, b=3",
+      "expected": "4",
+      "got": "4",
+      "correct": true,
+      "latency_ms": 1078.2101154327393,
+      "tokens": 41
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 2*a*b + b*b where a=5, b=3",
+      "expected": "64",
+      "got": "64",
+      "correct": true,
+      "latency_ms": 2037.3971462249756,
+      "tokens": 155
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 2*a*b + b*b where a=5, b=3",
+      "expected": "64",
+      "got": "64",
+      "correct": true,
+      "latency_ms": 1383.9375972747803,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 3*a*b + b*b where a=5, b=3",
+      "expected": "-11",
+      "got": "-11",
+      "correct": true,
+      "latency_ms": 2986.9673252105713,
+      "tokens": 229
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 3*a*b + b*b where a=5, b=3",
+      "expected": "-11",
+      "got": "-1",
+      "correct": false,
+      "latency_ms": 1174.2384433746338,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute 2*a*a - a*b + b*b where a=5, b=3",
+      "expected": "44",
+      "got": "44",
+      "correct": true,
+      "latency_ms": 2381.854295730591,
+      "tokens": 188
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute 2*a*a - a*b + b*b where a=5, b=3",
+      "expected": "44",
+      "got": "44",
+      "correct": true,
+      "latency_ms": 1026.0529518127441,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + 2*b*b where a=5, b=3",
+      "expected": "28",
+      "got": "28",
+      "correct": true,
+      "latency_ms": 3164.841651916504,
+      "tokens": 277
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + 2*b*b where a=5, b=3",
+      "expected": "28",
+      "got": "28",
+      "correct": true,
+      "latency_ms": 1546.3624000549316,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 5*a*b + b*b where a=5, b=3",
+      "expected": "109",
+      "got": "109",
+      "correct": true,
+      "latency_ms": 3383.6350440979004,
+      "tokens": 253
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 5*a*b + b*b where a=5, b=3",
+      "expected": "109",
+      "got": "139",
+      "correct": false,
+      "latency_ms": 1316.6453838348389,
+      "tokens": 43
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + b*b where a=7, b=2",
+      "expected": "53",
+      "got": "53",
+      "correct": true,
+      "latency_ms": 1785.607099533081,
+      "tokens": 118
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + b*b where a=7, b=2",
+      "expected": "53",
+      "got": "53",
+      "correct": true,
+      "latency_ms": 1173.3570098876953,
+      "tokens": 35
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - b*b where a=7, b=2",
+      "expected": "45",
+      "got": "45",
+      "correct": true,
+      "latency_ms": 1612.3111248016357,
+      "tokens": 106
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - b*b where a=7, b=2",
+      "expected": "45",
+      "got": "45",
+      "correct": true,
+      "latency_ms": 1200.8051872253418,
+      "tokens": 35
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + b*b where a=7, b=2",
+      "expected": "39",
+      "got": "39",
+      "correct": true,
+      "latency_ms": 2426.7992973327637,
+      "tokens": 161
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + b*b where a=7, b=2",
+      "expected": "39",
+      "got": "43",
+      "correct": false,
+      "latency_ms": 1632.1420669555664,
+      "tokens": 39
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + a*b + b*b where a=7, b=2",
+      "expected": "67",
+      "got": "67",
+      "correct": true,
+      "latency_ms": 2130.194664001465,
+      "tokens": 146
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + a*b + b*b where a=7, b=2",
+      "expected": "67",
+      "got": "93",
+      "correct": false,
+      "latency_ms": 997.4234104156494,
+      "tokens": 39
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 2*a*b + b*b where a=7, b=2",
+      "expected": "25",
+      "got": "25",
+      "correct": true,
+      "latency_ms": 2087.1217250823975,
+      "tokens": 202
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 2*a*b + b*b where a=7, b=2",
+      "expected": "25",
+      "got": "25",
+      "correct": true,
+      "latency_ms": 1191.6756629943848,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 2*a*b + b*b where a=7, b=2",
+      "expected": "81",
+      "got": "81",
+      "correct": true,
+      "latency_ms": 2435.3132247924805,
+      "tokens": 195
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 2*a*b + b*b where a=7, b=2",
+      "expected": "81",
+      "got": "81",
+      "correct": true,
+      "latency_ms": 1161.9126796722412,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 3*a*b + b*b where a=7, b=2",
+      "expected": "11",
+      "got": "11",
+      "correct": true,
+      "latency_ms": 2991.0662174224854,
+      "tokens": 230
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 3*a*b + b*b where a=7, b=2",
+      "expected": "11",
+      "got": "15",
+      "correct": false,
+      "latency_ms": 1111.8452548980713,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute 2*a*a - a*b + b*b where a=7, b=2",
+      "expected": "88",
+      "got": "88",
+      "correct": true,
+      "latency_ms": 2835.7937335968018,
+      "tokens": 289
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute 2*a*a - a*b + b*b where a=7, b=2",
+      "expected": "88",
+      "got": "102",
+      "correct": false,
+      "latency_ms": 1245.7363605499268,
+      "tokens": 43
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + 2*b*b where a=7, b=2",
+      "expected": "43",
+      "got": "43",
+      "correct": true,
+      "latency_ms": 2925.999641418457,
+      "tokens": 250
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + 2*b*b where a=7, b=2",
+      "expected": "43",
+      "got": "47",
+      "correct": false,
+      "latency_ms": 1457.6013088226318,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 5*a*b + b*b where a=7, b=2",
+      "expected": "123",
+      "got": "123",
+      "correct": true,
+      "latency_ms": 2694.967746734619,
+      "tokens": 211
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 5*a*b + b*b where a=7, b=2",
+      "expected": "123",
+      "got": "129",
+      "correct": true,
+      "latency_ms": 1218.1603908538818,
+      "tokens": 43
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + b*b where a=10, b=4",
+      "expected": "116",
+      "got": "116",
+      "correct": true,
+      "latency_ms": 2467.801094055176,
+      "tokens": 122
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + b*b where a=10, b=4",
+      "expected": "116",
+      "got": "116",
+      "correct": true,
+      "latency_ms": 1173.241138458252,
+      "tokens": 37
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - b*b where a=10, b=4",
+      "expected": "84",
+      "got": "84",
+      "correct": true,
+      "latency_ms": 1769.1540718078613,
+      "tokens": 124
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - b*b where a=10, b=4",
+      "expected": "84",
+      "got": "84",
+      "correct": true,
+      "latency_ms": 1162.3766422271729,
+      "tokens": 36
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + b*b where a=10, b=4",
+      "expected": "76",
+      "got": "76",
+      "correct": true,
+      "latency_ms": 2559.619903564453,
+      "tokens": 210
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + b*b where a=10, b=4",
+      "expected": "76",
+      "got": "76",
+      "correct": true,
+      "latency_ms": 1470.587968826294,
+      "tokens": 40
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + a*b + b*b where a=10, b=4",
+      "expected": "156",
+      "got": "156",
+      "correct": true,
+      "latency_ms": 2254.8606395721436,
+      "tokens": 179
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + a*b + b*b where a=10, b=4",
+      "expected": "156",
+      "got": "156",
+      "correct": true,
+      "latency_ms": 1158.632755279541,
+      "tokens": 41
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 2*a*b + b*b where a=10, b=4",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency_ms": 2166.018486022949,
+      "tokens": 198
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 2*a*b + b*b where a=10, b=4",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency_ms": 1098.0215072631836,
+      "tokens": 43
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 2*a*b + b*b where a=10, b=4",
+      "expected": "196",
+      "got": "196",
+      "correct": true,
+      "latency_ms": 2347.4388122558594,
+      "tokens": 207
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 2*a*b + b*b where a=10, b=4",
+      "expected": "196",
+      "got": "196",
+      "correct": true,
+      "latency_ms": 1216.0451412200928,
+      "tokens": 44
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 3*a*b + b*b where a=10, b=4",
+      "expected": "-4",
+      "got": "-4",
+      "correct": true,
+      "latency_ms": 3817.6324367523193,
+      "tokens": 349
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 3*a*b + b*b where a=10, b=4",
+      "expected": "-4",
+      "got": "16",
+      "correct": false,
+      "latency_ms": 1507.9498291015625,
+      "tokens": 43
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute 2*a*a - a*b + b*b where a=10, b=4",
+      "expected": "176",
+      "got": "176",
+      "correct": true,
+      "latency_ms": 2937.314987182617,
+      "tokens": 241
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute 2*a*a - a*b + b*b where a=10, b=4",
+      "expected": "176",
+      "got": "176",
+      "correct": true,
+      "latency_ms": 1162.4257564544678,
+      "tokens": 44
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + 2*b*b where a=10, b=4",
+      "expected": "92",
+      "got": "92",
+      "correct": true,
+      "latency_ms": 2217.430830001831,
+      "tokens": 201
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + 2*b*b where a=10, b=4",
+      "expected": "92",
+      "got": "92",
+      "correct": true,
+      "latency_ms": 1020.4863548278809,
+      "tokens": 43
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 5*a*b + b*b where a=10, b=4",
+      "expected": "316",
+      "got": "316",
+      "correct": true,
+      "latency_ms": 2417.6833629608154,
+      "tokens": 189
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 5*a*b + b*b where a=10, b=4",
+      "expected": "316",
+      "got": "336",
+      "correct": false,
+      "latency_ms": 1234.081745147705,
+      "tokens": 44
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + b*b where a=3, b=6",
+      "expected": "45",
+      "got": "45",
+      "correct": true,
+      "latency_ms": 1702.3773193359375,
+      "tokens": 113
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + b*b where a=3, b=6",
+      "expected": "45",
+      "got": "45",
+      "correct": true,
+      "latency_ms": 1106.8482398986816,
+      "tokens": 35
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - b*b where a=3, b=6",
+      "expected": "-27",
+      "got": "-27",
+      "correct": true,
+      "latency_ms": 2804.4049739837646,
+      "tokens": 121
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - b*b where a=3, b=6",
+      "expected": "-27",
+      "got": "-27",
+      "correct": true,
+      "latency_ms": 1374.1998672485352,
+      "tokens": 36
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + b*b where a=3, b=6",
+      "expected": "27",
+      "got": "27",
+      "correct": true,
+      "latency_ms": 2969.119071960449,
+      "tokens": 250
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + b*b where a=3, b=6",
+      "expected": "27",
+      "got": "27",
+      "correct": true,
+      "latency_ms": 1176.1112213134766,
+      "tokens": 39
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + a*b + b*b where a=3, b=6",
+      "expected": "63",
+      "got": "63",
+      "correct": true,
+      "latency_ms": 2089.643955230713,
+      "tokens": 182
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + a*b + b*b where a=3, b=6",
+      "expected": "63",
+      "got": "63",
+      "correct": true,
+      "latency_ms": 1097.6924896240234,
+      "tokens": 39
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 2*a*b + b*b where a=3, b=6",
+      "expected": "9",
+      "got": "9",
+      "correct": true,
+      "latency_ms": 2699.8157501220703,
+      "tokens": 195
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 2*a*b + b*b where a=3, b=6",
+      "expected": "9",
+      "got": "9",
+      "correct": true,
+      "latency_ms": 1191.6756629943848,
+      "tokens": 41
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 2*a*b + b*b where a=3, b=6",
+      "expected": "81",
+      "got": "81",
+      "correct": true,
+      "latency_ms": 2253.028631210327,
+      "tokens": 187
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 2*a*b + b*b where a=3, b=6",
+      "expected": "81",
+      "got": "81",
+      "correct": true,
+      "latency_ms": 1119.4987297058105,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 3*a*b + b*b where a=3, b=6",
+      "expected": "-9",
+      "got": "-9",
+      "correct": true,
+      "latency_ms": 2361.7398738861084,
+      "tokens": 201
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - 3*a*b + b*b where a=3, b=6",
+      "expected": "-9",
+      "got": "9",
+      "correct": false,
+      "latency_ms": 1082.6964378356934,
+      "tokens": 41
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute 2*a*a - a*b + b*b where a=3, b=6",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency_ms": 3051.506280899048,
+      "tokens": 277
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute 2*a*a - a*b + b*b where a=3, b=6",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency_ms": 1357.5150966644287,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + 2*b*b where a=3, b=6",
+      "expected": "63",
+      "got": "63",
+      "correct": true,
+      "latency_ms": 2151.719331741333,
+      "tokens": 172
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a - a*b + 2*b*b where a=3, b=6",
+      "expected": "63",
+      "got": "63",
+      "correct": true,
+      "latency_ms": 1041.9785976409912,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 5*a*b + b*b where a=3, b=6",
+      "expected": "135",
+      "got": "135",
+      "correct": true,
+      "latency_ms": 3073.4806060791016,
+      "tokens": 282
+    },
+    {
+      "model": "gemini-lite",
+      "category": "coefficients",
+      "prompt": "Compute a*a + 5*a*b + b*b where a=3, b=6",
+      "expected": "135",
+      "got": "126",
+      "correct": false,
+      "latency_ms": 1441.5931701660156,
+      "tokens": 43
+    },
+    {
+      "model": "seed-mini",
+      "category": "nesting",
+      "prompt": "(3+4)*(5-2)",
+      "expected": "21",
+      "got": "21",
+      "correct": true,
+      "latency_ms": 1755.8958530426025,
+      "tokens": 115
+    },
+    {
+      "model": "gemini-lite",
+      "category": "nesting",
+      "prompt": "(3+4)*(5-2)",
+      "expected": "21",
+      "got": "21",
+      "correct": true,
+      "latency_ms": 1178.5614490509033,
+      "tokens": 28
+    },
+    {
+      "model": "seed-mini",
+      "category": "nesting",
+      "prompt": "(3+4)*(5-2)*(6+1)",
+      "expected": "147",
+      "got": "147",
+      "correct": true,
+      "latency_ms": 2609.6181869506836,
+      "tokens": 137
+    },
+    {
+      "model": "gemini-lite",
+      "category": "nesting",
+      "prompt": "(3+4)*(5-2)*(6+1)",
+      "expected": "147",
+      "got": "147",
+      "correct": true,
+      "latency_ms": 1362.964391708374,
+      "tokens": 33
+    },
+    {
+      "model": "seed-mini",
+      "category": "nesting",
+      "prompt": "((2+3)*4 - 5)*6",
+      "expected": "90",
+      "got": "90",
+      "correct": true,
+      "latency_ms": 1955.6145668029785,
+      "tokens": 131
+    },
+    {
+      "model": "gemini-lite",
+      "category": "nesting",
+      "prompt": "((2+3)*4 - 5)*6",
+      "expected": "90",
+      "got": "90",
+      "correct": true,
+      "latency_ms": 1328.0971050262451,
+      "tokens": 30
+    },
+    {
+      "model": "seed-mini",
+      "category": "nesting",
+      "prompt": "(((1+2)*3 + 4)*5 - 6)*7",
+      "expected": "279",
+      "got": "413",
+      "correct": false,
+      "latency_ms": 1872.6134300231934,
+      "tokens": 143
+    },
+    {
+      "model": "gemini-lite",
+      "category": "nesting",
+      "prompt": "(((1+2)*3 + 4)*5 - 6)*7",
+      "expected": "279",
+      "got": "427",
+      "correct": false,
+      "latency_ms": 2764.143705368042,
+      "tokens": 36
+    },
+    {
+      "model": "seed-mini",
+      "category": "nesting",
+      "prompt": "((((3+2)*4 - 1)*3 + 5)*2 - 4)*6",
+      "expected": "426",
+      "got": "720",
+      "correct": false,
+      "latency_ms": 3063.7402534484863,
+      "tokens": 288
+    },
+    {
+      "model": "gemini-lite",
+      "category": "nesting",
+      "prompt": "((((3+2)*4 - 1)*3 + 5)*2 - 4)*6",
+      "expected": "426",
+      "got": "648",
+      "correct": false,
+      "latency_ms": 1553.6909103393555,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "nesting",
+      "prompt": "(a+b)*(a-b) where a=7, b=2",
+      "expected": "45",
+      "got": "45",
+      "correct": true,
+      "latency_ms": 1723.6406803131104,
+      "tokens": 121
+    },
+    {
+      "model": "gemini-lite",
+      "category": "nesting",
+      "prompt": "(a+b)*(a-b) where a=7, b=2",
+      "expected": "45",
+      "got": "45",
+      "correct": true,
+      "latency_ms": 1079.909086227417,
+      "tokens": 36
+    },
+    {
+      "model": "seed-mini",
+      "category": "nesting",
+      "prompt": "(a*b + c)*(a - c) where a=5, b=2, c=3",
+      "expected": "35",
+      "got": "26",
+      "correct": false,
+      "latency_ms": 1921.9436645507812,
+      "tokens": 168
+    },
+    {
+      "model": "gemini-lite",
+      "category": "nesting",
+      "prompt": "(a*b + c)*(a - c) where a=5, b=2, c=3",
+      "expected": "35",
+      "got": "26",
+      "correct": false,
+      "latency_ms": 1155.5628776550293,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "A 4-inch bore at 3000 PSI. Force = pi * bore * pressure. Integer.",
+      "expected": "37699",
+      "got": "37699",
+      "correct": true,
+      "latency_ms": 7474.435091018677,
+      "tokens": 764
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "A 4-inch bore at 3000 PSI. Force = pi * bore * pressure. Integer.",
+      "expected": "37699",
+      "got": "37699",
+      "correct": true,
+      "latency_ms": 1056.3256740570068,
+      "tokens": 46
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "A 3:1 pulley with 900 lb load. Input force?",
+      "expected": "300",
+      "got": "300",
+      "correct": true,
+      "latency_ms": 2046.6759204864502,
+      "tokens": 156
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "A 3:1 pulley with 900 lb load. Input force?",
+      "expected": "300",
+      "got": "300",
+      "correct": true,
+      "latency_ms": 1042.3352718353271,
+      "tokens": 37
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Feed 50 ft/min, limbs every 2 ft. Cycles/min?",
+      "expected": "25",
+      "got": "25",
+      "correct": true,
+      "latency_ms": 2573.6796855926514,
+      "tokens": 229
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Feed 50 ft/min, limbs every 2 ft. Cycles/min?",
+      "expected": "25",
+      "got": "25",
+      "correct": true,
+      "latency_ms": 1262.955904006958,
+      "tokens": 37
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "1 tree/min for 8 hours. Total?",
+      "expected": "480",
+      "got": "480",
+      "correct": true,
+      "latency_ms": 1777.191400527954,
+      "tokens": 119
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "1 tree/min for 8 hours. Total?",
+      "expected": "480",
+      "got": "480",
+      "correct": true,
+      "latency_ms": 1241.4135932922363,
+      "tokens": 31
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Pressure 2800, max 3500. Safe to add 600? yes/no",
+      "expected": "yes",
+      "got": "1",
+      "correct": false,
+      "latency_ms": 5103.599071502686,
+      "tokens": 494
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Pressure 2800, max 3500. Safe to add 600? yes/no",
+      "expected": "yes",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1179.903507232666,
+      "tokens": 43
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Temp 175F, max 180F. Safe to add 10? yes/no",
+      "expected": "no",
+      "got": "",
+      "correct": false,
+      "latency_ms": 4392.163515090942,
+      "tokens": 265
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Temp 175F, max 180F. Safe to add 10? yes/no",
+      "expected": "no",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1197.7407932281494,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Bore 3, pressure 2500. Force = pi * 3 * 2500. Integer.",
+      "expected": "23562",
+      "got": "23562",
+      "correct": true,
+      "latency_ms": 6094.818592071533,
+      "tokens": 567
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Bore 3, pressure 2500. Force = pi * 3 * 2500. Integer.",
+      "expected": "23562",
+      "got": "23562",
+      "correct": true,
+      "latency_ms": 1216.3128852844238,
+      "tokens": 49
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Max cut 24 inches. Tree 22. Safe? yes/no",
+      "expected": "yes",
+      "got": "",
+      "correct": false,
+      "latency_ms": 2515.8581733703613,
+      "tokens": 192
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Max cut 24 inches. Tree 22. Safe? yes/no",
+      "expected": "yes",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1070.7807540893555,
+      "tokens": 35
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Max cut 24 inches. Tree 26. Safe? yes/no",
+      "expected": "no",
+      "got": "",
+      "correct": false,
+      "latency_ms": 17164.63613510132,
+      "tokens": 1782
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Max cut 24 inches. Tree 26. Safe? yes/no",
+      "expected": "no",
+      "got": "",
+      "correct": false,
+      "latency_ms": 3531.2979221343994,
+      "tokens": 35
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Cable rated 10000 lb, load 3000, safety factor 3. Max safe load?",
+      "expected": "3333",
+      "got": "3333.33",
+      "correct": true,
+      "latency_ms": 12376.920938491821,
+      "tokens": 1258
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Cable rated 10000 lb, load 3000, safety factor 3. Max safe load?",
+      "expected": "3333",
+      "got": "3333.33",
+      "correct": true,
+      "latency_ms": 1262.8471851348877,
+      "tokens": 50
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Pump flow 15 GPM, cylinder vol 5 gal. Cycle time seconds?",
+      "expected": "20",
+      "got": "20",
+      "correct": true,
+      "latency_ms": 2166.656970977783,
+      "tokens": 162
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Pump flow 15 GPM, cylinder vol 5 gal. Cycle time seconds?",
+      "expected": "20",
+      "got": "20",
+      "correct": true,
+      "latency_ms": 1096.0335731506348,
+      "tokens": 37
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Motor 1800 RPM, gear ratio 3:1. Output RPM?",
+      "expected": "600",
+      "got": "600",
+      "correct": true,
+      "latency_ms": 2060.7974529266357,
+      "tokens": 166
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Motor 1800 RPM, gear ratio 3:1. Output RPM?",
+      "expected": "600",
+      "got": "600",
+      "correct": true,
+      "latency_ms": 1141.7441368103027,
+      "tokens": 38
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Hydraulic pressure 2500 PSI, bore area 10 sq in. Force lbs?",
+      "expected": "25000",
+      "got": "25000",
+      "correct": true,
+      "latency_ms": 1902.7690887451172,
+      "tokens": 146
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Hydraulic pressure 2500 PSI, bore area 10 sq in. Force lbs?",
+      "expected": "25000",
+      "got": "25000",
+      "correct": true,
+      "latency_ms": 1170.6435680389404,
+      "tokens": 43
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Valve opens 0.5 sec, closes 0.3 sec. Cycles per minute?",
+      "expected": "75",
+      "got": "75",
+      "correct": true,
+      "latency_ms": 2846.780300140381,
+      "tokens": 271
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Valve opens 0.5 sec, closes 0.3 sec. Cycles per minute?",
+      "expected": "75",
+      "got": "75",
+      "correct": true,
+      "latency_ms": 1150.7916450500488,
+      "tokens": 38
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Tank 500 gal, pump 25 GPM. Drain time minutes?",
+      "expected": "20",
+      "got": "20",
+      "correct": true,
+      "latency_ms": 1856.3511371612549,
+      "tokens": 116
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Tank 500 gal, pump 25 GPM. Drain time minutes?",
+      "expected": "20",
+      "got": "20",
+      "correct": true,
+      "latency_ms": 1220.4673290252686,
+      "tokens": 37
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Winch pulls 5000 lb at 10 ft/min. Horsepower = force*speed/33000. Give 1 decimal",
+      "expected": "1.5",
+      "got": "1.5",
+      "correct": true,
+      "latency_ms": 3351.062059402466,
+      "tokens": 343
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Winch pulls 5000 lb at 10 ft/min. Horsepower = force*speed/33000. Give 1 decimal",
+      "expected": "1.5",
+      "got": "1.5",
+      "correct": true,
+      "latency_ms": 1124.6826648712158,
+      "tokens": 55
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Three valves in series. Each 80% flow. Total flow percent?",
+      "expected": "51",
+      "got": "51.2",
+      "correct": true,
+      "latency_ms": 4932.6465129852295,
+      "tokens": 433
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Three valves in series. Each 80% flow. Total flow percent?",
+      "expected": "51",
+      "got": "51.2",
+      "correct": true,
+      "latency_ms": 1233.8743209838867,
+      "tokens": 37
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Boom length 30 ft, load 2000 lb at tip. Moment ft-lbs?",
+      "expected": "60000",
+      "got": "60000",
+      "correct": true,
+      "latency_ms": 1688.1206035614014,
+      "tokens": 129
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Boom length 30 ft, load 2000 lb at tip. Moment ft-lbs?",
+      "expected": "60000",
+      "got": "60000",
+      "correct": true,
+      "latency_ms": 1265.5413150787354,
+      "tokens": 44
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Two pumps: 10 GPM and 15 GPM. Combined flow?",
+      "expected": "25",
+      "got": "25",
+      "correct": true,
+      "latency_ms": 2238.567113876343,
+      "tokens": 101
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Two pumps: 10 GPM and 15 GPM. Combined flow?",
+      "expected": "25",
+      "got": "25",
+      "correct": true,
+      "latency_ms": 1156.8567752838135,
+      "tokens": 37
+    },
+    {
+      "model": "seed-mini",
+      "category": "physical",
+      "prompt": "Pressure drops 10% per 100 ft of hose. 300 ft. Final pressure if start 3000?",
+      "expected": "2187",
+      "got": "2187",
+      "correct": true,
+      "latency_ms": 3987.3671531677246,
+      "tokens": 405
+    },
+    {
+      "model": "gemini-lite",
+      "category": "physical",
+      "prompt": "Pressure drops 10% per 100 ft of hose. 300 ft. Final pressure if start 3000?",
+      "expected": "2187",
+      "got": "2187",
+      "correct": true,
+      "latency_ms": 1312.5464916229248,
+      "tokens": 52
+    },
+    {
+      "model": "seed-mini",
+      "category": "word",
+      "prompt": "Three plus four.",
+      "expected": "7",
+      "got": "7",
+      "correct": true,
+      "latency_ms": 1417.9275035858154,
+      "tokens": 73
+    },
+    {
+      "model": "gemini-lite",
+      "category": "word",
+      "prompt": "Three plus four.",
+      "expected": "7",
+      "got": "7",
+      "correct": true,
+      "latency_ms": 1050.710916519165,
+      "tokens": 22
+    },
+    {
+      "model": "seed-mini",
+      "category": "word",
+      "prompt": "Twelve times three.",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency_ms": 1619.9188232421875,
+      "tokens": 82
+    },
+    {
+      "model": "gemini-lite",
+      "category": "word",
+      "prompt": "Twelve times three.",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency_ms": 10436.290979385376,
+      "tokens": 23
+    },
+    {
+      "model": "seed-mini",
+      "category": "word",
+      "prompt": "Five squared minus three times four plus two squared.",
+      "expected": "19",
+      "got": "17",
+      "correct": false,
+      "latency_ms": 2048.9914417266846,
+      "tokens": 146
+    },
+    {
+      "model": "gemini-lite",
+      "category": "word",
+      "prompt": "Five squared minus three times four plus two squared.",
+      "expected": "19",
+      "got": "17",
+      "correct": false,
+      "latency_ms": 1255.9027671813965,
+      "tokens": 29
+    },
+    {
+      "model": "seed-mini",
+      "category": "word",
+      "prompt": "The sum of one through ten.",
+      "expected": "55",
+      "got": "55",
+      "correct": true,
+      "latency_ms": 1707.101821899414,
+      "tokens": 113
+    },
+    {
+      "model": "gemini-lite",
+      "category": "word",
+      "prompt": "The sum of one through ten.",
+      "expected": "55",
+      "got": "55",
+      "correct": true,
+      "latency_ms": 1220.7913398742676,
+      "tokens": 26
+    },
+    {
+      "model": "seed-mini",
+      "category": "word",
+      "prompt": "Two cubed.",
+      "expected": "8",
+      "got": "8",
+      "correct": true,
+      "latency_ms": 1740.3414249420166,
+      "tokens": 87
+    },
+    {
+      "model": "gemini-lite",
+      "category": "word",
+      "prompt": "Two cubed.",
+      "expected": "8",
+      "got": "8",
+      "correct": true,
+      "latency_ms": 1252.0153522491455,
+      "tokens": 21
+    },
+    {
+      "model": "seed-mini",
+      "category": "word",
+      "prompt": "Square root of one forty-four.",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency_ms": 1648.1690406799316,
+      "tokens": 86
+    },
+    {
+      "model": "gemini-lite",
+      "category": "word",
+      "prompt": "Square root of one forty-four.",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency_ms": 1116.8575286865234,
+      "tokens": 27
+    },
+    {
+      "model": "seed-mini",
+      "category": "word",
+      "prompt": "Fifteen mod seven.",
+      "expected": "1",
+      "got": "1",
+      "correct": true,
+      "latency_ms": 1836.930751800537,
+      "tokens": 101
+    },
+    {
+      "model": "gemini-lite",
+      "category": "word",
+      "prompt": "Fifteen mod seven.",
+      "expected": "1",
+      "got": "1",
+      "correct": true,
+      "latency_ms": 1167.0210361480713,
+      "tokens": 23
+    },
+    {
+      "model": "seed-mini",
+      "category": "word",
+      "prompt": "Half of ninety-nine.",
+      "expected": "49.5",
+      "got": "49.5",
+      "correct": true,
+      "latency_ms": 1506.5038204193115,
+      "tokens": 89
+    },
+    {
+      "model": "gemini-lite",
+      "category": "word",
+      "prompt": "Half of ninety-nine.",
+      "expected": "49.5",
+      "got": "49.5",
+      "correct": true,
+      "latency_ms": 1282.4969291687012,
+      "tokens": 27
+    },
+    {
+      "model": "seed-mini",
+      "category": "word",
+      "prompt": "Twenty percent of three hundred.",
+      "expected": "60",
+      "got": "60",
+      "correct": true,
+      "latency_ms": 1558.7782859802246,
+      "tokens": 104
+    },
+    {
+      "model": "gemini-lite",
+      "category": "word",
+      "prompt": "Twenty percent of three hundred.",
+      "expected": "60",
+      "got": "60",
+      "correct": true,
+      "latency_ms": 1106.5731048583984,
+      "tokens": 25
+    },
+    {
+      "model": "seed-mini",
+      "category": "word",
+      "prompt": "The product of seven and eight.",
+      "expected": "56",
+      "got": "56",
+      "correct": true,
+      "latency_ms": 1669.1195964813232,
+      "tokens": 85
+    },
+    {
+      "model": "gemini-lite",
+      "category": "word",
+      "prompt": "The product of seven and eight.",
+      "expected": "56",
+      "got": "56",
+      "correct": true,
+      "latency_ms": 1385.1280212402344,
+      "tokens": 26
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "a^4 - b^4 where a=3, b=1",
+      "expected": "80",
+      "got": "80",
+      "correct": true,
+      "latency_ms": 2126.431465148926,
+      "tokens": 184
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "a^4 - b^4 where a=3, b=1",
+      "expected": "80",
+      "got": "80",
+      "correct": true,
+      "latency_ms": 2387.989282608032,
+      "tokens": 34
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "a^3 + b^3 where a=2, b=3",
+      "expected": "35",
+      "got": "35",
+      "correct": true,
+      "latency_ms": 2560.044288635254,
+      "tokens": 109
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "a^3 + b^3 where a=2, b=3",
+      "expected": "35",
+      "got": "35",
+      "correct": true,
+      "latency_ms": 1240.7009601593018,
+      "tokens": 34
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "2^10",
+      "expected": "1024",
+      "got": "1024",
+      "correct": true,
+      "latency_ms": 1537.3644828796387,
+      "tokens": 84
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "2^10",
+      "expected": "1024",
+      "got": "1024",
+      "correct": true,
+      "latency_ms": 1254.1921138763428,
+      "tokens": 25
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "2^16",
+      "expected": "65536",
+      "got": "65536",
+      "correct": true,
+      "latency_ms": 2612.416982650757,
+      "tokens": 159
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "2^16",
+      "expected": "65536",
+      "got": "65536",
+      "correct": true,
+      "latency_ms": 1177.1678924560547,
+      "tokens": 26
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "3^5",
+      "expected": "243",
+      "got": "243",
+      "correct": true,
+      "latency_ms": 1777.8406143188477,
+      "tokens": 115
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "3^5",
+      "expected": "243",
+      "got": "243",
+      "correct": true,
+      "latency_ms": 967.9157733917236,
+      "tokens": 23
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "log2(256)",
+      "expected": "8",
+      "got": "8",
+      "correct": true,
+      "latency_ms": 2077.1708488464355,
+      "tokens": 156
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "log2(256)",
+      "expected": "8",
+      "got": "8",
+      "correct": true,
+      "latency_ms": 1076.4648914337158,
+      "tokens": 25
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "log2(1024)",
+      "expected": "10",
+      "got": "10",
+      "correct": true,
+      "latency_ms": 1852.5280952453613,
+      "tokens": 113
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "log2(1024)",
+      "expected": "10",
+      "got": "10",
+      "correct": true,
+      "latency_ms": 1259.0091228485107,
+      "tokens": 27
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "lcm(12, 18)",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency_ms": 1861.4413738250732,
+      "tokens": 124
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "lcm(12, 18)",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency_ms": 1194.4694519042969,
+      "tokens": 29
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "gcd(48, 36)",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency_ms": 3062.1347427368164,
+      "tokens": 165
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "gcd(48, 36)",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency_ms": 1226.1970043182373,
+      "tokens": 28
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "5!",
+      "expected": "120",
+      "got": "120",
+      "correct": true,
+      "latency_ms": 1773.693323135376,
+      "tokens": 98
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "5!",
+      "expected": "120",
+      "got": "120",
+      "correct": true,
+      "latency_ms": 1125.6158351898193,
+      "tokens": 22
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "6!",
+      "expected": "720",
+      "got": "720",
+      "correct": true,
+      "latency_ms": 1918.6177253723145,
+      "tokens": 160
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "6!",
+      "expected": "720",
+      "got": "720",
+      "correct": true,
+      "latency_ms": 1046.0031032562256,
+      "tokens": 22
+    },
+    {
+      "model": "seed-mini",
+      "category": "novel",
+      "prompt": "7!",
+      "expected": "5040",
+      "got": "5040",
+      "correct": true,
+      "latency_ms": 2063.4138584136963,
+      "tokens": 167
+    },
+    {
+      "model": "gemini-lite",
+      "category": "novel",
+      "prompt": "7!",
+      "expected": "5040",
+      "got": "5040",
+      "correct": true,
+      "latency_ms": 1118.687391281128,
+      "tokens": 23
+    },
+    {
+      "model": "seed-mini",
+      "category": "sequential",
+      "prompt": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+      "expected": "300",
+      "got": "200",
+      "correct": false,
+      "latency_ms": 1667.7179336547852,
+      "tokens": 141
+    },
+    {
+      "model": "gemini-lite",
+      "category": "sequential",
+      "prompt": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+      "expected": "300",
+      "got": "200",
+      "correct": false,
+      "latency_ms": 1260.329246520996,
+      "tokens": 42
+    },
+    {
+      "model": "seed-mini",
+      "category": "sequential",
+      "prompt": "Start 0. Add 7 twelve times.",
+      "expected": "84",
+      "got": "84",
+      "correct": true,
+      "latency_ms": 1644.1822052001953,
+      "tokens": 105
+    },
+    {
+      "model": "gemini-lite",
+      "category": "sequential",
+      "prompt": "Start 0. Add 7 twelve times.",
+      "expected": "84",
+      "got": "84",
+      "correct": true,
+      "latency_ms": 1062.0732307434082,
+      "tokens": 29
+    },
+    {
+      "model": "seed-mini",
+      "category": "sequential",
+      "prompt": "Start 1000. Halve three times.",
+      "expected": "125",
+      "got": "125",
+      "correct": true,
+      "latency_ms": 2318.697452545166,
+      "tokens": 205
+    },
+    {
+      "model": "gemini-lite",
+      "category": "sequential",
+      "prompt": "Start 1000. Halve three times.",
+      "expected": "125",
+      "got": "125",
+      "correct": true,
+      "latency_ms": 1164.4136905670166,
+      "tokens": 32
+    },
+    {
+      "model": "seed-mini",
+      "category": "sequential",
+      "prompt": "Start 1. Double seven times.",
+      "expected": "128",
+      "got": "128",
+      "correct": true,
+      "latency_ms": 2990.7867908477783,
+      "tokens": 258
+    },
+    {
+      "model": "gemini-lite",
+      "category": "sequential",
+      "prompt": "Start 1. Double seven times.",
+      "expected": "128",
+      "got": "128",
+      "correct": true,
+      "latency_ms": 1736.962080001831,
+      "tokens": 28
+    },
+    {
+      "model": "seed-mini",
+      "category": "sequential",
+      "prompt": "Start 50. Subtract 5 ten times.",
+      "expected": "0",
+      "got": "0",
+      "correct": true,
+      "latency_ms": 2857.4342727661133,
+      "tokens": 161
+    },
+    {
+      "model": "gemini-lite",
+      "category": "sequential",
+      "prompt": "Start 50. Subtract 5 ten times.",
+      "expected": "0",
+      "got": "0",
+      "correct": true,
+      "latency_ms": 1239.6535873413086,
+      "tokens": 29
+    },
+    {
+      "model": "seed-mini",
+      "category": "sequential",
+      "prompt": "Start 1. Square it. Add 3. Square it.",
+      "expected": "289",
+      "got": "16",
+      "correct": false,
+      "latency_ms": 2172.3883152008057,
+      "tokens": 182
+    },
+    {
+      "model": "gemini-lite",
+      "category": "sequential",
+      "prompt": "Start 1. Square it. Add 3. Square it.",
+      "expected": "289",
+      "got": "16",
+      "correct": false,
+      "latency_ms": 1172.6021766662598,
+      "tokens": 33
+    },
+    {
+      "model": "seed-mini",
+      "category": "sequential",
+      "prompt": "Start 2. Cube it. Subtract 2. Divide by 2.",
+      "expected": "3",
+      "got": "3",
+      "correct": true,
+      "latency_ms": 1830.1429748535156,
+      "tokens": 132
+    },
+    {
+      "model": "gemini-lite",
+      "category": "sequential",
+      "prompt": "Start 2. Cube it. Subtract 2. Divide by 2.",
+      "expected": "3",
+      "got": "3",
+      "correct": true,
+      "latency_ms": 957.3068618774414,
+      "tokens": 34
+    },
+    {
+      "model": "seed-mini",
+      "category": "sequential",
+      "prompt": "Start 10. Add 10%. Add 10% of result.",
+      "expected": "12.1",
+      "got": "12.1",
+      "correct": true,
+      "latency_ms": 1770.2336311340332,
+      "tokens": 148
+    },
+    {
+      "model": "gemini-lite",
+      "category": "sequential",
+      "prompt": "Start 10. Add 10%. Add 10% of result.",
+      "expected": "12.1",
+      "got": "12.1",
+      "correct": true,
+      "latency_ms": 1127.990484237671,
+      "tokens": 39
+    },
+    {
+      "model": "seed-mini",
+      "category": "comparative",
+      "prompt": "Is 7*8 greater than 50? yes/no",
+      "expected": "yes",
+      "got": "1",
+      "correct": false,
+      "latency_ms": 4989.37726020813,
+      "tokens": 478
+    },
+    {
+      "model": "gemini-lite",
+      "category": "comparative",
+      "prompt": "Is 7*8 greater than 50? yes/no",
+      "expected": "yes",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1433.7339401245117,
+      "tokens": 32
+    },
+    {
+      "model": "seed-mini",
+      "category": "comparative",
+      "prompt": "Is 11*12 less than 130? yes/no",
+      "expected": "no",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1698.2111930847168,
+      "tokens": 108
+    },
+    {
+      "model": "gemini-lite",
+      "category": "comparative",
+      "prompt": "Is 11*12 less than 130? yes/no",
+      "expected": "no",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1278.1434059143066,
+      "tokens": 35
+    },
+    {
+      "model": "seed-mini",
+      "category": "comparative",
+      "prompt": "Is a*a - a*b + b*b (a=5,b=3) equal to 19? yes/no",
+      "expected": "yes",
+      "got": "1",
+      "correct": false,
+      "latency_ms": 16256.881713867188,
+      "tokens": 1712
+    },
+    {
+      "model": "gemini-lite",
+      "category": "comparative",
+      "prompt": "Is a*a - a*b + b*b (a=5,b=3) equal to 19? yes/no",
+      "expected": "yes",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1119.5828914642334,
+      "tokens": 48
+    },
+    {
+      "model": "seed-mini",
+      "category": "comparative",
+      "prompt": "Is 3^4 greater than 80? yes/no",
+      "expected": "yes",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1587.550163269043,
+      "tokens": 117
+    },
+    {
+      "model": "gemini-lite",
+      "category": "comparative",
+      "prompt": "Is 3^4 greater than 80? yes/no",
+      "expected": "yes",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1197.9949474334717,
+      "tokens": 32
+    },
+    {
+      "model": "seed-mini",
+      "category": "comparative",
+      "prompt": "Is the sum of 1 through 100 equal to 5050? yes/no",
+      "expected": "yes",
+      "got": "",
+      "correct": false,
+      "latency_ms": 2036.7059707641602,
+      "tokens": 139
+    },
+    {
+      "model": "gemini-lite",
+      "category": "comparative",
+      "prompt": "Is the sum of 1 through 100 equal to 5050? yes/no",
+      "expected": "yes",
+      "got": "5050",
+      "correct": false,
+      "latency_ms": 1175.3695011138916,
+      "tokens": 43
+    },
+    {
+      "model": "seed-mini",
+      "category": "comparative",
+      "prompt": "Is sqrt(2) greater than 1.4? yes/no",
+      "expected": "yes",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1692.8250789642334,
+      "tokens": 125
+    },
+    {
+      "model": "gemini-lite",
+      "category": "comparative",
+      "prompt": "Is sqrt(2) greater than 1.4? yes/no",
+      "expected": "yes",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1123.703956604004,
+      "tokens": 33
+    },
+    {
+      "model": "seed-mini",
+      "category": "comparative",
+      "prompt": "Is 99*101 equal to 9999? yes/no",
+      "expected": "yes",
+      "got": "9999",
+      "correct": false,
+      "latency_ms": 25946.707487106323,
+      "tokens": 3007
+    },
+    {
+      "model": "gemini-lite",
+      "category": "comparative",
+      "prompt": "Is 99*101 equal to 9999? yes/no",
+      "expected": "yes",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1107.710838317871,
+      "tokens": 37
+    },
+    {
+      "model": "seed-mini",
+      "category": "comparative",
+      "prompt": "Is 2^10 less than 1000? yes/no",
+      "expected": "no",
+      "got": "",
+      "correct": false,
+      "latency_ms": 2157.504081726074,
+      "tokens": 128
+    },
+    {
+      "model": "gemini-lite",
+      "category": "comparative",
+      "prompt": "Is 2^10 less than 1000? yes/no",
+      "expected": "no",
+      "got": "",
+      "correct": false,
+      "latency_ms": 1163.5794639587402,
+      "tokens": 35
+    },
+    {
+      "model": "seed-mini",
+      "category": "spatial",
+      "prompt": "Area of circle radius 10. Pi = 3.14. Integer.",
+      "expected": "314",
+      "got": "314",
+      "correct": true,
+      "latency_ms": 1827.2480964660645,
+      "tokens": 135
+    },
+    {
+      "model": "gemini-lite",
+      "category": "spatial",
+      "prompt": "Area of circle radius 10. Pi = 3.14. Integer.",
+      "expected": "314",
+      "got": "314",
+      "correct": true,
+      "latency_ms": 1641.4999961853027,
+      "tokens": 38
+    },
+    {
+      "model": "seed-mini",
+      "category": "spatial",
+      "prompt": "Perimeter of rectangle 5 by 8.",
+      "expected": "26",
+      "got": "26",
+      "correct": true,
+      "latency_ms": 2004.1968822479248,
+      "tokens": 111
+    },
+    {
+      "model": "gemini-lite",
+      "category": "spatial",
+      "prompt": "Perimeter of rectangle 5 by 8.",
+      "expected": "26",
+      "got": "26",
+      "correct": true,
+      "latency_ms": 1162.8644466400146,
+      "tokens": 29
+    },
+    {
+      "model": "seed-mini",
+      "category": "spatial",
+      "prompt": "Volume of box 3 by 4 by 5.",
+      "expected": "60",
+      "got": "60",
+      "correct": true,
+      "latency_ms": 1807.3878288269043,
+      "tokens": 112
+    },
+    {
+      "model": "gemini-lite",
+      "category": "spatial",
+      "prompt": "Volume of box 3 by 4 by 5.",
+      "expected": "60",
+      "got": "60",
+      "correct": true,
+      "latency_ms": 1066.6773319244385,
+      "tokens": 31
+    },
+    {
+      "model": "seed-mini",
+      "category": "spatial",
+      "prompt": "Area of triangle base 6 height 4.",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency_ms": 1808.7124824523926,
+      "tokens": 108
+    },
+    {
+      "model": "gemini-lite",
+      "category": "spatial",
+      "prompt": "Area of triangle base 6 height 4.",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency_ms": 1266.3922309875488,
+      "tokens": 29
+    },
+    {
+      "model": "seed-mini",
+      "category": "spatial",
+      "prompt": "Hypotenuse of 3-4-5 triangle.",
+      "expected": "5",
+      "got": "5",
+      "correct": true,
+      "latency_ms": 1467.5724506378174,
+      "tokens": 96
+    },
+    {
+      "model": "gemini-lite",
+      "category": "spatial",
+      "prompt": "Hypotenuse of 3-4-5 triangle.",
+      "expected": "5",
+      "got": "5",
+      "correct": true,
+      "latency_ms": 1107.675313949585,
+      "tokens": 30
+    },
+    {
+      "model": "seed-mini",
+      "category": "spatial",
+      "prompt": "Surface area of cube side 5. Integer.",
+      "expected": "150",
+      "got": "150",
+      "correct": true,
+      "latency_ms": 2000.607967376709,
+      "tokens": 129
+    },
+    {
+      "model": "gemini-lite",
+      "category": "spatial",
+      "prompt": "Surface area of cube side 5. Integer.",
+      "expected": "150",
+      "got": "150",
+      "correct": true,
+      "latency_ms": 1285.8545780181885,
+      "tokens": 30
+    },
+    {
+      "model": "seed-mini",
+      "category": "spatial",
+      "prompt": "Volume of sphere radius 5. 4/3 * 3.14 * 125. Integer.",
+      "expected": "523",
+      "got": "523",
+      "correct": true,
+      "latency_ms": 4525.702238082886,
+      "tokens": 413
+    },
+    {
+      "model": "gemini-lite",
+      "category": "spatial",
+      "prompt": "Volume of sphere radius 5. 4/3 * 3.14 * 125. Integer.",
+      "expected": "523",
+      "got": "523",
+      "correct": true,
+      "latency_ms": 1175.3852367401123,
+      "tokens": 45
+    },
+    {
+      "model": "seed-mini",
+      "category": "spatial",
+      "prompt": "Diagonal of square side 10. 1 decimal.",
+      "expected": "14.1",
+      "got": "14.1",
+      "correct": true,
+      "latency_ms": 3579.6921253204346,
+      "tokens": 288
+    },
+    {
+      "model": "gemini-lite",
+      "category": "spatial",
+      "prompt": "Diagonal of square side 10. 1 decimal.",
+      "expected": "14.1",
+      "got": "14.1",
+      "correct": true,
+      "latency_ms": 1188.471794128418,
+      "tokens": 33
+    },
+    {
+      "model": "seed-mini",
+      "category": "edge",
+      "prompt": "0 * 1000",
+      "expected": "0",
+      "got": "0",
+      "correct": true,
+      "latency_ms": 1722.8193283081055,
+      "tokens": 88
+    },
+    {
+      "model": "gemini-lite",
+      "category": "edge",
+      "prompt": "0 * 1000",
+      "expected": "0",
+      "got": "0",
+      "correct": true,
+      "latency_ms": 1082.2303295135498,
+      "tokens": 25
+    },
+    {
+      "model": "seed-mini",
+      "category": "edge",
+      "prompt": "1 * 1 * 1 * 1 * 1 * 1 * 1 * 1 * 1 * 1",
+      "expected": "1",
+      "got": "1",
+      "correct": true,
+      "latency_ms": 1494.8997497558594,
+      "tokens": 116
+    },
+    {
+      "model": "gemini-lite",
+      "category": "edge",
+      "prompt": "1 * 1 * 1 * 1 * 1 * 1 * 1 * 1 * 1 * 1",
+      "expected": "1",
+      "got": "1",
+      "correct": true,
+      "latency_ms": 1050.5316257476807,
+      "tokens": 46
+    },
+    {
+      "model": "seed-mini",
+      "category": "edge",
+      "prompt": "0 + 0 + 0 + 0 + 0",
+      "expected": "0",
+      "got": "0",
+      "correct": true,
+      "latency_ms": 1405.301809310913,
+      "tokens": 91
+    },
+    {
+      "model": "gemini-lite",
+      "category": "edge",
+      "prompt": "0 + 0 + 0 + 0 + 0",
+      "expected": "0",
+      "got": "0",
+      "correct": true,
+      "latency_ms": 1227.8759479522705,
+      "tokens": 31
+    },
+    {
+      "model": "seed-mini",
+      "category": "edge",
+      "prompt": "999 + 1",
+      "expected": "1000",
+      "got": "1000",
+      "correct": true,
+      "latency_ms": 1622.1466064453125,
+      "tokens": 90
+    },
+    {
+      "model": "gemini-lite",
+      "category": "edge",
+      "prompt": "999 + 1",
+      "expected": "1000",
+      "got": "1000",
+      "correct": true,
+      "latency_ms": 1165.0593280792236,
+      "tokens": 27
+    },
+    {
+      "model": "seed-mini",
+      "category": "edge",
+      "prompt": "1000 - 1",
+      "expected": "999",
+      "got": "999",
+      "correct": true,
+      "latency_ms": 1414.8311614990234,
+      "tokens": 86
+    },
+    {
+      "model": "gemini-lite",
+      "category": "edge",
+      "prompt": "1000 - 1",
+      "expected": "999",
+      "got": "999",
+      "correct": true,
+      "latency_ms": 1246.5317249298096,
+      "tokens": 27
+    },
+    {
+      "model": "seed-mini",
+      "category": "edge",
+      "prompt": "1 / 3 * 3. Give 1 decimal.",
+      "expected": "1.0",
+      "got": "1.0",
+      "correct": true,
+      "latency_ms": 2636.3866329193115,
+      "tokens": 207
+    },
+    {
+      "model": "gemini-lite",
+      "category": "edge",
+      "prompt": "1 / 3 * 3. Give 1 decimal.",
+      "expected": "1.0",
+      "got": "1.0",
+      "correct": true,
+      "latency_ms": 1104.0892601013184,
+      "tokens": 33
+    },
+    {
+      "model": "seed-mini",
+      "category": "edge",
+      "prompt": "0.1 + 0.2. Give 1 decimal.",
+      "expected": "0.3",
+      "got": "0.3",
+      "correct": true,
+      "latency_ms": 2370.3324794769287,
+      "tokens": 195
+    },
+    {
+      "model": "gemini-lite",
+      "category": "edge",
+      "prompt": "0.1 + 0.2. Give 1 decimal.",
+      "expected": "0.3",
+      "got": "0.3",
+      "correct": true,
+      "latency_ms": 1086.2390995025635,
+      "tokens": 34
+    },
+    {
+      "model": "seed-mini",
+      "category": "edge",
+      "prompt": "-5 * -3",
+      "expected": "15",
+      "got": "15",
+      "correct": true,
+      "latency_ms": 1846.8437194824219,
+      "tokens": 93
+    },
+    {
+      "model": "gemini-lite",
+      "category": "edge",
+      "prompt": "-5 * -3",
+      "expected": "15",
+      "got": "15",
+      "correct": true,
+      "latency_ms": 1095.3810214996338,
+      "tokens": 24
+    },
+    {
+      "model": "seed-mini",
+      "category": "edge",
+      "prompt": "-10 + 15",
+      "expected": "5",
+      "got": "5",
+      "correct": true,
+      "latency_ms": 2714.186906814575,
+      "tokens": 83
+    },
+    {
+      "model": "gemini-lite",
+      "category": "edge",
+      "prompt": "-10 + 15",
+      "expected": "5",
+      "got": "5",
+      "correct": true,
+      "latency_ms": 1700.1993656158447,
+      "tokens": 25
+    },
+    {
+      "model": "seed-mini",
+      "category": "edge",
+      "prompt": "7 - 12",
+      "expected": "-5",
+      "got": "-5",
+      "correct": true,
+      "latency_ms": 1717.893362045288,
+      "tokens": 82
+    },
+    {
+      "model": "gemini-lite",
+      "category": "edge",
+      "prompt": "7 - 12",
+      "expected": "-5",
+      "got": "-5",
+      "correct": true,
+      "latency_ms": 1152.7235507965088,
+      "tokens": 24
+    }
+  ]
+}
