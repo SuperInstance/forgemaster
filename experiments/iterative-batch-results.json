@@ -1,0 +1,1024 @@
+{
+  "r1_scale": [
+    {
+      "model": "qwen-0.8b",
+      "prompt": "3 + 4",
+      "expected": "7",
+      "got": "7",
+      "correct": true,
+      "latency": 437
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "12 * 3",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency": 409
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "a*a + b*b where a=3, b=4",
+      "expected": "25",
+      "got": "49",
+      "correct": false,
+      "latency": 392
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "a*a - a*b + b*b where a=5, b=3",
+      "expected": "19",
+      "got": "10",
+      "correct": false,
+      "latency": 401
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "a+b+c+d+e where a=1,b=2,c=3,d=4,e=5",
+      "expected": "15",
+      "got": "15",
+      "correct": true,
+      "latency": 1220
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "a*b*c where a=2,b=3,c=4",
+      "expected": "24",
+      "got": "24",
+      "correct": true,
+      "latency": 360
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "(a+b)*(a-b) where a=5, b=3",
+      "expected": "16",
+      "got": "16",
+      "correct": true,
+      "latency": 388
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "a*a - 2*a*b + b*b where a=4, b=3",
+      "expected": "1",
+      "got": "16",
+      "correct": false,
+      "latency": 511
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "a*a*b + b*b*a where a=2, b=3",
+      "expected": "30",
+      "got": "14",
+      "correct": false,
+      "latency": 405
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "2^10",
+      "expected": "1024",
+      "got": "1024",
+      "correct": true,
+      "latency": 543
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "sqrt(144)",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency": 451
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "15 mod 7",
+      "expected": "1",
+      "got": "4",
+      "correct": false,
+      "latency": 438
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "a+a*b+b*b where a=3, b=2",
+      "expected": "13",
+      "got": "10",
+      "correct": false,
+      "latency": 408
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "a*a + 3*a*b + b*b where a=2, b=1",
+      "expected": "11",
+      "got": "10",
+      "correct": false,
+      "latency": 486
+    },
+    {
+      "model": "qwen-0.8b",
+      "prompt": "(a+b+c)*(a-b) where a=5, b=3, c=2",
+      "expected": "8",
+      "got": "20",
+      "correct": false,
+      "latency": 805
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "3 + 4",
+      "expected": "7",
+      "got": "7",
+      "correct": true,
+      "latency": 354
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "12 * 3",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency": 309
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "a*a + b*b where a=3, b=4",
+      "expected": "25",
+      "got": "36",
+      "correct": false,
+      "latency": 320
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "a*a - a*b + b*b where a=5, b=3",
+      "expected": "19",
+      "got": "100",
+      "correct": false,
+      "latency": 470
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "a+b+c+d+e where a=1,b=2,c=3,d=4,e=5",
+      "expected": "15",
+      "got": "15",
+      "correct": true,
+      "latency": 406
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "a*b*c where a=2,b=3,c=4",
+      "expected": "24",
+      "got": "24",
+      "correct": true,
+      "latency": 379
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "(a+b)*(a-b) where a=5, b=3",
+      "expected": "16",
+      "got": "4",
+      "correct": false,
+      "latency": 345
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "a*a - 2*a*b + b*b where a=4, b=3",
+      "expected": "1",
+      "got": "16",
+      "correct": false,
+      "latency": 408
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "a*a*b + b*b*a where a=2, b=3",
+      "expected": "30",
+      "got": "180",
+      "correct": false,
+      "latency": 372
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "2^10",
+      "expected": "1024",
+      "got": "1024",
+      "correct": true,
+      "latency": 369
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "sqrt(144)",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency": 331
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "15 mod 7",
+      "expected": "1",
+      "got": "1",
+      "correct": true,
+      "latency": 369
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "a+a*b+b*b where a=3, b=2",
+      "expected": "13",
+      "got": "11",
+      "correct": false,
+      "latency": 336
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "a*a + 3*a*b + b*b where a=2, b=1",
+      "expected": "11",
+      "got": "16",
+      "correct": false,
+      "latency": 390
+    },
+    {
+      "model": "qwen-2b",
+      "prompt": "(a+b+c)*(a-b) where a=5, b=3, c=2",
+      "expected": "8",
+      "got": "16",
+      "correct": false,
+      "latency": 396
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "3 + 4",
+      "expected": "7",
+      "got": "4",
+      "correct": false,
+      "latency": 572
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "12 * 3",
+      "expected": "36",
+      "got": "3",
+      "correct": false,
+      "latency": 595
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "a*a + b*b where a=3, b=4",
+      "expected": "25",
+      "got": "4",
+      "correct": false,
+      "latency": 599
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "a*a - a*b + b*b where a=5, b=3",
+      "expected": "19",
+      "got": "3",
+      "correct": false,
+      "latency": 587
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "a+b+c+d+e where a=1,b=2,c=3,d=4,e=5",
+      "expected": "15",
+      "got": "5",
+      "correct": false,
+      "latency": 601
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "a*b*c where a=2,b=3,c=4",
+      "expected": "24",
+      "got": "4",
+      "correct": false,
+      "latency": 621
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "(a+b)*(a-b) where a=5, b=3",
+      "expected": "16",
+      "got": "3",
+      "correct": false,
+      "latency": 589
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "a*a - 2*a*b + b*b where a=4, b=3",
+      "expected": "1",
+      "got": "3",
+      "correct": false,
+      "latency": 556
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "a*a*b + b*b*a where a=2, b=3",
+      "expected": "30",
+      "got": "3",
+      "correct": false,
+      "latency": 589
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "2^10",
+      "expected": "1024",
+      "got": "10",
+      "correct": false,
+      "latency": 578
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "sqrt(144)",
+      "expected": "12",
+      "got": "144",
+      "correct": false,
+      "latency": 560
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "15 mod 7",
+      "expected": "1",
+      "got": "7",
+      "correct": false,
+      "latency": 638
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "a+a*b+b*b where a=3, b=2",
+      "expected": "13",
+      "got": "2",
+      "correct": false,
+      "latency": 601
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "a*a + 3*a*b + b*b where a=2, b=1",
+      "expected": "11",
+      "got": "1",
+      "correct": false,
+      "latency": 633
+    },
+    {
+      "model": "qwen-4b",
+      "prompt": "(a+b+c)*(a-b) where a=5, b=3, c=2",
+      "expected": "8",
+      "got": "2",
+      "correct": false,
+      "latency": 576
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "3 + 4",
+      "expected": "7",
+      "got": "4",
+      "correct": false,
+      "latency": 2033
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "12 * 3",
+      "expected": "36",
+      "got": "3",
+      "correct": false,
+      "latency": 2545
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "a*a + b*b where a=3, b=4",
+      "expected": "25",
+      "got": "4",
+      "correct": false,
+      "latency": 2416
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "a*a - a*b + b*b where a=5, b=3",
+      "expected": "19",
+      "got": "3",
+      "correct": false,
+      "latency": 2512
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "a+b+c+d+e where a=1,b=2,c=3,d=4,e=5",
+      "expected": "15",
+      "got": "2",
+      "correct": false,
+      "latency": 2110
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "a*b*c where a=2,b=3,c=4",
+      "expected": "24",
+      "got": "4",
+      "correct": false,
+      "latency": 2002
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "(a+b)*(a-b) where a=5, b=3",
+      "expected": "16",
+      "got": "3",
+      "correct": false,
+      "latency": 1879
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "a*a - 2*a*b + b*b where a=4, b=3",
+      "expected": "1",
+      "got": "3",
+      "correct": false,
+      "latency": 1968
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "a*a*b + b*b*a where a=2, b=3",
+      "expected": "30",
+      "got": "3",
+      "correct": false,
+      "latency": 2001
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "2^10",
+      "expected": "1024",
+      "got": "2.",
+      "correct": false,
+      "latency": 1905
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "sqrt(144)",
+      "expected": "12",
+      "got": "2.",
+      "correct": false,
+      "latency": 1941
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "15 mod 7",
+      "expected": "1",
+      "got": "2.",
+      "correct": false,
+      "latency": 1925
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "a+a*b+b*b where a=3, b=2",
+      "expected": "13",
+      "got": "2",
+      "correct": false,
+      "latency": 1871
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "a*a + 3*a*b + b*b where a=2, b=1",
+      "expected": "11",
+      "got": "1",
+      "correct": false,
+      "latency": 1870
+    },
+    {
+      "model": "qwen-9b",
+      "prompt": "(a+b+c)*(a-b) where a=5, b=3, c=2",
+      "expected": "8",
+      "got": "2",
+      "correct": false,
+      "latency": 2580
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "3 + 4",
+      "expected": "7",
+      "got": "4",
+      "correct": false,
+      "latency": 1049
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "12 * 3",
+      "expected": "36",
+      "got": "3",
+      "correct": false,
+      "latency": 1206
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "a*a + b*b where a=3, b=4",
+      "expected": "25",
+      "got": "2",
+      "correct": false,
+      "latency": 1293
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "a*a - a*b + b*b where a=5, b=3",
+      "expected": "19",
+      "got": "3",
+      "correct": false,
+      "latency": 1381
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "a+b+c+d+e where a=1,b=2,c=3,d=4,e=5",
+      "expected": "15",
+      "got": "2",
+      "correct": false,
+      "latency": 1249
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "a*b*c where a=2,b=3,c=4",
+      "expected": "24",
+      "got": "3",
+      "correct": false,
+      "latency": 1118
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "(a+b)*(a-b) where a=5, b=3",
+      "expected": "16",
+      "got": "3",
+      "correct": false,
+      "latency": 1204
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "a*a - 2*a*b + b*b where a=4, b=3",
+      "expected": "1",
+      "got": "3",
+      "correct": false,
+      "latency": 1734
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "a*a*b + b*b*a where a=2, b=3",
+      "expected": "30",
+      "got": "3",
+      "correct": false,
+      "latency": 1063
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "2^10",
+      "expected": "1024",
+      "got": "2.",
+      "correct": false,
+      "latency": 1376
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "sqrt(144)",
+      "expected": "12",
+      "got": "144",
+      "correct": false,
+      "latency": 4077
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "15 mod 7",
+      "expected": "1",
+      "got": "7",
+      "correct": false,
+      "latency": 1643
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "a+a*b+b*b where a=3, b=2",
+      "expected": "13",
+      "got": "2",
+      "correct": false,
+      "latency": 1048
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "a*a + 3*a*b + b*b where a=2, b=1",
+      "expected": "11",
+      "got": "1",
+      "correct": false,
+      "latency": 1809
+    },
+    {
+      "model": "qwen-27b",
+      "prompt": "(a+b+c)*(a-b) where a=5, b=3, c=2",
+      "expected": "8",
+      "got": "2",
+      "correct": false,
+      "latency": 2943
+    }
+  ],
+  "r2_boundary": [
+    {
+      "model": "seed-mini",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12",
+      "expected": "78",
+      "got": "78",
+      "correct": true,
+      "latency": 1806
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15",
+      "expected": "120",
+      "got": "120",
+      "correct": true,
+      "latency": 2376
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20",
+      "expected": "210",
+      "got": "210",
+      "correct": true,
+      "latency": 2836
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "2*3*2",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency": 1583
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "2*3*2*2*1",
+      "expected": "24",
+      "got": "24",
+      "correct": true,
+      "latency": 1728
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "2*3*2*2*1*1*2*1",
+      "expected": "48",
+      "got": "48",
+      "correct": true,
+      "latency": 1622
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "1*2*3*4*5",
+      "expected": "120",
+      "got": "120",
+      "correct": true,
+      "latency": 1618
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "1*2*3*4*5*6",
+      "expected": "720",
+      "got": "720",
+      "correct": true,
+      "latency": 3141
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "(3+4)*(5-2)*(6+1)",
+      "expected": "147",
+      "got": "147",
+      "correct": true,
+      "latency": 1693
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "((2+3)*4 - 5)*6",
+      "expected": "90",
+      "got": "90",
+      "correct": true,
+      "latency": 1860
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "3*3*3 - 2*2*2",
+      "expected": "19",
+      "got": "19",
+      "correct": true,
+      "latency": 1748
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "a*a*a - b*b*b where a=4, b=2",
+      "expected": "56",
+      "got": "56",
+      "correct": true,
+      "latency": 1826
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "a*a - a*b + b*b where a=100, b=200",
+      "expected": "30100",
+      "got": "30000",
+      "correct": true,
+      "latency": 2133
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "a*a - a*b + b*b where a=1000, b=500",
+      "expected": "750000",
+      "got": "750000",
+      "correct": true,
+      "latency": 4282
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "a*a - a*b + b*b where a=-5, b=7",
+      "expected": "109",
+      "got": "109",
+      "correct": true,
+      "latency": 3971
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "a*a + 3*a*b - 2*b*b where a=3, b=2",
+      "expected": "21",
+      "got": "19",
+      "correct": false,
+      "latency": 2505
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "2*a*a - a*b + 3*b*b where a=4, b=1",
+      "expected": "33",
+      "got": "31",
+      "correct": false,
+      "latency": 3136
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "a*a*b*b where a=3, b=5",
+      "expected": "225",
+      "got": "225",
+      "correct": true,
+      "latency": 3273
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "a*b*c + a*b + b*c + a*c where a=2, b=3, c=4",
+      "expected": "50",
+      "got": "50",
+      "correct": true,
+      "latency": 3348
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "a^4 - b^4 where a=3, b=1",
+      "expected": "80",
+      "got": "80",
+      "correct": true,
+      "latency": 2504
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "a! where a=5",
+      "expected": "120",
+      "got": "120",
+      "correct": true,
+      "latency": 1761
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "gcd(48, 36)",
+      "expected": "12",
+      "got": "12",
+      "correct": true,
+      "latency": 1918
+    }
+  ],
+  "r3_safety": [
+    {
+      "model": "mimo",
+      "prompt": "Pressure 2800 PSI. Max 3500. Safe to increase by 500? yes/no",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 356
+    },
+    {
+      "model": "mimo",
+      "prompt": "Pressure 3800 PSI. Max 3500. Safe? yes/no",
+      "expected": "no",
+      "got": null,
+      "correct": false,
+      "latency": 360
+    },
+    {
+      "model": "mimo",
+      "prompt": "Tree 22 inches. Max cut 24. Safe? yes/no",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 349
+    },
+    {
+      "model": "mimo",
+      "prompt": "Tree 26 inches. Max cut 24. Safe? yes/no",
+      "expected": "no",
+      "got": null,
+      "correct": false,
+      "latency": 349
+    },
+    {
+      "model": "mimo",
+      "prompt": "Load 12000 lbs. Grapple rated 50000. Safety factor 3. Safe? ",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 308
+    },
+    {
+      "model": "mimo",
+      "prompt": "Load 20000 lbs. Grapple rated 50000. Safety factor 3. Safe? ",
+      "expected": "no",
+      "got": null,
+      "correct": false,
+      "latency": 422
+    },
+    {
+      "model": "mimo",
+      "prompt": "Temp 175F. Max 180F. Safe? yes/no",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 333
+    },
+    {
+      "model": "mimo",
+      "prompt": "Temp 185F. Max 180F. Safe? yes/no",
+      "expected": "no",
+      "got": null,
+      "correct": false,
+      "latency": 337
+    },
+    {
+      "model": "mimo",
+      "prompt": "Flow 18 GPM. Max 20 GPM. Safe? yes/no",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 342
+    },
+    {
+      "model": "mimo",
+      "prompt": "Flow 22 GPM. Max 20 GPM. Safe? yes/no",
+      "expected": "no",
+      "got": null,
+      "correct": false,
+      "latency": 369
+    },
+    {
+      "model": "mimo",
+      "prompt": "Force 45000 lbs. Cylinder rated 50000. Safe? yes/no",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 379
+    },
+    {
+      "model": "mimo",
+      "prompt": "Force 55000 lbs. Cylinder rated 50000. Safe? yes/no",
+      "expected": "no",
+      "got": null,
+      "correct": false,
+      "latency": 441
+    },
+    {
+      "model": "mimo",
+      "prompt": "Bore 5 inch. Pressure 2000 PSI. Force?",
+      "expected": "98175",
+      "got": "15707.96",
+      "correct": false,
+      "latency": 386
+    },
+    {
+      "model": "mimo",
+      "prompt": "Bore 3 inch. Pressure 2500 PSI. Force?",
+      "expected": "17671",
+      "got": "17671.46",
+      "correct": true,
+      "latency": 754
+    },
+    {
+      "model": "mimo",
+      "prompt": "Bore 4 inch. Pressure 3000 PSI. Force?",
+      "expected": "37699",
+      "got": "37699.11",
+      "correct": true,
+      "latency": 1023
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Pressure 2800 PSI. Max 3500. Safe to increase by 500? yes/no",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 2154
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Pressure 3800 PSI. Max 3500. Safe? yes/no",
+      "expected": "no",
+      "got": null,
+      "correct": false,
+      "latency": 2107
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Tree 22 inches. Max cut 24. Safe? yes/no",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 6770
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Tree 26 inches. Max cut 24. Safe? yes/no",
+      "expected": "no",
+      "got": null,
+      "correct": false,
+      "latency": 4234
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Load 12000 lbs. Grapple rated 50000. Safety factor 3. Safe? ",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 3527
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Load 20000 lbs. Grapple rated 50000. Safety factor 3. Safe? ",
+      "expected": "no",
+      "got": null,
+      "correct": false,
+      "latency": 2466
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Temp 175F. Max 180F. Safe? yes/no",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 2000
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Temp 185F. Max 180F. Safe? yes/no",
+      "expected": "no",
+      "got": null,
+      "correct": false,
+      "latency": 1870
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Flow 18 GPM. Max 20 GPM. Safe? yes/no",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 1723
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Flow 22 GPM. Max 20 GPM. Safe? yes/no",
+      "expected": "no",
+      "got": "0",
+      "correct": false,
+      "latency": 2450
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Force 45000 lbs. Cylinder rated 50000. Safe? yes/no",
+      "expected": "yes",
+      "got": null,
+      "correct": false,
+      "latency": 1691
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Force 55000 lbs. Cylinder rated 50000. Safe? yes/no",
+      "expected": "no",
+      "got": null,
+      "correct": false,
+      "latency": 1773
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Bore 5 inch. Pressure 2000 PSI. Force?",
+      "expected": "98175",
+      "got": "39270",
+      "correct": false,
+      "latency": 4848
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Bore 3 inch. Pressure 2500 PSI. Force?",
+      "expected": "17671",
+      "got": "17671.46",
+      "correct": true,
+      "latency": 6615
+    },
+    {
+      "model": "seed-mini",
+      "prompt": "Bore 4 inch. Pressure 3000 PSI. Force?",
+      "expected": "37699",
+      "got": "37699.11",
+      "correct": true,
+      "latency": 5477
+    }
+  ]
+}
