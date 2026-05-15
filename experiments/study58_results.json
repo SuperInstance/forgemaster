@@ -1,0 +1,1155 @@
+{
+  "study": "STUDY-58",
+  "title": "MythosTile Consensus \u2014 GL(9) vs Hebbian Fault Detection",
+  "timestamp": "2026-05-15T15:08:10",
+  "summary": {
+    "total_scenarios": 50,
+    "healthy": 25,
+    "faulty": 25,
+    "agreement_rate": 0.6,
+    "fault_breakdown": {
+      "confidence_drop": {
+        "total": 5,
+        "gl9_caught": 5,
+        "hebbian_caught": 2,
+        "both_caught": 2,
+        "neither_caught": 0
+      },
+      "content_scramble": {
+        "total": 5,
+        "gl9_caught": 0,
+        "hebbian_caught": 0,
+        "both_caught": 0,
+        "neither_caught": 5
+      },
+      "domain_drift": {
+        "total": 5,
+        "gl9_caught": 0,
+        "hebbian_caught": 0,
+        "both_caught": 0,
+        "neither_caught": 5
+      },
+      "confidence_spike": {
+        "total": 5,
+        "gl9_caught": 0,
+        "hebbian_caught": 0,
+        "both_caught": 0,
+        "neither_caught": 5
+      },
+      "silent_expert": {
+        "total": 5,
+        "gl9_caught": 5,
+        "hebbian_caught": 3,
+        "both_caught": 3,
+        "neither_caught": 0
+      }
+    }
+  },
+  "disagreement_analysis": {
+    "total_disagreements": 20,
+    "gl9_only_fault_types": {
+      "confidence_drop": 3,
+      "silent_expert": 2
+    },
+    "hebbian_only_fault_types": {
+      "content_scramble": 2,
+      "domain_drift": 1,
+      "confidence_spike": 1
+    },
+    "disagreement_rate": 0.4
+  },
+  "metrics": {
+    "gl9": {
+      "precision": 0.4242,
+      "recall": 0.4242,
+      "f1": 0.4242,
+      "tp": 14,
+      "fp": 19,
+      "fn": 19,
+      "tn": 330
+    },
+    "hebbian": {
+      "precision": 0.3333,
+      "recall": 0.1515,
+      "f1": 0.2083,
+      "tp": 5,
+      "fp": 10,
+      "fn": 28,
+      "tn": 340
+    },
+    "combined_union": {
+      "precision": 0.3256,
+      "recall": 0.4242,
+      "f1": 0.3684,
+      "tp": 14,
+      "fp": 29,
+      "fn": 19,
+      "tn": 323
+    },
+    "combined_intersection": {
+      "precision": 1.0,
+      "recall": 0.1515,
+      "f1": 0.2632,
+      "tp": 5,
+      "fp": 0,
+      "fn": 28,
+      "tn": 347
+    }
+  },
+  "false_positives": {
+    "gl9_on_healthy": 0,
+    "hebbian_on_healthy": 6,
+    "healthy_total": 25
+  },
+  "scenario_details": [
+    {
+      "scenario_id": 0,
+      "is_healthy": true,
+      "n_experts": 9,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9391,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 1,
+      "is_healthy": true,
+      "n_experts": 8,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9414,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 2,
+      "is_healthy": true,
+      "n_experts": 9,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9562,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 3,
+      "is_healthy": true,
+      "n_experts": 8,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9512,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [
+        "deployer"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [],
+      "hebbian_only": [
+        "deployer"
+      ],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 4,
+      "is_healthy": true,
+      "n_experts": 9,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9377,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 5,
+      "is_healthy": true,
+      "n_experts": 8,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9431,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [
+        "hebbian"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [],
+      "hebbian_only": [
+        "hebbian"
+      ],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 6,
+      "is_healthy": true,
+      "n_experts": 7,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9433,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 7,
+      "is_healthy": true,
+      "n_experts": 5,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9398,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [
+        "monitor"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [],
+      "hebbian_only": [
+        "monitor"
+      ],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 8,
+      "is_healthy": true,
+      "n_experts": 8,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.963,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 9,
+      "is_healthy": true,
+      "n_experts": 8,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9247,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [
+        "translator"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [],
+      "hebbian_only": [
+        "translator"
+      ],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 10,
+      "is_healthy": true,
+      "n_experts": 7,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9417,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 11,
+      "is_healthy": true,
+      "n_experts": 8,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9516,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 12,
+      "is_healthy": true,
+      "n_experts": 6,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9471,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 13,
+      "is_healthy": true,
+      "n_experts": 7,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9396,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 14,
+      "is_healthy": true,
+      "n_experts": 7,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9613,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 15,
+      "is_healthy": true,
+      "n_experts": 7,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9391,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 16,
+      "is_healthy": true,
+      "n_experts": 9,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9581,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 17,
+      "is_healthy": true,
+      "n_experts": 9,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9521,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 18,
+      "is_healthy": true,
+      "n_experts": 5,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9423,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 19,
+      "is_healthy": true,
+      "n_experts": 9,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9557,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 20,
+      "is_healthy": true,
+      "n_experts": 8,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9405,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 21,
+      "is_healthy": true,
+      "n_experts": 9,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9545,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 22,
+      "is_healthy": true,
+      "n_experts": 8,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9485,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 23,
+      "is_healthy": true,
+      "n_experts": 6,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9409,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [
+        "architect"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [],
+      "hebbian_only": [
+        "architect"
+      ],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 24,
+      "is_healthy": true,
+      "n_experts": 9,
+      "fault_type": null,
+      "ground_truth_faulty": [],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.937,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [
+        "architect"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [],
+      "hebbian_only": [
+        "architect"
+      ],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 25,
+      "is_healthy": false,
+      "n_experts": 5,
+      "fault_type": "confidence_drop",
+      "ground_truth_faulty": [
+        "conservation",
+        "router"
+      ],
+      "gl9_faulty": [
+        "router",
+        "monitor",
+        "conservation",
+        "constraint-forge"
+      ],
+      "gl9_consensus": false,
+      "gl9_alignment": 0.8642,
+      "gl9_deviation": 2.8714,
+      "hebbian_faulty": [],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [
+        "conservation",
+        "constraint-forge",
+        "router",
+        "monitor"
+      ],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 26,
+      "is_healthy": false,
+      "n_experts": 9,
+      "fault_type": "confidence_drop",
+      "ground_truth_faulty": [
+        "validator"
+      ],
+      "gl9_faulty": [
+        "translator",
+        "validator"
+      ],
+      "gl9_consensus": false,
+      "gl9_alignment": 0.9271,
+      "gl9_deviation": 1.814,
+      "hebbian_faulty": [
+        "validator"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [
+        "translator"
+      ],
+      "hebbian_only": [],
+      "both_caught": [
+        "validator"
+      ]
+    },
+    {
+      "scenario_id": 27,
+      "is_healthy": false,
+      "n_experts": 6,
+      "fault_type": "confidence_drop",
+      "ground_truth_faulty": [
+        "deployer"
+      ],
+      "gl9_faulty": [
+        "conservation",
+        "deployer"
+      ],
+      "gl9_consensus": false,
+      "gl9_alignment": 0.9394,
+      "gl9_deviation": 1.8261,
+      "hebbian_faulty": [
+        "deployer"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [
+        "conservation"
+      ],
+      "hebbian_only": [],
+      "both_caught": [
+        "deployer"
+      ]
+    },
+    {
+      "scenario_id": 28,
+      "is_healthy": false,
+      "n_experts": 6,
+      "fault_type": "confidence_drop",
+      "ground_truth_faulty": [
+        "hebbian",
+        "validator"
+      ],
+      "gl9_faulty": [
+        "validator",
+        "constraint-forge",
+        "hebbian",
+        "translator",
+        "conservation"
+      ],
+      "gl9_consensus": false,
+      "gl9_alignment": 0.9419,
+      "gl9_deviation": 2.889,
+      "hebbian_faulty": [],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [
+        "hebbian",
+        "translator",
+        "constraint-forge",
+        "validator",
+        "conservation"
+      ],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 29,
+      "is_healthy": false,
+      "n_experts": 7,
+      "fault_type": "confidence_drop",
+      "ground_truth_faulty": [
+        "deployer",
+        "router"
+      ],
+      "gl9_faulty": [
+        "architect",
+        "constraint-forge",
+        "deployer"
+      ],
+      "gl9_consensus": false,
+      "gl9_alignment": 0.906,
+      "gl9_deviation": 2.793,
+      "hebbian_faulty": [],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [
+        "architect",
+        "deployer",
+        "constraint-forge"
+      ],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 30,
+      "is_healthy": false,
+      "n_experts": 8,
+      "fault_type": "content_scramble",
+      "ground_truth_faulty": [
+        "validator"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9625,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 31,
+      "is_healthy": false,
+      "n_experts": 6,
+      "fault_type": "content_scramble",
+      "ground_truth_faulty": [
+        "hebbian"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9524,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 32,
+      "is_healthy": false,
+      "n_experts": 8,
+      "fault_type": "content_scramble",
+      "ground_truth_faulty": [
+        "translator"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9522,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 33,
+      "is_healthy": false,
+      "n_experts": 9,
+      "fault_type": "content_scramble",
+      "ground_truth_faulty": [
+        "hebbian"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9585,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [
+        "architect"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [],
+      "hebbian_only": [
+        "architect"
+      ],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 34,
+      "is_healthy": false,
+      "n_experts": 7,
+      "fault_type": "content_scramble",
+      "ground_truth_faulty": [
+        "translator"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9448,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [
+        "conservation"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [],
+      "hebbian_only": [
+        "conservation"
+      ],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 35,
+      "is_healthy": false,
+      "n_experts": 8,
+      "fault_type": "domain_drift",
+      "ground_truth_faulty": [
+        "monitor"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9396,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 36,
+      "is_healthy": false,
+      "n_experts": 7,
+      "fault_type": "domain_drift",
+      "ground_truth_faulty": [
+        "architect"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9459,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [
+        "monitor"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [],
+      "hebbian_only": [
+        "monitor"
+      ],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 37,
+      "is_healthy": false,
+      "n_experts": 8,
+      "fault_type": "domain_drift",
+      "ground_truth_faulty": [
+        "translator"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9381,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 38,
+      "is_healthy": false,
+      "n_experts": 7,
+      "fault_type": "domain_drift",
+      "ground_truth_faulty": [
+        "monitor"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9506,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 39,
+      "is_healthy": false,
+      "n_experts": 5,
+      "fault_type": "domain_drift",
+      "ground_truth_faulty": [
+        "translator"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9638,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 40,
+      "is_healthy": false,
+      "n_experts": 6,
+      "fault_type": "confidence_spike",
+      "ground_truth_faulty": [
+        "conservation",
+        "constraint-forge"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9686,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 41,
+      "is_healthy": false,
+      "n_experts": 7,
+      "fault_type": "confidence_spike",
+      "ground_truth_faulty": [
+        "constraint-forge",
+        "monitor"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9489,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 42,
+      "is_healthy": false,
+      "n_experts": 9,
+      "fault_type": "confidence_spike",
+      "ground_truth_faulty": [
+        "deployer"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9496,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [
+        "architect"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [],
+      "hebbian_only": [
+        "architect"
+      ],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 43,
+      "is_healthy": false,
+      "n_experts": 9,
+      "fault_type": "confidence_spike",
+      "ground_truth_faulty": [
+        "translator"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9436,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 44,
+      "is_healthy": false,
+      "n_experts": 8,
+      "fault_type": "confidence_spike",
+      "ground_truth_faulty": [
+        "hebbian",
+        "router"
+      ],
+      "gl9_faulty": [],
+      "gl9_consensus": true,
+      "gl9_alignment": 0.9525,
+      "gl9_deviation": 0.0,
+      "hebbian_faulty": [],
+      "agreement": true,
+      "exact_match": true,
+      "gl9_only": [],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 45,
+      "is_healthy": false,
+      "n_experts": 8,
+      "fault_type": "silent_expert",
+      "ground_truth_faulty": [
+        "deployer"
+      ],
+      "gl9_faulty": [
+        "deployer",
+        "router",
+        "conservation",
+        "architect",
+        "hebbian",
+        "translator"
+      ],
+      "gl9_consensus": false,
+      "gl9_alignment": 0.9154,
+      "gl9_deviation": 3.0,
+      "hebbian_faulty": [
+        "deployer"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [
+        "hebbian",
+        "architect",
+        "conservation",
+        "translator",
+        "router"
+      ],
+      "hebbian_only": [],
+      "both_caught": [
+        "deployer"
+      ]
+    },
+    {
+      "scenario_id": 46,
+      "is_healthy": false,
+      "n_experts": 8,
+      "fault_type": "silent_expert",
+      "ground_truth_faulty": [
+        "architect",
+        "hebbian"
+      ],
+      "gl9_faulty": [
+        "validator",
+        "architect",
+        "hebbian"
+      ],
+      "gl9_consensus": false,
+      "gl9_alignment": 0.8518,
+      "gl9_deviation": 3.0,
+      "hebbian_faulty": [],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [
+        "hebbian",
+        "validator",
+        "architect"
+      ],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 47,
+      "is_healthy": false,
+      "n_experts": 5,
+      "fault_type": "silent_expert",
+      "ground_truth_faulty": [
+        "translator",
+        "architect"
+      ],
+      "gl9_faulty": [
+        "architect",
+        "monitor",
+        "translator",
+        "hebbian"
+      ],
+      "gl9_consensus": false,
+      "gl9_alignment": 0.824,
+      "gl9_deviation": 3.0,
+      "hebbian_faulty": [],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [
+        "hebbian",
+        "architect",
+        "translator",
+        "monitor"
+      ],
+      "hebbian_only": [],
+      "both_caught": []
+    },
+    {
+      "scenario_id": 48,
+      "is_healthy": false,
+      "n_experts": 7,
+      "fault_type": "silent_expert",
+      "ground_truth_faulty": [
+        "monitor"
+      ],
+      "gl9_faulty": [
+        "hebbian",
+        "monitor"
+      ],
+      "gl9_consensus": false,
+      "gl9_alignment": 0.9106,
+      "gl9_deviation": 3.0,
+      "hebbian_faulty": [
+        "monitor"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [
+        "hebbian"
+      ],
+      "hebbian_only": [],
+      "both_caught": [
+        "monitor"
+      ]
+    },
+    {
+      "scenario_id": 49,
+      "is_healthy": false,
+      "n_experts": 6,
+      "fault_type": "silent_expert",
+      "ground_truth_faulty": [
+        "architect"
+      ],
+      "gl9_faulty": [
+        "translator",
+        "architect"
+      ],
+      "gl9_consensus": false,
+      "gl9_alignment": 0.89,
+      "gl9_deviation": 3.0,
+      "hebbian_faulty": [
+        "architect"
+      ],
+      "agreement": false,
+      "exact_match": false,
+      "gl9_only": [
+        "translator"
+      ],
+      "hebbian_only": [],
+      "both_caught": [
+        "architect"
+      ]
+    }
+  ]
+}
