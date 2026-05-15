@@ -1,0 +1,251 @@
+{
+  "phase_a": {
+    "n_samples": 100,
+    "pearson_r": {
+      "compliance_vs_alignment": -0.1789,
+      "gamma_vs_alignment": 0.1722,
+      "entropy_vs_alignment": 0.0157
+    },
+    "spearman_rho": -0.1465,
+    "verdict": "INDEPENDENT \u2014 keep both as separate signals",
+    "conservation_mean": 0.362,
+    "conservation_std": 0.3519,
+    "alignment_mean": 0.1446,
+    "alignment_std": 0.0604,
+    "sample_results": [
+      {
+        "n_rooms": 11,
+        "n_agents": 22,
+        "weight_type": "sparse",
+        "conservation": {
+          "gamma": 0.14799657464027405,
+          "H": 0.8842376799885556,
+          "gamma_plus_H": 1.0322342546288297,
+          "deviation": 0.13049960300377061,
+          "conserved": "False"
+        },
+        "gl9": {
+          "alignment": 0.21584504944822763,
+          "consensus": true,
+          "deviation": 0.0,
+          "cycle_count": 5
+        }
+      },
+      {
+        "n_rooms": 7,
+        "n_agents": 14,
+        "weight_type": "two_cluster",
+        "conservation": {
+          "gamma": 0.12381285429000854,
+          "H": 0.9239697884270582,
+          "gamma_plus_H": 1.047782642717067,
+          "deviation": 0.07418235641686177,
+          "conserved": "True"
+        },
+        "gl9": {
+          "alignment": 0.15859662382953132,
+          "consensus": true,
+          "deviation": 0.0,
+          "cycle_count": 5
+        }
+      },
+      {
+        "n_rooms": 8,
+        "n_agents": 24,
+        "weight_type": "uniform",
+        "conservation": {
+          "gamma": 0.46580368280410767,
+          "H": 0.8048827616389144,
+          "gamma_plus_H": 1.270686444443022,
+          "deviation": 0.3183176495701159,
+          "conserved": "False"
+        },
+        "gl9": {
+          "alignment": 0.2796368722607399,
+          "consensus": true,
+          "deviation": 0.0,
+          "cycle_count": 7
+        }
+      },
+      {
+        "n_rooms": 11,
+        "n_agents": 33,
+        "weight_type": "one_dominant",
+        "conservation": {
+          "gamma": 0.17582906782627106,
+          "H": 0.6714233492979752,
+          "gamma_plus_H": 0.8472524171242463,
+          "deviation": -0.0544822345008128,
+          "conserved": "True"
+        },
+        "gl9": {
+          "alignment": 0.17733225721812113,
+          "consensus": true,
+          "deviation": 0.0,
+          "cycle_count": 7
+        }
+      },
+      {
+        "n_rooms": 6,
+        "n_agents": 24,
+        "weight_type": "one_dominant",
+        "conservation": {
+          "gamma": 0.25745889544487,
+          "H": 0.6505945908071571,
+          "gamma_plus_H": 0.9080534862520271,
+          "deviation": -0.09005675814071212,
+          "conserved": "True"
+        },
+        "gl9": {
+          "alignment": 0.19006884548610314,
+          "consensus": true,
+          "deviation": 0.0,
+          "cycle_count": 11
+        }
+      },
+      {
+        "n_rooms": 19,
+        "n_agents": 38,
+        "weight_type": "dense",
+        "conservation": {
+          "gamma": 0.7059730887413025,
+          "H": 0.760394104245765,
+          "gamma_plus_H": 1.4663671929870676,
+          "deviation": 0.6515329906745317,
+          "conserved": "False"
+        },
+        "gl9": {
+          "alignment": 0.12981973292241045,
+          "consensus": true,
+          "deviation": 0.0,
+          "cycle_count": 5
+        }
+      },
+      {
+        "n_rooms": 10,
+        "n_agents": 40,
+        "weight_type": "sparse",
+        "conservation": {
+          "gamma": 0.17178772389888763,
+          "H": 0.8150886728300853,
+          "gamma_plus_H": 0.986876396728973,
+          "deviation": 0.06998742651502632,
+          "conserved": "True"
+        },
+        "gl9": {
+          "alignment": 0.12332250393900203,
+          "consensus": true,
+          "deviation": 0.0,
+          "cycle_count": 11
+        }
+      },
+      {
+        "n_rooms": 10,
+        "n_agents": 20,
+        "weight_type": "dense",
+        "conservation": {
+          "gamma": 0.6935081481933594,
+          "H": 0.7453717545949468,
+          "gamma_plus_H": 1.4388799027883061,
+          "deviation": 0.5219909325743595,
+          "conserved": "False"
+        },
+        "gl9": {
+          "alignment": 0.20801274143515813,
+          "consensus": true,
+          "deviation": 0.0,
+          "cycle_count": 5
+        }
+      },
+      {
+        "n_rooms": 7,
+        "n_agents": 14,
+        "weight_type": "uniform",
+        "conservation": {
+          "gamma": 0.47554248571395874,
+          "H": 0.7851759555675156,
+          "gamma_plus_H": 1.2607184412814743,
+          "deviation": 0.28711815498126914,
+          "conserved": "False"
+        },
+        "gl9": {
+          "alignment": -0.001963806398832511,
+          "consensus": true,
+          "deviation": 0.0,
+          "cycle_count": 5
+        }
+      },
+      {
+        "n_rooms": 12,
+        "n_agents": 36,
+        "weight_type": "sparse",
+        "conservation": {
+          "gamma": 0.19580121338367462,
+          "H": 0.8079654829969977,
+          "gamma_plus_H": 1.0037666963806724,
+          "deviation": 0.11586685369696448,
+          "conserved": "True"
+        },
+        "gl9": {
+          "alignment": 0.03943424542369903,
+          "consensus": true,
+          "deviation": 0.0,
+          "cycle_count": 7
+        }
+      }
+    ]
+  },
+  "phase_b": {
+    "B1_aligned_dominant": {
+      "conservation_broken": true,
+      "conservation_deviation": -0.4293,
+      "conservation_gamma": 0.085,
+      "gl9_alignment": 0.9827,
+      "gl9_consensus": true
+    },
+    "B2_conserved_disagree": {
+      "conservation_broken": false,
+      "conservation_deviation": 0.1159,
+      "conservation_gamma": 0.1252,
+      "gl9_alignment": 0.0016,
+      "gl9_consensus": true
+    },
+    "B3_both_broken": {
+      "conservation_broken": true,
+      "conservation_deviation": -0.4293,
+      "gl9_alignment": 0.0025,
+      "gl9_consensus": true
+    },
+    "B4_both_healthy": {
+      "conservation_broken": true,
+      "conservation_deviation": 0.2016,
+      "gl9_alignment": 0.997,
+      "gl9_consensus": true
+    },
+    "verdict": {
+      "independent_failure_modes": true,
+      "b1_conservation_broken_gl9_holds": true,
+      "b2_conservation_holds_gl9_broken": true
+    }
+  },
+  "phase_c": {
+    "n_samples": 100,
+    "r2_conservation_only": 0.8235,
+    "r2_alignment_only": 0.0291,
+    "r2_combined": 0.8463,
+    "improvement": 0.0228,
+    "combined_coefficients": {
+      "conservation_weight": 0.4134,
+      "alignment_weight": 0.2911,
+      "intercept": 0.158
+    },
+    "combined_better": "True"
+  },
+  "recommendation": {
+    "decision": "KEEP SEPARATE",
+    "reason": "Low correlation (r=-0.179) + independent failure modes confirmed. Conservation and GL(9) measure fundamentally different aspects of fleet health. Combined model has better predictive power (higher R\u00b2).",
+    "correlation_r": -0.1789,
+    "independent_failures": true,
+    "combined_r2_improvement": 0.0228
+  }
+}
