@@ -1,0 +1,1580 @@
+{
+  "phase_a": [
+    {
+      "test_name": "simple_eisenstein_1",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 2,
+        "b": 3
+      },
+      "expected": 7,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=2, b=3).",
+      "response": "To compute the Eisenstein norm, we first recall the key definitions:\n\n1.  The ring of **Eisenstein integers** is $\\mathbb{Z}[\\omega]$, where $\\omega = e^{2\\pi i/3} = -\\frac{1}{2} + i\\frac{\\sqrt{3}}{2}$. Every Eisenstein integer can be written uniquely as $z = a + b\\omega$ for integers $a,b\\in\\mathbb{Z}$.\n2.  The **Eisenstein norm** is the multiplicative norm function:\n    $$N(z) = z \\cdot \\overline{z} = a^2 - ab + b^2$$\n    where $\\overline{z}$ is the complex conjugate of $z$.\n\n---\n\nFor the pair",
+      "score": "partial",
+      "latency_s": 15.67,
+      "tokens": 2159,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_1",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 2,
+        "b": 3
+      },
+      "expected": 7,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=2, b=3",
+      "response": "To compute the Eisenstein norm of a complex number a + b\u03c9, where a and b are real numbers, and \u03c9 is a complex cube root of unity, we use the formula:\n\nN(a + b\u03c9) = a^2 - ab + b^2\n\nGiven a = 2 and b = 3, let's substitute these values into the formula:\n\nN(2 + 3\u03c9) = (2)^2 - (2)(3) + (3)^2\n           = 4 - 6 + 9\n           = 7\n\nTherefore, the Eisenstein norm of 2 + 3\u03c9 is 7.",
+      "score": "correct",
+      "latency_s": 4.7,
+      "tokens": 134,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_1",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 2,
+        "b": 3
+      },
+      "expected": 7,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=2, b=3).",
+      "response": "Let $f(x) = x^2 - 2x + 3$. We want to compute the Eisenstein norm of $f(a, b) = (a, b)$.\nThe Eisenstein norm is defined as\n$$ \\text{Eisenstein norm} = \\sum_{i=1}^n \\left( \\frac{a_i}{f(a_i)} - \\frac{b_i}{f(b_i)} \\right)^2 $$\nIn our case, $a = 2$ and $b = 3$.\nWe have $f(x) = x^2 - 2x + 3$.\nThe Eisenstein transformation is defined as $x \\mapsto x + a$ and $x \\mapsto x - b$.\nThe Eisenstein transformation is a matrix transformation that maps a polynomial to a polynomial.\nLet $g(x) = x^2 - 2x + 3$. Th",
+      "score": "incorrect",
+      "latency_s": 2.54,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_1",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 2,
+        "b": 3
+      },
+      "expected": 7,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=2, b=3",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.38,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_2",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 5,
+        "b": 7
+      },
+      "expected": 39,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=5, b=7).",
+      "response": "To compute the Eisenstein norm, we first recall the definition of the Eisenstein integers and their norm:\n\n1.  Eisenstein integers are numbers of the form $z = m + n\\omega$, where $m,n \\in \\mathbb{Z}$ and $\\omega = e^{2\\pi i/3} = \\frac{-1+i\\sqrt{3}}{2}$ is a primitive 3rd root of unity.\n2.  The Eisenstein norm of $z = m +n\\omega$ is:\n    $$N(z) = z \\cdot \\overline{z} = m^2 - mn + n^2$$\n    where $\\overline{z} = m +n\\omega^2$ is the complex conjugate of $z$.\n\n---\n\nFor the pair $(a=5, b=7)$, we ta",
+      "score": "partial",
+      "latency_s": 12.28,
+      "tokens": 1727,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_2",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 5,
+        "b": 7
+      },
+      "expected": 39,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=5, b=7",
+      "response": "To compute the Eisenstein norm of a complex number a + b\u03c9, where a and b are real numbers and \u03c9 is a complex cube root of unity, we use the formula:\n\nEisenstein norm = a^2 - a*b + b^2\n\nGiven a = 5 and b = 7, let's plug these values into the formula:\n\nEisenstein norm = (5)^2 - (5)*(7) + (7)^2\n                = 25 - 35 + 49\n                = 39\n\nTherefore, the Eisenstein norm when a = 5 and b = 7 is 39.",
+      "score": "correct",
+      "latency_s": 9.0,
+      "tokens": 131,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_2",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 5,
+        "b": 7
+      },
+      "expected": 39,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=5, b=7).",
+      "response": "Let $a = 5$ and $b = 7$. We want to compute the Eisenstein norm of $(a, b)$.\nThe Eisenstein norm of a matrix $A$ is defined as\n$$E(A) = \\sum_{k=0}^{n} a_{ik} \\overline{a_{ki}}$$\nwhere $a_{ik}$ are the eigenvalues of $A$.\nIn our case, $A = \\begin{pmatrix} 5 & 0 \\\\ 0 & 7 \\end{pmatrix}$.\nThe eigenvalues of $A$ are $\\lambda_1 = 5$ and $\\lambda_2 = 7$.\nThe Eisenstein theorem states that if $A$ has an eigenvalue $\\lambda$ with multiplicity 1, then the Eisenstein norm is equal to the product of the eig",
+      "score": "incorrect",
+      "latency_s": 2.48,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_2",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 5,
+        "b": 7
+      },
+      "expected": 39,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=5, b=7",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.35,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_3",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 1,
+        "b": 1
+      },
+      "expected": 1,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=1, b=1).",
+      "response": "To compute the Eisenstein norm, we start by recalling key definitions:\n\n1.  **Eisenstein integers**: The ring $\\mathbb{Z}[\\omega]$ where $\\omega = e^{2\\pi i /3} = -\\frac{1}{2} + i\\frac{\\sqrt{3}}{2}$ is a primitive 3rd root of unity. An Eisenstein integer is written $z = a + b\\omega$ for integers $a,b$.\n2.  **Eisenstein norm**: For $z = a + b\\omega$, the norm is the multiplicative modulus squared given by:\n    $$N(z) = a^2 - ab + b^2$$\n\n---\n\nFor $(a=1, b=1)$:\n$$N(1 + 1\\cdot\\omega) = 1^2 - (1)(1) ",
+      "score": "partial",
+      "latency_s": 11.82,
+      "tokens": 1678,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_3",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 1,
+        "b": 1
+      },
+      "expected": 1,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=1, b=1",
+      "response": "To compute the Eisenstein norm of a complex number a + b\u03c9, where a and b are real numbers, and \u03c9 is a complex cube root of unity, we use the formula:\n\nEisenstein norm = a^2 - ab + b^2\n\nGiven a = 1 and b = 1, let's substitute these values into the formula:\n\nEisenstein norm = (1)^2 - (1)(1) + (1)^2\n                = 1 - 1 + 1\n                = 1\n\nTherefore, the Eisenstein norm when a = 1 and b = 1 is 1.",
+      "score": "correct",
+      "latency_s": 5.55,
+      "tokens": 131,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_3",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 1,
+        "b": 1
+      },
+      "expected": 1,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=1, b=1).",
+      "response": "Let $f(x) = x^2 - x + 1$. We want to compute the Eisenstein norm of $(a, b) = (1, 1)$.\nThe Eisenstein norm of a function $f(x)$ is defined as\n$$ \\text{Eisenstein norm} = \\sum_{k=0}^{\\infty} \\left| \\frac{f'(x)}{f(x)} \\right|^2 $$\nIn our case, $f(x) = x^2 - x + 1$. Then $f'(x) = 2x - 1$.\nThus,\n$$ \\left| \\frac{f'(x)}{f(x)} \\right|^2 = \\left| \\frac{2x - 1}{x^2 - x + 1} \\right|^2 = \\frac{(2x - 1)^2}{(x^2 - x + 1)^2} $$\nWe want to compute the Eisenstein norm of $(1, 1)$.\nLet $f(x) = x^2 - x + 1$. Then",
+      "score": "correct",
+      "latency_s": 2.48,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_3",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 1,
+        "b": 1
+      },
+      "expected": 1,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=1, b=1",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.38,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_4",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 0,
+        "b": 4
+      },
+      "expected": 16,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=0, b=4).",
+      "response": "To compute the Eisenstein norm of the pair $(a=0, b=4)$, we follow these steps:\n\n1.  **Recall the definition of Eisenstein integers and their norm**:\n    Eisenstein integers are the set $\\mathbb{Z}[\\omega] = \\{m + n\\omega \\mid m,n\\in\\mathbb{Z}\\}$, where $\\omega = e^{2\\pi i/3} = -\\frac{1}{2} + i\\frac{\\sqrt{3}}{2}$.\n    The standard Eisenstein norm for an element $\\alpha = a + b\\omega$ is:\n    $$N(a + b\\omega) = a^2 - ab + b^2$$\n    This can also be verified as the squared modulus of the complex n",
+      "score": "correct",
+      "latency_s": 20.68,
+      "tokens": 3045,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_4",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 0,
+        "b": 4
+      },
+      "expected": 16,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=0, b=4",
+      "response": "To compute the Eisenstein norm of a complex number a + b\u03c9, where a and b are real numbers, and \u03c9 is a complex cube root of unity, we use the formula:\n\nEisenstein norm = a^2 - a*b + b^2\n\nGiven a = 0 and b = 4, let's substitute these values into the formula:\n\nEisenstein norm = (0)^2 - (0)*(4) + (4)^2\n                = 0 - 0 + 16\n                = 16\n\nTherefore, the Eisenstein norm when a = 0 and b = 4 is 16.",
+      "score": "correct",
+      "latency_s": 4.62,
+      "tokens": 132,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_4",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 0,
+        "b": 4
+      },
+      "expected": 16,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=0, b=4).",
+      "response": "Let $f(x) = x^2 - 4$. We want to compute the Eisenstein norm of $f(a, b) = (a, b)$, which is given by\n$$ \\text{Eisenstein norm} = \\sum_{i=1}^n \\left( \\frac{f(x_i)}{x_i} \\right)^2 $$\nIn our case, $f(x) = x^2 - 4$, so $f(x_i) = x_i^2 - 4$.\nThus, we have\n$$ \\sum_{i=1}^n \\left( \\frac{x_i^2 - 4}{x_i} \\right)^2 = \\sum_{i=1}^n \\left( 1 - \\frac{4}{x_i} \\right)^2 $$\nWe can write this as\n$$ \\sum_{i=1}^n \\left( 1 - \\frac{8}{x_i} + \\frac{16}{x_i^2} \\right) = \\sum_{i=1}^n 1 - \\sum_{i=1}^n \\frac{8}{x_",
+      "score": "partial",
+      "latency_s": 2.12,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_4",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 0,
+        "b": 4
+      },
+      "expected": 16,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=0, b=4",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.32,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_5",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 10,
+        "b": 3
+      },
+      "expected": 79,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=10, b=3).",
+      "response": "To compute the Eisenstein norm, we first recall the definition:\n\nThe ring of Eisenstein integers is $\\mathbb{Z}[\\omega]$, where $\\omega = \\frac{-1 + i\\sqrt{3}}{2}$. Any Eisenstein integer can be written as $z = a + b\\omega$ for integers $a,b$, and its norm is given by:\n$$N(a + b\\omega) = a^2 - ab + b^2$$\n\nFor the pair $(a=10, b=3)$:\n$$N(10 + 3\\omega) = 10^2 - (10)(3) + 3^2 = 100 - 30 + 9 = 79$$\n\nWe can verify this directly by expanding the complex form of $z=10+3\\omega$:\n$$10 + 3\\omega = \\frac{1",
+      "score": "partial",
+      "latency_s": 11.49,
+      "tokens": 1418,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_5",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 10,
+        "b": 3
+      },
+      "expected": 79,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=10, b=3",
+      "response": "To compute the Eisenstein norm of a complex number a + b\u03c9, where a and b are real numbers, and \u03c9 is a complex cube root of unity, we use the formula:\n\nN(a + b\u03c9) = a^2 - ab + b^2\n\nGiven a = 10 and b = 3, let's calculate the Eisenstein norm:\n\nN(10 + 3\u03c9) = 10^2 - 10 \u00d7 3 + 3^2\n            = 100 - 30 + 9\n            = 79\n\nTherefore, the Eisenstein norm of 10 + 3\u03c9 is 79.",
+      "score": "correct",
+      "latency_s": 3.35,
+      "tokens": 133,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_5",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 10,
+        "b": 3
+      },
+      "expected": 79,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=10, b=3).",
+      "response": "Let $f(x) = x^2 - 1$. We want to compute the Eisenstein norm of $(a, b) = (10, 3)$.\nThe Eisenstein norm is defined as\n$$ \\text{Eisenstein norm} = \\sum_{k=0}^\\infty a^k b^k = \\sum_{k=0}^\\infty (a^2)^k - \\sum_{k=0}^\\infty (b^2)^k = \\sum_{k=0}^\\infty (a^2)^k - \\sum_{k=0}^\\infty (b^2)^k $$\nWe have $f(x) = x^2 - 1$.\nThe Eisenstein theorem states that if $f(x)$ is a polynomial of degree $n$ in $x$, then the Eisenstein theorem states that if $f(x)$ has a root $r$, then $f(x) = 0$ has a root $r$ of mult",
+      "score": "incorrect",
+      "latency_s": 2.15,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "simple_eisenstein_5",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 10,
+        "b": 3
+      },
+      "expected": 79,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=10, b=3",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.36,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_mobius_1",
+      "task_type": "mobius",
+      "params": {
+        "n": 30
+      },
+      "expected": -1,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(30).",
+      "response": "To compute the M\u00f6bius function $\\mu(30)$, follow these steps:\n\n1.  **Recall the definition of the M\u00f6bius function**:\n    - $\\mu(n) = 0$ if $n$ has a squared prime factor.\n    - If $n$ is a product of $k$ distinct prime factors, $\\mu(n) = (-1)^k$.\n\n2.  Factorize 30: $30 = 2 \\times 3 \\times 5$. All primes here are distinct, and there are no squared prime factors.\n3.  Count the number of distinct prime factors: $k=3$.\n\nThus:\n$$\\mu(30) = (-1)^3 = -1$$\n\n**Answer: $\\boldsymbol{-1}$**",
+      "score": "partial",
+      "latency_s": 4.51,
+      "tokens": 437,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_mobius_1",
+      "task_type": "mobius",
+      "params": {
+        "n": 30
+      },
+      "expected": -1,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 30: there are 3. Compute (-1)^3 = ?",
+      "response": "The M\u00f6bius function, denoted as \u03bc(n), is a multiplicative function in number theory that is used to count the number of distinct prime factors of a number. The function is defined as follows:\n\n- \u03bc(n) = 1 if n is a square-free positive integer with an even number of prime factors.\n- \u03bc(n) = -1 if n is a square-free positive integer with an odd number of prime factors.\n- \u03bc(n) = 0 if n is not square-free (i.e., if n is divisible by the square of a prime).\n\nGiven the number 30, we first need to find ",
+      "score": "correct",
+      "latency_s": 14.01,
+      "tokens": 240,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_mobius_1",
+      "task_type": "mobius",
+      "params": {
+        "n": 30
+      },
+      "expected": -1,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(30).",
+      "response": "The M\u00f6bius function, denoted as \u03bc(x), is defined as follows:\n$$ \u03bc(x) = \\begin{cases} 0 & \\text{if } x \\text{ is even} \\\\ 1 & \\text{if } x \\text{ is odd} \\end{cases} $$\nWe want to compute \u03bc(30). Since 30 is an even number, we have \u03bc(30) = 0.\n\nAlternatively, we can use the formula for the M\u00f6bius function:\n$$ \u03bc(x) = \\sum_{d|x} \\frac{1}{d} $$\nwhere the sum is taken over all divisors of x.\nIn this case, x = 30, which is divisible by 1, 2, 3, 5, 6, 10, 15, and 30.\nThe divisors of 30 are 1, 2, 3, 5, 6,",
+      "score": "incorrect",
+      "latency_s": 2.49,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_mobius_1",
+      "task_type": "mobius",
+      "params": {
+        "n": 30
+      },
+      "expected": -1,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 30: there are 3. Compute (-1)^3 = ?",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 3.16,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_mobius_2",
+      "task_type": "mobius",
+      "params": {
+        "n": 7
+      },
+      "expected": -1,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(7).",
+      "response": "To compute the M\u00f6bius function $\\mu(n)$, we use its standard definition:\n1.  $\\mu(n) = 0$ if $n$ is divisible by the square of any prime number.\n2.  If $n$ is a product of $k$ distinct primes, then $\\mu(n) = (-1)^k$.\n3.  $\\mu(1)=1$.\n\nFor $n=7$:\n7 is a prime number, so its prime factorization is just $7^1$, a single distinct prime factor with no squared primes. Here $k=1$, so $\\mu(7)=(-1)^1=-1$.\n\n**Answer: $\\boldsymbol{-1}$**",
+      "score": "partial",
+      "latency_s": 2.9,
+      "tokens": 474,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_mobius_2",
+      "task_type": "mobius",
+      "params": {
+        "n": 7
+      },
+      "expected": -1,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 7: there are 1. Compute (-1)^1 = ?",
+      "response": "The M\u00f6bius function, denoted as \u03bc(n), is a multiplicative function in number theory that is defined for positive integers n. It is used in a variety of applications, including the study of prime numbers and their distribution. The function is defined as follows:\n\n- \u03bc(n) = 1 if n is a square-free positive integer with an even number of distinct prime factors.\n- \u03bc(n) = -1 if n is a square-free positive integer with an odd number of distinct prime factors.\n- \u03bc(n) = 0 if n is not square-free (i.e., ",
+      "score": "correct",
+      "latency_s": 17.12,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_mobius_2",
+      "task_type": "mobius",
+      "params": {
+        "n": 7
+      },
+      "expected": -1,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(7).",
+      "response": "The M\u00f6bius function, denoted as \u03bc(x), is defined as follows:\n$$ \u03bc(x) = \\begin{cases} 0 & \\text{if } x \\text{ is even} \\\\ 1 & \\text{if } x \\text{ is odd} \\end{cases} $$\nWe want to compute \u03bc(7). Since 7 is odd, we have \u03bc(7) = 1.\n\nAlternatively, we can compute the M\u00f6bius function iteratively.\n$$ \u03bc(x) = \\begin{cases} 0 & \\text{if } x \\text{ is even} \\\\ 1 & \\text{if } x \\text{ is odd} \\end{cases} $$\nWe have \u03bc(1) = 1, \u03bc(2) = 0, \u03bc(3) = 1, \u03bc(4) = 0, \u03bc(5) = 1, \u03bc(6) = 0, \u03bc(7) = 1.\nThus, \u03bc(7) = 1.\n\nFinal A",
+      "score": "incorrect",
+      "latency_s": 5.42,
+      "tokens": 233,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_mobius_2",
+      "task_type": "mobius",
+      "params": {
+        "n": 7
+      },
+      "expected": -1,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 7: there are 1. Compute (-1)^1 = ?",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.44,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_legendre_1",
+      "task_type": "legendre",
+      "params": {
+        "a": 2,
+        "p": 7
+      },
+      "expected": 1,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the Legendre symbol (2|7).",
+      "response": "To compute the Legendre symbol $\\left(\\frac{2}{7}\\right)$, we can use two methods:\n\n---\n### Method 1: List quadratic residues modulo 7\nThe quadratic residues modulo 7 are the squares of $0,1,2,3,4,5,6$ mod 7:\n- $0^2\\equiv0$, $1^2\\equiv1$, $2^2\\equiv4$, $3^2\\equiv9\\equiv2$, $4^2=16\\equiv2$, $5^2=25\\equiv4$, $6^2=36\\equiv1$.\n\nThe non-zero quadratic residues are $\\{1,2,4\\}$. Since 2 is a quadratic residue mod 7, $\\left(\\frac{2}{7}\\right)=1$.\n\n---\n### Method 2: Use the standard formula for $\\left(\\f",
+      "score": "partial",
+      "latency_s": 4.01,
+      "tokens": 736,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_legendre_1",
+      "task_type": "legendre",
+      "params": {
+        "a": 2,
+        "p": 7
+      },
+      "expected": 1,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 7: [1, 2, 4]. Is 2 in that list? Reply yes or no.",
+      "response": "Yes, 2 is in the list of quadratic residues modulo 7.",
+      "score": "incorrect",
+      "latency_s": 0.81,
+      "tokens": 16,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_legendre_1",
+      "task_type": "legendre",
+      "params": {
+        "a": 2,
+        "p": 7
+      },
+      "expected": 1,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the Legendre symbol (2|7).",
+      "response": "To compute the Legendre symbol $\\left(\\frac{2}{7}\\right)$, we need to find the integers $x$ and $y$ such that $2x + 7y = 1$. We can use the Euclidean algorithm to find the greatest common divisor of 2 and 7.\n\\begin{align*} 7 &= 3 \\cdot 2 + 1 \\\\ 2 &= 2 \\cdot 1 + 0 \\end{align*}\nThe last non-zero remainder is 1, so $\\gcd(2, 7) = 1$.\nTherefore, $\\left(\\frac{2}{7}\\right) = \\left(\\frac{7}{2}\\right)$.\nWe can use the Euclidean algorithm to find the greatest common divisor of 7 and 2.\n\\begin{align*} 7 &=",
+      "score": "partial",
+      "latency_s": 4.45,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_legendre_1",
+      "task_type": "legendre",
+      "params": {
+        "a": 2,
+        "p": 7
+      },
+      "expected": 1,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 7: [1, 2, 4]. Is 2 in that list? Reply yes or no.",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.37,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_legendre_2",
+      "task_type": "legendre",
+      "params": {
+        "a": 3,
+        "p": 11
+      },
+      "expected": 1,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the Legendre symbol (3|11).",
+      "response": "To compute the Legendre symbol $\\left(\\frac{3}{11}\\right)$, we can use multiple methods:\n\n---\n### 1. Quadratic Reciprocity\nRecall the law of quadratic reciprocity:\n$$\\left(\\frac{p}{q}\\right)\\left(\\frac{q}{p}\\right) = (-1)^{\\frac{(p-1)(q-1)}{4}}$$\nFor $p=3$, $q=11$:\n$$\\frac{(3-1)(11-1)}{4} = \\frac{2\\cdot10}{4}=5, \\quad (-1)^5=-1$$\nSo:\n$$\\left(\\frac{3}{11}\\right) = -\\left(\\frac{11}{3}\\right)$$\n\nSimplify $\\left(\\frac{11}{3}\\right)$: $11\\equiv 2 \\pmod{3}$, so $\\left(\\frac{11}{3}\\right)=\\left(\\frac{2",
+      "score": "correct",
+      "latency_s": 8.2,
+      "tokens": 1167,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_legendre_2",
+      "task_type": "legendre",
+      "params": {
+        "a": 3,
+        "p": 11
+      },
+      "expected": 1,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 11: [1, 3, 4, 5, 9]. Is 3 in that list? Reply yes or no.",
+      "response": "Yes, 3 is in the list of quadratic residues modulo 11: [1, 3, 4, 5, 9].",
+      "score": "partial",
+      "latency_s": 1.19,
+      "tokens": 31,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_legendre_2",
+      "task_type": "legendre",
+      "params": {
+        "a": 3,
+        "p": 11
+      },
+      "expected": 1,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the Legendre symbol (3|11).",
+      "response": "To compute the Legendre symbol (3|11), we need to determine if 3 divides 11.\nWe can use the property that the Legendre symbol is 0 if and only if 3 does not divide 11.\nIn this case, 11 is not divisible by 3, so the Legendre symbol is 0.\nAlternatively, we can use the fact that the Legendre symbol is 0 if and only if 3 does not divide 11.\nWe can write the prime factorization of 11 as $11 = 11^1$.\nSince 11 is not divisible by 3, the Legendre symbol is 0.\nWe can also use the fact that the Legendre s",
+      "score": "partial",
+      "latency_s": 2.73,
+      "tokens": 227,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_legendre_2",
+      "task_type": "legendre",
+      "params": {
+        "a": 3,
+        "p": 11
+      },
+      "expected": 1,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 11: [1, 3, 4, 5, 9]. Is 3 in that list? Reply yes or no.",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.36,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_modinv_1",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 3,
+        "m": 7
+      },
+      "expected": 5,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Find the modular inverse of 3 mod 7.",
+      "response": "To find the modular inverse of 3 mod 7, we need a number $x$ such that $3x \\equiv 1 \\pmod{7}$.\n\n1.  **Testing small integers**:\n    - $3*1=3 \\not\\equiv1 \\mod7$\n    - $3*2=6 \\not\\equiv1 \\mod7$\n    - $3*3=9 \\equiv2 \\mod7$\n    - $3*4=12 \\equiv5 \\mod7$\n    - $3*5=15 \\equiv1 \\mod7$ (since $15-14=1$)\n\n2.  Confirming with the extended Euclidean algorithm:\n    We solve $3x +7y=1$. Using the Euclidean algorithm: $7=2*3+1$, then rearrange to $1=7-2*3$. This shows $x=-2$, and $-2 \\equiv5 \\pmod7$.\n\n**Answer",
+      "score": "correct",
+      "latency_s": 5.01,
+      "tokens": 591,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_modinv_1",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 3,
+        "m": 7
+      },
+      "expected": 5,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using modular inverse (number theory): Compute 3^5 mod 7. (Answer is 5.)",
+      "response": "To compute 3^5 mod 7 using modular inverse, we can follow these steps:\n\n1. Calculate 3^5:\n   3^5 = 243\n\n2. Find the modular inverse of 243 mod 7:\n   To find the modular inverse, we need to find a number x such that:\n   243 * x \u2261 1 (mod 7)\n\n   We can use the Extended Euclidean Algorithm to find the modular inverse.\n\n   Applying the Extended Euclidean Algorithm for 243 and 7:\n   243 = 7 * 34 + 5\n   7 = 5 * 1 + 2\n   5 = 2 * 2 + 1\n\n   Now, substituting back:\n   1 = 5 - 2 * 2\n   1 = 5 - 2 * (7 - 5 * ",
+      "score": "partial",
+      "latency_s": 12.91,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_modinv_1",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 3,
+        "m": 7
+      },
+      "expected": 5,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Find the modular inverse of 3 mod 7.",
+      "response": "We want to find an integer $x$ such that $3x \\equiv 1 \\pmod{7}$.\nWe can use the Euclidean algorithm to find the greatest common divisor of 3 and 7.\n\\begin{align*} 7 &= 2 \\cdot 3 + 1 \\\\ 3 &= 3 \\cdot 1 + 0 \\end{align*}\nThe greatest common divisor of 3 and 7 is 1.\nNow we use the Euclidean algorithm to express 1 as a linear combination of 3 and 7.\n\\begin{align*} 1 &= 3 - 3 \\cdot 1 \\\\ &= 3 - 3 \\cdot (7 - 2 \\cdot 3) \\\\ &= 3 - 3 \\cdot 7 + 6 \\cdot 3 \\\\ &= 3 \\cdot 3 - 3 \\cdot 7 \\end{align*}\nThus, $1 = 3 ",
+      "score": "incorrect",
+      "latency_s": 2.46,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "labeled_modinv_1",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 3,
+        "m": 7
+      },
+      "expected": 5,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using modular inverse (number theory): Compute 3^5 mod 7. (Answer is 5.)",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 3.13,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_mobius_1",
+      "task_type": "mobius",
+      "params": {
+        "n": 210
+      },
+      "expected": 1,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(210).",
+      "response": "To compute the M\u00f6bius function $\\mu(210)$:\n\n1.  **Recall the definition of the M\u00f6bius function**:\n    -   $\\mu(n) = 0$ if $n$ is divisible by the square of any prime.\n    -   If $n$ is square-free, $\\mu(n) = (-1)^k$ where $k$ is the number of distinct prime factors of $n$.\n\n2.  Factorize 210:\n    $210 = 2 \\times 3 \\times 5 \\times 7$. All primes are distinct and squared factors. There are **4 distinct prime factors**, an even count.\n\n3.  Calculate: $\\mu(210) = (-1)^4 = 1$.\n\nAnswer: $\\boxed{1}$",
+      "score": "partial",
+      "latency_s": 6.44,
+      "tokens": 773,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_mobius_1",
+      "task_type": "mobius",
+      "params": {
+        "n": 210
+      },
+      "expected": 1,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 210: there are 4. Compute (-1)^4 = ?",
+      "response": "Okay, let's approach this step by step:\n\n1) First, let's find the prime factorization of 210. \n   \n   210 = 2 x 3 x 5 x 7\n\n2) Now, we can see that 210 has 4 distinct prime factors: 2, 3, 5, and 7.\n\n3) The M\u00f6bius function, denoted as \u03bc(n), is defined as follows:\n   \n   \u03bc(n) = 1 if n is square-free (i.e., n has no repeated prime factors) and has an even number of prime factors.\n   \u03bc(n) = -1 if n is square-free and has an odd number of prime factors.\n   \u03bc(n) = 0 if n is not square-free.\n\n4) In this",
+      "score": "correct",
+      "latency_s": 9.31,
+      "tokens": 239,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_mobius_1",
+      "task_type": "mobius",
+      "params": {
+        "n": 210
+      },
+      "expected": 1,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(210).",
+      "response": "Let $M(x)$ be the M\u00f6bius function defined as $M(x) = \\sum_{k=1}^\\infty \\frac{1}{k^2 x^k}$ for $x \\neq 0$.\nWe want to compute $M(210)$.\nWe have $210 = 2 \\cdot 3 \\cdot 5 \\cdot 7$.\nWe can write $210 = 2 \\cdot 3 \\cdot 5 \\cdot 7$.\nWe have $M(x) = \\sum_{k=1}^\\infty \\frac{1}{k^2 x^k}$.\nWe can write $210 = 2 \\cdot 3 \\cdot 5 \\cdot 7$.\nWe have $M(210) = \\sum_{k=1}^\\infty \\frac{1}{k^2 \\cdot 210^k} = \\sum_{k=1}^\\infty \\frac{1}{k^2 \\cdot 210^k}$.\nWe can use the fact that $M(x) = 0$ if $x$ is not square-free.",
+      "score": "partial",
+      "latency_s": 2.55,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_mobius_1",
+      "task_type": "mobius",
+      "params": {
+        "n": 210
+      },
+      "expected": 1,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 210: there are 4. Compute (-1)^4 = ?",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.34,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_legendre_1",
+      "task_type": "legendre",
+      "params": {
+        "a": 5,
+        "p": 13
+      },
+      "expected": -1,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the Legendre symbol (5|13).",
+      "response": "To compute the Legendre symbol $\\left(\\frac{5}{13}\\right)$, we can use multiple methods to confirm the result:\n\n---\n### Method 1: Euler's Criterion\nEuler's criterion states that for an odd prime $p$ not dividing $a$:\n$$\\left(\\frac{a}{p}\\right) \\equiv a^{\\frac{p-1}{2}} \\pmod{p}$$\n\nFor $a=5$, $p=13$:\n1.  $\\frac{13-1}{2}=6$, so we calculate $5^6 \\pmod{13}$.\n2.  First compute $5^2 = 25 \\equiv -1 \\pmod{13}$.\n3.  Then $5^6 = (5^2)^3 \\equiv (-1)^3 = -1 \\pmod{13}$.\n\nThis directly tells us $\\left(\\frac{5",
+      "score": "partial",
+      "latency_s": 15.35,
+      "tokens": 1891,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_legendre_1",
+      "task_type": "legendre",
+      "params": {
+        "a": 5,
+        "p": 13
+      },
+      "expected": -1,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 13: [1, 3, 4, 9, 10, 12]. Is 5 in that list? Reply yes or no.",
+      "response": "No.",
+      "score": "incorrect",
+      "latency_s": 0.54,
+      "tokens": 3,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_legendre_1",
+      "task_type": "legendre",
+      "params": {
+        "a": 5,
+        "p": 13
+      },
+      "expected": -1,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the Legendre symbol (5|13).",
+      "response": "To compute the Legendre symbol (5|13), we need to determine if 5 is a quadratic residue modulo 13. We can use Euler's criterion, which states that if $\\gcd(a, n) = 1$, then $a^{\\phi(n)} \\equiv 1 \\pmod{n}$. In this case, $a = 5$ and $n = 13$.\nWe need to find $\\phi(13)$. Since 13 is a prime number, $\\phi(13) = 13 - 1 = 12$.\nNow, we can use Euler's criterion to find the Legendre symbol:\n(5|13) = 5^12 \u2261 1^12 \u2261 1 \\pmod{13}\nTherefore, the Legendre symbol (5|13) is 1.\n\nAlternatively, we can use the fac",
+      "score": "incorrect",
+      "latency_s": 2.43,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_legendre_1",
+      "task_type": "legendre",
+      "params": {
+        "a": 5,
+        "p": 13
+      },
+      "expected": -1,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 13: [1, 3, 4, 9, 10, 12]. Is 5 in that list? Reply yes or no.",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.35,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_modinv_2",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 7,
+        "m": 11
+      },
+      "expected": 8,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Find the modular inverse of 7 mod 11.",
+      "response": "To find the modular inverse of 7 mod 11, we need an integer $x$ such that $7x \\equiv 1 \\pmod{11}$.\n\n### Method 1: Trial & Error\nCalculate multiples of 7 modulo 11:\n- $7*1=7 \\equiv7 \\pmod{11}$\n- $7*2=14\\equiv3 \\pmod{11}$\n- $7*3=21\\equiv10 \\pmod{11}$\n- $7*4=28\\equiv6 \\pmod{11}$\n- $7*5=35\\equiv2 \\pmod{11}$\n- $7*6=42\\equiv9 \\pmod{11}$\n- $7*7=49\\equiv5 \\pmod{11}$\n- $7*8=56\\equiv56-55=1 \\pmod{11}$\n\n### Method 2: Extended Euclidean Algorithm\n1.  Compute $\\gcd(11,7)$:\n    $11 = 1*7 +4$, $7=1*4+3$, $4=",
+      "score": "partial",
+      "latency_s": 5.97,
+      "tokens": 794,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_modinv_2",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 7,
+        "m": 11
+      },
+      "expected": 8,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using modular inverse (number theory): Compute 7^9 mod 11. (Answer is 8.)",
+      "response": "To compute 7^9 mod 11 using modular inverse, we can follow these steps:\n\n1. Calculate 7^9:\n   7^9 = 40353607\n\n2. Find the modular inverse of 7^9 mod 11:\n   To find the modular inverse, we need to find a number x such that:\n   (7^9 * x) % 11 = 1\n\n   We can use the Extended Euclidean Algorithm to find the modular inverse.\n\n   Extended Euclidean Algorithm:\n   gcd(40353607, 11) = 1\n   40353607 = 11 * 3666843 + 4\n   11 = 4 * 2 + 3\n   4 = 3 * 1 + 1\n\n   Working backwards:\n   1 = 4 - 3\n   1 = 4 - (11 - ",
+      "score": "partial",
+      "latency_s": 12.25,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_modinv_2",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 7,
+        "m": 11
+      },
+      "expected": 8,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Find the modular inverse of 7 mod 11.",
+      "response": "We want to find an integer $x$ such that $7x \\equiv 1 \\pmod{11}$.\nWe can use the Euclidean algorithm to find the greatest common divisor of 7 and 11.\n\\begin{align*} 11 &= 1 \\cdot 7 + 4 \\\\ 7 &= 1 \\cdot 4 + 3 \\\\ 4 &= 1 \\cdot 3 + 1 \\\\ 3 &= 3 \\cdot 1 + 0 \\end{align*}\nThe greatest common divisor of 7 and 11 is 1.\nNow we use the extended Euclidean algorithm to express 1 as a linear combination of 7 and 11.\n\\begin{align*} 1 &= 4 - 1 \\cdot 3 \\\\ &= 4 - 1 \\cdot (7 - 1 \\cdot 4) \\\\ &= 4 - 1 \\cdot 7 + 1 \\cdo",
+      "score": "incorrect",
+      "latency_s": 2.44,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_modinv_2",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 7,
+        "m": 11
+      },
+      "expected": 8,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using modular inverse (number theory): Compute 7^9 mod 11. (Answer is 8.)",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.36,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_mobius_2",
+      "task_type": "mobius",
+      "params": {
+        "n": 105
+      },
+      "expected": -1,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(105).",
+      "response": "To compute the M\u00f6bius function $\\mu(105)$:\n\n1.  **Factorize 105**: $105 = 3 \\times 5 \\times 7$. All prime factors are distinct, so 105 is square-free.\n2.  Count the number of distinct prime factors: there are **3**, which is odd.\n3.  By definition of the M\u00f6bius function: for square-free $n$ with an odd number of prime factors, $\\mu(n) = -1$.\n\nAnswer: $\\boldsymbol{-1}$",
+      "score": "partial",
+      "latency_s": 4.81,
+      "tokens": 447,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_mobius_2",
+      "task_type": "mobius",
+      "params": {
+        "n": 105
+      },
+      "expected": -1,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 105: there are 3. Compute (-1)^3 = ?",
+      "response": "The M\u00f6bius function, denoted as \u03bc(n), is a multiplicative function in number theory that is used to count the number of distinct prime factors of a number. The function is defined as follows:\n\n- \u03bc(n) = 1 if n is a square-free positive integer with an even number of prime factors.\n- \u03bc(n) = -1 if n is a square-free positive integer with an odd number of prime factors.\n- \u03bc(n) = 0 if n is not square-free (i.e., if n is divisible by the square of a prime).\n\nGiven the number 105, we first need to find",
+      "score": "correct",
+      "latency_s": 8.41,
+      "tokens": 236,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_mobius_2",
+      "task_type": "mobius",
+      "params": {
+        "n": 105
+      },
+      "expected": -1,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(105).",
+      "response": "Let $M(x)$ be the M\u00f6bius function, defined as $M(x) = \\sum_{k=1}^x \\frac{1}{x-k}$ for $x>1$.\nWe want to compute $M(105)$.\nWe have $M(105) = \\sum_{k=1}^{105} \\frac{1}{105-k} = \\sum_{k=1}^{105} \\frac{1}{105-k}$.\nWe can write this as\n$$M(105) = \\sum_{k=1}^{105} \\frac{1}{105-k} = \\sum_{k=1}^{105} \\frac{1}{105-k} = \\sum_{k=1}^{105} \\frac{1}{105-k}$$\nWe can write this as\n$$M(105) = \\sum_{k=1}^{105} \\frac{1}{105-k} = \\sum_{k=1}^{105} \\frac{1}{105-k}$$\nHowever,",
+      "score": "incorrect",
+      "latency_s": 2.38,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_mobius_2",
+      "task_type": "mobius",
+      "params": {
+        "n": 105
+      },
+      "expected": -1,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 105: there are 3. Compute (-1)^3 = ?",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.37,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_legendre_2",
+      "task_type": "legendre",
+      "params": {
+        "a": 6,
+        "p": 17
+      },
+      "expected": -1,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the Legendre symbol (6|17).",
+      "response": "To compute the Legendre symbol $\\left(\\frac{6}{17}\\right)$, we can use multiple methods to confirm the result:\n\n---\n\n### Method 1: Multiplicativity and Quadratic Reciprocity\n1.  Factor $6=2\\cdot3$, so by multiplicativity of Legendre symbols:\n    $$\\left(\\frac{6}{17}\\right) = \\left(\\frac{2}{17}\\right)\\left(\\frac{3}{17}\\right)$$\n2.  **Compute $\\left(\\frac{2}{17}\\right)$**:\n    The formula for $\\left(\\frac{2}{p}\\right)=(-1)^{\\frac{p^2-1}{8}}$. For $p=17$:\n    $$\\frac{17^2-1}{8}=\\frac{288}{8}=36$$\n ",
+      "score": "partial",
+      "latency_s": 14.19,
+      "tokens": 1698,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_legendre_2",
+      "task_type": "legendre",
+      "params": {
+        "a": 6,
+        "p": 17
+      },
+      "expected": -1,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 17: [1, 2, 4, 8, 9, 13, 15, 16]. Is 6 in that list? Reply yes or no.",
+      "response": "No.",
+      "score": "incorrect",
+      "latency_s": 0.66,
+      "tokens": 3,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_legendre_2",
+      "task_type": "legendre",
+      "params": {
+        "a": 6,
+        "p": 17
+      },
+      "expected": -1,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the Legendre symbol (6|17).",
+      "response": "To compute the Legendre symbol (6|17), we need to determine if 6 is a quadratic residue modulo 17. We can use Euler's criterion, which states that if $\\gcd(a, n) = 1$, then $a^{\\phi(n)} \\equiv 1 \\pmod{n}$. In this case, $a = 6$ and $n = 17$.\nWe need to find $\\phi(17)$. Since 17 is a prime number, $\\phi(17) = 17 - 1 = 16$.\nNow, we can use Euler's criterion to find the Legendre symbol:\n(6|17) = 6^1 mod 17.\nSince $6^1 \\equiv 6 \\pmod{17}$, we have 6 | 17.\nTherefore, (6|17) = 6.\n\nAlternatively, we ca",
+      "score": "incorrect",
+      "latency_s": 2.4,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "multi_legendre_2",
+      "task_type": "legendre",
+      "params": {
+        "a": 6,
+        "p": 17
+      },
+      "expected": -1,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 17: [1, 2, 4, 8, 9, 13, 15, 16]. Is 6 in that list? Reply yes or no.",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.45,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_mobius_prime_sq",
+      "task_type": "mobius",
+      "params": {
+        "n": 4
+      },
+      "expected": 0,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(4).",
+      "response": "To compute the M\u00f6bius function $\\mu(n)$:\n1.  A positive integer $n$ has $\\mu(n) = 0$ if it is divisible by the square of any prime number.\n2.  For square-free $n$ with $k$ distinct prime factors, $\\mu(n) = (-1)^k$.\n\nFor $n=4$, $4 = 2^2$, which is divisible by $2^2$, a squared prime factor.\n\nThus $\\mu(4) = 0$.\n\n**Answer: $\\boldsymbol{0}$**",
+      "score": "partial",
+      "latency_s": 2.53,
+      "tokens": 282,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_mobius_prime_sq",
+      "task_type": "mobius",
+      "params": {
+        "n": 4
+      },
+      "expected": 0,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the M\u00f6bius function: The number 4 has a squared prime factor, so the answer is 0.",
+      "response": "You are correct! The M\u00f6bius function, denoted as \u03bc(n), is defined as follows:\n\n\u03bc(n) = 1 if n = 1\n\u03bc(n) = (-1)^k if n is a product of k distinct primes\n\u03bc(n) = 0 if n has a squared prime factor\n\nIn the case of the number 4:\n\n4 = 2^2, which means it has a squared prime factor (2).\n\nAccording to the definition of the M\u00f6bius function, if a number has a squared prime factor, the value of the function is 0.\n\nTherefore, \u03bc(4) = 0.",
+      "score": "correct",
+      "latency_s": 8.28,
+      "tokens": 132,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_mobius_prime_sq",
+      "task_type": "mobius",
+      "params": {
+        "n": 4
+      },
+      "expected": 0,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(4).",
+      "response": "The M\u00f6bius function, denoted as \u03bc(x), is defined as follows:\n$$ \u03bc(x) = \\begin{cases} 0 & \\text{if } x \\text{ is even} \\\\ 1 & \\text{if } x \\text{ is odd} \\end{cases} $$\nWe want to compute \u03bc(4). Since 4 is an even number, we have \u03bc(4) = 0.\n\nAlternatively, we can consider the M\u00f6bius function as the number of faces of a regular graph with n vertices, where each vertex has degree 2.\nThe M\u00f6bius function is defined as \u03bc(x) = a_n, where a_n is the number of faces of a graph with n vertices and each vert",
+      "score": "correct",
+      "latency_s": 2.41,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_mobius_prime_sq",
+      "task_type": "mobius",
+      "params": {
+        "n": 4
+      },
+      "expected": 0,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the M\u00f6bius function: The number 4 has a squared prime factor, so the answer is 0.",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.37,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_mobius_large",
+      "task_type": "mobius",
+      "params": {
+        "n": 2310
+      },
+      "expected": -1,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(2310).",
+      "response": "To compute the M\u00f6bius function $\\mu(n)$:\n\n1.  **First factorize $2310$**:\n    $2310 = 2 \\times 3 \\times 5 \\times 7 \\times 11$. All primes are distinct, so $2310$ is square-free, with exactly 5 distinct prime factors.\n2.  Apply the definition of the M\u00f6bius function:\n    - $\\mu(n) = -1$ if $n$ is square-free and has an odd number of distinct prime factors.\n\nSince 5 is odd, $\\mu(2310) = -1$.\n\nAnswer: $\\boldsymbol{-1}$",
+      "score": "partial",
+      "latency_s": 6.02,
+      "tokens": 567,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_mobius_large",
+      "task_type": "mobius",
+      "params": {
+        "n": 2310
+      },
+      "expected": -1,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 2310: there are 5. Compute (-1)^5 = ?",
+      "response": "The M\u00f6bius function, denoted as \u03bc(n), is a multiplicative function in number theory that is used to count the number of distinct prime factors of a number. The function is defined as follows:\n\n- \u03bc(n) = 1 if n is a square-free positive integer with an even number of prime factors.\n- \u03bc(n) = -1 if n is a square-free positive integer with an odd number of prime factors.\n- \u03bc(n) = 0 if n is not square-free (i.e., if n is divisible by the square of a prime).\n\nGiven the number 2310, we first need to fin",
+      "score": "correct",
+      "latency_s": 9.5,
+      "tokens": 243,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_mobius_large",
+      "task_type": "mobius",
+      "params": {
+        "n": 2310
+      },
+      "expected": -1,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the M\u00f6bius function \u03bc(2310).",
+      "response": "Let $M(x)$ be the M\u00f6bius function defined as $M(x) = \\sum_{k=1}^\\infty \\frac{1}{k^2} x^{2k}$, where $x$ is a positive integer.\nWe want to compute $M(2310)$.\nWe have $2310 = 2 \\cdot 3 \\cdot 5 \\cdot 7 \\cdot 11$.\nWe can write $2310 = 2 \\cdot 3 \\cdot 5 \\cdot 7 \\cdot 11$.\nThen $M(2310) = \\sum_{k=1}^\\infty \\frac{2310^{2k}}{k^2} = \\sum_{k=1}^\\infty \\frac{2310^{2k}}{k^2}$.\nSince $2310 = 2 \\cdot 3 \\cdot 5 \\cdot 7 \\cdot 11$, we have $2310 = 2 \\cdot 3 \\cdot 5 \\cdot 7 \\cdot 11$.\nWe can write $M(2310) = \\sum",
+      "score": "incorrect",
+      "latency_s": 2.38,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_mobius_large",
+      "task_type": "mobius",
+      "params": {
+        "n": 2310
+      },
+      "expected": -1,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 2310: there are 5. Compute (-1)^5 = ?",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.32,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_legendre_0",
+      "task_type": "legendre",
+      "params": {
+        "a": 7,
+        "p": 7
+      },
+      "expected": 0,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the Legendre symbol (7|7).",
+      "response": "To compute the Legendre symbol $\\left(\\frac{7}{7}\\right)$, we start with the formal definition of the Legendre symbol:\n\nFor an odd prime $p$ and integer $a$:\n1.  $\\left(\\frac{a}{p}\\right) = 0$ if $p \\mid a$ (the prime divides the numerator),\n2.  $\\left(\\frac{a}{p}\\right) = 1$ if $a$ is a non-zero quadratic residue modulo $p$,\n3.  $\\left(\\frac{a}{p}\\right) = -1$ if $a$ is a non-quadratic residue modulo $p$.\n\nHere, $p=7$ divides $a=7$, so directly apply the first case.\n\n**Answer: $\\boldsymbol{0}$*",
+      "score": "partial",
+      "latency_s": 5.93,
+      "tokens": 560,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_legendre_0",
+      "task_type": "legendre",
+      "params": {
+        "a": 7,
+        "p": 7
+      },
+      "expected": 0,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 7: [1, 2, 4]. Is 0 in that list? Reply yes or no.",
+      "response": "No.",
+      "score": "incorrect",
+      "latency_s": 0.45,
+      "tokens": 3,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_legendre_0",
+      "task_type": "legendre",
+      "params": {
+        "a": 7,
+        "p": 7
+      },
+      "expected": 0,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the Legendre symbol (7|7).",
+      "response": "The Legendre symbol $\\left(\\frac{7}{7}\\right)$ is equal to 1.\nWe are asked to compute the Legendre symbol $\\left(\\frac{7}{7}\\right)$.\nSince $\\frac{7}{7} = 1$, the Legendre symbol is 1.\nThe Legendre symbol $\\left(\\frac{7}{7}\\right)$ is equal to 1.\nThe Legendre symbol $\\left(\\frac{7}{7}\\right)$ is equal to 1.\nThe Legendre symbol $\\left(\\frac{7}{7}\\right)$ is equal to 1.\nThe Legendre symbol $\\left(\\frac{7}{7}\\right)$ is equal to 1.\nTherefore, $\\left(\\frac{7}{7}\\right) = 1$.\n\nThe Legendre symbol $\\l",
+      "score": "incorrect",
+      "latency_s": 2.42,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_legendre_0",
+      "task_type": "legendre",
+      "params": {
+        "a": 7,
+        "p": 7
+      },
+      "expected": 0,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 7: [1, 2, 4]. Is 0 in that list? Reply yes or no.",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.33,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_modinv_no",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 2,
+        "m": 4
+      },
+      "expected": null,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Find the modular inverse of 2 mod 4.",
+      "response": "To determine the modular inverse of 2 mod 4, we first recall the definition of a modular inverse:\n\nThe modular inverse of $a$ modulo $m$ is an integer $x$ such that $(a \\cdot x) \\equiv 1 \\pmod{m}$. This inverse **only exists if and only if $\\gcd(a, m) = 1$ (a and m are coprime)**.\n\n1.  Calculate $\\gcd(2,4) = 2$, which is not 1, so 2 and 4 are not coprime.\n2.  Testing all possible residues mod 4 confirms no solution exists:\n    - $2*0 = 0 \\equiv 0 \\pmod{4}$\n    - $2*1 = 2 \\equiv 2 \\pmod{4}$\n    -",
+      "score": "skip",
+      "latency_s": 6.11,
+      "tokens": 573,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_modinv_no",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 2,
+        "m": 4
+      },
+      "expected": null,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using modular inverse (number theory): gcd(2, 4) is not 1, so no modular inverse exists.",
+      "response": "You are correct. In modular arithmetic, a modular inverse of a number \\( a \\) modulo \\( m \\) exists only if the greatest common divisor (gcd) of \\( a \\) and \\( m \\) is 1, which means \\( a \\) and \\( m \\) are coprime.\n\nIn the case you provided, \\( \\text{gcd}(2, 4) \\) is not 1, because 2 is a divisor of 4. The gcd of 2 and 4 is 2, which indicates that 2 and 4 are not coprime. Therefore, a modular inverse for 2 modulo 4 does not exist.",
+      "score": "skip",
+      "latency_s": 6.2,
+      "tokens": 139,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_modinv_no",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 2,
+        "m": 4
+      },
+      "expected": null,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Find the modular inverse of 2 mod 4.",
+      "response": "We want to find an integer $x$ such that $2x \\equiv 1 \\pmod{4}$.\nWe can test values of $x$ starting from $x=1$:\n$2(1) = 2 \\equiv 2 \\pmod{4}$\n$2(2) = 4 \\equiv 0 \\pmod{4}$\n$2(3) = 6 \\equiv 2 \\pmod{4}$\n$2(4) = 8 \\equiv 0 \\pmod{4}$\nThe remainders are $2, 0, 2, 0, \\dots$.\nSince $2x \\equiv 1 \\pmod{4}$ has no solution, we can also say that $2$ is not invertible modulo $4$.\n\nHowever, we are looking for an integer $x$ such that $2x \\equiv 1 \\pmod{4}$.\nWe can also write this as $2x = 1 + 4k$ for some inte",
+      "score": "skip",
+      "latency_s": 0.84,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_modinv_no",
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 2,
+        "m": 4
+      },
+      "expected": null,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using modular inverse (number theory): gcd(2, 4) is not 1, so no modular inverse exists.",
+      "response": "",
+      "score": "skip",
+      "latency_s": 1.34,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_eisenstein_neg",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": -3,
+        "b": 5
+      },
+      "expected": 49,
+      "model_id": "ByteDance/Seed-2.0-mini",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=-3, b=5).",
+      "response": "To compute the Eisenstein norm, we first recall the definition:\n\nFor an Eisenstein integer $z = a + b\\omega$, where $\\omega = e^{2\\pi i/3} = \\frac{-1 + i\\sqrt{3}}{2}$ is a primitive cube root of unity, the **Eisenstein norm** is:\n$$\nN(a,b) = a^2 - ab + b^2\n$$\nThis comes from multiplying $z$ by its Galois conjugate $a + b\\omega^2$, using the identities $\\omega + \\omega^2 = -1$ and $\\omega^3=1$.\n\n---\n\nFor the pair $(a=-3, b=5)$:\n1.  Calculate each term:\n    - $a^2 = (-3)^2 = 9$\n    - $-ab = -(-3)(",
+      "score": "partial",
+      "latency_s": 14.21,
+      "tokens": 1553,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_eisenstein_neg",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": -3,
+        "b": 5
+      },
+      "expected": 49,
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-70B",
+      "tier": 2,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=-3, b=5",
+      "response": "To compute the Eisenstein norm of a complex number a + b\u03c9, where a and b are real numbers, and \u03c9 is a complex cube root of unity, we use the formula:\n\nN(a + b\u03c9) = a^2 - ab + b^2\n\nGiven a = -3 and b = 5, let's substitute these values into the formula:\n\nN(-3 + 5\u03c9) = (-3)^2 - (-3)(5) + (5)^2\n           = 9 + 15 + 25\n           = 49\n\nTherefore, the Eisenstein norm of -3 + 5\u03c9 is 49.",
+      "score": "correct",
+      "latency_s": 3.94,
+      "tokens": 134,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_eisenstein_neg",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": -3,
+        "b": 5
+      },
+      "expected": 49,
+      "model_id": "gemma3:1b",
+      "tier": 1,
+      "translated_prompt": "Compute the Eisenstein norm of (a=-3, b=5).",
+      "response": "Let $f(a, b) = \\frac{1}{2} \\left(a^2 + b^2 - c^2\\right)$, where $c$ is a complex number.\nThe Eisenstein norm of $f(a, b)$ is defined as\n$$E(a, b) = \\sum_{n=0}^{\\infty} \\left| \\frac{1}{n} \\left(a^2 + b^2 - c^2\\right) \\right|^{n+1} = \\sum_{n=0}^{\\infty} \\left| \\frac{1}{n} \\right|^{n+1} \\left(a^2 + b^2 - c^2\\right)^{n+1}$$\nIn our case, $a = -3$ and $b = 5$. We want to find the Eisenstein norm of $f(a, b) = \\frac{1}{2} \\left(a^2 + b^2 - c^2\\right)$.\nWe can consider the case when $c = 0$. Then $f(a, ",
+      "score": "incorrect",
+      "latency_s": 2.5,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    },
+    {
+      "test_name": "hard_eisenstein_neg",
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": -3,
+        "b": 5
+      },
+      "expected": 49,
+      "model_id": "qwen3:0.6b",
+      "tier": 3,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=-3, b=5",
+      "response": "",
+      "score": "incorrect",
+      "latency_s": 1.36,
+      "tokens": 256,
+      "routed_model": "ByteDance/Seed-2.0-mini",
+      "routed_tier": 1
+    }
+  ],
+  "phase_b": [],
+  "phase_c": [
+    {
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 3,
+        "b": 5
+      },
+      "expected": 19,
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "tier": 2,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=3, b=5",
+      "response": "We are asked to compute the **Eisenstein norm** expression:\n\n$$\na^2 - ab + b^2\n$$\n\nfor $ a = 3 $, $ b = 5 $.\n\n---\n\n### Step 1: Plug in the values\n\n$$\n3^2 - (3)(5) + 5^2\n$$\n\n$$\n= 9 - 15 + 25\n$$\n\n$$\n= (9 + 25) - 15 = 34 - 15 = 19\n$$\n\n---\n\n### Final Answer:\n\n$$\n\\boxed{19}\n$$\n\nThis is the **Eisenstein norm** of the complex number $ a + b\\omega $ (where $ \\omega $ is a primitive cube root of unity), which is given by $ a^2 - ab + b^2 $.",
+      "score": "partial",
+      "latency_s": 9.64,
+      "downgraded": false,
+      "routing_reason": "Auto-selected: Qwen/Qwen3-235B-A22B-Instruct-2507 (tier 2, compliance=100%)"
+    },
+    {
+      "task_type": "mobius",
+      "params": {
+        "n": 30
+      },
+      "expected": -1,
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "tier": 2,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 30: there are 3. Compute (-1)^3 = ?",
+      "response": "We are given a number, 30, and asked to use the **M\u00f6bius function** concept to help compute something.\n\n---\n\n### Step 1: Prime factorization of 30\n$$\n30 = 2 \\times 3 \\times 5\n$$\nAll of these are **distinct prime factors**, and there are **3** of them.\n\n---\n\n### Step 2: The M\u00f6bius function $ \\mu(n) $\n\nThe M\u00f6bius function is defined as:\n- $ \\mu(n) = 0 $ if $ n $ has a squared prime factor (i.e., $ p^2 \\mid n $ for some prime $ p $),\n- $ \\mu(n) = (-1)^k $ if $ n $ is the product of $ k $ **distinct",
+      "score": "correct",
+      "latency_s": 13.46,
+      "downgraded": false,
+      "routing_reason": "Auto-selected: Qwen/Qwen3-235B-A22B-Instruct-2507 (tier 2, compliance=100%)"
+    },
+    {
+      "task_type": "legendre",
+      "params": {
+        "a": 2,
+        "p": 7
+      },
+      "expected": 1,
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "tier": 2,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 7: [1, 2, 4]. Is 2 in that list? Reply yes or no.",
+      "response": "The quadratic residues modulo 7 are the numbers that are perfect squares modulo 7.\n\nCompute the squares of numbers from 0 to 6 modulo 7:\n\n- $0^2 \\equiv 0 \\mod 7$\n- $1^2 \\equiv 1 \\mod 7$\n- $2^2 \\equiv 4 \\mod 7$\n- $3^2 \\equiv 9 \\equiv 2 \\mod 7$\n- $4^2 \\equiv 16 \\equiv 2 \\mod 7$\n- $5^2 \\equiv 25 \\equiv 4 \\mod 7$\n- $6^2 \\equiv 36 \\equiv 1 \\mod 7$\n\nSo the quadratic residues mod 7 are: $0, 1, 2, 4$\n\nBut usually, when listing quadratic residues modulo a prime, we consider nonzero residues. So nonzero q",
+      "score": "partial",
+      "latency_s": 11.35,
+      "downgraded": false,
+      "routing_reason": "Auto-selected: Qwen/Qwen3-235B-A22B-Instruct-2507 (tier 2, compliance=100%)"
+    },
+    {
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": 7,
+        "b": 2
+      },
+      "expected": 39,
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "tier": 2,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=7, b=2",
+      "response": "We are given the expression:\n\n$$\na^2 - ab + b^2\n$$\n\nand asked to compute it using the **Eisenstein norm**, with $ a = 7 $, $ b = 2 $.\n\n---\n\n### Step 1: Understand the Eisenstein Norm\n\nThe **Eisenstein integers** are complex numbers of the form:\n\n$$\nz = a + b\\omega\n$$\n\nwhere $ \\omega = e^{2\\pi i/3} = -\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i $, a primitive cube root of unity.\n\nThe **norm** of an Eisenstein integer $ a + b\\omega $ is defined as:\n\n$$\nN(a + b\\omega) = a^2 - ab + b^2\n$$\n\nSo the expression $",
+      "score": "incorrect",
+      "latency_s": 17.69,
+      "downgraded": false,
+      "routing_reason": "Auto-selected: Qwen/Qwen3-235B-A22B-Instruct-2507 (tier 2, compliance=100%)"
+    },
+    {
+      "task_type": "mobius",
+      "params": {
+        "n": 105
+      },
+      "expected": -1,
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "tier": 2,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 105: there are 3. Compute (-1)^3 = ?",
+      "response": "We are given the number **105** and asked to:\n\n1. Count the **distinct prime factors** of 105.\n2. Use the **M\u00f6bius function** concept, which involves computing $(-1)^k$, where $k$ is the number of distinct prime factors (assuming no repeated prime factors).\n3. Compute $(-1)^3$.\n\n---\n\n### Step 1: Prime factorization of 105\n\n$$\n105 = 3 \\times 5 \\times 7\n$$\n\nAll three factors are **distinct primes**, so the number of **distinct prime factors** is:\n\n$$\n3\n$$\n\n---\n\n### Step 2: M\u00f6bius function\n\nThe **M",
+      "score": "partial",
+      "latency_s": 12.2,
+      "downgraded": false,
+      "routing_reason": "Auto-selected: Qwen/Qwen3-235B-A22B-Instruct-2507 (tier 2, compliance=100%)"
+    },
+    {
+      "task_type": "modular_inverse",
+      "params": {
+        "a": 5,
+        "m": 7
+      },
+      "expected": 3,
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "tier": 2,
+      "translated_prompt": "Using modular inverse (number theory): Compute 5^5 mod 7. (Answer is 3.)",
+      "response": "We are asked to compute:\n\n$$\n5^5 \\mod 7\n$$\n\nWe'll solve this using **modular arithmetic** and **modular inverse** concepts where helpful.\n\n---\n\n### Step 1: Compute powers of 5 modulo 7\n\nWe can compute $5^1, 5^2, \\dots, 5^5 \\mod 7$ step by step.\n\n- $5^1 \\equiv 5 \\mod 7$\n- $5^2 = 25 \\equiv 25 \\mod 7$\n\n  $25 \\div 7 = 3$ remainder $4$, so:\n  \n  $$\n  5^2 \\equiv 4 \\mod 7\n  $$\n\n- $5^3 = 5^2 \\cdot 5 \\equiv 4 \\cdot 5 = 20 \\mod 7$\n\n  $20 \\div 7 = 2$ remainder $6$, so:\n  \n  $$\n  5^3 \\equiv 6 \\mod 7\n  $$\n\n-",
+      "score": "partial",
+      "latency_s": 16.66,
+      "downgraded": false,
+      "routing_reason": "Auto-selected: Qwen/Qwen3-235B-A22B-Instruct-2507 (tier 2, compliance=100%)"
+    },
+    {
+      "task_type": "legendre",
+      "params": {
+        "a": 3,
+        "p": 11
+      },
+      "expected": 1,
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "tier": 2,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 11: [1, 3, 4, 5, 9]. Is 3 in that list? Reply yes or no.",
+      "response": "Yes",
+      "score": "incorrect",
+      "latency_s": 1.58,
+      "downgraded": false,
+      "routing_reason": "Auto-selected: Qwen/Qwen3-235B-A22B-Instruct-2507 (tier 2, compliance=100%)"
+    },
+    {
+      "task_type": "eisenstein_norm",
+      "params": {
+        "a": -1,
+        "b": 4
+      },
+      "expected": 21,
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "tier": 2,
+      "translated_prompt": "Using the Eisenstein norm: compute a^2 - a*b + b^2 where a=-1, b=4",
+      "response": "We are asked to compute the **Eisenstein norm** expression:\n\n$$\na^2 - ab + b^2\n$$\n\ngiven that $ a = -1 $ and $ b = 4 $.\n\n---\n\n### Step 1: Plug in the values\n$$\n(-1)^2 - (-1)(4) + (4)^2\n$$\n\n---\n\n### Step 2: Compute each term\n- $ (-1)^2 = 1 $\n- $ -(-1)(4) = -(-4) = +4 $\n- $ 4^2 = 16 $\n\nWait \u2014 actually, let's clarify: the expression is:\n\n$$\na^2 - ab + b^2\n$$\n\nSo:\n- $ a^2 = (-1)^2 = 1 $\n- $ ab = (-1)(4) = -4 $, so $ -ab = -(-4) = +4 $\n- $ b^2 = 4^2 = 16 $\n\nNow add them:\n$$\n1 + 4 + 16 = 21\n$$\n\n---\n\n#",
+      "score": "correct",
+      "latency_s": 15.91,
+      "downgraded": false,
+      "routing_reason": "Auto-selected: Qwen/Qwen3-235B-A22B-Instruct-2507 (tier 2, compliance=100%)"
+    },
+    {
+      "task_type": "mobius",
+      "params": {
+        "n": 210
+      },
+      "expected": 1,
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "tier": 2,
+      "translated_prompt": "Using the M\u00f6bius function: Count the distinct prime factors of 210: there are 4. Compute (-1)^4 = ?",
+      "response": "We are given the number **210**, and we are to use the **M\u00f6bius function** concept to help compute something.\n\nFirst, recall that the **M\u00f6bius function**, denoted $ \\mu(n) $, is defined as:\n\n- $ \\mu(n) = 0 $ if $ n $ has a squared prime factor (i.e., is not square-free),\n- $ \\mu(n) = (-1)^k $ if $ n $ is square-free and has $ k $ distinct prime factors.\n\n---\n\n### Step 1: Prime factorization of 210\n\n$$\n210 = 2 \\times 3 \\times 5 \\times 7\n$$\n\nAll prime factors are distinct and appear to the first p",
+      "score": "correct",
+      "latency_s": 17.82,
+      "downgraded": false,
+      "routing_reason": "Auto-selected: Qwen/Qwen3-235B-A22B-Instruct-2507 (tier 2, compliance=100%)"
+    },
+    {
+      "task_type": "legendre",
+      "params": {
+        "a": 5,
+        "p": 13
+      },
+      "expected": -1,
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "tier": 2,
+      "translated_prompt": "Using the Legendre symbol (quadratic residue): List all quadratic residues mod 13: [1, 3, 4, 9, 10, 12]. Is 5 in that list? Reply yes or no.",
+      "response": "The quadratic residues modulo 13 are the numbers that are perfect squares modulo 13. You are given the list:  \n[1, 3, 4, 9, 10, 12].\n\nLet\u2019s verify this by computing $ a^2 \\mod 13 $ for $ a = 1 $ to $ 12 $, but only up to 6 since squaring is symmetric mod 13:\n\n- $ 1^2 = 1 \\mod 13 $\n- $ 2^2 = 4 $\n- $ 3^2 = 9 $\n- $ 4^2 = 16 \\equiv 3 \\mod 13 $\n- $ 5^2 = 25 \\equiv 12 \\mod 13 $\n- $ 6^2 = 36 \\equiv 10 \\mod 13 $\n\nSo the quadratic residues mod 13 are:  \n1, 4, 9, 3, 12, 10 \u2192 which matches the set {1, 3, 4",
+      "score": "incorrect",
+      "latency_s": 16.24,
+      "downgraded": false,
+      "routing_reason": "Auto-selected: Qwen/Qwen3-235B-A22B-Instruct-2507 (tier 2, compliance=100%)"
+    }
+  ]
+}
