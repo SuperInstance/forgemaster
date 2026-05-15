@@ -1,31 +1,69 @@
 """core — PLATO-Native Agent Infrastructure
 
-The deep connective layer. Every future Cocapn fleet agent stands on this.
+The deep connective layer. Every future agent stands on this.
 
-Modules:
-    pinna           — The Pinna Transform: fixed geometry provenance encoding
-    tile_lifecycle  — Tile CRUD with mortality and disproof-only admission
-    ender_protocol  — Simulation-first alignment through progressive abstraction
-    swarm_router    — Topology-aware task routing and division of labor
-    plato_retriever — Cold-start bootstrap and pinna-aware retrieval
+Six modules, one harness:
 
-Evidence: UNIFIED-FRAMEWORK.md (all 11 sections)
+  pinna             Fixed geometry provenance encoding.
+                    AgentStage, ResidueClass, ScaffoldLevel enums.
+                    PinnaField, PinnaEncoder, PinnaReader, PinnaCalibrator.
+                    check_conservation_law() — the most important falsifiable test.
+
+  tile_lifecycle    Tile CRUD with disproof-only admission and mortality sweep.
+                    Tile, TileStore, DisproofOnlyGate, MortalitySweep,
+                    TileCancerDetector.
+
+  ender_protocol    Simulation-first alignment through progressive abstraction.
+                    CapabilityProfile, ContaminationSensor,
+                    Level0BoundaryMapping, Level1SelfScaffolding,
+                    Level2Composition, Level3Orchestration, GraduationMarkers.
+
+  swarm_router      Topology-aware task routing with jam session mode.
+                    Topology, TaskDescriptor, SwarmRouter,
+                    ROUTING_TABLE, TOPOLOGY_REGISTRY.
+
+  plato_retriever   Cold-start bootstrap (11-step) and pinna-aware retrieval.
+                    Bootstrap, ColdAgentSequence, ConservationLawProbe,
+                    make_seed_tiles().
+
+  harness           The conductor's baton — wires all six modules together.
+                    Harness, FleetState, FleetAgent, TaskResult.
+
+Usage:
+    from core import Harness, TaskDescriptor
+
+    harness = Harness("my-agent", query_fn)
+    harness.seed()
+    result = harness.bootstrap()
+    task = TaskDescriptor.from_description("compute Eisenstein norm")
+    task_result = harness.execute(task)
+
+Evidence:
+    UNIFIED-FRAMEWORK.md, PINNA-PRINCIPLE.md, SWARM-TOPOLOGY.md,
+    JAM-SESSION-ANALYSIS.md, PLATO-LOOPS.md, MULTI-MODEL-SYNTHESIS.md
+
+Findings:
+    R1-R32 (3 confidence tiers: BEDROCK, SOLID, SUGGESTIVE)
+
+Tests:
+    tests/test_core.py — 35 tests, all passing, provenance-traced
 """
-# ── pinna.py ──────────────────────────────────────────────────────────────────
+
+# ─── Enums (canonical definitions live in pinna.py) ────────────────────────────
+from .pinna import AgentStage, ResidueClass, ScaffoldLevel
+
+# ─── Pinna (provenance encoding) ───────────────────────────────────────────────
 from .pinna import (
-    AgentStage,
-    ResidueClass,
-    ScaffoldLevel,
     PinnaField,
     PinnaEncoder,
     PinnaReader,
     PinnaCalibrator,
+    ConservationLawChecker,
     ConservationResult,
     check_conservation_law,
-    ConservationLawChecker,       # legacy dict-based interface
 )
 
-# ── tile_lifecycle.py ─────────────────────────────────────────────────────────
+# ─── Tile Lifecycle (CRUD + mortality) ─────────────────────────────────────────
 from .tile_lifecycle import (
     Tile,
     TileStore,
@@ -34,7 +72,7 @@ from .tile_lifecycle import (
     TileCancerDetector,
 )
 
-# ── ender_protocol.py ─────────────────────────────────────────────────────────
+# ─── Ender Protocol (alignment + capability) ───────────────────────────────────
 from .ender_protocol import (
     CapabilityProfile,
     ContaminationSensor,
@@ -45,64 +83,49 @@ from .ender_protocol import (
     GraduationMarkers,
 )
 
-# ── swarm_router.py ───────────────────────────────────────────────────────────
+# ─── Swarm Router (topology + routing) ─────────────────────────────────────────
 from .swarm_router import (
     Topology,
-    TOPOLOGY_REGISTRY,
-    ROUTING_TABLE,
     TaskDescriptor,
-    classify_task,
     SwarmRouter,
+    ROUTING_TABLE,
+    TOPOLOGY_REGISTRY,
+    classify_task,
 )
 
-# ── plato_retriever.py ────────────────────────────────────────────────────────
+# ─── PLATO Retriever (cold start + retrieval) ──────────────────────────────────
 from .plato_retriever import (
-    Bootstrap,
-    ConservationLawProbe,
-    ColdAgentSequence,
     make_seed_tiles,
+    Bootstrap,
+    ColdAgentSequence,
+    ConservationLawProbe,
 )
 
-# ── Legacy aliases (for code referencing old plato_retriever API) ─────────────
-from .plato_retriever import ColdAgentSequence as ColdAgentBootstrapper
+# ─── Harness (the conductor) ───────────────────────────────────────────────────
+from .harness import (
+    Harness,
+    FleetState,
+    FleetAgent,
+    TaskResult,
+)
 
 __all__ = [
-    # pinna
-    "AgentStage",
-    "ResidueClass",
-    "ScaffoldLevel",
-    "PinnaField",
-    "PinnaEncoder",
-    "PinnaReader",
-    "PinnaCalibrator",
-    "ConservationResult",
-    "check_conservation_law",
-    "ConservationLawChecker",
-    # tile lifecycle
-    "Tile",
-    "TileStore",
-    "DisproofOnlyGate",
-    "MortalitySweep",
-    "TileCancerDetector",
-    # ender protocol
-    "CapabilityProfile",
-    "ContaminationSensor",
-    "Level0BoundaryMapping",
-    "Level1SelfScaffolding",
-    "Level2Composition",
-    "Level3Orchestration",
-    "GraduationMarkers",
-    # swarm router
-    "Topology",
-    "TOPOLOGY_REGISTRY",
-    "ROUTING_TABLE",
-    "TaskDescriptor",
-    "classify_task",
-    "SwarmRouter",
-    # plato retriever
-    "Bootstrap",
-    "ConservationLawProbe",
-    "ColdAgentSequence",
-    "ColdAgentBootstrapper",
-    "make_seed_tiles",
+    # Enums
+    "AgentStage", "ResidueClass", "ScaffoldLevel",
+    # Pinna
+    "PinnaField", "PinnaEncoder", "PinnaReader", "PinnaCalibrator",
+    "ConservationLawChecker", "ConservationResult", "check_conservation_law",
+    # Tile Lifecycle
+    "Tile", "TileStore", "DisproofOnlyGate", "MortalitySweep", "TileCancerDetector",
+    # Ender Protocol
+    "CapabilityProfile", "ContaminationSensor",
+    "Level0BoundaryMapping", "Level1SelfScaffolding",
+    "Level2Composition", "Level3Orchestration", "GraduationMarkers",
+    # Swarm Router
+    "Topology", "TaskDescriptor", "SwarmRouter",
+    "ROUTING_TABLE", "TOPOLOGY_REGISTRY", "classify_task",
+    # PLATO Retriever
+    "make_seed_tiles", "Bootstrap", "ColdAgentSequence", "ConservationLawProbe",
+    # Harness
+    "Harness", "FleetState", "FleetAgent", "TaskResult",
 ]
