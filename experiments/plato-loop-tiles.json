@@ -1,0 +1,132 @@
+{
+  "schema": "plato-loop-tiles-v1",
+  "author": "forgemaster",
+  "timestamp": "2026-05-14T16:39:20",
+  "description": "Self-writing distillation loops. The agent writes algorithms about its own cognition for future zero-shot retrieval.",
+  "loops": [
+    {
+      "id": "loop-arithmetic-width-probe",
+      "type": "loop",
+      "trigger": "Need to test a model's arithmetic reasoning capability",
+      "domain": "arithmetic",
+      "capability": "width-boundary-detection",
+      "seed": {
+        "system": "You are a precise arithmetic computer. Give ONLY the final number.",
+        "template": "Compute {formula} where a={a} and b={b}.",
+        "max_tokens": 20,
+        "temperature": 0.3
+      },
+      "body": "\nALGORITHM: width-boundary-probe(model, target_formula)\n    \n    1. PREPARE the width ladder (proven widths from ground truth):\n       w1: a+b           \u2192 100% on all models (sanity check)\n       w2: a\u00b2+b          \u2192 tests 2-op combination\n       w3: a\u00b2-ab+b\u00b2      \u2192 THE cliff (25% on ALL Groq models)\n       w4: 2a\u00b2-3ab+b\u00b2    \u2192 beyond all small models\n    \n    2. RUN each width with 4 test pairs:\n       (3,4), (5,-2), (-4,3), (7,1)\n    \n    3. EXTRACT using last-number regex on raw output\n       CONFOUND: must use system prompt + max_tokens=20\n       or model goes verbose and truncation kills extraction\n    \n    4. CLASSIFY residue for each wrong answer:\n       ECHO-a/b  \u2192 model attends but can't compute\n       PARTIAL-* \u2192 model computes sub-expressions, can't combine\n       NEAR      \u2192 computation exists but off by \u00b11-2\n       OTHER     \u2192 novel error, worth investigating\n    \n    5. LOCATE the width boundary:\n       Last width with >60% = capability ceiling\n       First width with <20% = capability floor\n    \n    6. CALIBRATE confidence:\n       confidence = trials_correct / total_trials\n       If confidence between 30-70%: BOUNDARY (most informative)\n       If confidence >80%: CAPABLE (route here for this width)\n       If confidence <20%: INCAPABLE (decompose or route up)\n    \n    7. WRITE result as PLATO tile:\n       loop-{model_name}-width-profile\n       Contains: ceiling, floor, residue_distribution, optimal_temperature\n",
+      "confidence": 0.95,
+      "evidence": [
+        "R27",
+        "R28",
+        "R29",
+        "R32"
+      ],
+      "negative": "Do NOT use for code generation, summarization, or non-arithmetic tasks. Width boundary is task-specific.",
+      "learned_from": "454 queries on llama-3.1-8b-instant, 200+ on other Groq models"
+    },
+    {
+      "id": "loop-prompt-seed-optimization",
+      "type": "loop",
+      "trigger": "Need to find the best prompt wording for a model on a task",
+      "domain": "prompt-engineering",
+      "capability": "seed-discovery",
+      "seed": {
+        "system": "You are a student software architect documenting code. Output ONLY valid JSON.",
+        "template": "Compute {formula} where a={a} and b={b}.",
+        "max_tokens": 200,
+        "temperature": 0.1
+      },
+      "body": "\nALGORITHM: find-best-seed(model, task_type, test_inputs)\n    \n    1. PREPARE the seed candidates (proven hierarchy):\n       For ARITHMETIC:\n         Tier 1: student + named_operation (4/5 on multi-input)\n         Tier 2: code_like notation (3/5)\n         Tier 3: teacher role (3/5)\n         Tier 4: bare formula (variable, 1/5)\n         Tier 5: minimal prompts \u2192 echo (0/5)\n       \n       For DISTILLATION (JSON output):\n         Tier 1: \"Output ONLY valid JSON\" system prompt\n         Tier 2: code notation in prompt\n         Tier 3: Named operation (\"Eisenstein norm\")\n       \n       GENERAL PATTERN:\n         role + named_operation + code_notation = computation\n         minimal + no_role + math_notation = echo\n    \n    2. TEST each seed on 5 inputs, measure:\n       correct_rate, residue_distribution, extraction_reliability\n    \n    3. SELECT the seed with:\n       highest correct_rate \u00d7 extraction_reliability\n       (a seed that's accurate but you can't parse = useless)\n    \n    4. CALIBRATE extraction:\n       For max_tokens=20: last-number regex works\n       For max_tokens=50+: need \"answer is N\" or last-line extraction\n       For JSON: parse first { to last }, handle multiple blocks\n    \n    5. WRITE result as PLATO tile:\n       seed-{model}-{task_type}-optimal\n       Contains: system_prompt, template, max_tokens, temperature, extraction_method\n",
+      "confidence": 0.85,
+      "evidence": [
+        "R16",
+        "R19",
+        "R24"
+      ],
+      "negative": "Seeds are model-specific AND task-specific. A seed that works for arithmetic may fail for code generation. Always re-calibrate.",
+      "learned_from": "20 prompt styles \u00d7 5 inputs on llama-3.1-8b, 240 distillation queries"
+    },
+    {
+      "id": "loop-residue-diagnostic",
+      "type": "loop",
+      "trigger": "A model gave a wrong answer and you need to understand WHY",
+      "domain": "diagnostics",
+      "capability": "cognitive-residue-classification",
+      "seed": null,
+      "body": "\nALGORITHM: diagnose-residue(model, question, wrong_answer, expected_answer)\n    \n    1. EXTRACT the wrong answer's relationship to inputs:\n       Is it input a? \u2192 ECHO-a (model attends, doesn't compute)\n       Is it input b? \u2192 ECHO-b\n       Is it a+b?     \u2192 ECHO-sum (attention overflow)\n       Is it a\u00b2?      \u2192 PARTIAL-a\u00b2 (computed first step, stopped)\n       Is it b\u00b2?      \u2192 PARTIAL-b\u00b2\n       Is it ab?      \u2192 PARTIAL-ab (computed cross-term, stopped)\n       Is it -ab?     \u2192 SIGN-FLIP (computed ab but sign wrong)\n       Near expected? \u2192 NEAR (\u00b11-3, stochastic error)\n       None of above? \u2192 OTHER (novel, worth cataloguing)\n    \n    2. ROUTE based on diagnosis:\n       ECHO-*    \u2192 model below task's cognitive stage\n                   Route to larger model OR decompose task\n       PARTIAL-* \u2192 model at PARTIAL stage (4B behavior)\n                   Provide combination scaffolding:\n                   \"Given a\u00b2=25, ab=-15, b\u00b2=9, compute a\u00b2-ab+b\u00b2\"\n       SIGN-*    \u2192 model computed but has sign fragility\n                   Use code notation (a*a - a*b + b*b)\n                   OR set temperature to 0.0\n       NEAR      \u2192 stochastic error, retry 3-5 times\n                   Use majority vote or temperature sweep\n       OTHER     \u2192 novel error pattern \u2192 CREATE NEW FINDING\n                   Document as potential new rock\n    \n    3. FEED BACK into fleet routing:\n       Update model's capability profile\n       Adjust future task routing decisions\n       If pattern repeats \u2192 promote to BEDROCK finding\n    \n    4. WRITE diagnostic as PLATO tile:\n       residue-{model}-{formula}-{residue_type}\n       Contains: inputs, expected, got, diagnosis, routing_action\n",
+      "confidence": 0.9,
+      "evidence": [
+        "R16",
+        "R17",
+        "R18",
+        "R21",
+        "R24",
+        "R25"
+      ],
+      "negative": "Residue classification assumes arithmetic tasks. Non-arithmetic tasks need different classification scheme.",
+      "learned_from": "~1000 trials across 5 local models, echo analysis studies"
+    },
+    {
+      "id": "loop-repo-distillation",
+      "type": "loop",
+      "trigger": "Need to decompose a codebase into PLATO tiles for agent consumption",
+      "domain": "codebase",
+      "capability": "function-to-tile",
+      "seed": {
+        "system": "You are a student software architect documenting code. Output ONLY valid JSON, no other text.\nFormat: {\"tiles\": [{\"id\": \"func-topic\", \"type\": \"knowledge|operation|verification\", \"content\": \"description\", \"deps\": []}]}\nProduce 1-3 tiles per function. Be precise about what, how, and edge cases.",
+        "template": "Analyze this Python function and produce PLATO tiles:\n\n```python\n{function_source}\n```\n\nThe function is from file: {filepath}\nProduce tiles covering: what it does, how it works, edge cases, constraints, dependencies.",
+        "max_tokens": 200,
+        "temperature": 0.1
+      },
+      "body": "\nALGORITHM: distill-repo(repo_path, plato_server)\n    \n    1. SCAN repo for Python files (or other languages)\n       Skip: __init__.py, tests/, migrations/, __pycache__/\n       Prioritize: bin/, src/, core/ (infrastructure first)\n    \n    2. EXTRACT functions from each file:\n       Parse def/async def signatures\n       Skip private functions (leading _)\n       Skip trivial functions (<50 chars body)\n       Truncate long functions at 2000 chars\n    \n    3. DISTILL each function using student seed:\n       System: \"student architect, ONLY JSON\" (proven)\n       Temperature: 0.1 (deterministic JSON)\n       max_tokens: 200 (sufficient for 1-3 tiles)\n    \n    4. EXTRACT tiles from response:\n       Strategy 1: direct JSON parse\n       Strategy 2: find all {\"tiles\":...} blocks, merge\n       Strategy 3: brace-range parse\n       If all fail \u2192 mark as \"needs manual review\"\n    \n    5. CLASSIFY tile quality (0-3):\n       0: no tiles extracted\n       1: has tiles but empty/trivial content\n       2: tiles with meaningful content (>20 chars)\n       3: content references actual function\n    \n    6. PUSH quality-2+ tiles to PLATO server:\n       POST /room/{tile_id}/tile with tile data\n       Add provenance: source_file, model, timestamp\n    \n    7. ITERATE:\n       Failed extractions \u2192 adjust prompt or max_tokens\n       Low-quality tiles \u2192 add more context to prompt\n       Gaps (functions with no tiles) \u2192 manual review queue\n    \n    COST: ~8000 tokens/file, ~240 tiles from 9 files in 2 min on Groq\n",
+      "confidence": 0.8,
+      "evidence": [
+        "R32",
+        "distill_loop.py results: 240 tiles from 9 files"
+      ],
+      "negative": "Model produces GENERIC tiles for functions it doesn't truly understand. Complex algorithms get superficial descriptions. Always verify tiles against source.",
+      "learned_from": "240 distillation queries, JSON extraction debugging"
+    },
+    {
+      "id": "loop-rock-sounding",
+      "type": "loop",
+      "trigger": "Need to systematically discover unexpected model capabilities or failures",
+      "domain": "discovery",
+      "capability": "sweep-and-surprise",
+      "seed": {
+        "system": "You are a precise arithmetic computer. Give ONLY the final number.",
+        "template": "Compute {formula} where a={a} and b={b}.",
+        "max_tokens": 20,
+        "temperature": 0.3
+      },
+      "body": "\nALGORITHM: sound-for-rocks(model, known_variables)\n    \n    1. DEFINE the search space:\n       Axes: dependency_width \u00d7 coefficient_pattern \u00d7 magnitude \u00d7 sign\n       Known: width=[1,6], coeffs=[-3..3], magnitude=[1,10000], sign=[++,+-,\u2212+,\u2212\u2212]\n       \n    2. SWEEP along each axis:\n       For each axis, test 5-10 points with 5 input pairs each\n       Use the standard arithmetic seed (proven)\n       \n    3. DETECT rocks (unexpected results):\n       HIGH_ROCK: accuracy >60% where <40% expected\n         \u2192 coefficient familiarity override\n         \u2192 training coverage sweet spot\n       LOW_ROCK: accuracy <40% where >60% expected\n         \u2192 operator notation gate\n         \u2192 sign fragility\n         \u2192 magnitude cliff\n       \n    4. PROBE each rock:\n       Run 20 trials with random inputs\n       Measure: correct_rate, residue_distribution, temperature_sensitivity\n       If rock holds: NEW VARIABLE or NEW FINDING\n       If rock was noise: discard, lower confidence for similar patterns\n       \n    5. GENERATE follow-up experiments:\n       For each confirmed rock, design 3 tests:\n         - One that varies the SAME axis (is it a gradient or cliff?)\n         - One that varies a DIFFERENT axis (is it independent?)\n         - One that tries to REPRODUCE the effect on another model\n       \n    6. WRITE each rock as a PLATO tile:\n       rock-{model}-{formula}-{rock_type}\n       Contains: formula, width, rate, residue, follow_up_tests\n    \n    SPEED: ~60 seconds per full sweep on Groq (26ms/query)\n",
+      "confidence": 0.85,
+      "evidence": [
+        "R30",
+        "R31",
+        "rapid_loop.py: 4 rocks in 60 seconds"
+      ],
+      "negative": "Rocks found on small inputs may not hold on random inputs (coefficient familiarity \u00d7 magnitude interaction). Always deep-probe.",
+      "learned_from": "7 formula sweep on llama-3.1-8b, 4 rocks found"
+    },
+    {
+      "id": "loop-zero-shot-retrieval",
+      "type": "loop",
+      "trigger": "Agent starts a new task and needs to know how to approach it",
+      "domain": "meta",
+      "capability": "self-bootstrapping",
+      "seed": null,
+      "body": "\nALGORITHM: bootstrap-from-plato(task_description)\n    \n    1. PARSE the task into keywords:\n       What domain? (arithmetic, code, distillation, discovery)\n       What capability needed? (computation, generation, analysis)\n       What constraints? (model size, latency, accuracy target)\n    \n    2. QUERY PLATO for matching loops:\n       GET /rooms?prefix=loop-{domain}\n       GET /rooms?prefix=rock-{model}\n       GET /rooms?prefix=seed-{model}\n    \n    3. RANK retrieved loops by relevance:\n       domain_match \u00d7 capability_match \u00d7 confidence \u00d7 evidence_count\n       \n    4. INVOKE the best-matching loop:\n       Read its \"body\" field as an algorithm\n       Read its \"seed\" field as the proven prompt template\n       Read its \"negative\" field as boundary conditions\n       \n    5. EXECUTE the loop:\n       Follow the algorithm step by step\n       Use the proven seed for any model queries\n       Respect the boundary conditions\n       \n    6. FEED BACK:\n       If loop works \u2192 increase confidence in tile\n       If loop fails \u2192 add failure case to \"negative\" field\n       If loop reveals new pattern \u2192 CREATE NEW LOOP TILE\n    \n    THIS IS THE BOOTSTRAP:\n    The agent reads its own past experiments encoded as algorithms,\n    executes them, and writes NEW algorithms from what it learns.\n    Each iteration makes the next one faster and more accurate.\n    \n    The loops ARE the memory. PLATO is the retrieval. The agent is the executor.\n",
+      "confidence": 0.7,
+      "evidence": [
+        "R1-R32",
+        "entire experimental methodology"
+      ],
+      "negative": "Loop retrieval depends on PLATO server availability. If PLATO is down, agent must fall back to zero-shot reasoning (much weaker).",
+      "learned_from": "This entire session \u2014 the meta-pattern of experimentation \u2192 documentation \u2192 retrieval"
+    }
+  ]
+}
