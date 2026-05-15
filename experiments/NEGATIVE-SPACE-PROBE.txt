@@ -1,0 +1,68 @@
+╔════════════════════════════════════════════════════════════╗
+║  NEGATIVE SPACE PROBE                                     ║
+║  Inferring other models from llama-3.1-8b ground truth    ║
+╚════════════════════════════════════════════════════════════╝
+
+━━━ TEST 1: Sub-expression Accuracy (a=5, b=-3) ━━━
+  Expr            llama-3.1-8b-in llama-3.3-70b-v llama-4-scout-1
+  a²                            ✅          ECHO-a               ✅
+  b²                            ✅               ✅               ✅
+  ab                            ✅               ✅               ✅
+  -ab                        P-ab            P-ab            P-ab
+  a²-ab                      P-a²          ECHO-a            P-a²
+  a²+b²                      P-a²            P-a²            P-b²
+  a²-ab+b²                 ECHO-b          ECHO-a            P-a²
+
+━━━ TEST 2: Temperature Fragility (N(5,-3)=49) ━━━
+  Temp     llama-3.1-8b-in llama-3.3-70b-v llama-4-scout-1
+  T=0.0                0/5              0/5              0/5
+  T=0.1                0/5              0/5              0/5
+  T=0.3                0/5              0/5              0/5
+  T=0.5                0/5              0/5              0/5
+  T=1.0                0/5              0/5              0/5
+
+━━━ TEST 3: Instruction Following ('3' vs a+b) ━━━
+  Prompt                         Expected llama-3.1-8b-in llama-3.3-70b-v llama-4-scout-1
+  Compute 3 where a=3 and b=4.          3              →4              →2               ✅
+  Compute b where a=3 and b=4.          4               ✅               ✅               ✅
+  Compute a where a=5 and b=-3.         5               ✅               ✅               ✅
+  What is 3?                            3               ✅              →1              →4
+  Compute a+b where a=3 and b=4.        7               ✅               ✅              →2
+
+━━━ TEST 4: Operator Notation Gate ━━━
+  Notation                       Expected llama-3.1-8b-in llama-3.3-70b-v llama-4-scout-1
+  Compute a*a*a where a=5 and b=      125              →3              →5              →5
+  Compute a**3 where a=5 and b=-      125              →3              →5               ✅
+  Compute a³ where a=5 and b=-3.      125               ✅              →5               ✅
+  Compute a^3 where a=5 and b=-3      125               ✅              →5               ✅
+  Compute a×a×a where a=5 and b=      125             →25              →5             →25
+
+━━━ TEST 5: Sign Asymmetry (a²-ab+b²) ━━━
+  (a,b)→ans       llama-3.1-8b-in llama-3.3-70b-v llama-4-scout-1
+  (3,4)→13                     →4              →3             →12
+  (3,-4)→37                   →-4              →3             →-4
+  (-3,4)→37                    →4              →4              →4
+  (-3,-4)→13                  →-4             →-3             →-4
+  (3,0)→9                      →0              →0              →0
+  (0,4)→16                     →0              →4              →0
+  (-3,0)→9                    →-3              →0              →0
+  (0,-4)→16                   →-4             →-4              →0
+
+━━━ TEST 6: Width Boundary at T=0.0 ━━━
+  Formula               w llama-3.1-8b-in llama-3.3-70b-v llama-4-scout-1
+  a+b                   1               ✅               ✅              →2
+  a²+b                  2              →1              →9              →9
+  a²-ab+b²              3              →4              →3              →4
+  2a²-3ab+b²            4              →2              →4              →2
+  a³-a²b+ab²-b³         5              →4              →4              →3
+
+━━━ TEST 7: Magnitude Degradation (a²+b²) ━━━
+  (a,b)→ans            llama-3.1-8b-in llama-3.3-70b-v llama-4-scout-1
+  (3,4)→25                          →4              →3              →4
+  (30,40)→2500                     →40             →30             →40
+  (300,400)→250000                →400             →90            →400
+  (3000,4000)→25000000           →4000              →9              →0
+
+============================================================
+NEGATIVE SPACE PROBE COMPLETE
+============================================================
