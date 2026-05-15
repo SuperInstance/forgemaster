@@ -227,13 +227,19 @@ class FleetRouter:
     """Route queries to the cheapest model that can handle them.
     
     The router is the fleet's traffic controller:
-      1. Analyze the query's depth along each axis
-      2. Check if the cheapest model is safe for all axes
-      3. If safe → use the cheapest model
-      4. If not safe → escalate to the next model
-      5. If no model is safe → use the best available and flag it
+      1. Classify the query: arithmetic (T=0.0) or strategy (T=0.7)
+      2. Analyze the query's depth along each axis
+      3. Check if the cheapest model is safe for all axes
+      4. If safe → use the cheapest model
+      5. If not safe → escalate to the next model
+      6. If no model is safe → use the best available and flag it
     
-    This is binary routing at phase boundaries:
+    Three routing dimensions:
+      - Model: which model to use
+      - Domain: which cognitive axis
+      - Temperature: T=0.0 for arithmetic, T=0.7 for strategy
+    
+    Binary routing at phase boundaries:
       Below critical angle → cheap model (transparent)
       Above critical angle → expensive model (escalate)
     """
@@ -243,18 +249,59 @@ class FleetRouter:
         self.fleet = fleet or FLEET
         self.route_order = route_order or ROUTE_ORDER
     
+    def _classify_task(self, prompt: str) -> Tuple[float, str]:
+        """Classify task type and return (temperature, task_type).
+        
+        Arithmetic tasks → T=0.0 (deterministic, recognition mode)
+        Strategy tasks → T=0.7 (exploratory, design mode)
+        
+        F25: Temperature is the mode switch for seed-mini.
+        """
+        strategy_keywords = ['why', 'design', 'diagnos', 'explain', 'plan',
+                            'predict', 'compare', 'analyze', 'suggest', 'recommend',
+                            'what should', 'how to', 'improve', 'refactor',
+                            'metaphor', 'analogy', 'connect', 'prioritize']
+        arithmetic_keywords = ['+', '-', '*', '/', '=', 'compute', 'calculate',
+                              'what is', 'how much', 'how many', 'solve']
+        
+        lower = prompt.lower()
+        strat_score = sum(1 for kw in strategy_keywords if kw in lower)
+        arith_score = sum(1 for kw in arithmetic_keywords if kw in lower)
+        
+        if strat_score > arith_score:
+            return 0.7, "strategy"
+        else:
+            return 0.0, "arithmetic"
+    
     def route(self, prompt: str) -> RoutingDecision:
         """Route a query to the cheapest safe model.
         
+        Now includes temperature routing:
+          - Arithmetic tasks → T=0.0 (cheapest safe model)
+          - Strategy tasks → T=0.7 (seed-mini, the fleet strategist)
+        
         Returns a RoutingDecision with:
-          - model_key and model_id
+          - model_key, model_id, temperature
           - estimated cost
           - reason for the routing decision
           - estimated axes (what the analyzer detected)
         """
+        temperature, task_type = self._classify_task(prompt)
         axes = analyze_query(prompt)
         
-        # Try each model in priority order
+        # Strategy tasks always go to seed-mini (the fleet champion)
+        if task_type == "strategy":
+            profile = self.fleet.get("seed-mini")
+            if profile:
+                return RoutingDecision(
+                    model_key="seed-mini",
+                    model_id=profile.model_id,
+                    cost_usd=profile.cost_per_1k / 1000,
+                    reason=f"Strategy task (T=0.7). Seed-mini is fleet strategist (8/8).",
+                    estimated_axes={a.value: d for a, d in axes.items()},
+                )
+        
+        # Arithmetic tasks: route to cheapest safe model
         for model_key in self.route_order:
             if model_key not in self.fleet:
                 continue
@@ -268,11 +315,10 @@ class FleetRouter:
                     unsafe_axes.append(f"{axis.value}={depth} (limit={profile.max_safe_depth(axis) or '∞'})")
             
             if not unsafe_axes:
-                # This model is safe for all axes — use it
                 return RoutingDecision(
                     model_key=model_key,
                     model_id=profile.model_id,
-                    cost_usd=profile.cost_per_1k / 1000,  # Per query
+                    cost_usd=profile.cost_per_1k / 1000,
                     reason=f"Cheapest safe model. No axes exceed critical angle.",
                     estimated_axes={a.value: d for a, d in axes.items()},
                 )
