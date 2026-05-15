@@ -241,6 +241,7 @@ class ModelRegistry:
     def __init__(self):
         self._models: Dict[str, ModelEntry] = {}
         self._lock = threading.Lock()
+        self._rr_counter = 0  # round-robin counter for load balancing
 
     def register(self, model_id: str, tier: ModelTierEnum,
                  available: bool = True) -> ModelEntry:
@@ -292,20 +293,35 @@ class ModelRegistry:
 
     def find_best(self, preferred_tier: ModelTierEnum = ModelTierEnum.TIER_1_DIRECT,
                   exclude: Optional[set] = None) -> Optional[ModelEntry]:
-        """Find the best available model, preferring given tier, auto-downgrading."""
+        """Find the best available model, preferring given tier, auto-downgrading.
+        
+        Uses round-robin within tier to distribute load (Study 55 fix).
+        """
         exclude = exclude or set()
-        # Try preferred tier first
-        for entry in self._models.values():
-            if entry.tier == preferred_tier and entry.available and entry.model_id not in exclude:
-                return entry
-        # Fall back to any Tier 1
-        for entry in self._models.values():
-            if entry.tier == ModelTierEnum.TIER_1_DIRECT and entry.available and entry.model_id not in exclude:
-                return entry
-        # Fall back to Tier 2
-        for entry in self._models.values():
-            if entry.tier == ModelTierEnum.TIER_2_SCAFFOLDED and entry.available and entry.model_id not in exclude:
-                return entry
+        # Try preferred tier first (round-robin)
+        candidates = [e for e in self._models.values()
+                      if e.tier == preferred_tier and e.available and e.model_id not in exclude]
+        if candidates:
+            self._rr_counter %= len(candidates)
+            pick = candidates[self._rr_counter % len(candidates)]
+            self._rr_counter += 1
+            return pick
+        # Fall back to any Tier 1 (round-robin)
+        candidates = [e for e in self._models.values()
+                      if e.tier == ModelTierEnum.TIER_1_DIRECT and e.available and e.model_id not in exclude]
+        if candidates:
+            self._rr_counter %= len(candidates)
+            pick = candidates[self._rr_counter % len(candidates)]
+            self._rr_counter += 1
+            return pick
+        # Fall back to Tier 2 (round-robin)
+        candidates = [e for e in self._models.values()
+                      if e.tier == ModelTierEnum.TIER_2_SCAFFOLDED and e.available and e.model_id not in exclude]
+        if candidates:
+            self._rr_counter %= len(candidates)
+            pick = candidates[self._rr_counter % len(candidates)]
+            self._rr_counter += 1
+            return pick
         return None
 
 
@@ -708,7 +724,7 @@ class QuarantineConfig:
     min_active_experts: int = 4          # Never quarantine below this
     consecutive_for_quarantine: int = 2   # Confirmations before quarantine
     clean_for_restore: int = 3           # Clean checks needed for restore
-    progressive_rounds: List[int] = field(default_factory=lambda: [5, 10, 0])  # 0 = permanent
+    progressive_rounds: List[int] = field(default_factory=lambda: [10, 20, 30, 50])  # Study 55: slower progression, no permanent ban
     intent_similarity_threshold: float = 0.85
     answer_error_threshold: float = 0.5
     conservation_threshold: float = 0.85  # Below this, increase quarantine caution
