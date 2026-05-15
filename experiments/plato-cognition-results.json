@@ -1,0 +1,724 @@
+{
+  "results": [
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "easy",
+      "expected": "7",
+      "got": "7",
+      "correct": true,
+      "latency": 2568.39919090271,
+      "tokens": 527
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "easy",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency": 3072.291374206543,
+      "tokens": 643
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "medium",
+      "expected": "25",
+      "got": "25",
+      "correct": true,
+      "latency": 3188.924551010132,
+      "tokens": 687
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "medium",
+      "expected": "19",
+      "got": "19",
+      "correct": true,
+      "latency": 4308.239221572876,
+      "tokens": 884
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "medium",
+      "expected": "15",
+      "got": "15",
+      "correct": true,
+      "latency": 3338.0026817321777,
+      "tokens": 687
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "hard",
+      "expected": "16",
+      "got": "16",
+      "correct": true,
+      "latency": 3113.227128982544,
+      "tokens": 660
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "hard",
+      "expected": "1",
+      "got": "2",
+      "correct": false,
+      "latency": 4968.588829040527,
+      "tokens": 1046
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "hard",
+      "expected": "30",
+      "got": "2",
+      "correct": false,
+      "latency": 5252.449512481689,
+      "tokens": 1043
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "hard",
+      "expected": "1024",
+      "got": "2.",
+      "correct": false,
+      "latency": 5002.624034881592,
+      "tokens": 1032
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "hard",
+      "expected": "17",
+      "got": "17",
+      "correct": true,
+      "latency": 5030.5845737457275,
+      "tokens": 1025
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "vhard",
+      "expected": "-1",
+      "got": "5",
+      "correct": false,
+      "latency": 4735.113620758057,
+      "tokens": 1046
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "MONO",
+      "difficulty": "vhard",
+      "expected": "8",
+      "got": "20",
+      "correct": false,
+      "latency": 4543.4112548828125,
+      "tokens": 882
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "easy",
+      "expected": "7",
+      "got": "7.",
+      "correct": true,
+      "latency": 6801.617622375488,
+      "tokens": 2206
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "easy",
+      "expected": "36",
+      "got": "3",
+      "correct": false,
+      "latency": 6929.730415344238,
+      "tokens": 2204
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "medium",
+      "expected": "25",
+      "got": "3",
+      "correct": false,
+      "latency": 7048.516750335693,
+      "tokens": 2328
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "medium",
+      "expected": "19",
+      "got": "5",
+      "correct": false,
+      "latency": 6678.357124328613,
+      "tokens": 2378
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "medium",
+      "expected": "15",
+      "got": "1",
+      "correct": false,
+      "latency": 6491.517782211304,
+      "tokens": 2370
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "hard",
+      "expected": "16",
+      "got": "5",
+      "correct": false,
+      "latency": 6899.96337890625,
+      "tokens": 2290
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "hard",
+      "expected": "1",
+      "got": "4",
+      "correct": false,
+      "latency": 6985.898494720459,
+      "tokens": 2354
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "hard",
+      "expected": "30",
+      "got": "2",
+      "correct": false,
+      "latency": 7310.061454772949,
+      "tokens": 2341
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "hard",
+      "expected": "1024",
+      "got": "1024",
+      "correct": true,
+      "latency": 6707.180976867676,
+      "tokens": 2374
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "hard",
+      "expected": "17",
+      "got": "2",
+      "correct": false,
+      "latency": 6680.407524108887,
+      "tokens": 2250
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "vhard",
+      "expected": "-1",
+      "got": "5",
+      "correct": false,
+      "latency": 7626.330614089966,
+      "tokens": 2365
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "PLATO-4",
+      "difficulty": "vhard",
+      "expected": "8",
+      "got": "5",
+      "correct": false,
+      "latency": 8448.48108291626,
+      "tokens": 2462
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "easy",
+      "expected": "7",
+      "got": "7",
+      "correct": true,
+      "latency": 8616.247653961182,
+      "tokens": 1060
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "easy",
+      "expected": "36",
+      "got": "30",
+      "correct": false,
+      "latency": 15959.660530090332,
+      "tokens": 1903
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "medium",
+      "expected": "25",
+      "got": "25.",
+      "correct": true,
+      "latency": 7595.966815948486,
+      "tokens": 1099
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "medium",
+      "expected": "19",
+      "got": "5",
+      "correct": false,
+      "latency": 15205.250978469849,
+      "tokens": 2089
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "medium",
+      "expected": "15",
+      "got": "1",
+      "correct": false,
+      "latency": 12246.331453323364,
+      "tokens": 1622
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "hard",
+      "expected": "16",
+      "got": "16.",
+      "correct": true,
+      "latency": 12193.492889404297,
+      "tokens": 1668
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "hard",
+      "expected": "1",
+      "got": "16",
+      "correct": false,
+      "latency": 12640.595436096191,
+      "tokens": 1869
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "hard",
+      "expected": "30",
+      "got": "2",
+      "correct": false,
+      "latency": 13666.339635848999,
+      "tokens": 1959
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "hard",
+      "expected": "1024",
+      "got": "1",
+      "correct": false,
+      "latency": 30222.49674797058,
+      "tokens": 4017
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "hard",
+      "expected": "17",
+      "got": "25",
+      "correct": false,
+      "latency": 11056.401014328003,
+      "tokens": 1563
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "vhard",
+      "expected": "-1",
+      "got": "5",
+      "correct": false,
+      "latency": 16859.75217819214,
+      "tokens": 2383
+    },
+    {
+      "model": "qwen-4b",
+      "condition": "HYBRID",
+      "difficulty": "vhard",
+      "expected": "8",
+      "got": "5",
+      "correct": false,
+      "latency": 16289.036989212036,
+      "tokens": 2077
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "easy",
+      "expected": "7",
+      "got": "7",
+      "correct": true,
+      "latency": 3230.9844493865967,
+      "tokens": 294
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "easy",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency": 3267.8277492523193,
+      "tokens": 298
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "medium",
+      "expected": "25",
+      "got": "25",
+      "correct": true,
+      "latency": 2844.346523284912,
+      "tokens": 272
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "medium",
+      "expected": "19",
+      "got": "19",
+      "correct": true,
+      "latency": 5245.666742324829,
+      "tokens": 431
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "medium",
+      "expected": "15",
+      "got": "15",
+      "correct": true,
+      "latency": 3367.9332733154297,
+      "tokens": 359
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "hard",
+      "expected": "16",
+      "got": "16",
+      "correct": true,
+      "latency": 3947.6308822631836,
+      "tokens": 386
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "hard",
+      "expected": "1",
+      "got": "1",
+      "correct": true,
+      "latency": 4498.1849193573,
+      "tokens": 483
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "hard",
+      "expected": "30",
+      "got": "30",
+      "correct": true,
+      "latency": 4696.344614028931,
+      "tokens": 501
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "hard",
+      "expected": "1024",
+      "got": "1024",
+      "correct": true,
+      "latency": 5378.377199172974,
+      "tokens": 572
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "hard",
+      "expected": "17",
+      "got": "17",
+      "correct": true,
+      "latency": 4240.2024269104,
+      "tokens": 417
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "vhard",
+      "expected": "-1",
+      "got": "-1",
+      "correct": true,
+      "latency": 5549.696445465088,
+      "tokens": 550
+    },
+    {
+      "model": "seed-mini",
+      "condition": "MONO",
+      "difficulty": "vhard",
+      "expected": "8",
+      "got": "20",
+      "correct": false,
+      "latency": 5827.76665687561,
+      "tokens": 485
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "easy",
+      "expected": "7",
+      "got": "7",
+      "correct": true,
+      "latency": 2904.874324798584,
+      "tokens": 261
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "easy",
+      "expected": "36",
+      "got": "36",
+      "correct": true,
+      "latency": 5570.478677749634,
+      "tokens": 252
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "medium",
+      "expected": "25",
+      "got": "25",
+      "correct": true,
+      "latency": 2861.9189262390137,
+      "tokens": 268
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "medium",
+      "expected": "19",
+      "got": "19",
+      "correct": true,
+      "latency": 7952.932834625244,
+      "tokens": 479
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "medium",
+      "expected": "15",
+      "got": "15",
+      "correct": true,
+      "latency": 6005.691051483154,
+      "tokens": 386
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "hard",
+      "expected": "16",
+      "got": "16",
+      "correct": true,
+      "latency": 5777.803421020508,
+      "tokens": 433
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "hard",
+      "expected": "1",
+      "got": "1",
+      "correct": true,
+      "latency": 7678.304433822632,
+      "tokens": 668
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "hard",
+      "expected": "30",
+      "got": "30",
+      "correct": true,
+      "latency": 6633.927583694458,
+      "tokens": 563
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "hard",
+      "expected": "1024",
+      "got": "1024",
+      "correct": true,
+      "latency": 5824.228048324585,
+      "tokens": 526
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "hard",
+      "expected": "17",
+      "got": "17",
+      "correct": true,
+      "latency": 8760.458707809448,
+      "tokens": 486
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "vhard",
+      "expected": "-1",
+      "got": "-1",
+      "correct": true,
+      "latency": 5613.531589508057,
+      "tokens": 517
+    },
+    {
+      "model": "seed-mini",
+      "condition": "PLATO-4",
+      "difficulty": "vhard",
+      "expected": "8",
+      "got": "20",
+      "correct": false,
+      "latency": 5727.321147918701,
+      "tokens": 587
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "easy",
+      "expected": "7",
+      "got": "7",
+      "correct": true,
+      "latency": 6160.194158554077,
+      "tokens": 782
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "easy",
+      "expected": "36",
+      "got": "10",
+      "correct": false,
+      "latency": 10725.505590438843,
+      "tokens": 1257
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "medium",
+      "expected": "25",
+      "got": "9",
+      "correct": false,
+      "latency": 4905.87592124939,
+      "tokens": 746
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "medium",
+      "expected": "19",
+      "got": "19",
+      "correct": true,
+      "latency": 9849.052667617798,
+      "tokens": 1296
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "medium",
+      "expected": "15",
+      "got": "15",
+      "correct": true,
+      "latency": 9489.335298538208,
+      "tokens": 1108
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "hard",
+      "expected": "16",
+      "got": "16",
+      "correct": true,
+      "latency": 7773.455619812012,
+      "tokens": 934
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "hard",
+      "expected": "1",
+      "got": "1",
+      "correct": true,
+      "latency": 10368.807554244995,
+      "tokens": 1370
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "hard",
+      "expected": "30",
+      "got": "30",
+      "correct": true,
+      "latency": 8329.323530197144,
+      "tokens": 982
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "hard",
+      "expected": "1024",
+      "got": "1024",
+      "correct": true,
+      "latency": 11695.2486038208,
+      "tokens": 1438
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "hard",
+      "expected": "17",
+      "got": "17",
+      "correct": true,
+      "latency": 6995.995044708252,
+      "tokens": 909
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "vhard",
+      "expected": "-1",
+      "got": "5",
+      "correct": false,
+      "latency": 7022.97568321228,
+      "tokens": 1002
+    },
+    {
+      "model": "seed-mini",
+      "condition": "HYBRID",
+      "difficulty": "vhard",
+      "expected": "8",
+      "got": "20",
+      "correct": false,
+      "latency": 6157.207489013672,
+      "tokens": 905
+    }
+  ]
+}
