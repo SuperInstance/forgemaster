@@ -1,0 +1,454 @@
+{
+  "study": "Study 12: Summarization Echo",
+  "passage_word_count": 203,
+  "models": [
+    "qwen3:4b",
+    "phi4-mini",
+    "gemma3:1b"
+  ],
+  "trials_per_condition": 5,
+  "runs": [
+    {
+      "model": "qwen3:4b",
+      "condition": "baseline",
+      "trial": 1,
+      "response": "Eisenstein integers are complex numbers of the form a + b\u03c9 (where \u03c9 is a primitive cube root of unity) that form a hexagonal lattice in the complex plane. This lattice achieves the densest possible circle packing in two dimensions with a density of \u03c0/(2\u221a3) \u2248 0.9069, a result proven by Fejes T\u00f3th. The ring is a unique factorization domain with six units, arising naturally in algebraic number theory and materials science\u2014such as graphene's carbon atoms\u2014where its hexagonal structure optimizes packing and efficiency.",
+      "metrics": {
+        "sentences": 3,
+        "words": 83,
+        "key_facts_preserved": 9,
+        "echo_rate_pct": 56.63,
+        "hallucinations": [],
+        "latency_s": 11.42
+      }
+    },
+    {
+      "model": "qwen3:4b",
+      "condition": "baseline",
+      "trial": 2,
+      "response": "Eisenstein integers are complex numbers of the form a + b\u03c9 (where \u03c9 is a primitive cube root of unity) that form a hexagonal lattice in the complex plane, unlike the square lattice of Gaussian integers. This hexagonal arrangement achieves the densest possible circle packing in two dimensions (packing density \u03c0/(2\u221a3) \u2248 0.9069), proven by Fejes T\u00f3th in 1940, and the ring is a unique factorization domain with six units. These integers have significant applications in algebraic number theory, cubic reciprocity, and materials science\u2014such as graphene's carbon atoms\u2014while their Voronoi cells (regular hexagons) explain natural hexagonal structures in honeycombs and cellular networks.",
+      "metrics": {
+        "sentences": 3,
+        "words": 102,
+        "key_facts_preserved": 12,
+        "echo_rate_pct": 42.16,
+        "hallucinations": [],
+        "latency_s": 17.26
+      }
+    },
+    {
+      "model": "qwen3:4b",
+      "condition": "baseline",
+      "trial": 3,
+      "response": "",
+      "metrics": {
+        "sentences": 0,
+        "words": 0,
+        "key_facts_preserved": 0,
+        "echo_rate_pct": 0.0,
+        "hallucinations": [],
+        "latency_s": 18.24
+      }
+    },
+    {
+      "model": "qwen3:4b",
+      "condition": "baseline",
+      "trial": 4,
+      "response": "Eisenstein integers are complex numbers of the form \\(a + b\\omega\\) where \\(a, b\\) are integers and \\(\\omega = e^{2\\pi i/3}\\) is a primitive cube root of unity, forming a hexagonal lattice in the complex plane. This arrangement achieves the densest possible circle packing in",
+      "metrics": {
+        "sentences": 2,
+        "words": 45,
+        "key_facts_preserved": 5,
+        "echo_rate_pct": 53.33,
+        "hallucinations": [],
+        "latency_s": 15.35
+      }
+    },
+    {
+      "model": "qwen3:4b",
+      "condition": "baseline",
+      "trial": 5,
+      "response": "Eisenstein integers are complex numbers of the form \\(a + b\\omega\\) where \\(a, b\\) are integers and \\(\\omega = e^{2\\pi i / 3}\\) is a primitive cube root of unity, forming a hexagonal lattice in the complex plane unlike the square lattice of Gaussian integers. This hexagonal arrangement achieves the densest possible circle packing in two dimensions with density \\(\\pi / (2\\sqrt{3}) \\approx 0.9069\\), a result proven by Fejes T\u00f3th in 1940. The ring is a unique factorization domain with six units, arising naturally in algebraic number theory and providing the mathematical foundation for hexagonal structures observed in materials like graphene and honeycombs.",
+      "metrics": {
+        "sentences": 3,
+        "words": 103,
+        "key_facts_preserved": 10,
+        "echo_rate_pct": 44.66,
+        "hallucinations": [],
+        "latency_s": 18.34
+      }
+    },
+    {
+      "model": "qwen3:4b",
+      "condition": "constrained",
+      "trial": 1,
+      "response": "",
+      "metrics": {
+        "sentences": 0,
+        "words": 0,
+        "key_facts_preserved": 0,
+        "echo_rate_pct": 0.0,
+        "hallucinations": [],
+        "latency_s": 12.32
+      }
+    },
+    {
+      "model": "qwen3:4b",
+      "condition": "constrained",
+      "trial": 2,
+      "response": "Eisenstein integers are complex numbers of the form \\(a + b\\omega\\) where \\(a\\), \\(b\\) are integers and \\(\\omega = e^{2\\pi i / 3}\\) is a primitive cube root of unity. Hexagonal lattices matter because their geometric arrangement achieves the densest possible circle packing in two",
+      "metrics": {
+        "sentences": 2,
+        "words": 45,
+        "key_facts_preserved": 5,
+        "echo_rate_pct": 48.89,
+        "hallucinations": [],
+        "latency_s": 31.53
+      }
+    },
+    {
+      "model": "qwen3:4b",
+      "condition": "constrained",
+      "trial": 3,
+      "response": "Eisenstein integers are complex numbers of the form \\(a + b\\omega\\) where \\(a\\) and \\(b\\) are integers and \\(\\omega = e^{2\\pi i/3}\\) is a primitive cube root of unity. Hexagonal lattices matter because their Voronoi cells are regular hexagons that minimize perimeter-to-area ratio",
+      "metrics": {
+        "sentences": 2,
+        "words": 43,
+        "key_facts_preserved": 6,
+        "echo_rate_pct": 41.86,
+        "hallucinations": [],
+        "latency_s": 19.95
+      }
+    },
+    {
+      "model": "qwen3:4b",
+      "condition": "constrained",
+      "trial": 4,
+      "response": "",
+      "metrics": {
+        "sentences": 0,
+        "words": 0,
+        "key_facts_preserved": 0,
+        "echo_rate_pct": 0.0,
+        "hallucinations": [],
+        "latency_s": 19.58
+      }
+    },
+    {
+      "model": "qwen3:4b",
+      "condition": "constrained",
+      "trial": 5,
+      "response": "",
+      "metrics": {
+        "sentences": 0,
+        "words": 0,
+        "key_facts_preserved": 0,
+        "echo_rate_pct": 0.0,
+        "hallucinations": [],
+        "latency_s": 14.14
+      }
+    },
+    {
+      "model": "phi4-mini",
+      "condition": "baseline",
+      "trial": 4,
+      "response": "Eisenstein integers consist of complex numbers a + b\u03c9 (where \u03c9 = e^(2\u03c0i/3) is the primitive cube root of unity). They form an array in which every integer has six nearest neighbors, creating dense circle packing with \u03c0/(2\u221a3) \u2248 0.9069 density and resulting hexagonal cells that minimize perimeter-to-area ratio \u2014 characteristics seen both mathematically (unique factorization domain up to units \u00b11, \u03c9, \u2212\u03c9, +\u03c9\u00b2; studied in algebraic number theory for cubic reciprocity), as well as naturally occurring phenomena like the lattice structure of graphene or honeycombs built by bees.",
+      "metrics": {
+        "sentences": 2,
+        "words": 89,
+        "key_facts_preserved": 10,
+        "echo_rate_pct": 22.47,
+        "hallucinations": [],
+        "latency_s": 13.53
+      }
+    },
+    {
+      "model": "phi4-mini",
+      "condition": "baseline",
+      "trial": 5,
+      "response": "Eisenstein integers consist of complex numbers a + b\u03c9 (where \u03c9 = e^(2\u03c0i/3)), forming the densest circle packing in two dimensions with a density of \u03c0/(2\u221a3). Their unique factorization domain features six units: \u00b11, \u00b1\u03c9, and \u00b1\u03c9\u00b2. Hexagonal lattices inspired by Eisenstein integers appear naturally both mathematically (in cubic reciprocity) and physically (e.g., graphene's carbon atoms form hexagons for maximum strength), as well as in nature with honeycombs or cellular networks due to optimal perimeter-to-area ratios of their Voronoi cells.",
+      "metrics": {
+        "sentences": 3,
+        "words": 80,
+        "key_facts_preserved": 13,
+        "echo_rate_pct": 21.25,
+        "hallucinations": [],
+        "latency_s": 3.54
+      }
+    },
+    {
+      "model": "phi4-mini",
+      "condition": "constrained",
+      "trial": 1,
+      "response": "Eisenstein integers consist of complex numbers in the form a + b\u03c9 with integer coefficients 'a' and 'b', where \u03c9 is e^(2\u03c0i/3). Hexagonal lattices matter because they represent an efficient packing arrangement, achieving denser circle packings than square or triangular arrangements due to their unique geometric properties. A key result from Fejes T\u00f3th in 1940 established that the hexagonal lattice's density of \u03c0/(2\u221a3) \u2248 0.9069 is optimal for two-dimensional sphere packings; additionally, Eisenstein integers have six nearest neighbors at a distance of one unit compared to four with Gaussian integers and form a unique factorization domain within their structure due to its rotational symmetries associated with hexagonal tessellation patterns observed in nature such as graphene's atomic arrangement.",
+      "metrics": {
+        "sentences": 3,
+        "words": 117,
+        "key_facts_preserved": 6,
+        "echo_rate_pct": 21.37,
+        "hallucinations": [
+          "False claim: square lattice is denser"
+        ],
+        "latency_s": 4.28
+      }
+    },
+    {
+      "model": "phi4-mini",
+      "condition": "constrained",
+      "trial": 2,
+      "response": "Eisenstein integers consist of complex numbers a + b\u03c9 where \u03c9 is e^(2\u03c0i/3), forming a unique factorization domain with six units: \u00b11, \u00b1\u03c9, \u00b1\u03c9\u00b2; they display dense circle packing in two dimensions due to their tiling pattern on the hexagonal lattice. Hexagonal lattices matter because this arrangement achieves maximal efficiency and symmetry\u2014seen both mathematically (as demonstrated by Fejes T\u00f3th's proof of density) and physically: carbon atoms align at these coordinates within graphene, contributing its notable strength; moreover, Voronoi cells in a hexagonal tiling minimize perimeter-to-area ratio. The key result is the dense packing capability with six nearest neighbors per Eisenstein integer compared to four for Gaussian integers\u2014highlighted by their unique properties such as units and factorization domain status\u2014and implications extending from algebraic number theory through practical applications like materials science, notably in graphene's structure, demonstrating hexagonal lattices' intrinsic importance.",
+      "metrics": {
+        "sentences": 3,
+        "words": 139,
+        "key_facts_preserved": 12,
+        "echo_rate_pct": 20.86,
+        "hallucinations": [],
+        "latency_s": 6.15
+      }
+    },
+    {
+      "model": "phi4-mini",
+      "condition": "constrained",
+      "trial": 3,
+      "response": "Eisenstein integers consist of complex numbers expressed as a + b\u03c9 (where \u03c9 = e^(2\u03c0i/3)), forming a unique factorization domain with properties distinct from Gaussian integers; they create the densest circle packing in two dimensions, yielding an optimal 0.9069 density through hexagonal tessellation.\n\nHexagonal lattices are significant due to their dense packing capability and minimal perimeter-to-area ratio among tilings: each Eisenstein integer has six nearest neighbors at distance one compared with four for Gaussian integers; this arrangement results naturally from the study of cubic reciprocity, algebraic number theory. Their importance extends beyond mathematics into materials science (graphene), biology (honeycombs) due to minimized perimeter-to-area ratio in Voronoi cells.\n\nKey result: Fejes T\u00f3th proved that hexagonal packing is optimal for circle arrangements; this leads Eisenstein integers' unique factorization properties and six-unit structure, influencing both mathematical constructs like cubic reciprocity theories as well as practical applications such as graphene's carbon atom positioning.",
+      "metrics": {
+        "sentences": 4,
+        "words": 149,
+        "key_facts_preserved": 11,
+        "echo_rate_pct": 24.16,
+        "hallucinations": [],
+        "latency_s": 7.06
+      }
+    },
+    {
+      "model": "phi4-mini",
+      "condition": "constrained",
+      "trial": 4,
+      "response": "Eisenstein integers consist of numbers a + b\u03c9 where \u03c9 is e^(2\u03c0i/3), forming a complex number with unique factorization properties in the ring they form; these integers create patterns that resemble both Gaussian integer arrangements as well as more densely packed configurations due to their six nearest neighbors at unit distance. The hexagonal lattice formed by Eisenstein integers maximizes circle packing density, achieving \u03c0/(2\u221a3) \u2248 0.9069 and proving this configuration's efficiency in two-dimensional space was demonstrated through Fejes T\u00f3th\u2019s work on the densest possible arrangements of circles.\n\nHexagonal lattices are significant not only mathematically but also practically; for example, they describe graphene carbon atom layouts with superior strength or appear naturally as honeycombs constructed by bees. These hexagons minimize perimeter-to-area ratios among tilings and thus optimize packing efficiency in both nature (as seen in cellular networks) and human-made structures like materials science applications of Eisenstein integers.",
+      "metrics": {
+        "sentences": 4,
+        "words": 146,
+        "key_facts_preserved": 11,
+        "echo_rate_pct": 10.96,
+        "hallucinations": [],
+        "latency_s": 5.21
+      }
+    },
+    {
+      "model": "phi4-mini",
+      "condition": "constrained",
+      "trial": 5,
+      "response": "Eisenstein integers consist of complex numbers expressed as a + b\u03c9 (with \u03c9 being e^(2\u03c0i/3)), forming the densest possible circle packing in two dimensions through their unique hexagonal arrangement, unlike Gaussian integers that form square lattices.\n\nThe dense packing density achieved by Eisenstein integer circles is approximately 0.9069 or \u03c0/(2\u221a3), with Fejes T\u00f3th proving this result and establishing six closest neighbors for each integer compared to four of the Gaussians ones in a hexagonal lattice pattern, which also possesses unique rotational symmetries.\n\nThe key properties include their role as units that factor uniquely into primes within Eisenstein integers domain upholding cubic reciprocity; applications range from algebraic number theory through materials science (e.g., carbon atoms arranged at these coordinates), to natural patterns like honeycombs and hexagonal cellular network towers, with Voronoi cells being regular hexagons.",
+      "metrics": {
+        "sentences": 3,
+        "words": 134,
+        "key_facts_preserved": 11,
+        "echo_rate_pct": 19.4,
+        "hallucinations": [],
+        "latency_s": 5.02
+      }
+    },
+    {
+      "model": "gemma3:1b",
+      "condition": "baseline",
+      "trial": 1,
+      "response": "Here\u2019s a 3-sentence summary of the text:\n\nEisenstein integers are complex numbers with a unique hexagonal arrangement, creating a dense packing density of approximately 0.9069. Unlike Gaussian integers, they exhibit a distinct hexagonal tiling pattern with six nearest neighbors at a distance of one.  This fascinating mathematical structure has implications across various fields, including materials science and the study of rotational symmetries, demonstrating their importance in fundamental concepts of geometry and number theory.",
+      "metrics": {
+        "sentences": 3,
+        "words": 73,
+        "key_facts_preserved": 5,
+        "echo_rate_pct": 24.66,
+        "hallucinations": [],
+        "latency_s": 8.46
+      }
+    },
+    {
+      "model": "gemma3:1b",
+      "condition": "baseline",
+      "trial": 2,
+      "response": "Here\u2019s a 3-sentence summary of the text:\n\nEisenstein integers are complex numbers with a unique hexagonal arrangement, creating a denser packing than Gaussian integers.  This arrangement results in a packing density of approximately \u03c0/(2\u221a3) and a unique factorization ring.  The existence of these integers, stemming from geometric principles like hexagonal lattices, has implications across diverse fields like materials science and mathematics, demonstrating their fundamental importance.",
+      "metrics": {
+        "sentences": 3,
+        "words": 65,
+        "key_facts_preserved": 5,
+        "echo_rate_pct": 18.46,
+        "hallucinations": [],
+        "latency_s": 1.1
+      }
+    },
+    {
+      "model": "gemma3:1b",
+      "condition": "baseline",
+      "trial": 3,
+      "response": "Here\u2019s a 3-sentence summary of the text:\n\nEisenstein integers are complex numbers with a unique hexagonal arrangement, resulting in a remarkably dense packing of circles in the complex plane. Unlike Gaussian integers, they exhibit a specific packing density and a unique factorization ring. These integers have connections to various fields, including materials science and the structure of graphene, where their hexagonal geometry is fundamental to its properties.",
+      "metrics": {
+        "sentences": 3,
+        "words": 67,
+        "key_facts_preserved": 4,
+        "echo_rate_pct": 20.9,
+        "hallucinations": [],
+        "latency_s": 1.59
+      }
+    },
+    {
+      "model": "gemma3:1b",
+      "condition": "baseline",
+      "trial": 4,
+      "response": "Here\u2019s a 3-sentence summary of the text:\n\nEisenstein integers are complex numbers with a unique hexagonal arrangement, creating a denser packing than Gaussian integers.  These integers have precisely six nearest neighbors at a distance of one, offering a remarkably high packing density.  Their existence arises from the study of cubic reciprocity and is fundamental to understanding materials science, particularly graphene\u2019s structure and the geometry of honeycomb patterns.",
+      "metrics": {
+        "sentences": 3,
+        "words": 67,
+        "key_facts_preserved": 5,
+        "echo_rate_pct": 22.39,
+        "hallucinations": [],
+        "latency_s": 2.24
+      }
+    },
+    {
+      "model": "gemma3:1b",
+      "condition": "baseline",
+      "trial": 5,
+      "response": "Here\u2019s a 3-sentence summary of the text:\n\nEisenstein integers are complex numbers that tile the complex plane in a hexagonal pattern, creating a remarkably dense packing density. Unlike Gaussian integers, they have six nearest neighbors at a distance of one, and their ring is unique, exhibiting a fascinating factorization structure.  This mathematical concept has significant applications in materials science, particularly in the design of graphene\u2019s structure and honeycomb formations, revealing a deep connection to geometric patterns and symmetries.",
+      "metrics": {
+        "sentences": 3,
+        "words": 78,
+        "key_facts_preserved": 6,
+        "echo_rate_pct": 23.08,
+        "hallucinations": [],
+        "latency_s": 2.53
+      }
+    },
+    {
+      "model": "gemma3:1b",
+      "condition": "constrained",
+      "trial": 1,
+      "response": "Here\u2019s a 3-sentence summary of the text, focusing on your requested elements:\n\nEisenstein integers are complex numbers representing a hexagonal tiling of the complex plane, unlike Gaussian integers which form a square lattice.  Hexagonal lattices are crucial due to their unique packing density of \u03c0/(2\u221a3) and their inherent geometric properties, particularly their rotational symmetry.  The key result demonstrated by Fejes T\u00f3th in 1940 is that Eisenstein integers, with their six nearest neighbors and six unit factors, uniquely factorize into primes, leading to their application in diverse fields like materials science and algebraic number theory.",
+      "metrics": {
+        "sentences": 3,
+        "words": 94,
+        "key_facts_preserved": 6,
+        "echo_rate_pct": 32.98,
+        "hallucinations": [],
+        "latency_s": 3.18
+      }
+    },
+    {
+      "model": "gemma3:1b",
+      "condition": "constrained",
+      "trial": 2,
+      "response": "Here\u2019s a 3-sentence summary of the text, focusing on your requested elements:\n\nEisenstein integers are complex numbers that tile the complex plane in a hexagonal pattern, offering a denser packing than Gaussian integers.  This hexagonal arrangement, crucial for understanding the properties of the ring of Eisenstein integers, results in a packing density of \u03c0/(2\u221a3) approximately 0.9069.  The unique properties of these integers, particularly their rotational symmetries and connection to materials science, make them a significant area of study.",
+      "metrics": {
+        "sentences": 3,
+        "words": 78,
+        "key_facts_preserved": 4,
+        "echo_rate_pct": 25.64,
+        "hallucinations": [],
+        "latency_s": 2.79
+      }
+    },
+    {
+      "model": "gemma3:1b",
+      "condition": "constrained",
+      "trial": 3,
+      "response": "Here\u2019s a 3-sentence summary of the text, focusing on your requested elements:\n\nEisenstein integers are complex numbers representing a hexagonal tiling of the plane, unlike Gaussian integers which form a square lattice.  Hexagonal lattices are crucial due to their packing density, exceeding that of Gaussian integers by a significant amount (\u03c0/(2\u221a3)), and exhibiting unique properties like six nearest neighbors.  The ring of Eisenstein integers, with its six units and rotational symmetries, arises from the study of cubic reciprocity and has applications in materials science, particularly in graphene\u2019s structure.",
+      "metrics": {
+        "sentences": 3,
+        "words": 88,
+        "key_facts_preserved": 6,
+        "echo_rate_pct": 25.0,
+        "hallucinations": [],
+        "latency_s": 2.91
+      }
+    },
+    {
+      "model": "gemma3:1b",
+      "condition": "constrained",
+      "trial": 4,
+      "response": "Here\u2019s a 3-sentence summary of the text, focusing on your requested elements:\n\nEisenstein integers are complex numbers of the form a + b\u03c9, where a and b are integers and \u03c9 is a primitive cube root of unity, representing a hexagonal tiling of the complex plane.  Hexagonal lattices are crucial because they provide the densest possible circle packing in two dimensions, with a packing density of approximately \u03c0/(2\u221a3) and are fundamental to materials science due to their influence on graphene\u2019s properties.  The ring of Eisenstein integers, with its six unique units and rotational symmetries, represents a fundamental mathematical structure with surprising applications in various fields, including number theory and materials science.",
+      "metrics": {
+        "sentences": 3,
+        "words": 111,
+        "key_facts_preserved": 6,
+        "echo_rate_pct": 36.04,
+        "hallucinations": [],
+        "latency_s": 3.54
+      }
+    },
+    {
+      "model": "gemma3:1b",
+      "condition": "constrained",
+      "trial": 5,
+      "response": "Here\u2019s a 3-sentence summary of the text, focusing on your requested elements:\n\nEisenstein integers are complex numbers with a unique hexagonal arrangement of coefficients, unlike Gaussian integers.  These integers are crucial because they pack the plane in a dense, \u03c0/(2\u221a3) pattern, representing the densest possible circle packing.  The ring of Eisenstein integers, with its six unique units, is a fundamental result demonstrating a powerful factorization property and appearing in diverse areas like materials science and number theory.",
+      "metrics": {
+        "sentences": 3,
+        "words": 77,
+        "key_facts_preserved": 5,
+        "echo_rate_pct": 22.08,
+        "hallucinations": [],
+        "latency_s": 2.33
+      }
+    }
+  ],
+  "summary": {
+    "qwen3:4b": {
+      "baseline": {
+        "avg_sentences": 2.2,
+        "avg_words": 66.6,
+        "avg_key_facts": 7.2,
+        "avg_echo_rate": 39.36,
+        "avg_hallucinations": 0.0,
+        "avg_latency": 16.12,
+        "n_trials": 5
+      },
+      "constrained": {
+        "avg_sentences": 0.8,
+        "avg_words": 17.6,
+        "avg_key_facts": 2.2,
+        "avg_echo_rate": 18.15,
+        "avg_hallucinations": 0.0,
+        "avg_latency": 19.5,
+        "n_trials": 5
+      }
+    },
+    "phi4-mini": {
+      "baseline": {
+        "avg_sentences": 2.5,
+        "avg_words": 84.5,
+        "avg_key_facts": 11.5,
+        "avg_echo_rate": 21.86,
+        "avg_hallucinations": 0.0,
+        "avg_latency": 8.54,
+        "n_trials": 2
+      },
+      "constrained": {
+        "avg_sentences": 3.4,
+        "avg_words": 137.0,
+        "avg_key_facts": 10.2,
+        "avg_echo_rate": 19.35,
+        "avg_hallucinations": 0.2,
+        "avg_latency": 5.54,
+        "n_trials": 5
+      }
+    },
+    "gemma3:1b": {
+      "baseline": {
+        "avg_sentences": 3.0,
+        "avg_words": 70.0,
+        "avg_key_facts": 5.0,
+        "avg_echo_rate": 21.9,
+        "avg_hallucinations": 0.0,
+        "avg_latency": 3.18,
+        "n_trials": 5
+      },
+      "constrained": {
+        "avg_sentences": 3.0,
+        "avg_words": 89.6,
+        "avg_key_facts": 5.4,
+        "avg_echo_rate": 28.35,
+        "avg_hallucinations": 0.0,
+        "avg_latency": 2.95,
+        "n_trials": 5
+      }
+    }
+  }
+}

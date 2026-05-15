@@ -1,0 +1,1983 @@
+{
+  "study": "STUDY-40",
+  "title": "Domain Specificity Gradient",
+  "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+  "timestamp": "2026-05-15T09:07:03.897423",
+  "correct_answer": 49,
+  "temperature": 0.3,
+  "trials_per_condition": 30,
+  "summary": {
+    "T1": {
+      "specificity": 0.95,
+      "correct": 0,
+      "total": 30,
+      "rate": 0.0
+    },
+    "T2": {
+      "specificity": 0.88,
+      "correct": 27,
+      "total": 30,
+      "rate": 0.9
+    },
+    "T3": {
+      "specificity": 0.72,
+      "correct": 0,
+      "total": 30,
+      "rate": 0.0
+    },
+    "T4": {
+      "specificity": 0.55,
+      "correct": 5,
+      "total": 30,
+      "rate": 0.1667
+    },
+    "T5": {
+      "specificity": 0.38,
+      "correct": 22,
+      "total": 30,
+      "rate": 0.7333
+    },
+    "T6": {
+      "specificity": 0.2,
+      "correct": 0,
+      "total": 30,
+      "rate": 0.0
+    },
+    "T7": {
+      "specificity": 0.1,
+      "correct": 0,
+      "total": 30,
+      "rate": 0.0
+    },
+    "T8": {
+      "specificity": 0.02,
+      "correct": 0,
+      "total": 30,
+      "rate": 0.0
+    }
+  },
+  "pearson_r": 0.3311,
+  "inversions": 2,
+  "all_results": [
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 1,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 2,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 3,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 4,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 5,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 6,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 7,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 8,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 9,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 10,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 11,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 12,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 13,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 14,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 15,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 16,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 17,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 18,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 19,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 20,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 21,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 22,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 23,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 24,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 25,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 26,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 27,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 28,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 29,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T1",
+      "specificity": 0.95,
+      "trial_num": 30,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 1,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 2,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 3,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 4,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 5,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 6,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 7,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 8,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 9,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 10,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 11,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 12,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 13,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 14,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 15,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 16,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 17,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 18,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 19,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 20,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 21,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 22,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 23,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 24,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 25,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 26,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 27,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 28,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 29,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T2",
+      "specificity": 0.88,
+      "trial_num": 30,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 1,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 2,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 3,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 4,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 5,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 6,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 7,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 8,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 9,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 10,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 11,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 12,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 13,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 14,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 15,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 16,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 17,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 18,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 19,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 20,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 21,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 22,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 23,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 24,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 25,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 26,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 27,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 28,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 29,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T3",
+      "specificity": 0.72,
+      "trial_num": 30,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 1,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 2,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 3,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 4,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 5,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 6,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 7,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 8,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 9,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 10,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 11,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 12,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 13,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 14,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 15,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 16,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 17,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 18,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 19,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 20,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 21,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 22,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 23,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 24,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 25,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 26,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 27,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 28,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 29,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T4",
+      "specificity": 0.55,
+      "trial_num": 30,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 1,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 2,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 3,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 4,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 5,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 6,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 7,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 8,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 9,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 10,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 11,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 12,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 13,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 14,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 15,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 16,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 17,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 18,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 19,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 20,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 21,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 22,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 23,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 24,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 25,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 26,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 27,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 28,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 29,
+      "response": "61",
+      "answer": 61,
+      "correct": false
+    },
+    {
+      "condition": "T5",
+      "specificity": 0.38,
+      "trial_num": 30,
+      "response": "49",
+      "answer": 49,
+      "correct": true
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 1,
+      "response": "370332",
+      "answer": null,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 2,
+      "response": "3496",
+      "answer": 3496,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 3,
+      "response": "232",
+      "answer": 232,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 4,
+      "response": "520",
+      "answer": 520,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 5,
+      "response": "520",
+      "answer": 520,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 6,
+      "response": "2604",
+      "answer": 2604,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 7,
+      "response": "3496",
+      "answer": 3496,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 8,
+      "response": "412",
+      "answer": 412,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 9,
+      "response": "1488",
+      "answer": 1488,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 10,
+      "response": "1488",
+      "answer": 1488,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 11,
+      "response": "520",
+      "answer": 520,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 12,
+      "response": "232",
+      "answer": 232,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 13,
+      "response": "260",
+      "answer": 260,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 14,
+      "response": "592",
+      "answer": 592,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 15,
+      "response": "3496",
+      "answer": 3496,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 16,
+      "response": "370332",
+      "answer": null,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 17,
+      "response": "412",
+      "answer": 412,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 18,
+      "response": "412",
+      "answer": 412,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 19,
+      "response": "520",
+      "answer": 520,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 20,
+      "response": "412",
+      "answer": 412,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 21,
+      "response": "41277",
+      "answer": null,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 22,
+      "response": "370332",
+      "answer": null,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 23,
+      "response": "412",
+      "answer": 412,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 24,
+      "response": "2604",
+      "answer": 2604,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 25,
+      "response": "4303292",
+      "answer": null,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 26,
+      "response": "520",
+      "answer": 520,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 27,
+      "response": "3496",
+      "answer": 3496,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 28,
+      "response": "3168",
+      "answer": 3168,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 29,
+      "response": "370329",
+      "answer": null,
+      "correct": false
+    },
+    {
+      "condition": "T6",
+      "specificity": 0.2,
+      "trial_num": 30,
+      "response": "520",
+      "answer": 520,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 1,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 2,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 3,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 4,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 5,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 6,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 7,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 8,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 9,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 10,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 11,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 12,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 13,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 14,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 15,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 16,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 17,
+      "response": "1664",
+      "answer": 1664,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 18,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 19,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 20,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 21,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 22,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 23,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 24,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 25,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 26,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 27,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 28,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 29,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T7",
+      "specificity": 0.1,
+      "trial_num": 30,
+      "response": "136",
+      "answer": 136,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 1,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 2,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 3,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 4,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 5,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 6,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 7,
+      "response": "-1",
+      "answer": -1,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 8,
+      "response": "64",
+      "answer": 64,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 9,
+      "response": "64",
+      "answer": 64,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 10,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 11,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 12,
+      "response": "-1",
+      "answer": -1,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 13,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 14,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 15,
+      "response": "64",
+      "answer": 64,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 16,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 17,
+      "response": "64",
+      "answer": 64,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 18,
+      "response": "64",
+      "answer": 64,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 19,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 20,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 21,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 22,
+      "response": "64",
+      "answer": 64,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 23,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 24,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 25,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 26,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 27,
+      "response": "-1",
+      "answer": -1,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 28,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 29,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    },
+    {
+      "condition": "T8",
+      "specificity": 0.02,
+      "trial_num": 30,
+      "response": "1364",
+      "answer": 1364,
+      "correct": false
+    }
+  ]
+}

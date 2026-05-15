@@ -1,0 +1,1876 @@
+{
+  "study": "STUDY-42-PROSPECTIVE-LANDMINE",
+  "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+  "correct_answer": 49,
+  "trials_per_term": 20,
+  "timestamp": "2026-05-15T09:47:51",
+  "results": [
+    {
+      "term": "Frobenius norm",
+      "trial": 0,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 10,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 9,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 4,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 6,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 5,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 11,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 7,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 3,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 1,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 2,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 8,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 18,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 15,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 2,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 3,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 14,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 19,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 13,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 0,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 17,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 16,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Frobenius norm",
+      "trial": 12,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 1,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 13,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 4,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 14,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 8,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 7,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 5,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 6,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 9,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 10,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 11,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 15,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 12,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 19,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 5,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 3,
+      "answer": 31,
+      "raw": "31"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 2,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 18,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 4,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 16,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 1,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Minkowski norm",
+      "trial": 17,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 0,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 6,
+      "answer": 31,
+      "raw": "31"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 7,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 9,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 12,
+      "answer": 31,
+      "raw": "31"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 14,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 15,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 13,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 10,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 18,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 11,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 16,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 17,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 19,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Euclidean norm",
+      "trial": 8,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 10,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 5,
+      "answer": 31,
+      "raw": "31"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 7,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 9,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 6,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 1,
+      "answer": 31,
+      "raw": "31"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 8,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 2,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 11,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 0,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 3,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 4,
+      "answer": 31,
+      "raw": "31"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 16,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 1,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 15,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 3,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 0,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 18,
+      "answer": 31,
+      "raw": "31"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 17,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 12,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 19,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 14,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Hermitian norm",
+      "trial": 13,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 2,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 8,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 9,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 6,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 10,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 14,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 4,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 15,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 11,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 12,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 13,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 7,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 5,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 3,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 16,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 17,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 2,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 1,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 4,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 5,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 19,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 0,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 6,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Hurwitz norm",
+      "trial": 18,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 7,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 19,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 9,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 12,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 8,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 16,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 15,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 17,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 18,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 13,
+      "answer": 43,
+      "raw": "43"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 11,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 10,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "spectral norm",
+      "trial": 14,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 2,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 10,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 0,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 4,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 1,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 6,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 9,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 7,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 5,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 11,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 3,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 8,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 17,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 0,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 13,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 3,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 16,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 12,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 15,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 14,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 1,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 19,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 2,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "H\u00f6lder norm",
+      "trial": 18,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 13,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "energy norm",
+      "trial": 11,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "energy norm",
+      "trial": 8,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 12,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "energy norm",
+      "trial": 7,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 9,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 14,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 5,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "energy norm",
+      "trial": 6,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 10,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "energy norm",
+      "trial": 4,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "energy norm",
+      "trial": 15,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "trace norm",
+      "trial": 2,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 17,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "trace norm",
+      "trial": 6,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "energy norm",
+      "trial": 16,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "trace norm",
+      "trial": 0,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "trace norm",
+      "trial": 1,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "trace norm",
+      "trial": 5,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "trace norm",
+      "trial": 7,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "trace norm",
+      "trial": 3,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "energy norm",
+      "trial": 18,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "energy norm",
+      "trial": 19,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "trace norm",
+      "trial": 4,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "trace norm",
+      "trial": 17,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "trace norm",
+      "trial": 9,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "trace norm",
+      "trial": 10,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "trace norm",
+      "trial": 8,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "trace norm",
+      "trial": 12,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "trace norm",
+      "trial": 13,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "trace norm",
+      "trial": 14,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "trace norm",
+      "trial": 18,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "trace norm",
+      "trial": 19,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "trace norm",
+      "trial": 16,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "trace norm",
+      "trial": 11,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "trace norm",
+      "trial": 15,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 1,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 0,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 4,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 7,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 2,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 8,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 9,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 10,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 11,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 3,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 5,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 6,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 15,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 2,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 1,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 3,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 14,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 0,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 19,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 16,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 12,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 13,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 18,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "Sobolev norm",
+      "trial": 17,
+      "answer": 37,
+      "raw": "37"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 15,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 4,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 8,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 9,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 13,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 5,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 6,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 14,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 12,
+      "answer": 67,
+      "raw": "67"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 7,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 11,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 10,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 16,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 19,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 0,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 5,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 2,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 18,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "nuclear norm",
+      "trial": 17,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 4,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 1,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 3,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 7,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 6,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 19,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 12,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 15,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 11,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 17,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 18,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 9,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 16,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 8,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 10,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 13,
+      "answer": 49,
+      "raw": "49"
+    },
+    {
+      "term": "Mahalanobis distance",
+      "trial": 14,
+      "answer": 49,
+      "raw": "49"
+    }
+  ],
+  "analysis": {
+    "Frobenius norm": {
+      "accuracy": 100.0,
+      "correct": 20,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": null,
+      "most_common_wrong_count": 0,
+      "all_answers": [
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49
+      ],
+      "wrong_distribution": {},
+      "predicted_safe": false,
+      "prediction_matched": false
+    },
+    "Minkowski norm": {
+      "accuracy": 80.0,
+      "correct": 16,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": 37,
+      "most_common_wrong_count": 4,
+      "all_answers": [
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        37,
+        49,
+        49,
+        37,
+        49,
+        49,
+        37,
+        37,
+        49,
+        49,
+        49,
+        49
+      ],
+      "wrong_distribution": {
+        "37": 4
+      },
+      "predicted_safe": false,
+      "prediction_matched": false
+    },
+    "Euclidean norm": {
+      "accuracy": 85.0,
+      "correct": 17,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": 31,
+      "most_common_wrong_count": 3,
+      "all_answers": [
+        49,
+        31,
+        49,
+        49,
+        49,
+        49,
+        31,
+        49,
+        49,
+        31,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49
+      ],
+      "wrong_distribution": {
+        "31": 3
+      },
+      "predicted_safe": false,
+      "prediction_matched": false
+    },
+    "Hermitian norm": {
+      "accuracy": 40.0,
+      "correct": 8,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": 43,
+      "most_common_wrong_count": 6,
+      "all_answers": [
+        43,
+        31,
+        49,
+        43,
+        49,
+        31,
+        49,
+        49,
+        49,
+        43,
+        43,
+        31,
+        43,
+        49,
+        31,
+        49,
+        37,
+        43,
+        37,
+        49
+      ],
+      "wrong_distribution": {
+        "43": 6,
+        "31": 4,
+        "37": 2
+      },
+      "predicted_safe": false,
+      "prediction_matched": false
+    },
+    "Hurwitz norm": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": 43,
+      "most_common_wrong_count": 20,
+      "all_answers": [
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43
+      ],
+      "wrong_distribution": {
+        "43": 20
+      },
+      "predicted_safe": true,
+      "prediction_matched": false
+    },
+    "spectral norm": {
+      "accuracy": 20.0,
+      "correct": 4,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": 43,
+      "most_common_wrong_count": 10,
+      "all_answers": [
+        43,
+        49,
+        37,
+        43,
+        43,
+        37,
+        37,
+        43,
+        43,
+        43,
+        37,
+        43,
+        49,
+        49,
+        43,
+        43,
+        43,
+        49,
+        37,
+        37
+      ],
+      "wrong_distribution": {
+        "43": 10,
+        "37": 6
+      },
+      "predicted_safe": false,
+      "prediction_matched": false
+    },
+    "H\u00f6lder norm": {
+      "accuracy": 100.0,
+      "correct": 20,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": null,
+      "most_common_wrong_count": 0,
+      "all_answers": [
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49
+      ],
+      "wrong_distribution": {},
+      "predicted_safe": false,
+      "prediction_matched": false
+    },
+    "energy norm": {
+      "accuracy": 50.0,
+      "correct": 10,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": 67,
+      "most_common_wrong_count": 10,
+      "all_answers": [
+        67,
+        67,
+        67,
+        49,
+        67,
+        67,
+        49,
+        67,
+        49,
+        49,
+        49,
+        67,
+        49,
+        67,
+        67,
+        49,
+        49,
+        67,
+        49,
+        49
+      ],
+      "wrong_distribution": {
+        "67": 10
+      },
+      "predicted_safe": true,
+      "prediction_matched": false
+    },
+    "trace norm": {
+      "accuracy": 40.0,
+      "correct": 8,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": 67,
+      "most_common_wrong_count": 11,
+      "all_answers": [
+        49,
+        67,
+        67,
+        67,
+        67,
+        67,
+        67,
+        49,
+        49,
+        49,
+        49,
+        49,
+        67,
+        67,
+        67,
+        37,
+        67,
+        49,
+        67,
+        49
+      ],
+      "wrong_distribution": {
+        "67": 11,
+        "37": 1
+      },
+      "predicted_safe": true,
+      "prediction_matched": false
+    },
+    "Sobolev norm": {
+      "accuracy": 35.0,
+      "correct": 7,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": 37,
+      "most_common_wrong_count": 13,
+      "all_answers": [
+        49,
+        37,
+        37,
+        37,
+        37,
+        37,
+        37,
+        49,
+        37,
+        49,
+        37,
+        37,
+        49,
+        37,
+        37,
+        49,
+        49,
+        49,
+        37,
+        37
+      ],
+      "wrong_distribution": {
+        "37": 13
+      },
+      "predicted_safe": true,
+      "prediction_matched": false
+    },
+    "nuclear norm": {
+      "accuracy": 85.0,
+      "correct": 17,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": 67,
+      "most_common_wrong_count": 3,
+      "all_answers": [
+        49,
+        49,
+        49,
+        67,
+        67,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        67,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49
+      ],
+      "wrong_distribution": {
+        "67": 3
+      },
+      "predicted_safe": true,
+      "prediction_matched": false
+    },
+    "Mahalanobis distance": {
+      "accuracy": 100.0,
+      "correct": 20,
+      "total_valid": 20,
+      "errors": 0,
+      "most_common_wrong": null,
+      "most_common_wrong_count": 0,
+      "all_answers": [
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49,
+        49
+      ],
+      "wrong_distribution": {},
+      "predicted_safe": false,
+      "prediction_matched": false
+    }
+  },
+  "falsification": {
+    "landmine_specific_wrong": false,
+    "safe_terms_above_70": 1,
+    "safe_terms_total": 5,
+    "overall_predictions_correct": 3,
+    "overall_predictions_total": 12
+  }
+}

@@ -1,0 +1,1410 @@
+{
+  "NousResearch/Hermes-3-Llama-3.1-405B": [
+    {
+      "probe": "add_37_58",
+      "expected": 95,
+      "trials": [
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mul_12_11",
+      "expected": 132,
+      "trials": [
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "eisenstein",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "The Eisenstein norm of (5-3\u03c9) is:\n\nN(5-3\u03c9) = 5\u00b2 - 5(-3) + (-3)\u00b2\n        = 25 + 15 + 9\n        =",
+          "parsed": 9,
+          "correct": false
+        },
+        {
+          "raw": "The Eisenstein norm of (5-3\u03c9) is:\n\nN(5-3\u03c9) = 5\u00b2 - 5(-3) + (-3)\u00b2\n        = 25 + 15 + 9\n        =",
+          "parsed": 9,
+          "correct": false
+        },
+        {
+          "raw": "The Eisenstein norm of (5-3\u03c9) is:\n\nN(5-3\u03c9) = 5\u00b2 - 5(-3) + (-3)\u00b2\n        = 25 + 15 + 9\n        =",
+          "parsed": 9,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "sub_neg",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mod_17_5",
+      "expected": 2,
+      "trials": [
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sequence",
+      "expected": 91,
+      "trials": [
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        }
+      ]
+    }
+  ],
+  "NousResearch/Hermes-3-Llama-3.1-70B": [
+    {
+      "probe": "add_37_58",
+      "expected": 95,
+      "trials": [
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mul_12_11",
+      "expected": 132,
+      "trials": [
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "eisenstein",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "61",
+          "parsed": 61,
+          "correct": false
+        },
+        {
+          "raw": "61",
+          "parsed": 61,
+          "correct": false
+        },
+        {
+          "raw": "61",
+          "parsed": 61,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "sub_neg",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mod_17_5",
+      "expected": 2,
+      "trials": [
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sequence",
+      "expected": 91,
+      "trials": [
+        {
+          "raw": "85",
+          "parsed": 85,
+          "correct": false
+        },
+        {
+          "raw": "85",
+          "parsed": 85,
+          "correct": false
+        },
+        {
+          "raw": "85",
+          "parsed": 85,
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "Qwen/Qwen3-235B-A22B-Instruct-2507": [
+    {
+      "probe": "add_37_58",
+      "expected": 95,
+      "trials": [
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mul_12_11",
+      "expected": 132,
+      "trials": [
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "eisenstein",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "We are given the Eisenstein norm formula:\n\n$$\nN(a + b\\omega) = a^2 - ab + b^2\n$$\n\nWe are to compute the norm of $ 5 - 3\\omega $, so $",
+          "parsed": 3,
+          "correct": false
+        },
+        {
+          "raw": "We are given the Eisenstein norm formula:\n\n$$\nN(a + b\\omega) = a^2 - ab + b^2\n$$\n\nWe are to compute the norm of $ 5 - 3\\omega $, so here",
+          "parsed": 3,
+          "correct": false
+        },
+        {
+          "raw": "We are given the Eisenstein norm formula:\n\n$$\nN(a + b\\omega) = a^2 - ab + b^2\n$$\n\nWe are to compute the norm of $ 5 - 3\\omega $, so here",
+          "parsed": 3,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "sub_neg",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "25 - (-15) + 9 = 25 + 15 + 9 = 49\n\n49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "25 - (-15) + 9 = 25 + 15 + 9 = 49\n\n49",
+          "parsed": 49,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mod_17_5",
+      "expected": 2,
+      "trials": [
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sequence",
+      "expected": 91,
+      "trials": [
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        }
+      ]
+    }
+  ],
+  "Qwen/Qwen3.6-35B-A3B": [
+    {
+      "probe": "add_37_58",
+      "expected": 95,
+      "trials": [
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "mul_12_11",
+      "expected": 132,
+      "trials": [
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "eisenstein",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "sub_neg",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "mod_17_5",
+      "expected": 2,
+      "trials": [
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "sequence",
+      "expected": 91,
+      "trials": [
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        },
+        {
+          "raw": "",
+          "parsed": null,
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "ByteDance/Seed-2.0-mini": [
+    {
+      "probe": "add_37_58",
+      "expected": 95,
+      "trials": [
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mul_12_11",
+      "expected": 132,
+      "trials": [
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "eisenstein",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sub_neg",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mod_17_5",
+      "expected": 2,
+      "trials": [
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sequence",
+      "expected": 91,
+      "trials": [
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        }
+      ]
+    }
+  ],
+  "ByteDance/Seed-2.0-code": [
+    {
+      "probe": "add_37_58",
+      "expected": 95,
+      "trials": [
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mul_12_11",
+      "expected": 132,
+      "trials": [
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "eisenstein",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sub_neg",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mod_17_5",
+      "expected": 2,
+      "trials": [
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sequence",
+      "expected": 91,
+      "trials": [
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        }
+      ]
+    }
+  ],
+  "meta-llama/Meta-Llama-3.1-70B-Instruct": [
+    {
+      "probe": "add_37_58",
+      "expected": 95,
+      "trials": [
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mul_12_11",
+      "expected": 132,
+      "trials": [
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "eisenstein",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "## Step 1: Identify the values of a and b in the given expression (5-3\u03c9).\nIn the expression (5-3\u03c9), a = 5 and b = -3.\n\n## Step 2: Apply the Eisenstein",
+          "parsed": 2,
+          "correct": false
+        },
+        {
+          "raw": "## Step 1: Identify the values of a and b in the given expression (5-3\u03c9).\nIn the expression (5-3\u03c9), a = 5 and b = -3.\n\n## Step 2: Apply the Eisenstein",
+          "parsed": 2,
+          "correct": false
+        },
+        {
+          "raw": "## Step 1: Identify the values of a and b in the given expression (5-3\u03c9).\nIn the expression (5-3\u03c9), a = 5 and b = -3.\n\n## Step 2: Apply the Eisenstein",
+          "parsed": 2,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "sub_neg",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "25 + 15 + 9 = 49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "25 + 15 + 9 = 49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "25 + 15 + 9 = 49",
+          "parsed": 49,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mod_17_5",
+      "expected": 2,
+      "trials": [
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sequence",
+      "expected": 91,
+      "trials": [
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        }
+      ]
+    }
+  ],
+  "meta-llama/Meta-Llama-3.1-8B-Instruct": [
+    {
+      "probe": "add_37_58",
+      "expected": 95,
+      "trials": [
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mul_12_11",
+      "expected": 132,
+      "trials": [
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "eisenstein",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "## Step 1:  To find the Eisenstein norm of (5-3\u03c9), we first need to understand what the Eisenstein norm is. The Eisenstein norm of an element a + b\u03c9 in the ring of integers of a quadratic",
+          "parsed": -3,
+          "correct": false
+        },
+        {
+          "raw": "## Step 1:  To find the Eisenstein norm of (5-3\u03c9), we first need to understand what the Eisenstein norm is. The Eisenstein norm of an element a + b\u03c9 in the ring of integers of a quadratic",
+          "parsed": -3,
+          "correct": false
+        },
+        {
+          "raw": "## Step 1:  To find the Eisenstein norm of (5-3\u03c9), we first need to understand what the Eisenstein norm is. The Eisenstein norm of an element a + b\u03c9 in the ring of integers of a quadratic",
+          "parsed": -3,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "sub_neg",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "40",
+          "parsed": 40,
+          "correct": false
+        },
+        {
+          "raw": "40",
+          "parsed": 40,
+          "correct": false
+        },
+        {
+          "raw": "40",
+          "parsed": 40,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "mod_17_5",
+      "expected": 2,
+      "trials": [
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sequence",
+      "expected": 91,
+      "trials": [
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        }
+      ]
+    }
+  ],
+  "mistralai/Mixtral-8x7B-Instruct-v0.1": [
+    {
+      "probe": "add_37_58",
+      "expected": 95,
+      "trials": [
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mul_12_11",
+      "expected": 132,
+      "trials": [
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "eisenstein",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "To compute the Eisenstein norm of \\(5 - 3\\omega\\), we use the formula \\(N(a + b\\omega) = a^2 - ab + b^2\\).\n\nHere, \\(a = 5\\) and \\(b = -3",
+          "parsed": -3,
+          "correct": false
+        },
+        {
+          "raw": "To compute the Eisenstein norm of \\(5 - 3\\omega\\), we use the formula \\(N(a + b\\omega) = a^2 - ab + b^2\\).\n\nHere, \\(a = 5\\) and \\(b = -3",
+          "parsed": -3,
+          "correct": false
+        },
+        {
+          "raw": "To compute the Eisenstein norm of \\(5 - 3\\omega\\), we use the formula \\(N(a + b\\omega) = a^2 - ab + b^2\\).\n\nHere, \\(a = 5\\) and \\(b = -3",
+          "parsed": -3,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "sub_neg",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mod_17_5",
+      "expected": 2,
+      "trials": [
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sequence",
+      "expected": 91,
+      "trials": [
+        {
+          "raw": "89",
+          "parsed": 89,
+          "correct": false
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        }
+      ]
+    }
+  ],
+  "google/gemma-2-27b-it": [
+    {
+      "probe": "add_37_58",
+      "expected": 95,
+      "trials": [
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mul_12_11",
+      "expected": 132,
+      "trials": [
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "eisenstein",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "14",
+          "parsed": 14,
+          "correct": false
+        },
+        {
+          "raw": "14",
+          "parsed": 14,
+          "correct": false
+        },
+        {
+          "raw": "14",
+          "parsed": 14,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "sub_neg",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        },
+        {
+          "raw": "49",
+          "parsed": 49,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mod_17_5",
+      "expected": 2,
+      "trials": [
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sequence",
+      "expected": 91,
+      "trials": [
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        }
+      ]
+    }
+  ],
+  "microsoft/Phi-3-medium-4k-instruct": [
+    {
+      "probe": "add_37_58",
+      "expected": 95,
+      "trials": [
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        },
+        {
+          "raw": "95",
+          "parsed": 95,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "mul_12_11",
+      "expected": 132,
+      "trials": [
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        },
+        {
+          "raw": "132",
+          "parsed": 132,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "eisenstein",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "## Step 1:  To find the Eisenstein norm of (5-3\u03c9), we first need to understand what the Eisenstein norm is. The Eisenstein norm of an element a + b\u03c9 in the ring of integers of a quadratic",
+          "parsed": -3,
+          "correct": false
+        },
+        {
+          "raw": "## Step 1:  To find the Eisenstein norm of (5-3\u03c9), we first need to understand what the Eisenstein norm is. The Eisenstein norm of an element a + b\u03c9 in the ring of integers of a quadratic",
+          "parsed": -3,
+          "correct": false
+        },
+        {
+          "raw": "## Step 1:  To find the Eisenstein norm of (5-3\u03c9), we first need to understand what the Eisenstein norm is. The Eisenstein norm of an element a + b\u03c9 in the ring of integers of a quadratic",
+          "parsed": -3,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "sub_neg",
+      "expected": 49,
+      "trials": [
+        {
+          "raw": "40",
+          "parsed": 40,
+          "correct": false
+        },
+        {
+          "raw": "40",
+          "parsed": 40,
+          "correct": false
+        },
+        {
+          "raw": "40",
+          "parsed": 40,
+          "correct": false
+        }
+      ]
+    },
+    {
+      "probe": "mod_17_5",
+      "expected": 2,
+      "trials": [
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        },
+        {
+          "raw": "2",
+          "parsed": 2,
+          "correct": true
+        }
+      ]
+    },
+    {
+      "probe": "sequence",
+      "expected": 91,
+      "trials": [
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        },
+        {
+          "raw": "91",
+          "parsed": 91,
+          "correct": true
+        }
+      ]
+    }
+  ]
+}

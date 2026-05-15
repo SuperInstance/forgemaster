@@ -1,0 +1,689 @@
+{
+  "study": "domain-breadth-survey",
+  "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+  "expected": 49,
+  "temperature": 0.1,
+  "trials_per_name": 3,
+  "results": {
+    "Euler": {
+      "accuracy": 0.0,
+      "correct_count": 0,
+      "mean_answer": 40,
+      "numbers": [
+        40,
+        40,
+        40
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "40",
+          "correct": false,
+          "first_number": 40,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "40",
+          "correct": false,
+          "first_number": 40,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "40",
+          "correct": false,
+          "first_number": 40,
+          "explained": false
+        }
+      ]
+    },
+    "Gauss": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Riemann": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Fourier": {
+      "accuracy": 0.3333333333333333,
+      "correct_count": 1,
+      "mean_answer": 34.333333333333336,
+      "numbers": [
+        39,
+        25,
+        39
+      ],
+      "explained_pct": 0.3333333333333333,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "39",
+          "correct": false,
+          "first_number": 39,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "25 - (-15) + 9 = 25 + 15 + 9 = 49",
+          "correct": true,
+          "first_number": 25,
+          "explained": true
+        },
+        {
+          "trial": 3,
+          "response": "39",
+          "correct": false,
+          "first_number": 39,
+          "explained": false
+        }
+      ]
+    },
+    "Laplace": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Penrose": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Eisenstein": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Cantor": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Noether": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Grothendieck": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Poincar\u00e9": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Turing": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "G\u00f6del": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Shannon": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Mandelbrot": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Hamilton": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Dirac": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Weyl": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 49,
+      "numbers": [
+        49,
+        49,
+        49
+      ],
+      "explained_pct": 0.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        }
+      ]
+    },
+    "Artin": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 33,
+      "numbers": [
+        25,
+        49,
+        25
+      ],
+      "explained_pct": 0.6666666666666666,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "25 - (-15) + 9 = 25 + 15 + 9 = 49",
+          "correct": true,
+          "first_number": 25,
+          "explained": true
+        },
+        {
+          "trial": 2,
+          "response": "49",
+          "correct": true,
+          "first_number": 49,
+          "explained": false
+        },
+        {
+          "trial": 3,
+          "response": "25 - (-15) + 9 = 25 + 15 + 9 = 49",
+          "correct": true,
+          "first_number": 25,
+          "explained": true
+        }
+      ]
+    },
+    "Heegner": {
+      "accuracy": 1.0,
+      "correct_count": 3,
+      "mean_answer": 25,
+      "numbers": [
+        25,
+        25,
+        25
+      ],
+      "explained_pct": 1.0,
+      "trials": [
+        {
+          "trial": 1,
+          "response": "25 - (-15) + 9 = 25 + 15 + 9 = 49",
+          "correct": true,
+          "first_number": 25,
+          "explained": true
+        },
+        {
+          "trial": 2,
+          "response": "25 - (-15) + 9 = 25 + 15 + 9 = 49",
+          "correct": true,
+          "first_number": 25,
+          "explained": true
+        },
+        {
+          "trial": 3,
+          "response": "25 - (-15) + 9 = 25 + 15 + 9 = 49",
+          "correct": true,
+          "first_number": 25,
+          "explained": true
+        }
+      ]
+    }
+  }
+}

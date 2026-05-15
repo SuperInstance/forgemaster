@@ -1,0 +1,884 @@
+{
+  "study": 44,
+  "title": "Formula Conflict Causal Intervention",
+  "timestamp": "2026-05-15T09:48:12.341927",
+  "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+  "temperature": 0.3,
+  "n_trials": 25,
+  "correct_answer": 49,
+  "computation": "f(5,-3) = 25 - (-15) + 9 = 49",
+  "conditions": {
+    "C1_formula_only": "Compute f(5, -3) where f(a,b) = a\u00b2 - ab + b\u00b2. Reply ONLY the integer result.",
+    "C2_formula_safe_domain": "Compute the polynomial norm N(5, -3) where N(a,b) = a\u00b2 - ab + b\u00b2. Reply ONLY the integer result.",
+    "C3_formula_landmine": "Compute the Eisenstein norm N(5, -3) where N(a,b) = a\u00b2 - ab + b\u00b2. Reply ONLY the integer result.",
+    "C4_formula_emphasized": "IMPORTANT: Use ONLY the formula given below. Compute the Eisenstein norm N(5, -3). The formula is: N(a,b) = a\u00b2 - ab + b\u00b2. Do NOT use any other formula. N(5,-3) = 5\u00b2 - 5\u00d7(-3) + (-3)\u00b2 = ? Reply ONLY the integer result."
+  },
+  "results": [
+    {
+      "condition": "C1_formula_only",
+      "trial": 3,
+      "response": "136",
+      "extracted": 136,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 9,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 1,
+      "response": "136",
+      "extracted": 136,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 8,
+      "response": "136",
+      "extracted": 136,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 7,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 5,
+      "response": "136",
+      "extracted": 136,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 6,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 2,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 4,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 0,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 12,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 16,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 11,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 17,
+      "response": "136",
+      "extracted": 136,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 13,
+      "response": "136",
+      "extracted": 136,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 15,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 19,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 10,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 18,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 14,
+      "response": "136",
+      "extracted": 136,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 20,
+      "response": "136",
+      "extracted": 136,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 21,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 23,
+      "response": "136",
+      "extracted": 136,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 1,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 0,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 2,
+      "response": "61",
+      "extracted": 61,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 22,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 3,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C1_formula_only",
+      "trial": 24,
+      "response": "1364",
+      "extracted": 1364,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 4,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 5,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 7,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 6,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 8,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 10,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 12,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 9,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 13,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 14,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 11,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 15,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 16,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 17,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 19,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 18,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 21,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 22,
+      "response": "97",
+      "extracted": 97,
+      "correct": false,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 23,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 24,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 1,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 0,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 3,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 5,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 4,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 2,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 7,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 8,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 6,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 9,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 10,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 12,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 11,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 13,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 15,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 14,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 16,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C2_formula_safe_domain",
+      "trial": 20,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 17,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 18,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 19,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 20,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 21,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 22,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 23,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 0,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C3_formula_landmine",
+      "trial": 24,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 2,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 1,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 3,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 5,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 7,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 4,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 6,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 10,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 8,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 9,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 13,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 11,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 14,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 15,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 16,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 17,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 20,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 19,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 12,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 22,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 18,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 21,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 23,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    },
+    {
+      "condition": "C4_formula_emphasized",
+      "trial": 24,
+      "response": "49",
+      "extracted": 49,
+      "correct": true,
+      "error": null
+    }
+  ],
+  "summary": {
+    "C1_formula_only": {
+      "correct": 0,
+      "total": 25,
+      "accuracy": 0.0,
+      "wrong_answers": [
+        136,
+        1364,
+        136,
+        136,
+        1364,
+        136,
+        1364,
+        1364,
+        1364,
+        1364,
+        1364,
+        1364,
+        1364,
+        136,
+        136,
+        1364,
+        1364,
+        1364,
+        1364,
+        136,
+        136,
+        1364,
+        136,
+        1364,
+        1364
+      ],
+      "errors": 0
+    },
+    "C2_formula_safe_domain": {
+      "correct": 23,
+      "total": 25,
+      "accuracy": 0.92,
+      "wrong_answers": [
+        61,
+        97
+      ],
+      "errors": 0
+    },
+    "C3_formula_landmine": {
+      "correct": 25,
+      "total": 25,
+      "accuracy": 1.0,
+      "wrong_answers": [],
+      "errors": 0
+    },
+    "C4_formula_emphasized": {
+      "correct": 25,
+      "total": 25,
+      "accuracy": 1.0,
+      "wrong_answers": [],
+      "errors": 0
+    }
+  },
+  "causal_analysis": {
+    "c1_accuracy": 0.0,
+    "c3_accuracy": 1.0,
+    "c4_accuracy": 1.0,
+    "c3_degraded": false,
+    "c4_irrepressible": false
+  }
+}

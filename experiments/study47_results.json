@@ -1,0 +1,302 @@
+[
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 0,
+    "cond": "notation",
+    "resp": "49",
+    "tok": 534,
+    "num": 49,
+    "ans": 49,
+    "ok": true
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 0,
+    "cond": "labeled",
+    "resp": "To compute the Eisenstein norm \\(E(5,-3)",
+    "tok": 662,
+    "num": 5,
+    "ans": 49,
+    "ok": false
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 0,
+    "cond": "step",
+    "resp": "49",
+    "tok": 473,
+    "num": 49,
+    "ans": 49,
+    "ok": true
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 1,
+    "cond": "notation",
+    "resp": "39",
+    "tok": 161,
+    "num": 39,
+    "ans": 51,
+    "ok": false
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 1,
+    "cond": "labeled",
+    "resp": "To compute the Eisenstein norm \\(E(m,n) ",
+    "tok": 465,
+    "num": 2,
+    "ans": 51,
+    "ok": false
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 1,
+    "cond": "step",
+    "resp": "39",
+    "tok": 88,
+    "num": 39,
+    "ans": 51,
+    "ok": false
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 2,
+    "cond": "notation",
+    "resp": "76",
+    "tok": 475,
+    "num": 76,
+    "ans": 76,
+    "ok": true
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 2,
+    "cond": "labeled",
+    "resp": "76",
+    "tok": 1120,
+    "num": 76,
+    "ans": 76,
+    "ok": true
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 2,
+    "cond": "step",
+    "resp": "76",
+    "tok": 2082,
+    "num": 76,
+    "ans": 76,
+    "ok": true
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 3,
+    "cond": "notation",
+    "resp": "7",
+    "tok": 121,
+    "num": 7,
+    "ans": 7,
+    "ok": true
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 3,
+    "cond": "labeled",
+    "resp": "To compute the Eisenstein norm \\(E(3,1) ",
+    "tok": 368,
+    "num": 3,
+    "ans": 7,
+    "ok": false
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 3,
+    "cond": "step",
+    "resp": "7",
+    "tok": 145,
+    "num": 7,
+    "ans": 7,
+    "ok": true
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 4,
+    "cond": "notation",
+    "resp": "112",
+    "tok": 469,
+    "num": 112,
+    "ans": 112,
+    "ok": true
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 4,
+    "cond": "labeled",
+    "resp": "To compute the Eisenstein norm \\(E(8,-4)",
+    "tok": 1639,
+    "num": 8,
+    "ans": 112,
+    "ok": false
+  },
+  {
+    "model": "Seed-2.0-mini",
+    "prob": 4,
+    "cond": "step",
+    "resp": "112",
+    "tok": 94,
+    "num": 112,
+    "ans": 112,
+    "ok": true
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 0,
+    "cond": "notation",
+    "resp": "67.776",
+    "tok": 4,
+    "num": 67,
+    "ans": 49,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 0,
+    "cond": "labeled",
+    "resp": "The Eisenstein norm E(5,-3) = a\u00b2 \u2212 ab + ",
+    "tok": 30,
+    "num": 5,
+    "ans": 49,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 0,
+    "cond": "step",
+    "resp": "Here are the steps:\n\n1. 5 squared = 25\n2",
+    "tok": 30,
+    "num": 1,
+    "ans": 49,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 1,
+    "cond": "notation",
+    "resp": "601.776",
+    "tok": 4,
+    "num": 601,
+    "ans": 51,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 1,
+    "cond": "labeled",
+    "resp": "Here is the calculation for the Eisenste",
+    "tok": 30,
+    "num": 7,
+    "ans": 51,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 1,
+    "cond": "step",
+    "resp": "Here are the steps:\n\n1. 7 squared = 49\n2",
+    "tok": 30,
+    "num": 1,
+    "ans": 51,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 2,
+    "cond": "notation",
+    "resp": "52",
+    "tok": 2,
+    "num": 52,
+    "ans": 76,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 2,
+    "cond": "labeled",
+    "resp": "148",
+    "tok": 2,
+    "num": 148,
+    "ans": 76,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 2,
+    "cond": "step",
+    "resp": "4 squared is 16.\n4 times -6 is -24.\nSubt",
+    "tok": 30,
+    "num": 4,
+    "ans": 76,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 3,
+    "cond": "notation",
+    "resp": "65.333",
+    "tok": 4,
+    "num": 65,
+    "ans": 7,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 3,
+    "cond": "labeled",
+    "resp": "Here is the process to compute the Eisen",
+    "tok": 30,
+    "num": 3,
+    "ans": 7,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 3,
+    "cond": "step",
+    "resp": "Here are the steps:\n\n1. 3 squared = 3 * ",
+    "tok": 30,
+    "num": 1,
+    "ans": 7,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 4,
+    "cond": "notation",
+    "resp": "f(8,-4) = 8\u00b2 - 8*(-4) + (-4)\u00b2\n        = ",
+    "tok": 30,
+    "num": 8,
+    "ans": 112,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 4,
+    "cond": "labeled",
+    "resp": "Here is the calculation for the Eisenste",
+    "tok": 30,
+    "num": 8,
+    "ans": 112,
+    "ok": false
+  },
+  {
+    "model": "Hermes-3-Llama-3.1-70B",
+    "prob": 4,
+    "cond": "step",
+    "resp": "Here are the steps:\n\n1. 8 squared = 64\n2",
+    "tok": 30,
+    "num": 1,
+    "ans": 112,
+    "ok": false
+  }
+]

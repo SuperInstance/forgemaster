@@ -1,0 +1,162 @@
+{
+  "qwen3:4b": {
+    "baseline": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 25,
+      "classifications": {
+        "other": 18,
+        "echo_input": 7
+      }
+    },
+    "scaffolded": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 25,
+      "classifications": {
+        "echo_partial": 20,
+        "echo_input": 3,
+        "partial_a2_minus_ab": 1,
+        "other": 1
+      }
+    },
+    "partial_scaffold": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 25,
+      "classifications": {
+        "echo_partial": 16,
+        "echo_input": 9
+      }
+    },
+    "step_by_step": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 25,
+      "classifications": {
+        "echo_input": 7,
+        "echo_partial": 16,
+        "other": 2
+      }
+    },
+    "just_arithmetic": {
+      "accuracy": 0.24,
+      "correct": 6,
+      "total": 25,
+      "classifications": {
+        "correct": 6,
+        "echo_partial": 9,
+        "other": 5,
+        "partial_a2_minus_ab": 4,
+        "echo_input": 1
+      }
+    }
+  },
+  "phi4-mini": {
+    "baseline": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 25,
+      "classifications": {
+        "other": 22,
+        "wrong_op_no_minus": 3
+      }
+    },
+    "scaffolded": {
+      "accuracy": 0.4,
+      "correct": 10,
+      "total": 25,
+      "classifications": {
+        "other": 11,
+        "correct": 10,
+        "partial_a2_minus_ab": 2,
+        "wrong_op_no_minus": 1,
+        "echo_partial": 1
+      }
+    },
+    "partial_scaffold": {
+      "accuracy": 0.64,
+      "correct": 16,
+      "total": 25,
+      "classifications": {
+        "correct": 16,
+        "other": 8,
+        "echo_partial": 1
+      }
+    },
+    "step_by_step": {
+      "accuracy": 0.56,
+      "correct": 14,
+      "total": 25,
+      "classifications": {
+        "correct": 14,
+        "other": 8,
+        "partial_a2_minus_ab": 1,
+        "wrong_op_no_minus": 2
+      }
+    },
+    "just_arithmetic": {
+      "accuracy": 0.04,
+      "correct": 1,
+      "total": 25,
+      "classifications": {
+        "partial_a2_minus_ab": 13,
+        "other": 10,
+        "wrong_op_add": 1,
+        "correct": 1
+      }
+    }
+  },
+  "gemma3:1b": {
+    "baseline": {
+      "accuracy": 0.24,
+      "correct": 6,
+      "total": 25,
+      "classifications": {
+        "wrong_op_add": 2,
+        "echo_input": 8,
+        "correct": 6,
+        "other": 9
+      }
+    },
+    "scaffolded": {
+      "accuracy": 0.2,
+      "correct": 5,
+      "total": 25,
+      "classifications": {
+        "echo_partial": 1,
+        "other": 11,
+        "correct": 5,
+        "wrong_op_add": 8
+      }
+    },
+    "partial_scaffold": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 25,
+      "classifications": {
+        "other": 15,
+        "echo_partial": 5,
+        "wrong_op_add": 5
+      }
+    },
+    "step_by_step": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 25,
+      "classifications": {
+        "other": 25
+      }
+    },
+    "just_arithmetic": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 25,
+      "classifications": {
+        "other": 18,
+        "partial_a2_minus_ab": 5,
+        "wrong_op_add": 2
+      }
+    }
+  }
+}

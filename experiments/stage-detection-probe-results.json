@@ -1,0 +1,26 @@
+{
+  "Qwen3.6 MoE (3B active)": {
+    "answer": 2,
+    "stage": "Unknown (got 2)"
+  },
+  "Hermes-70B": {
+    "answer": 49,
+    "stage": "Unknown (got 49)"
+  },
+  "Qwen3-235B": {
+    "answer": 19,
+    "stage": "Stage 4 (FULL)"
+  },
+  "Hermes-405B": {
+    "answer": 19,
+    "stage": "Stage 4 (FULL)"
+  },
+  "Seed-2.0-mini": {
+    "answer": 19,
+    "stage": "Stage 4 (FULL)"
+  },
+  "Seed-2.0-code": {
+    "answer": 19,
+    "stage": "Stage 4 (FULL)"
+  }
+}

@@ -1,0 +1,722 @@
+[
+  {
+    "model": "qwen3:4b",
+    "task": "reverse_linked_list",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "reverse_linked_list",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "reverse_linked_list",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "reverse_linked_list",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "reverse_linked_list",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "def reverse_linked_list(head):\n    prev = None\n    current = head\n    while current:\n        next_node = current.next\n        current.next = prev\n        prev = current\n        current = next_node\n    return prev",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "reverse_linked_list",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "factorial",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "def factorial(n):\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "factorial",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "def factorial(n):\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "factorial",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "factorial",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "factorial",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "def factorial(n):\n    # Base case\n    if n == 0 or n == 1:\n        return 1\n    # Recursive case\n    else:\n        return n * factorial(n-1)",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "factorial",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "binary_search",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "def binary_search(arr, target):\n    low = 0\n    high = len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif target < arr[mid]:\n            high = mid - 1\n        else:\n            low = mid + 1\n    return -1",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "binary_search",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "def binary_search(arr, target):\n    low = 0\n    high = len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif target < arr[mid]:\n            high = mid - 1\n        else:\n            low = mid + 1\n    return -1",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "binary_search",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "def binary_search(arr, target):\n    low = 0\n    high = len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif target < arr[mid]:\n            high = mid - 1\n        else:\n            low = mid + 1\n    return -1",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "binary_search",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "def binary_search(arr, target):\n    low = 0\n    high = len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif target < arr[mid]:\n            high = mid - 1\n        else:\n            low = mid + 1\n    return -1",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "binary_search",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "def binary_search(arr, target):\n    low = 0\n    high = len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif target < arr[mid]:\n            high = mid - 1\n        else:\n            low = mid + 1\n    return -1",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "binary_search",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "def binary_search(arr, target):\n    low = 0\n    high = len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif target < arr[mid]:\n            high = mid - 1\n        else:\n            low = mid + 1\n    return -1",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "is_palindrome",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "is_palindrome",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "is_palindrome",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "is_palindrome",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "is_palindrome",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "def is_palindrome(s):\n    # Clean the string by removing non-alphanumeric characters and converting to lowercase\n    cleaned = ''.join(filter(str.isalnum, s)).lower()\n    # Compare with reverse\n    return cleaned == cleaned[::-1]",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "is_palindrome",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "fizzbuzz",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "fizzbuzz",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "def fizzbuzz(n):\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            print(\"FizzBuzz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        else:\n            print(i)",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "fizzbuzz",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "def fizzbuzz(n):\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            print(\"FizzBuzz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        else:\n            print(i)",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "fizzbuzz",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "",
+    "classification": "EMPTY_RESPONSE"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "fizzbuzz",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "def fizzbuzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "qwen3:4b",
+    "task": "fizzbuzz",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "def fizzbuzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "reverse_linked_list",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "```python\nclass ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef reverse_linked_list(head: ListNode) -> ListNode:\n    prev = None\n    current = head\n    \n    while current is not None:\n        next_node = current.next\n        current.next = prev\n        prev = current\n        current = next_node\n        \n    return prev\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "reverse_linked_list",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "```python\nclass ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef reverseLinkedList(head: ListNode) -> ListNode:\n    prev = None\n    current = head\n    \n    while current is not None:\n        next_node = current.next\n        current.next = prev\n        prev = current\n        current = next_node\n        \n    return prev\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "reverse_linked_list",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "```python\nclass ListNode:\n    def __init__(self, value=0, next=None):\n        self.value = value\n        self.next = next\n\ndef reverse_linked_list(head: ListNode) -> ListNode:\n    prev = None\n    current = head\n    \n    while current is not None:\n        next_node = current.next\n        current.next = prev\n        prev = current\n        current = next_node\n        \n    return prev\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "reverse_linked_list",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "```python\nclass ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef reverse_linked_list(head):\n    previous = None  # Initialize previous pointer to None\n    current = head   # Start with the first node as current\n    \n    while current is not None:  # Iterate through the list until we reach the end\n        next_node = current.next  # Store the next node temporarily\n        current.next = previous     # Reverse the link by pointing it back to ",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "reverse_linked_list",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "```python\nclass ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef reverse_linked_list(head):\n    prev = None\n    current = head\n    \n    while current is not None:\n        # Store the next node temporarily\n        temp_next = current.next\n        \n        # Reverse the link\n        current.next = prev\n        \n        # Move pointers one step forward in reversed list\n        prev = current\n        current = temp_next\n\n    return prev  # New ",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "reverse_linked_list",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "```python\nclass ListNode:\n    def __init__(self, value=0, next=None):\n        self.value = value\n        self.next = next\n\ndef reverse_linked_list(head):\n    prev = None\n    current = head\n    \n    while current is not None:\n        # Store the next node temporarily\n        temp_next = current.next\n        \n        # Reverse the link\n        current.next = prev\n        \n        # Move pointers one step forward in reversed list\n        prev = current\n        current = temp_next\n\n    return prev  ",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "factorial",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "def recursive_factorial(n):\n    if n == 0 or n == 1:\n        return 1\n    else:\n        return n * recursive_factorial(n - 1)",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "factorial",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "```python\ndef recursive_factorial(n):\n    if n == 0 or n == 1:\n        return 1\n    else:\n        return n * recursive_factorial(n - 1)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "factorial",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "```python\ndef recursive_factorial(n):\n    if n == 0:\n        return 1\n    else:\n        return n * recursive_factorial(n-1)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "factorial",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "```python\ndef factorial(n):\n    if n == 0 or n == 1:  # Base case\n        return 1\n    else:  # Recursive case\n        return n * factorial(n - 1)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "factorial",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "```python\ndef factorial(n):\n    if n == 0 or n == 1:  # Base case\n        return 1\n    else:  # Recursive case\n        return n * factorial(n - 1)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "factorial",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "```python\ndef factorial(n):\n    if n == 0 or n == 1:  # Base case\n        return 1\n    else:  # Recursive case\n        return n * factorial(n - 1)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "binary_search",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "```python\ndef binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    \n    while left <= right:\n        mid = (left + right) // 2\n        \n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n            \n    return -1\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "binary_search",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "```python\ndef binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    \n    while left <= right:\n        mid = (left + right) // 2\n        \n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n            \n    return -1\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "binary_search",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "```python\ndef binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    \n    while left <= right:\n        mid = (left + right) // 2\n        \n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n            \n    return -1\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "binary_search",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "```python\ndef binary_search(arr, target):\n    left = 0\n    right = len(arr) - 1\n    \n    while left <= right:\n        mid = (left + right) // 2\n        \n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n            \n    return -1\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "binary_search",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "```python\ndef binary_search(arr, target):\n    left = 0\n    right = len(arr) - 1\n    \n    while left <= right:\n        mid = (left + right) // 2\n        \n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n            \n    return -1\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "binary_search",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "```python\ndef binary_search(arr, target):\n    left = 0\n    right = len(arr) - 1\n    \n    while left <= right:\n        mid = (left + right) // 2\n        \n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n            \n    return -1\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "is_palindrome",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "```python\ndef is_palindrome(s):\n    s = ''.join(c for c in s.lower() if c.isalnum())\n    return s == s[::-1]\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "is_palindrome",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "```python\ndef is_palindrome(s):\n    return s == s[::-1]\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "is_palindrome",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "```python\ndef is_palindrome(s):\n    s = ''.join(c for c in s.lower() if c.isalnum())\n    return s == s[::-1]\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "is_palindrome",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "```python\ndef is_palindrome(s):\n    s = ''.join(char for char in s.lower() if char.isalnum())\n    return s == s[::-1]\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "is_palindrome",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "```python\ndef is_palindrome(s):\n    s = ''.join(c.lower() for c in s if c.isalnum())\n    return s == s[::-1]\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "is_palindrome",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "```python\ndef is_palindrome(s):\n    s = ''.join(e for e in s if e.isalnum()).lower()\n    return s == s[::-1]\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "fizzbuzz",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "def fizz_buzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "fizzbuzz",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "```python\ndef fizz_buzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "fizzbuzz",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "```python\ndef fizz_buzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "fizzbuzz",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "```python\ndef fizzbuzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "fizzbuzz",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "```python\ndef fizzbuzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "phi4-mini",
+    "task": "fizzbuzz",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "```python\ndef fizzbuzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "reverse_linked_list",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "```python\ndef reverse_linked_list(head):\n    \"\"\"Reverses a linked list.\"\"\"\n    prev = None\n    curr = head\n    while curr:\n        next_node = curr.next\n        curr.next = prev\n        prev = curr\n        curr = next_node\n    return prev\n```\n",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "reverse_linked_list",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "```python\ndef reverse_linked_list(head):\n    \"\"\"Reverses a linked list.\"\"\"\n    prev = None\n    curr = head\n    while curr:\n        next_node = curr.next\n        curr.next = prev\n        prev = curr\n        curr = next_node\n    return prev\n```\n",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "reverse_linked_list",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "```python\ndef reverse_linked_list(head):\n    \"\"\"Reverses a linked list.\"\"\"\n    prev = None\n    curr = head\n    while curr:\n        next_node = curr.next\n        curr.next = prev\n        prev = curr\n        curr = next_node\n    return prev\n```\n",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "reverse_linked_list",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "```python\ndef reverse_linked_list(head):\n    # Initialize previous, current pointers\n    prev = None\n    current = head\n    while current:\n        next_node = current.next\n        current.next = prev\n        prev = current\n        current = next_node\n    return prev\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "reverse_linked_list",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "```python\ndef reverse_linked_list(head):\n    # Initialize previous, current pointers\n    prev = None\n    current = head\n    while current:\n        next_node = current.next\n        current.next = prev\n        prev = current\n        current = next_node\n    return prev\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "reverse_linked_list",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "```python\ndef reverse_linked_list(head):\n    # Initialize previous, current pointers\n    previous = None\n    current = head\n\n    while current:\n        next_node = current.next\n        current.next = previous\n        previous = current\n        current = next_node\n\n    return previous\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "factorial",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "```python\ndef factorial_recursive(n):\n    if n == 0:\n        return 1\n    else:\n        return n * factorial_recursive(n-1)\n```\n",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "factorial",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "```python\ndef factorial_recursive(n):\n    if n == 0:\n        return 1\n    else:\n        return n * factorial_recursive(n-1)\n```\n",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "factorial",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "```python\ndef factorial_recursive(n):\n  \"\"\"\n  Computes the factorial of a non-negative integer using recursion.\n  \"\"\"\n  if n == 0:\n    return 1\n  else:\n    return n * factorial_recursive(n-1)\n```\n",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "factorial",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "```python\ndef factorial(n):\n    # Base case\n    # Recursive case\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "factorial",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "```python\ndef factorial(n):\n    # Base case\n    # Recursive case\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "factorial",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "```python\ndef factorial(n):\n    # Base case\n    # Recursive case\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "binary_search",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "```python\ndef binary_search(arr, target):\n    \"\"\"\n    Implements binary search to find the target in a sorted array.\n    \"\"\"\n    low = 0\n    high = len(arr) - 1\n\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n\n    return -1\n```\n",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "binary_search",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "```python\ndef binary_search(arr, target):\n    \"\"\"\n    Implements binary search to find the target in a sorted array.\n\n    Args:\n        arr: A sorted list of numbers.\n        target: The number to search for.\n\n    Returns:\n        The index of the target in the array if found, otherwise -1.\n    \"\"\"\n    low = 0\n    high = len(arr) - 1\n\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid ",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "binary_search",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "```python\ndef binary_search(list, target):\n    \"\"\"\n    Implements binary search to find the target in a sorted list.\n\n    Args:\n        list: A sorted list of numbers.\n        target: The number to search for.\n\n    Returns:\n        The index of the target in the list if found, otherwise -1.\n    \"\"\"\n    low = 0\n    high = len(list) - 1\n\n    while low <= high:\n        mid = (low + high) // 2\n        if list[mid] == target:\n            return mid\n        elif list[mid] < target:\n            low = m",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "binary_search",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "```python\ndef binary_search(arr, target):\n    # Initialize low and high pointers\n    low = 0\n    high = len(arr) - 1\n\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n\n    return -1\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "binary_search",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "```python\ndef binary_search(arr, target):\n    # Initialize low and high pointers\n    low = 0\n    high = len(arr) - 1\n\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n\n    return -1\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "binary_search",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "```python\ndef binary_search(arr, target):\n    # Initialize low and high pointers\n    low = 0\n    high = len(arr) - 1\n\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n\n    return -1\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "is_palindrome",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "```python\ndef is_palindrome(text):\n    \"\"\"\n    Checks if a string is a palindrome.\n    \"\"\"\n    processed_text = ''.join(filter(str.isalnum, text)).lower()\n    return processed_text == processed_text[::-1]\n```\n",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "is_palindrome",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "```python\ndef is_palindrome(text):\n  \"\"\"\n  Checks if a string is a palindrome.\n  \"\"\"\n  processed_text = text.lower()\n  processed_text = ''.join(filter(str.isalnum, processed_text))\n  return processed_text == processed_text[::-1]\n```\n",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "is_palindrome",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "```python\ndef is_palindrome(text):\n  \"\"\"\n  Checks if a string is a palindrome.\n  \"\"\"\n  processed_text = text.lower()\n  processed_text = ''.join(filter(str.isalnum, processed_text))\n  return processed_text == processed_text[::-1]\n```\n",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "is_palindrome",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "```python\ndef is_palindrome(s):\n    # Clean the string\n    # Compare with reverse\n    s = s.lower()\n    s = ''.join(filter(str.isalnum, s))\n    return s == s[::-1]\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "is_palindrome",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "```python\ndef is_palindrome(s):\n    # Clean the string\n    # Compare with reverse\n    s = s.lower()\n    s = ''.join(filter(str.isalnum, s))\n    return s == s[::-1]\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "is_palindrome",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "```python\ndef is_palindrome(s):\n    # Clean the string\n    # Compare with reverse\n    s = s.lower()\n    s = ''.join(filter(str.isalnum, s))\n    return s == s[::-1]\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "fizzbuzz",
+    "condition": "baseline",
+    "trial": 1,
+    "response": "```python\ndef fizzbuzz(n):\n    \"\"\"\n    Implements FizzBuzz for numbers 1 to n.\n    \"\"\"\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "fizzbuzz",
+    "condition": "baseline",
+    "trial": 2,
+    "response": "```python\ndef fizzbuzz(n):\n    \"\"\"\n    Implements FizzBuzz for numbers from 1 to n.\n    \"\"\"\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n```\n",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "fizzbuzz",
+    "condition": "baseline",
+    "trial": 3,
+    "response": "```python\ndef fizzbuzz(n):\n    \"\"\"\n    Implements FizzBuzz for numbers 1 to n.\n    \"\"\"\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "fizzbuzz",
+    "condition": "scaffold",
+    "trial": 1,
+    "response": "```python\ndef fizzbuzz(n):\n    # Loop from 1 to n\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "fizzbuzz",
+    "condition": "scaffold",
+    "trial": 2,
+    "response": "```python\ndef fizzbuzz(n):\n    # Loop from 1 to n\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n```",
+    "classification": "CORRECT"
+  },
+  {
+    "model": "gemma3:1b",
+    "task": "fizzbuzz",
+    "condition": "scaffold",
+    "trial": 3,
+    "response": "```python\ndef fizzbuzz(n):\n    # Loop from 1 to n\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n```",
+    "classification": "CORRECT"
+  }
+]

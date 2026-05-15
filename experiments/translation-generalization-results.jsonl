@@ -1,0 +1,240 @@
+{
+  "task": "task1",
+  "condition": "raw",
+  "trial": 1,
+  "answer": "1"
+}
+{
+  "task": "task1",
+  "condition": "raw",
+  "trial": 2,
+  "answer": "1"
+}
+{
+  "task": "task1",
+  "condition": "raw",
+  "trial": 3,
+  "answer": "1"
+}
+{
+  "task": "task1",
+  "condition": "raw",
+  "trial": 4,
+  "answer": "1"
+}
+{
+  "task": "task1",
+  "condition": "raw",
+  "trial": 5,
+  "answer": "1"
+}
+{
+  "task": "task1",
+  "condition": "trans",
+  "trial": 1,
+  "answer": "-1"
+}
+{
+  "task": "task1",
+  "condition": "trans",
+  "trial": 2,
+  "answer": "-1"
+}
+{
+  "task": "task1",
+  "condition": "trans",
+  "trial": 3,
+  "answer": "-1"
+}
+{
+  "task": "task1",
+  "condition": "trans",
+  "trial": 4,
+  "answer": "-1"
+}
+{
+  "task": "task1",
+  "condition": "trans",
+  "trial": 5,
+  "answer": "-1"
+}
+{
+  "task": "task2",
+  "condition": "raw",
+  "trial": 1,
+  "answer": "-1"
+}
+{
+  "task": "task2",
+  "condition": "raw",
+  "trial": 2,
+  "answer": "-1"
+}
+{
+  "task": "task2",
+  "condition": "raw",
+  "trial": 3,
+  "answer": "-1"
+}
+{
+  "task": "task2",
+  "condition": "raw",
+  "trial": 4,
+  "answer": "-1"
+}
+{
+  "task": "task2",
+  "condition": "raw",
+  "trial": 5,
+  "answer": "-1"
+}
+{
+  "task": "task2",
+  "condition": "trans",
+  "trial": 1,
+  "answer": "-1"
+}
+{
+  "task": "task2",
+  "condition": "trans",
+  "trial": 2,
+  "answer": "-1"
+}
+{
+  "task": "task2",
+  "condition": "trans",
+  "trial": 3,
+  "answer": "-1"
+}
+{
+  "task": "task2",
+  "condition": "trans",
+  "trial": 4,
+  "answer": "-1"
+}
+{
+  "task": "task2",
+  "condition": "trans",
+  "trial": 5,
+  "answer": "-1"
+}
+{
+  "task": "task3",
+  "condition": "raw",
+  "trial": 1,
+  "answer": "Fermat's Little Theorem states that if p is a prime number, then for any integer a, a^p ≡ a (mod p). In other words, a^p - a is divisible by p. \n\nNow, if we consider a = 3 and p = 7 (which is a prime number), then according to Fermat's Little Theorem, we have:\n\n3^7 ≡ 3 (mod 7)\n\nWe can rewrite this as:\n\n3"
+}
+{
+  "task": "task3",
+  "condition": "raw",
+  "trial": 2,
+  "answer": "Fermat's Little Theorem states that if p is a prime number, then for any integer a, a^p ≡ a (mod p). In other words, a^p - a is divisible by p. \n\nNow, if we consider a = 3 and p = 7 (which is a prime number), then according to Fermat's Little Theorem:\n\n3^7 ≡ 3 (mod 7)\n\nThis can be rewritten as:\n\n3^7 -"
+}
+{
+  "task": "task3",
+  "condition": "raw",
+  "trial": 3,
+  "answer": "Fermat's Little Theorem states that if p is a prime number, then for any integer a, a^p ≡ a (mod p). In other words, a^p - a is divisible by p. \n\nNow, if we consider a = 3 and p = 7 (which is a prime number), then according to Fermat's Little Theorem, we have:\n\n3^7 ≡ 3 (mod 7)\n\nWe can rewrite this as:\n\n3"
+}
+{
+  "task": "task3",
+  "condition": "raw",
+  "trial": 4,
+  "answer": "Fermat's Little Theorem states that if p is a prime number, then for any integer a, a^p ≡ a (mod p). In other words, a^p - a is divisible by p. \n\nNow, if we consider a = 3 and p = 7 (which is a prime number), then according to Fermat's Little Theorem:\n\n3^7 ≡ 3 (mod 7)\n\nThis can be rewritten as:\n\n3^7 -"
+}
+{
+  "task": "task3",
+  "condition": "raw",
+  "trial": 5,
+  "answer": "Fermat's Little Theorem states that if p is a prime number, then for any integer a, a^p ≡ a (mod p). In other words, a^p - a is divisible by p. \n\nNow, if we consider a = 3 and p = 7 (which is a prime number), then according to Fermat's Little Theorem:\n\n3^7 ≡ 3 (mod 7)\n\nThis can be rewritten as:\n\n3^7 -"
+}
+{
+  "task": "task3",
+  "condition": "trans",
+  "trial": 1,
+  "answer": "5"
+}
+{
+  "task": "task3",
+  "condition": "trans",
+  "trial": 2,
+  "answer": "5"
+}
+{
+  "task": "task3",
+  "condition": "trans",
+  "trial": 3,
+  "answer": "5"
+}
+{
+  "task": "task3",
+  "condition": "trans",
+  "trial": 4,
+  "answer": "5"
+}
+{
+  "task": "task3",
+  "condition": "trans",
+  "trial": 5,
+  "answer": "5"
+}
+{
+  "task": "task4",
+  "condition": "raw",
+  "trial": 1,
+  "answer": "To evaluate the 6th cyclotomic polynomial Φ₆(x) at x=2, we substitute x with 2 in the polynomial Φ₆(x)=x²-x+1.\n\nΦ₆(2) = 2² - 2 + 1\n     = 4 - 2 + 1\n     = 3\n\nTherefore, the value of the 6th cyclotomic polynomial Φ₆(x) at x=2 is 3."
+}
+{
+  "task": "task4",
+  "condition": "raw",
+  "trial": 2,
+  "answer": "To evaluate the 6th cyclotomic polynomial Φ₆(x) at x=2, we substitute x with 2 in the polynomial Φ₆(x)=x²-x+1.\n\nΦ₆(2) = 2² - 2 + 1\n     = 4 - 2 + 1\n     = 2 + 1\n     = 3\n\nTherefore, the value of the 6th cyclotomic polynomial Φ₆(x) at"
+}
+{
+  "task": "task4",
+  "condition": "raw",
+  "trial": 3,
+  "answer": "To evaluate the 6th cyclotomic polynomial Φ₆(x) at x=2, we substitute x with 2 in the polynomial Φ₆(x)=x²-x+1.\n\nΦ₆(2) = 2² - 2 + 1\n     = 4 - 2 + 1\n     = 2 + 1\n     = 3\n\nTherefore, the value of the 6th cyclotomic polynomial Φ₆(x) at"
+}
+{
+  "task": "task4",
+  "condition": "raw",
+  "trial": 4,
+  "answer": "To evaluate the 6th cyclotomic polynomial Φ₆(x) at x=2, we substitute x with 2 in the polynomial Φ₆(x)=x²-x+1.\n\nΦ₆(2) = 2² - 2 + 1\n     = 4 - 2 + 1\n     = 2 + 1\n     = 3\n\nTherefore, the value of the 6th cyclotomic polynomial Φ₆(x) at"
+}
+{
+  "task": "task4",
+  "condition": "raw",
+  "trial": 5,
+  "answer": "To evaluate the 6th cyclotomic polynomial Φ₆(x) at x=2, we substitute x with 2 in the polynomial Φ₆(x)=x²-x+1.\n\nΦ₆(2) = 2² - 2 + 1\n     = 4 - 2 + 1\n     = 3\n\nTherefore, the value of the 6th cyclotomic polynomial Φ₆(x) at x=2 is 3."
+}
+{
+  "task": "task4",
+  "condition": "trans",
+  "trial": 1,
+  "answer": "3"
+}
+{
+  "task": "task4",
+  "condition": "trans",
+  "trial": 2,
+  "answer": "3"
+}
+{
+  "task": "task4",
+  "condition": "trans",
+  "trial": 3,
+  "answer": "3"
+}
+{
+  "task": "task4",
+  "condition": "trans",
+  "trial": 4,
+  "answer": "3"
+}
+{
+  "task": "task4",
+  "condition": "trans",
+  "trial": 5,
+  "answer": "3"
+}

@@ -1,0 +1,1802 @@
+[
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 7,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 8,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 2,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 14,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 12,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 2,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 14,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu \u00b7 v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's compute ||u|| \u00b7 ||v||:\n\n||u|| \u00b7 ||v|| = 5 * 2\u221a10 = 10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 3,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu \u00b7 v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's compute ||u|| \u00b7 ||v||:\n\n||u|| \u00b7 ||v|| = 5 * 2\u221a10 = 10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 5,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 5,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 17,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 11,
+    "response": "1",
+    "extracted_answer": 1,
+    "expected_answer": -1,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 9,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 17,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 19,
+    "response": "28672",
+    "extracted_answer": 28672,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 8,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 6,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 11,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 11,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 4,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu\u00b7v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's check if |u\u00b7v| \u2264 ||u||\u00b7||v||:\n\n|26| \u2264 5 * 2\u221a10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 20,
+    "response": "12345",
+    "extracted_answer": 12345,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 16,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu\u00b7v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's compute ||u||\u00b7||v||:\n\n||u||\u00b7||v|| = 5 * 2\u221a10 = 10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 3,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 7,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 7,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 3,
+    "response": "1",
+    "extracted_answer": 1,
+    "expected_answer": -1,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 8,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 11,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 6,
+    "response": "To verify the Cauchy-Schwarz inequality, we need to compute the dot product of u and v, and the magnitudes of u and v.\n\nu \u00b7 v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's compute ||u|| \u00b7 ||v||:\n\n||u|| \u00b7 ||v|| = 5 * 2\u221a10 = 10\u221a10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 15,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 18,
+    "response": "57",
+    "extracted_answer": 57,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 3,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 13,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu \u00b7 v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's check if |u \u00b7 v| \u2264 ||u|| \u00b7 ||v||:\n\n|26| \u2264 5 * 2\u221a10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 17,
+    "response": "5",
+    "extracted_answer": 5,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 14,
+    "response": "2877",
+    "extracted_answer": 2877,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 10,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 2,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 16,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 13,
+    "response": "5",
+    "extracted_answer": 5,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 13,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 12,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 1,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 11,
+    "response": "To verify the Cauchy-Schwarz inequality, we need to compute |u\u00b7v| and ||u||\u00b7||v||.\n\nFirst, let's find the dot product u\u00b7v:\nu\u00b7v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\nNow, let's find the magnitudes of u and v:\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's compute ||u||\u00b7||v",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 5,
+    "response": "1710",
+    "extracted_answer": 1710,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 1,
+    "response": "1",
+    "extracted_answer": 1,
+    "expected_answer": -1,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 13,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 6,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 7,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 14,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 14,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 6,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 16,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 4,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 6,
+    "response": "28672",
+    "extracted_answer": 28672,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 4,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 1,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu \u00b7 v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's compute ||u|| \u00b7 ||v||:\n\n||u|| \u00b7 ||v|| = 5 * 2\u221a10 = 10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 2,
+    "response": "1",
+    "extracted_answer": 1,
+    "expected_answer": -1,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 13,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 17,
+    "response": "To verify the Cauchy-Schwarz inequality, we need to compute |u\u00b7v| and ||u||\u00b7||v||.\n\nFirst, let's find the dot product u\u00b7v:\nu\u00b7v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\nNow, let's find the magnitudes of u and v:\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's compute ||u||\u00b7||v",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 1,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 3,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 19,
+    "response": "5",
+    "extracted_answer": 5,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 17,
+    "response": "2897",
+    "extracted_answer": 2897,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 17,
+    "response": "1",
+    "extracted_answer": 1,
+    "expected_answer": -1,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 16,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 19,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 16,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 20,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu \u00b7 v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's compute ||u|| \u00b7 ||v||:\n\n||u|| \u00b7 ||v|| = 5 * 2\u221a10 = 10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 15,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu \u00b7 v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's check if |u \u00b7 v| \u2264 ||u|| \u00b7 ||v||:\n\n|26| \u2264 5 * 2\u221a10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 18,
+    "response": "1",
+    "extracted_answer": 1,
+    "expected_answer": -1,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 7,
+    "response": "15129",
+    "extracted_answer": 15129,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 20,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 6,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 5,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 6,
+    "response": "1",
+    "extracted_answer": 1,
+    "expected_answer": -1,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 7,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 5,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 20,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 15,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 17,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 6,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 19,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 10,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 14,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 3,
+    "response": "2877",
+    "extracted_answer": 2877,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 14,
+    "response": "5",
+    "extracted_answer": 5,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 19,
+    "response": "To verify the Cauchy-Schwarz inequality, we need to compute the dot product of u and v, and the magnitudes of u and v.\n\nu\u00b7v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's compute ||u||\u00b7||v||:\n||u||\u00b7||v|| = 5 * 2\u221a10 = 10\u221a10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 1,
+    "response": "203",
+    "extracted_answer": 203,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 4,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 16,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 4,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 4,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 9,
+    "response": "289",
+    "extracted_answer": 289,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 1,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 16,
+    "response": "2877",
+    "extracted_answer": 2877,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 13,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 8,
+    "response": "5",
+    "extracted_answer": 5,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 5,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 13,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 12,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 15,
+    "response": "1",
+    "extracted_answer": 1,
+    "expected_answer": -1,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 5,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu \u00b7 v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's compute ||u|| \u00b7 ||v||:\n\n||u|| \u00b7 ||v|| = 5 * 2\u221a10 = 10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 10,
+    "response": "57",
+    "extracted_answer": 57,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 4,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 20,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 19,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 12,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 5,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 19,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 15,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 19,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 1,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 15,
+    "response": "57",
+    "extracted_answer": 57,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 9,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 10,
+    "response": "1",
+    "extracted_answer": 1,
+    "expected_answer": -1,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 19,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 10,
+    "response": "2877",
+    "extracted_answer": 2877,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 13,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 8,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 2,
+    "response": "5",
+    "extracted_answer": 5,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 2,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 18,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 10,
+    "response": "To verify the Cauchy-Schwarz inequality, we need to compute |u\u00b7v| and ||u||\u00b7||v||.\n\nFirst, let's find the dot product u\u00b7v:\nu\u00b7v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\nNow, let's find the magnitudes of u and v:\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's compute ||u||\u00b7||v",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 3,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 5,
+    "response": "1",
+    "extracted_answer": 1,
+    "expected_answer": -1,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 20,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 10,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 9,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 14,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 11,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 15,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 2,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 14,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 17,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 20,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 18,
+    "response": "1616",
+    "extracted_answer": 1616,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 6,
+    "response": "5",
+    "extracted_answer": 5,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 1,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 8,
+    "response": "2877",
+    "extracted_answer": 2877,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 15,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 19,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 13,
+    "response": "1147",
+    "extracted_answer": 1147,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 18,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu \u00b7 v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's check if |u \u00b7 v| \u2264 ||u|| \u00b7 ||v||:\n\n|26| \u2264 5 * 2\u221a10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 10,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 13,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 16,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 2,
+    "response": "1681",
+    "extracted_answer": 1681,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 1,
+    "response": "57",
+    "extracted_answer": 57,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 17,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 12,
+    "response": "Here is the result rounded to the nearest integer:\n\n5",
+    "extracted_answer": 5,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 18,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 18,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 12,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu \u00b7 v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's check if |u \u00b7 v| \u2264 ||u|| \u00b7 ||v||:\n\n|26| \u2264 5 * 2\u221a10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 8,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 9,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 12,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 5,
+    "response": "57",
+    "extracted_answer": 57,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 18,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 3,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 11,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 7,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 2,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 20,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 9,
+    "response": "1",
+    "extracted_answer": 1,
+    "expected_answer": -1,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "domain",
+    "trial_num": 8,
+    "response": "0.00",
+    "extracted_answer": 0.0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 6,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 1,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 2,
+    "response": "To verify the Cauchy-Schwarz inequality, we first need to compute the dot product of vectors u and v, and the magnitudes of u and v.\n\nu\u00b7v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's check if |u\u00b7v| \u2264 ||u||\u00b7||v||:\n\n|26| \u2264 5 * 2\u221a10",
+    "extracted_answer": 10,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 12,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 11,
+    "response": "289",
+    "extracted_answer": 289,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 15,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 17,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 8,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 12,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 7,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 11,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 4,
+    "response": "2897",
+    "extracted_answer": 2897,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 18,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 15,
+    "response": "289",
+    "extracted_answer": 289,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 10,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 20,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 16,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 4,
+    "response": "5",
+    "extracted_answer": 5,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 8,
+    "response": "To verify the Cauchy-Schwarz inequality, we need to compute the dot product of u and v, and the magnitudes of u and v.\n\nu\u00b7v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's check if |u\u00b7v| \u2264 ||u||\u00b7||v||:\n\n|26| \u2264 5 * 2\u221a10\n26",
+    "extracted_answer": 26,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 9,
+    "response": "To verify the Cauchy-Schwarz inequality, we need to compute the dot product of u and v, and the magnitudes of u and v.\n\nu\u00b7v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's check if |u\u00b7v| \u2264 ||u||\u00b7||v||:\n\n|26| \u2264 5 * 2\u221a10\n26",
+    "extracted_answer": 26,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "fourier_coefficient",
+    "condition": "bare",
+    "trial_num": 9,
+    "response": "0",
+    "extracted_answer": 0,
+    "expected_answer": 0.0,
+    "correct": true
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "bare",
+    "trial_num": 12,
+    "response": "203",
+    "extracted_answer": 203,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 3,
+    "response": "57",
+    "extracted_answer": 57,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "gram_determinant",
+    "condition": "domain",
+    "trial_num": 20,
+    "response": "7",
+    "extracted_answer": 7,
+    "expected_answer": 25,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 14,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 7,
+    "response": "5",
+    "extracted_answer": 5,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 9,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 16,
+    "response": "57",
+    "extracted_answer": 57,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "mobius_function",
+    "condition": "domain",
+    "trial_num": 18,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 3,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "mobius_function",
+    "condition": "bare",
+    "trial_num": 11,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "bare",
+    "trial_num": 10,
+    "response": "6",
+    "extracted_answer": 6,
+    "expected_answer": -1,
+    "correct": true
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "domain",
+    "trial_num": 7,
+    "response": "To verify the Cauchy-Schwarz inequality, we need to compute the dot product of u and v, and the magnitudes of u and v.\n\nu\u00b7v = (3 * 6) + (4 * 2) = 18 + 8 = 26\n\n||u|| = \u221a(3\u00b2 + 4\u00b2) = \u221a(9 + 16) = \u221a25 = 5\n||v|| = \u221a(6\u00b2 + 2\u00b2) = \u221a(36 + 4) = \u221a40 = 2\u221a10\n\nNow, let's check if |u\u00b7v| \u2264 ||u||\u00b7||v||:\n\n|26| \u2264 5 * 2\u221a10\n26",
+    "extracted_answer": 26,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "cauchy_schwarz",
+    "condition": "bare",
+    "trial_num": 9,
+    "response": "5",
+    "extracted_answer": 5,
+    "expected_answer": 32,
+    "correct": false
+  },
+  {
+    "task": "legendre_symbol",
+    "condition": "domain",
+    "trial_num": 4,
+    "response": "-1",
+    "extracted_answer": -1,
+    "expected_answer": -1,
+    "correct": true
+  }
+]

@@ -1,0 +1,19 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Only numpy needed — everything else is stdlib
+RUN pip install --no-cache-dir numpy
+
+COPY fleet_hebbian_service.py .
+COPY .local-plato/ /data/
+
+# Default port
+ENV HEBBIAN_PORT=8849
+
+EXPOSE 8849
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8849/status')" || exit 1
+
+CMD ["python", "fleet_hebbian_service.py", "--port", "8849", "--db", "/data/plato.db", "--calibrate"]

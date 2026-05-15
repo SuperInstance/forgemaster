@@ -1,0 +1,722 @@
+[
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q1",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "Compute the Eisenstein norm of (7+3\u03c9). Give ONLY the final number.",
+    "expected": "37",
+    "response": "Here is the computation of the Eisenstein norm of (7+3\u03c9):\n\nThe Eisenstein norm of an element a+b\u03c9 in the Eisenstein integers, where a and b are integers and \u03c9 is a cube root of 1, is defined as:\n\nN(a+b\u03c9) = a^2 - ab + b^2\n\nPlugging in a=7 and b=3:\n\nN(7+3\u03c9) = 7^2 - 7*3 + 3^2\n        = 49 - 21 + 9 \n        = 37\n\nTherefore, the Eisenstein norm of (7+3\u03c9) is 37.",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q1",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "Compute the Eisenstein norm of (7+3\u03c9). Give ONLY the final number.",
+    "expected": "37",
+    "response": "Here is the computation of the Eisenstein norm of (7+3\u03c9):\n\nThe Eisenstein norm of an element a + b\u03c9 in the Eisenstein integers is given by N(a + b\u03c9) = a^2 - ab + b^2.\n\nIn this case, a = 7 and b = 3.\n\nN(7 + 3\u03c9) = 7^2 - 7*3 + 3^2\n          = 49 - 21 + 9\n          = 37\n\nTherefore, the Eisenstein norm of (7+3\u03c9) is 37.",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q1",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "Compute the Eisenstein norm of (7+3\u03c9). Give ONLY the final number.",
+    "expected": "37",
+    "response": "Here is the calculation of the Eisenstein norm of (7+3\u03c9):\n\nThe Eisenstein norm of a complex number a+b\u03c9 (where a and b are integers and \u03c9 is a cube root of 1) is defined as N(a+b\u03c9) = a^2 - ab + b^2.\n\nFor the number 7+3\u03c9:\na = 7\nb = 3\n\nN(7+3\u03c9) = 7^2 - 7*3 + 3^2\n        = 49 - 21 + 9\n        = 37\n\nTherefore, the Eisenstein norm of (7+3\u03c9) is 37.",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q1",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "Compute 49-21+9. Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q1",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "Compute 49-21+9. Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q1",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "Compute 49-21+9. Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q2",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "What is the covering radius of Z[\u03c9]? Give the answer as a decimal to 3 places.",
+    "expected": "0.577",
+    "response": "The covering radius of a lattice is the smallest real number r such that every point in the space is within distance r of some lattice point. For the complex lattice Z[\u03c9], where \u03c9 is a primitive cube root of unity, the covering radius is approximately 0.8774.\n\nThis value can be derived using the following steps:\n\n1. Z[\u03c9] is a hexagonal lattice in the complex plane, with basis vectors 1 and \u03c9.\n2. The Voronoi cell of this lattice is a regular hexagon with side length 1.\n3. The covering radius is half the distance between the center of the hexagon and its farthest vertex.\n4. This distance can be calculated using the Pythagorean theorem: r = sqrt(3)/2 \u2248 0.8774.\n\nTherefore, the covering radius of Z[\u03c9] is approximately 0.877 to three decimal places.",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q2",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "What is the covering radius of Z[\u03c9]? Give the answer as a decimal to 3 places.",
+    "expected": "0.577",
+    "response": "The covering radius of Z[\u03c9] is approximately 1.618. This value is derived from the golden ratio, which is given by the formula:\n\n(1 + \u221a5) / 2 \u2248 1.618\n\nHere's the reasoning:\n\nZ[\u03c9] is the ring of integers in the quadratic field Q(\u221a5). The covering radius of an integral lattice is the smallest real number r such that every point in the space is within a distance of r from some lattice point.\n\nFor Z[\u03c9], the covering radius is determined by the golden ratio. This is because the golden ratio is the fundamental unit in the quadratic field Q(\u221a5), and it generates the lattice Z[\u03c9] = Z + Z\u03c9, where \u03c9 = (1 + \u221a5) / 2.\n\nThe covering radius of Z[\u03c9] is equal to the golden ratio, which is approximately 1.618 when rounded to three decimal places.",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q2",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "What is the covering radius of Z[\u03c9]? Give the answer as a decimal to 3 places.",
+    "expected": "0.577",
+    "response": "The covering radius of Z[\u03c9] is approximately 1.618. This value is derived from the golden ratio, which is given by the formula:\n\n\u03c6 = (1 + \u221a5) / 2 \u2248 1.618\n\nHere's the reasoning:\n\n1) Z[\u03c9] is the ring of integers in the quadratic field Q(\u221a5). It consists of all numbers of the form a + b\u03c9, where a and b are integers, and \u03c9 = (1 + \u221a5) / 2 is the golden ratio.\n\n2) The covering radius of an integral lattice is the smallest real number r such that every point in the space is within a distance r from some lattice point.\n\n3) For Z[\u03c9], the covering radius is equal to the golden ratio \u03c6. This is because the lattice is generated by the golden ratio and 1, and the worst-case scenario is when a point is exactly halfway between two lattice points.\n\n4) Therefore, the covering radius of Z[\u03c9] is \u03c6 \u2248 1.618.\n\nSo, to three decimal places, the covering radius of Z[\u03c9] is 1.618.",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q2",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "Compute 1/sqrt(3) to 3 decimal places. Give ONLY the number.",
+    "expected": "0.577",
+    "response": "0.577",
+    "correct": true
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q2",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "Compute 1/sqrt(3) to 3 decimal places. Give ONLY the number.",
+    "expected": "0.577",
+    "response": "0.577",
+    "correct": true
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q2",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "Compute 1/sqrt(3) to 3 decimal places. Give ONLY the number.",
+    "expected": "0.577",
+    "response": "0.577",
+    "correct": true
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q3",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "Snap the point (2.7, 1.3) to the nearest Eisenstein integer. Give ONLY the (a,b) pair.",
+    "expected": "(3,1)",
+    "response": "(3,1)",
+    "correct": true
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q3",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "Snap the point (2.7, 1.3) to the nearest Eisenstein integer. Give ONLY the (a,b) pair.",
+    "expected": "(3,1)",
+    "response": "(3,1)",
+    "correct": true
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q3",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "Snap the point (2.7, 1.3) to the nearest Eisenstein integer. Give ONLY the (a,b) pair.",
+    "expected": "(3,1)",
+    "response": "(3,1)",
+    "correct": true
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q3",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "Round (2.7,1.3) to the nearest hexagonal grid point with spacing 1. Give ONLY the (x,y) pair.",
+    "expected": "(3,1)",
+    "response": "(3,1)",
+    "correct": true
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q3",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "Round (2.7,1.3) to the nearest hexagonal grid point with spacing 1. Give ONLY the (x,y) pair.",
+    "expected": "(3,1)",
+    "response": "Given the point (2.7, 1.3) and a hexagonal grid with spacing 1, we need to find the nearest hexagonal grid point.\n\nTo round to the nearest hexagonal grid point, we can follow these steps:\n\n1. Round the x-coordinate to the nearest integer: 2.7 rounds to 3.\n2. Round the y-coordinate to the nearest integer: 1.3 rounds to 1.\n\nTherefore, the nearest hexagonal grid point to (2.7, 1.3) is (3, 1).",
+    "correct": true
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q3",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "Round (2.7,1.3) to the nearest hexagonal grid point with spacing 1. Give ONLY the (x,y) pair.",
+    "expected": "(3,1)",
+    "response": "Given the point (2.7, 1.3) and a hexagonal grid with spacing 1, we need to find the nearest hexagonal grid point.\n\nTo do this, we can use the following formula for hexagonal rounding:\n\n(x', y') = (round(x + 0.5 * (y % 2)), round(y + 0.5 * (x % 2)))\n\nPlugging in the values:\n\nx' = round(2.7 + 0.5 * (1.3 % 2))\n   = round(2.7 + 0.5 * 1.3)\n   = round(2.7 + 0.65)\n   = round(3.35)\n   = 3\n\ny' = round(1.3 + 0.5 * (2.7 % 2))\n   = round(1.3 + 0.5 * 0.7)\n   = round(1.3 + 0.35)\n   = round(1.65)\n   = 2\n\nTherefore, the nearest hexagonal grid point to (2.7, 1.3) with spacing 1 is (3, 2).",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q4",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "How many Eisenstein integers have norm \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "There are 19 Eisenstein integers with norm \u2264 10.",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q4",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "How many Eisenstein integers have norm \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "There are 14 Eisenstein integers with norm \u2264 10.",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q4",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "How many Eisenstein integers have norm \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "65",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q4",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "How many integer pairs (a,b) satisfy a\u00b2-ab+b\u00b2 \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "Let's approach this step-by-step:\n\n1) First, let's understand what the inequality means. It's saying that for any pair of integers (a,b), if the value of a\u00b2-ab+b\u00b2 is less than or equal to 10, then that pair is a valid solution.\n\n2) Now, let's try to visualize this. If we plot these points on a coordinate plane, we are essentially looking for all the lattice points (points with integer coordinates) that lie within a certain region defined by the inequality.\n\n3) To find this region, let's rearrange the inequality:\n\n   a\u00b2-ab+b\u00b2 \u2264 10\n   a\u00b2-2ab+b\u00b2 \u2264 10\n   (a-b)\u00b2 \u2264 10\n\n4) This means that the distance between a and b (on the number line) should be less than or equal to the square root of 10.\n\n5) So, for any given value of a, the possible values of b lie within a range of \u00b1\u221a10 around a.\n\n6) Now, let's count the number of pairs. We can start with a=0. For a=0, b can range from -3 to 3 (inclusive), giving us 7 pairs.\n\n7) For",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q4",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "How many integer pairs (a,b) satisfy a\u00b2-ab+b\u00b2 \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "Let's approach this step by step:\n\n1) First, let's understand what the inequality means. If we plot all the points (a,b) that satisfy the inequality, we will get a region in the coordinate plane. We need to count the number of lattice points (points with integer coordinates) in this region.\n\n2) The inequality can be rewritten as:\n\n   (a - b/2)\u00b2 + (3/4)b\u00b2 \u2264 10\n\n   This is the equation of an ellipse centered at (0,0) with major axis along the line y = x and minor axis along the line y = -x.\n\n3) The major axis has length 2\u221a10 and the minor axis has length 4\u221a(10/3).\n\n4) Now, we need to count the number of integer points within this ellipse. This is a well-known problem in number theory and is solved using the concept of \"Gaussian integers\".\n\n5) The number of integer points within an ellipse with semi-major axis a and semi-minor axis b is approximately equal to \u03c0ab.\n\n6) In our case, a = \u221a10 and b = 2\u221a(10/3). So the approximate number of integer points is:\n\n   \u03c0\u221a10 * 2",
+    "correct": false
+  },
+  {
+    "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+    "question_id": "q4",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "How many integer pairs (a,b) satisfy a\u00b2-ab+b\u00b2 \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "Let's approach this step by step:\n\n1) First, let's understand what the inequality means. It's saying that for any pair of integers (a,b), if the value of a\u00b2-ab+b\u00b2 is less than or equal to 10, then that pair is a valid solution.\n\n2) Now, let's try to visualize this. If we plot these points on a coordinate plane, we are essentially looking for all the lattice points (points with integer coordinates) that lie within a certain region defined by the inequality.\n\n3) To find this region, let's complete the square for the inequality:\n\n   a\u00b2-ab+b\u00b2 \u2264 10\n   (a\u00b2-2ab+b\u00b2) + ab \u2264 10\n   (a-b)\u00b2 + ab \u2264 10\n\n4) Now, the left side of the inequality is always non-negative. So, the inequality will be satisfied for all pairs (a,b) where ab is non-negative and less than or equal to 10.\n\n5) The possible values for ab are: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10.\n\n6) For each of these values, let's count",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q1",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "Compute the Eisenstein norm of (7+3\u03c9). Give ONLY the final number.",
+    "expected": "37",
+    "response": "16",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q1",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "Compute the Eisenstein norm of (7+3\u03c9). Give ONLY the final number.",
+    "expected": "37",
+    "response": "16",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q1",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "Compute the Eisenstein norm of (7+3\u03c9). Give ONLY the final number.",
+    "expected": "37",
+    "response": "43",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q1",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "Compute 49-21+9. Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q1",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "Compute 49-21+9. Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q1",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "Compute 49-21+9. Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q2",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "What is the covering radius of Z[\u03c9]? Give the answer as a decimal to 3 places.",
+    "expected": "0.577",
+    "response": "The ring \\( \\mathbb{Z}[\\omega] \\) refers to the **Eisenstein integers**, where \\( \\omega = \\frac{-1 + \\sqrt{-3}}{2} \\), a primitive cube root of unity. These are complex numbers of the form:\n\n\\[\na + b\\omega \\quad \\text{with } a, b \\in \\mathbb{Z}\n\\]\n\nAlternatively, since \\( \\omega = e^{2\\pi i/3} \\), the Eisenstein integers form a triangular lattice in the complex plane.\n\n---\n\n### **Covering Radius**\nThe **covering radius** of a lattice is the smallest real number \\( r \\) such that **every point** in the plane is within distance \\( r \\) of some lattice point. In other words, it's the radius of the largest \"hole\" in the lattice \u2014 the maximum distance from any point in \\( \\mathbb{C} \\) to the nearest lattice point.\n\nFor the Eisenstein integers \\( \\mathbb{Z}[\\omega] \\), which form a **hexagonal (triangular) lattice**, the covering radius corresponds to the **circumradius of the Voronoi cell** around each lattice point.\n\n---\n\n### **Geometry",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q2",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "What is the covering radius of Z[\u03c9]? Give the answer as a decimal to 3 places.",
+    "expected": "0.577",
+    "response": "The ring \\( \\mathbb{Z}[\\omega] \\) refers to the **Eisenstein integers**, where \\( \\omega = \\frac{-1 + \\sqrt{-3}}{2} \\), a primitive cube root of unity. These are complex numbers of the form:\n\n\\[\na + b\\omega \\quad \\text{with } a, b \\in \\mathbb{Z}.\n\\]\n\nAlternatively, since \\( \\omega = e^{2\\pi i/3} \\), the Eisenstein integers form a **hexagonal lattice** in the complex plane.\n\n---\n\n### **Covering Radius**\n\nThe **covering radius** of a lattice is the smallest number \\( r \\) such that **every point** in the plane is within distance \\( r \\) of **some lattice point**. In other words, it's the radius of the largest \"hole\" in the lattice \u2014 the farthest distance from any point in \\( \\mathbb{C} \\) to the nearest lattice point.\n\nFor the Eisenstein integers \\( \\mathbb{Z}[\\omega] \\), which form a **triangular (or hexagonal) lattice**, the covering radius corresponds to the **maximum distance from a point in the plane to the nearest lattice site",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q2",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "What is the covering radius of Z[\u03c9]? Give the answer as a decimal to 3 places.",
+    "expected": "0.577",
+    "response": "The ring \\( \\mathbb{Z}[\\omega] \\) refers to the **Eisenstein integers**, where \\( \\omega = \\frac{-1 + \\sqrt{-3}}{2} \\), a primitive cube root of unity. These are complex numbers of the form:\n\n\\[\na + b\\omega \\quad \\text{with } a, b \\in \\mathbb{Z}\n\\]\n\nThis forms a **lattice** in the complex plane \\( \\mathbb{C} \\cong \\mathbb{R}^2 \\), with basis vectors corresponding to 1 and \\( \\omega \\). The lattice is **hexagonal** (triangular) in structure.\n\n---\n\n### **Covering Radius**\nThe **covering radius** of a lattice is the smallest number \\( r \\) such that **every point** in the plane is within distance \\( r \\) of **some lattice point**. In other words, it's the maximum distance from any point in \\( \\mathbb{R}^2 \\) to the nearest lattice point \u2014 the \"worst-case\" distance.\n\nFor the Eisenstein integers \\( \\mathbb{Z}[\\omega] \\), which form a hexagonal lattice, the covering radius corresponds to",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q2",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "Compute 1/sqrt(3) to 3 decimal places. Give ONLY the number.",
+    "expected": "0.577",
+    "response": "0.577",
+    "correct": true
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q2",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "Compute 1/sqrt(3) to 3 decimal places. Give ONLY the number.",
+    "expected": "0.577",
+    "response": "0.577",
+    "correct": true
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q2",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "Compute 1/sqrt(3) to 3 decimal places. Give ONLY the number.",
+    "expected": "0.577",
+    "response": "0.577",
+    "correct": true
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q3",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "Snap the point (2.7, 1.3) to the nearest Eisenstein integer. Give ONLY the (a,b) pair.",
+    "expected": "(3,1)",
+    "response": "(3,1)",
+    "correct": true
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q3",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "Snap the point (2.7, 1.3) to the nearest Eisenstein integer. Give ONLY the (a,b) pair.",
+    "expected": "(3,1)",
+    "response": "(3,1)",
+    "correct": true
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q3",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "Snap the point (2.7, 1.3) to the nearest Eisenstein integer. Give ONLY the (a,b) pair.",
+    "expected": "(3,1)",
+    "response": "(3,1)",
+    "correct": true
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q3",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "Round (2.7,1.3) to the nearest hexagonal grid point with spacing 1. Give ONLY the (x,y) pair.",
+    "expected": "(3,1)",
+    "response": "(3.0, 1.0)",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q3",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "Round (2.7,1.3) to the nearest hexagonal grid point with spacing 1. Give ONLY the (x,y) pair.",
+    "expected": "(3,1)",
+    "response": "(3,1)",
+    "correct": true
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q3",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "Round (2.7,1.3) to the nearest hexagonal grid point with spacing 1. Give ONLY the (x,y) pair.",
+    "expected": "(3,1)",
+    "response": "(3,1)",
+    "correct": true
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q4",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "How many Eisenstein integers have norm \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "13",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q4",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "How many Eisenstein integers have norm \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "13",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q4",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "How many Eisenstein integers have norm \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "139",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q4",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "How many integer pairs (a,b) satisfy a\u00b2-ab+b\u00b2 \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "We are given the inequality:\n\n$$\na^2 - ab + b^2 \\leq 10\n$$\n\nWe are to find the number of **integer pairs** $(a, b)$ that satisfy this.\n\n---\n\n### Step 1: Understand the expression\n\nNote that:\n$$\na^2 - ab + b^2 = \\frac{1}{2} \\left( (a - b)^2 + a^2 + b^2 \\right)\n$$\nBut more importantly, this is a **positive definite quadratic form**, symmetric in a certain way.\n\nAlternatively, note:\n$$\na^2 - ab + b^2 = (a - \\omega b)(a - \\omega^2 b) \\quad \\text{(in complex numbers)}\n$$\nBut we don't need that.\n\nInstead, observe that:\n- The expression is symmetric in a certain way: it is **not symmetric** in $a$ and $b$, but it **is symmetric under swapping $a$ and $b$**:\n$$\na^2 - ab + b^2 = b^2 - ba + a^2\n$$\nSo symmetric in $a$ and $b$.\n\nAlso, it is always **non-negative",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q4",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "How many integer pairs (a,b) satisfy a\u00b2-ab+b\u00b2 \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "We are given the inequality:\n\n$$\na^2 - ab + b^2 \\leq 10\n$$\n\nWe are to find the number of **integer pairs** $(a, b)$ that satisfy this.\n\n---\n\n### Step 1: Understand the expression\n\nNote that:\n\n$$\na^2 - ab + b^2 = \\frac{1}{2} \\left( (a - b)^2 + a^2 + b^2 \\right)\n$$\n\nBut more importantly, this expression is **symmetric** and **always non-negative** for real numbers. In fact, it's a known positive definite quadratic form.\n\nWe can also note that:\n\n$$\na^2 - ab + b^2 = (a - \\omega b)(a - \\omega^2 b) \\quad \\text{(complex roots)}\n$$\n\nBut perhaps more useful: this expression is symmetric under rotation by 60 degrees, related to Eisenstein integers. But for counting, we can just **brute-force over small values**, since the expression grows quickly.\n\nLet\u2019s estimate bounds.\n\nNote that:\n$$\na^2 - ab + b^2 \\geq \\frac{1}{2}(a^2 + b^2",
+    "correct": false
+  },
+  {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "question_id": "q4",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "How many integer pairs (a,b) satisfy a\u00b2-ab+b\u00b2 \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "13",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q1",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "Compute the Eisenstein norm of (7+3\u03c9). Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q1",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "Compute the Eisenstein norm of (7+3\u03c9). Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q1",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "Compute the Eisenstein norm of (7+3\u03c9). Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q1",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "Compute 49-21+9. Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q1",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "Compute 49-21+9. Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q1",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "Compute 49-21+9. Give ONLY the final number.",
+    "expected": "37",
+    "response": "37",
+    "correct": true
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q2",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "What is the covering radius of Z[\u03c9]? Give the answer as a decimal to 3 places.",
+    "expected": "0.577",
+    "response": "To determine the covering radius of $\\mathbb{Z}[\\omega]$ (the Eisenstein integers, a hexagonal lattice):\n\n1.  The Eisenstein integers form a 2D hexagonal lattice where the nearest neighbor distance between lattice points is 1.\n2.  The Voronoi cell (fundamental domain) of this lattice is a regular hexagon centered at each lattice point. The farthest points from the lattice point inside this Voronoi cell are its vertices.\n3.  Calculating the distance from the center of the Voronoi cell to one of its vertices:\n    The vertices of the Voronoi cell are at points like $\\left(\\frac{1}{2}, \\frac{\\sqrt{3}}{6}\\right)$. The distance from the origin (lattice point) to this vertex is:\n    $$\n    \\sqrt{\\left(\\frac{1}{2}\\right)^2 + \\left(\\frac{\\sqrt{3}}{6}\\right)^2} = \\sqrt{\\frac{1}{4} + \\frac{1}{12}} = \\sqrt{\\frac{1}{3}} = \\frac{\\sqrt{3}}{3} \\approx 0.57735",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q2",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "What is the covering radius of Z[\u03c9]? Give the answer as a decimal to 3 places.",
+    "expected": "0.577",
+    "response": "The ring \\( \\mathbb{Z}[\\omega] \\) is the hexagonal Eisenstein lattice. The covering radius is the maximum minimal distance from any point in the plane to the nearest lattice point.\n\nFor adjacent lattice points forming an equilateral triangle of side length 1, the circumradius (the distance from the triangle's center to each vertex) is the covering radius. This circumradius is \\( \\frac{1}{\\sqrt{3}} \\approx 0.577 \\).\n\n**Answer: 0.577**",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q2",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "What is the covering radius of Z[\u03c9]? Give the answer as a decimal to 3 places.",
+    "expected": "0.577",
+    "response": "To determine the covering radius of $\\mathbb{Z}[\\omega]$ (the Eisenstein integers, a triangular lattice in the complex plane):\n\n1.  The lattice consists of points $m + n\\omega$ where $\\omega = e^{2\\pi i/3} = -\\frac{1}{2} + i\\frac{\\sqrt{3}}{2}$ and $m,n \\in \\mathbb{Z}$. Adjacent lattice points are separated by distance 1.\n2.  The covering radius is the maximum distance from any point in the plane to the nearest lattice point. This is the circumradius of an equilateral triangle with side length 1 (formed by three adjacent lattice points).\n3.  For an equilateral triangle with side length $s=1$, the circumradius is $\\frac{s}{\\sqrt{3}} = \\frac{1}{\\sqrt{3}} \\approx 0.57735$.\n\nRounding to 3 decimal places gives **0.577**.\n\nAnswer: $\\boxed{0.577}$",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q2",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "Compute 1/sqrt(3) to 3 decimal places. Give ONLY the number.",
+    "expected": "0.577",
+    "response": "0.577",
+    "correct": true
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q2",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "Compute 1/sqrt(3) to 3 decimal places. Give ONLY the number.",
+    "expected": "0.577",
+    "response": "0.577",
+    "correct": true
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q2",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "Compute 1/sqrt(3) to 3 decimal places. Give ONLY the number.",
+    "expected": "0.577",
+    "response": "0.577",
+    "correct": true
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q3",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "Snap the point (2.7, 1.3) to the nearest Eisenstein integer. Give ONLY the (a,b) pair.",
+    "expected": "(3,1)",
+    "response": "To solve this, we start by recalling that Eisenstein integers are of the form \\(a + b\\omega\\) where \\(a,b\\in\\mathbb{Z}\\) and \\(\\omega=\\frac{-1+i\\sqrt{3}}{2}\\). This corresponds to planar points \\(\\left(a-\\frac{b}{2}, \\frac{b\\sqrt{3}}{2}\\right)\\).\n\nFor the given point \\((2.7,1.3)\\):\n1.  Solve for approximate \\(b\\): \\(\\frac{b\\sqrt{3}}{2}\\approx1.3\\implies b\\approx\\frac{2.6}{1.732}\\approx1.501\\), so nearby integers are \\(b=1\\) and \\(b=2\\).\n2.  For \\(b=1\\): \\(a = 2.7 + \\frac{1}{2}=3.2\\), so nearby integers \\(a=3\\) (point \\((2.5, 0.866)\\)) and \\(a=4\\) (point \\((3.5,0.866)\\)).\n3.  For \\(b=2\\):",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q3",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "Snap the point (2.7, 1.3) to the nearest Eisenstein integer. Give ONLY the (a,b) pair.",
+    "expected": "(3,1)",
+    "response": "To solve this, we first recall Eisenstein integers are of the form \\(a + b\\omega\\) where \\(a,b\\in\\mathbb{Z}\\) and \\(\\omega=\\frac{-1+i\\sqrt{3}}{2}\\), corresponding to Cartesian coordinates \\(\\left(a-\\frac{b}{2}, \\frac{b\\sqrt{3}}{2}\\right)\\).\n\nFor the point \\((2.7,1.3)\\):\n1.  Approximate optimal \\(b\\): \\(\\frac{b\\sqrt{3}}{2}\\approx1.3\\implies b\\approx\\frac{2.6}{\\sqrt{3}}\\approx1.501\\), so candidates are \\(b=1\\) and \\(b=2\\).\n2.  For \\(b=1\\): optimal \\(a\\approx2.7+\\frac{1}{2}=3.2\\), so nearest integer \\(a=3\\). This gives the Eisenstein integer \\((3,1)\\) with Cartesian coordinates \\((2.5, \\approx0.866)\\).\n3.  For \\(b=2\\): optimal \\(a\\approx2.7+1=3.7\\",
+    "correct": true
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q3",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "Snap the point (2.7, 1.3) to the nearest Eisenstein integer. Give ONLY the (a,b) pair.",
+    "expected": "(3,1)",
+    "response": "To solve this, we first recall Eisenstein integers are of the form \\(a + b\\omega\\) where \\(\\omega = -\\frac{1}{2} + i\\frac{\\sqrt{3}}{2}\\), corresponding to Cartesian points \\((a - \\frac{b}{2}, \\frac{b\\sqrt{3}}{2})\\). We calculate distances from \\((2.7, 1.3)\\) to nearby integer pairs \\((a,b)\\):\n\n1.  For \\((3,1)\\): Cartesian point is \\((3 - 0.5, \\frac{\\sqrt{3}}{2}) = (2.5, \\approx0.866)\\). Distance squared: \\((2.7-2.5)^2 + (1.3-0.866)^2 \\approx 0.04 + 0.188 = 0.228\\).\n2.  For \\((4,2)\\): Cartesian point is \\((4-1, \\sqrt{3})=(3, \\approx1.732)\\). Distance squared: \\((2.7-3)^2 + (1.3-1.732",
+    "correct": true
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q3",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "Round (2.7,1.3) to the nearest hexagonal grid point with spacing 1. Give ONLY the (x,y) pair.",
+    "expected": "(3,1)",
+    "response": "ERROR: HTTPSConnectionPool(host='api.deepinfra.com', port=443): Read timed out. (read timeout=90)",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q3",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "Round (2.7,1.3) to the nearest hexagonal grid point with spacing 1. Give ONLY the (x,y) pair.",
+    "expected": "(3,1)",
+    "response": "ERROR: HTTPSConnectionPool(host='api.deepinfra.com', port=443): Read timed out. (read timeout=90)",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q3",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "Round (2.7,1.3) to the nearest hexagonal grid point with spacing 1. Give ONLY the (x,y) pair.",
+    "expected": "(3,1)",
+    "response": "ERROR: HTTPSConnectionPool(host='api.deepinfra.com', port=443): Read timed out. (read timeout=90)",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q4",
+    "framing": "loaded",
+    "trial": 0,
+    "prompt": "How many Eisenstein integers have norm \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "37",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q4",
+    "framing": "loaded",
+    "trial": 1,
+    "prompt": "How many Eisenstein integers have norm \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "37",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q4",
+    "framing": "loaded",
+    "trial": 2,
+    "prompt": "How many Eisenstein integers have norm \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "37",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q4",
+    "framing": "stripped",
+    "trial": 0,
+    "prompt": "How many integer pairs (a,b) satisfy a\u00b2-ab+b\u00b2 \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "37",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q4",
+    "framing": "stripped",
+    "trial": 1,
+    "prompt": "How many integer pairs (a,b) satisfy a\u00b2-ab+b\u00b2 \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "37",
+    "correct": false
+  },
+  {
+    "model": "ByteDance/Seed-2.0-mini",
+    "question_id": "q4",
+    "framing": "stripped",
+    "trial": 2,
+    "prompt": "How many integer pairs (a,b) satisfy a\u00b2-ab+b\u00b2 \u2264 10? Give ONLY the count.",
+    "expected": "31",
+    "response": "37",
+    "correct": false
+  }
+]

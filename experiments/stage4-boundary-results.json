@@ -1,0 +1,120 @@
+{
+  "Qwen3-235B MoE (~22B active)": {
+    "baseline": {
+      "accuracy": 0.375,
+      "correct": 3,
+      "total": 8,
+      "classes": {
+        "correct": 3,
+        "other": 2,
+        "echo_partial": 1,
+        "wrong_op_no_minus": 2
+      }
+    },
+    "just_arithmetic": {
+      "accuracy": 1.0,
+      "correct": 8,
+      "total": 8,
+      "classes": {
+        "correct": 8
+      }
+    }
+  },
+  "Qwen3.6-35B MoE (~3B active)": {
+    "baseline": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 8,
+      "classes": {
+        "none": 8
+      }
+    },
+    "just_arithmetic": {
+      "accuracy": 0.125,
+      "correct": 1,
+      "total": 8,
+      "classes": {
+        "none": 7,
+        "correct": 1
+      }
+    }
+  },
+  "Hermes-70B dense": {
+    "baseline": {
+      "accuracy": 0.25,
+      "correct": 2,
+      "total": 8,
+      "classes": {
+        "correct": 2,
+        "other": 4,
+        "wrong_op_no_minus": 1,
+        "echo_partial": 1
+      }
+    },
+    "just_arithmetic": {
+      "accuracy": 0.875,
+      "correct": 7,
+      "total": 8,
+      "classes": {
+        "correct": 7,
+        "other": 1
+      }
+    }
+  },
+  "Hermes-405B dense": {
+    "baseline": {
+      "accuracy": 0.25,
+      "correct": 2,
+      "total": 8,
+      "classes": {
+        "other": 3,
+        "wrong_op_no_minus": 3,
+        "correct": 2
+      }
+    },
+    "just_arithmetic": {
+      "accuracy": 1.0,
+      "correct": 8,
+      "total": 8,
+      "classes": {
+        "correct": 8
+      }
+    }
+  },
+  "Seed-2.0-mini": {
+    "baseline": {
+      "accuracy": 1.0,
+      "correct": 8,
+      "total": 8,
+      "classes": {
+        "correct": 8
+      }
+    },
+    "just_arithmetic": {
+      "accuracy": 1.0,
+      "correct": 8,
+      "total": 8,
+      "classes": {
+        "correct": 8
+      }
+    }
+  },
+  "Seed-2.0-code": {
+    "baseline": {
+      "accuracy": 1.0,
+      "correct": 8,
+      "total": 8,
+      "classes": {
+        "correct": 8
+      }
+    },
+    "just_arithmetic": {
+      "accuracy": 1.0,
+      "correct": 8,
+      "total": 8,
+      "classes": {
+        "correct": 8
+      }
+    }
+  }
+}

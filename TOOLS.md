@@ -162,3 +162,36 @@ See `references/tools-detail.md` for full agent configs.
 - **Complex multi-file generation** (full packages, integrations): 900-1200s (15-20 min)
 - **Max timeout**: 1200s (20 min) — Claude Opus needs this for world-class output
 - **Rule of thumb**: If Opus timed out at X, retry at 3X
+
+## Fleet Model Routing (Updated 2026-05-15)
+
+### z.ai (PAID PLAN — use heavily)
+
+| Model | Best For | Stage | Notes |
+|-------|----------|:-----:|-------|
+| **glm-5.1** | Code generation, architecture, boilerplate, planning | 3 | Thinking model — reasoning in reasoning_content, content often empty. Pre-compute arithmetic before sending. |
+| **glm-5-turbo** | Content tasks, non-reasoning generation, summaries | 3 | Non-thinking, faster. Same vocabulary wall. Pre-compute arithmetic. |
+| **glm-4.7** | Lighter tasks, faster responses | 2-3 | Fallback when 5.x rate limited |
+| **glm-4.7-flash** | Quick lookups, simple generation | 2 | Fastest, cheapest z.ai option |
+
+### DeepInfra (PAY-PER-USE)
+
+| Model | Best For | Stage | Cost |
+|-------|----------|:-----:|------|
+| **Seed-2.0-mini** | Domain computation, math reasoning, Stage 4 tasks | **4** | ~$0.01/query |
+| **Seed-2.0-code** | Code + math combined tasks | **4** | ~$0.02/query |
+| Hermes-70B | General generation, large context | 3 | Moderate |
+| Qwen3-235B | Multi-step reasoning (with translation) | 3 | Moderate |
+| Qwen3.6-35B | Cheap routing, fast | 2 | Cheap |
+
+### Routing Rules
+
+```
+Code/architecture/docs → glm-5.1 (z.ai, paid plan)
+Domain computation → Seed-2.0-mini (Stage 4, immune to vocabulary wall)
+Reasoning about math → Seed-2.0-mini (only Stage 4 that answers correctly)
+Content generation → glm-5-turbo (z.ai, paid plan)
+Simple arithmetic on ANY model → fleet_translator.translate() first
+```
+
+### Key: z.ai is PAID — burn it for everything that doesn't need Stage 4

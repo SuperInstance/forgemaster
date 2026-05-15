@@ -1,7 +1,9 @@
 {
-  "last_checked": 1778836772.4205108,
-  "unread_count": 0,
-  "unread_rooms": {},
+  "last_checked": 1778853536.9537623,
+  "unread_count": 3,
+  "unread_rooms": {
+    "oracle1-forgemaster-bridge": 3
+  },
   "bridge_pid": 69978,
   "bridge_config": "/tmp/plato-matrix-bridge/config-forgemaster.json",
   "bridge_log": "/tmp/plato-matrix-forgemaster.log",

@@ -1,0 +1,61 @@
+{
+  "study": 29,
+  "title": "Embedding-Level Evidence for Vocabulary Rerouting",
+  "date": "2026-05-15",
+  "platform": "DeepInfra",
+  "models_tested": [
+    "NousResearch/Hermes-3-Llama-3.1-70B",
+    "ByteDance/Seed-2.0-mini",
+    "Qwen/Qwen3-235B-A22B-Instruct-2507"
+  ],
+  "prompts": {
+    "A_bare": "Compute: 25 - (-15) + 9 = ? The answer is",
+    "B_eisenstein": "The Eisenstein norm of (5-3ω) is a²-ab+b². Compute N(5-3ω). The answer is"
+  },
+  "method": "logprob analysis (max_tokens=1) + extended generation (max_tokens=150), temperature=0.0",
+  "first_token_results": {
+    "Hermes-70B": {
+      "prompt_A": {"first_token": "To", "logprob": -0.180, "prob_pct": 83.5, "trials": 3, "variance": 0},
+      "prompt_B": {"first_token": "To", "logprob": -0.062, "prob_pct": 93.9, "trials": 3, "variance": 0}
+    },
+    "Qwen3-235B": {
+      "prompt_A": {"first_token": "Let", "logprob": -0.030, "prob_pct": 97.1},
+      "prompt_B": {"first_token": "We", "logprob": -0.003, "prob_pct": 99.7}
+    },
+    "Seed-2.0-mini": {
+      "note": "Reasoning model, logprobs not supported via API",
+      "prompt_A_first_visible_token": "Let's",
+      "prompt_B_first_visible_token": "To compute"
+    }
+  },
+  "extended_generation_results": {
+    "Hermes-70B": {
+      "prompt_A": {
+        "answer": "19",
+        "correct": false,
+        "error": "Misreads double negative: computes 25-15+9=19 instead of 25+15+9=49",
+        "pathway": "PEMDAS arithmetic"
+      },
+      "prompt_B": {
+        "answer": "49",
+        "correct": true,
+        "pathway": "Algebraic formula substitution (a²-ab+b²)"
+      }
+    },
+    "Seed-2.0-mini": {
+      "prompt_A": {"answer": "49", "correct": true},
+      "prompt_B": {"answer": "49", "correct": true, "note": "truncated at 150 tokens but reasoning correct"}
+    },
+    "Qwen3-235B": {
+      "prompt_A": {"answer": "49", "correct": true},
+      "prompt_B": {"answer": "49", "correct": true, "note": "truncated at 150 tokens, deep into ω theory"}
+    }
+  },
+  "key_finding": "Reverse Vocabulary Rerouting: Eisenstein context IMPROVES Hermes-70B accuracy by activating algebraic pathway instead of error-prone PEMDAS pathway",
+  "logprob_gap_hermes": {
+    "prompt_A_logprob": -0.180,
+    "prompt_B_logprob": -0.062,
+    "confidence_difference_pp": 10.4,
+    "interpretation": "Eisenstein prompt makes model MORE certain about its output strategy"
+  }
+}

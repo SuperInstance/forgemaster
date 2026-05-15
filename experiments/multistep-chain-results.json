@@ -1,0 +1,674 @@
+{
+  "chain1_2step": {
+    "expected": 86,
+    "type": "sum",
+    "vocab": {
+      "prompt": "First compute the Eisenstein norm N(3,5) where N(a,b)=a\u00b2-ab+b\u00b2, then compute N(7,-2). What is the sum? Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "First, let's compute N(3,5):\n\nN(3,5) = 3\u00b2 - 3*5 + 5\u00b2\n       = 9 - 15 + 25\n       = 19\n\nNow, let's compute N(7,-2):\n\nN(7,-2) = 7\u00b2 - 7*(-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nThe sum of these",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw": "First, let's compute N(3,5):\n\nN(3,5) = 3\u00b2 - 3*5 + 5\u00b2\n       = 9 - 15 + 25\n       = 19\n\nNext, let's compute N(7,-2):\n\nN(7,-2) = 7\u00b2 - 7*(-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nNow, let's",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "First, let's compute N(3,5):\n\nN(3,5) = 3\u00b2 - 3*5 + 5\u00b2\n       = 9 - 15 + 25\n       = 19\n\nNext, let's compute N(7,-2):\n\nN(7,-2) = 7\u00b2 - 7*(-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nNow, let's",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "First, let's compute N(3,5):\n\nN(3,5) = 3\u00b2 - 3*5 + 5\u00b2\n       = 9 - 15 + 25\n       = 19\n\nNext, let's compute N(7,-2):\n\nN(7,-2) = 7\u00b2 - 7*(-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nNow, let's",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "First, let's compute N(3,5):\n\nN(3,5) = 3\u00b2 - 3*5 + 5\u00b2\n       = 9 - 15 + 25\n       = 19\n\nNext, let's compute N(7,-2):\n\nN(7,-2) = 7\u00b2 - 7*(-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nNow, let's",
+          "extracted": 3,
+          "correct": false
+        }
+      ],
+      "accuracy": 0.0
+    },
+    "precomp": {
+      "prompt": "First compute N(3,5)=19, then compute N(7,-2)=67. What is 19+67? Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "86",
+          "extracted": 86,
+          "correct": true
+        },
+        {
+          "trial": 2,
+          "raw": "86",
+          "extracted": 86,
+          "correct": true
+        },
+        {
+          "trial": 3,
+          "raw": "86",
+          "extracted": 86,
+          "correct": true
+        },
+        {
+          "trial": 4,
+          "raw": "86",
+          "extracted": 86,
+          "correct": true
+        },
+        {
+          "trial": 5,
+          "raw": "86",
+          "extracted": 86,
+          "correct": true
+        }
+      ],
+      "accuracy": 100.0
+    },
+    "semi": {
+      "prompt": "Compute N(a,b)=a\u00b2-ab+b\u00b2 for (3,5) and (7,-2), then sum both results. N(3,5)=3\u00b2-3\u00d75+5\u00b2 and N(7,-2)=7\u00b2-7\u00d7(-2)+(-2)\u00b2. Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "961",
+          "extracted": 961,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw": "961",
+          "extracted": 961,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "961",
+          "extracted": 961,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "961",
+          "extracted": 961,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "41",
+          "extracted": 41,
+          "correct": false
+        }
+      ],
+      "accuracy": 0.0
+    }
+  },
+  "chain2_3step": {
+    "expected": 114,
+    "type": "sum",
+    "vocab": {
+      "prompt": "Compute the Eisenstein norms N(3,5), N(7,-2), and N(4,6) where N(a,b)=a\u00b2-ab+b\u00b2. Sum all three norms. Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "The Eisenstein norm N(a,b) = a\u00b2 - ab + b\u00b2.\n\nN(3,5) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\nN(7,-2) = 7\u00b2 - 7*(-2) + (-2)\u00b2 = 49 + 14 + 4 = 67\nN(4,6) = 4\u00b2 - 4*6 +",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw": "The Eisenstein norm N(a,b) = a\u00b2 - ab + b\u00b2.\n\nN(3,5) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\nN(7,-2) = 7\u00b2 - 7*(-2) + (-2)\u00b2 = 49 + 14 + 4 = 67\nN(4,6) = 4\u00b2 - 4*6 +",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "The Eisenstein norm N(a,b) = a\u00b2 - ab + b\u00b2.\n\nN(3,5) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\nN(7,-2) = 7\u00b2 - 7*(-2) + (-2)\u00b2 = 49 + 14 + 4 = 67\nN(4,6) = 4\u00b2 - 4*6 +",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "The Eisenstein norm N(a,b) = a\u00b2 - ab + b\u00b2.\n\nN(3,5) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\nN(7,-2) = 7\u00b2 - 7*(-2) + (-2)\u00b2 = 49 + 14 + 4 = 67\nN(4,6) = 4\u00b2 - 4*6 +",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "The Eisenstein norm N(a,b) = a\u00b2 - ab + b\u00b2.\n\nN(3,5) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\nN(7,-2) = 7\u00b2 - 7*(-2) + (-2)\u00b2 = 49 + 14 + 4 = 67\nN(4,6) = 4\u00b2 - 4*6 +",
+          "extracted": 3,
+          "correct": false
+        }
+      ],
+      "accuracy": 0.0
+    },
+    "precomp": {
+      "prompt": "Step 1: 3\u00b2-3\u00d75+5\u00b2=19. Step 2: 7\u00b2-7\u00d7(-2)+(-2)\u00b2=67. Step 3: 4\u00b2-4\u00d76+6\u00b2=28. Sum all three: 19+67+28=? Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "114",
+          "extracted": 114,
+          "correct": true
+        },
+        {
+          "trial": 2,
+          "raw": "114",
+          "extracted": 114,
+          "correct": true
+        },
+        {
+          "trial": 3,
+          "raw": "114",
+          "extracted": 114,
+          "correct": true
+        },
+        {
+          "trial": 4,
+          "raw": "114",
+          "extracted": 114,
+          "correct": true
+        },
+        {
+          "trial": 5,
+          "raw": "114",
+          "extracted": 114,
+          "correct": true
+        }
+      ],
+      "accuracy": 100.0
+    },
+    "semi": {
+      "prompt": "Compute N(a,b)=a\u00b2-ab+b\u00b2 for (3,5), (7,-2), (4,6). N(3,5)=3\u00b2-3\u00d75+5\u00b2, N(7,-2)=7\u00b2-7\u00d7(-2)+(-2)\u00b2, N(4,6)=4\u00b2-4\u00d76+6\u00b2. Sum all three. Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "Sum of N(3,5), N(7,-2), and N(4,6) is 74.",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw": "Sum of N(3,5), N(7,-2), and N(4,6) is 74.",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "Sum of N(3,5), N(7,-2), and N(4,6) is 74.",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "Sum of N(3,5), N(7,-2), and N(4,6) is 74.",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "Sum of N(3,5), N(7,-2), N(4,6):\n\nN(3,5) = 3\u00b2 - 3\u00d75 + 5\u00b2 = 9 - 15 + 25 = 19\nN(7,-2) = 7\u00b2 - 7\u00d7(-2) + (-2)\u00b2 = 49 + 14 + 4 = 67\nN(4,6) = 4\u00b2 - 4",
+          "extracted": 3,
+          "correct": false
+        }
+      ],
+      "accuracy": 0.0
+    }
+  },
+  "chain3_domain": {
+    "expected": 114,
+    "type": "sum",
+    "vocab": {
+      "prompt": "Compute the Eisenstein norm N(3+5\u03c9), then N(7-2\u03c9), then N(4+6\u03c9). Sum the norms. Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "Here are the steps to compute the Eisenstein norms and their sum:\n\n1. N(3+5\u03c9) = (3+5\u03c9)(3+5\u03c9*) = (3+5\u03c9)(3+5\u03c9') = 9 + 15\u03c9 + 15\u03c9' + 25\u03c9\u03c9'\n            = 9 + 15(-1/2 + i\u221a3/2) + 15(-1/2 - i\u221a3/2) + 25",
+          "extracted": 1,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw": "Here are the steps to compute the Eisenstein norms and their sum:\n\n1. N(3+5\u03c9) = (3+5\u03c9)(3+5\u03c9*) = (3+5\u03c9)(3+5\u03c9') = 9 + 15\u03c9 + 15\u03c9' + 25\u03c9\u03c9'\n            = 9 + 15(-1/2 + i\u221a3/2) + 15(-1/2 - i\u221a3/2) + 25",
+          "extracted": 1,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "Here are the steps to compute the Eisenstein norms and their sum:\n\n1. N(3+5\u03c9) = (3+5\u03c9)(3+5\u03c9*) = (3+5\u03c9)(3+5\u03c9') = (3+5(-1/2+1/2i))(3+5(-1/2-1/2i))\n            = (3-5/2+5/2i)(3-5/2-5/2i)",
+          "extracted": 1,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "Here are the steps to compute the Eisenstein norms and their sum:\n\n1. N(3+5\u03c9) = (3+5\u03c9)(3+5\u03c9*) = (3+5\u03c9)(3+5\u03c9') = 9 + 15\u03c9 + 15\u03c9' + 25\u03c9\u03c9'\n            = 9 + 15(-1/2 + i\u221a3/2) + 15(-1/2 - i\u221a3/2) + 25",
+          "extracted": 1,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "Here are the steps to compute the Eisenstein norms and their sum:\n\n1. N(3+5\u03c9) = (3+5\u03c9)(3+5\u03c9*) = (3+5\u03c9)(3+5\u03c9') = 9 + 15\u03c9 + 15\u03c9' + 25\u03c9\u03c9'\n            = 9 + 15(-1/2 + i\u221a3/2) + 15(-1/2 - i\u221a3/2) + 25",
+          "extracted": 1,
+          "correct": false
+        }
+      ],
+      "accuracy": 0.0
+    },
+    "precomp": {
+      "prompt": "Compute N(3+5\u03c9)=19, N(7-2\u03c9)=67, N(4+6\u03c9)=28. Sum: 19+67+28=? Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "114",
+          "extracted": 114,
+          "correct": true
+        },
+        {
+          "trial": 2,
+          "raw": "114",
+          "extracted": 114,
+          "correct": true
+        },
+        {
+          "trial": 3,
+          "raw": "114",
+          "extracted": 114,
+          "correct": true
+        },
+        {
+          "trial": 4,
+          "raw": "114",
+          "extracted": 114,
+          "correct": true
+        },
+        {
+          "trial": 5,
+          "raw": "114",
+          "extracted": 114,
+          "correct": true
+        }
+      ],
+      "accuracy": 100.0
+    },
+    "semi": {
+      "prompt": "Compute N(a+b\u03c9)=a\u00b2-ab+b\u00b2 for (3+5\u03c9), (7-2\u03c9), (4+6\u03c9). Sum all three. Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "Here are the calculations for N(a+b\u03c9)=a\u00b2-ab+b\u00b2 for the given complex numbers:\n\nFor (3+5\u03c9):\nN(3+5\u03c9) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\n\nFor (7-2\u03c9):\nN(7-2\u03c9) = 7\u00b2 - 7*(-2) + (-2)\u00b2 = 49 + 14 + 4 =",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw": "Here are the calculations for N(a+b\u03c9)=a\u00b2-ab+b\u00b2 for each given complex number:\n\nFor (3+5\u03c9):\nN(3+5\u03c9) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\n\nFor (7-2\u03c9):\nN(7-2\u03c9) = 7\u00b2 - 7*(-2) + (-2)\u00b2 = 49 + 14 + 4 =",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "Here are the calculations for N(a+b\u03c9)=a\u00b2-ab+b\u00b2 for each given complex number:\n\nFor (3+5\u03c9):\nN(3+5\u03c9) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\n\nFor (7-2\u03c9):\nN(7-2\u03c9) = 7\u00b2 - 7*(-2) + (-2)\u00b2 = 49 + 14 + 4 =",
+          "extracted": 3,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "Here are the steps to compute N(a+b\u03c9)=a\u00b2-ab+b\u00b2 for each given complex number and sum them up:\n\n1. For (3+5\u03c9):\n   a = 3, b = 5\n   N(3+5\u03c9) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\n\n2. For (7-2\u03c9):\n   a = 7, b = -2",
+          "extracted": 1,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "Here are the calculations for N(a+b\u03c9)=a\u00b2-ab+b\u00b2 for each given complex number:\n\nFor (3+5\u03c9):\nN(3+5\u03c9) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\n\nFor (7-2\u03c9):\nN(7-2\u03c9) = 7\u00b2 - 7*(-2) + (-2)\u00b2 = 49 + 14 + 4 =",
+          "extracted": 3,
+          "correct": false
+        }
+      ],
+      "accuracy": 0.0
+    }
+  },
+  "chain4_mixed": {
+    "expected": 67,
+    "type": "sum",
+    "vocab": {
+      "prompt": "Compute the Eisenstein norm of (3+5\u03c9) where N(a+b\u03c9)=a\u00b2-ab+b\u00b2. Then multiply the result by 3. Then add 10. Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "Here are the steps to compute the final result:\n\n1. Compute the Eisenstein norm of (3+5\u03c9):\n   N(3+5\u03c9) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\n\n2. Multiply the result by 3:\n   19 * 3 = 57\n\n3. Add 10 to the result:\n   57 + 10 = 67\n\nThe final result is",
+          "extracted": 1,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw": "Here are the steps to compute the final result:\n\n1. Compute the Eisenstein norm of (3+5\u03c9):\n   N(3+5\u03c9) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\n\n2. Multiply the result by 3:\n   19 * 3 = 57\n\n3. Add 10 to the result:\n   57 + 10 = 67\n\nThe final result is",
+          "extracted": 1,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "Here are the steps to compute the final result:\n\n1. Compute the Eisenstein norm of (3+5\u03c9):\n   N(3+5\u03c9) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\n\n2. Multiply the result by 3:\n   19 * 3 = 57\n\n3. Add 10 to the result:\n   57 + 10 = 67\n\nThe final result is",
+          "extracted": 1,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "58",
+          "extracted": 58,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "Here are the steps to compute the final result:\n\n1. Compute the Eisenstein norm of (3+5\u03c9):\n   N(3+5\u03c9) = 3\u00b2 - 3*5 + 5\u00b2 = 9 - 15 + 25 = 19\n\n2. Multiply the result by 3:\n   19 * 3 = 57\n\n3. Add 10 to the result:\n   57 + 10 = 67\n\nThe final result is",
+          "extracted": 1,
+          "correct": false
+        }
+      ],
+      "accuracy": 0.0
+    },
+    "precomp": {
+      "prompt": "The Eisenstein norm of (3+5\u03c9) is 19. Multiply by 3: 19\u00d73=57. Add 10: 57+10=67. Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "67",
+          "extracted": 67,
+          "correct": true
+        },
+        {
+          "trial": 2,
+          "raw": "67",
+          "extracted": 67,
+          "correct": true
+        },
+        {
+          "trial": 3,
+          "raw": "67",
+          "extracted": 67,
+          "correct": true
+        },
+        {
+          "trial": 4,
+          "raw": "67",
+          "extracted": 67,
+          "correct": true
+        },
+        {
+          "trial": 5,
+          "raw": "67",
+          "extracted": 67,
+          "correct": true
+        }
+      ],
+      "accuracy": 100.0
+    },
+    "semi": {
+      "prompt": "Compute N(3,5)=3\u00b2-3\u00d75+5\u00b2, then multiply by 3, then add 10. Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "-2",
+          "extracted": -2,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw": "64",
+          "extracted": 64,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "-2",
+          "extracted": -2,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "-2",
+          "extracted": -2,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "64",
+          "extracted": 64,
+          "correct": false
+        }
+      ],
+      "accuracy": 0.0
+    }
+  },
+  "chain5_comparison": {
+    "expected": "YES",
+    "type": "yesno",
+    "vocab": {
+      "prompt": "Is the Eisenstein norm N(7,-2) greater than N(3,5)? Compute both using N(a,b)=a\u00b2-ab+b\u00b2 and compare. Reply YES or NO.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "To compare the Eisenstein norms N(7,-2) and N(3,5), we need to compute each one using the given formula:\n\nN(a,b) = a\u00b2 - ab + b\u00b2\n\nFirst, let's compute N(7,-2):\nN(7,-2) = 7\u00b2 - 7(-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nNow, let's compute N(3",
+          "extracted": "NO",
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw": "To compare the Eisenstein norms N(7,-2) and N(3,5), we need to compute each one using the given formula:\n\nN(a,b) = a\u00b2 - ab + b\u00b2\n\nFirst, let's compute N(7,-2):\nN(7,-2) = 7\u00b2 - 7(-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nNow, let's compute N(3",
+          "extracted": "NO",
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "To compare the Eisenstein norms N(7,-2) and N(3,5), we need to compute each norm using the given formula: N(a,b) = a\u00b2 - ab + b\u00b2.\n\nFirst, let's compute N(7,-2):\nN(7,-2) = 7\u00b2 - 7(-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nNow, let's compute N(3",
+          "extracted": "NO",
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "To compare the Eisenstein norms N(7,-2) and N(3,5), we need to compute each one using the given formula:\n\nN(a,b) = a\u00b2 - ab + b\u00b2\n\nFirst, let's compute N(7,-2):\nN(7,-2) = 7\u00b2 - 7(-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nNow, let's compute N(3",
+          "extracted": "NO",
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "To compare the Eisenstein norms N(7,-2) and N(3,5), we need to compute each one using the given formula:\n\nN(a,b) = a\u00b2 - ab + b\u00b2\n\nFirst, let's compute N(7,-2):\nN(7,-2) = 7\u00b2 - 7(-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nNow, let's compute N(3",
+          "extracted": "NO",
+          "correct": false
+        }
+      ],
+      "accuracy": 0.0
+    },
+    "precomp": {
+      "prompt": "N(7,-2)=67 and N(3,5)=19. Is 67>19? Reply YES or NO.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "YES",
+          "extracted": "YES",
+          "correct": true
+        },
+        {
+          "trial": 2,
+          "raw": "YES",
+          "extracted": "YES",
+          "correct": true
+        },
+        {
+          "trial": 3,
+          "raw": "YES",
+          "extracted": "YES",
+          "correct": true
+        },
+        {
+          "trial": 4,
+          "raw": "YES",
+          "extracted": "YES",
+          "correct": true
+        },
+        {
+          "trial": 5,
+          "raw": "YES",
+          "extracted": "YES",
+          "correct": true
+        }
+      ],
+      "accuracy": 100.0
+    },
+    "semi": {
+      "prompt": "Compute N(7,-2)=7\u00b2-7\u00d7(-2)+(-2)\u00b2 and N(3,5)=3\u00b2-3\u00d75+5\u00b2. Is N(7,-2)>N(3,5)? Reply YES or NO.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "Let's compute the values:\n\nN(7,-2) = 7\u00b2 - 7 \u00d7 (-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nN(3,5) = 3\u00b2 - 3 \u00d7 5 + 5\u00b2\n       = 9 - 15 + 25\n       = 19\n\nNow, let's compare the values:\n\n67 > 19\n\nTherefore, YES, N",
+          "extracted": "YES",
+          "correct": true
+        },
+        {
+          "trial": 2,
+          "raw": "Let's compute the values of N(7,-2) and N(3,5).\n\nN(7,-2) = 7\u00b2 - 7 \u00d7 (-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nN(3,5) = 3\u00b2 - 3 \u00d7 5 + 5\u00b2\n        = 9 - 15 + 25\n        = 19\n\nNow, let's compare",
+          "extracted": "NO",
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "Let's compute the values step by step:\n\nFor N(7,-2):\n1. 7\u00b2 = 49\n2. 7 \u00d7 (-2) = -14\n3. (-2)\u00b2 = 4\n4. 49 - 14 + 4 = 39\n\nFor N(3,5):\n1. 3\u00b2 = 9\n2. 3 \u00d7 5 = 15\n3. 5\u00b2 = 25\n4.",
+          "extracted": "LET'S COMPUTE THE VALUES STEP BY STEP:\n\nFOR N(7,-2):\n1. 7\u00b2 = 49\n2. 7 \u00d7 (-2) = -14\n3. (-2)\u00b2 = 4\n4. 49 - 14 + 4 = 39\n\nFOR N(3,5):\n1. 3\u00b2 = 9\n2. 3 \u00d7 5 = 15\n3. 5\u00b2 = 25\n4.",
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "Let's compute the values step by step:\n\nFor N(7,-2):\n1. 7\u00b2 = 49\n2. 7 \u00d7 (-2) = -14\n3. (-2)\u00b2 = 4\n4. 49 - 14 + 4 = 39\n\nFor N(3,5):\n1. 3\u00b2 = 9\n2. 3 \u00d7 5 = 15\n3. 5\u00b2 = 25\n4.",
+          "extracted": "LET'S COMPUTE THE VALUES STEP BY STEP:\n\nFOR N(7,-2):\n1. 7\u00b2 = 49\n2. 7 \u00d7 (-2) = -14\n3. (-2)\u00b2 = 4\n4. 49 - 14 + 4 = 39\n\nFOR N(3,5):\n1. 3\u00b2 = 9\n2. 3 \u00d7 5 = 15\n3. 5\u00b2 = 25\n4.",
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "Let's compute the values of N(7,-2) and N(3,5).\n\nN(7,-2) = 7\u00b2 - 7 \u00d7 (-2) + (-2)\u00b2\n        = 49 + 14 + 4\n        = 67\n\nN(3,5) = 3\u00b2 - 3 \u00d7 5 + 5\u00b2\n        = 9 - 15 + 25\n        = 19\n\nNow, let's compare",
+          "extracted": "NO",
+          "correct": false
+        }
+      ],
+      "accuracy": 20.0
+    }
+  },
+  "chain6_long": {
+    "expected": 10,
+    "type": "sum",
+    "vocab": {
+      "prompt": "Compute the Eisenstein norms N(1,0), N(0,1), N(1,1), N(2,1), N(2,2) where N(a,b)=a\u00b2-ab+b\u00b2. Sum all five. Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "260",
+          "extracted": 260,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw": "260",
+          "extracted": 260,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "1072",
+          "extracted": 1072,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "260",
+          "extracted": 260,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "1072",
+          "extracted": 1072,
+          "correct": false
+        }
+      ],
+      "accuracy": 0.0
+    },
+    "precomp": {
+      "prompt": "N(1,0)=1, N(0,1)=1, N(1,1)=1, N(2,1)=3, N(2,2)=4. Sum: 1+1+1+3+4=? Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "10",
+          "extracted": 10,
+          "correct": true
+        },
+        {
+          "trial": 2,
+          "raw": "10",
+          "extracted": 10,
+          "correct": true
+        },
+        {
+          "trial": 3,
+          "raw": "10",
+          "extracted": 10,
+          "correct": true
+        },
+        {
+          "trial": 4,
+          "raw": "10",
+          "extracted": 10,
+          "correct": true
+        },
+        {
+          "trial": 5,
+          "raw": "10",
+          "extracted": 10,
+          "correct": true
+        }
+      ],
+      "accuracy": 100.0
+    },
+    "semi": {
+      "prompt": "Compute N(a,b)=a\u00b2-ab+b\u00b2 for (1,0), (0,1), (1,1), (2,1), (2,2). Sum all five values. Reply ONLY integer.",
+      "trials": [
+        {
+          "trial": 1,
+          "raw": "267",
+          "extracted": 267,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw": "267",
+          "extracted": 267,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw": "2674",
+          "extracted": 2674,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw": "267",
+          "extracted": 267,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw": "2674",
+          "extracted": 2674,
+          "correct": false
+        }
+      ],
+      "accuracy": 0.0
+    }
+  }
+}

@@ -1,0 +1,1656 @@
+{
+  "study": "Study 45: Sign Hypothesis (All Positive)",
+  "model": "NousResearch/Hermes-3-Llama-3.1-70B",
+  "inputs": "a=5, b=3",
+  "expected_answer": 19,
+  "temperature": 0.3,
+  "trials_per_term": 20,
+  "results": {
+    "Frobenius": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "sample_responses": [
+        "49",
+        "31",
+        "49"
+      ]
+    },
+    "Kronecker": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "sample_responses": [
+        "49",
+        "43",
+        "31"
+      ]
+    },
+    "Eisenstein": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "sample_responses": [
+        "43",
+        "37",
+        "43"
+      ]
+    },
+    "Hurwitz": {
+      "accuracy": 15.0,
+      "correct": 3,
+      "total": 20,
+      "sample_responses": [
+        "25",
+        "31",
+        "31"
+      ]
+    },
+    "Minkowski": {
+      "accuracy": 5.0,
+      "correct": 1,
+      "total": 20,
+      "sample_responses": [
+        "49",
+        "49",
+        "49"
+      ]
+    },
+    "Euclidean": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "sample_responses": [
+        "31",
+        "49",
+        "49"
+      ]
+    },
+    "Hermitian": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "sample_responses": [
+        "31",
+        "31",
+        "31"
+      ]
+    },
+    "spectral": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "sample_responses": [
+        "37",
+        "31",
+        "31"
+      ]
+    },
+    "H\u00f6lder": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "sample_responses": [
+        "49",
+        "49",
+        "49"
+      ]
+    },
+    "energy": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "sample_responses": [
+        "49",
+        "25",
+        "49"
+      ]
+    },
+    "trace": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "sample_responses": [
+        "49",
+        "49",
+        "49"
+      ]
+    },
+    "Sobolev": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "sample_responses": [
+        "31",
+        "49",
+        "31"
+      ]
+    }
+  },
+  "full_responses": {
+    "Frobenius": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 6,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 10,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 14,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 20,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        }
+      ]
+    },
+    "Kronecker": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 6,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 10,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 14,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 20,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        }
+      ]
+    },
+    "Eisenstein": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 6,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 10,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 14,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 20,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        }
+      ]
+    },
+    "Hurwitz": {
+      "accuracy": 15.0,
+      "correct": 3,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "25",
+          "extracted": 25,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 6,
+          "raw_response": "25",
+          "extracted": 25,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "19",
+          "extracted": 19,
+          "correct": true
+        },
+        {
+          "trial": 10,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "19",
+          "extracted": 19,
+          "correct": true
+        },
+        {
+          "trial": 14,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "25",
+          "extracted": 25,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "19",
+          "extracted": 19,
+          "correct": true
+        },
+        {
+          "trial": 20,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        }
+      ]
+    },
+    "Minkowski": {
+      "accuracy": 5.0,
+      "correct": 1,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "19",
+          "extracted": 19,
+          "correct": true
+        },
+        {
+          "trial": 6,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 10,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 14,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 20,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        }
+      ]
+    },
+    "Euclidean": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 6,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 10,
+          "raw_response": "25",
+          "extracted": 25,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "25",
+          "extracted": 25,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 14,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 20,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        }
+      ]
+    },
+    "Hermitian": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 6,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 10,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 14,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 20,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        }
+      ]
+    },
+    "spectral": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 6,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 10,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 14,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 20,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        }
+      ]
+    },
+    "H\u00f6lder": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 6,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 10,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 14,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 20,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        }
+      ]
+    },
+    "energy": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "25",
+          "extracted": 25,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "25",
+          "extracted": 25,
+          "correct": false
+        },
+        {
+          "trial": 6,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "25",
+          "extracted": 25,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 10,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 14,
+          "raw_response": "37",
+          "extracted": 37,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "25",
+          "extracted": 25,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "25",
+          "extracted": 25,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "25",
+          "extracted": 25,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 20,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        }
+      ]
+    },
+    "trace": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 6,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 10,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 14,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 20,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        }
+      ]
+    },
+    "Sobolev": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 20,
+      "responses": [
+        {
+          "trial": 1,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 2,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 3,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 4,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 5,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 6,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 7,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 8,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 9,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 10,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 11,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 12,
+          "raw_response": "43",
+          "extracted": 43,
+          "correct": false
+        },
+        {
+          "trial": 13,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 14,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 15,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 16,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 17,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        },
+        {
+          "trial": 18,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 19,
+          "raw_response": "31",
+          "extracted": 31,
+          "correct": false
+        },
+        {
+          "trial": 20,
+          "raw_response": "49",
+          "extracted": 49,
+          "correct": false
+        }
+      ]
+    }
+  }
+}
