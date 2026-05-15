@@ -1,0 +1,1150 @@
+{
+  "scan_id": "d88d24f9",
+  "question": "a*a - a*b + b*b where a=5, b=3",
+  "expected": "19",
+  "traces": {
+    "seed-mini": {
+      "content": "19",
+      "reasoning_content": "Got it, let's calculate this step by step. First, a is 5, b is 3. So a*a is 25, a*b is 15, b*b is 9. Then the formula is 25 - 15 +9. That's 10 +9 =19? Wait wait, wait 25 minus 15 is 10, plus 9 is 19. Yeah, that's right. Let me double check: 5\u00b2 -5*3 +3\u00b2 =25 -15 +9=19. Yep, correct.",
+      "answer": "19",
+      "correct": true,
+      "steps": [
+        {
+          "index": 0,
+          "content": "19"
+        }
+      ],
+      "n_steps": 1,
+      "latency_ms": 2623.6960887908936,
+      "model_type": "direct"
+    },
+    "gemini-lite": {
+      "content": "19",
+      "reasoning_content": "",
+      "answer": "19",
+      "correct": true,
+      "steps": [
+        {
+          "index": 0,
+          "content": "19"
+        }
+      ],
+      "n_steps": 1,
+      "latency_ms": 1070.711374282837,
+      "model_type": "direct"
+    },
+    "hermes-70b": {
+      "content": "To solve this problem, we need to substitute the given values of a and b into the expression and then simplify it.\n\nGiven:\n- a = 5\n- b = 3\n\nExpression: a*a - a*b + b*b\n\nStep 1: Substitute the values of a and b into the expression.\n(5)*(5) - (5)*(3) + (3)*(3",
+      "reasoning_content": "",
+      "answer": "3",
+      "correct": false,
+      "steps": [
+        {
+          "index": 0,
+          "content": "To solve this problem, we need to substitute the given values of a and b into the expression and then simplify it."
+        },
+        {
+          "index": 1,
+          "content": "Given:\n- a = 5\n- b = 3\n\nExpression: a*a - a*b + b*b\n\nStep 1: Substitute the values of a and b into the expression."
+        },
+        {
+          "index": 2,
+          "content": "(5)*(5) - (5)*(3) + (3)*(3"
+        }
+      ],
+      "n_steps": 3,
+      "latency_ms": 2614.814519882202,
+      "model_type": "direct"
+    },
+    "qwen2.5-72b": {
+      "content": "19",
+      "reasoning_content": "",
+      "answer": "19",
+      "correct": true,
+      "steps": [
+        {
+          "index": 0,
+          "content": "19"
+        }
+      ],
+      "n_steps": 1,
+      "latency_ms": 479.1688919067383,
+      "model_type": "direct"
+    },
+    "qwen-4b": {
+      "content": "",
+      "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants to evaluate the algebraic expression $a*a - a*b + b*b$ given specific values for $a$ and $b$.\n    *   $a = 5$\n    *   $b = 3$\n\n2.  **Substitute the Values:**\n    *   Replace $a$ with $5$.\n    *   Replace $b$ with $3$.\n    *   Expression becomes: $5*5 - 5*3 + 3*3$.\n\n3.  **Perform the Calculations (Order of Operations):**\n    *   Multiplication first:\n        *   $5*5 = 25$\n        *   $5*3 = 15$\n        *   $3*3 = 9$\n    *   Expression becomes: $25 - 15 + 9$.\n    *   Addition and Subtraction (left to right):\n        *   $25 - 15 = 10$\n        *   $10 + 9 = 19$\n\n4.  **Alternative Method (Algebraic Simplification):**\n    *   Expression: $a^2 - ab + b^2$\n    *   Substitute: $5^2 - 5*3 + 3^2$\n    *   Calculate: $25 - 15 + 9$\n    *   Result: $19$\n\n5.  **Final Verification:**\n    *   $25 - 15 = 10$\n    *   $10 + 9 = 19$\n    *   The calculation is correct.\n\n6.  **Construct the Output:** Present the steps clearly and state the final answer.\n\n    *   Step 1: Substitute values.\n    *   Step 2: Calculate products.\n    *   Step 3: Calculate sum/difference.\n    *   Final Answer.\n\n    Let's write it out.\n    $5*5 - 5*3 + 3*3$\n    $= 25 - 15 + 9$\n    $= 10 + 9$\n    $= 19$\n\n    Wait, check the prompt again: \"a*a - a*b + b*b\".\n    Yes, that matches $a^2 - ab + b^2$.\n    Calculation holds.\n\n    Final check:\n    $a=5, b=3$\n    $5*5 = 25$\n    $5*3 = 15$\n    $3*3 = 9$\n    $25 - 15 + 9 = 10 + 9 = 19",
+      "answer": "19",
+      "correct": true,
+      "steps": [
+        {
+          "index": 0,
+          "content": "Thinking Process:"
+        },
+        {
+          "index": 1,
+          "content": "1.  **Analyze the Request:** The user wants to evaluate the algebraic expression $a*a - a*b + b*b$ given specific values for $a$ and $b$.\n    *   $a = 5$\n    *   $b = 3$"
+        },
+        {
+          "index": 2,
+          "content": "2.  **Substitute the Values:**\n    *   Replace $a$ with $5$.\n    *   Replace $b$ with $3$.\n    *   Expression becomes: $5*5 - 5*3 + 3*3$."
+        },
+        {
+          "index": 3,
+          "content": "3.  **Perform the Calculations (Order of Operations):**\n    *   Multiplication first:\n        *   $5*5 = 25$\n        *   $5*3 = 15$\n        *   $3*3 = 9$\n    *   Expression becomes: $25 - 15 + 9$.\n    *   Addition and Subtraction (left to right):\n        *   $25 - 15 = 10$\n        *   $10 + 9 = 19$"
+        },
+        {
+          "index": 4,
+          "content": "4.  **Alternative Method (Algebraic Simplification):**\n    *   Expression: $a^2 - ab + b^2$\n    *   Substitute: $5^2 - 5*3 + 3^2$\n    *   Calculate: $25 - 15 + 9$\n    *   Result: $19$"
+        },
+        {
+          "index": 5,
+          "content": "5.  **Final Verification:**\n    *   $25 - 15 = 10$\n    *   $10 + 9 = 19$\n    *   The calculation is correct."
+        },
+        {
+          "index": 6,
+          "content": "6.  **Construct the Output:** Present the steps clearly and state the final answer."
+        },
+        {
+          "index": 7,
+          "content": "*   Step 1: Substitute values.\n    *   Step 2: Calculate products.\n    *   Step 3: Calculate sum/difference.\n    *   Final Answer."
+        },
+        {
+          "index": 8,
+          "content": "Let's write it out.\n    $5*5 - 5*3 + 3*3$\n    $= 25 - 15 + 9$\n    $= 10 + 9$\n    $= 19$"
+        },
+        {
+          "index": 9,
+          "content": "Wait, check the prompt again: \"a*a - a*b + b*b\".\n    Yes, that matches $a^2 - ab + b^2$.\n    Calculation holds."
+        },
+        {
+          "index": 10,
+          "content": "Final check:\n    $a=5, b=3$\n    $5*5 = 25$\n    $5*3 = 15$\n    $3*3 = 9$\n    $25 - 15 + 9 = 10 + 9 = 19"
+        }
+      ],
+      "n_steps": 11,
+      "latency_ms": 3792.5920486450195,
+      "model_type": "thinking"
+    },
+    "qwen-9b": {
+      "content": "To evaluate the expression $a*a - a*b + b*b$ where $a=5$ and $b=3$:\n\n1.  **Substitute the values:**\n    $$5*5 - 5*3 + 3*3$$\n\n2.  **Calculate the products:**\n    $$25 - 15 + 9$$\n\n3.  **Perform the subtraction and addition:**\n    $$10 + 9 = 19$$\n\n**Answer:** 19",
+      "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants to evaluate the algebraic expression $a^2 - ab + b^2$ given specific values for $a$ and $b$.\n    *   Expression: $a*a - a*b + b*b$ (which is equivalent to $a^2 - ab + b^2$)\n    *   Value of $a$: 5\n    *   Value of $b$: 3\n\n2.  **Substitute the Values:**\n    *   Replace $a$ with 5.\n    *   Replace $b$ with 3.\n    *   Expression becomes: $5*5 - 5*3 + 3*3$\n\n3.  **Perform the Calculations:**\n    *   $5*5 = 25$\n    *   $5*3 = 15$\n    *   $3*3 = 9$\n    *   Now substitute these back: $25 - 15 + 9$\n\n4.  **Evaluate the Arithmetic:**\n    *   $25 - 15 = 10$\n    *   $10 + 9 = 19$\n\n5.  **Final Verification:**\n    *   $a^2 = 25$\n    *   $ab = 15$\n    *   $b^2 = 9$\n    *   $25 - 15 + 9 = 10 + 9 = 19$\n    *   Calculation is correct.\n\n6.  **Formulate the Output:** State the substitution and the final result clearly.\n\n    *   Step 1: Substitute $a=5$ and $b=3$.\n    *   Step 2: Calculate each term.\n    *   Step 3: Add and subtract.\n    *   Final Answer: 19.cw",
+      "answer": "19",
+      "correct": true,
+      "steps": [
+        {
+          "index": 0,
+          "content": "To evaluate the expression $a*a - a*b + b*b$ where $a=5$ and $b=3$:"
+        },
+        {
+          "index": 1,
+          "content": "1.  **Substitute the values:**\n    $$5*5 - 5*3 + 3*3$$"
+        },
+        {
+          "index": 2,
+          "content": "2.  **Calculate the products:**\n    $$25 - 15 + 9$$"
+        },
+        {
+          "index": 3,
+          "content": "3.  **Perform the subtraction and addition:**\n    $$10 + 9 = 19$$"
+        },
+        {
+          "index": 4,
+          "content": "**Answer:** 19"
+        }
+      ],
+      "n_steps": 5,
+      "latency_ms": 16404.011726379395,
+      "model_type": "thinking"
+    }
+  },
+  "activation_map": {
+    "map_id": "d88d24f9",
+    "question": "a*a - a*b + b*b where a=5, b=3",
+    "expected": "19",
+    "slices": [
+      {
+        "slice_index": 0,
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "voxels": [
+          {
+            "voxel_id": "d88d24f9_seed-mini_0",
+            "model": "seed-mini",
+            "step_index": 0,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [],
+            "numbers": [
+              "19"
+            ],
+            "strength": 0.44999999999999996,
+            "confidence": 0.7,
+            "content": "19",
+            "time_ms": 500
+          },
+          {
+            "voxel_id": "d88d24f9_gemini-lite_0",
+            "model": "gemini-lite",
+            "step_index": 0,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [],
+            "numbers": [
+              "19"
+            ],
+            "strength": 0.44999999999999996,
+            "confidence": 0.7,
+            "content": "19",
+            "time_ms": 500
+          },
+          {
+            "voxel_id": "d88d24f9_hermes-70b_0",
+            "model": "hermes-70b",
+            "step_index": 0,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "substitution",
+              "simplification",
+              "sequencing",
+              "formula_application"
+            ],
+            "numbers": [],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "To solve this problem, we need to substitute the given values of a and b into the expression and then simplify it.",
+            "time_ms": 500
+          },
+          {
+            "voxel_id": "d88d24f9_qwen2.5-72b_0",
+            "model": "qwen2.5-72b",
+            "step_index": 0,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [],
+            "numbers": [
+              "19"
+            ],
+            "strength": 0.44999999999999996,
+            "confidence": 0.7,
+            "content": "19",
+            "time_ms": 500
+          },
+          {
+            "voxel_id": "d88d24f9_qwen-4b_0",
+            "model": "qwen-4b",
+            "step_index": 0,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [],
+            "numbers": [],
+            "strength": 0.3,
+            "confidence": 0.7,
+            "content": "Thinking Process:",
+            "time_ms": 500
+          },
+          {
+            "voxel_id": "d88d24f9_qwen-9b_0",
+            "model": "qwen-9b",
+            "step_index": 0,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "computation",
+              "formula_application"
+            ],
+            "numbers": [
+              "5",
+              "3"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "To evaluate the expression $a*a - a*b + b*b$ where $a=5$ and $b=3$:",
+            "time_ms": 500
+          }
+        ],
+        "agreement": 0.0,
+        "hot_concepts": [
+          "formula_application"
+        ],
+        "cold_concepts": [
+          "substitution",
+          "simplification",
+          "sequencing",
+          "multiplication",
+          "addition",
+          "subtraction",
+          "computation"
+        ]
+      },
+      {
+        "slice_index": 1,
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "voxels": [
+          {
+            "voxel_id": "d88d24f9_hermes-70b_1",
+            "model": "hermes-70b",
+            "step_index": 1,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "substitution",
+              "sequencing",
+              "formula_application"
+            ],
+            "numbers": [
+              "5",
+              "3",
+              "1"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "Given:\n- a = 5\n- b = 3\n\nExpression: a*a - a*b + b*b\n\nStep 1: Substitute the values of a and b into the expression.",
+            "time_ms": 1000
+          },
+          {
+            "voxel_id": "d88d24f9_qwen-4b_1",
+            "model": "qwen-4b",
+            "step_index": 1,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "computation",
+              "formula_application"
+            ],
+            "numbers": [
+              "1.",
+              "5",
+              "3"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "1.  **Analyze the Request:** The user wants to evaluate the algebraic expression $a*a - a*b + b*b$ given specific values for $a$ and $b$.\n    *   $a = 5$\n    *   $b = 3$",
+            "time_ms": 1000
+          },
+          {
+            "voxel_id": "d88d24f9_qwen-9b_1",
+            "model": "qwen-9b",
+            "step_index": 1,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "substitution"
+            ],
+            "numbers": [
+              "1.",
+              "5",
+              "5",
+              "5",
+              "3"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "1.  **Substitute the values:**\n    $$5*5 - 5*3 + 3*3$$",
+            "time_ms": 1000
+          }
+        ],
+        "agreement": 0.0,
+        "hot_concepts": [
+          "multiplication",
+          "addition",
+          "subtraction",
+          "substitution",
+          "formula_application"
+        ],
+        "cold_concepts": [
+          "sequencing",
+          "computation"
+        ]
+      },
+      {
+        "slice_index": 2,
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "voxels": [
+          {
+            "voxel_id": "d88d24f9_hermes-70b_2",
+            "model": "hermes-70b",
+            "step_index": 2,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction"
+            ],
+            "numbers": [
+              "5",
+              "5",
+              "5",
+              "3",
+              "3"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "(5)*(5) - (5)*(3) + (3)*(3",
+            "time_ms": 1500
+          },
+          {
+            "voxel_id": "d88d24f9_qwen-4b_2",
+            "model": "qwen-4b",
+            "step_index": 2,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "substitution",
+              "formula_application"
+            ],
+            "numbers": [
+              "2.",
+              "5",
+              "3",
+              "5",
+              "5"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "2.  **Substitute the Values:**\n    *   Replace $a$ with $5$.\n    *   Replace $b$ with $3$.\n    *   Expression becomes: $5*5 - 5*3 + 3*3$.",
+            "time_ms": 1500
+          },
+          {
+            "voxel_id": "d88d24f9_qwen-9b_2",
+            "model": "qwen-9b",
+            "step_index": 2,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "computation"
+            ],
+            "numbers": [
+              "2.",
+              "25",
+              "15",
+              "9"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "2.  **Calculate the products:**\n    $$25 - 15 + 9$$",
+            "time_ms": 1500
+          }
+        ],
+        "agreement": 0.0,
+        "hot_concepts": [
+          "multiplication",
+          "addition",
+          "subtraction"
+        ],
+        "cold_concepts": [
+          "substitution",
+          "formula_application",
+          "computation"
+        ]
+      },
+      {
+        "slice_index": 3,
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "voxels": [
+          {
+            "voxel_id": "d88d24f9_qwen-4b_3",
+            "model": "qwen-4b",
+            "step_index": 3,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "computation",
+              "sequencing",
+              "formula_application"
+            ],
+            "numbers": [
+              "3.",
+              "5",
+              "5",
+              "25",
+              "5"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "3.  **Perform the Calculations (Order of Operations):**\n    *   Multiplication first:\n        *   $5*5 = 25$\n        *   $5*3 = 15$\n        *   $3*3 = 9$\n    *   Expression becomes: $25 - 15 + 9$.\n   ",
+            "time_ms": 2000
+          },
+          {
+            "voxel_id": "d88d24f9_qwen-9b_3",
+            "model": "qwen-9b",
+            "step_index": 3,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction"
+            ],
+            "numbers": [
+              "3.",
+              "10",
+              "9",
+              "19"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "3.  **Perform the subtraction and addition:**\n    $$10 + 9 = 19$$",
+            "time_ms": 2000
+          }
+        ],
+        "agreement": 0.0,
+        "hot_concepts": [
+          "multiplication",
+          "addition",
+          "subtraction"
+        ],
+        "cold_concepts": [
+          "computation",
+          "sequencing",
+          "formula_application"
+        ]
+      },
+      {
+        "slice_index": 4,
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "voxels": [
+          {
+            "voxel_id": "d88d24f9_qwen-4b_4",
+            "model": "qwen-4b",
+            "step_index": 4,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "squaring",
+              "substitution",
+              "simplification",
+              "computation",
+              "formula_application",
+              "result_production"
+            ],
+            "numbers": [
+              "4.",
+              "2",
+              "2",
+              "5",
+              "2"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "4.  **Alternative Method (Algebraic Simplification):**\n    *   Expression: $a^2 - ab + b^2$\n    *   Substitute: $5^2 - 5*3 + 3^2$\n    *   Calculate: $25 - 15 + 9$\n    *   Result: $19$",
+            "time_ms": 2500
+          },
+          {
+            "voxel_id": "d88d24f9_qwen-9b_4",
+            "model": "qwen-9b",
+            "step_index": 4,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "result_production"
+            ],
+            "numbers": [
+              "19"
+            ],
+            "strength": 0.8500000000000001,
+            "confidence": 0.7,
+            "content": "**Answer:** 19",
+            "time_ms": 2500
+          }
+        ],
+        "agreement": 0.0,
+        "hot_concepts": [
+          "multiplication",
+          "result_production"
+        ],
+        "cold_concepts": [
+          "addition",
+          "subtraction",
+          "squaring",
+          "substitution",
+          "simplification",
+          "computation",
+          "formula_application"
+        ]
+      },
+      {
+        "slice_index": 5,
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "voxels": [
+          {
+            "voxel_id": "d88d24f9_qwen-4b_5",
+            "model": "qwen-4b",
+            "step_index": 5,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "verification",
+              "computation"
+            ],
+            "numbers": [
+              "5.",
+              "25",
+              "15",
+              "10",
+              "10"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "5.  **Final Verification:**\n    *   $25 - 15 = 10$\n    *   $10 + 9 = 19$\n    *   The calculation is correct.",
+            "time_ms": 3000
+          }
+        ],
+        "agreement": 1.0,
+        "hot_concepts": [],
+        "cold_concepts": [
+          "multiplication",
+          "addition",
+          "subtraction",
+          "verification",
+          "computation"
+        ]
+      },
+      {
+        "slice_index": 6,
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "voxels": [
+          {
+            "voxel_id": "d88d24f9_qwen-4b_6",
+            "model": "qwen-4b",
+            "step_index": 6,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "sequencing",
+              "result_production"
+            ],
+            "numbers": [
+              "6."
+            ],
+            "strength": 1.0,
+            "confidence": 0.7999999999999999,
+            "content": "6.  **Construct the Output:** Present the steps clearly and state the final answer.",
+            "time_ms": 3500
+          }
+        ],
+        "agreement": 1.0,
+        "hot_concepts": [],
+        "cold_concepts": [
+          "multiplication",
+          "sequencing",
+          "result_production"
+        ]
+      },
+      {
+        "slice_index": 7,
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "voxels": [
+          {
+            "voxel_id": "d88d24f9_qwen-4b_7",
+            "model": "qwen-4b",
+            "step_index": 7,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "division",
+              "substitution",
+              "computation",
+              "sequencing",
+              "result_production"
+            ],
+            "numbers": [
+              "1",
+              "2",
+              "3"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "*   Step 1: Substitute values.\n    *   Step 2: Calculate products.\n    *   Step 3: Calculate sum/difference.\n    *   Final Answer.",
+            "time_ms": 4000
+          }
+        ],
+        "agreement": 1.0,
+        "hot_concepts": [],
+        "cold_concepts": [
+          "multiplication",
+          "addition",
+          "division",
+          "substitution",
+          "computation",
+          "sequencing",
+          "result_production"
+        ]
+      },
+      {
+        "slice_index": 8,
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "voxels": [
+          {
+            "voxel_id": "d88d24f9_qwen-4b_8",
+            "model": "qwen-4b",
+            "step_index": 8,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction"
+            ],
+            "numbers": [
+              "5",
+              "5",
+              "5",
+              "3",
+              "3"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "Let's write it out.\n    $5*5 - 5*3 + 3*3$\n    $= 25 - 15 + 9$\n    $= 10 + 9$\n    $= 19$",
+            "time_ms": 4500
+          }
+        ],
+        "agreement": 1.0,
+        "hot_concepts": [],
+        "cold_concepts": [
+          "multiplication",
+          "addition",
+          "subtraction"
+        ]
+      },
+      {
+        "slice_index": 9,
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "voxels": [
+          {
+            "voxel_id": "d88d24f9_qwen-4b_9",
+            "model": "qwen-4b",
+            "step_index": 9,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "squaring",
+              "verification",
+              "computation"
+            ],
+            "numbers": [
+              "2",
+              "2"
+            ],
+            "strength": 1.0,
+            "confidence": 0.5,
+            "content": "Wait, check the prompt again: \"a*a - a*b + b*b\".\n    Yes, that matches $a^2 - ab + b^2$.\n    Calculation holds.",
+            "time_ms": 5000
+          }
+        ],
+        "agreement": 1.0,
+        "hot_concepts": [],
+        "cold_concepts": [
+          "multiplication",
+          "addition",
+          "subtraction",
+          "squaring",
+          "verification",
+          "computation"
+        ]
+      },
+      {
+        "slice_index": 10,
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "voxels": [
+          {
+            "voxel_id": "d88d24f9_qwen-4b_10",
+            "model": "qwen-4b",
+            "step_index": 10,
+            "activation_type": "ActivationType.COMPUTE",
+            "concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "verification"
+            ],
+            "numbers": [
+              "5",
+              "3",
+              "5",
+              "5",
+              "25"
+            ],
+            "strength": 1.0,
+            "confidence": 0.7,
+            "content": "Final check:\n    $a=5, b=3$\n    $5*5 = 25$\n    $5*3 = 15$\n    $3*3 = 9$\n    $25 - 15 + 9 = 10 + 9 = 19",
+            "time_ms": 5500
+          }
+        ],
+        "agreement": 1.0,
+        "hot_concepts": [],
+        "cold_concepts": [
+          "multiplication",
+          "addition",
+          "subtraction",
+          "verification"
+        ]
+      }
+    ],
+    "hot_spots": {
+      "substitution": 0.5,
+      "simplification": 0.3333333333333333,
+      "sequencing": 0.3333333333333333,
+      "formula_application": 0.5,
+      "multiplication": 0.5,
+      "addition": 0.5,
+      "subtraction": 0.5,
+      "computation": 0.3333333333333333,
+      "result_production": 0.3333333333333333
+    },
+    "cold_spots": [],
+    "deactivations": [
+      {
+        "concept": "division",
+        "first_seen": 7,
+        "last_seen": 7,
+        "span": 0,
+        "note": "'division' appeared at step 7 then vanished \u2014 suppressed"
+      }
+    ],
+    "connectivity": {
+      "addition": [
+        "multiplication",
+        "subtraction",
+        "computation",
+        "formula_application",
+        "substitution",
+        "sequencing"
+      ],
+      "multiplication": [
+        "addition",
+        "subtraction",
+        "computation",
+        "formula_application",
+        "substitution",
+        "sequencing",
+        "result_production",
+        "verification"
+      ],
+      "subtraction": [
+        "multiplication",
+        "addition",
+        "computation",
+        "formula_application",
+        "substitution"
+      ],
+      "computation": [
+        "multiplication",
+        "addition",
+        "subtraction",
+        "formula_application"
+      ],
+      "formula_application": [
+        "multiplication",
+        "addition",
+        "subtraction",
+        "substitution",
+        "computation",
+        "sequencing"
+      ],
+      "substitution": [
+        "multiplication",
+        "addition",
+        "formula_application",
+        "subtraction",
+        "sequencing"
+      ],
+      "sequencing": [
+        "multiplication",
+        "substitution",
+        "formula_application",
+        "addition"
+      ],
+      "result_production": [
+        "multiplication"
+      ],
+      "verification": [
+        "multiplication"
+      ]
+    },
+    "temporal_profile": [
+      {
+        "time_s": 0,
+        "n_voxels": 6,
+        "avg_strength": 0.61,
+        "avg_confidence": 0.7,
+        "models_active": 6,
+        "activation_types": [
+          "compute"
+        ]
+      },
+      {
+        "time_s": 1,
+        "n_voxels": 6,
+        "avg_strength": 1.0,
+        "avg_confidence": 0.7,
+        "models_active": 3,
+        "activation_types": [
+          "compute"
+        ]
+      },
+      {
+        "time_s": 2,
+        "n_voxels": 4,
+        "avg_strength": 0.96,
+        "avg_confidence": 0.7,
+        "models_active": 2,
+        "activation_types": [
+          "compute"
+        ]
+      },
+      {
+        "time_s": 3,
+        "n_voxels": 2,
+        "avg_strength": 1.0,
+        "avg_confidence": 0.75,
+        "models_active": 1,
+        "activation_types": [
+          "compute"
+        ]
+      },
+      {
+        "time_s": 4,
+        "n_voxels": 2,
+        "avg_strength": 1.0,
+        "avg_confidence": 0.7,
+        "models_active": 1,
+        "activation_types": [
+          "compute"
+        ]
+      },
+      {
+        "time_s": 5,
+        "n_voxels": 2,
+        "avg_strength": 1.0,
+        "avg_confidence": 0.6,
+        "models_active": 1,
+        "activation_types": [
+          "compute"
+        ]
+      }
+    ],
+    "registration": {
+      "seed-mini": {
+        "n_voxels": 1,
+        "avg_strength": 0.45,
+        "avg_confidence": 0.7,
+        "concepts": [],
+        "activation_types": [
+          "compute"
+        ],
+        "correct": true
+      },
+      "gemini-lite": {
+        "n_voxels": 1,
+        "avg_strength": 0.45,
+        "avg_confidence": 0.7,
+        "concepts": [],
+        "activation_types": [
+          "compute"
+        ],
+        "correct": true
+      },
+      "hermes-70b": {
+        "n_voxels": 3,
+        "avg_strength": 1.0,
+        "avg_confidence": 0.7,
+        "concepts": [
+          "substitution",
+          "multiplication",
+          "addition",
+          "simplification",
+          "subtraction",
+          "formula_application",
+          "sequencing"
+        ],
+        "activation_types": [
+          "compute"
+        ],
+        "correct": false
+      },
+      "qwen2.5-72b": {
+        "n_voxels": 1,
+        "avg_strength": 0.45,
+        "avg_confidence": 0.7,
+        "concepts": [],
+        "activation_types": [
+          "compute"
+        ],
+        "correct": true
+      },
+      "qwen-4b": {
+        "n_voxels": 11,
+        "avg_strength": 0.94,
+        "avg_confidence": 0.69,
+        "concepts": [
+          "substitution",
+          "division",
+          "multiplication",
+          "addition",
+          "squaring",
+          "subtraction",
+          "simplification",
+          "formula_application",
+          "computation",
+          "verification"
+        ],
+        "activation_types": [
+          "compute"
+        ],
+        "correct": true
+      },
+      "qwen-9b": {
+        "n_voxels": 5,
+        "avg_strength": 0.97,
+        "avg_confidence": 0.7,
+        "concepts": [
+          "substitution",
+          "multiplication",
+          "addition",
+          "subtraction",
+          "formula_application",
+          "computation",
+          "result_production"
+        ],
+        "activation_types": [
+          "compute"
+        ],
+        "correct": true
+      }
+    },
+    "n_models": 0,
+    "n_voxels": 22,
+    "total_activation": 19.5,
+    "peak_activation": 1.0,
+    "spline_points": [
+      {
+        "from_slice": 0,
+        "to_slice": 1,
+        "mid_hot_concepts": 3.0,
+        "mid_cold_concepts": 4.5,
+        "mid_agreement": 0.0,
+        "d_hot": 4,
+        "d_agreement": 0.0,
+        "phase": "stable",
+        "activation_velocity": 4
+      },
+      {
+        "from_slice": 1,
+        "to_slice": 2,
+        "mid_hot_concepts": 4.0,
+        "mid_cold_concepts": 2.5,
+        "mid_agreement": 0.0,
+        "d_hot": -2,
+        "d_agreement": 0.0,
+        "phase": "stable",
+        "activation_velocity": -2
+      },
+      {
+        "from_slice": 2,
+        "to_slice": 3,
+        "mid_hot_concepts": 3.0,
+        "mid_cold_concepts": 3.0,
+        "mid_agreement": 0.0,
+        "d_hot": 0,
+        "d_agreement": 0.0,
+        "phase": "stable",
+        "activation_velocity": 0
+      },
+      {
+        "from_slice": 3,
+        "to_slice": 4,
+        "mid_hot_concepts": 2.5,
+        "mid_cold_concepts": 5.0,
+        "mid_agreement": 0.0,
+        "d_hot": -1,
+        "d_agreement": 0.0,
+        "phase": "stable",
+        "activation_velocity": -1
+      },
+      {
+        "from_slice": 4,
+        "to_slice": 5,
+        "mid_hot_concepts": 1.0,
+        "mid_cold_concepts": 6.0,
+        "mid_agreement": 0.5,
+        "d_hot": -2,
+        "d_agreement": 1.0,
+        "phase": "converging",
+        "activation_velocity": -2
+      },
+      {
+        "from_slice": 5,
+        "to_slice": 6,
+        "mid_hot_concepts": 0.0,
+        "mid_cold_concepts": 4.0,
+        "mid_agreement": 1.0,
+        "d_hot": 0,
+        "d_agreement": 0.0,
+        "phase": "stable",
+        "activation_velocity": 0
+      },
+      {
+        "from_slice": 6,
+        "to_slice": 7,
+        "mid_hot_concepts": 0.0,
+        "mid_cold_concepts": 5.0,
+        "mid_agreement": 1.0,
+        "d_hot": 0,
+        "d_agreement": 0.0,
+        "phase": "stable",
+        "activation_velocity": 0
+      },
+      {
+        "from_slice": 7,
+        "to_slice": 8,
+        "mid_hot_concepts": 0.0,
+        "mid_cold_concepts": 5.0,
+        "mid_agreement": 1.0,
+        "d_hot": 0,
+        "d_agreement": 0.0,
+        "phase": "stable",
+        "activation_velocity": 0
+      },
+      {
+        "from_slice": 8,
+        "to_slice": 9,
+        "mid_hot_concepts": 0.0,
+        "mid_cold_concepts": 4.5,
+        "mid_agreement": 1.0,
+        "d_hot": 0,
+        "d_agreement": 0.0,
+        "phase": "stable",
+        "activation_velocity": 0
+      },
+      {
+        "from_slice": 9,
+        "to_slice": 10,
+        "mid_hot_concepts": 0.0,
+        "mid_cold_concepts": 5.0,
+        "mid_agreement": 1.0,
+        "d_hot": 0,
+        "d_agreement": 0.0,
+        "phase": "stable",
+        "activation_velocity": 0
+      }
+    ]
+  },
+  "n_models": 6,
+  "n_correct": 5,
+  "latency_ms": 26991.652727127075
+}

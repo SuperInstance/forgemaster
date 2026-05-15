@@ -1,0 +1,4266 @@
+{
+  "study_id": "49451bc6",
+  "n_questions": 5,
+  "scans": [
+    {
+      "scan_id": "02430f44",
+      "question": "a*a - a*b + b*b where a=5, b=3",
+      "expected": "19",
+      "traces": {
+        "seed-mini": {
+          "content": "19",
+          "reasoning_content": "Got it, let's calculate this step by step. First, a is 5, b is 3. So a squared is 25, a*b is 15, b squared is 9. So the formula is 25 - 15 +9. Wait 25 minus 15 is 10, plus 9 is 19? Wait wait no, wait let's do it properly: a\u00b2 -ab +b\u00b2 = 5\u00b2 -5*3 +3\u00b2 =25 -15 +9 = 10 +9=19. Yeah that's right. The answer is 19.",
+          "answer": "19",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "19"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 2695.007801055908,
+          "model_type": "direct"
+        },
+        "gemini-lite": {
+          "content": "19",
+          "reasoning_content": "",
+          "answer": "19",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "19"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 1098.8547801971436,
+          "model_type": "direct"
+        },
+        "hermes-70b": {
+          "content": "To solve this problem, we need to substitute the given values of a and b into the expression and then simplify it.\n\nGiven:\n- a = 5\n- b = 3\n\nExpression: a*a - a*b + b*b\n\nStep 1: Substitute the values of a and b into the expression.\n(5)*(5) - (5)*(3) + (3)*(3",
+          "reasoning_content": "",
+          "answer": "3",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "To solve this problem, we need to substitute the given values of a and b into the expression and then simplify it."
+            },
+            {
+              "index": 1,
+              "content": "Given:\n- a = 5\n- b = 3\n\nExpression: a*a - a*b + b*b\n\nStep 1: Substitute the values of a and b into the expression."
+            },
+            {
+              "index": 2,
+              "content": "(5)*(5) - (5)*(3) + (3)*(3"
+            }
+          ],
+          "n_steps": 3,
+          "latency_ms": 5837.788343429565,
+          "model_type": "direct"
+        },
+        "qwen2.5-72b": {
+          "content": "19",
+          "reasoning_content": "",
+          "answer": "19",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "19"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 461.4138603210449,
+          "model_type": "direct"
+        },
+        "qwen-4b": {
+          "content": "To evaluate the expression $a*a - a*b + b*b$ where $a=5$ and $b=3$, follow these steps:\n\n1.  **Substitute",
+          "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants to evaluate the algebraic expression $a*a - a*b + b*b$ given specific values for $a$ and $b$.\n    *   $a = 5$\n    *   $b = 3$\n\n2.  **Substitute the Values:**\n    *   Replace $a$ with $5$.\n    *   Replace $b$ with $3$.\n    *   Expression becomes: $5*5 - 5*3 + 3*3$.\n\n3.  **Perform the Calculations (Order of Operations):**\n    *   Multiplication first:\n        *   $5*5 = 25$\n        *   $5*3 = 15$\n        *   $3*3 = 9$\n    *   Expression becomes: $25 - 15 + 9$.\n    *   Addition and Subtraction (left to right):\n        *   $25 - 15 = 10$\n        *   $10 + 9 = 19$\n\n4.  **Alternative Method (Algebraic Simplification):**\n    *   Expression: $a^2 - ab + b^2$\n    *   Substitute: $5^2 - 5*3 + 3^2$\n    *   Calculate: $25 - 15 + 9$\n    *   Result: $19$\n\n5.  **Final Verification:**\n    *   $25 - 15 = 10$\n    *   $10 + 9 = 19$\n    *   The calculation is correct.\n\n6.  **Construct the Output:** Present the steps clearly and state the final answer.\n\n    *   Step 1: Substitute values.\n    *   Step 2: Calculate products.\n    *   Step 3: Calculate sum/difference.\n    *   Final Answer.\n\n    Let's write it out.\n    $5*5 - 5*3 + 3*3$\n    $= 25 - 15 + 9$\n    $= 10 + 9$\n    $= 19$\n\n    Wait, is there any ambiguity? \"a*a\" usually means $a^2$. \"b*b\" usually means $b^2$. The notation is clear.\n    $a=5, b=3$.\n    $25 - 15 + 9 = 19$.\n\n    Ready to generate response.cw",
+          "answer": "1.",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "To evaluate the expression $a*a - a*b + b*b$ where $a=5$ and $b=3$, follow these steps:"
+            },
+            {
+              "index": 1,
+              "content": "1.  **Substitute"
+            }
+          ],
+          "n_steps": 2,
+          "latency_ms": 3167.975902557373,
+          "model_type": "thinking"
+        },
+        "qwen-9b": {
+          "content": "To evaluate the expression $a*a - a*b + b*b$ where $a=5$ and $b=3$:\n\n1.  **Substitute the values:**\n    $$5*5 - 5*3 + 3*3$$\n\n2.  **Calculate the multiplication:**\n    $$25 - 15 + 9$$\n\n3.  **Perform subtraction and addition from left to right:**\n    $$25 - 15 = 10$$\n    $$10 + 9 = 19$$\n\n**Answer:** 19",
+          "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants to evaluate the algebraic expression $a^2 - ab + b^2$ given specific values for $a$ and $b$.\n    *   Expression: $a*a - a*b + b*b$ (which is equivalent to $a^2 - ab + b^2$)\n    *   Value of $a$: 5\n    *   Value of $b$: 3\n\n2.  **Substitute the Values:**\n    *   Replace $a$ with 5.\n    *   Replace $b$ with 3.\n    *   Expression becomes: $5*5 - 5*3 + 3*3$\n\n3.  **Perform the Calculations:**\n    *   $5*5 = 25$\n    *   $5*3 = 15$\n    *   $3*3 = 9$\n    *   Now substitute these back: $25 - 15 + 9$\n\n4.  **Order of Operations (PEMDAS/BODMAS):**\n    *   Multiplication/Division first (already done).\n    *   Addition/Subtraction from left to right.\n    *   $25 - 15 = 10$\n    *   $10 + 9 = 19$\n\n5.  **Final Verification:**\n    *   $a^2 = 25$\n    *   $ab = 15$\n    *   $b^2 = 9$\n    *   $25 - 15 + 9 = 10 + 9 = 19$\n\n6.  **Construct the Output:** State the substitution steps clearly and the final result.\n\n    *   Step 1: Substitute $a=5$ and $b=3$.\n    *   Step 2: Calculate squares and product.\n    *   Step 3: Perform subtraction and addition.\n    *   Result: 19.\n\n7.  **Draft the response:**\n    To solve the expression $a*a - a*b + b*b$ with $a=5$ and $b=3$:\n\n    1.  Substitute the values: $5*5 - 5*3 + 3*3$\n    2.  Calculate the products: $25 - 15 + 9$\n    3.  Perform the subtraction and addition: $10 + 9 = 19$\n\n    Answer: 19.\n\n    Looks good. Ready to output.cw",
+          "answer": "19",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "To evaluate the expression $a*a - a*b + b*b$ where $a=5$ and $b=3$:"
+            },
+            {
+              "index": 1,
+              "content": "1.  **Substitute the values:**\n    $$5*5 - 5*3 + 3*3$$"
+            },
+            {
+              "index": 2,
+              "content": "2.  **Calculate the multiplication:**\n    $$25 - 15 + 9$$"
+            },
+            {
+              "index": 3,
+              "content": "3.  **Perform subtraction and addition from left to right:**\n    $$25 - 15 = 10$$\n    $$10 + 9 = 19$$"
+            },
+            {
+              "index": 4,
+              "content": "**Answer:** 19"
+            }
+          ],
+          "n_steps": 5,
+          "latency_ms": 18592.75984764099,
+          "model_type": "thinking"
+        }
+      },
+      "activation_map": {
+        "map_id": "02430f44",
+        "question": "a*a - a*b + b*b where a=5, b=3",
+        "expected": "19",
+        "slices": [
+          {
+            "slice_index": 0,
+            "question": "a*a - a*b + b*b where a=5, b=3",
+            "voxels": [
+              {
+                "voxel_id": "02430f44_seed-mini_0",
+                "model": "seed-mini",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "19"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "19",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "02430f44_gemini-lite_0",
+                "model": "gemini-lite",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "19"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "19",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "02430f44_hermes-70b_0",
+                "model": "hermes-70b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "substitution",
+                  "simplification",
+                  "sequencing",
+                  "formula_application"
+                ],
+                "numbers": [],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "To solve this problem, we need to substitute the given values of a and b into the expression and then simplify it.",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "02430f44_qwen2.5-72b_0",
+                "model": "qwen2.5-72b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "19"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "19",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "02430f44_qwen-4b_0",
+                "model": "qwen-4b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "computation",
+                  "sequencing",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "5",
+                  "3"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "To evaluate the expression $a*a - a*b + b*b$ where $a=5$ and $b=3$, follow these steps:",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "02430f44_qwen-9b_0",
+                "model": "qwen-9b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "computation",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "5",
+                  "3"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "To evaluate the expression $a*a - a*b + b*b$ where $a=5$ and $b=3$:",
+                "time_ms": 500
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "formula_application",
+              "sequencing",
+              "multiplication",
+              "addition",
+              "subtraction"
+            ],
+            "cold_concepts": [
+              "substitution",
+              "simplification"
+            ]
+          },
+          {
+            "slice_index": 1,
+            "question": "a*a - a*b + b*b where a=5, b=3",
+            "voxels": [
+              {
+                "voxel_id": "02430f44_hermes-70b_1",
+                "model": "hermes-70b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "substitution",
+                  "sequencing",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "5",
+                  "3",
+                  "1"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "Given:\n- a = 5\n- b = 3\n\nExpression: a*a - a*b + b*b\n\nStep 1: Substitute the values of a and b into the expression.",
+                "time_ms": 1000
+              },
+              {
+                "voxel_id": "02430f44_qwen-4b_1",
+                "model": "qwen-4b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "substitution"
+                ],
+                "numbers": [
+                  "1."
+                ],
+                "strength": 0.8500000000000001,
+                "confidence": 0.7,
+                "content": "1.  **Substitute",
+                "time_ms": 1000
+              },
+              {
+                "voxel_id": "02430f44_qwen-9b_1",
+                "model": "qwen-9b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "substitution"
+                ],
+                "numbers": [
+                  "1.",
+                  "5",
+                  "5",
+                  "5",
+                  "3"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "1.  **Substitute the values:**\n    $$5*5 - 5*3 + 3*3$$",
+                "time_ms": 1000
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "multiplication",
+              "substitution",
+              "addition",
+              "subtraction"
+            ],
+            "cold_concepts": [
+              "sequencing",
+              "formula_application"
+            ]
+          },
+          {
+            "slice_index": 2,
+            "question": "a*a - a*b + b*b where a=5, b=3",
+            "voxels": [
+              {
+                "voxel_id": "02430f44_hermes-70b_2",
+                "model": "hermes-70b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction"
+                ],
+                "numbers": [
+                  "5",
+                  "5",
+                  "5",
+                  "3",
+                  "3"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "(5)*(5) - (5)*(3) + (3)*(3",
+                "time_ms": 1500
+              },
+              {
+                "voxel_id": "02430f44_qwen-9b_2",
+                "model": "qwen-9b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "computation"
+                ],
+                "numbers": [
+                  "2.",
+                  "25",
+                  "15",
+                  "9"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "2.  **Calculate the multiplication:**\n    $$25 - 15 + 9$$",
+                "time_ms": 1500
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "multiplication",
+              "addition",
+              "subtraction"
+            ],
+            "cold_concepts": [
+              "computation"
+            ]
+          },
+          {
+            "slice_index": 3,
+            "question": "a*a - a*b + b*b where a=5, b=3",
+            "voxels": [
+              {
+                "voxel_id": "02430f44_qwen-9b_3",
+                "model": "qwen-9b",
+                "step_index": 3,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction"
+                ],
+                "numbers": [
+                  "3.",
+                  "25",
+                  "15",
+                  "10",
+                  "10"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "3.  **Perform subtraction and addition from left to right:**\n    $$25 - 15 = 10$$\n    $$10 + 9 = 19$$",
+                "time_ms": 2000
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "multiplication",
+              "addition",
+              "subtraction"
+            ]
+          },
+          {
+            "slice_index": 4,
+            "question": "a*a - a*b + b*b where a=5, b=3",
+            "voxels": [
+              {
+                "voxel_id": "02430f44_qwen-9b_4",
+                "model": "qwen-9b",
+                "step_index": 4,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "result_production"
+                ],
+                "numbers": [
+                  "19"
+                ],
+                "strength": 0.8500000000000001,
+                "confidence": 0.7,
+                "content": "**Answer:** 19",
+                "time_ms": 2500
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "multiplication",
+              "result_production"
+            ]
+          }
+        ],
+        "hot_spots": {
+          "substitution": 0.5,
+          "sequencing": 0.3333333333333333,
+          "formula_application": 0.5,
+          "multiplication": 0.5,
+          "addition": 0.5,
+          "subtraction": 0.5,
+          "computation": 0.3333333333333333
+        },
+        "cold_spots": [],
+        "deactivations": [
+          {
+            "concept": "simplification",
+            "first_seen": 0,
+            "last_seen": 0,
+            "span": 0,
+            "note": "'simplification' appeared at step 0 then vanished \u2014 suppressed"
+          }
+        ],
+        "connectivity": {
+          "addition": [
+            "multiplication",
+            "subtraction",
+            "formula_application",
+            "computation",
+            "substitution",
+            "sequencing"
+          ],
+          "multiplication": [
+            "addition",
+            "subtraction",
+            "substitution",
+            "formula_application",
+            "computation",
+            "sequencing"
+          ],
+          "subtraction": [
+            "multiplication",
+            "addition",
+            "formula_application",
+            "computation",
+            "substitution",
+            "sequencing"
+          ],
+          "formula_application": [
+            "sequencing",
+            "multiplication",
+            "addition",
+            "subtraction",
+            "substitution",
+            "computation"
+          ],
+          "sequencing": [
+            "formula_application",
+            "substitution",
+            "multiplication",
+            "addition",
+            "subtraction"
+          ],
+          "substitution": [
+            "multiplication",
+            "sequencing",
+            "formula_application",
+            "addition",
+            "subtraction"
+          ],
+          "computation": [
+            "multiplication",
+            "addition",
+            "subtraction",
+            "formula_application"
+          ]
+        },
+        "temporal_profile": [
+          {
+            "time_s": 0,
+            "n_voxels": 6,
+            "avg_strength": 0.72,
+            "avg_confidence": 0.7,
+            "models_active": 6,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 1,
+            "n_voxels": 5,
+            "avg_strength": 0.97,
+            "avg_confidence": 0.7,
+            "models_active": 3,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 2,
+            "n_voxels": 2,
+            "avg_strength": 0.93,
+            "avg_confidence": 0.7,
+            "models_active": 1,
+            "activation_types": [
+              "compute"
+            ]
+          }
+        ],
+        "registration": {
+          "seed-mini": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "gemini-lite": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "hermes-70b": {
+            "n_voxels": 3,
+            "avg_strength": 1.0,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "formula_application",
+              "simplification",
+              "sequencing",
+              "multiplication",
+              "subtraction",
+              "substitution",
+              "addition"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "qwen2.5-72b": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "qwen-4b": {
+            "n_voxels": 2,
+            "avg_strength": 0.93,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "formula_application",
+              "multiplication",
+              "sequencing",
+              "subtraction",
+              "substitution",
+              "computation",
+              "addition"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "qwen-9b": {
+            "n_voxels": 5,
+            "avg_strength": 0.97,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "formula_application",
+              "multiplication",
+              "subtraction",
+              "substitution",
+              "computation",
+              "addition",
+              "result_production"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          }
+        },
+        "n_models": 0,
+        "n_voxels": 13,
+        "total_activation": 11.049999999999999,
+        "peak_activation": 1.0,
+        "spline_points": [
+          {
+            "from_slice": 0,
+            "to_slice": 1,
+            "mid_hot_concepts": 4.5,
+            "mid_cold_concepts": 2.0,
+            "mid_agreement": 0.0,
+            "d_hot": -1,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": -1
+          },
+          {
+            "from_slice": 1,
+            "to_slice": 2,
+            "mid_hot_concepts": 3.5,
+            "mid_cold_concepts": 1.5,
+            "mid_agreement": 0.0,
+            "d_hot": -1,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": -1
+          },
+          {
+            "from_slice": 2,
+            "to_slice": 3,
+            "mid_hot_concepts": 1.5,
+            "mid_cold_concepts": 2.0,
+            "mid_agreement": 0.5,
+            "d_hot": -3,
+            "d_agreement": 1.0,
+            "phase": "converging",
+            "activation_velocity": -3
+          },
+          {
+            "from_slice": 3,
+            "to_slice": 4,
+            "mid_hot_concepts": 0.0,
+            "mid_cold_concepts": 2.5,
+            "mid_agreement": 1.0,
+            "d_hot": 0,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 0
+          }
+        ]
+      },
+      "n_models": 6,
+      "n_correct": 4,
+      "latency_ms": 31861.2163066864
+    },
+    {
+      "scan_id": "a8a1a7c5",
+      "question": "(a+b)*(a-b) where a=7, b=2",
+      "expected": "45",
+      "traces": {
+        "seed-mini": {
+          "content": "45",
+          "reasoning_content": "Got it, let's calculate this. First, a is 7, b is 2. So (7+2)*(7-2) which is 9*5=45. Yeah that's right, or also a\u00b2 - b\u00b2 is 49 -4=45. Either way, the answer is 45.",
+          "answer": "45",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "45"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 2705.281972885132,
+          "model_type": "direct"
+        },
+        "gemini-lite": {
+          "content": "45",
+          "reasoning_content": "",
+          "answer": "45",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "45"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 1038.5589599609375,
+          "model_type": "direct"
+        },
+        "hermes-70b": {
+          "content": "Okay, let's solve this step by step:\n\n1) First, let's substitute the values of a and b into the expression:\n\n   (7+2)*(7-2)\n\n2) Now, let's perform the operations inside the parentheses:\n\n   (9)*(5)\n\n3) Finally, let's multiply:\n\n   45\n\nTherefore, (7+2)*(7-2) =",
+          "reasoning_content": "",
+          "answer": "-2",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "Okay, let's solve this step by step:\n\n1) First, let's substitute the values of a and b into the expression:\n\n   (7+2)*(7-2)\n\n2) Now, let's perform the operations inside the parentheses:\n\n   (9)*(5)\n\n3) Finally, let's multiply:\n\n   45\n\nTherefore, (7+2)*(7-2) ="
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 3115.2684688568115,
+          "model_type": "direct"
+        },
+        "qwen2.5-72b": {
+          "content": "45",
+          "reasoning_content": "",
+          "answer": "45",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "45"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 874.7549057006836,
+          "model_type": "direct"
+        },
+        "qwen-4b": {
+          "content": "To solve the expression $(a+b)*(a-b)$ where $a=7$ and $b=2$, follow these steps:\n\n1.  **Substitute the values into the expression:**\n    $$(7 + 2) * (7 - 2)$$\n\n2.  **Calculate the values inside the parentheses:**\n    $$9 * 5$$\n\n3.  **Multiply the results:**\n    $$45$$\n\n**Answer:** 45",
+          "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants to evaluate the expression $(a+b)*(a-b)$ given specific values for $a$ and $b$.\n    *   $a = 7$\n    *   $b = 2$\n    *   Expression: $(a+b) \\times (a-b)$\n\n2.  **Identify the Mathematical Concept:** This is the difference of squares formula: $(a+b)(a-b) = a^2 - b^2$. However, direct substitution is also straightforward and less prone to formula memorization errors.\n\n3.  **Perform Substitution:**\n    *   Calculate $(a+b)$: $7 + 2 = 9$\n    *   Calculate $(a-b)$: $7 - 2 = 5$\n    *   Multiply the results: $9 \\times 5$\n\n4.  **Calculate the Result:**\n    *   $9 \\times 5 = 45$\n\n5.  **Alternative Method (Difference of Squares):**\n    *   $a^2 - b^2$\n    *   $7^2 - 2^2$\n    *   $49 - 4$\n    *   $45$\n\n6.  **Verify:** Both methods yield 45.\n\n7.  **Formulate Output:** State the steps clearly and provide the final answer.\n\n    *   Step 1: Substitute values.\n    *   Step 2: Calculate terms.\n    *   Step 3: Multiply.\n    *   Final Answer.\n\n8.  **Final Output Construction:**\n    *   $(7+2) * (7-2)$\n    *   $9 * 5$\n    *   $45$\n\n    Let's write it down concisely.cw",
+          "answer": "45",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "To solve the expression $(a+b)*(a-b)$ where $a=7$ and $b=2$, follow these steps:"
+            },
+            {
+              "index": 1,
+              "content": "1.  **Substitute the values into the expression:**\n    $$(7 + 2) * (7 - 2)$$"
+            },
+            {
+              "index": 2,
+              "content": "2.  **Calculate the values inside the parentheses:**\n    $$9 * 5$$"
+            },
+            {
+              "index": 3,
+              "content": "3.  **Multiply the results:**\n    $$45$$"
+            },
+            {
+              "index": 4,
+              "content": "**Answer:** 45"
+            }
+          ],
+          "n_steps": 5,
+          "latency_ms": 2520.9877490997314,
+          "model_type": "thinking"
+        },
+        "qwen-9b": {
+          "content": "To evaluate the expression $(a+b)*(a-b)$ where $a=7$ and $b=2$:\n\n1.  **Substitute the values:**\n    $$(7+2) * (7-2)$$\n\n2.  **Simplify the terms inside the parentheses:**\n    $$9 * 5$$\n\n3.  **Multiply:**\n    $$45$$\n\n**Answer:** 45\n\n*(Alternatively, using the difference of squares formula $a^2 - b^2$: $7^2 - 2^2 = 49 - 4 = 45$)*",
+          "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants to evaluate the algebraic expression $(a+b)*(a-b)$ given specific values for $a$ and $b$.\n    *   Expression: $(a+b)*(a-b)$\n    *   $a = 7$\n    *   $b = 2$\n\n2.  **Identify the Mathematical Concept:** This is the difference of squares formula: $(a+b)(a-b) = a^2 - b^2$. However, I can also just substitute the values directly.\n\n3.  **Method 1: Direct Substitution**\n    *   Substitute $a=7$ and $b=2$ into $(a+b)*(a-b)$.\n    *   First part: $(a+b) = (7+2) = 9$\n    *   Second part: $(a-b) = (7-2) = 5$\n    *   Multiply the results: $9 * 5 = 45$\n\n4.  **Method 2: Difference of Squares Formula**\n    *   Formula: $a^2 - b^2$\n    *   Substitute $a=7$ and $b=2$.\n    *   $7^2 - 2^2$\n    *   $49 - 4$\n    *   $45$\n\n5.  **Verify Results:** Both methods yield 45.\n\n6.  **Formulate the Output:** Present the steps clearly.\n    *   State the expression with values substituted.\n    *   Calculate the terms inside the parentheses.\n    *   Perform the multiplication.\n    *   (Optional but helpful) Mention the difference of squares shortcut.\n\n7.  **Final Output Construction:**\n    *   Expression: $(7+2)*(7-2)$\n    *   Simplify: $9 * 5$\n    *   Result: $45$\n\n8.  **Final Check:** Does the user want just the answer or the steps? Usually, showing steps is better. Keep it concise.\n\n    *   Step 1: Substitute $a=7, b=2$.\n    *   Step 2: Calculate $(7+2) = 9$.\n    *   Step 3: Calculate $(7-2) = 5$.\n    *   Step 4: Multiply $9 \\times 5 = 45$.\n\n    Looks good. Ready to write.cw",
+          "answer": "45",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "To evaluate the expression $(a+b)*(a-b)$ where $a=7$ and $b=2$:"
+            },
+            {
+              "index": 1,
+              "content": "1.  **Substitute the values:**\n    $$(7+2) * (7-2)$$"
+            },
+            {
+              "index": 2,
+              "content": "2.  **Simplify the terms inside the parentheses:**\n    $$9 * 5$$"
+            },
+            {
+              "index": 3,
+              "content": "3.  **Multiply:**\n    $$45$$"
+            },
+            {
+              "index": 4,
+              "content": "**Answer:** 45"
+            },
+            {
+              "index": 5,
+              "content": "*(Alternatively, using the difference of squares formula $a^2 - b^2$: $7^2 - 2^2 = 49 - 4 = 45$)*"
+            }
+          ],
+          "n_steps": 6,
+          "latency_ms": 13144.694805145264,
+          "model_type": "thinking"
+        }
+      },
+      "activation_map": {
+        "map_id": "a8a1a7c5",
+        "question": "(a+b)*(a-b) where a=7, b=2",
+        "expected": "45",
+        "slices": [
+          {
+            "slice_index": 0,
+            "question": "(a+b)*(a-b) where a=7, b=2",
+            "voxels": [
+              {
+                "voxel_id": "a8a1a7c5_seed-mini_0",
+                "model": "seed-mini",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "45"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "45",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "a8a1a7c5_gemini-lite_0",
+                "model": "gemini-lite",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "45"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "45",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "a8a1a7c5_hermes-70b_0",
+                "model": "hermes-70b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "substitution",
+                  "sequencing",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "1",
+                  "7",
+                  "2",
+                  "7",
+                  "2"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "Okay, let's solve this step by step:\n\n1) First, let's substitute the values of a and b into the expression:\n\n   (7+2)*(7-2)\n\n2) Now, let's perform the operations inside the parentheses:\n\n   (9)*(5)\n\n3",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "a8a1a7c5_qwen2.5-72b_0",
+                "model": "qwen2.5-72b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "45"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "45",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "a8a1a7c5_qwen-4b_0",
+                "model": "qwen-4b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "sequencing",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "7",
+                  "2"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "To solve the expression $(a+b)*(a-b)$ where $a=7$ and $b=2$, follow these steps:",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "a8a1a7c5_qwen-9b_0",
+                "model": "qwen-9b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "computation",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "7",
+                  "2"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "To evaluate the expression $(a+b)*(a-b)$ where $a=7$ and $b=2$:",
+                "time_ms": 500
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "formula_application",
+              "sequencing"
+            ],
+            "cold_concepts": [
+              "substitution",
+              "computation"
+            ]
+          },
+          {
+            "slice_index": 1,
+            "question": "(a+b)*(a-b) where a=7, b=2",
+            "voxels": [
+              {
+                "voxel_id": "a8a1a7c5_qwen-4b_1",
+                "model": "qwen-4b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "substitution",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "1.",
+                  "7",
+                  "2",
+                  "7",
+                  "2"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "1.  **Substitute the values into the expression:**\n    $$(7 + 2) * (7 - 2)$$",
+                "time_ms": 1000
+              },
+              {
+                "voxel_id": "a8a1a7c5_qwen-9b_1",
+                "model": "qwen-9b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "substitution"
+                ],
+                "numbers": [
+                  "1.",
+                  "7",
+                  "2",
+                  "7",
+                  "2"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "1.  **Substitute the values:**\n    $$(7+2) * (7-2)$$",
+                "time_ms": 1000
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "substitution"
+            ],
+            "cold_concepts": [
+              "formula_application"
+            ]
+          },
+          {
+            "slice_index": 2,
+            "question": "(a+b)*(a-b) where a=7, b=2",
+            "voxels": [
+              {
+                "voxel_id": "a8a1a7c5_qwen-4b_2",
+                "model": "qwen-4b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "computation"
+                ],
+                "numbers": [
+                  "2.",
+                  "9",
+                  "5"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "2.  **Calculate the values inside the parentheses:**\n    $$9 * 5$$",
+                "time_ms": 1500
+              },
+              {
+                "voxel_id": "a8a1a7c5_qwen-9b_2",
+                "model": "qwen-9b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "simplification"
+                ],
+                "numbers": [
+                  "2.",
+                  "9",
+                  "5"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "2.  **Simplify the terms inside the parentheses:**\n    $$9 * 5$$",
+                "time_ms": 1500
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [
+              "multiplication"
+            ],
+            "cold_concepts": [
+              "computation",
+              "simplification"
+            ]
+          },
+          {
+            "slice_index": 3,
+            "question": "(a+b)*(a-b) where a=7, b=2",
+            "voxels": [
+              {
+                "voxel_id": "a8a1a7c5_qwen-4b_3",
+                "model": "qwen-4b",
+                "step_index": 3,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "result_production"
+                ],
+                "numbers": [
+                  "3.",
+                  "45"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "3.  **Multiply the results:**\n    $$45$$",
+                "time_ms": 2000
+              },
+              {
+                "voxel_id": "a8a1a7c5_qwen-9b_3",
+                "model": "qwen-9b",
+                "step_index": 3,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication"
+                ],
+                "numbers": [
+                  "3.",
+                  "45"
+                ],
+                "strength": 0.8,
+                "confidence": 0.7,
+                "content": "3.  **Multiply:**\n    $$45$$",
+                "time_ms": 2000
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [
+              "multiplication"
+            ],
+            "cold_concepts": [
+              "result_production"
+            ]
+          },
+          {
+            "slice_index": 4,
+            "question": "(a+b)*(a-b) where a=7, b=2",
+            "voxels": [
+              {
+                "voxel_id": "a8a1a7c5_qwen-4b_4",
+                "model": "qwen-4b",
+                "step_index": 4,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "result_production"
+                ],
+                "numbers": [
+                  "45"
+                ],
+                "strength": 0.8500000000000001,
+                "confidence": 0.7,
+                "content": "**Answer:** 45",
+                "time_ms": 2500
+              },
+              {
+                "voxel_id": "a8a1a7c5_qwen-9b_4",
+                "model": "qwen-9b",
+                "step_index": 4,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "result_production"
+                ],
+                "numbers": [
+                  "45"
+                ],
+                "strength": 0.8500000000000001,
+                "confidence": 0.7,
+                "content": "**Answer:** 45",
+                "time_ms": 2500
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [
+              "multiplication",
+              "result_production"
+            ],
+            "cold_concepts": []
+          },
+          {
+            "slice_index": 5,
+            "question": "(a+b)*(a-b) where a=7, b=2",
+            "voxels": [
+              {
+                "voxel_id": "a8a1a7c5_qwen-9b_5",
+                "model": "qwen-9b",
+                "step_index": 5,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "subtraction",
+                  "squaring",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "2",
+                  "2",
+                  "7",
+                  "2",
+                  "2"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "*(Alternatively, using the difference of squares formula $a^2 - b^2$: $7^2 - 2^2 = 49 - 4 = 45$)*",
+                "time_ms": 3000
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "multiplication",
+              "subtraction",
+              "squaring",
+              "formula_application"
+            ]
+          }
+        ],
+        "hot_spots": {
+          "multiplication": 0.5,
+          "addition": 0.5,
+          "subtraction": 0.5,
+          "substitution": 0.5,
+          "sequencing": 0.3333333333333333,
+          "formula_application": 0.5,
+          "computation": 0.3333333333333333,
+          "result_production": 0.3333333333333333
+        },
+        "cold_spots": [],
+        "deactivations": [
+          {
+            "concept": "sequencing",
+            "first_seen": 0,
+            "last_seen": 0,
+            "span": 0,
+            "note": "'sequencing' appeared at step 0 then vanished \u2014 suppressed"
+          },
+          {
+            "concept": "simplification",
+            "first_seen": 2,
+            "last_seen": 2,
+            "span": 0,
+            "note": "'simplification' appeared at step 2 then vanished \u2014 suppressed"
+          }
+        ],
+        "connectivity": {
+          "multiplication": [
+            "subtraction",
+            "addition",
+            "formula_application",
+            "substitution",
+            "result_production",
+            "sequencing",
+            "computation"
+          ],
+          "subtraction": [
+            "multiplication",
+            "addition",
+            "formula_application",
+            "substitution",
+            "sequencing"
+          ],
+          "addition": [
+            "multiplication",
+            "subtraction",
+            "formula_application",
+            "substitution",
+            "sequencing"
+          ],
+          "formula_application": [
+            "multiplication",
+            "subtraction",
+            "addition",
+            "substitution",
+            "sequencing"
+          ],
+          "substitution": [
+            "multiplication",
+            "addition",
+            "subtraction",
+            "formula_application"
+          ],
+          "result_production": [
+            "multiplication"
+          ],
+          "sequencing": [
+            "multiplication",
+            "addition",
+            "subtraction",
+            "formula_application"
+          ],
+          "computation": [
+            "multiplication"
+          ]
+        },
+        "temporal_profile": [
+          {
+            "time_s": 0,
+            "n_voxels": 6,
+            "avg_strength": 0.72,
+            "avg_confidence": 0.7,
+            "models_active": 6,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 1,
+            "n_voxels": 4,
+            "avg_strength": 1.0,
+            "avg_confidence": 0.7,
+            "models_active": 2,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 2,
+            "n_voxels": 4,
+            "avg_strength": 0.88,
+            "avg_confidence": 0.7,
+            "models_active": 2,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 3,
+            "n_voxels": 1,
+            "avg_strength": 1.0,
+            "avg_confidence": 0.7,
+            "models_active": 1,
+            "activation_types": [
+              "compute"
+            ]
+          }
+        ],
+        "registration": {
+          "seed-mini": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "gemini-lite": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "hermes-70b": {
+            "n_voxels": 1,
+            "avg_strength": 1.0,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "formula_application",
+              "multiplication",
+              "sequencing",
+              "subtraction",
+              "substitution",
+              "addition"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "qwen2.5-72b": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "qwen-4b": {
+            "n_voxels": 5,
+            "avg_strength": 0.97,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "formula_application",
+              "multiplication",
+              "sequencing",
+              "subtraction",
+              "substitution",
+              "computation",
+              "addition",
+              "result_production"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "qwen-9b": {
+            "n_voxels": 6,
+            "avg_strength": 0.94,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "formula_application",
+              "multiplication",
+              "simplification",
+              "squaring",
+              "subtraction",
+              "substitution",
+              "computation",
+              "addition",
+              "result_production"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          }
+        },
+        "n_models": 0,
+        "n_voxels": 15,
+        "total_activation": 12.85,
+        "peak_activation": 1.0,
+        "spline_points": [
+          {
+            "from_slice": 0,
+            "to_slice": 1,
+            "mid_hot_concepts": 4.5,
+            "mid_cold_concepts": 1.5,
+            "mid_agreement": 0.5,
+            "d_hot": -1,
+            "d_agreement": 1.0,
+            "phase": "converging",
+            "activation_velocity": -1
+          },
+          {
+            "from_slice": 1,
+            "to_slice": 2,
+            "mid_hot_concepts": 2.5,
+            "mid_cold_concepts": 1.5,
+            "mid_agreement": 1.0,
+            "d_hot": -3,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": -3
+          },
+          {
+            "from_slice": 2,
+            "to_slice": 3,
+            "mid_hot_concepts": 1.0,
+            "mid_cold_concepts": 1.5,
+            "mid_agreement": 1.0,
+            "d_hot": 0,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 0
+          },
+          {
+            "from_slice": 3,
+            "to_slice": 4,
+            "mid_hot_concepts": 1.5,
+            "mid_cold_concepts": 0.5,
+            "mid_agreement": 1.0,
+            "d_hot": 1,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 1
+          },
+          {
+            "from_slice": 4,
+            "to_slice": 5,
+            "mid_hot_concepts": 1.0,
+            "mid_cold_concepts": 2.0,
+            "mid_agreement": 1.0,
+            "d_hot": -2,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": -2
+          }
+        ]
+      },
+      "n_models": 6,
+      "n_correct": 5,
+      "latency_ms": 23405.322551727295
+    },
+    {
+      "scan_id": "d3d4bebf",
+      "question": "Pressure 3000 PSI, bore 4 inches. Force = pi * 4 * 3000. Integer.",
+      "expected": "37699",
+      "traces": {
+        "seed-mini": {
+          "content": "37699",
+          "reasoning_content": "Got it, let's calculate this. First, pi times 4 times 3000. Wait, 4*3000 is 12000, then * pi. Pi is approximately 3.1415926535. So 12000 * 3.1415926535 is 37699.11184, but wait the user said integer, so round to nearest whole number? Wait wait wait, hold on, the formula: force is pressure times area, right? Area is pi*(d/2)^2? Wait no wait wait the user wrote Force = pi *4 *3000. Oh okay the user specified that formula, not the actual area. Wait wait the bore is 4 inches\u2014so bore diameter is 4 inches, area is pi*(4/2)^2 = pi*4, right! Oh right, that's exactly what they wrote. So pi*4*3000 = 12000*pi \u2248 37699.11, so integer is 37699? Wait wait wait no, wait 12000 * 3.1415926535 is 37699.111842, so integer would be 37699? Or 37700? Wait but let's do exact: pi*4*3000 = 12000\u03c0 \u2248 37699. Let's check: 3.1416 *12000 is 37699.2, so rounded to nearest integer is 37699. Yeah, the user said integer, so that's the answer. Wait wait wait, wait the user's formula is exactly pi*4*3000, so just compute that. 4*3000 is 12000, times pi is ~37699. Yep, that's the integer. Alright, output just 37699? Wait wait wait, wait another way: some people use pi=22/7, but 12000*22/7 is ~37714, but no, standard pi is approx 3.14159, so 37699 is correct. Yeah, the answer should be 37699.",
+          "answer": "37699",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "37699"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 6489.421844482422,
+          "model_type": "direct"
+        },
+        "gemini-lite": {
+          "content": "37699",
+          "reasoning_content": "",
+          "answer": "37699",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "37699"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 1699.6352672576904,
+          "model_type": "direct"
+        },
+        "hermes-70b": {
+          "content": "To calculate the force, we need to use the formula:\n\nForce = Pressure \u00d7 Area\n\nGiven:\n- Pressure = 3000 PSI (pounds per square inch)\n- Bore = 4 inches\n\nStep 1: Calculate the area of the bore.\nArea = \u03c0 \u00d7 r\u00b2, where r is the radius of the bore.\nRadius = Bore \u00f7 2 = 4",
+          "reasoning_content": "",
+          "answer": "4",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "To calculate the force, we need to use the formula:\n\nForce = Pressure \u00d7 Area\n\nGiven:\n- Pressure = 3000 PSI (pounds per square inch)\n- Bore = 4 inches\n\nStep 1: Calculate the area of the bore."
+            },
+            {
+              "index": 1,
+              "content": "Area = \u03c0 \u00d7 r\u00b2, where r is the radius of the bore."
+            },
+            {
+              "index": 2,
+              "content": "Radius = Bore \u00f7 2 = 4"
+            }
+          ],
+          "n_steps": 3,
+          "latency_ms": 11323.798418045044,
+          "model_type": "direct"
+        },
+        "qwen2.5-72b": {
+          "content": "37699",
+          "reasoning_content": "",
+          "answer": "37699",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "37699"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 540.4706001281738,
+          "model_type": "direct"
+        },
+        "qwen-4b": {
+          "content": "",
+          "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input parameters: Pressure ($P$) = 3000 PSI, Bore Diameter ($D$) = 4 inches.\n    *   Formula provided: Force = $\\pi \\times 4 \\times 3000$.\n    *   Constraint: The result must be an Integer.\n    *   Goal: Calculate the force based on the provided formula and constraints.\n\n2.  **Evaluate the Physics/Formula:**\n    *   Standard formula for Force from Pressure on a circular area: $F = P \\times A$.\n    *   Area of a circle ($A$) = $\\pi \\times r^2$ or $\\pi \\times (D/2)^2$ or $\\frac{\\pi \\times D^2}{4}$.\n    *   Given formula in prompt: $F = \\pi \\times 4 \\times 3000$.\n    *   Let's check the area calculation implied by the prompt's formula.\n        *   Prompt implies $A = 4$.\n        *   If $D = 4$, $r = 2$, $A = \\pi \\times 2^2 = 4\\pi$.\n        *   So $F = P \\times A = 3000 \\times 4\\pi = 12000\\pi$.\n        *   The prompt says \"Force = pi * 4 * 3000\". This matches $12000\\pi$.\n    *   Wait, the prompt says \"Force = pi * 4 * 3000\".\n    *   Calculation: $3000 \\times 4 = 12000$.\n    *   So, $F = 12000\\pi$.\n\n3.  **Address the \"Integer\" Constraint:**\n    *   The prompt explicitly asks for an \"Integer\".\n    *   $\\pi$ is an irrational number ($\\approx 3.14159265...$).\n    *   $12000 \\times \\pi$ is not an integer.\n    *   I need to calculate the value and round it to the nearest integer, or interpret the instruction literally.\n    *   Usually, in these types of prompts, the user wants the numerical value rounded to the nearest whole number.\n    *   Calculation: $12000 \\times 3.1415926535...$\n    *   $12000 \\times 3.14159265 = 37699.1118...$\n\n4.  **Re-evaluating the Prompt's Intent:**",
+          "answer": "4.",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "Thinking Process:"
+            },
+            {
+              "index": 1,
+              "content": "1.  **Analyze the Request:**\n    *   Input parameters: Pressure ($P$) = 3000 PSI, Bore Diameter ($D$) = 4 inches.\n    *   Formula provided: Force = $\\pi \\times 4 \\times 3000$.\n    *   Constraint: The result must be an Integer.\n    *   Goal: Calculate the force based on the provided formula and const"
+            },
+            {
+              "index": 2,
+              "content": "2.  **Evaluate the Physics/Formula:**\n    *   Standard formula for Force from Pressure on a circular area: $F = P \\times A$.\n    *   Area of a circle ($A$) = $\\pi \\times r^2$ or $\\pi \\times (D/2)^2$ or $\\frac{\\pi \\times D^2}{4}$.\n    *   Given formula in prompt: $F = \\pi \\times 4 \\times 3000$.\n    *"
+            },
+            {
+              "index": 3,
+              "content": "3.  **Address the \"Integer\" Constraint:**\n    *   The prompt explicitly asks for an \"Integer\".\n    *   $\\pi$ is an irrational number ($\\approx 3.14159265...$).\n    *   $12000 \\times \\pi$ is not an integer.\n    *   I need to calculate the value and round it to the nearest integer, or interpret the in"
+            },
+            {
+              "index": 4,
+              "content": "4.  **Re-evaluating the Prompt's Intent:**"
+            }
+          ],
+          "n_steps": 5,
+          "latency_ms": 2842.351198196411,
+          "model_type": "thinking"
+        },
+        "qwen-9b": {
+          "content": "",
+          "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Pressure 3000 PSI, bore 4 inches. Force = pi * 4 * 3000. Integer.\"\n    *   Task: Calculate the force based on the given formula and parameters, and provide the result as an integer.\n    *   Parameters:\n        *   Pressure ($P$) = 3000 PSI (pounds per square inch)\n        *   Bore diameter ($d$) = 4 inches\n        *   Formula given: $Force = \\pi \\times 4 \\times 3000$\n    *   Constraint: The result must be an integer.\n\n2.  **Evaluate the Physics/Formula:**\n    *   Standard formula for Force ($F$) given Pressure ($P$) and Area ($A$): $F = P \\times A$.\n    *   Area of a circle ($A$) = $\\pi \\times r^2$ or $\\pi \\times (d/2)^2$ or $\\frac{\\pi \\times d^2}{4}$.\n    *   Given bore = 4 inches (diameter).\n    *   Radius ($r$) = 2 inches.\n    *   Area ($A$) = $\\pi \\times 2^2 = 4\\pi$ square inches.\n    *   Force ($F$) = $3000 \\times 4\\pi = 12000\\pi$.\n    *   The prompt explicitly states: \"Force = pi * 4 * 3000\". This matches the calculation derived from the standard physics formula ($P \\times \\pi \\times r^2$ where $r=2$, so $r^2=4$). Wait, let's check the prompt's formula again.\n    *   Prompt says: `Force = pi * 4 * 3000`.\n    *   My derivation: $F = P \\times A = 3000 \\times (\\pi \\times 2^2) = 3000 \\times 4\\pi$.\n    *   So the prompt's formula is physically correct for a 4-inch diameter bore.\n    *   Calculation: $12000 \\times \\pi$.\n\n3.  **Perform the Calculation:**\n    *   $\\pi \\approx 3.1415926535...$\n    *   $12000 \\times 3.1415926535...$\n    *   $12 \\times 31415.926535...$\n    *   $376991.11842...$\n\n4.  **Apply Constraints:**\n    *   The user asks for an \"Integer\".\n    *   Rounding: Usually, in engineering contexts involving force, you round to the nearest whole number unless specified otherwise.\n    *   Value: $376991.118...$\n    *   Rounded Integer: $376991$.\n\n5.  **Re-evaluating the \"Integer\" constraint:**\n    *   Does the user want me to treat $\\pi$ as a specific approximation (like 3.14)?\n    *   If $\\pi = ",
+          "answer": "37699.",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "Thinking Process:"
+            },
+            {
+              "index": 1,
+              "content": "1.  **Analyze the Request:**\n    *   Input: \"Pressure 3000 PSI, bore 4 inches. Force = pi * 4 * 3000. Integer.\"\n    *   Task: Calculate the force based on the given formula and parameters, and provide the result as an integer.\n    *   Parameters:\n        *   Pressure ($P$) = 3000 PSI (pounds per squ"
+            },
+            {
+              "index": 2,
+              "content": "2.  **Evaluate the Physics/Formula:**\n    *   Standard formula for Force ($F$) given Pressure ($P$) and Area ($A$): $F = P \\times A$.\n    *   Area of a circle ($A$) = $\\pi \\times r^2$ or $\\pi \\times (d/2)^2$ or $\\frac{\\pi \\times d^2}{4}$.\n    *   Given bore = 4 inches (diameter).\n    *   Radius ($r$"
+            },
+            {
+              "index": 3,
+              "content": "3.  **Perform the Calculation:**\n    *   $\\pi \\approx 3.1415926535...$\n    *   $12000 \\times 3.1415926535...$\n    *   $12 \\times 31415.926535...$\n    *   $376991.11842...$"
+            },
+            {
+              "index": 4,
+              "content": "4.  **Apply Constraints:**\n    *   The user asks for an \"Integer\".\n    *   Rounding: Usually, in engineering contexts involving force, you round to the nearest whole number unless specified otherwise.\n    *   Value: $376991.118...$\n    *   Rounded Integer: $376991$."
+            },
+            {
+              "index": 5,
+              "content": "5.  **Re-evaluating the \"Integer\" constraint:**\n    *   Does the user want me to treat $\\pi$ as a specific approximation (like 3.14)?\n    *   If $\\pi = 3.14$: $12000 \\times 3.14 = 37680$.\n    *   If $\\pi = 3.1416$: $12000 \\times 3.1416 = 37699."
+            }
+          ],
+          "n_steps": 6,
+          "latency_ms": 16994.65036392212,
+          "model_type": "thinking"
+        }
+      },
+      "activation_map": {
+        "map_id": "d3d4bebf",
+        "question": "Pressure 3000 PSI, bore 4 inches. Force = pi * 4 * 3000. Integer.",
+        "expected": "37699",
+        "slices": [
+          {
+            "slice_index": 0,
+            "question": "Pressure 3000 PSI, bore 4 inches. Force = pi * 4 * 3000. Int",
+            "voxels": [
+              {
+                "voxel_id": "d3d4bebf_seed-mini_0",
+                "model": "seed-mini",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "37699"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "37699",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "d3d4bebf_gemini-lite_0",
+                "model": "gemini-lite",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "37699"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "37699",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "d3d4bebf_hermes-70b_0",
+                "model": "hermes-70b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "subtraction",
+                  "squaring",
+                  "hydraulic_reasoning",
+                  "computation",
+                  "sequencing",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "3000",
+                  "4",
+                  "1"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "To calculate the force, we need to use the formula:\n\nForce = Pressure \u00d7 Area\n\nGiven:\n- Pressure = 3000 PSI (pounds per square inch)\n- Bore = 4 inches\n\nStep 1: Calculate the area of the bore.",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "d3d4bebf_qwen2.5-72b_0",
+                "model": "qwen2.5-72b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "37699"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "37699",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "d3d4bebf_qwen-4b_0",
+                "model": "qwen-4b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [],
+                "strength": 0.3,
+                "confidence": 0.7,
+                "content": "Thinking Process:",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "d3d4bebf_qwen-9b_0",
+                "model": "qwen-9b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [],
+                "strength": 0.3,
+                "confidence": 0.7,
+                "content": "Thinking Process:",
+                "time_ms": 500
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "multiplication",
+              "subtraction",
+              "squaring",
+              "hydraulic_reasoning",
+              "computation",
+              "sequencing",
+              "formula_application"
+            ]
+          },
+          {
+            "slice_index": 1,
+            "question": "Pressure 3000 PSI, bore 4 inches. Force = pi * 4 * 3000. Int",
+            "voxels": [
+              {
+                "voxel_id": "d3d4bebf_hermes-70b_1",
+                "model": "hermes-70b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "squaring",
+                  "hydraulic_reasoning"
+                ],
+                "numbers": [],
+                "strength": 0.9000000000000001,
+                "confidence": 0.7,
+                "content": "Area = \u03c0 \u00d7 r\u00b2, where r is the radius of the bore.",
+                "time_ms": 1000
+              },
+              {
+                "voxel_id": "d3d4bebf_qwen-4b_1",
+                "model": "qwen-4b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "hydraulic_reasoning",
+                  "computation",
+                  "formula_application",
+                  "result_production"
+                ],
+                "numbers": [
+                  "1.",
+                  "3000",
+                  "4",
+                  "4",
+                  "3000"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "1.  **Analyze the Request:**\n    *   Input parameters: Pressure ($P$) = 3000 PSI, Bore Diameter ($D$) = 4 inches.\n    *   Formula provided: Force = $\\pi \\times 4 \\times 3000$.\n    *   Constraint: The ",
+                "time_ms": 1000
+              },
+              {
+                "voxel_id": "d3d4bebf_qwen-9b_1",
+                "model": "qwen-9b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "hydraulic_reasoning",
+                  "computation",
+                  "formula_application",
+                  "result_production"
+                ],
+                "numbers": [
+                  "1.",
+                  "3000",
+                  "4",
+                  "4",
+                  "3000."
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "1.  **Analyze the Request:**\n    *   Input: \"Pressure 3000 PSI, bore 4 inches. Force = pi * 4 * 3000. Integer.\"\n    *   Task: Calculate the force based on the given formula and parameters, and provide",
+                "time_ms": 1000
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "multiplication",
+              "hydraulic_reasoning",
+              "computation",
+              "formula_application",
+              "result_production"
+            ],
+            "cold_concepts": [
+              "squaring"
+            ]
+          },
+          {
+            "slice_index": 2,
+            "question": "Pressure 3000 PSI, bore 4 inches. Force = pi * 4 * 3000. Int",
+            "voxels": [
+              {
+                "voxel_id": "d3d4bebf_hermes-70b_2",
+                "model": "hermes-70b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "division",
+                  "hydraulic_reasoning"
+                ],
+                "numbers": [
+                  "2",
+                  "4"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "Radius = Bore \u00f7 2 = 4",
+                "time_ms": 1500
+              },
+              {
+                "voxel_id": "d3d4bebf_qwen-4b_2",
+                "model": "qwen-4b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "squaring",
+                  "division",
+                  "hydraulic_reasoning",
+                  "computation",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "2.",
+                  "2",
+                  "2",
+                  "2",
+                  "2"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "2.  **Evaluate the Physics/Formula:**\n    *   Standard formula for Force from Pressure on a circular area: $F = P \\times A$.\n    *   Area of a circle ($A$) = $\\pi \\times r^2$ or $\\pi \\times (D/2)^2$ o",
+                "time_ms": 1500
+              },
+              {
+                "voxel_id": "d3d4bebf_qwen-9b_2",
+                "model": "qwen-9b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "squaring",
+                  "division",
+                  "hydraulic_reasoning",
+                  "computation",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "2.",
+                  "2",
+                  "2",
+                  "2",
+                  "2"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "2.  **Evaluate the Physics/Formula:**\n    *   Standard formula for Force ($F$) given Pressure ($P$) and Area ($A$): $F = P \\times A$.\n    *   Area of a circle ($A$) = $\\pi \\times r^2$ or $\\pi \\times (",
+                "time_ms": 1500
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "division",
+              "hydraulic_reasoning",
+              "multiplication",
+              "squaring",
+              "computation"
+            ],
+            "cold_concepts": []
+          },
+          {
+            "slice_index": 3,
+            "question": "Pressure 3000 PSI, bore 4 inches. Force = pi * 4 * 3000. Int",
+            "voxels": [
+              {
+                "voxel_id": "d3d4bebf_qwen-4b_3",
+                "model": "qwen-4b",
+                "step_index": 3,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "computation"
+                ],
+                "numbers": [
+                  "3.",
+                  "3.14159265",
+                  "12000"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "3.  **Address the \"Integer\" Constraint:**\n    *   The prompt explicitly asks for an \"Integer\".\n    *   $\\pi$ is an irrational number ($\\approx 3.14159265...$).\n    *   $12000 \\times \\pi$ is not an int",
+                "time_ms": 2000
+              },
+              {
+                "voxel_id": "d3d4bebf_qwen-9b_3",
+                "model": "qwen-9b",
+                "step_index": 3,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "computation"
+                ],
+                "numbers": [
+                  "3.",
+                  "3.1415926535",
+                  "12000",
+                  "3.1415926535",
+                  "12"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "3.  **Perform the Calculation:**\n    *   $\\pi \\approx 3.1415926535...$\n    *   $12000 \\times 3.1415926535...$\n    *   $12 \\times 31415.926535...$\n    *   $376991.11842...$",
+                "time_ms": 2000
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "multiplication",
+              "computation"
+            ],
+            "cold_concepts": [
+              "addition"
+            ]
+          },
+          {
+            "slice_index": 4,
+            "question": "Pressure 3000 PSI, bore 4 inches. Force = pi * 4 * 3000. Int",
+            "voxels": [
+              {
+                "voxel_id": "d3d4bebf_qwen-4b_4",
+                "model": "qwen-4b",
+                "step_index": 4,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "subtraction",
+                  "computation"
+                ],
+                "numbers": [
+                  "4."
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "4.  **Re-evaluating the Prompt's Intent:**",
+                "time_ms": 2500
+              },
+              {
+                "voxel_id": "d3d4bebf_qwen-9b_4",
+                "model": "qwen-9b",
+                "step_index": 4,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "hydraulic_reasoning"
+                ],
+                "numbers": [
+                  "4.",
+                  "376991.118",
+                  "376991"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "4.  **Apply Constraints:**\n    *   The user asks for an \"Integer\".\n    *   Rounding: Usually, in engineering contexts involving force, you round to the nearest whole number unless specified otherwise.",
+                "time_ms": 2500
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "multiplication"
+            ],
+            "cold_concepts": [
+              "subtraction",
+              "computation",
+              "hydraulic_reasoning"
+            ]
+          },
+          {
+            "slice_index": 5,
+            "question": "Pressure 3000 PSI, bore 4 inches. Force = pi * 4 * 3000. Int",
+            "voxels": [
+              {
+                "voxel_id": "d3d4bebf_qwen-9b_5",
+                "model": "qwen-9b",
+                "step_index": 5,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "subtraction",
+                  "computation"
+                ],
+                "numbers": [
+                  "5.",
+                  "3.14",
+                  "3.14",
+                  "12000",
+                  "3.14"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "5.  **Re-evaluating the \"Integer\" constraint:**\n    *   Does the user want me to treat $\\pi$ as a specific approximation (like 3.14)?\n    *   If $\\pi = 3.14$: $12000 \\times 3.14 = 37680$.\n    *   If $",
+                "time_ms": 3000
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "multiplication",
+              "subtraction",
+              "computation"
+            ]
+          }
+        ],
+        "hot_spots": {
+          "multiplication": 0.5,
+          "subtraction": 0.5,
+          "squaring": 0.5,
+          "hydraulic_reasoning": 0.5,
+          "computation": 0.5,
+          "formula_application": 0.5,
+          "division": 0.5,
+          "result_production": 0.3333333333333333
+        },
+        "cold_spots": [],
+        "deactivations": [
+          {
+            "concept": "sequencing",
+            "first_seen": 0,
+            "last_seen": 0,
+            "span": 0,
+            "note": "'sequencing' appeared at step 0 then vanished \u2014 suppressed"
+          },
+          {
+            "concept": "result_production",
+            "first_seen": 1,
+            "last_seen": 1,
+            "span": 0,
+            "note": "'result_production' appeared at step 1 then vanished \u2014 suppressed"
+          },
+          {
+            "concept": "division",
+            "first_seen": 2,
+            "last_seen": 2,
+            "span": 0,
+            "note": "'division' appeared at step 2 then vanished \u2014 suppressed"
+          },
+          {
+            "concept": "addition",
+            "first_seen": 3,
+            "last_seen": 3,
+            "span": 0,
+            "note": "'addition' appeared at step 3 then vanished \u2014 suppressed"
+          }
+        ],
+        "connectivity": {
+          "computation": [
+            "multiplication",
+            "hydraulic_reasoning",
+            "formula_application",
+            "subtraction",
+            "squaring",
+            "result_production",
+            "division"
+          ],
+          "multiplication": [
+            "computation",
+            "hydraulic_reasoning",
+            "formula_application",
+            "squaring",
+            "subtraction",
+            "result_production",
+            "division"
+          ],
+          "hydraulic_reasoning": [
+            "multiplication",
+            "computation",
+            "formula_application",
+            "squaring",
+            "division",
+            "result_production"
+          ],
+          "formula_application": [
+            "multiplication",
+            "hydraulic_reasoning",
+            "computation",
+            "squaring",
+            "result_production"
+          ],
+          "squaring": [
+            "multiplication",
+            "hydraulic_reasoning",
+            "computation",
+            "formula_application",
+            "division"
+          ],
+          "subtraction": [
+            "multiplication",
+            "computation"
+          ],
+          "division": [
+            "hydraulic_reasoning",
+            "multiplication",
+            "squaring",
+            "computation"
+          ],
+          "result_production": [
+            "multiplication",
+            "hydraulic_reasoning",
+            "computation",
+            "formula_application"
+          ]
+        },
+        "temporal_profile": [
+          {
+            "time_s": 0,
+            "n_voxels": 6,
+            "avg_strength": 0.49,
+            "avg_confidence": 0.7,
+            "models_active": 6,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 1,
+            "n_voxels": 6,
+            "avg_strength": 0.98,
+            "avg_confidence": 0.7,
+            "models_active": 3,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 2,
+            "n_voxels": 4,
+            "avg_strength": 1.0,
+            "avg_confidence": 0.7,
+            "models_active": 2,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 3,
+            "n_voxels": 1,
+            "avg_strength": 1.0,
+            "avg_confidence": 0.7,
+            "models_active": 1,
+            "activation_types": [
+              "compute"
+            ]
+          }
+        ],
+        "registration": {
+          "seed-mini": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "gemini-lite": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "hermes-70b": {
+            "n_voxels": 3,
+            "avg_strength": 0.97,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "formula_application",
+              "squaring",
+              "multiplication",
+              "sequencing",
+              "hydraulic_reasoning",
+              "subtraction",
+              "computation",
+              "division"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "qwen2.5-72b": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "qwen-4b": {
+            "n_voxels": 5,
+            "avg_strength": 0.86,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "formula_application",
+              "multiplication",
+              "squaring",
+              "hydraulic_reasoning",
+              "subtraction",
+              "computation",
+              "division",
+              "addition",
+              "result_production"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "qwen-9b": {
+            "n_voxels": 6,
+            "avg_strength": 0.88,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "formula_application",
+              "multiplication",
+              "squaring",
+              "hydraulic_reasoning",
+              "subtraction",
+              "computation",
+              "division",
+              "result_production"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          }
+        },
+        "n_models": 0,
+        "n_voxels": 17,
+        "total_activation": 13.850000000000001,
+        "peak_activation": 1.0,
+        "spline_points": [
+          {
+            "from_slice": 0,
+            "to_slice": 1,
+            "mid_hot_concepts": 2.5,
+            "mid_cold_concepts": 4.0,
+            "mid_agreement": 0.0,
+            "d_hot": 5,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 5
+          },
+          {
+            "from_slice": 1,
+            "to_slice": 2,
+            "mid_hot_concepts": 5.0,
+            "mid_cold_concepts": 0.5,
+            "mid_agreement": 0.0,
+            "d_hot": 0,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 0
+          },
+          {
+            "from_slice": 2,
+            "to_slice": 3,
+            "mid_hot_concepts": 3.5,
+            "mid_cold_concepts": 0.5,
+            "mid_agreement": 0.0,
+            "d_hot": -3,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": -3
+          },
+          {
+            "from_slice": 3,
+            "to_slice": 4,
+            "mid_hot_concepts": 1.5,
+            "mid_cold_concepts": 2.0,
+            "mid_agreement": 0.0,
+            "d_hot": -1,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": -1
+          },
+          {
+            "from_slice": 4,
+            "to_slice": 5,
+            "mid_hot_concepts": 0.5,
+            "mid_cold_concepts": 3.0,
+            "mid_agreement": 0.5,
+            "d_hot": -1,
+            "d_agreement": 1.0,
+            "phase": "converging",
+            "activation_velocity": -1
+          }
+        ]
+      },
+      "n_models": 6,
+      "n_correct": 4,
+      "latency_ms": 39896.08573913574
+    },
+    {
+      "scan_id": "edde52ff",
+      "question": "What comes next: 1, 7, 19, 37, 61?",
+      "expected": "91",
+      "traces": {
+        "seed-mini": {
+          "content": "91",
+          "reasoning_content": "Got it, let's calculate this step by step. First find the differences between terms. 7-1=6, 19-7=12, 37-19=18, 61-37=24. Oh right, the differences are increasing by 6 each time: 6, 12, 18, 24... So the next difference should be 30. Then 61 +30 is 91. Wait let me double check. Let's confirm the nth term formula maybe. The differences are 6*(n-1) starting from n=2. First term a1=1. a2=1+6=7, a3=7+12=19, a4=19+18=37, a5=37+24=61, a6=61+30=91. Yep that's right.",
+          "answer": "91",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "91"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 2889.0137672424316,
+          "model_type": "direct"
+        },
+        "gemini-lite": {
+          "content": "91",
+          "reasoning_content": "",
+          "answer": "91",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "91"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 1023.5593318939209,
+          "model_type": "direct"
+        },
+        "hermes-70b": {
+          "content": "The next number in the sequence 1, 7, 19, 37, 61 is 91.\n\nTo understand the pattern, let's look at the differences between each consecutive pair of numbers:\n\n1 to 7: 7 - 1 = 6\n7 to 19: 19 - 7 = 12\n19 to 37: 37 - 19",
+          "reasoning_content": "",
+          "answer": "19",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "The next number in the sequence 1, 7, 19, 37, 61 is 91."
+            },
+            {
+              "index": 1,
+              "content": "To understand the pattern, let's look at the differences between each consecutive pair of numbers:\n\n1 to 7: 7 - 1 = 6\n7 to 19: 19 - 7 = 12\n19 to 37: 37 - 19"
+            }
+          ],
+          "n_steps": 2,
+          "latency_ms": 3672.7259159088135,
+          "model_type": "direct"
+        },
+        "qwen2.5-72b": {
+          "content": "91",
+          "reasoning_content": "",
+          "answer": "91",
+          "correct": true,
+          "steps": [
+            {
+              "index": 0,
+              "content": "91"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 434.847354888916,
+          "model_type": "direct"
+        },
+        "qwen-4b": {
+          "content": "",
+          "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:** The user is asking for the next number in the sequence: 1, 7, 19, 37, 61.\n\n2.  **Examine the Sequence:**\n    *   $a_1 = 1$\n    *   $a_2 = 7$\n    *   $a_3 = 19$\n    *   $a_4 = 37$\n    *   $a_5 = 61$\n\n3.  **Calculate Differences:**\n    *   $7 - 1 = 6$\n    *   $19 - 7 = 12$\n    *   $37 - 19 = 18$\n    *   $61 - 37 = 24$\n\n    The first differences are: 6, 12, 18, 24.\n\n4.  **Analyze the Differences:**\n    *   The differences form an arithmetic progression: 6, 12, 18, 24.\n    *   The common difference in the differences is $12 - 6 = 6$, $18 - 12 = 6$, $24 - 18 = 6$.\n    *   So, the next difference should be $24 + 6 = 30$.\n\n5.  **Calculate the Next Term:**\n    *   $a_6 = a_5 + \\text{next difference}$\n    *   $a_6 = 61 + 30$\n    *   $a_6 = 91$\n\n6.  **Verify the Pattern:**\n    *   The sequence can be described by the formula $a_n = n^2 + (n-1)^2$? Let's check.\n        *   $n=1: 1^2 + 0^2 = 1$ (Matches)\n        *   $n=2: 2^2 + 1^2 = 5$ (Does not match 7)\n    *   Let's try another formula based on the differences.\n    *   $a_n = a_{n-1} + 6(n-1)$\n        *   $a_1 = 1$\n        *   $a_2 = 1 + 6(1) = 7$\n        *   $a_3 = 7 + 6(2) = 19$\n        *   $a_4 = 19 + 6(3) = 37$\n        *   $a_5 = 37 + 6(4) = 61$\n        *",
+          "answer": "61",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "Thinking Process:"
+            },
+            {
+              "index": 1,
+              "content": "1.  **Analyze the Request:** The user is asking for the next number in the sequence: 1, 7, 19, 37, 61."
+            },
+            {
+              "index": 2,
+              "content": "2.  **Examine the Sequence:**\n    *   $a_1 = 1$\n    *   $a_2 = 7$\n    *   $a_3 = 19$\n    *   $a_4 = 37$\n    *   $a_5 = 61$"
+            },
+            {
+              "index": 3,
+              "content": "3.  **Calculate Differences:**\n    *   $7 - 1 = 6$\n    *   $19 - 7 = 12$\n    *   $37 - 19 = 18$\n    *   $61 - 37 = 24$"
+            },
+            {
+              "index": 4,
+              "content": "The first differences are: 6, 12, 18, 24."
+            },
+            {
+              "index": 5,
+              "content": "4.  **Analyze the Differences:**\n    *   The differences form an arithmetic progression: 6, 12, 18, 24.\n    *   The common difference in the differences is $12 - 6 = 6$, $18 - 12 = 6$, $24 - 18 = 6$.\n    *   So, the next difference should be $24 + 6 = 30$."
+            },
+            {
+              "index": 6,
+              "content": "5.  **Calculate the Next Term:**\n    *   $a_6 = a_5 + \\text{next difference}$\n    *   $a_6 = 61 + 30$\n    *   $a_6 = 91$"
+            },
+            {
+              "index": 7,
+              "content": "6.  **Verify the Pattern:**\n    *   The sequence can be described by the formula $a_n = n^2 + (n-1)^2$? Let's check.\n        *   $n=1: 1^2 + 0^2 = 1$ (Matches)\n        *   $n=2: 2^2 + 1^2 = 5$ (Does not match 7)\n    *   Let's try another formula based on the differences.\n    *   $a_n = a_{n-1} + 6(n"
+            }
+          ],
+          "n_steps": 8,
+          "latency_ms": 2886.0065937042236,
+          "model_type": "thinking"
+        },
+        "qwen-9b": {
+          "content": "",
+          "reasoning_content": "Here's a thinking process that leads to the suggested answer:\n\n1.  **Analyze the Request:**\n    *   Input sequence: 1, 7, 19, 37, 61\n    *   Goal: Determine the next number in the sequence.\n\n2.  **Initial Observation & Pattern Hunting:**\n    *   *Differences between terms:*\n        *   $7 - 1 = 6$\n        *   $19 - 7 = 12$\n        *   $37 - 19 = 18$\n        *   $61 - 37 = 24$\n    *   *Second Differences:*\n        *   $12 - 6 = 6$\n        *   $18 - 12 = 6$\n        *   $24 - 18 = 6$\n\n3.  **Formulate a Hypothesis (Polynomial/Arithmetic Progression):**\n    *   Since the second differences are constant ($6$), this is a quadratic sequence.\n    *   The next first difference should be $24 + 6 = 30$.\n    *   The next term should be $61 + 30 = 91$.\n\n4.  **Verify with a Formula (Optional but good for robustness):**\n    *   General form: $an^2 + bn + c$\n    *   $n=1: a + b + c = 1$\n    *   $n=2: 4a + 2b + c = 7$\n    *   $n=3: 9a + 3b + c = 19$\n    *   Subtracting equations:\n        *   $(4a+2b+c) - (a+b+c) = 7 - 1 \\Rightarrow 3a + b = 6$\n        *   $(9a+3b+c) - (4a+2b+c) = 19 - 7 \\Rightarrow 5a + b = 12$\n    *   Subtracting these results:\n        *   $(5a+b) - (3a+b) = 12 - 6 \\Rightarrow 2a = 6 \\Rightarrow a = 3$\n    *   Substitute $a=3$ into $3a+b=6$:\n        *   $9 + b = 6 \\Rightarrow b = -3$\n    *   Substitute $a=3, b=-3$ into $a+b+c=1$:\n        *   $3 - 3 + c = 1 \\Rightarrow c = 1$\n    *   Formula: $3n^2 - 3n + 1$\n    *   Check for $n=5$ (the 5th term is 61):\n        *   $3(25) - 3(5) + 1 = 75 - 15 + 1 = 61$. (Correct)\n    *   Calculate for $n=6$:\n        *   $3(36) - 3(6) + 1 = 108 - 18 + 1 = 91$.\n\n5.  **Alternative Pattern Recognition (Geometric/Other):**\n    *   Is there a pattern involving cubes?\n    *   $1^3 = 1$\n    *   $2^3 = 8$ (close to 7)\n    *   $3^3 = 27$ (close to 19)\n    *   $4^3 = 64$ (close to 37)",
+          "answer": "37",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "Here's a thinking process that leads to the suggested answer:"
+            },
+            {
+              "index": 1,
+              "content": "1.  **Analyze the Request:**\n    *   Input sequence: 1, 7, 19, 37, 61\n    *   Goal: Determine the next number in the sequence."
+            },
+            {
+              "index": 2,
+              "content": "2.  **Initial Observation & Pattern Hunting:**\n    *   *Differences between terms:*\n        *   $7 - 1 = 6$\n        *   $19 - 7 = 12$\n        *   $37 - 19 = 18$\n        *   $61 - 37 = 24$\n    *   *Second Differences:*\n        *   $12 - 6 = 6$\n        *   $18 - 12 = 6$\n        *   $24 - 18 = 6$"
+            },
+            {
+              "index": 3,
+              "content": "3.  **Formulate a Hypothesis (Polynomial/Arithmetic Progression):**\n    *   Since the second differences are constant ($6$), this is a quadratic sequence.\n    *   The next first difference should be $24 + 6 = 30$.\n    *   The next term should be $61 + 30 = 91$."
+            },
+            {
+              "index": 4,
+              "content": "4.  **Verify with a Formula (Optional but good for robustness):**\n    *   General form: $an^2 + bn + c$\n    *   $n=1: a + b + c = 1$\n    *   $n=2: 4a + 2b + c = 7$\n    *   $n=3: 9a + 3b + c = 19$\n    *   Subtracting equations:\n        *   $(4a+2b+c) - (a+b+c) = 7 - 1 \\Rightarrow 3a + b = 6$\n        "
+            },
+            {
+              "index": 5,
+              "content": "5.  **Alternative Pattern Recognition (Geometric/Other):**\n    *   Is there a pattern involving cubes?\n    *   $1^3 = 1$\n    *   $2^3 = 8$ (close to 7)\n    *   $3^3 = 27$ (close to 19)\n    *   $4^3 = 64$ (close to 37)"
+            }
+          ],
+          "n_steps": 6,
+          "latency_ms": 17840.68751335144,
+          "model_type": "thinking"
+        }
+      },
+      "activation_map": {
+        "map_id": "edde52ff",
+        "question": "What comes next: 1, 7, 19, 37, 61?",
+        "expected": "91",
+        "slices": [
+          {
+            "slice_index": 0,
+            "question": "What comes next: 1, 7, 19, 37, 61?",
+            "voxels": [
+              {
+                "voxel_id": "edde52ff_seed-mini_0",
+                "model": "seed-mini",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "91"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "91",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "edde52ff_gemini-lite_0",
+                "model": "gemini-lite",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "91"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "91",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "edde52ff_hermes-70b_0",
+                "model": "hermes-70b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "pattern_recognition",
+                  "sequencing"
+                ],
+                "numbers": [
+                  "1",
+                  "7",
+                  "19",
+                  "37",
+                  "61"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "The next number in the sequence 1, 7, 19, 37, 61 is 91.",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "edde52ff_qwen2.5-72b_0",
+                "model": "qwen2.5-72b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "91"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "91",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "edde52ff_qwen-4b_0",
+                "model": "qwen-4b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [],
+                "strength": 0.3,
+                "confidence": 0.7,
+                "content": "Thinking Process:",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "edde52ff_qwen-9b_0",
+                "model": "qwen-9b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "result_production"
+                ],
+                "numbers": [],
+                "strength": 0.5,
+                "confidence": 0.7,
+                "content": "Here's a thinking process that leads to the suggested answer:",
+                "time_ms": 500
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "pattern_recognition",
+              "sequencing",
+              "result_production"
+            ]
+          },
+          {
+            "slice_index": 1,
+            "question": "What comes next: 1, 7, 19, 37, 61?",
+            "voxels": [
+              {
+                "voxel_id": "edde52ff_hermes-70b_1",
+                "model": "hermes-70b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "subtraction",
+                  "pattern_recognition"
+                ],
+                "numbers": [
+                  "1",
+                  "7",
+                  "7",
+                  "1",
+                  "6"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "To understand the pattern, let's look at the differences between each consecutive pair of numbers:\n\n1 to 7: 7 - 1 = 6\n7 to 19: 19 - 7 = 12\n19 to 37: 37 - 19",
+                "time_ms": 1000
+              },
+              {
+                "voxel_id": "edde52ff_qwen-4b_1",
+                "model": "qwen-4b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "pattern_recognition",
+                  "sequencing"
+                ],
+                "numbers": [
+                  "1.",
+                  "1",
+                  "7",
+                  "19",
+                  "37"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "1.  **Analyze the Request:** The user is asking for the next number in the sequence: 1, 7, 19, 37, 61.",
+                "time_ms": 1000
+              },
+              {
+                "voxel_id": "edde52ff_qwen-9b_1",
+                "model": "qwen-9b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "pattern_recognition",
+                  "sequencing"
+                ],
+                "numbers": [
+                  "1.",
+                  "1",
+                  "7",
+                  "19",
+                  "37"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "1.  **Analyze the Request:**\n    *   Input sequence: 1, 7, 19, 37, 61\n    *   Goal: Determine the next number in the sequence.",
+                "time_ms": 1000
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "pattern_recognition",
+              "multiplication",
+              "sequencing"
+            ],
+            "cold_concepts": [
+              "subtraction"
+            ]
+          },
+          {
+            "slice_index": 2,
+            "question": "What comes next: 1, 7, 19, 37, 61?",
+            "voxels": [
+              {
+                "voxel_id": "edde52ff_qwen-4b_2",
+                "model": "qwen-4b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "pattern_recognition"
+                ],
+                "numbers": [
+                  "2.",
+                  "1",
+                  "1",
+                  "2",
+                  "7"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "2.  **Examine the Sequence:**\n    *   $a_1 = 1$\n    *   $a_2 = 7$\n    *   $a_3 = 19$\n    *   $a_4 = 37$\n    *   $a_5 = 61$",
+                "time_ms": 1500
+              },
+              {
+                "voxel_id": "edde52ff_qwen-9b_2",
+                "model": "qwen-9b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "subtraction",
+                  "pattern_recognition"
+                ],
+                "numbers": [
+                  "2.",
+                  "7",
+                  "1",
+                  "6",
+                  "19"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "2.  **Initial Observation & Pattern Hunting:**\n    *   *Differences between terms:*\n        *   $7 - 1 = 6$\n        *   $19 - 7 = 12$\n        *   $37 - 19 = 18$\n        *   $61 - 37 = 24$\n    *   *Sec",
+                "time_ms": 1500
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "multiplication",
+              "pattern_recognition"
+            ],
+            "cold_concepts": [
+              "subtraction"
+            ]
+          },
+          {
+            "slice_index": 3,
+            "question": "What comes next: 1, 7, 19, 37, 61?",
+            "voxels": [
+              {
+                "voxel_id": "edde52ff_qwen-4b_3",
+                "model": "qwen-4b",
+                "step_index": 3,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "subtraction",
+                  "computation"
+                ],
+                "numbers": [
+                  "3.",
+                  "7",
+                  "1",
+                  "6",
+                  "19"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "3.  **Calculate Differences:**\n    *   $7 - 1 = 6$\n    *   $19 - 7 = 12$\n    *   $37 - 19 = 18$\n    *   $61 - 37 = 24$",
+                "time_ms": 2000
+              },
+              {
+                "voxel_id": "edde52ff_qwen-9b_3",
+                "model": "qwen-9b",
+                "step_index": 3,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "division",
+                  "pattern_recognition",
+                  "sequencing",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "3.",
+                  "6",
+                  "24",
+                  "6",
+                  "30"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "3.  **Formulate a Hypothesis (Polynomial/Arithmetic Progression):**\n    *   Since the second differences are constant ($6$), this is a quadratic sequence.\n    *   The next first difference should be $",
+                "time_ms": 2000
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "multiplication"
+            ],
+            "cold_concepts": [
+              "subtraction",
+              "computation",
+              "addition",
+              "division",
+              "pattern_recognition",
+              "sequencing",
+              "formula_application"
+            ]
+          },
+          {
+            "slice_index": 4,
+            "question": "What comes next: 1, 7, 19, 37, 61?",
+            "voxels": [
+              {
+                "voxel_id": "edde52ff_qwen-4b_4",
+                "model": "qwen-4b",
+                "step_index": 4,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "sequencing"
+                ],
+                "numbers": [
+                  "6",
+                  "12",
+                  "18",
+                  "24."
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "The first differences are: 6, 12, 18, 24.",
+                "time_ms": 2500
+              },
+              {
+                "voxel_id": "edde52ff_qwen-9b_4",
+                "model": "qwen-9b",
+                "step_index": 4,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "squaring",
+                  "verification",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "4.",
+                  "2",
+                  "1",
+                  "1",
+                  "2"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "4.  **Verify with a Formula (Optional but good for robustness):**\n    *   General form: $an^2 + bn + c$\n    *   $n=1: a + b + c = 1$\n    *   $n=2: 4a + 2b + c = 7$\n    *   $n=3: 9a + 3b + c = 19$\n    ",
+                "time_ms": 2500
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "sequencing",
+              "multiplication",
+              "addition",
+              "subtraction",
+              "squaring",
+              "verification",
+              "formula_application"
+            ]
+          },
+          {
+            "slice_index": 5,
+            "question": "What comes next: 1, 7, 19, 37, 61?",
+            "voxels": [
+              {
+                "voxel_id": "edde52ff_qwen-4b_5",
+                "model": "qwen-4b",
+                "step_index": 5,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "pattern_recognition",
+                  "sequencing"
+                ],
+                "numbers": [
+                  "4.",
+                  "6",
+                  "12",
+                  "18",
+                  "24."
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "4.  **Analyze the Differences:**\n    *   The differences form an arithmetic progression: 6, 12, 18, 24.\n    *   The common difference in the differences is $12 - 6 = 6$, $18 - 12 = 6$, $24 - 18 = 6$.\n",
+                "time_ms": 3000
+              },
+              {
+                "voxel_id": "edde52ff_qwen-9b_5",
+                "model": "qwen-9b",
+                "step_index": 5,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "cubing",
+                  "division",
+                  "pattern_recognition"
+                ],
+                "numbers": [
+                  "5.",
+                  "1",
+                  "3",
+                  "1",
+                  "2"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "5.  **Alternative Pattern Recognition (Geometric/Other):**\n    *   Is there a pattern involving cubes?\n    *   $1^3 = 1$\n    *   $2^3 = 8$ (close to 7)\n    *   $3^3 = 27$ (close to 19)\n    *   $4^3 = ",
+                "time_ms": 3000
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "multiplication",
+              "pattern_recognition"
+            ],
+            "cold_concepts": [
+              "addition",
+              "subtraction",
+              "sequencing",
+              "cubing",
+              "division"
+            ]
+          },
+          {
+            "slice_index": 6,
+            "question": "What comes next: 1, 7, 19, 37, 61?",
+            "voxels": [
+              {
+                "voxel_id": "edde52ff_qwen-4b_6",
+                "model": "qwen-4b",
+                "step_index": 6,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "pattern_recognition",
+                  "computation",
+                  "sequencing"
+                ],
+                "numbers": [
+                  "5.",
+                  "6",
+                  "5",
+                  "6",
+                  "61"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "5.  **Calculate the Next Term:**\n    *   $a_6 = a_5 + \\text{next difference}$\n    *   $a_6 = 61 + 30$\n    *   $a_6 = 91$",
+                "time_ms": 3500
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "multiplication",
+              "addition",
+              "pattern_recognition",
+              "computation",
+              "sequencing"
+            ]
+          },
+          {
+            "slice_index": 7,
+            "question": "What comes next: 1, 7, 19, 37, 61?",
+            "voxels": [
+              {
+                "voxel_id": "edde52ff_qwen-4b_7",
+                "model": "qwen-4b",
+                "step_index": 7,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction",
+                  "squaring",
+                  "verification",
+                  "pattern_recognition",
+                  "formula_application"
+                ],
+                "numbers": [
+                  "6.",
+                  "2",
+                  "1",
+                  "2",
+                  "1"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "6.  **Verify the Pattern:**\n    *   The sequence can be described by the formula $a_n = n^2 + (n-1)^2$? Let's check.\n        *   $n=1: 1^2 + 0^2 = 1$ (Matches)\n        *   $n=2: 2^2 + 1^2 = 5$ (Does n",
+                "time_ms": 4000
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "multiplication",
+              "addition",
+              "subtraction",
+              "squaring",
+              "verification",
+              "pattern_recognition",
+              "formula_application"
+            ]
+          }
+        ],
+        "hot_spots": {
+          "pattern_recognition": 0.5,
+          "sequencing": 0.5,
+          "subtraction": 0.5,
+          "multiplication": 0.3333333333333333,
+          "addition": 0.3333333333333333,
+          "squaring": 0.3333333333333333,
+          "verification": 0.3333333333333333,
+          "formula_application": 0.3333333333333333
+        },
+        "cold_spots": [],
+        "deactivations": [
+          {
+            "concept": "result_production",
+            "first_seen": 0,
+            "last_seen": 0,
+            "span": 0,
+            "note": "'result_production' appeared at step 0 then vanished \u2014 suppressed"
+          },
+          {
+            "concept": "cubing",
+            "first_seen": 5,
+            "last_seen": 5,
+            "span": 0,
+            "note": "'cubing' appeared at step 5 then vanished \u2014 suppressed"
+          }
+        ],
+        "connectivity": {
+          "multiplication": [
+            "pattern_recognition",
+            "sequencing",
+            "subtraction",
+            "addition",
+            "formula_application",
+            "computation",
+            "squaring",
+            "verification"
+          ],
+          "pattern_recognition": [
+            "multiplication",
+            "sequencing",
+            "subtraction",
+            "addition"
+          ],
+          "sequencing": [
+            "pattern_recognition",
+            "multiplication",
+            "addition"
+          ],
+          "subtraction": [
+            "multiplication",
+            "pattern_recognition",
+            "addition",
+            "squaring",
+            "verification",
+            "formula_application"
+          ],
+          "addition": [
+            "multiplication",
+            "pattern_recognition",
+            "subtraction",
+            "sequencing",
+            "formula_application",
+            "squaring",
+            "verification"
+          ],
+          "formula_application": [
+            "multiplication",
+            "addition",
+            "subtraction"
+          ],
+          "computation": [
+            "multiplication"
+          ],
+          "squaring": [
+            "multiplication",
+            "addition",
+            "subtraction",
+            "verification"
+          ],
+          "verification": [
+            "multiplication",
+            "addition",
+            "subtraction",
+            "squaring"
+          ]
+        },
+        "temporal_profile": [
+          {
+            "time_s": 0,
+            "n_voxels": 6,
+            "avg_strength": 0.53,
+            "avg_confidence": 0.7,
+            "models_active": 6,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 1,
+            "n_voxels": 5,
+            "avg_strength": 1.0,
+            "avg_confidence": 0.7,
+            "models_active": 3,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 2,
+            "n_voxels": 4,
+            "avg_strength": 1.0,
+            "avg_confidence": 0.7,
+            "models_active": 2,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 3,
+            "n_voxels": 3,
+            "avg_strength": 1.0,
+            "avg_confidence": 0.7,
+            "models_active": 2,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 4,
+            "n_voxels": 1,
+            "avg_strength": 1.0,
+            "avg_confidence": 0.7,
+            "models_active": 1,
+            "activation_types": [
+              "compute"
+            ]
+          }
+        ],
+        "registration": {
+          "seed-mini": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "gemini-lite": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "hermes-70b": {
+            "n_voxels": 2,
+            "avg_strength": 1.0,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "sequencing",
+              "subtraction",
+              "pattern_recognition"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "qwen2.5-72b": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": true
+          },
+          "qwen-4b": {
+            "n_voxels": 8,
+            "avg_strength": 0.91,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "formula_application",
+              "multiplication",
+              "sequencing",
+              "squaring",
+              "subtraction",
+              "verification",
+              "computation",
+              "pattern_recognition",
+              "addition"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "qwen-9b": {
+            "n_voxels": 6,
+            "avg_strength": 0.92,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "formula_application",
+              "multiplication",
+              "sequencing",
+              "squaring",
+              "subtraction",
+              "verification",
+              "division",
+              "pattern_recognition",
+              "addition",
+              "result_production"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          }
+        },
+        "n_models": 0,
+        "n_voxels": 19,
+        "total_activation": 16.15,
+        "peak_activation": 1.0,
+        "spline_points": [
+          {
+            "from_slice": 0,
+            "to_slice": 1,
+            "mid_hot_concepts": 1.5,
+            "mid_cold_concepts": 2.0,
+            "mid_agreement": 0.0,
+            "d_hot": 3,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 3
+          },
+          {
+            "from_slice": 1,
+            "to_slice": 2,
+            "mid_hot_concepts": 2.5,
+            "mid_cold_concepts": 1.0,
+            "mid_agreement": 0.0,
+            "d_hot": -1,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": -1
+          },
+          {
+            "from_slice": 2,
+            "to_slice": 3,
+            "mid_hot_concepts": 1.5,
+            "mid_cold_concepts": 4.0,
+            "mid_agreement": 0.0,
+            "d_hot": -1,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": -1
+          },
+          {
+            "from_slice": 3,
+            "to_slice": 4,
+            "mid_hot_concepts": 0.5,
+            "mid_cold_concepts": 7.0,
+            "mid_agreement": 0.0,
+            "d_hot": -1,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": -1
+          },
+          {
+            "from_slice": 4,
+            "to_slice": 5,
+            "mid_hot_concepts": 1.0,
+            "mid_cold_concepts": 6.0,
+            "mid_agreement": 0.0,
+            "d_hot": 2,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 2
+          },
+          {
+            "from_slice": 5,
+            "to_slice": 6,
+            "mid_hot_concepts": 1.0,
+            "mid_cold_concepts": 5.0,
+            "mid_agreement": 0.5,
+            "d_hot": -2,
+            "d_agreement": 1.0,
+            "phase": "converging",
+            "activation_velocity": -2
+          },
+          {
+            "from_slice": 6,
+            "to_slice": 7,
+            "mid_hot_concepts": 0.0,
+            "mid_cold_concepts": 6.0,
+            "mid_agreement": 1.0,
+            "d_hot": 0,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 0
+          }
+        ]
+      },
+      "n_models": 6,
+      "n_correct": 3,
+      "latency_ms": 28753.400325775146
+    },
+    {
+      "scan_id": "cd208275",
+      "question": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+      "expected": "300",
+      "traces": {
+        "seed-mini": {
+          "content": "200",
+          "reasoning_content": "Got it, let's calculate step by step. Start with 100. Add 50: 100+50=150. Multiply by 2: 150*2=300. Subtract 100: 300-100=200. Wait, that's 200. Yeah, let me double-check. 100+50 is 150, times 2 is 300 minus 100 is 200. Yep, correct.",
+          "answer": "200",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "200"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 2250.8106231689453,
+          "model_type": "direct"
+        },
+        "gemini-lite": {
+          "content": "200",
+          "reasoning_content": "",
+          "answer": "200",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "200"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 1199.0599632263184,
+          "model_type": "direct"
+        },
+        "hermes-70b": {
+          "content": "Here are the steps:\n\n1. Start with 100.\n2. Add 50 to 100, which equals 150.\n3. Multiply 150 by 2, which equals 300.\n4. Subtract 100 from 300, which equals 200.\n\nSo, the final result is 200.",
+          "reasoning_content": "",
+          "answer": "200.",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "Here are the steps:\n\n1."
+            },
+            {
+              "index": 1,
+              "content": "Start with 100."
+            },
+            {
+              "index": 2,
+              "content": "2."
+            },
+            {
+              "index": 3,
+              "content": "Add 50 to 100, which equals 150."
+            },
+            {
+              "index": 4,
+              "content": "3."
+            },
+            {
+              "index": 5,
+              "content": "Multiply 150 by 2, which equals 300."
+            },
+            {
+              "index": 6,
+              "content": "4."
+            },
+            {
+              "index": 7,
+              "content": "Subtract 100 from 300, which equals 200."
+            },
+            {
+              "index": 8,
+              "content": "So, the final result is 200."
+            }
+          ],
+          "n_steps": 9,
+          "latency_ms": 3229.3007373809814,
+          "model_type": "direct"
+        },
+        "qwen2.5-72b": {
+          "content": "200",
+          "reasoning_content": "",
+          "answer": "200",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "200"
+            }
+          ],
+          "n_steps": 1,
+          "latency_ms": 463.8993740081787,
+          "model_type": "direct"
+        },
+        "qwen-4b": {
+          "content": "Here is the step-by-step calculation:\n\n1.  **Start:** 100\n2.  **Add 50:** $100 + 50 = 150$\n3.  **Multiply by 2:** $150 \\times 2 = 300$\n4.  **Subtract 100:** $300 - 100 = 200$\n\n**Final Answer:** 200",
+          "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Start with 100.\n    *   Add 50.\n    *   Multiply by 2.\n    *   Subtract 100.\n    *   Goal: Calculate the final result.\n\n2.  **Step-by-Step Calculation:**\n    *   Step 1: Start = 100.\n    *   Step 2: Add 50.\n        *   $100 + 50 = 150$.\n    *   Step 3: Multiply by 2.\n        *   $150 \\times 2 = 300$.\n    *   Step 4: Subtract 100.\n        *   $300 - 100 = 200$.\n\n3.  **Final Verification:**\n    *   $100 + 50 = 150$\n    *   $150 \\times 2 = 300$\n    *   $300 - 100 = 200$\n    *   The calculation is correct.\n\n4.  **Formulate Output:**\n    *   State the steps clearly.\n    *   Provide the final answer.\n\n5.  **Drafting the Response:**\n    *   Start: 100\n    *   Add 50: 150\n    *   Multiply by 2: 300\n    *   Subtract 100: 200\n    *   Final Answer: 200.\n\n6.  **Final Polish:** Keep it concise and direct.\n\n    *   $100 + 50 = 150$\n    *   $150 \\times 2 = 300$\n    *   $300 - 100 = 200$\n\n    Result: 200.cw",
+          "answer": "200",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "Here is the step-by-step calculation:"
+            },
+            {
+              "index": 1,
+              "content": "1.  **Start:** 100\n2.  **Add 50:** $100 + 50 = 150$\n3.  **Multiply by 2:** $150 \\times 2 = 300$\n4.  **Subtract 100:** $300 - 100 = 200$"
+            },
+            {
+              "index": 2,
+              "content": "**Final Answer:** 200"
+            }
+          ],
+          "n_steps": 3,
+          "latency_ms": 2704.488754272461,
+          "model_type": "thinking"
+        },
+        "qwen-9b": {
+          "content": "Here is the step-by-step calculation:\n\n1.  **Start:** 100\n2.  **Add 50:** $100 + 50 = 150$\n3.  **Multiply by 2:** $150 \\times 2 = 300$\n4.  **Subtract 100:** $300 - 100 = 200$\n\nThe final answer is **200**.",
+          "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:** The user is giving a sequence of arithmetic operations starting with an initial number.\n    *   Start: 100\n    *   Operation 1: Add 50\n    *   Operation 2: Multiply by 2\n    *   Operation 3: Subtract 100\n\n2.  **Execute the Operations:**\n    *   Start: $100$\n    *   Add 50: $100 + 50 = 150$\n    *   Multiply by 2: $150 \\times 2 = 300$\n    *   Subtract 100: $300 - 100 = 200$\n\n3.  **Final Verification:**\n    *   $100 + 50 = 150$\n    *   $150 \\times 2 = 300$\n    *   $300 - 100 = 200$\n    *   The result is 200.\n\n4.  **Formulate Output:** State the final result clearly.cw",
+          "answer": "200",
+          "correct": false,
+          "steps": [
+            {
+              "index": 0,
+              "content": "Here is the step-by-step calculation:"
+            },
+            {
+              "index": 1,
+              "content": "1.  **Start:** 100\n2.  **Add 50:** $100 + 50 = 150$\n3.  **Multiply by 2:** $150 \\times 2 = 300$\n4.  **Subtract 100:** $300 - 100 = 200$"
+            },
+            {
+              "index": 2,
+              "content": "The final answer is **200**."
+            }
+          ],
+          "n_steps": 3,
+          "latency_ms": 9443.772792816162,
+          "model_type": "thinking"
+        }
+      },
+      "activation_map": {
+        "map_id": "cd208275",
+        "question": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+        "expected": "300",
+        "slices": [
+          {
+            "slice_index": 0,
+            "question": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+            "voxels": [
+              {
+                "voxel_id": "cd208275_seed-mini_0",
+                "model": "seed-mini",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "200"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "200",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "cd208275_gemini-lite_0",
+                "model": "gemini-lite",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "200"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "200",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "cd208275_hermes-70b_0",
+                "model": "hermes-70b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "sequencing"
+                ],
+                "numbers": [
+                  "1."
+                ],
+                "strength": 0.6499999999999999,
+                "confidence": 0.7,
+                "content": "Here are the steps:\n\n1.",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "cd208275_qwen2.5-72b_0",
+                "model": "qwen2.5-72b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "200"
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "200",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "cd208275_qwen-4b_0",
+                "model": "qwen-4b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "subtraction",
+                  "computation",
+                  "sequencing"
+                ],
+                "numbers": [],
+                "strength": 0.9000000000000001,
+                "confidence": 0.7,
+                "content": "Here is the step-by-step calculation:",
+                "time_ms": 500
+              },
+              {
+                "voxel_id": "cd208275_qwen-9b_0",
+                "model": "qwen-9b",
+                "step_index": 0,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "subtraction",
+                  "computation",
+                  "sequencing"
+                ],
+                "numbers": [],
+                "strength": 0.9000000000000001,
+                "confidence": 0.7,
+                "content": "Here is the step-by-step calculation:",
+                "time_ms": 500
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "sequencing",
+              "subtraction",
+              "computation"
+            ],
+            "cold_concepts": []
+          },
+          {
+            "slice_index": 1,
+            "question": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+            "voxels": [
+              {
+                "voxel_id": "cd208275_hermes-70b_1",
+                "model": "hermes-70b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "100."
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "Start with 100.",
+                "time_ms": 1000
+              },
+              {
+                "voxel_id": "cd208275_qwen-4b_1",
+                "model": "qwen-4b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction"
+                ],
+                "numbers": [
+                  "1.",
+                  "100",
+                  "2.",
+                  "50",
+                  "100"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "1.  **Start:** 100\n2.  **Add 50:** $100 + 50 = 150$\n3.  **Multiply by 2:** $150 \\times 2 = 300$\n4.  **Subtract 100:** $300 - 100 = 200$",
+                "time_ms": 1000
+              },
+              {
+                "voxel_id": "cd208275_qwen-9b_1",
+                "model": "qwen-9b",
+                "step_index": 1,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "addition",
+                  "subtraction"
+                ],
+                "numbers": [
+                  "1.",
+                  "100",
+                  "2.",
+                  "50",
+                  "100"
+                ],
+                "strength": 1.0,
+                "confidence": 0.7,
+                "content": "1.  **Start:** 100\n2.  **Add 50:** $100 + 50 = 150$\n3.  **Multiply by 2:** $150 \\times 2 = 300$\n4.  **Subtract 100:** $300 - 100 = 200$",
+                "time_ms": 1000
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "multiplication",
+              "addition",
+              "subtraction"
+            ],
+            "cold_concepts": []
+          },
+          {
+            "slice_index": 2,
+            "question": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+            "voxels": [
+              {
+                "voxel_id": "cd208275_hermes-70b_2",
+                "model": "hermes-70b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "2."
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "2.",
+                "time_ms": 1500
+              },
+              {
+                "voxel_id": "cd208275_qwen-4b_2",
+                "model": "qwen-4b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "result_production"
+                ],
+                "numbers": [
+                  "200"
+                ],
+                "strength": 0.8500000000000001,
+                "confidence": 0.7,
+                "content": "**Final Answer:** 200",
+                "time_ms": 1500
+              },
+              {
+                "voxel_id": "cd208275_qwen-9b_2",
+                "model": "qwen-9b",
+                "step_index": 2,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication",
+                  "result_production"
+                ],
+                "numbers": [
+                  "200"
+                ],
+                "strength": 0.8500000000000001,
+                "confidence": 0.7,
+                "content": "The final answer is **200**.",
+                "time_ms": 1500
+              }
+            ],
+            "agreement": 0.0,
+            "hot_concepts": [
+              "multiplication",
+              "result_production"
+            ],
+            "cold_concepts": []
+          },
+          {
+            "slice_index": 3,
+            "question": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+            "voxels": [
+              {
+                "voxel_id": "cd208275_hermes-70b_3",
+                "model": "hermes-70b",
+                "step_index": 3,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "addition"
+                ],
+                "numbers": [
+                  "50",
+                  "100",
+                  "150."
+                ],
+                "strength": 0.95,
+                "confidence": 0.7,
+                "content": "Add 50 to 100, which equals 150.",
+                "time_ms": 2000
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "addition"
+            ]
+          },
+          {
+            "slice_index": 4,
+            "question": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+            "voxels": [
+              {
+                "voxel_id": "cd208275_hermes-70b_4",
+                "model": "hermes-70b",
+                "step_index": 4,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "3."
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "3.",
+                "time_ms": 2500
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": []
+          },
+          {
+            "slice_index": 5,
+            "question": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+            "voxels": [
+              {
+                "voxel_id": "cd208275_hermes-70b_5",
+                "model": "hermes-70b",
+                "step_index": 5,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "multiplication"
+                ],
+                "numbers": [
+                  "150",
+                  "2",
+                  "300."
+                ],
+                "strength": 0.95,
+                "confidence": 0.7,
+                "content": "Multiply 150 by 2, which equals 300.",
+                "time_ms": 3000
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "multiplication"
+            ]
+          },
+          {
+            "slice_index": 6,
+            "question": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+            "voxels": [
+              {
+                "voxel_id": "cd208275_hermes-70b_6",
+                "model": "hermes-70b",
+                "step_index": 6,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [],
+                "numbers": [
+                  "4."
+                ],
+                "strength": 0.44999999999999996,
+                "confidence": 0.7,
+                "content": "4.",
+                "time_ms": 3500
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": []
+          },
+          {
+            "slice_index": 7,
+            "question": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+            "voxels": [
+              {
+                "voxel_id": "cd208275_hermes-70b_7",
+                "model": "hermes-70b",
+                "step_index": 7,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "subtraction"
+                ],
+                "numbers": [
+                  "100",
+                  "300",
+                  "200."
+                ],
+                "strength": 0.95,
+                "confidence": 0.7,
+                "content": "Subtract 100 from 300, which equals 200.",
+                "time_ms": 4000
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "subtraction"
+            ]
+          },
+          {
+            "slice_index": 8,
+            "question": "Start 100. Add 50. Multiply by 2. Subtract 100.",
+            "voxels": [
+              {
+                "voxel_id": "cd208275_hermes-70b_8",
+                "model": "hermes-70b",
+                "step_index": 8,
+                "activation_type": "ActivationType.COMPUTE",
+                "concepts": [
+                  "result_production"
+                ],
+                "numbers": [
+                  "200."
+                ],
+                "strength": 0.6499999999999999,
+                "confidence": 0.7,
+                "content": "So, the final result is 200.",
+                "time_ms": 4500
+              }
+            ],
+            "agreement": 1.0,
+            "hot_concepts": [],
+            "cold_concepts": [
+              "result_production"
+            ]
+          }
+        ],
+        "hot_spots": {
+          "sequencing": 0.5,
+          "addition": 0.5,
+          "multiplication": 0.5,
+          "subtraction": 0.5,
+          "result_production": 0.5,
+          "computation": 0.3333333333333333
+        },
+        "cold_spots": [],
+        "deactivations": [
+          {
+            "concept": "sequencing",
+            "first_seen": 0,
+            "last_seen": 0,
+            "span": 0,
+            "note": "'sequencing' appeared at step 0 then vanished \u2014 suppressed"
+          },
+          {
+            "concept": "computation",
+            "first_seen": 0,
+            "last_seen": 0,
+            "span": 0,
+            "note": "'computation' appeared at step 0 then vanished \u2014 suppressed"
+          }
+        ],
+        "connectivity": {
+          "computation": [
+            "subtraction",
+            "sequencing"
+          ],
+          "subtraction": [
+            "computation",
+            "sequencing",
+            "multiplication",
+            "addition"
+          ],
+          "sequencing": [
+            "subtraction",
+            "computation"
+          ],
+          "addition": [
+            "multiplication",
+            "subtraction"
+          ],
+          "multiplication": [
+            "addition",
+            "subtraction",
+            "result_production"
+          ],
+          "result_production": [
+            "multiplication"
+          ]
+        },
+        "temporal_profile": [
+          {
+            "time_s": 0,
+            "n_voxels": 6,
+            "avg_strength": 0.63,
+            "avg_confidence": 0.7,
+            "models_active": 6,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 1,
+            "n_voxels": 6,
+            "avg_strength": 0.77,
+            "avg_confidence": 0.7,
+            "models_active": 3,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 2,
+            "n_voxels": 2,
+            "avg_strength": 0.7,
+            "avg_confidence": 0.7,
+            "models_active": 1,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 3,
+            "n_voxels": 2,
+            "avg_strength": 0.7,
+            "avg_confidence": 0.7,
+            "models_active": 1,
+            "activation_types": [
+              "compute"
+            ]
+          },
+          {
+            "time_s": 4,
+            "n_voxels": 2,
+            "avg_strength": 0.8,
+            "avg_confidence": 0.7,
+            "models_active": 1,
+            "activation_types": [
+              "compute"
+            ]
+          }
+        ],
+        "registration": {
+          "seed-mini": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "gemini-lite": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "hermes-70b": {
+            "n_voxels": 9,
+            "avg_strength": 0.66,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "multiplication",
+              "sequencing",
+              "subtraction",
+              "addition",
+              "result_production"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "qwen2.5-72b": {
+            "n_voxels": 1,
+            "avg_strength": 0.45,
+            "avg_confidence": 0.7,
+            "concepts": [],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "qwen-4b": {
+            "n_voxels": 3,
+            "avg_strength": 0.92,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "multiplication",
+              "sequencing",
+              "subtraction",
+              "computation",
+              "addition",
+              "result_production"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          },
+          "qwen-9b": {
+            "n_voxels": 3,
+            "avg_strength": 0.92,
+            "avg_confidence": 0.7,
+            "concepts": [
+              "multiplication",
+              "sequencing",
+              "subtraction",
+              "computation",
+              "addition",
+              "result_production"
+            ],
+            "activation_types": [
+              "compute"
+            ],
+            "correct": false
+          }
+        },
+        "n_models": 0,
+        "n_voxels": 18,
+        "total_activation": 12.799999999999999,
+        "peak_activation": 1.0,
+        "spline_points": [
+          {
+            "from_slice": 0,
+            "to_slice": 1,
+            "mid_hot_concepts": 3.0,
+            "mid_cold_concepts": 0.0,
+            "mid_agreement": 0.0,
+            "d_hot": 0,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 0
+          },
+          {
+            "from_slice": 1,
+            "to_slice": 2,
+            "mid_hot_concepts": 2.5,
+            "mid_cold_concepts": 0.0,
+            "mid_agreement": 0.0,
+            "d_hot": -1,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": -1
+          },
+          {
+            "from_slice": 2,
+            "to_slice": 3,
+            "mid_hot_concepts": 1.0,
+            "mid_cold_concepts": 0.5,
+            "mid_agreement": 0.5,
+            "d_hot": -2,
+            "d_agreement": 1.0,
+            "phase": "converging",
+            "activation_velocity": -2
+          },
+          {
+            "from_slice": 3,
+            "to_slice": 4,
+            "mid_hot_concepts": 0.0,
+            "mid_cold_concepts": 0.5,
+            "mid_agreement": 1.0,
+            "d_hot": 0,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 0
+          },
+          {
+            "from_slice": 4,
+            "to_slice": 5,
+            "mid_hot_concepts": 0.0,
+            "mid_cold_concepts": 0.5,
+            "mid_agreement": 1.0,
+            "d_hot": 0,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 0
+          },
+          {
+            "from_slice": 5,
+            "to_slice": 6,
+            "mid_hot_concepts": 0.0,
+            "mid_cold_concepts": 0.5,
+            "mid_agreement": 1.0,
+            "d_hot": 0,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 0
+          },
+          {
+            "from_slice": 6,
+            "to_slice": 7,
+            "mid_hot_concepts": 0.0,
+            "mid_cold_concepts": 0.5,
+            "mid_agreement": 1.0,
+            "d_hot": 0,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 0
+          },
+          {
+            "from_slice": 7,
+            "to_slice": 8,
+            "mid_hot_concepts": 0.0,
+            "mid_cold_concepts": 1.0,
+            "mid_agreement": 1.0,
+            "d_hot": 0,
+            "d_agreement": 0.0,
+            "phase": "stable",
+            "activation_velocity": 0
+          }
+        ]
+      },
+      "n_models": 6,
+      "n_correct": 0,
+      "latency_ms": 19299.60298538208
+    }
+  ],
+  "aggregate_hot_spots": {
+    "subtraction": 0.5,
+    "multiplication": 0.4666666666666667,
+    "formula_application": 0.3666666666666667,
+    "addition": 0.3666666666666667,
+    "sequencing": 0.33333333333333337,
+    "computation": 0.3,
+    "result_production": 0.23333333333333334,
+    "substitution": 0.2,
+    "squaring": 0.16666666666666669,
+    "hydraulic_reasoning": 0.1,
+    "division": 0.1,
+    "pattern_recognition": 0.1,
+    "verification": 0.06666666666666667
+  },
+  "aggregate_cold_spots": [],
+  "model_profiles": {
+    "seed-mini": {
+      "accuracy": 0.8,
+      "avg_strength": 0.45,
+      "avg_confidence": 0.7,
+      "dominant_types": [
+        "compute"
+      ]
+    },
+    "gemini-lite": {
+      "accuracy": 0.8,
+      "avg_strength": 0.45,
+      "avg_confidence": 0.7,
+      "dominant_types": [
+        "compute"
+      ]
+    },
+    "hermes-70b": {
+      "accuracy": 0.0,
+      "avg_strength": 0.926,
+      "avg_confidence": 0.7,
+      "dominant_types": [
+        "compute"
+      ]
+    },
+    "qwen2.5-72b": {
+      "accuracy": 0.8,
+      "avg_strength": 0.45,
+      "avg_confidence": 0.7,
+      "dominant_types": [
+        "compute"
+      ]
+    },
+    "qwen-4b": {
+      "accuracy": 0.2,
+      "avg_strength": 0.918,
+      "avg_confidence": 0.7,
+      "dominant_types": [
+        "compute"
+      ]
+    },
+    "qwen-9b": {
+      "accuracy": 0.6,
+      "avg_strength": 0.926,
+      "avg_confidence": 0.7,
+      "dominant_types": [
+        "compute"
+      ]
+    }
+  },
+  "cross_question_connectivity": {
+    "multiplication": [
+      "subtraction",
+      "sequencing",
+      "formula_application",
+      "addition",
+      "computation"
+    ],
+    "subtraction": [
+      "multiplication",
+      "sequencing",
+      "formula_application",
+      "addition",
+      "computation"
+    ],
+    "sequencing": [
+      "multiplication",
+      "addition",
+      "subtraction",
+      "formula_application",
+      "computation"
+    ],
+    "addition": [
+      "sequencing",
+      "multiplication",
+      "subtraction",
+      "formula_application",
+      "computation"
+    ],
+    "formula_application": [
+      "multiplication",
+      "subtraction",
+      "sequencing",
+      "addition",
+      "computation"
+    ],
+    "computation": [
+      "multiplication",
+      "subtraction",
+      "sequencing",
+      "formula_application",
+      "addition"
+    ]
+  }
+}
