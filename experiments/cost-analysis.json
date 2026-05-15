@@ -1,0 +1,46 @@
+[
+  {
+    "model": "seed-mini",
+    "accuracy": 1.0,
+    "correct": 10,
+    "total_tokens": 1181,
+    "total_cost": 0.059050000000000005,
+    "cost_per_correct": 0.0059050000000000005,
+    "gpt4_cost": 35.43,
+    "savings_pct": 99.83333333333333,
+    "avg_latency_ms": 1953.471326828003
+  },
+  {
+    "model": "llama-3.1-8b",
+    "accuracy": 1.0,
+    "correct": 10,
+    "total_tokens": 544,
+    "total_cost": 0.00272,
+    "cost_per_correct": 0.000272,
+    "gpt4_cost": 16.32,
+    "savings_pct": 99.98333333333333,
+    "avg_latency_ms": 171.0749387741089
+  },
+  {
+    "model": "llama-3.3-70b",
+    "accuracy": 1.0,
+    "correct": 10,
+    "total_tokens": 544,
+    "total_cost": 0.00544,
+    "cost_per_correct": 0.000544,
+    "gpt4_cost": 16.32,
+    "savings_pct": 99.96666666666667,
+    "avg_latency_ms": 155.4689645767212
+  },
+  {
+    "model": "llama-4-scout",
+    "accuracy": 1.0,
+    "correct": 10,
+    "total_tokens": 344,
+    "total_cost": 0.00344,
+    "cost_per_correct": 0.000344,
+    "gpt4_cost": 10.319999999999999,
+    "savings_pct": 99.96666666666667,
+    "avg_latency_ms": 117.58041381835938
+  }
+]
