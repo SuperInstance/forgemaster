@@ -1,0 +1,1484 @@
+[
+  {
+    "question": "a*a - a*b + b*b where a=5, b=3",
+    "expected": "19",
+    "tiles": [
+      {
+        "tile_id": "312582ce",
+        "chain_id": "seed-mini-chain",
+        "model": "seed-mini",
+        "step": 1,
+        "facet": "direct",
+        "computation_trace": "Got it, let's solve this step by step. First, the expression is a\u00b2 - ab + b\u00b2, right? Given a=5 and b=3. Let's substitute the values first. \n\nFirst calculate each term: a*a is 5*5 which is 25. Then a*b is 5*3 which is 15. Then b*b is 3*3 which is 9. Now plug those into the expression: 25 - 15 + 9. Let's do 25 minus 15 first, that's 10, then 10 plus 9 is 19. Wait, let me check again. 25 -15 is 10, plus 9 is 19. Yeah that's right. Let me make sure I didn't mix up any signs. The expression is a\u00b2 - ab + b\u00b2, so subtracting ab which is 15, so 25-15 is 10, add 9 gives 19. Yep that's correct.",
+        "partial_result": "9",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [
+          "9f27b943",
+          "7e9a8a38",
+          "53c3833a"
+        ],
+        "disagrees_with": [
+          "8d5c024d",
+          "1dd54fe4",
+          "590b8c4d",
+          "ac23da23",
+          "66e6ab6f",
+          "4428ea5e"
+        ],
+        "latency_ms": 4661.473274230957,
+        "tokens_used": 402,
+        "timestamp": 1778817164.2306862
+      },
+      {
+        "tile_id": "9f27b943",
+        "chain_id": "seed-mini-chain",
+        "model": "seed-mini",
+        "step": 2,
+        "facet": "direct",
+        "computation_trace": "Got it, let's finish this properly. First, we already have the terms: 25 -15 +9. Now calculate step by step: first 25 minus 15 is 10, then 10 plus 9 is 19. Wait let's check again. Wait the previous user's last step said result so far 9? No, wait no, wait the previous step snippet cut off, but let's do it fully correctly.\n\nWait let's restate clearly:\n1. Substitute a=5, b=3 into the expression:\n   a\u00b2 -ab +b\u00b2 = 5\u00b2 - (5*3) + 3\u00b2\n2. Calculate each squared term and product:\n   5\u00b2=25, 5*3=15, 3\u00b2=9\n3. Now compute the expression: 25 -15 +9\n   First do 25 -15 = 10, then 10 +9 =19.\n\nWait the previous step",
+        "partial_result": "9",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [
+          "312582ce",
+          "7e9a8a38",
+          "53c3833a"
+        ],
+        "disagrees_with": [
+          "8d5c024d",
+          "1dd54fe4",
+          "590b8c4d",
+          "ac23da23",
+          "66e6ab6f",
+          "4428ea5e"
+        ],
+        "latency_ms": 6696.96307182312,
+        "tokens_used": 758,
+        "timestamp": 1778817170.9285781
+      },
+      {
+        "tile_id": "8d5c024d",
+        "chain_id": "qwen-4b-chain",
+        "model": "qwen-4b",
+        "step": 1,
+        "facet": "direct",
+        "computation_trace": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Expression: $a \\cdot a - a \\cdot b + b \\cdot b$\n    *   Values: $a = 5$, $b = 3$\n    *   Task: Compute the result step by step.\n    *   Constraint: This is step 1 of a process (though it seems like a single calculation task). I need to show the work.\n\n2.  **Substitute Values:**\n    *   Replace $a$ with 5.\n    *   Replace $b$ with 3.\n    *   Expression becomes: $5 \\cdot 5 - 5 \\cdot 3 + 3 \\cdot 3$\n\n3.  **Order of Operations (PEMDAS/BODMAS):**\n    *   Multiplication comes before addition and subtraction.\n    *   Step 1: Calculate $5 \\cdot 5$",
+        "partial_result": "19",
+        "confidence": 1.0,
+        "read_tiles": [],
+        "agrees_with": [
+          "1dd54fe4",
+          "66e6ab6f"
+        ],
+        "disagrees_with": [
+          "312582ce",
+          "9f27b943",
+          "590b8c4d",
+          "ac23da23",
+          "7e9a8a38",
+          "53c3833a",
+          "4428ea5e"
+        ],
+        "latency_ms": 2127.8045177459717,
+        "tokens_used": 449,
+        "timestamp": 1778817173.0573478
+      },
+      {
+        "tile_id": "1dd54fe4",
+        "chain_id": "qwen-4b-chain",
+        "model": "qwen-4b",
+        "step": 2,
+        "facet": "direct",
+        "computation_trace": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Expression: $a \\cdot a - a \\cdot b + b \\cdot b$\n    *   Values: $a = 5$, $b = 3$\n    *   Task: Compute the result step by step.\n    *   Context: This is Step 2 of a process. The previous step (Step 1) already calculated the result as 19. Now I need to show the work that leads to that result.\n\n2.  **Identify the Goal:**\n    *   Substitute the values of $a$ and $b$ into the expression.\n    *   Perform the arithmetic operations in the correct order (multiplication before addition/subtraction).\n    *   Verify the final result matches the prev",
+        "partial_result": "19",
+        "confidence": 1.0,
+        "read_tiles": [],
+        "agrees_with": [
+          "8d5c024d",
+          "66e6ab6f"
+        ],
+        "disagrees_with": [
+          "312582ce",
+          "9f27b943",
+          "590b8c4d",
+          "ac23da23",
+          "7e9a8a38",
+          "53c3833a",
+          "4428ea5e"
+        ],
+        "latency_ms": 2064.574956893921,
+        "tokens_used": 562,
+        "timestamp": 1778817175.1227589
+      },
+      {
+        "tile_id": "590b8c4d",
+        "chain_id": "mimo-chain",
+        "model": "mimo",
+        "step": 1,
+        "facet": "direct",
+        "computation_trace": "Here is the step-by-step computation:\n\n**Step 1: Substitute the values of a and b into the expression.**\nThe expression is: $a \\times a - a \\times b + b \\times b$\nGiven: $a = 5$, $b = 3$\n\nSubstituting the values:\n$5 \\times 5 - 5 \\times 3 + 3 \\times 3$\n\n**Step 2: Perform the multiplications.**\n*   $",
+        "partial_result": "3",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [],
+        "disagrees_with": [
+          "312582ce",
+          "9f27b943",
+          "8d5c024d",
+          "1dd54fe4",
+          "ac23da23",
+          "66e6ab6f",
+          "7e9a8a38",
+          "53c3833a",
+          "4428ea5e"
+        ],
+        "latency_ms": 879.7972202301025,
+        "tokens_used": 146,
+        "timestamp": 1778817176.00341
+      },
+      {
+        "tile_id": "ac23da23",
+        "chain_id": "mimo-chain",
+        "model": "mimo",
+        "step": 2,
+        "facet": "direct",
+        "computation_trace": "**Step 2: Perform the multiplications.**\n\n*   $5 \\times 5 = 25$\n*   $5 \\times 3 = 15$\n*   $3 \\times 3 = 9$\n\nSubstituting these results back into the expression:\n$25 - 15 + 9$\n\n**Step 3: Perform the addition and subtraction from left to right.**\n\n*   $25 - 15 = 10$",
+        "partial_result": "10",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [],
+        "disagrees_with": [
+          "312582ce",
+          "9f27b943",
+          "8d5c024d",
+          "1dd54fe4",
+          "590b8c4d",
+          "66e6ab6f",
+          "7e9a8a38",
+          "53c3833a",
+          "4428ea5e"
+        ],
+        "latency_ms": 912.9109382629395,
+        "tokens_used": 261,
+        "timestamp": 1778817176.9171948
+      },
+      {
+        "tile_id": "66e6ab6f",
+        "chain_id": "mimo-chain",
+        "model": "mimo",
+        "step": 3,
+        "facet": "direct",
+        "computation_trace": "19",
+        "partial_result": "19",
+        "confidence": 1.0,
+        "read_tiles": [],
+        "agrees_with": [
+          "8d5c024d",
+          "1dd54fe4"
+        ],
+        "disagrees_with": [
+          "312582ce",
+          "9f27b943",
+          "590b8c4d",
+          "ac23da23",
+          "7e9a8a38",
+          "53c3833a",
+          "4428ea5e"
+        ],
+        "latency_ms": 421.0193157196045,
+        "tokens_used": 276,
+        "timestamp": 1778817177.3391824
+      },
+      {
+        "tile_id": "7e9a8a38",
+        "chain_id": "seed-mini-cross",
+        "model": "seed-mini",
+        "step": 4,
+        "facet": "cross_pollinated",
+        "computation_trace": "Got it, let's calculate this step by step. First, substitute a=5 and b=3 into the expression. \n\nFirst term: a*a is 5*5 =25. Second term: a*b is 5*3=15, so subtract that: 25 -15 =10. Then add b*b which is 3*3=9. So 10 +9=19. Yep that matches the other models. Let me double-check: 25 -15 is 10, plus 9 is 19. Correct.",
+        "partial_result": "9",
+        "confidence": 0.5,
+        "read_tiles": [
+          "8d5c024d",
+          "66e6ab6f"
+        ],
+        "agrees_with": [
+          "312582ce",
+          "9f27b943",
+          "53c3833a"
+        ],
+        "disagrees_with": [
+          "8d5c024d",
+          "1dd54fe4",
+          "590b8c4d",
+          "ac23da23",
+          "66e6ab6f",
+          "4428ea5e"
+        ],
+        "latency_ms": 3053.992748260498,
+        "tokens_used": 412,
+        "timestamp": 1778817180.3940449
+      },
+      {
+        "tile_id": "53c3833a",
+        "chain_id": "qwen-4b-cross",
+        "model": "qwen-4b",
+        "step": 4,
+        "facet": "cross_pollinated",
+        "computation_trace": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the value of the expression $a^2 - ab + b^2$ given $a=5$ and $b=3$. I need to look at the provided \"Other models computed\" section to see what they did and then provide my final answer.\n\n2.  **Analyze the \"Other models computed\" section:**\n    *   **Model seed-mini at step 1:**\n        *   Expression identified: $a^2 - ab + b^2$.\n        *   Values: $a=5, b=3$.\n        *   Calculation steps shown:\n            *   $a*a = 5*5 = 25$.\n            *   $a*b$ (incomplete sentence, but implies $5*3$).\n            *   Their an",
+        "partial_result": "9",
+        "confidence": 0.5,
+        "read_tiles": [
+          "312582ce",
+          "66e6ab6f"
+        ],
+        "agrees_with": [
+          "312582ce",
+          "9f27b943",
+          "7e9a8a38"
+        ],
+        "disagrees_with": [
+          "8d5c024d",
+          "1dd54fe4",
+          "590b8c4d",
+          "ac23da23",
+          "66e6ab6f",
+          "4428ea5e"
+        ],
+        "latency_ms": 2116.8222427368164,
+        "tokens_used": 546,
+        "timestamp": 1778817182.5118232
+      },
+      {
+        "tile_id": "4428ea5e",
+        "chain_id": "mimo-cross",
+        "model": "mimo",
+        "step": 4,
+        "facet": "cross_pollinated",
+        "computation_trace": "To solve the expression $a \\cdot a - a \\cdot b + b \\cdot b$ with $a = 5$ and $b = 3$, we substitute the values and calculate step by step:\n\n1.  **Substitute the values:**\n    $$5 \\cdot 5 - 5 \\cdot 3 + 3 \\cdot 3$$\n\n2.  **Calculate each term:**\n    *   $5 \\cdot 5 = 25$",
+        "partial_result": "25",
+        "confidence": 0.5,
+        "read_tiles": [
+          "312582ce",
+          "8d5c024d"
+        ],
+        "agrees_with": [],
+        "disagrees_with": [
+          "312582ce",
+          "9f27b943",
+          "8d5c024d",
+          "1dd54fe4",
+          "590b8c4d",
+          "ac23da23",
+          "66e6ab6f",
+          "7e9a8a38",
+          "53c3833a"
+        ],
+        "latency_ms": 908.0054759979248,
+        "tokens_used": 312,
+        "timestamp": 1778817183.420715
+      }
+    ],
+    "mined": {
+      "question": "a*a - a*b + b*b where a=5, b=3",
+      "expected": "19",
+      "convergence_trajectory": "oscillating",
+      "timeline": [
+        {
+          "step": 1,
+          "top_result": "9",
+          "agreement": "1/3",
+          "convergence_pct": 33.33333333333333,
+          "velocity": 0.0,
+          "all_results": {
+            "9": 1,
+            "19": 1,
+            "3": 1
+          }
+        },
+        {
+          "step": 2,
+          "top_result": "9",
+          "agreement": "1/3",
+          "convergence_pct": 33.33333333333333,
+          "velocity": 0.0,
+          "all_results": {
+            "9": 1,
+            "19": 1,
+            "10": 1
+          }
+        },
+        {
+          "step": 3,
+          "top_result": "19",
+          "agreement": "1/1",
+          "convergence_pct": 100.0,
+          "velocity": 0.6666666666666667,
+          "all_results": {
+            "19": 1
+          }
+        },
+        {
+          "step": 4,
+          "top_result": "9",
+          "agreement": "2/3",
+          "convergence_pct": 66.66666666666666,
+          "velocity": -0.33333333333333337,
+          "all_results": {
+            "9": 2,
+            "25": 1
+          }
+        }
+      ],
+      "model_accuracy": {
+        "seed-mini": 0.0,
+        "qwen-4b": 0.6666666666666666,
+        "mimo": 0.25
+      },
+      "resonance": {
+        "seed-mini": [
+          "9"
+        ],
+        "qwen-4b": [
+          "19",
+          "9"
+        ],
+        "mimo": [
+          "10",
+          "19",
+          "25",
+          "3"
+        ]
+      },
+      "divergence_points": [
+        {
+          "step": 1,
+          "results": {
+            "9": 1,
+            "19": 1,
+            "3": 1
+          },
+          "entropy": -0.3333333333333333
+        },
+        {
+          "step": 2,
+          "results": {
+            "9": 1,
+            "19": 1,
+            "10": 1
+          },
+          "entropy": -0.3333333333333333
+        },
+        {
+          "step": 4,
+          "results": {
+            "9": 2,
+            "25": 1
+          },
+          "entropy": -0.5555555555555556
+        }
+      ],
+      "cross_pollination_events": 3,
+      "total_tiles": 10,
+      "total_tokens": 4124,
+      "total_latency_ms": 23843.363761901855,
+      "harmonics": {
+        "9": [
+          {
+            "model": "seed-mini",
+            "facet": "direct",
+            "step": 1,
+            "trace_preview": "Got it, let's solve this step by step. First, the expression is a\u00b2 - ab + b\u00b2, right? Given a=5 and b"
+          },
+          {
+            "model": "seed-mini",
+            "facet": "direct",
+            "step": 2,
+            "trace_preview": "Got it, let's finish this properly. First, we already have the terms: 25 -15 +9. Now calculate step "
+          },
+          {
+            "model": "seed-mini",
+            "facet": "cross_pollinated",
+            "step": 4,
+            "trace_preview": "Got it, let's calculate this step by step. First, substitute a=5 and b=3 into the expression. \n\nFirs"
+          },
+          {
+            "model": "qwen-4b",
+            "facet": "cross_pollinated",
+            "step": 4,
+            "trace_preview": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the value of the expres"
+          }
+        ],
+        "19": [
+          {
+            "model": "qwen-4b",
+            "facet": "direct",
+            "step": 1,
+            "trace_preview": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Expression: $a \\cdot a - a \\cdot b + b \\cdot"
+          },
+          {
+            "model": "qwen-4b",
+            "facet": "direct",
+            "step": 2,
+            "trace_preview": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Expression: $a \\cdot a - a \\cdot b + b \\cdot"
+          },
+          {
+            "model": "mimo",
+            "facet": "direct",
+            "step": 3,
+            "trace_preview": "19"
+          }
+        ]
+      },
+      "dissonance": [
+        {
+          "result": "9",
+          "support": [
+            {
+              "model": "seed-mini",
+              "facet": "direct",
+              "step": 1,
+              "trace_preview": "Got it, let's solve this step by step. First, the expression is a\u00b2 - ab + b\u00b2, right? Given a=5 and b"
+            },
+            {
+              "model": "seed-mini",
+              "facet": "direct",
+              "step": 2,
+              "trace_preview": "Got it, let's finish this properly. First, we already have the terms: 25 -15 +9. Now calculate step "
+            },
+            {
+              "model": "seed-mini",
+              "facet": "cross_pollinated",
+              "step": 4,
+              "trace_preview": "Got it, let's calculate this step by step. First, substitute a=5 and b=3 into the expression. \n\nFirs"
+            },
+            {
+              "model": "qwen-4b",
+              "facet": "cross_pollinated",
+              "step": 4,
+              "trace_preview": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the value of the expres"
+            }
+          ]
+        }
+      ],
+      "n_harmonics": 2,
+      "n_dissonance": 1
+    }
+  },
+  {
+    "question": "(a+b)*(a-b) where a=5, b=3",
+    "expected": "16",
+    "tiles": [
+      {
+        "tile_id": "97794ef1",
+        "chain_id": "seed-mini-chain",
+        "model": "seed-mini",
+        "step": 1,
+        "facet": "direct",
+        "computation_trace": "Got it, let's solve this step by step. First, remember that (a+b)(a-b) is a difference of squares, which equals a\u00b2 - b\u00b2, but maybe I should do it both ways to show. Wait, first plug in a=5, b=3. Let's first calculate each part: a+b is 5+3=8, a-b is 5-3=2. Then multiply 8*2=16. Alternatively, using the formula: 5\u00b2 -3\u00b2=25-9=16. Let's break it down step by step properly. \n\nFirst step: Identify the given values, a=5, b=3. Second, compute (a+b): 5 + 3 = 8. Third, compute (a-b): 5 -3 =2. Fourth, multiply those two results: 8 *2 =16. Or using the expanded form directly: (5+3)(5-3)=5*5 -5*3 +3*5 -3*3 ",
+        "partial_result": "16",
+        "confidence": 1.0,
+        "read_tiles": [],
+        "agrees_with": [
+          "a246c0e9",
+          "9a47cbc3",
+          "97f75db4",
+          "577e229a",
+          "439d0ce6"
+        ],
+        "disagrees_with": [
+          "ffb7c5ad",
+          "a562c1df",
+          "244d110b",
+          "f6955646",
+          "3af0d659"
+        ],
+        "latency_ms": 4109.955549240112,
+        "tokens_used": 428,
+        "timestamp": 1778817187.5320823
+      },
+      {
+        "tile_id": "a246c0e9",
+        "chain_id": "seed-mini-chain",
+        "model": "seed-mini",
+        "step": 2,
+        "facet": "direct",
+        "computation_trace": "Got it, let's walk through this properly like the previous step started. First, let's confirm both methods: difference of squares first, then direct multiplication.\n\nFirst, the difference of squares identity: (a+b)(a-b) = a\u00b2 - b\u00b2. Plugging a=5, b=3, that's 5\u00b2 - 3\u00b2 = 25 - 9 = 16. \n\nThen the direct calculation way: first compute a+b = 5+3=8, a-b=5-3=2, multiply those: 8*2=16. Both ways get the same answer, which matches the result so far. Let's present that clearly step by step for the user.",
+        "partial_result": "16",
+        "confidence": 1.0,
+        "read_tiles": [],
+        "agrees_with": [
+          "97794ef1",
+          "9a47cbc3",
+          "97f75db4",
+          "577e229a",
+          "439d0ce6"
+        ],
+        "disagrees_with": [
+          "ffb7c5ad",
+          "a562c1df",
+          "244d110b",
+          "f6955646",
+          "3af0d659"
+        ],
+        "latency_ms": 3517.3943042755127,
+        "tokens_used": 439,
+        "timestamp": 1778817191.0506113
+      },
+      {
+        "tile_id": "9a47cbc3",
+        "chain_id": "qwen-4b-chain",
+        "model": "qwen-4b",
+        "step": 1,
+        "facet": "direct",
+        "computation_trace": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the expression $(a+b)*(a-b)$ given specific values for $a$ and $b$. I need to show my work step by step. This is labeled as \"step 1\", implying there might be more steps, but for this specific query, I need to perform the calculation.\n\n2.  **Identify the Given Values:**\n    *   $a = 5$\n    *   $b = 3$\n\n3.  **Identify the Expression:**\n    *   $(a+b)*(a-b)$\n\n4.  **Plan the Calculation:**\n    *   Substitute the values of $a$ and $b$ into the expression.\n    *   Calculate the first part: $(a+b)$.\n    *   Calculate the sec",
+        "partial_result": "16",
+        "confidence": 1.0,
+        "read_tiles": [],
+        "agrees_with": [
+          "97794ef1",
+          "a246c0e9",
+          "97f75db4",
+          "577e229a",
+          "439d0ce6"
+        ],
+        "disagrees_with": [
+          "ffb7c5ad",
+          "a562c1df",
+          "244d110b",
+          "f6955646",
+          "3af0d659"
+        ],
+        "latency_ms": 2133.898973464966,
+        "tokens_used": 447,
+        "timestamp": 1778817193.1854975
+      },
+      {
+        "tile_id": "ffb7c5ad",
+        "chain_id": "qwen-4b-chain",
+        "model": "qwen-4b",
+        "step": 2,
+        "facet": "direct",
+        "computation_trace": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the expression $(a+b)*(a-b)$ given specific values for $a$ and $b$. The values are $a=5$ and $b=3$. I need to show my work step by step. This is labeled as \"step 2\", implying I should continue from the previous result or context. However, looking at the \"Previous steps\" provided in the prompt, it says \"Result so far: 16\". Wait, let me check the math.\n    If $a=5$ and $b=3$:\n    $(a+b) = 5+3 = 8$\n    $(a-b) = 5-3 = 2$\n    $(a+b)*(a-b) = 8 * 2 = 16$.\n    The \"Result so far: 16\" in the \"Previous steps\" section seems to b",
+        "partial_result": "3",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [
+          "a562c1df",
+          "3af0d659"
+        ],
+        "disagrees_with": [
+          "97794ef1",
+          "a246c0e9",
+          "9a47cbc3",
+          "97f75db4",
+          "244d110b",
+          "577e229a",
+          "439d0ce6",
+          "f6955646"
+        ],
+        "latency_ms": 2265.256404876709,
+        "tokens_used": 542,
+        "timestamp": 1778817195.4525778
+      },
+      {
+        "tile_id": "97f75db4",
+        "chain_id": "qwen-4b-chain",
+        "model": "qwen-4b",
+        "step": 3,
+        "facet": "direct",
+        "computation_trace": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the expression $(a+b)*(a-b)$ given $a=5$ and $b=3$. The prompt includes \"Previous steps\" which seem to be part of a few-shot or multi-turn context simulation, but the core task is to solve the math problem. The user explicitly asks for the \"FINAL ANSWER as a number\".\n\n2.  **Identify the Expression:** The expression is $(a+b)*(a-b)$.\n\n3.  **Identify the Values:** $a = 5$, $b = 3$.\n\n4.  **Perform the Calculation:**\n    *   Method 1: Direct substitution.\n        *   Calculate $(a+b)$: $5 + 3 = 8$.\n        *   Calculate $",
+        "partial_result": "16",
+        "confidence": 1.0,
+        "read_tiles": [],
+        "agrees_with": [
+          "97794ef1",
+          "a246c0e9",
+          "9a47cbc3",
+          "577e229a",
+          "439d0ce6"
+        ],
+        "disagrees_with": [
+          "ffb7c5ad",
+          "a562c1df",
+          "244d110b",
+          "f6955646",
+          "3af0d659"
+        ],
+        "latency_ms": 2147.2322940826416,
+        "tokens_used": 636,
+        "timestamp": 1778817197.600709
+      },
+      {
+        "tile_id": "a562c1df",
+        "chain_id": "mimo-chain",
+        "model": "mimo",
+        "step": 1,
+        "facet": "direct",
+        "computation_trace": "Of course. Let's compute this step by step.\n\n**Step 1: Substitute the values of a and b into the expression.**\n\nThe expression is: `(a+b)*(a-b)`\nGiven values: `a = 5`, `b = 3`\n\nSubstitute the values into the expression:\n`(5 + 3) * (5 - 3)`\n\n**Step 2: Evaluate the expressions inside the parentheses.**\n\nFirst, calculate the value of the first parenthesis `(5",
+        "partial_result": "3",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [
+          "ffb7c5ad",
+          "3af0d659"
+        ],
+        "disagrees_with": [
+          "97794ef1",
+          "a246c0e9",
+          "9a47cbc3",
+          "97f75db4",
+          "244d110b",
+          "577e229a",
+          "439d0ce6",
+          "f6955646"
+        ],
+        "latency_ms": 853.8613319396973,
+        "tokens_used": 144,
+        "timestamp": 1778817198.4556725
+      },
+      {
+        "tile_id": "244d110b",
+        "chain_id": "mimo-chain",
+        "model": "mimo",
+        "step": 2,
+        "facet": "direct",
+        "computation_trace": "**Step 2: Evaluate the expressions inside the parentheses.**\n\nWe have the expression: `(5 + 3) * (5 - 3)`\n\nFirst, calculate the sum inside the first parentheses:\n`5 + 3 = 8`\n\nNext, calculate the difference inside the second parentheses:\n`5 - 3 = 2`\n\nNow, the expression becomes:\n`8 * 2`\n\n**Result so far: 8 * 2**",
+        "partial_result": "2",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [],
+        "disagrees_with": [
+          "97794ef1",
+          "a246c0e9",
+          "9a47cbc3",
+          "ffb7c5ad",
+          "97f75db4",
+          "a562c1df",
+          "577e229a",
+          "439d0ce6",
+          "f6955646",
+          "3af0d659"
+        ],
+        "latency_ms": 816.7943954467773,
+        "tokens_used": 241,
+        "timestamp": 1778817199.27392
+      },
+      {
+        "tile_id": "577e229a",
+        "chain_id": "mimo-chain",
+        "model": "mimo",
+        "step": 3,
+        "facet": "direct",
+        "computation_trace": "16",
+        "partial_result": "16",
+        "confidence": 1.0,
+        "read_tiles": [],
+        "agrees_with": [
+          "97794ef1",
+          "a246c0e9",
+          "9a47cbc3",
+          "97f75db4",
+          "439d0ce6"
+        ],
+        "disagrees_with": [
+          "ffb7c5ad",
+          "a562c1df",
+          "244d110b",
+          "f6955646",
+          "3af0d659"
+        ],
+        "latency_ms": 380.60736656188965,
+        "tokens_used": 247,
+        "timestamp": 1778817199.6554
+      },
+      {
+        "tile_id": "439d0ce6",
+        "chain_id": "seed-mini-cross",
+        "model": "seed-mini",
+        "step": 4,
+        "facet": "cross_pollinated",
+        "computation_trace": "Got it, let's solve this step by step. First, expand the expression or just plug in the numbers directly. Let's do both maybe, but first plug a=5, b=3. \n\nFirst, (5+3)*(5-3) = 8*2 = 16. Wait, let's also expand the formula to check: (a+b)(a-b) = a\u00b2 - b\u00b2, so 25 -9=16. Yep, that matches the other models' answers. Let's walk through it properly.\n\nStep 1: Substitute a=5 and b=3 into the expression. So that's (5 + 3)(5 - 3). Step 2: Calculate each parenthesis first. 5+3 is 8, 5-3 is 2. Step3: Multiply those together: 8*2=16. Alternatively using the difference of squares identity: a\u00b2 - b\u00b2 = 25 -9=16. ",
+        "partial_result": "16",
+        "confidence": 1.0,
+        "read_tiles": [
+          "9a47cbc3",
+          "577e229a"
+        ],
+        "agrees_with": [
+          "97794ef1",
+          "a246c0e9",
+          "9a47cbc3",
+          "97f75db4",
+          "577e229a"
+        ],
+        "disagrees_with": [
+          "ffb7c5ad",
+          "a562c1df",
+          "244d110b",
+          "f6955646",
+          "3af0d659"
+        ],
+        "latency_ms": 3965.8455848693848,
+        "tokens_used": 482,
+        "timestamp": 1778817203.6221051
+      },
+      {
+        "tile_id": "f6955646",
+        "chain_id": "qwen-4b-cross",
+        "model": "qwen-4b",
+        "step": 4,
+        "facet": "cross_pollinated",
+        "computation_trace": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to solve the mathematical expression $(a+b)*(a-b)$ given specific values for $a$ and $b$. The user also provides examples of \"Other models computed\" which both arrived at the answer 16. I need to provide my final answer based on the calculation.\n\n2.  **Identify the Expression:** The expression is $(a+b)(a-b)$.\n\n3.  **Identify the Values:** $a = 5$, $b = 3$.\n\n4.  **Perform the Calculation:**\n    *   Method 1: Direct Substitution.\n        *   Calculate $(a+b)$: $5 + 3 = 8$.\n        *   Calculate $(a-b)$: $5 - 3 = 2$.\n        *   M",
+        "partial_result": "16.",
+        "confidence": 0.5,
+        "read_tiles": [
+          "97794ef1",
+          "577e229a"
+        ],
+        "agrees_with": [],
+        "disagrees_with": [
+          "97794ef1",
+          "a246c0e9",
+          "9a47cbc3",
+          "ffb7c5ad",
+          "97f75db4",
+          "a562c1df",
+          "244d110b",
+          "577e229a",
+          "439d0ce6",
+          "3af0d659"
+        ],
+        "latency_ms": 2081.4409255981445,
+        "tokens_used": 543,
+        "timestamp": 1778817205.7044966
+      },
+      {
+        "tile_id": "3af0d659",
+        "chain_id": "mimo-cross",
+        "model": "mimo",
+        "step": 4,
+        "facet": "cross_pollinated",
+        "computation_trace": "To solve the expression $(a+b)*(a-b)$ with $a=5$ and $b=3$, we can use two methods:\n\n**Method 1: Direct Substitution**\n1. Substitute the values into the expression: $(5+3) * (5-3)$\n2. Calculate the values inside the parentheses: $8 * 2$\n3. Multiply the results: $16$\n\n**Method 2: Difference of Squares Formula**\n1. Recognize that",
+        "partial_result": "3",
+        "confidence": 0.5,
+        "read_tiles": [
+          "97794ef1",
+          "9a47cbc3"
+        ],
+        "agrees_with": [
+          "ffb7c5ad",
+          "a562c1df"
+        ],
+        "disagrees_with": [
+          "97794ef1",
+          "a246c0e9",
+          "9a47cbc3",
+          "97f75db4",
+          "244d110b",
+          "577e229a",
+          "439d0ce6",
+          "f6955646"
+        ],
+        "latency_ms": 848.5381603240967,
+        "tokens_used": 293,
+        "timestamp": 1778817206.5538604
+      }
+    ],
+    "mined": {
+      "question": "(a+b)*(a-b) where a=5, b=3",
+      "expected": "16",
+      "convergence_trajectory": "oscillating",
+      "timeline": [
+        {
+          "step": 1,
+          "top_result": "16",
+          "agreement": "2/3",
+          "convergence_pct": 66.66666666666666,
+          "velocity": 0.0,
+          "all_results": {
+            "16": 2,
+            "3": 1
+          }
+        },
+        {
+          "step": 2,
+          "top_result": "16",
+          "agreement": "1/3",
+          "convergence_pct": 33.33333333333333,
+          "velocity": -0.3333333333333333,
+          "all_results": {
+            "16": 1,
+            "3": 1,
+            "2": 1
+          }
+        },
+        {
+          "step": 3,
+          "top_result": "16",
+          "agreement": "2/2",
+          "convergence_pct": 100.0,
+          "velocity": 0.6666666666666667,
+          "all_results": {
+            "16": 2
+          }
+        },
+        {
+          "step": 4,
+          "top_result": "16",
+          "agreement": "1/3",
+          "convergence_pct": 33.33333333333333,
+          "velocity": -0.6666666666666667,
+          "all_results": {
+            "16": 1,
+            "16.": 1,
+            "3": 1
+          }
+        }
+      ],
+      "model_accuracy": {
+        "seed-mini": 1.0,
+        "qwen-4b": 0.5,
+        "mimo": 0.25
+      },
+      "resonance": {
+        "seed-mini": [
+          "16"
+        ],
+        "qwen-4b": [
+          "16",
+          "16.",
+          "3"
+        ],
+        "mimo": [
+          "16",
+          "2",
+          "3"
+        ]
+      },
+      "divergence_points": [
+        {
+          "step": 1,
+          "results": {
+            "16": 2,
+            "3": 1
+          },
+          "entropy": -0.5555555555555556
+        },
+        {
+          "step": 2,
+          "results": {
+            "16": 1,
+            "3": 1,
+            "2": 1
+          },
+          "entropy": -0.3333333333333333
+        },
+        {
+          "step": 4,
+          "results": {
+            "16": 1,
+            "16.": 1,
+            "3": 1
+          },
+          "entropy": -0.3333333333333333
+        }
+      ],
+      "cross_pollination_events": 3,
+      "total_tiles": 11,
+      "total_tokens": 4442,
+      "total_latency_ms": 23120.82529067993,
+      "harmonics": {
+        "16": [
+          {
+            "model": "seed-mini",
+            "facet": "direct",
+            "step": 1,
+            "trace_preview": "Got it, let's solve this step by step. First, remember that (a+b)(a-b) is a difference of squares, w"
+          },
+          {
+            "model": "seed-mini",
+            "facet": "direct",
+            "step": 2,
+            "trace_preview": "Got it, let's walk through this properly like the previous step started. First, let's confirm both m"
+          },
+          {
+            "model": "qwen-4b",
+            "facet": "direct",
+            "step": 1,
+            "trace_preview": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the expression $(a+b)*("
+          },
+          {
+            "model": "qwen-4b",
+            "facet": "direct",
+            "step": 3,
+            "trace_preview": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the expression $(a+b)*("
+          },
+          {
+            "model": "mimo",
+            "facet": "direct",
+            "step": 3,
+            "trace_preview": "16"
+          },
+          {
+            "model": "seed-mini",
+            "facet": "cross_pollinated",
+            "step": 4,
+            "trace_preview": "Got it, let's solve this step by step. First, expand the expression or just plug in the numbers dire"
+          }
+        ],
+        "3": [
+          {
+            "model": "qwen-4b",
+            "facet": "direct",
+            "step": 2,
+            "trace_preview": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the expression $(a+b)*("
+          },
+          {
+            "model": "mimo",
+            "facet": "direct",
+            "step": 1,
+            "trace_preview": "Of course. Let's compute this step by step.\n\n**Step 1: Substitute the values of a and b into the exp"
+          },
+          {
+            "model": "mimo",
+            "facet": "cross_pollinated",
+            "step": 4,
+            "trace_preview": "To solve the expression $(a+b)*(a-b)$ with $a=5$ and $b=3$, we can use two methods:\n\n**Method 1: Dir"
+          }
+        ]
+      },
+      "dissonance": [
+        {
+          "result": "3",
+          "support": [
+            {
+              "model": "qwen-4b",
+              "facet": "direct",
+              "step": 2,
+              "trace_preview": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the expression $(a+b)*("
+            },
+            {
+              "model": "mimo",
+              "facet": "direct",
+              "step": 1,
+              "trace_preview": "Of course. Let's compute this step by step.\n\n**Step 1: Substitute the values of a and b into the exp"
+            },
+            {
+              "model": "mimo",
+              "facet": "cross_pollinated",
+              "step": 4,
+              "trace_preview": "To solve the expression $(a+b)*(a-b)$ with $a=5$ and $b=3$, we can use two methods:\n\n**Method 1: Dir"
+            }
+          ]
+        }
+      ],
+      "n_harmonics": 2,
+      "n_dissonance": 1
+    }
+  },
+  {
+    "question": "5*5 - 3*4 + 2*2",
+    "expected": "17",
+    "tiles": [
+      {
+        "tile_id": "99650066",
+        "chain_id": "seed-mini-chain",
+        "model": "seed-mini",
+        "step": 1,
+        "facet": "direct",
+        "computation_trace": "Got it, let's solve this step by step using order of operations, right? PEMDAS/BODMAS: first multiplication, then addition and subtraction left to right.\n\nFirst calculate each product:\n5*5 is 25,\n3*4 is 12,\n2*2 is 4.\n\nNow substitute back: 25 - 12 + 4. Now do subtraction first? Wait no, left to right: 25 minus 12 is 13, then 13 plus 4 is 17? Wait wait no, wait 25-12 is 13, plus 4 is 17? Let me check again. Wait 5*5 is 25, 3*4 is 12, so 25 -12 is 13, plus 2*2 which is 4, so 13+4=17. Yeah that's right. Let's go through each step clearly:\n\nStep 1: Compute all multiplication terms first:\n1. 5 \u00d7 5 =",
+        "partial_result": "4",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [
+          "f4ee19ff",
+          "66f99f3e",
+          "b24c67c6",
+          "6ac41afd"
+        ],
+        "disagrees_with": [
+          "13b1aa05",
+          "25470fdf",
+          "58a0345a",
+          "7f8969fa",
+          "770d76b5",
+          "17999e5d"
+        ],
+        "latency_ms": 5101.064205169678,
+        "tokens_used": 501,
+        "timestamp": 1778817211.6564524
+      },
+      {
+        "tile_id": "f4ee19ff",
+        "chain_id": "seed-mini-chain",
+        "model": "seed-mini",
+        "step": 2,
+        "facet": "direct",
+        "computation_trace": "Got it, let's work through this properly. First, remember PEMDAS: do all multiplications first before addition/subtraction.\n\nFirst, calculate each multiplication term:\n1. 5*5 = 25, that's straightforward.\n2. 3*4 = 12, correct.\n3. 2*2 = 4, right.\n\nNow substitute those back into the original expression, so it becomes 25 - 12 + 4. Now we do addition and subtraction left to right, since they're at the same priority level.\n\nFirst step: 25 minus 12 is 13. Then take that 13 and add 4, which is 17. Wait, let's check again the step the user had earlier, they said \"Result so far:4\" but that was wrong? W",
+        "partial_result": "4",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [
+          "99650066",
+          "66f99f3e",
+          "b24c67c6",
+          "6ac41afd"
+        ],
+        "disagrees_with": [
+          "13b1aa05",
+          "25470fdf",
+          "58a0345a",
+          "7f8969fa",
+          "770d76b5",
+          "17999e5d"
+        ],
+        "latency_ms": 7788.112163543701,
+        "tokens_used": 943,
+        "timestamp": 1778817219.44546
+      },
+      {
+        "tile_id": "13b1aa05",
+        "chain_id": "qwen-4b-chain",
+        "model": "qwen-4b",
+        "step": 1,
+        "facet": "direct",
+        "computation_trace": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the expression `5*5 - 3*4 + 2*2` step by step. I need to show my work.\n\n2.  **Identify the Operation Order:** The expression involves multiplication and addition/subtraction. According to the order of operations (PEMDAS/BODMAS), multiplication comes before addition and subtraction.\n\n3.  **Break Down the Expression:**\n    *   Term 1: `5*5`\n    *   Term 2: `3*4`\n    *   Term 3: `2*2`\n    *   Expression: `Term 1 - Term 2 + Term 3`\n\n4.  **Perform Multiplications:**\n    *   `5*5 = 25`\n    *   `3*4 = 12`\n    *   `2*2 = 4`\n\n",
+        "partial_result": "12",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [],
+        "disagrees_with": [
+          "99650066",
+          "f4ee19ff",
+          "25470fdf",
+          "58a0345a",
+          "7f8969fa",
+          "66f99f3e",
+          "770d76b5",
+          "b24c67c6",
+          "17999e5d",
+          "6ac41afd"
+        ],
+        "latency_ms": 2594.0451622009277,
+        "tokens_used": 446,
+        "timestamp": 1778817222.0408027
+      },
+      {
+        "tile_id": "25470fdf",
+        "chain_id": "qwen-4b-chain",
+        "model": "qwen-4b",
+        "step": 2,
+        "facet": "direct",
+        "computation_trace": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the expression `5*5 - 3*4 + 2*2` step by step. I need to show my work.\n\n2.  **Identify the Operation Order:** The expression involves multiplication and addition/subtraction. According to the order of operations (PEMDAS/BODMAS), multiplication comes before addition and subtraction.\n\n3.  **Step 1: Multiplication:**\n    *   First term: $5 \\times 5 = 25$\n    *   Second term: $3 \\times 4 = 12$\n    *   Third term: $2 \\times 2 = 4$\n    *   Rewrite the expression: $25 - 12 + 4$\n\n4.  **Step 2: Subtraction and Addition (Left t",
+        "partial_result": "1",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [],
+        "disagrees_with": [
+          "99650066",
+          "f4ee19ff",
+          "13b1aa05",
+          "58a0345a",
+          "7f8969fa",
+          "66f99f3e",
+          "770d76b5",
+          "b24c67c6",
+          "17999e5d",
+          "6ac41afd"
+        ],
+        "latency_ms": 2525.3746509552,
+        "tokens_used": 543,
+        "timestamp": 1778817224.5669901
+      },
+      {
+        "tile_id": "58a0345a",
+        "chain_id": "qwen-4b-chain",
+        "model": "qwen-4b",
+        "step": 3,
+        "facet": "direct",
+        "computation_trace": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to compute the expression `5*5 - 3*4 + 2*2` step by step. I need to show my work.\n\n2.  **Identify the Operation Order:** The expression involves multiplication and addition/subtraction. According to the order of operations (PEMDAS/BODMAS), multiplication is performed before addition and subtraction.\n\n3.  **Step-by-Step Calculation:**\n    *   First, calculate the multiplications:\n        *   $5 \\times 5 = 25$\n        *   $3 \\times 4 = 12$\n        *   $2 \\times 2 = 4$\n    *   Substitute these values back into the expression:\n     ",
+        "partial_result": "17",
+        "confidence": 1.0,
+        "read_tiles": [],
+        "agrees_with": [
+          "17999e5d"
+        ],
+        "disagrees_with": [
+          "99650066",
+          "f4ee19ff",
+          "13b1aa05",
+          "25470fdf",
+          "7f8969fa",
+          "66f99f3e",
+          "770d76b5",
+          "b24c67c6",
+          "6ac41afd"
+        ],
+        "latency_ms": 2657.703399658203,
+        "tokens_used": 634,
+        "timestamp": 1778817227.2257168
+      },
+      {
+        "tile_id": "7f8969fa",
+        "chain_id": "mimo-chain",
+        "model": "mimo",
+        "step": 1,
+        "facet": "direct",
+        "computation_trace": "Of course. Let's break down the expression `5*5 - 3*4 + 2*2` step-by-step.\n\nWe will use the order of operations, often remembered by the acronym PEMDAS (Parentheses, Exponents, Multiplication and Division, Addition and Subtraction).\n\n**Step 1: Perform all Multiplication and Division from left to right.**\n\n*   First, we calculate `5 * 5`:\n    `5 * 5 = 2",
+        "partial_result": "2",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [],
+        "disagrees_with": [
+          "99650066",
+          "f4ee19ff",
+          "13b1aa05",
+          "25470fdf",
+          "58a0345a",
+          "66f99f3e",
+          "770d76b5",
+          "b24c67c6",
+          "17999e5d",
+          "6ac41afd"
+        ],
+        "latency_ms": 886.347770690918,
+        "tokens_used": 143,
+        "timestamp": 1778817228.1133687
+      },
+      {
+        "tile_id": "66f99f3e",
+        "chain_id": "mimo-chain",
+        "model": "mimo",
+        "step": 2,
+        "facet": "direct",
+        "computation_trace": "**Step 2: Perform all Multiplication and Division from left to right.**\n\nLet's identify the multiplication operations in the expression `5*5 - 3*4 + 2*2`:\n\n1.  `5*5` = 25\n2.  `3*4` = 12\n3.  `2*2` = 4\n\nNow, substitute these results back into the expression:\n\n`25 - 12 + 4",
+        "partial_result": "4",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [
+          "99650066",
+          "f4ee19ff",
+          "b24c67c6",
+          "6ac41afd"
+        ],
+        "disagrees_with": [
+          "13b1aa05",
+          "25470fdf",
+          "58a0345a",
+          "7f8969fa",
+          "770d76b5",
+          "17999e5d"
+        ],
+        "latency_ms": 907.0219993591309,
+        "tokens_used": 235,
+        "timestamp": 1778817229.0214934
+      },
+      {
+        "tile_id": "770d76b5",
+        "chain_id": "mimo-chain",
+        "model": "mimo",
+        "step": 3,
+        "facet": "direct",
+        "computation_trace": "21",
+        "partial_result": "21",
+        "confidence": 0.5,
+        "read_tiles": [],
+        "agrees_with": [],
+        "disagrees_with": [
+          "99650066",
+          "f4ee19ff",
+          "13b1aa05",
+          "25470fdf",
+          "58a0345a",
+          "7f8969fa",
+          "66f99f3e",
+          "b24c67c6",
+          "17999e5d",
+          "6ac41afd"
+        ],
+        "latency_ms": 399.810791015625,
+        "tokens_used": 250,
+        "timestamp": 1778817229.4221723
+      },
+      {
+        "tile_id": "b24c67c6",
+        "chain_id": "seed-mini-cross",
+        "model": "seed-mini",
+        "step": 4,
+        "facet": "cross_pollinated",
+        "computation_trace": "Got it, let's work through this properly step by step. First, follow PEMDAS: do all multiplications first.\n\nFirst calculate 5*5 = 25. Then 3*4=12, then 2*2=4. Now substitute those back into the expression: 25 - 12 + 4. Now do subtraction and addition left to right: 25-12 is 13, then 13 +4 is 17. Wait the first model got 17, the second one messed up? Let's confirm again. Yep, 25 minus 12 is 13 plus 4 is 17. Let's walk through each step clearly for the user.",
+        "partial_result": "4",
+        "confidence": 0.5,
+        "read_tiles": [
+          "58a0345a",
+          "7f8969fa"
+        ],
+        "agrees_with": [
+          "99650066",
+          "f4ee19ff",
+          "66f99f3e",
+          "6ac41afd"
+        ],
+        "disagrees_with": [
+          "13b1aa05",
+          "25470fdf",
+          "58a0345a",
+          "7f8969fa",
+          "770d76b5",
+          "17999e5d"
+        ],
+        "latency_ms": 4051.579475402832,
+        "tokens_used": 480,
+        "timestamp": 1778817233.4746428
+      },
+      {
+        "tile_id": "17999e5d",
+        "chain_id": "qwen-4b-cross",
+        "model": "qwen-4b",
+        "step": 4,
+        "facet": "cross_pollinated",
+        "computation_trace": "Thinking Process:\n\n1.  **Analyze the Request:** The user wants me to solve the mathematical expression `5*5 - 3*4 + 2*2`. There are also \"Other models computed\" sections showing previous attempts by \"Model seed-mini\" and \"Model mimo\". I need to provide my own solution and then state the final answer.\n\n2.  **Analyze the Expression:**\n    Expression: $5 \\times 5 - 3 \\times 4 + 2 \\times 2$\n\n3.  **Apply Order of Operations (PEMDAS/BODMAS):**\n    *   **P/B:** Parentheses/Brackets (None)\n    *   **E/O:** Exponents/Orders (None)\n    *   **MD/DM:** Multiplication and Division (Left to Right)\n    *   *",
+        "partial_result": "17",
+        "confidence": 1.0,
+        "read_tiles": [
+          "99650066",
+          "7f8969fa"
+        ],
+        "agrees_with": [
+          "58a0345a"
+        ],
+        "disagrees_with": [
+          "99650066",
+          "f4ee19ff",
+          "13b1aa05",
+          "25470fdf",
+          "7f8969fa",
+          "66f99f3e",
+          "770d76b5",
+          "b24c67c6",
+          "6ac41afd"
+        ],
+        "latency_ms": 2411.27347946167,
+        "tokens_used": 586,
+        "timestamp": 1778817235.8867908
+      },
+      {
+        "tile_id": "6ac41afd",
+        "chain_id": "mimo-cross",
+        "model": "mimo",
+        "step": 4,
+        "facet": "cross_pollinated",
+        "computation_trace": "To solve the expression **5*5 - 3*4 + 2*2**, we follow the order of operations (PEMDAS/BODMAS), which requires us to perform multiplication before addition and subtraction.\n\n**Step 1: Perform the multiplications**\n*   $5 \\times 5 = 25$\n*   $3 \\times 4 = 12$\n*   $2 \\times 2 = 4$\n\nNow, substitute these values back into the",
+        "partial_result": "4",
+        "confidence": 0.5,
+        "read_tiles": [
+          "99650066",
+          "58a0345a"
+        ],
+        "agrees_with": [
+          "99650066",
+          "f4ee19ff",
+          "66f99f3e",
+          "b24c67c6"
+        ],
+        "disagrees_with": [
+          "13b1aa05",
+          "25470fdf",
+          "58a0345a",
+          "7f8969fa",
+          "770d76b5",
+          "17999e5d"
+        ],
+        "latency_ms": 891.6630744934082,
+        "tokens_used": 287,
+        "timestamp": 1778817236.7794816
+      }
+    ],
+    "mined": {
+      "question": "5*5 - 3*4 + 2*2",
+      "expected": "17",
+      "convergence_trajectory": "oscillating",
+      "timeline": [
+        {
+          "step": 1,
+          "top_result": "4",
+          "agreement": "1/3",
+          "convergence_pct": 33.33333333333333,
+          "velocity": 0.0,
+          "all_results": {
+            "4": 1,
+            "12": 1,
+            "2": 1
+          }
+        },
+        {
+          "step": 2,
+          "top_result": "4",
+          "agreement": "2/3",
+          "convergence_pct": 66.66666666666666,
+          "velocity": 0.3333333333333333,
+          "all_results": {
+            "4": 2,
+            "1": 1
+          }
+        },
+        {
+          "step": 3,
+          "top_result": "17",
+          "agreement": "1/2",
+          "convergence_pct": 50.0,
+          "velocity": -0.16666666666666663,
+          "all_results": {
+            "17": 1,
+            "21": 1
+          }
+        },
+        {
+          "step": 4,
+          "top_result": "4",
+          "agreement": "2/3",
+          "convergence_pct": 66.66666666666666,
+          "velocity": 0.16666666666666663,
+          "all_results": {
+            "4": 2,
+            "17": 1
+          }
+        }
+      ],
+      "model_accuracy": {
+        "seed-mini": 0.0,
+        "qwen-4b": 0.5,
+        "mimo": 0.0
+      },
+      "resonance": {
+        "seed-mini": [
+          "4"
+        ],
+        "qwen-4b": [
+          "1",
+          "12",
+          "17"
+        ],
+        "mimo": [
+          "2",
+          "21",
+          "4"
+        ]
+      },
+      "divergence_points": [
+        {
+          "step": 1,
+          "results": {
+            "4": 1,
+            "12": 1,
+            "2": 1
+          },
+          "entropy": -0.3333333333333333
+        },
+        {
+          "step": 2,
+          "results": {
+            "4": 2,
+            "1": 1
+          },
+          "entropy": -0.5555555555555556
+        },
+        {
+          "step": 3,
+          "results": {
+            "17": 1,
+            "21": 1
+          },
+          "entropy": -0.5
+        },
+        {
+          "step": 4,
+          "results": {
+            "4": 2,
+            "17": 1
+          },
+          "entropy": -0.5555555555555556
+        }
+      ],
+      "cross_pollination_events": 3,
+      "total_tiles": 11,
+      "total_tokens": 5048,
+      "total_latency_ms": 30213.996171951294,
+      "harmonics": {
+        "4": [
+          {
+            "model": "seed-mini",
+            "facet": "direct",
+            "step": 1,
+            "trace_preview": "Got it, let's solve this step by step using order of operations, right? PEMDAS/BODMAS: first multipl"
+          },
+          {
+            "model": "seed-mini",
+            "facet": "direct",
+            "step": 2,
+            "trace_preview": "Got it, let's work through this properly. First, remember PEMDAS: do all multiplications first befor"
+          },
+          {
+            "model": "mimo",
+            "facet": "direct",
+            "step": 2,
+            "trace_preview": "**Step 2: Perform all Multiplication and Division from left to right.**\n\nLet's identify the multipli"
+          },
+          {
+            "model": "seed-mini",
+            "facet": "cross_pollinated",
+            "step": 4,
+            "trace_preview": "Got it, let's work through this properly step by step. First, follow PEMDAS: do all multiplications "
+          },
+          {
+            "model": "mimo",
+            "facet": "cross_pollinated",
+            "step": 4,
+            "trace_preview": "To solve the expression **5*5 - 3*4 + 2*2**, we follow the order of operations (PEMDAS/BODMAS), whic"
+          }
+        ]
+      },
+      "dissonance": [
+        {
+          "result": "4",
+          "support": [
+            {
+              "model": "seed-mini",
+              "facet": "direct",
+              "step": 1,
+              "trace_preview": "Got it, let's solve this step by step using order of operations, right? PEMDAS/BODMAS: first multipl"
+            },
+            {
+              "model": "seed-mini",
+              "facet": "direct",
+              "step": 2,
+              "trace_preview": "Got it, let's work through this properly. First, remember PEMDAS: do all multiplications first befor"
+            },
+            {
+              "model": "mimo",
+              "facet": "direct",
+              "step": 2,
+              "trace_preview": "**Step 2: Perform all Multiplication and Division from left to right.**\n\nLet's identify the multipli"
+            },
+            {
+              "model": "seed-mini",
+              "facet": "cross_pollinated",
+              "step": 4,
+              "trace_preview": "Got it, let's work through this properly step by step. First, follow PEMDAS: do all multiplications "
+            },
+            {
+              "model": "mimo",
+              "facet": "cross_pollinated",
+              "step": 4,
+              "trace_preview": "To solve the expression **5*5 - 3*4 + 2*2**, we follow the order of operations (PEMDAS/BODMAS), whic"
+            }
+          ]
+        }
+      ],
+      "n_harmonics": 1,
+      "n_dissonance": 1
+    }
+  }
+]
