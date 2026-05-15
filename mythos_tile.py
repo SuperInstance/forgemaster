@@ -224,6 +224,134 @@ class MythosPipeline:
 
         return True
 
+    # -- GL(9) consensus checking ------------------------------------------
+
+    def check_gl9_consensus(self) -> dict:
+        """Check tile consensus across experts using GL(9) holonomy.
+
+        Uses GL9HolonomyConsensus to detect if experts are diverging.
+        Each expert's output is projected to a 9D intent vector derived
+        from its content domain, confidence, and tile metadata.
+
+        Returns a dict with:
+          - consensus: bool — whether experts agree
+          - alignment: float — pairwise cosine similarity (0-1)
+          - faulty_experts: list — names of experts that diverge
+          - deviation: float — maximum holonomy deviation
+          - expert_count: int
+        """
+        try:
+            from gl9_consensus import (
+                GL9HolonomyConsensus, GL9Agent, IntentVector, GL9Matrix,
+            )
+        except ImportError:
+            return {
+                "consensus": True, "alignment": 1.0,
+                "faulty_experts": [], "deviation": 0.0,
+                "expert_count": len(self._expert_index),
+                "error": "gl9_consensus module not available",
+            }
+
+        if len(self._expert_index) < 2:
+            return {
+                "consensus": True, "alignment": 1.0,
+                "faulty_experts": [], "deviation": 0.0,
+                "expert_count": len(self._expert_index),
+            }
+
+        # Build GL(9) consensus from expert tiles
+        gl9 = GL9HolonomyConsensus(tolerance=0.5)
+        expert_names = list(self._expert_index.keys())
+
+        for idx, name in enumerate(expert_names):
+            tile = self.get_by_expert(name)
+            if tile is None:
+                continue
+
+            # Derive 9D intent vector from tile properties
+            # Map domain characteristics to CI facets
+            intent_data = self._tile_to_intent(tile)
+            iv = IntentVector(intent_data)
+
+            # Build a small transform from confidence (identity + small perturbation)
+            transform = GL9Matrix.identity()
+            if tile.confidence < 0.5:
+                # Low confidence → introduce slight deviation in transform
+                for dim in range(9):
+                    transform.set(dim, dim, tile.confidence * 2)
+
+            # Neighbors: all other experts
+            neighbors = [idx2 for idx2 in range(len(expert_names)) if idx2 != idx]
+            agent = GL9Agent(
+                id=idx,
+                intent=iv,
+                transform=transform,
+                neighbors=neighbors,
+            )
+            gl9.add_agent(agent)
+
+        result = gl9.check_consensus()
+        faulty_names = [
+            expert_names[i] for i in result.faulty_agents
+            if i < len(expert_names)
+        ]
+
+        return {
+            "consensus": result.consensus,
+            "alignment": round(result.alignment, 4),
+            "deviation": round(result.deviation, 4),
+            "cycle_count": result.cycle_count,
+            "correlation": round(result.correlation, 4),
+            "faulty_experts": faulty_names,
+            "expert_count": len(expert_names),
+        }
+
+    @staticmethod
+    def _tile_to_intent(tile: "MythosTile") -> list:
+        """Derive a 9D intent vector from tile properties.
+
+        Maps to CI facets:
+          0: C1 Boundary    — source/room identity
+          1: C2 Pattern     — domain label hash
+          2: C3 Process     — content_type encoding
+          3: C4 Knowledge   — confidence
+          4: C5 Social      — tag count / sharing
+          5: C6 Deep Struct — tag diversity
+          6: C7 Instrument  — activation_key presence
+          7: C8 Paradigm    — target_tier
+          8: C9 Stakes      — lifecycle encoding
+        """
+        import hashlib as _hl
+
+        def _norm(v: float) -> float:
+            """Normalize to [0, 1] range."""
+            return max(0.0, min(1.0, v))
+
+        domain_hash = int(_hl.md5(tile.domain.encode()).hexdigest()[:8], 16) / 0xFFFFFFFF
+        source_hash = int(_hl.md5(tile.source.encode()).hexdigest()[:8], 16) / 0xFFFFFFFF
+        content_hash = int(_hl.md5(tile.content[:64].encode()).hexdigest()[:8], 16) / 0xFFFFFFFF
+
+        unique_tags = len(set(tile.tags)) if tile.tags else 0
+        tag_density = _norm(unique_tags / 10.0)
+
+        has_key = 1.0 if tile.activation_key else 0.0
+        tier_norm = _norm(tile.target_tier / 3.0) if tile.target_tier else 0.5
+        lifecycle_val = {
+            "active": 1.0, "superseded": 0.5, "retracted": 0.0
+        }.get(tile.lifecycle, 0.5)
+
+        return [
+            source_hash,    # C1: boundary
+            domain_hash,    # C2: pattern
+            content_hash,   # C3: process
+            tile.confidence, # C4: knowledge
+            _norm(len(tile.tags) / 5.0),  # C5: social
+            tag_density,    # C6: deep structure
+            has_key,        # C7: instrument
+            tier_norm,      # C8: paradigm
+            lifecycle_val,  # C9: stakes
+        ]
+
     # -- Step 5: Translate for model tier ------------------------------------
 
     def translate_for_model(self, tile: MythosTile, tier: int) -> str:

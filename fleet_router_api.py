@@ -297,6 +297,43 @@ class CriticalAngleRouter:
         self.stats = stats
         self.hebbian_url = hebbian_url or "http://localhost:8849"
         self._translator_router = TranslatorRouter() if HAS_TRANSLATOR else None
+        # Conservation-aware routing state
+        self._compliance_rate: float = 1.0
+        self._alignment_score: float = 1.0
+        self._cross_consult_threshold: float = 0.85
+
+    def set_conservation_state(self, compliance_rate: float,
+                                alignment_score: float = 1.0) -> None:
+        """Update conservation compliance and alignment for routing decisions."""
+        self._compliance_rate = max(0.0, min(1.0, compliance_rate))
+        self._alignment_score = max(0.0, min(1.0, alignment_score))
+
+    def _conservation_filter(self, entry: 'ModelEntry') -> bool:
+        """If compliance < 85%, only Tier 1 models are routed."""
+        if self._compliance_rate >= self._cross_consult_threshold:
+            return True
+        return entry.tier == ModelTierEnum.TIER_1_DIRECT
+
+    def _should_cross_consult(self) -> bool:
+        return self._alignment_score < self._cross_consult_threshold
+
+    def _find_conservative_best(
+        self,
+        preferred_tier: ModelTierEnum = ModelTierEnum.TIER_1_DIRECT,
+        exclude: Optional[set] = None,
+    ) -> Optional[ModelEntry]:
+        """Find the best model respecting conservation constraints."""
+        exclude = exclude or set()
+        if self._compliance_rate >= self._cross_consult_threshold:
+            return self.registry.find_best(preferred_tier, exclude)
+
+        # Low compliance: only conservation-filtered models
+        candidates = [
+            e for e in self.registry._models.values()
+            if e.available and e.model_id not in exclude and self._conservation_filter(e)
+        ]
+        candidates.sort(key=lambda e: (e.tier, -e.accuracy_high))
+        return candidates[0] if candidates else self.registry.find_best(preferred_tier, exclude)
 
     def route_request(
         self,
@@ -338,15 +375,34 @@ class CriticalAngleRouter:
         if target_model:
             entry = self.registry.get(target_model)
             if entry and entry.available:
-                tier = entry.tier
-                routing_reason = f"Explicit model selection: {target_model}"
+                if not self._conservation_filter(entry):
+                    # Conservation filter blocks this model
+                    downgraded = True
+                    fallback = self._find_conservative_best(exclude={target_model})
+                    if fallback:
+                        target_model = fallback.model_id
+                        tier = fallback.tier
+                        routing_reason = f"Conservation filter: {preferred_model} skipped → {target_model}"
+                    else:
+                        routing_reason = "Conservation filter: no suitable model"
+                        self.stats.record(target_model or "none", tier, task_type, rejected=True)
+                        return {
+                            "model_id": None, "tier": tier.value,
+                            "translated_prompt": None, "estimated_accuracy": 0.0,
+                            "routing_reason": routing_reason,
+                            "downgraded": True, "rejected": True,
+                            "recommendation": "Conservation compliance too low",
+                            "conservation_compliance": round(self._compliance_rate, 3),
+                        }
+                else:
+                    tier = entry.tier
+                    routing_reason = f"Explicit model selection: {target_model}"
             else:
                 # Model unavailable — auto-downgrade
                 downgraded = True
                 tier = ModelTierEnum.TIER_2_SCAFFOLDED
-                fallback = self.registry.find_best(
-                    preferred_tier=ModelTierEnum.TIER_1_DIRECT,
-                    exclude={target_model} if target_model else None,
+                fallback = self._find_conservative_best(
+                    exclude={target_model} if target_model else None
                 )
                 if fallback:
                     target_model = fallback.model_id
@@ -361,16 +417,17 @@ class CriticalAngleRouter:
                         "routing_reason": routing_reason,
                         "downgraded": True, "rejected": True,
                         "recommendation": "No models available",
+                        "conservation_compliance": round(self._compliance_rate, 3),
                     }
         else:
-            # Auto-select best model
-            entry = self.registry.find_best(ModelTierEnum.TIER_1_DIRECT)
+            # Auto-select best model (conservation-aware)
+            entry = self._find_conservative_best()
             if entry:
                 target_model = entry.model_id
                 tier = entry.tier
-                routing_reason = f"Auto-selected best available: {target_model} (tier {tier.value})"
+                routing_reason = f"Auto-selected: {target_model} (tier {tier.value}, compliance={self._compliance_rate:.0%})"
             else:
-                routing_reason = "No models registered"
+                routing_reason = "No models registered or all filtered"
                 self.stats.record("none", ModelTierEnum.TIER_3_INCOMPETENT, task_type, rejected=True)
                 return {
                     "model_id": None, "tier": 3,
@@ -378,6 +435,7 @@ class CriticalAngleRouter:
                     "routing_reason": routing_reason,
                     "downgraded": False, "rejected": True,
                     "recommendation": "Register models before routing",
+                    "conservation_compliance": round(self._compliance_rate, 3),
                 }
 
         # Tier 3 rejection
@@ -430,6 +488,9 @@ class CriticalAngleRouter:
             "downgraded": downgraded,
             "rejected": False,
             "via_hebbian": via_hebbian,
+            "conservation_compliance": round(self._compliance_rate, 3),
+            "alignment_score": round(self._alignment_score, 3),
+            "cross_consultation": self._should_cross_consult(),
         }
 
     def _translate(self, task_type: str, params: Dict[str, Any],

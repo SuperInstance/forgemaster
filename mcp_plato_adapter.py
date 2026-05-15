@@ -61,6 +61,16 @@ except ImportError:
     ModelStage = None
     KNOWN_STAGES = {}
 
+try:
+    from fleet_router_api import (
+        CriticalAngleRouter, ModelRegistry, RoutingStats, ModelTierEnum as RouterTierEnum,
+    )
+    HAS_ROUTER_API = True
+except ImportError:
+    HAS_ROUTER_API = False
+    CriticalAngleRouter = None
+    ModelRegistry = None
+
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
@@ -379,26 +389,29 @@ class PlatoSubmitTool:
 
 
 class FleetRouteTool:
-    """Tool: fleet_route — Route a computation to the best model."""
+    """Tool: fleet_route — Route a computation to the best model.
 
-    def __init__(self, translator_router=None):
+    Uses CriticalAngleRouter from fleet_router_api when available,
+    falling back to the translator-based router.
+    """
+
+    def __init__(self, translator_router=None, critical_angle_router=None,
+                 hebbian_client=None):
         self._router = translator_router
+        self._critical_angle_router = critical_angle_router
+        self._hebbian = hebbian_client
 
     def execute(self, computation: str, priority: str = "balanced") -> dict:
         """Route a computation description to the best fleet model.
 
-        Uses three-tier taxonomy:
-        - Tier 1 (Direct): Seed models — 94-100% regardless of framing
-        - Tier 2 (Scaffolded): Qwen3, DeepSeek — needs scaffolding
-        - Tier 3 (Incompetent): Hermes — cannot reliably compute
+        When a CriticalAngleRouter is available, delegates to it for
+        three-tier routing, auto-downgrade, and Hebbian flow events.
         """
         # Detect stage from the computation
         if HAS_TRANSLATOR:
             stage = auto_detect_stage(computation)
             stage_name = stage.name
             stage_value = int(stage)
-
-            # Detect domain labels for routing hints
             labels = NotationNormalizer.detect_domain_labels(computation)
             has_notation = NotationNormalizer.has_symbolic_notation(computation)
         else:
@@ -407,12 +420,61 @@ class FleetRouteTool:
             labels = []
             has_notation = False
 
-        # Route to best model based on stage
+        # --- Use CriticalAngleRouter if available ---
+        if HAS_ROUTER_API and self._critical_angle_router:
+            car = self._critical_angle_router
+            params = {"expression": computation}
+            # Map priority to preferred model
+            preferred = None
+            if priority == "speed":
+                preferred = "ByteDance/Seed-2.0-mini"
+            elif priority == "quality":
+                preferred = "ByteDance/Seed-2.0-code"
+
+            result = car.route_request(
+                task_type="generic",
+                params=params,
+                preferred_model=preferred,
+            )
+
+            # Emit Hebbian flow event
+            hebbian_emitted = False
+            if self._hebbian and result.get("model_id"):
+                try:
+                    self._hebbian.submit_tile(
+                        tile_type="routed",
+                        source_room="mcp-fleet-route",
+                        dest_room=f"model-{result['model_id']}",
+                        confidence=result.get("estimated_accuracy", 0.9),
+                    )
+                    hebbian_emitted = True
+                except Exception:
+                    pass
+
+            return {
+                "computation": computation,
+                "detected_stage": stage_name,
+                "detected_labels": labels,
+                "has_notation": has_notation,
+                "recommended_model": {
+                    "model_id": result.get("model_id"),
+                    "tier": result.get("tier"),
+                    "reason": result.get("routing_reason", ""),
+                },
+                "translated_prompt": result.get("translated_prompt", computation),
+                "estimated_accuracy": result.get("estimated_accuracy", 0.5),
+                "priority": priority,
+                "downgraded": result.get("downgraded", False),
+                "rejected": result.get("rejected", False),
+                "hebbian_flow_emitted": hebbian_emitted,
+                "router": "CriticalAngleRouter",
+            }
+
+        # --- Fallback: translator-based routing ---
         model_recommendation = self._recommend_model(stage_value, priority)
         translated_prompt = computation
         estimated_accuracy = self._estimate_accuracy(stage_value, priority)
 
-        # Translate prompt for recommended model stage
         if HAS_TRANSLATOR and self._router:
             try:
                 translated_prompt = self._router.route(
@@ -432,40 +494,21 @@ class FleetRouteTool:
             "translated_prompt": translated_prompt,
             "estimated_accuracy": estimated_accuracy,
             "priority": priority,
+            "router": "translator",
         }
 
     def _recommend_model(self, stage_value: int, priority: str) -> dict:
         """Recommend the best model based on stage and priority."""
-        # Priority-based routing
         if priority == "speed":
-            if stage_value >= 4:
-                return {"model_id": "ByteDance/Seed-2.0-mini", "tier": 1,
-                        "reason": "Stage 4 task, fast cheap model"}
             return {"model_id": "ByteDance/Seed-2.0-mini", "tier": 1,
                     "reason": "Fast failback, handles most tasks"}
-
         if priority == "quality":
-            if stage_value >= 4:
-                return {"model_id": "ByteDance/Seed-2.0-code", "tier": 1,
-                        "reason": "Stage 4 task, best code+math model"}
-            return {"model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507", "tier": 2,
-                    "reason": "Best reasoning for complex tasks"}
-
-        # Balanced (default)
-        if stage_value >= 4:
-            return {"model_id": "ByteDance/Seed-2.0-mini", "tier": 1,
-                    "reason": "Stage 4 — any model works, use cheapest"}
-        if stage_value >= 3:
             return {"model_id": "ByteDance/Seed-2.0-code", "tier": 1,
-                    "reason": "Stage 3 — Seed models handle with activation keys"}
-        if stage_value >= 2:
-            return {"model_id": "ByteDance/Seed-2.0-mini", "tier": 1,
-                    "reason": "Stage 2 — needs pre-computation, Seed handles best"}
+                    "reason": "Best code+math model"}
         return {"model_id": "ByteDance/Seed-2.0-mini", "tier": 1,
-                "reason": "Stage 1 — bare arithmetic, any model works"}
+                "reason": "Balanced default"}
 
     def _estimate_accuracy(self, stage_value: int, priority: str) -> float:
-        """Estimate accuracy for the recommended routing."""
         base = {4: 0.98, 3: 0.85, 2: 0.70, 1: 0.50, 0: 0.30}
         return base.get(stage_value, 0.5)
 
@@ -828,11 +871,32 @@ class MCPHandler:
             except Exception:
                 pass
 
+        # Initialize CriticalAngleRouter if available (shares model registry)
+        self._critical_angle_router = None
+        if HAS_ROUTER_API:
+            try:
+                registry = ModelRegistry()
+                from fleet_router_api import DEFAULT_MODELS
+                for model_id, tier in DEFAULT_MODELS.items():
+                    registry.register(model_id, tier)
+                stats = RoutingStats()
+                self._critical_angle_router = CriticalAngleRouter(
+                    registry=registry,
+                    stats=stats,
+                    hebbian_url=hebbian_url,
+                )
+            except Exception:
+                pass
+
         # Initialize tools
         self.tools = {
             "plato_query": PlatoQueryTool(self.plato),
             "plato_submit": PlatoSubmitTool(self.plato, self.hebbian),
-            "fleet_route": FleetRouteTool(self._translator_router),
+            "fleet_route": FleetRouteTool(
+                translator_router=self._translator_router,
+                critical_angle_router=self._critical_angle_router,
+                hebbian_client=self.hebbian,
+            ),
             "fleet_health": FleetHealthTool(self.plato, self.hebbian),
             "expert_consult": ExpertConsultTool(
                 self.plato, self.hebbian, self._translator_router

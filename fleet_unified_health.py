@@ -35,6 +35,15 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
+try:
+    from gl9_consensus import (
+        GL9HolonomyConsensus, GL9Agent, GL9ConsensusResult,
+        IntentVector, GL9Matrix, DEFAULT_TOLERANCE,
+    )
+    HAS_GL9 = True
+except ImportError:
+    HAS_GL9 = False
+
 
 # ---------------------------------------------------------------------------
 # Conservation status enum
@@ -240,6 +249,99 @@ class ModelRecord:
     recent_accuracy: float = 0.0
     last_seen: float = 0.0
     available: bool = True
+
+
+class GL9AlignmentTracker:
+    """Track fleet-wide intent alignment using GL(9) holonomy consensus.
+
+    When agents submit tiles, their intent vectors (9D CI facets) are
+    tracked.  GL9HolonomyConsensus computes fleet-wide alignment and
+    identifies faulty agents via zero-holonomy checking.
+    """
+
+    def __init__(self, tolerance: float = DEFAULT_TOLERANCE if HAS_GL9 else 0.5):
+        self.tolerance = tolerance
+        self._consensus = GL9HolonomyConsensus(tolerance=tolerance) if HAS_GL9 else None
+        self._agent_intents: Dict[str, list] = {}  # agent_name → intent data (9 floats)
+        self._last_result: Optional[Dict[str, Any]] = None
+        self._lock = threading.Lock()
+
+    def record_intent(self, agent_name: str, intent: list) -> None:
+        """Record a 9D intent vector for an agent."""
+        if not HAS_GL9:
+            return
+        with self._lock:
+            self._agent_intents[agent_name] = intent[:9]
+            self._rebuild_consensus()
+
+    def _rebuild_consensus(self) -> None:
+        """Rebuild the GL(9) consensus state from current intents."""
+        if not self._consensus:
+            return
+        agents = list(self._agent_intents.keys())
+        if len(agents) < 2:
+            return
+
+        self._consensus.agents.clear()
+        for idx, name in enumerate(agents):
+            intent_data = self._agent_intents[name]
+            iv = IntentVector(intent_data)
+            # Build identity transform (no transformation) — neighbors are all other agents
+            neighbors = [idx2 for idx2 in range(len(agents)) if idx2 != idx]
+            agent = GL9Agent(
+                id=idx,
+                intent=iv,
+                transform=GL9Matrix.identity(),
+                neighbors=neighbors,
+            )
+            self._consensus.add_agent(agent)
+
+    def compute_alignment(self) -> Dict[str, Any]:
+        """Compute current GL(9) alignment and consensus."""
+        if not HAS_GL9 or not self._consensus:
+            return {
+                "status": "unavailable",
+                "gl9_available": False,
+                "alignment": 0.0,
+                "consensus": False,
+                "faulty_agents": [],
+                "agents_tracked": 0,
+            }
+
+        with self._lock:
+            n_agents = len(self._agent_intents)
+            if n_agents < 2:
+                return {
+                    "status": "insufficient_agents",
+                    "gl9_available": True,
+                    "alignment": 1.0,
+                    "consensus": True,
+                    "faulty_agents": [],
+                    "agents_tracked": n_agents,
+                    "cycle_count": 0,
+                    "max_deviation": 0.0,
+                }
+
+            result = self._consensus.check_consensus()
+            agent_names = list(self._agent_intents.keys())
+            faulty_names = [agent_names[i] for i in result.faulty_agents if i < len(agent_names)]
+
+            output = {
+                "status": "aligned" if result.consensus else "misaligned",
+                "gl9_available": True,
+                "alignment": round(result.alignment, 4),
+                "consensus": result.consensus,
+                "deviation": round(result.deviation, 4),
+                "cycle_count": result.cycle_count,
+                "correlation": round(result.correlation, 4),
+                "faulty_agents": faulty_names,
+                "agents_tracked": n_agents,
+            }
+            self._last_result = output
+            return output
+
+    def summary(self) -> Dict[str, Any]:
+        return self.compute_alignment()
 
 
 class BehavioralHealth:
@@ -728,6 +830,7 @@ class HealthEndpoint:
         self.port = port
         self.structural = StructuralHealth(hebbian_host, hebbian_port)
         self.behavioral = BehavioralHealth()
+        self.gl9_alignment = GL9AlignmentTracker()
         self.conservation_monitor = ConservationMonitor()
         self.diagnostics = DiagnosticsRunner(hebbian_host, hebbian_port)
         self._running = False
@@ -767,11 +870,15 @@ class HealthEndpoint:
         tier_balance = behavioral.get("tier_utilization_balance", 1.0)
         score += 0.20 * tier_balance
 
-        # Model accuracy (average across tiers)
+        # Model accuracy (average across tiers) — 10%
         tiers = behavioral.get("tiers", {})
         accuracies = [t.get("overall_accuracy", 0.0) for t in tiers.values() if t.get("total_queries", 0) > 0]
         avg_accuracy = np.mean(accuracies) if accuracies else 1.0
-        score += 0.15 * avg_accuracy
+        score += 0.10 * avg_accuracy
+
+        # GL9 alignment — 10%
+        alignment = getattr(self, '_last_alignment', 1.0)
+        score += 0.10 * alignment
 
         return float(np.clip(score, 0.0, 1.0))
 
@@ -844,18 +951,32 @@ class HealthEndpoint:
         # Get behavioral health
         behavioral = self.behavioral.summary()
 
-        # Compute overall score
+        # Get GL9 alignment
+        gl9 = self.gl9_alignment.compute_alignment()
+        self._last_alignment = gl9.get("alignment", 1.0)
+
+        # Compute overall score (now includes GL9 alignment)
         overall = self._compute_overall_score(structural, behavioral)
 
         # Generate recommendations
         recs = self._generate_recommendations(structural, behavioral, trend)
+
+        # Add GL9 recommendations
+        if gl9.get("status") == "misaligned":
+            faulty = gl9.get("faulty_agents", [])
+            recs.append(
+                f"🔴 GL(9) alignment low ({gl9.get('alignment', 0):.2f}). "
+                f"Faulty agents: {faulty}"
+            )
+        elif gl9.get("status") == "aligned":
+            recs.append(f"✅ GL(9) alignment nominal ({gl9.get('alignment', 1.0):.2f})")
 
         report = FleetHealthReport(
             structural=structural,
             behavioral=behavioral,
             overall_score=overall,
             recommendations=recs,
-            diagnostics={"conservation_trend": trend},
+            diagnostics={"conservation_trend": trend, "gl9_alignment": gl9},
         )
 
         with self._lock:
@@ -893,6 +1014,9 @@ class HealthEndpoint:
 
                 elif self.path == "/fleet/health/behavioral":
                     self._json(endpoint.behavioral.summary())
+
+                elif self.path == "/fleet/health/alignment":
+                    self._json(endpoint.gl9_alignment.compute_alignment())
 
                 elif self.path == "/fleet/health/trend":
                     self._json(endpoint.conservation_monitor.summary())
@@ -935,6 +1059,10 @@ class HealthEndpoint:
                         tier=body.get("tier"),
                         provider=body.get("provider"),
                     )
+                    # Also record GL(9) intent vector if provided
+                    intent = body.get("intent")
+                    if intent and isinstance(intent, list) and len(intent) == 9:
+                        endpoint.gl9_alignment.record_intent(model, intent)
                     self._json({"recorded": True, "model": model})
 
                 elif self.path == "/fleet/health/availability":
