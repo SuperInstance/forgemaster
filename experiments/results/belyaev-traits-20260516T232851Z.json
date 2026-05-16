@@ -1,0 +1,294 @@
+{
+  "timestamp": "20260516T232851Z",
+  "experiment": "belyaev_trait_proposal",
+  "parameters": {
+    "population_size": 100,
+    "generations": 20,
+    "mutation_rate": 0.12,
+    "top_k": 20
+  },
+  "ecosystems": {
+    "forge": {
+      "selection_pressure": "proof_is_falsifiable",
+      "single_pressure_final": {
+        "proof_is_falsifiable": 0.9957,
+        "minimal_assumptions": 0.5373,
+        "composable": 0.6,
+        "machine_checkable": 0.4061,
+        "novel": 0.7375
+      },
+      "all_pressure_final": {
+        "proof_is_falsifiable": 0.9916,
+        "minimal_assumptions": 0.985,
+        "composable": 0.9966,
+        "machine_checkable": 0.9927,
+        "novel": 0.9939
+      },
+      "free_traits": {
+        "minimal_assumptions": {
+          "final_mean": 0.5373,
+          "emerged_for_free": false,
+          "correlation_strength": 0.72,
+          "match": "\u2717"
+        },
+        "composable": {
+          "final_mean": 0.6,
+          "emerged_for_free": false,
+          "correlation_strength": 0.68,
+          "match": "\u2717"
+        },
+        "machine_checkable": {
+          "final_mean": 0.4061,
+          "emerged_for_free": false,
+          "correlation_strength": 0.81,
+          "match": "\u2717"
+        },
+        "novel": {
+          "final_mean": 0.7375,
+          "emerged_for_free": true,
+          "correlation_strength": 0.55,
+          "match": "\u2717"
+        }
+      },
+      "single_wins_selected_trait": true,
+      "advantage_on_selected": 0.0042,
+      "side_effects_emerged": 1,
+      "total_side_traits": 4
+    },
+    "flux": {
+      "selection_pressure": "emergence_is_detected",
+      "single_pressure_final": {
+        "emergence_is_detected": 0.9957,
+        "noise_resistant": 0.5277,
+        "self_organizing": 0.6302,
+        "phase_transitions": 0.397,
+        "measurable": 0.7519
+      },
+      "all_pressure_final": {
+        "emergence_is_detected": 0.9916,
+        "noise_resistant": 0.985,
+        "self_organizing": 0.9966,
+        "phase_transitions": 0.9927,
+        "measurable": 0.9939
+      },
+      "free_traits": {
+        "noise_resistant": {
+          "final_mean": 0.5277,
+          "emerged_for_free": false,
+          "correlation_strength": 0.65,
+          "match": "\u2717"
+        },
+        "self_organizing": {
+          "final_mean": 0.6302,
+          "emerged_for_free": false,
+          "correlation_strength": 0.88,
+          "match": "\u2717"
+        },
+        "phase_transitions": {
+          "final_mean": 0.397,
+          "emerged_for_free": false,
+          "correlation_strength": 0.74,
+          "match": "\u2717"
+        },
+        "measurable": {
+          "final_mean": 0.7519,
+          "emerged_for_free": true,
+          "correlation_strength": 0.71,
+          "match": "\u2713"
+        }
+      },
+      "single_wins_selected_trait": true,
+      "advantage_on_selected": 0.0042,
+      "side_effects_emerged": 1,
+      "total_side_traits": 4
+    },
+    "arena": {
+      "selection_pressure": "survives_competition",
+      "single_pressure_final": {
+        "survives_competition": 0.9957,
+        "robust_to_adversary": 0.547,
+        "efficient": 0.5909,
+        "generalizes": 0.4113,
+        "interpretable": 0.73
+      },
+      "all_pressure_final": {
+        "survives_competition": 0.9916,
+        "robust_to_adversary": 0.985,
+        "efficient": 0.9966,
+        "generalizes": 0.9927,
+        "interpretable": 0.9939
+      },
+      "free_traits": {
+        "robust_to_adversary": {
+          "final_mean": 0.547,
+          "emerged_for_free": false,
+          "correlation_strength": 0.79,
+          "match": "\u2717"
+        },
+        "efficient": {
+          "final_mean": 0.5909,
+          "emerged_for_free": false,
+          "correlation_strength": 0.62,
+          "match": "\u2713"
+        },
+        "generalizes": {
+          "final_mean": 0.4113,
+          "emerged_for_free": false,
+          "correlation_strength": 0.85,
+          "match": "\u2717"
+        },
+        "interpretable": {
+          "final_mean": 0.73,
+          "emerged_for_free": true,
+          "correlation_strength": 0.48,
+          "match": "\u2717"
+        }
+      },
+      "single_wins_selected_trait": true,
+      "advantage_on_selected": 0.0042,
+      "side_effects_emerged": 1,
+      "total_side_traits": 4
+    },
+    "conservation": {
+      "selection_pressure": "survives_decay",
+      "single_pressure_final": {
+        "survives_decay": 0.9957,
+        "self_repairing": 0.5526,
+        "minimal_footprint": 0.6136,
+        "reconstructible": 0.4191,
+        "version_stable": 0.7511
+      },
+      "all_pressure_final": {
+        "survives_decay": 0.9916,
+        "self_repairing": 0.985,
+        "minimal_footprint": 0.9966,
+        "reconstructible": 0.9927,
+        "version_stable": 0.9939
+      },
+      "free_traits": {
+        "self_repairing": {
+          "final_mean": 0.5526,
+          "emerged_for_free": false,
+          "correlation_strength": 0.83,
+          "match": "\u2717"
+        },
+        "minimal_footprint": {
+          "final_mean": 0.6136,
+          "emerged_for_free": false,
+          "correlation_strength": 0.77,
+          "match": "\u2717"
+        },
+        "reconstructible": {
+          "final_mean": 0.4191,
+          "emerged_for_free": false,
+          "correlation_strength": 0.91,
+          "match": "\u2717"
+        },
+        "version_stable": {
+          "final_mean": 0.7511,
+          "emerged_for_free": true,
+          "correlation_strength": 0.7,
+          "match": "\u2713"
+        }
+      },
+      "single_wins_selected_trait": true,
+      "advantage_on_selected": 0.0042,
+      "side_effects_emerged": 1,
+      "total_side_traits": 4
+    },
+    "synapse": {
+      "selection_pressure": "translates_without_loss",
+      "single_pressure_final": {
+        "translates_without_loss": 0.9957,
+        "schema_aware": 0.5429,
+        "bidirectional": 0.6211,
+        "handles_ambiguity": 0.3905,
+        "streamable": 0.7404
+      },
+      "all_pressure_final": {
+        "translates_without_loss": 0.9916,
+        "schema_aware": 0.985,
+        "bidirectional": 0.9966,
+        "handles_ambiguity": 0.9927,
+        "streamable": 0.9939
+      },
+      "free_traits": {
+        "schema_aware": {
+          "final_mean": 0.5429,
+          "emerged_for_free": false,
+          "correlation_strength": 0.76,
+          "match": "\u2717"
+        },
+        "bidirectional": {
+          "final_mean": 0.6211,
+          "emerged_for_free": false,
+          "correlation_strength": 0.82,
+          "match": "\u2717"
+        },
+        "handles_ambiguity": {
+          "final_mean": 0.3905,
+          "emerged_for_free": false,
+          "correlation_strength": 0.69,
+          "match": "\u2717"
+        },
+        "streamable": {
+          "final_mean": 0.7404,
+          "emerged_for_free": true,
+          "correlation_strength": 0.58,
+          "match": "\u2717"
+        }
+      },
+      "single_wins_selected_trait": true,
+      "advantage_on_selected": 0.0042,
+      "side_effects_emerged": 1,
+      "total_side_traits": 4
+    },
+    "oracle": {
+      "selection_pressure": "reveals_blind_spot",
+      "single_pressure_final": {
+        "reveals_blind_spot": 0.9957,
+        "actionable": 0.5303,
+        "non_obvious": 0.6302,
+        "calibrated": 0.3957,
+        "novel_combinations": 0.7601
+      },
+      "all_pressure_final": {
+        "reveals_blind_spot": 0.9916,
+        "actionable": 0.985,
+        "non_obvious": 0.9966,
+        "calibrated": 0.9927,
+        "novel_combinations": 0.9939
+      },
+      "free_traits": {
+        "actionable": {
+          "final_mean": 0.5303,
+          "emerged_for_free": false,
+          "correlation_strength": 0.67,
+          "match": "\u2717"
+        },
+        "non_obvious": {
+          "final_mean": 0.6302,
+          "emerged_for_free": false,
+          "correlation_strength": 0.88,
+          "match": "\u2717"
+        },
+        "calibrated": {
+          "final_mean": 0.3957,
+          "emerged_for_free": false,
+          "correlation_strength": 0.73,
+          "match": "\u2717"
+        },
+        "novel_combinations": {
+          "final_mean": 0.7601,
+          "emerged_for_free": true,
+          "correlation_strength": 0.81,
+          "match": "\u2713"
+        }
+      },
+      "single_wins_selected_trait": true,
+      "advantage_on_selected": 0.0042,
+      "side_effects_emerged": 1,
+      "total_side_traits": 4
+    }
+  }
+}
