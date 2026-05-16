@@ -1,0 +1,41 @@
+# CMake find module for SnapKit
+#
+# Usage:
+#   find_package(snapkit REQUIRED)
+#   target_link_libraries(my_target PRIVATE snapkit::snapkit)
+#
+# This module defines:
+#   snapkit_FOUND           — True if snapkit was found
+#   snapkit::snapkit        — Imported target for linking
+#   SNAPKIT_INCLUDE_DIRS    — Include directories
+#   SNAPKIT_LIBRARIES       — Library paths
+
+@PACKAGE_INIT@
+
+set_and_check(SNAPKIT_INCLUDE_DIR "@PACKAGE_INCLUDE_DIR@")
+set_and_check(SNAPKIT_LIBRARY_DIR "@PACKAGE_LIBRARY_DIR@")
+
+find_library(SNAPKIT_LIBRARY
+    NAMES snapkit
+    PATHS "${SNAPKIT_LIBRARY_DIR}"
+    NO_DEFAULT_PATH
+)
+
+if(NOT SNAPKIT_LIBRARY)
+    find_library(SNAPKIT_LIBRARY NAMES snapkit)
+endif()
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(snapkit
+    REQUIRED_VARS SNAPKIT_LIBRARY SNAPKIT_INCLUDE_DIR
+)
+
+if(snapkit_FOUND AND NOT TARGET snapkit::snapkit)
+    add_library(snapkit::snapkit UNKNOWN IMPORTED)
+    set_target_properties(snapkit::snapkit PROPERTIES
+        IMPORTED_LOCATION "${SNAPKIT_LIBRARY}"
+        INTERFACE_INCLUDE_DIRECTORIES "${SNAPKIT_INCLUDE_DIR}"
+        INTERFACE_LINK_LIBRARIES "m"
+    )
+    mark_as_advanced(SNAPKIT_INCLUDE_DIR SNAPKIT_LIBRARY SNAPKIT_LIBRARY_DIR)
+endif()

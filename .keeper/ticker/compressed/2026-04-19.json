@@ -1,0 +1,23 @@
+{
+  "date": "2026-04-19",
+  "ticks": 7750,
+  "cpu": {
+    "avg": 1.0,
+    "peak": 96.0,
+    "min": 0.0,
+    "peak_time": "2026-04-19T04:28:05-0800"
+  },
+  "memory": {
+    "avg": 12.4,
+    "peak": 42.5,
+    "min": 7.4
+  },
+  "load": {
+    "avg": 0.29,
+    "peak": 22.94
+  },
+  "anomalies": [
+    "CPU spike to 96.0% (avg 1%)",
+    "Memory spike to 42.5% (avg 12%)"
+  ]
+}

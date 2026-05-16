@@ -10,7 +10,7 @@
     "expected": 834,
     "extracted": 8.0,
     "correct": false,
-    "response": "Let's solve this addition problem step by step:\n1.  Add the ones place: 6 + 8 = 14, write down 4 and carry over 1 to the tens column.\n2.  Add the tens place: 5 +7 + 1 carried over = 13, write down 3 and carry over 1 to the hundreds column.\n3.  Add the hundreds place: 4 +3 +1 carried over = 8\n\nSo **456 + 378 = 834**",
+    "response": "Let's solve this step-by-step:\n1.  Add the ones place: 6 + 8 = 14, write down 4 and carry over 1.\n2.  Add the tens place plus the carried 1: 5 +7 +1 =13, write down 3 and carry over 1.\n3.  Add the hundreds place plus the carried 1: 4 +3 +1 =8.\n\nTotal: **834**",
     "status": "ok"
   },
   {
@@ -64,9 +64,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 834,
-    "extracted": 8.0,
-    "correct": false,
-    "response": "Let's solve this addition step-by-step:\n1.  Add the ones place: 6 + 8 = 14, write down 4 and carry over 1 to the tens column.\n2.  Add the tens place: 5 +7 + 1 (carryover) =13, write down 3 and carry over 1 to the hundreds column.\n3.  Add the hundreds place:4 +3 +1 (carryover)=8.\n\nCombining these results, the total is **834**.",
+    "extracted": 834.0,
+    "correct": true,
+    "response": "Let's solve this addition step-by-step:\n1.  Add the ones place: $6 + 8 = 14$, write down 4 and carry over 1.\n2.  Add the tens place: $5 +7 + 1$ (carried over) $=13$, write down 3 and carry over 1.\n3.  Add the hundreds place: $4 +3 +1$ (carried over) $=8$.\n\nCombining these results, $456 + 378 = 834$.",
     "status": "ok"
   },
   {
@@ -122,7 +122,7 @@
     "expected": 834,
     "extracted": 834.0,
     "correct": true,
-    "response": "Let's add those together step by step:\n1.  700 + 120 = 820\n2.  820 + 14 = 834\n\nThe final total is **834**",
+    "response": "Let's solve this step-by-step:\n1.  First add 700 + 120 = 820\n2.  Then add 820 +14 = 834\n\nThe final total is **834**",
     "status": "ok"
   },
   {
@@ -178,7 +178,7 @@
     "expected": 417,
     "extracted": 4.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  Align the digits by place value:\n    ```\n      903\n    - 486\n    ------\n    ```\n2.  Subtract the units place: 3 < 6, so borrow 1 from the tens column. Since the tens digit is 0, first borrow 1 from the hundreds place (turning 9 into 8), making the tens place 10, then borrow 1 from the tens place, leaving 9 in the tens column and turning the units digit into 13. 13 - 6 =7.\n3.  Subtract the tens place: 9 -8=1\n4.  Subtract the hundreds place: 8 -4=4\n\nThe final res",
+    "response": "Let's solve this subtraction step-by-step:\n1.  **Ones place**: 3 is less than 6, so borrow 1 from the tens column. Since the tens digit is 0, first borrow 1 from the hundreds place, turning 9 hundreds into 8 hundreds and making the tens place 10. Then borrow 1 from the tens place, leaving 9 tens and making the ones place 13. 13 - 6 =7.\n2.  **Tens place**: 9 - 8 =1\n3.  **Hundreds place**: 8 -4=4\n\nCombining the results, 903 - 486 = **417**",
     "status": "ok"
   },
   {
@@ -234,7 +234,7 @@
     "expected": 417,
     "extracted": 4.0,
     "correct": false,
-    "response": "Let's compute 903 - 486 step-by-step:\n1.  Start with the ones place: 3 < 6, so we need to borrow. Since the tens digit is 0, first borrow 1 from the hundreds place: the 9 becomes 8, and the tens place becomes 10.\n2.  Now borrow 1 from the tens place: the 10 becomes 9, and the ones place becomes 13.\n3.  Ones place: 13 - 6 =7\n4.  Tens place:9 -8=1\n5.  Hundreds place:8 -4=4\n\nCombining these gives 417.\n\nYou can verify: 486 +417=903, confirming the answer is correct.\n\n**Answer: 417**",
+    "response": "Let's calculate 903 - 486 step-by-step:\n1.  **Ones place**: 3 < 6, so we borrow from the tens place. Since the tens digit is 0, we first borrow 1 from the hundreds place: hundreds digit 9 becomes 8, tens digit becomes 10. Then borrow 1 from the tens place: tens digit 9, ones digit becomes 13. 13 - 6 =7.\n2.  **Tens place**: 9 - 8 =1.\n3.  **Hundreds place**: 8 -4 =4.\n\nCombining these results, we get 417.\n\nCheck: 486 + 417 = 903, which confirms the answer is correct.\n\nAnswer: $\\boxed{417}$",
     "status": "ok"
   },
   {
@@ -290,7 +290,7 @@
     "expected": 417,
     "extracted": 417.0,
     "correct": true,
-    "response": "Let's calculate the final step: 423 - 6 = 417.\n\nThe final answer is $\\boxed{417}$.",
+    "response": "Let's solve the final step:\nStart with 423, subtract 6: 423 - 6 = 417\n\nYou can also verify the full calculation: 903 - 486 = 417, which matches.\n\nAnswer: 417",
     "status": "ok"
   },
   {
@@ -344,9 +344,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 1247,
-    "extracted": 1247.0,
-    "correct": true,
-    "response": "Let's solve this addition step-by-step:\n1.  Add the ones digits: $9 + 8 = 17$, keep 7 and carry over 1 to the tens column.\n2.  Add the tens digits plus the carryover: $8 +5 +1 =14$, keep 4 and carry over 1 to the hundreds column.\n3.  Add the hundreds digits plus the carryover: $5 +6 +1 =12$.\n\nThe final total is **1247**.",
+    "extracted": 12.0,
+    "correct": false,
+    "response": "Let's solve this step-by-step:\n1.  Add the ones place: 9 + 8 = 17, keep 7 and carry over 1\n2.  Add the tens place: 8 +5 +1 (carryover) =14, keep 4 and carry over 1\n3.  Add the hundreds place:5 +6 +1 (carryover)=12\n\nThe total is **1247**",
     "status": "ok"
   },
   {
@@ -402,7 +402,7 @@
     "expected": 1247,
     "extracted": 1247.0,
     "correct": true,
-    "response": "Let's compute 589 + 658 step-by-step:\n1.  Break down the numbers by place value:\n    - 589 = 500 + 80 + 9\n    - 658 = 600 + 50 + 8\n2.  Add each place separately:\n    - Hundreds: 500 + 600 = 1100\n    - Tens: 80 +50 =130\n    - Ones:9+8=17\n3.  Combine the results: 1100 +130 +17 = 1247\n\n**Final answer: 1247**",
+    "response": "Let's solve this addition step-by-step:\n1.  Add the ones digits: $9 + 8 = 17$, write down 7 and carry over 1.\n2.  Add the tens digits plus the carryover: $8 +5 +1 =14$, write down 4 and carry over 1.\n3.  Add the hundreds digits plus the carryover: $5 +6 +1 =12$.\n\nCombining these results, the total is **1247**.",
     "status": "ok"
   },
   {
@@ -458,7 +458,7 @@
     "expected": 1247,
     "extracted": 1247.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  First add 1100 + 130 = 1230\n2.  Then add 1230 + 17 = 1247\n\nThe final sum is **1247**",
+    "response": "Let's solve this step-by-step:\n1.  First add 1100 + 130 = 1230\n2.  Then add the remaining 17: 1230 +17 = **1247**\n\nYou can also confirm this directly: 589 + 658 = 1247.",
     "status": "ok"
   },
   {
@@ -514,7 +514,7 @@
     "expected": 296,
     "extracted": 296.0,
     "correct": true,
-    "response": "1000 minus 704 equals **296**.",
+    "response": "Let's solve this step-by-step:\n1.  1000 - 700 = 300\n2.  Then subtract the remaining 4: 300 - 4 = 296\n\nYou can also verify this with 704 + 296 = 1000, which confirms the answer.\n\n**Answer: 296**",
     "status": "ok"
   },
   {
@@ -570,7 +570,7 @@
     "expected": 296,
     "extracted": 296.0,
     "correct": true,
-    "response": "Let's calculate 1000 - 704 step-by-step:\n1.  First subtract 700 from 1000: 1000 - 700 = 300\n2.  Then subtract the remaining 4: 300 - 4 = 296\n\n**Answer: 296**",
+    "response": "Let's solve this step-by-step:\n1.  Rewrite 1000 as 999 + 1\n2.  First calculate 999 - 704 = 295\n3.  Then add back the leftover 1: 295 +1 = 296\n\nYou can also verify: 704 + 296 = 1000, confirming the answer is correct.\n\n**Answer: 296**",
     "status": "ok"
   },
   {
@@ -626,7 +626,7 @@
     "expected": 296,
     "extracted": 296.0,
     "correct": true,
-    "response": "Let's walk through this step-by-step:\n1.  You already correctly calculated 1000 - 700 = 300 after breaking 704 into 700 + 4\n2.  Now subtract the remaining 4 from 300: 300 - 4 = **296**\n\nThe final result of 1000 -704 is 296!",
+    "response": "Let's solve that final step:\n300 - 4 = 296\n\nWhich matches the total result of 1000 - 704 = 296!",
     "status": "ok"
   },
   {
@@ -680,9 +680,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 1538,
-    "extracted": 1400.0,
+    "extracted": 15.0,
     "correct": false,
-    "response": "Let's calculate this step-by-step:\n1.  Break down the numbers: 847 + 691\n2.  Add the ones place: 7 + 1 = 8\n3.  Add the tens place: 40 + 90 = 130\n4.  Add the hundreds place: 800 + 600 = 1400\n5.  Combine all the results: 1400 +130 +8 = **1538**",
+    "response": "Let's solve this addition step-by-step:\n1.  Add the ones digits: 7 + 1 = 8\n2.  Add the tens digits: 4 + 9 = 13, write down 3 and carry over 1 to the hundreds place\n3.  Add the hundreds digits plus the carried over 1: 8 + 6 +1 =15\n\nCombining these results, **847 + 691 = 1538**",
     "status": "ok"
   },
   {
@@ -736,9 +736,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 1538,
-    "extracted": 15.0,
-    "correct": false,
-    "response": "Let's calculate 847 + 691 step-by-step:\n1.  Add the ones digits: 7 + 1 = 8\n2.  Add the tens digits: 4 + 9 = 13, write down 3 and carry over 1\n3.  Add the hundreds digits plus the carried-over 1: 8 + 6 + 1 = 15\n\nCombining these results gives **1538**.",
+    "extracted": 1538.0,
+    "correct": true,
+    "response": "Let's calculate this step-by-step:\n1.  Add the ones place: 7 + 1 = 8\n2.  Add the tens place: 40 + 90 = 130\n3.  Add the hundreds place: 800 + 600 = 1400\n4.  Combine the results: 1400 + 130 + 8 = 1538\n\n**Answer: 1538**",
     "status": "ok"
   },
   {
@@ -794,7 +794,7 @@
     "expected": 1538,
     "extracted": 1538.0,
     "correct": true,
-    "response": "Let's calculate it step by step:\n1.  First add 1400 + 130 = **1530**\n2.  Then add 1530 + 8 = **1538**\n\nYou can also verify this directly: 847 + 691 = 1538. The final total is 1538.",
+    "response": "Let's solve this step-by-step:\n1.  First add 1400 + 130 = 1530\n2.  Then add 8 to that total: 1530 + 8 = 1538\n\nYou can also verify this by directly calculating 847 + 691 = 1538.\n\n**Final answer: 1538**",
     "status": "ok"
   },
   {
@@ -848,9 +848,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 99186,
-    "extracted": 69400.0,
+    "extracted": 99242.0,
     "correct": false,
-    "response": "Let's calculate 347 \u00d7 286 step-by-step:\n1.  Break down 286 into 200 + 80 +6\n2.  Calculate each product:\n    - 347 \u00d76 = 2082\n    - 347 \u00d780 = 27760\n    - 347 \u00d7200 = 69400\n3.  Sum the results: 2082 +27760 +69400 = **99242**\n\nFinal answer: 99242",
+    "response": "Let's calculate 347 \u00d7 286 step-by-step:\n1.  Break apart the numbers:\n    - 300\u00d7286 = 85,800\n    - 40\u00d7286 = 11,440\n    - 7\u00d7286 = 2,002\n2.  Add the results together:\n    85,800 + 11,440 + 2,002 = **99,242**\n\nThe final answer is 99242.",
     "status": "ok"
   },
   {
@@ -906,7 +906,7 @@
     "expected": 99186,
     "extracted": 99242.0,
     "correct": false,
-    "response": "Let's calculate 347 \u00d7 286 step-by-step using the distributive property:\n\n1.  Break 347 into 300 + 40 +7, then multiply each term by 286:\n    - 300 \u00d7 286 = 85,800\n    - 40 \u00d7 286 = 11,440\n    - 7 \u00d7 286 = 2,002\n2.  Add the results together:\n    85,800 + 11,440 = 97,240\n    97,240 + 2,002 = 99,242\n\n**Final answer: 99242**",
+    "response": "Let's calculate 347 \u00d7 286 step-by-step:\n\n1.  Break 347 into 300 + 40 +7, then use the distributive property:\n    - 300 \u00d7 286 = 85800\n    - 40 \u00d7 286 = 11440\n    - 7 \u00d7 286 = 2002\n2.  Add the results together:\n    85800 + 11440 = 97240\n    97240 + 2002 = 99242\n\n**Answer: 99242**",
     "status": "ok"
   },
   {
@@ -960,9 +960,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 99186,
-    "extracted": 99242.0,
+    "extracted": 97160.0,
     "correct": false,
-    "response": "Let's solve the total step-by-step:\n1.  First add 69400 + 27760 = 97160\n2.  Then add 2082 to that result: 97160 + 2082 = 99242\n\nThe final sum is **99242**",
+    "response": "Let's solve the sum step-by-step:\n1.  First add 69400 + 27760 = 97160\n2.  Then add 2082 to that result: 97160 + 2082 = **99242**",
     "status": "ok"
   },
   {
@@ -988,9 +988,9 @@
     "tier": 1,
     "provider": "ollama",
     "expected": 99186,
-    "extracted": 100242.0,
+    "extracted": 99242.0,
     "correct": false,
-    "response": "Let's calculate the product:\n347 * 286 = 347 * (200 + 80 + 6)\n= 347 * 200 + 347 * 80 + 347 * 6\n= 69400 + 27760 + 2082\n= 69400 + 27760 + 2082\n= 69400 + (27760 + 2082)\n= 69400 + 30842\n= 100242\n\nAlternatively, we can calculate the product as follows:\n347 * 286 = (347 * 286)\n347 * 286 = 347 * (200 + 80 + 6)\n= 347 * 200 + 347 * 80 + 347 * 6\n= 69400 + 27760 + 2082\n= 69400 + 27760 + 2082\n= 69400 + (27760 + 2082)\n= 69400 + 30842\n= 100242\n\nSo, 347 * 286 = 100242.\n\nFinal Answer: The final answer is $\\boxe",
+    "response": "Let's calculate the product:\n347 * 286 = 347 * (200 + 80 + 6)\n= 347 * 200 + 347 * 80 + 347 * 6\n= 69400 + 27760 + 2082\n= 69400 + 27760 + 2082\n= 69400 + (27760 + 2082)\n= 69400 + 29842\n= 69400 + 29842\n= 99242\n\nAlternatively, we can calculate the product as follows:\n347 * 286 = (347 * 286)\n347 * 286 = 347 * (200 + 80 + 6)\n= 347 * 200 + 347 * 80 + 347 * 6\n= 69400 + 27760 + 2082\n= 69400 + 27760 + 2082\n= 69400 + (27760 + 2082)\n= 69400 + 29842\n= 99242\n\nLet's calculate the product directly:\n347 * 286 = 3",
     "status": "ok"
   },
   {
@@ -1018,7 +1018,7 @@
     "expected": 67,
     "extracted": 67.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  We know 7 \u00d7 60 = 420\n2.  Subtract 420 from 469: 469 - 420 = 49\n3.  7 \u00d77 =49\n4.  Add the two results: 60 +7 =67\n\n**Answer: 67**",
+    "response": "Let's solve 469 \u00f7 7 step-by-step:\n1.  7 \u00d7 60 = 420\n2.  Subtract 420 from 469: 469 - 420 = 49\n3.  7 \u00d77 = 49\n4.  Add the results: 60 +7 = 67\n\n**Answer: 67**",
     "status": "ok"
   },
   {
@@ -1074,7 +1074,7 @@
     "expected": 67,
     "extracted": 67.0,
     "correct": true,
-    "response": "Let's solve 469 \u00f7 7 step-by-step:\n1.  First, calculate how many times 7 fits into 46: $7\\times6=42$, with a remainder of $46-42=4$.\n2.  Bring down the final digit 9 to make 49.\n3.  Now find how many times 7 fits into 49: $7\\times7=49$, with no remainder.\n4.  Combine the two results: $60 +7 = 67$.\n\n**Answer: 67**",
+    "response": "Let's solve 469 \u00f7 7 step-by-step:\n1.  First, calculate how many times 7 fits into 46: 7\u00d760=420, which is the largest multiple of 7 less than 469.\n2.  Subtract 420 from 469: 469 - 420 = 49.\n3.  7\u00d77=49, so that adds 7 more to our quotient.\n4.  Add the two parts: 60 +7 =67.\n\n**Answer: 67**",
     "status": "ok"
   },
   {
@@ -1130,7 +1130,7 @@
     "expected": 67,
     "extracted": 67.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n\nYou're adding the two partial quotients together: 60 + 7 = 67.\n\nYou can verify this too: 7 \u00d7 67 = 469, which matches the original dividend.\n\n**Answer: 67**",
+    "response": "Let's calculate this step-by-step:\n60 + 7 = 67\n\nYou can verify this: 7 \u00d7 67 = 469, which matches the original dividend.\n\n**Answer: 67**",
     "status": "ok"
   },
   {
@@ -1184,9 +1184,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 11704,
-    "extracted": 11704.0,
-    "correct": true,
-    "response": "Let's calculate 152 \u00d7 77 step-by-step:\n1.  Break the multiplication into easier parts using the distributive property: $152 \u00d7 (70 +7) = (152\u00d770) + (152\u00d77)$\n2.  Calculate each term:\n    - $152 \u00d770 = 10640$\n    - $152 \u00d77 = 1064$\n3.  Add the results together: $10640 +1064 = 11704$\n\n**Final answer: 11704**",
+    "extracted": 456.0,
+    "correct": false,
+    "response": "Let's calculate 152 \u00d7 77 step-by-step:\n1.  Break down 77 as 80 - 3 to simplify the math:\n    152 \u00d7 80 = 12,160\n    152 \u00d7 3 = 456\n2.  Subtract the two results: 12,160 - 456 = 11,704\n\n**Final answer: 11704**",
     "status": "ok"
   },
   {
@@ -1242,7 +1242,7 @@
     "expected": 11704,
     "extracted": 11704.0,
     "correct": true,
-    "response": "Let's calculate 152 \u00d7 77 step-by-step:\n\n1.  Break down the multiplication using the distributive property: split 77 into 70 +7, or alternatively simplify 152 into 150 +2:\n    We'll use 150 +2:\n    - 150 \u00d777 = 11550\n    - 2 \u00d777 = 154\n2.  Add the two results together: 11550 + 154 = 11704\n\n**Final answer: 11704**",
+    "response": "Let's calculate 152 \u00d7 77 step-by-step:\n1.  Break 77 into 70 + 7, then use the distributive property:\n    $152\u00d777 = 152\u00d7(70 +7) = 152\u00d770 + 152\u00d77$\n2.  Calculate each term:\n    - $152\u00d770 = 10640$\n    - $152\u00d77 = 1064$\n3.  Add the results together: $10640 +1064 = 11704$\n\n**Final answer: 11704**",
     "status": "ok"
   },
   {
@@ -1298,7 +1298,7 @@
     "expected": 11704,
     "extracted": 11704.0,
     "correct": true,
-    "response": "Let's add those two numbers step-by-step:\n1.  Start with 10640 + 1064\n2.  Break it down: 10640 + 1000 = 11640, then add the remaining 64: 11640 + 64 = 11704\n\nThe final answer is **11704**",
+    "response": "Let's add those two numbers step-by-step:\n1.  Start with 10640 + 1064\n2.  10640 + 1000 = 11640, then add the remaining 64: 11640 + 64 = 11704\n\nThe final total is **11704**",
     "status": "ok"
   },
   {
@@ -1352,9 +1352,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 93,
-    "extracted": 93.0,
-    "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  First, note that 72 \u00d7 90 = 6480\n2.  Subtract: 6696 - 6480 = 216\n3.  216 \u00f772 = 3\n4.  Add the results: 90 +3 = 93\n\nYou can also simplify by dividing both terms by 12 first: 6696 \u00f712=558, 72\u00f712=6, then 558\u00f76=93.\n\n**Answer: 93**",
+    "extracted": 6696.0,
+    "correct": false,
+    "response": "Let's solve 6696 \u00f7 72 step-by-step:\n1.  First calculate 72 \u00d7 90 = 6480\n2.  Subtract this from 6696: 6696 - 6480 = 216\n3.  216 \u00f772 =3\n4.  Add the results: 90 +3 =93\n\nYou can verify: 72 \u00d793 = 6696.\n\n**Answer: 93**",
     "status": "ok"
   },
   {
@@ -1410,7 +1410,7 @@
     "expected": 93,
     "extracted": 6696.0,
     "correct": false,
-    "response": "Let's solve 6696 \u00f7 72 step-by-step:\n\n1.  Simplify the division by factoring out a common term: divide numerator and denominator by 8 first:\n    6696 \u00f78 = 837, 72 \u00f78=9\n2.  Now calculate 837 \u00f79 = 93\n\nYou can verify this: 72 \u00d793 = 6696.\n\n**Answer: 93**",
+    "response": "Let's solve this step-by-step:\n\n1.  First, calculate how many times 72 fits into 6696:\n    - 72 \u00d7 90 = 6480\n    - Subtract this from 6696: 6696 - 6480 = 216\n    - 216 \u00f772 = 3\n2.  Add the two results together: 90 +3 = 93\n\nVerify: 72 \u00d793 = 6696\n\n**Answer: 93**",
     "status": "ok"
   },
   {
@@ -1466,7 +1466,7 @@
     "expected": 93,
     "extracted": 93.0,
     "correct": true,
-    "response": "Let's calculate 90 + 3 directly:\n90 + 3 = 93\n\nYou can verify this: 72 \u00d7 93 = 6696, which matches the original dividend. Answer: $\\boxed{93}$",
+    "response": "Let's calculate the sum step-by-step:\n90 + 3 = 93\n\nYou can verify this works: 72 \u00d7 93 = 72\u00d7(90+3) = 6480 +216 = 6696, which matches the original dividend.\n\n**Answer: 93**",
     "status": "ok"
   },
   {
@@ -1520,9 +1520,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 24384,
-    "extracted": 384.0,
-    "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  Break down the calculation using the distributive property:\n    - 508 \u00d7 48 = (500 + 8) \u00d7 48 = (500\u00d748) + (8\u00d748)\n2.  Calculate each part:\n    - 500 \u00d7 48 = 24,000\n    - 8 \u00d7 48 = 384\n3.  Add the results together: 24000 + 384 = **24384**\n\nThe final answer is 24384.",
+    "extracted": 24384.0,
+    "correct": true,
+    "response": "Let's calculate 508 \u00d7 48 step-by-step:\n1.  Break the multiplication into easier parts:\n    - 508 \u00d7 40 = 20,320\n    - 508 \u00d7 8 = 4,064\n2.  Add the two results together: 20,320 + 4,064 = 24,384\n\nThe final answer is **24384**",
     "status": "ok"
   },
   {
@@ -1578,7 +1578,7 @@
     "expected": 24384,
     "extracted": 24384.0,
     "correct": true,
-    "response": "Let's calculate 508 \u00d7 48 step-by-step:\n1.  Break the multiplication into easier parts using the distributive property:\n    508 \u00d7 48 = (500 + 8) \u00d7 48 = 500\u00d748 + 8\u00d748\n2.  Compute each term:\n    500\u00d748 = 24000, 8\u00d748=384\n3.  Add the results together: 24000 + 384 = 24384\n\n**Final answer: 24384**",
+    "response": "Let's calculate 508 \u00d7 48 step-by-step:\n1.  Split the multiplication into two easier parts:\n    -  508 \u00d7 40 = 20,320\n    -  508 \u00d7 8 = 4,064\n2.  Add the results together: 20,320 + 4,064 = 24,384\n\n**Answer: 24384**",
     "status": "ok"
   },
   {
@@ -1634,7 +1634,7 @@
     "expected": 24384,
     "extracted": 24384.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  Start with 25400 minus 1016:\n    - First subtract 1000: 25400 - 1000 = 24400\n    - Then subtract the remaining 16: 24400 -16 = 24384\n\nYou can also verify this with direct multiplication: 508*48 = (500*48)+(8*48) = 24000 + 384 = 24384.\n\n**Answer: 24384**",
+    "response": "Let's solve the subtraction step-by-step:\n1.  First subtract 1000 from 25400: 25400 - 1000 = 24400\n2.  Then subtract the remaining 16: 24400 - 16 = 24384\n\n**Final answer: 24384**",
     "status": "ok"
   },
   {
@@ -1687,10 +1687,10 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
-    "response": "Let's break this down step-by-step:\n1.  Calculate total cost for pencils: 4 pencils \u00d7 $3 each = $12\n2.  Calculate total cost for notebooks: 2 notebooks \u00d7 $5 each = $10\n3.  Add the two totals together: $12 + $10 = $22\n\nSarah spends a total of **$22**.",
+    "correct": false,
+    "response": "Let's break this down step-by-step:\n1.  Calculate the cost of the pencils: 4 pencils \u00d7 $3 each = $12\n2.  Calculate the cost of the notebooks: 2 notebooks \u00d7 $5 each = $10\n3.  Add the two totals together: $12 + $10 = **$22**\n\nSarah spends a total of $22.",
     "status": "ok"
   },
   {
@@ -1701,9 +1701,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
+    "correct": false,
     "response": "To find the total amount Sarah spends, we need to calculate the cost of the pencils and the notebooks separately and then add them together.\n\nCost of pencils = Number of pencils * Price per pencil\nCost of pencils = 4 * $3\nCost of pencils = $12\n\nCost of notebooks = Number of notebooks * Price per notebook\nCost of notebooks = 2 * $5\nCost of notebooks = $10\n\nTotal cost = Cost of pencils + Cost of notebooks\nTotal cost = $12 + $10\nTotal cost = $22\n\nSarah spends a total of $22.",
     "status": "ok"
   },
@@ -1715,7 +1715,7 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": 2.0,
     "correct": false,
     "response": "Let the cost of each pencil be $P = 3$ dollars.\nLet the cost of each notebook be $N = 5$ dollars.\nSarah buys 4 pencils, so the cost of pencils is $4 \\times P = 4 \\times 3 = 12$ dollars.\nSarah buys 2 notebooks, so the cost of notebooks is $2 \\times N = 2 \\times 5 = 10$ dollars.\nThe total cost is the sum of the cost of pencils and the cost of notebooks.\nTotal cost = Cost of pencils + Cost of notebooks = $12 + 10 = 22$ dollars.\n\nFinal Answer: The final answer is $\\boxed{22}$",
@@ -1729,7 +1729,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": null,
     "correct": false,
     "response": "",
@@ -1743,10 +1743,10 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
-    "response": "Let's break this down step-by-step:\n1.  Cost of 4 pencils: $3 \u00d7 4 = $12\n2.  Cost of 2 notebooks: $5 \u00d7 2 = $10\n3.  Total cost: $12 + $10 = **$22**",
+    "correct": false,
+    "response": "Let's break this down step-by-step:\n1.  Cost of 4 pencils: $3 per pencil \u00d7 4 = $12\n2.  Cost of 2 notebooks: $5 per notebook \u00d72 = $10\n3.  Total cost: $12 + $10 = **$22**",
     "status": "ok"
   },
   {
@@ -1757,9 +1757,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
+    "correct": false,
     "response": "Okay, let's organize the information we have:\n* The store sells pencils for $3 each\n* The store sells notebooks for $5 each\n* We want to buy 4 pencils and 2 notebooks\n\nNow, let's solve the problem step by step:\n\n1. Cost of 4 pencils:\n   * Each pencil costs $3\n   * So, 4 pencils will cost: 4 \u00d7 $3 = $12\n\n2. Cost of 2 notebooks:\n   * Each notebook costs $5\n   * So, 2 notebooks will cost: 2 \u00d7 $5 = $10\n\n3. Total cost of 4 pencils and 2 notebooks:\n   * Total cost = Cost of pencils + Cost of notebooks\n",
     "status": "ok"
   },
@@ -1771,7 +1771,7 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": 2.0,
     "correct": false,
     "response": "Let the cost of each pencil be $p$ and the cost of each notebook be $n$.\nWe are given that $p = 3$ and $n = 5$.\nWe want to find the cost of 4 pencils plus 2 notebooks.\nThe cost of 4 pencils is $4 \\times p = 4 \\times 3 = 12$.\nThe cost of 2 notebooks is $2 \\times n = 2 \\times 5 = 10$.\nThe total cost is the sum of the cost of 4 pencils and 2 notebooks, which is $12 + 10 = 22$.\n\nFinal Answer: The final answer is $\\boxed{22}$",
@@ -1785,7 +1785,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": null,
     "correct": false,
     "response": "",
@@ -1799,10 +1799,10 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
-    "response": "Let's solve step 3:\n12 + 10 = 22\n\nThe total cost of Sarah's purchases is **$22**.",
+    "correct": false,
+    "response": "Let's finish the calculation:\n12 + 10 = 22. \n\nThe total cost Sarah paid is **$22 total.",
     "status": "ok"
   },
   {
@@ -1813,9 +1813,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
+    "correct": false,
     "response": "Step 3: total = 12 + 10 = 22\n\nSarah's total cost for the pencils and notebooks is $22.",
     "status": "ok"
   },
@@ -1827,9 +1827,9 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
+    "correct": false,
     "response": "Let the cost of each pencil be $p$ and the cost of each notebook be $n$.\nSarah buys 4 pencils at $3 each, so the cost of the pencils is $4 \\times 3 = 12$.\nSarah buys 2 notebooks at $5 each, so the cost of the notebooks is $2 \\times 5 = 10$.\nThe total cost of the pencils and notebooks is $12 + 10 = 22$.\nStep 1: pencils cost 4 times 3 = 12.\nStep 2: notebooks cost 2 times 5 = 10.\nStep 3: total = 12 + 10 = 22.\nThe question asks to step 3: total = 12 + 10 = ?\nThe total cost of the pencils and noteboo",
     "status": "ok"
   },
@@ -1841,7 +1841,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": null,
     "correct": false,
     "response": "To determine the total cost of Sarah's purchases, we need to calculate",
@@ -1858,7 +1858,7 @@
     "expected": 31,
     "extracted": 28.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  Start with Tom's initial marbles: 45\n2.  Subtract marbles given to Alice: 45 - 8 = 37\n3.  Subtract marbles given to Bob: 37 -12 = 25\n4.  Add the 6 marbles he found: 25 +6 =31\n5.  Subtract the 3 marbles he lost: 31 -3 =28\n\nAnswer: 28",
+    "response": "Let's solve this step-by-step:\n1.  Start with Tom's initial marbles: 45\n2.  Subtract marbles given to Alice and Bob: 45 - 8 -12 = 25\n3.  Add the 6 marbles he found: 25 +6 =31\n4.  Subtract the 3 marbles he lost: 31 -3 =28\n\n**Answer: 28**",
     "status": "ok"
   },
   {
@@ -1914,7 +1914,7 @@
     "expected": 31,
     "extracted": 28.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  Start with 45\n2.  Subtract 8: 45 - 8 = 37\n3.  Subtract 12: 37 -12 = 25\n4.  Add 6: 25 +6 =31\n5.  Subtract 3: 31 -3 =28\n\nThe final result is **28**.",
+    "response": "Let's solve this step-by-step:\n1.  Start with 45\n2.  Subtract 8: 45 - 8 = 37\n3.  Subtract 12: 37 -12 = 25\n4.  Add 6: 25 +6 =31\n5.  Subtract 3: 31 -3 =28\n\nFinal result: **28**",
     "status": "ok"
   },
   {
@@ -1970,7 +1970,7 @@
     "expected": 31,
     "extracted": 28.0,
     "correct": false,
-    "response": "Let's solve the final step:\n31 - 3 = 28\n\nLet's also confirm all the prior steps to be thorough:\n1. 45 - 8 = 37\n2. 37 -12=25\n3. 25 +6=31\n4. 31 -3=28\n\nThe final answer is **28**",
+    "response": "Let's solve the final step: 31 - 3 = 28.\n\nTom ends up with **28 marbles** total.",
     "status": "ok"
   },
   {
@@ -2024,9 +2024,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 20,
-    "extracted": 8.0,
-    "correct": false,
-    "response": "Let's solve this step-by-step:\n\n1.  **Calculate the perimeter of the rectangle**:\n    The formula for the perimeter of a rectangle is $P = 2\\times(length + width)$.\n    Plugging in the values: $P=2\\times(12 +8)= 2\\times20=40$ meters total.\n\n2.  **Find the number of fence posts**:\n    For a closed rectangular perimeter, the number of posts equals the total perimeter divided by the spacing between posts (since the first and last posts align at the corner of the rectangle, no extra post is needed a",
+    "extracted": 20.0,
+    "correct": true,
+    "response": "Let's solve this step-by-step:\n\n1.  **Calculate the perimeter of the rectangle**:\n    The formula for the perimeter of a rectangle is $P = 2\\times(\\text{length} + \\text{width})$.\n    Plugging in the values: $P = 2\\times(12 +8) = 2\\times20 = 40$ meters.\n\n2.  **Find the number of fence posts**:\n    For a closed perimeter shape like a rectangle, the number of posts equals the total perimeter divided by the spacing between posts (we do not need an extra final post, as the first and last post align a",
     "status": "ok"
   },
   {
@@ -2080,9 +2080,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 20,
-    "extracted": 7.0,
-    "correct": false,
-    "response": "Let's solve this step-by-step:\n\n1.  **Calculate the perimeter of the rectangle**:\n    The formula for the perimeter of a rectangle is $P = 2\\times(l + w)$, where $l=12$m and $w=8$m.\n    $$P = 2\\times(12 +8) = 40 \\text{ meters}$$\n\n2.  **Find the number of fence posts**:\n    For a closed perimeter (like this rectangle), the total number of posts evenly spaced every 2m is equal to the total perimeter divided by the spacing between posts, since the first and final post align at the starting corner:\n",
+    "extracted": 20.0,
+    "correct": true,
+    "response": "Let's solve this step-by-step:\n\n1.  **Calculate the perimeter of the rectangle**:\n    The formula for the perimeter of a rectangle is $P = 2(l + w)$, where $l=12$m and $w=8$m.\n    $$P = 2(12 +8) = 2(20) = 40 \\text{ meters}$$\n\n2.  **Find the number of fence posts**:\n    For a closed perimeter (like a rectangle), the number of posts equals total perimeter divided by the spacing between posts, since the first and final post align at the starting corner (no extra trailing post needed for a closed lo",
     "status": "ok"
   },
   {
@@ -2138,7 +2138,7 @@
     "expected": 20,
     "extracted": 20.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  You already calculated the total perimeter correctly as 40 meters.\n2.  For a closed-loop (like the rectangular garden here), the number of evenly spaced posts equals total perimeter divided by the spacing between posts, since you do not need an extra \"start/end\" post like you would for a straight line.\n\n$40 \\div 2 = 20$\n\n**Final answer: 20 posts**",
+    "response": "Let's solve this together:\n1.  We already found the total perimeter is 40 meters.\n2.  For a closed-loop shape, the number of evenly spaced posts exactly matches the total length divided by the spacing between posts (no extra final post needed like on an open straight line).\n    Calculation: $40 \\div 2 = 20$\n\nThe final number of posts is **20**.",
     "status": "ok"
   },
   {
@@ -2192,9 +2192,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 84,
-    "extracted": 3.0,
+    "extracted": 36.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  **Calculate total muffins baked**: The baker makes 24 muffins per batch \u00d7 5 batches = 120 total muffins.\n2.  **Calculate muffins sold**: 1 dozen = 12, so 3 dozen = 3 \u00d712 =36 muffins sold.\n3.  **Find remaining muffins**: 120 - 36 = 84.\n\nAnswer: 84",
+    "response": "Let's solve this step-by-step:\n1.  **Calculate total muffins baked**: 24 muffins per batch \u00d7 5 batches = 120 total muffins.\n2.  **Calculate muffins sold**: 3 dozen \u00d7 12 muffins per dozen = 36 muffins sold.\n3.  **Find remaining muffins**: 120 - 36 = 84.\n\nAnswer: 84",
     "status": "ok"
   },
   {
@@ -2248,9 +2248,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 84,
-    "extracted": 3.0,
+    "extracted": 12.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  **Total muffins baked**: 24 muffins/batch \u00d7 5 batches = 120 total muffins\n2.  **Muffins sold**: 3 dozen = 3 \u00d712 = 36 muffins\n3.  **Remaining muffins**: 120 - 36 = 84\n\nAnswer: 84",
+    "response": "Let's solve this step-by-step:\n1.  **Total muffins baked**: $24 \\times 5 = 120$ total muffins\n2.  **Convert sold units to individual muffins**: 1 dozen =12, so 3 dozen = $3\\times12=36$ muffins sold\n3.  **Remaining muffins**: $120 -36 = 84$\n\nFinal answer: **84 muffins**",
     "status": "ok"
   },
   {
@@ -2306,7 +2306,7 @@
     "expected": 84,
     "extracted": 84.0,
     "correct": true,
-    "response": "Let's solve this fully:\n1.  Total muffins: 24 \u00d75 = 120, correct as given\n2.  Sold muffins: 3\u00d712=36, correct as given\n3.  Remaining muffins = 120 - 36 = **84**",
+    "response": "Let's solve Step 3 fully:\n120 - 36 = 84\n\nThe total remaining muffins are **84**.",
     "status": "ok"
   },
   {
@@ -2359,10 +2359,10 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
-    "response": "To find the total distance traveled, we calculate the distance for each segment of the trip and add them together, using the formula **distance = speed \u00d7 time**:\n\n1.  First segment: $65 \\text{ mph} \\times 3 \\text{ hours} = 195$ miles\n2.  Second segment: $78 \\text{ mph} \\times 2 \\text{ hours} = 156$ miles\n\nAdd the two distances: $195 + 156 = 351$ miles\n\n**Answer: 351 miles**",
+    "correct": false,
+    "response": "To find total distance traveled, we calculate the distance for each segment separately using the formula **distance = speed \u00d7 time**, then add them together:\n\n1.  First segment: $65 \\text{ mph} \\times 3 \\text{ hours} = 195$ miles\n2.  Second segment: $78 \\text{ mph} \\times 2 \\text{ hours} = 156$ miles\n3.  Total distance: $195 + 156 = 351$ miles\n\nThe total distance traveled is **351 miles**.",
     "status": "ok"
   },
   {
@@ -2373,9 +2373,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
+    "correct": false,
     "response": "To find the total distance traveled, we need to calculate the distance traveled at each speed and then add them together.\n\nFor the first part of the trip, the train travels at 65 mph for 3 hours. The distance traveled can be found by multiplying the speed by the time:\n\nDistance = Speed \u00d7 Time\nDistance = 65 mph \u00d7 3 hours\nDistance = 195 miles\n\nFor the second part of the trip, the train travels at 78 mph for 2 hours. Again, we multiply the speed by the time to find the distance:\n\nDistance = Speed \u00d7",
     "status": "ok"
   },
@@ -2387,7 +2387,7 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": 156.0,
     "correct": false,
     "response": "Let $d_1$ be the distance traveled in the first part of the journey, and $d_2$ be the distance traveled in the second part of the journey.\n\nIn the first part of the journey, the train travels at 65 mph for 3 hours.\nThe distance traveled in the first part is $d_1 = \\text{speed} \\times \\text{time} = 65 \\text{ mph} \\times 3 \\text{ hours} = 195 \\text{ miles}$.\n\nIn the second part of the journey, the train travels at 78 mph for 2 hours.\nThe distance traveled in the second part is $d_2 = \\text{speed} ",
@@ -2401,7 +2401,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": null,
     "correct": false,
     "response": "",
@@ -2415,10 +2415,10 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  Calculate $65 \\times 3 = 195$\n2.  Calculate $78 \\times 2 = 156$\n3.  Add the results together: $195 + 156 = 351$\n\nFinal answer: $\\boldsymbol{351}$",
+    "correct": false,
+    "response": "Let's solve this step-by-step:\n1.  Calculate the two multiplication terms first:\n    - $65\\times3 = 195$\n    - $78\\times2 = 156$\n2.  Add the results together: $195 +156 = 351$\n\n**Final answer: 351**",
     "status": "ok"
   },
   {
@@ -2429,9 +2429,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
+    "correct": false,
     "response": "To compute the distance, we need to perform the multiplication first and then add the results together.\n\n65 times 3 is 195.\n78 times 2 is 156.\n\nNow, we add these two results together:\n\n195 + 156 = 351\n\nTherefore, the distance is 351.",
     "status": "ok"
   },
@@ -2443,9 +2443,9 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
+    "correct": false,
     "response": "Let the distance be $D$.\nWe are given that the distance is 65 times 3 plus 78 times 2.\nSo, $D = 65 \\times 3 + 78 \\times 2$.\n$65 \\times 3 = 195$\n$78 \\times 2 = 156$\nTherefore, $D = 195 + 156 = 351$.\n\nThe distance is 351.\n\nFinal Answer: The final answer is $\\boxed{351}$",
     "status": "ok"
   },
@@ -2457,7 +2457,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": null,
     "correct": false,
     "response": "",
@@ -2471,10 +2471,10 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
-    "response": "Let's solve this total:\n1.  First add 195 + 156 = 351\n\nThe total distance is **351 miles**.",
+    "correct": false,
+    "response": "Let's solve this total:\n195 + 156 = **351** miles.",
     "status": "ok"
   },
   {
@@ -2485,9 +2485,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
+    "correct": false,
     "response": "Step 3: total = 195 + 156 = 351 miles.",
     "status": "ok"
   },
@@ -2499,9 +2499,9 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
+    "correct": false,
     "response": "Step 3: total = 195 + 156 = 351 miles\n\nTherefore, the total distance is 351 miles.",
     "status": "ok"
   },
@@ -2513,7 +2513,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": null,
     "correct": false,
     "response": "",
@@ -2530,7 +2530,7 @@
     "expected": 7,
     "extracted": 32.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n\n1.  Let the unknown number be $x$. Translate the problem into an equation:\n    $3x + 11 = 32$\n2.  Subtract 11 from both sides to isolate the term with $x$:\n    $3x = 32 - 11 = 21$\n3.  Divide both sides by 3:\n    $x = \\frac{21}{3} =7$\n\n**Check:** $3*7 +11 =21+11=32$, which matches the problem statement.\n\nThe number is 7.",
+    "response": "Let's solve this step-by-step:\n\n1.  Let the unknown number be $x$.\n2.  Translate the problem into an equation: *3 times a number plus 11 equals 32* \u2192 $3x +11 =32$\n3.  Subtract 11 from both sides: $3x =32 -11 =21$\n4.  Divide both sides by 3: $x = \\frac{21}{3}=7$\n\n**Answer: 7**",
     "status": "ok"
   },
   {
@@ -2586,7 +2586,7 @@
     "expected": 7,
     "extracted": 7.0,
     "correct": true,
-    "response": "Let's solve the equation step-by-step:\n\n1.  First, subtract 11 from both sides to isolate the term with $x$:\n    $$3x + 11 - 11 = 32 - 11$$\n    Simplifies to:\n    $$3x = 21$$\n\n2.  Divide both sides by 3 to solve for $x$:\n    $$x = \\frac{21}{3} = 7$$\n\n**Final answer: $\\boldsymbol{x=7}$**",
+    "response": "Let's solve for $x$ step-by-step:\n\n1.  First, subtract 11 from both sides of the equation to isolate the term with $x$:\n    $$3x + 11 - 11 = 32 - 11$$\n    $$3x = 21$$\n\n2.  Divide both sides by 3 to solve for $x$:\n    $$x = \\frac{21}{3} = 7$$\n\n**Answer: $\\boldsymbol{x=7}$**",
     "status": "ok"
   },
   {
@@ -2642,7 +2642,7 @@
     "expected": 7,
     "extracted": 21.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  After subtracting 11 from both sides, we have $3x=21$.\n2.  Dividing 21 by 3 gives $\\boldsymbol{7}$.\n\nYou can verify this: $3(7)+11=21+11=32$, which matches the original equation.",
+    "response": "Let's finish solving this equation:\n\nAfter getting $3x=21$, divide both sides by 3:\n$x = \\frac{21}{3} = 7$\n\nThe final answer is $\\boldsymbol{7}$.",
     "status": "ok"
   },
   {
@@ -2698,7 +2698,7 @@
     "expected": 19,
     "extracted": 19.0,
     "correct": true,
-    "response": "Let's solve this problem step-by-step:\n\n1.  Let the larger number be $x$ and the smaller number be $y$.\n2.  We know two things:\n    - Their sum is 31: $x + y = 31$\n    - Their difference is 7: $x - y =7$\n3.  Add the two equations together to eliminate $y$:\n    $$(x + y) + (x - y) = 31 +7$$\n    $$2x = 38$$\n4.  Divide both sides by 2: $x=19$\n\nDouble-check: the smaller number is $31-19=12$, and $19-12=7$, which matches the problem's conditions.\n\n**Answer: 19**",
+    "response": "Let's solve this problem step-by-step:\n\n1.  Let the larger number be $x$ and the smaller number be $y$.\n2.  We know two things:\n    -  Their sum is 31: $x + y = 31$\n    -  Their difference is 7: $x - y =7$\n3.  Add the two equations together to eliminate $y$:\n    $$(x + y) + (x - y) = 31 +7$$\n    $$2x = 38$$\n4.  Divide both sides by 2: $x=19$\n\nYou can verify: the smaller number is $31-19=12$, and $19-12=7$ which matches the given difference.\n\n**Answer: 19**",
     "status": "ok"
   },
   {
@@ -2754,7 +2754,7 @@
     "expected": 19,
     "extracted": 19.0,
     "correct": true,
-    "response": "Let's solve for \\(x\\) by adding the two given equations together to eliminate \\(y\\):\n\n1.  Start with the system:\n    \\[\n    \\begin{cases}\n    x + y = 31 \\\\\n    x - y = 7\n    \\end{cases}\n    \\]\n2.  Add the left-hand sides and right-hand sides:\n    \\[\n    (x + y) + (x - y) = 31 +7\n    \\]\n3.  Simplify:\n    \\[\n    2x = 38\n    \\]\n4.  Divide both sides by 2:\n    \\[\n    x = 19\n    \\]\n\n**Answer: 19**",
+    "response": "Alright, let's solve this step-by-step:\n\n1.  We have the two equations:\n    $x + y = 31$ and $x - y =7$\n2.  Add the two equations together to eliminate the $y$ terms:\n    $$(x + y) + (x - y) = 31 +7$$\n3.  Simplify both sides:\n    $2x = 38$\n4.  Divide both sides by 2:\n    $x = 19$\n\n**Answer: 19**",
     "status": "ok"
   },
   {
@@ -2808,9 +2808,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 19,
-    "extracted": 38.0,
-    "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  After adding the two original equations, we have $2x=38$.\n2.  Dividing both sides by 2: $x=\\frac{38}{2}=19$\n\n**Final answer: 19**",
+    "extracted": 19.0,
+    "correct": true,
+    "response": "Let's solve step 2:\n$38 \\div 2 = 19$, so $x=19$.\n\nWe can also solve for $y$ quickly: substitute $x=19$ into $x+y=31$, so $y=31-19=12$. You can verify with the second equation: $19-12=7$, which matches.\n\nFinal answer for the division step is **19**.",
     "status": "ok"
   },
   {
@@ -2866,7 +2866,7 @@
     "expected": 14,
     "extracted": 14.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n\n1.  **Translate the problem into an equation**: Let the positive number be $x$. The problem states:\n    $$x^2 -5x = 126$$\n2.  Rearrange into standard quadratic form:\n    $$x^2 -5x -126 =0$$\n3.  Factor the quadratic: We need two numbers that multiply to $-126$ and add to $-5$. These numbers are $+9$ and $-14$:\n    $$(x+9)(x-14)=0$$\n4.  Solve for $x$:\n    - $x+9=0 \\implies x=-9$ (discarded, since the number is positive)\n    - $x-14=0 \\implies x=14$\n\n5.  Verify: $14^",
+    "response": "Let's solve this step-by-step:\n\n1.  **Translate the problem into an equation**: Let the positive number be $x$. The wording translates to:\n    $$x^2 -5x =126$$\n2.  Rearrange into standard quadratic form:\n    $$x^2 -5x -126=0$$\n3.  Factor the quadratic: We need two numbers that multiply to $-126$ and add to $-5$. These numbers are $+9$ and $-14$, so:\n    $$(x+9)(x-14)=0$$\n4.  Solve for $x$: The solutions are $x=-9$ and $x=14$. Since the number is positive, we discard the negative solution.\n\n5.  V",
     "status": "ok"
   },
   {
@@ -2922,7 +2922,7 @@
     "expected": 14,
     "extracted": 14.0,
     "correct": true,
-    "response": "Let's solve this quadratic equation step-by-step:\n\n1.  **Rewrite into standard quadratic form**:\n    Start with $n^2 -5n =126$, subtract 126 from both sides:\n    $$n^2 -5n -126 =0$$\n\n2.  **Factor the quadratic**:\n    We need two numbers that multiply to $-126$ and add to $-5$. These numbers are $-14$ and $+9$. The factored form is:\n    $$(n-14)(n+9)=0$$\n\n3.  **Solve for n**:\n    Set each factor equal to zero:\n    - $n-14=0 \\implies n=14$\n    - $n+9=0 \\implies n=-9$\n\n4.  Select the positive solut",
+    "response": "Let's solve this step-by-step:\n\n1.  **Rewrite the equation in standard quadratic form**:\n    Start with $n^2 -5n = 126$, subtract 126 from both sides:\n    $$n^2 -5n -126 =0$$\n\n2.  **Factor the quadratic**:\n    We need two numbers that multiply to $-126$ and add to $-5$. These numbers are $-14$ and $+9$. The factored form is:\n    $$(n-14)(n+9)=0$$\n\n3.  **Solve for $n$**:\n    Set each factor equal to zero:\n    - $n-14=0 \\implies n=14$\n    - $n+9=0 \\implies n=-9$\n\n4.  Select the positive solution: ",
     "status": "ok"
   },
   {
@@ -2978,7 +2978,7 @@
     "expected": 14,
     "extracted": 14.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  We have the factored equation: $(n + 9)(n - 14) = 0$\n2.  Using the zero product property, either $n+9=0$ which gives $n=-9$, or $n-14=0$ which gives $n=14$.\n3.  Since $n$ is positive, we discard the negative solution.\n\n**Answer: 14**",
+    "response": "Let's solve this step-by-step:\n\n1.  Using the zero product property on the factored equation **(n + 9)(n - 14) = 0**:\n    -  Either $n +9 =0$ \u2192 $n=-9$\n    -  Or $n -14=0$ \u2192 $n=14$\n\n2.  The prompt specifies $n$ is positive, so we discard the negative solution.\n\n**Answer: 14**",
     "status": "ok"
   },
   {
@@ -3034,7 +3034,7 @@
     "expected": 6,
     "extracted": 6.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n\n1.  Let the smallest consecutive integer be $n$. The next two consecutive integers will be $n+1$ and $n+2$.\n2.  Set up the sum equation:\n    $$n + (n+1) + (n+2) = 21$$\n3.  Simplify and solve:\n    $$3n + 3 = 21$$\n    $$3n = 18$$\n    $$n = 6$$\n\nCheck: $6+7+8=21$, which matches the problem statement.\n\n**Answer: 6**",
+    "response": "Let's solve this step-by-step:\n\n1.  Let the smallest consecutive integer be $n$. The next two consecutive integers will be $n+1$ and $n+2$.\n2.  Their sum is 21:\n    $$n + (n+1) + (n+2) = 21$$\n3.  Simplify and solve:\n    $$3n +3 =21$$\n    $$3n=18$$\n    $$n=6$$\n\nCheck: $6+7+8=21$, which matches the total.\n\n**Answer: 6**",
     "status": "ok"
   },
   {
@@ -3088,9 +3088,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 6,
-    "extracted": 21.0,
-    "correct": false,
-    "response": "Let's solve this step-by-step:\n\n1.  First, write out the equation from the problem:\n    $$n + (n+1) + (n+2) = 21$$\n2.  Combine like terms:\n    Combine the $n$ terms: $n +n +n =3n$, and the constant terms: $1+2=3$. The equation simplifies to:\n    $$3n +3 =21$$\n3.  Subtract 3 from both sides:\n    $$3n = 21 -3 =18$$\n4.  Divide both sides by 3:\n    $$n = \\frac{18}{3}=6$$\n\n**Check:** 6 +7 +8 =21, which matches the total. Answer: $\\boldsymbol{6}$",
+    "extracted": 6.0,
+    "correct": true,
+    "response": "Let's solve this step-by-step:\n\n1.  First, write the equation from the problem:\n    $$n + (n+1) + (n+2) = 21$$\n2.  Combine like terms:\n    $$3n + 3 = 21$$\n3.  Subtract 3 from both sides:\n    $$3n = 18$$\n4.  Divide both sides by 3:\n    $$n = 6$$\n\n**Check:** 6 +7 +8 =21, which matches the given total. Answer: $\\boldsymbol{6}$",
     "status": "ok"
   },
   {
@@ -3146,7 +3146,7 @@
     "expected": 6,
     "extracted": 18.0,
     "correct": false,
-    "response": "Let's solve this step-by-step as outlined:\n1.  We start with $3n=18$ from Step 2\n2.  Divide both sides by 3: $n = \\frac{18}{3} = 6$\n\nYou can verify this: the three consecutive integers 6,7,8 sum to $6+7+8=21$, which matches the initial sum given.\n\n**Answer: 6**",
+    "response": "Let's solve this step-by-step:\n1.  We have the equation $3n=18$ from step 2.\n2.  Divide both sides by 3: $n = \\frac{18}{3} = 6$.\n\nYou can verify this: the three integers are 6,7,8, and their sum is 6+7+8=21, which matches the initial sum given!\n\n**Answer: 6**",
     "status": "ok"
   },
   {
@@ -3202,7 +3202,7 @@
     "expected": 15,
     "extracted": 15.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n\n1.  Let the original number be $x$.\n2.  When doubled, it becomes $2x$.\n3.  Increasing that by 9 gives $2x +9$, which equals 39.\n4.  Set up the equation:\n    $$2x +9 =39$$\n5.  Subtract 9 from both sides: $2x = 39 -9 =30$\n6.  Divide by 2: $x=15$\n\n**Check:** 15 doubled is 30, plus 9 is 39, which matches the problem statement.\n\nAnswer: $\\boxed{15}$",
+    "response": "Let's solve this step-by-step:\n\n1.  Let the original number be $x$.\n2.  First the number is doubled: this becomes $2x$.\n3.  Then it's increased by 9, so we have $2x + 9$, which equals 39.\n4.  Set up the equation: $2x +9 =39$\n5.  Subtract 9 from both sides: $2x = 39 -9 =30$\n6.  Divide both sides by 2: $x = 15$\n\nCheck: $15*2 +9 =30+9=39$, which matches the problem statement.\n\n**Answer: 15**",
     "status": "ok"
   },
   {
@@ -3258,7 +3258,7 @@
     "expected": 15,
     "extracted": 15.0,
     "correct": true,
-    "response": "Let's solve the equation step-by-step:\n\n1.  First, isolate the term with $x$ by subtracting 9 from both sides of the equation:\n    $$2x + 9 - 9 = 39 - 9$$\n    Simplifies to:\n    $$2x = 30$$\n2.  Divide both sides by 2 to solve for $x$:\n    $$x = \\frac{30}{2} = 15$$\n\n**Final answer: $\\boldsymbol{x=15}$**",
+    "response": "Let's solve this linear equation step-by-step:\n\n1.  **Subtract 9 from both sides** to isolate the term with $x$:\n    $$2x + 9 - 9 = 39 - 9$$\n    Simplifies to:\n    $$2x = 30$$\n\n2.  **Divide both sides by 2** to solve for $x$:\n    $$x = \\frac{30}{2} = 15$$\n\n---\nCheck: $2(15) +9 = 30 +9 =39$, which matches the original equation.\n\n**Final answer: $\\boldsymbol{x=15}$**",
     "status": "ok"
   },
   {
@@ -3312,9 +3312,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 15,
-    "extracted": 15.0,
-    "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  After completing the first two steps: $30 \\div 2 = 15$, so $x=15$.\n\nThe final answer is **15**.",
+    "extracted": 30.0,
+    "correct": false,
+    "response": "Let's solve this together:\n1.  After Step 1, we have `2x = 30`\n2.  Divide both sides by 2: $x = \\frac{30}{2} = 15$\n\nThe final answer is **15**",
     "status": "ok"
   },
   {
@@ -3370,7 +3370,7 @@
     "expected": 834,
     "extracted": 8.0,
     "correct": false,
-    "response": "Let's calculate this step-by-step:\n1.  Add the ones place: 6 + 8 = 14, jot down 4 and carry over 1\n2.  Add the tens place: 5 +7 +1 (carried over) =13, jot down 3 and carry over 1\n3.  Add the hundreds place: 4 +3 +1 (carried over) =8\n\nTotal: **834**",
+    "response": "Let's calculate this step-by-step:\n1.  Break down the numbers: 456 + 378\n2.  Add the ones place: 6 + 8 =14, write down 4 and carry over 1\n3.  Add the tens place plus the carried 1: 5 +7 +1=13, write down 3 and carry over 1\n4.  Add the hundreds place plus the carried 1: 4+3+1=8\n\nTotal: **834**",
     "status": "ok"
   },
   {
@@ -3424,9 +3424,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 834,
-    "extracted": 834.0,
-    "correct": true,
-    "response": "Let's calculate 456 + 378 step-by-step:\n1.  Add the ones place: 6 + 8 = 14, note down 4 and carry over 1.\n2.  Add the tens place: 5 +7 + 1 (carryover) =13, note down 3 and carry over 1.\n3.  Add the hundreds place: 4 +3 +1 (carryover) =8, note down 8.\n\nCombining these results, the total is **834**.",
+    "extracted": 8.0,
+    "correct": false,
+    "response": "Let's solve this addition step-by-step:\n1.  Add the ones place: 6 + 8 = 14, write down 4 and carry over 1.\n2.  Add the tens place: 5 + 7 + 1 (carryover) = 13, write down 3 and carry over 1.\n3.  Add the hundreds place: 4 +3 +1 (carryover) = 8.\n\nCombining these results, the total is **834**.",
     "status": "ok"
   },
   {
@@ -3482,7 +3482,7 @@
     "expected": 834,
     "extracted": 834.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  Start with 700 + 120 = 820\n2.  Then add 14: 820 + 14 = 834\n\nThe final total is **834**",
+    "response": "Let's solve this step-by-step:\n1.  700 + 120 = 820\n2.  820 + 14 = 834\n\nYou can also verify this directly: 456 + 378 = 834.\n\n**Answer: 834**",
     "status": "ok"
   },
   {
@@ -3538,7 +3538,7 @@
     "expected": 417,
     "extracted": 4.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  Align the digits by place value:\n    ```\n      903\n    - 486\n    ------\n    ```\n2.  Subtract the ones place: 3 < 6, so borrow 1 from the tens column (which is 0, so first borrow 1 from the hundreds place: 9 becomes 8, tens place becomes 10, then borrow 1 from the tens place to the ones place: tens place is now 9, ones place is 13. 13-6=7.\n3.  Subtract the tens place: 9 - 8 = 1.\n4.  Subtract the hundreds place: 8 - 4 = 4.\n\nThe final answer is **417**.",
+    "response": "Let's solve this step-by-step:\n1.  Align the digits by place value:\n    ```\n      903\n    - 486\n    ```\n2.  Regroup since we can't subtract 6 from 3, and the tens place is 0: Borrow 1 from the hundreds place (turning 9 into 8), making the tens place 10, then borrow 1 from the tens place to make the ones place 13. Now tens place is 9.\n3.  Calculate each column:\n    - Ones: 13 - 6 =7\n    - Tens:9 -8=1\n    - Hundreds:8-4=4\n\nThe final answer is **417**.",
     "status": "ok"
   },
   {
@@ -3592,9 +3592,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 417,
-    "extracted": 417.0,
-    "correct": true,
-    "response": "Let's calculate 903 - 486 step-by-step:\n1.  Break it down for simplicity: Subtract 500 first, then add back the extra 14 we over-subtracted (since 500 - 486 =14):\n    903 - 500 = 403\n    403 +14 = 417\n2.  Verify: 486 + 417 = 903, which checks out.\n\n**Answer: 417**",
+    "extracted": 903.0,
+    "correct": false,
+    "response": "Let's calculate 903 - 486 step-by-step:\n\n1.  **Ones place**: 3 < 6, so we borrow from the tens column. Since the tens digit is 0, first borrow 1 hundred from the 9 hundreds, turning 9 into 8, and the tens place becomes 10. Then borrow 1 ten from the tens place, making the tens digit 9, and the ones digit becomes 13. 13 - 6 =7.\n2.  **Tens place**: 9 - 8 =1.\n3.  **Hundreds place**: 8 -4=4.\n\nCombining these results, we get 417. You can verify: 486 + 417 = 903.\n\nAnswer: $\\boxed{417}$",
     "status": "ok"
   },
   {
@@ -3648,9 +3648,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 417,
-    "extracted": 423.0,
-    "correct": false,
-    "response": "Let's solve the final step:\n423 - 6 = 417\n\nFollowing the full process:\n903 - 400 = 503\n503 - 80 = 423\n423 - 6 = **417**\n\nThe answer is 417.",
+    "extracted": 417.0,
+    "correct": true,
+    "response": "Let's solve the final step:\n423 - 6 = 417\n\nThe full breakdown checks out: 903 - 400 = 503, 503 -80=423, 423-6=**417**",
     "status": "ok"
   },
   {
@@ -3706,7 +3706,7 @@
     "expected": 1247,
     "extracted": 12.0,
     "correct": false,
-    "response": "Let's calculate this step-by-step:\n1.  Break down the numbers: 589 + 658\n2.  Add the ones place: 9 + 8 = 17, carry over 1\n3.  Add the tens place: 8 +5 +1 (carryover) =14, carry over 1\n4.  Add the hundreds place:5+6 +1 (carryover)=12\n5.  Combine the results: 1247\n\nThe final answer is **1247**",
+    "response": "Let's solve this step-by-step:\n1.  Break down the numbers: 589 + 658\n2.  Add the ones place: 9 + 8 = 17 (carry over 1 to the tens column)\n3.  Add the tens place: 8 +5 +1 =14 (carry over 1 to the hundreds column)\n4.  Add the hundreds place:5 +6 +1=12\n5.  Combine the results: 12 (hundreds/thousands) 4 (tens) 7 (ones) = **1247**",
     "status": "ok"
   },
   {
@@ -3760,9 +3760,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 1247,
-    "extracted": 12.0,
-    "correct": false,
-    "response": "Let's solve 589 + 658 step-by-step:\n1.  Add the ones digits: 9 + 8 = 17, write down 7 and carry over 1.\n2.  Add the tens digits plus the carryover: 8 + 5 +1 =14, write down 4 and carry over 1.\n3.  Add the hundreds digits plus the carryover:5 +6 +1=12.\n\nCombining these results, the total is **1247**.",
+    "extracted": 1247.0,
+    "correct": true,
+    "response": "Let's solve 589 + 658 step-by-step:\n1.  Break down the numbers:\n    - 589 + 600 = 1189\n    - Then add the remaining 58: 1189 + 50 = 1239, then 1239 + 8 = 1247\n\n**Final answer: 1247**",
     "status": "ok"
   },
   {
@@ -3818,7 +3818,7 @@
     "expected": 1247,
     "extracted": 1247.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  First add 1100 + 130 = 1230\n2.  Then add that total to 17: 1230 +17 = 1247\n\nThe final sum is **1247**",
+    "response": "Let's solve this step-by-step:\n1.  First add 1100 + 130 = 1230\n2.  Then add 1230 +17 = 1247\n\nThe final sum is **1247**",
     "status": "ok"
   },
   {
@@ -3874,7 +3874,7 @@
     "expected": 296,
     "extracted": 296.0,
     "correct": true,
-    "response": "Let's solve this:\n1.  1000 - 704 = 296\n\nThe final answer is 296.",
+    "response": "1000 minus 704 equals 296.",
     "status": "ok"
   },
   {
@@ -3930,7 +3930,7 @@
     "expected": 296,
     "extracted": 296.0,
     "correct": true,
-    "response": "Let's solve this subtraction step by step:\n1.  We can rewrite $1000 - 704 = 1000 - (700 +4) = (1000-700) -4 = 300 -4 = 296$.\n\nThe final answer is $\\boxed{296}$.",
+    "response": "Let's calculate 1000 - 704:\n1.  Subtract 700 from 1000 first: 1000 -700 = 300\n2.  Then subtract the remaining 4: 300 -4 = 296\n\nYou can also verify with vertical subtraction, which confirms the result is 296.\n\nAnswer: $\\boxed{296}$",
     "status": "ok"
   },
   {
@@ -3986,7 +3986,7 @@
     "expected": 296,
     "extracted": 296.0,
     "correct": true,
-    "response": "Let's finish that calculation step-by-step:\nAfter calculating 1000 - 700 = 300, you subtract the remaining 4 from 300:\n300 - 4 = 296\n\nThe final result of 1000 -704 is 296!",
+    "response": "Let's work through that final step:\n300 minus 4 equals **296**.\n\nSo 1000 - 704 = 296 total!",
     "status": "ok"
   },
   {
@@ -4042,7 +4042,7 @@
     "expected": 1538,
     "extracted": 1538.0,
     "correct": true,
-    "response": "Let's calculate this step-by-step:\n1.  Break down the numbers: 847 + 691\n2.  847 + 600 = 1447\n3.  1447 + 90 = 1537\n4.  1537 +1 = 1538\n\n**Final answer: 1538**",
+    "response": "Let's calculate this step-by-step:\n1.  Break down the numbers: 847 + 691\n2.  Add the hundreds, tens, and ones places separately then combine:\n    - 800 + 600 = 1400\n    - 40 + 90 = 130\n    - 7 + 1 = 8\n3.  Sum the results: 1400 +130 +8 = 1538\n\nThe total is **1538**",
     "status": "ok"
   },
   {
@@ -4096,9 +4096,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 1538,
-    "extracted": 15.0,
-    "correct": false,
-    "response": "Let's compute 847 + 691 step-by-step:\n1.  Add the ones place: 7 + 1 = 8\n2.  Add the tens place: 4 + 9 = 13, write down 3 and carry over 1\n3.  Add the hundreds place plus the carried-over 1: 8 + 6 + 1 = 15\n\nCombining these results gives **1538**.",
+    "extracted": 1538.0,
+    "correct": true,
+    "response": "Let's compute 847 + 691 step-by-step:\n1.  Break down the numbers by place value:\n    - 847 = 800 + 40 +7\n    - 691 = 600 +90 +1\n2.  Add each place:\n    - Hundreds: 800 +600 =1400\n    - Tens: 40 +90=130\n    - Ones:7+1=8\n3.  Sum the results: 1400 +130 +8 = 1538\n\n**Final answer: 1538**",
     "status": "ok"
   },
   {
@@ -4154,7 +4154,7 @@
     "expected": 1538,
     "extracted": 1538.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  Start with 1400 + 130 = 1530\n2.  Then add the final 8: 1530 + 8 = 1538\n\n**Answer: 1538**",
+    "response": "Let's solve this step-by-step:\n1.  First add 1400 + 130 = 1530\n2.  Then add 8 to 1530: 1530 + 8 = 1538\n\nThe final total is **1538**, which also matches 847 + 691 directly.",
     "status": "ok"
   },
   {
@@ -4208,9 +4208,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 99186,
-    "extracted": 1001.0,
+    "extracted": 99242.0,
     "correct": false,
-    "response": "Let's calculate 347 \u00d7 286 step-by-step:\n\n1.  Break down the multiplication using expanded terms:\n    347 \u00d7 286 = 347\u00d7(200 + 80 +6)\n2.  Calculate each product:\n    - 347 \u00d7 200 = 69,400\n    - 347 \u00d7 80 = 27,760\n    - 347 \u00d76 = 2,082\n3.  Add the results together:\n    69,400 +27,760 =97,160; 97,160 +2,082 = 99,242\n\nYou can also verify this with the simplified (350-3)\u00d7286 = 1001",
+    "response": "Let's calculate 347 \u00d7 286 step-by-step:\n1.  Break down the multiplication:\n    - 347 \u00d7 6 = 2082\n    - 347 \u00d7 80 = 27760\n    - 347 \u00d7 200 = 69400\n2.  Add the results together:\n    2082 + 27760 + 69400 = 99242\n\n**Answer: 99242**",
     "status": "ok"
   },
   {
@@ -4266,7 +4266,7 @@
     "expected": 99186,
     "extracted": 99242.0,
     "correct": false,
-    "response": "Let's calculate 347 \u00d7 286 step-by-step:\n\n1.  Break down the multiplication using the distributive property:\n    -  347 \u00d7 6 = 2082\n    -  347 \u00d7 80 = 27760\n    -  347 \u00d7 200 = 69400\n\n2.  Add the results together:\n    2082 + 27760 = 29842\n    29842 + 69400 = 99242\n\n**Final answer: 99242**",
+    "response": "Let's calculate \\(347 \\times 286\\) step-by-step using long multiplication:\n\n1.  Multiply 347 by 6: \\(347 \\times 6 = 2082\\)\n2.  Multiply 347 by 80: \\(347 \\times 80 = 27760\\)\n3.  Multiply 347 by 200: \\(347 \\times 200 = 69400\\)\n4.  Add the three results together:\n    \\(2082 + 27760 + 69400 = 99242\\)\n\n**Answer: 99242**",
     "status": "ok"
   },
   {
@@ -4320,9 +4320,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 99186,
-    "extracted": 99242.0,
+    "extracted": 97160.0,
     "correct": false,
-    "response": "Let's solve the sum step-by-step:\n1.  First add 69400 + 27760 = 97160\n2.  Then add 2082 to that total: 97160 + 2082 = 99242\n\nThe final answer is **99242**",
+    "response": "Let's solve the sum step-by-step:\n1.  First add 69400 + 27760 = 97160\n2.  Then add 2082 to that total: 97160 + 2082 = **99242**\n\nThe final answer is $\\boxed{99242}$",
     "status": "ok"
   },
   {
@@ -4378,7 +4378,7 @@
     "expected": 67,
     "extracted": 67.0,
     "correct": true,
-    "response": "Let's calculate 469 \u00f7 7:\n1.  7 \u00d7 60 = 420\n2.  469 - 420 = 49\n3.  49 \u00f77 =7\n4.  Add the two results together: 60 +7 = 67\n\n**Answer: 67**",
+    "response": "Let's solve this step-by-step:\n1.  First, 7 \u00d7 60 = 420\n2.  Subtract 420 from 469: 469 - 420 = 49\n3.  Then 7 \u00d77 =49\n4.  Add the two results: 60 +7 =67\n\n**Answer: 67**",
     "status": "ok"
   },
   {
@@ -4434,7 +4434,7 @@
     "expected": 67,
     "extracted": 67.0,
     "correct": true,
-    "response": "Let's solve 469 \u00f7 7 step-by-step:\n1.  First, 7 \u00d7 60 = 420. Subtract this from 469: 469 - 420 = 49.\n2.  Next, 7 \u00d77 =49. Add the quotients together: 60 +7 =67.\n\n**Answer: 67**",
+    "response": "Let's solve 469 \u00f77 step-by-step:\n1.  First, 7 \u00d7 60 = 420\n2.  Subtract 420 from 469: 469 - 420 = 49\n3.  Next, 7 \u00d77 =49\n4.  Add the two quotients: 60 +7 =67\n\n**Answer: 67**",
     "status": "ok"
   },
   {
@@ -4488,9 +4488,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 67,
-    "extracted": 67.0,
-    "correct": true,
-    "response": "Let's break this down:\n1.  We had 60 + 7 from the division steps\n2.  Adding those together gives 67, which is the full quotient of 469 \u00f7 7.\n\n**Answer: 67**",
+    "extracted": 469.0,
+    "correct": false,
+    "response": "Let's calculate step-by-step:\n60 + 7 = 67, which matches the total factor we used to divide 469 fully by 7, since 7\u00d767=469.\n\n**Answer: 67**",
     "status": "ok"
   },
   {
@@ -4546,7 +4546,7 @@
     "expected": 11704,
     "extracted": 11704.0,
     "correct": true,
-    "response": "Let's calculate 152 \u00d7 77 step-by-step:\n1.  Split 77 into 70 +7\n2.  Calculate 152 \u00d770 = 10,640\n3.  Calculate 152 \u00d77 = 1,064\n4.  Add the two results: 10,640 + 1,064 = **11704**\n\nThe final answer is 11704.",
+    "response": "Let's calculate 152 \u00d7 77 step-by-step:\n1.  Break down the multiplication: $152 \u00d777 = (150 + 2)\u00d777$\n2.  Distribute the multiplication: $150\u00d777 + 2\u00d777$\n3.  Calculate each part:\n    - $150\u00d777 = 11550$\n    - $2\u00d777 =154$\n4.  Add the results together: $11550 +154 = 11704$\n\n**Final answer: 11704**",
     "status": "ok"
   },
   {
@@ -4600,9 +4600,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 11704,
-    "extracted": 11704.0,
-    "correct": true,
-    "response": "Let's calculate 152 \u00d7 77 step-by-step:\n1.  Break down the multiplication: Separate 152 into 150 + 2\n2.  Calculate each part:\n    - 150 \u00d7 77 = 11550\n    - 2 \u00d777 =154\n3.  Add the results together: 11550 +154 = 11704\n\n**Final answer: 11704**",
+    "extracted": 10640.0,
+    "correct": false,
+    "response": "Let's calculate 152 \u00d7 77 step-by-step:\n1.  Break down 77 into 70 + 7\n2.  Calculate 152 \u00d7 7 = 1064\n3.  Calculate 152 \u00d7 70 = 10640\n4.  Add the two results together: 10640 + 1064 = **11704**\n\nFinal answer: $\\boxed{11704}$",
     "status": "ok"
   },
   {
@@ -4658,7 +4658,7 @@
     "expected": 11704,
     "extracted": 11704.0,
     "correct": true,
-    "response": "Let's add those two numbers step-by-step:\n1.  Start with 10640 + 1064\n2.  Break it down: 10640 + 1000 = 11640, then add the remaining 64: 11640 + 64 = 11704\n\nThe final total is **11704**",
+    "response": "Let's solve the sum step-by-step:\n1.  Start with 10640 + 1064\n2.  10640 + 1000 = 11640, then add the remaining 64: 11640 +64 = 11704\n\nThe final answer is **11704**",
     "status": "ok"
   },
   {
@@ -4712,9 +4712,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 93,
-    "extracted": 6696.0,
-    "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  First, calculate 72 \u00d7 90 = 6480\n2.  Subtract that from 6696: 6696 - 6480 = 216\n3.  216 \u00f772 = 3\n4.  Add the two results: 90 +3 =93\n\nYou can verify this: 72 \u00d793 = 6696.\n\n**Answer: 93**",
+    "extracted": 93.0,
+    "correct": true,
+    "response": "Let's solve this step-by-step:\n1.  First, calculate 72 \u00d7 90 = 6480\n2.  Subtract this from 6696: 6696 - 6480 = 216\n3.  216 \u00f772 = 3\n4.  Add the two results: 90 +3 = 93\n\nDouble-check: 72 \u00d7 93 = 6696, which matches the original dividend.\n\n**Answer: 93**",
     "status": "ok"
   },
   {
@@ -4768,9 +4768,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 93,
-    "extracted": 93.0,
-    "correct": true,
-    "response": "Let's solve 6696 \u00f7 72 step-by-step:\n1.  Simplify the division by dividing both numbers by their common factor 12 first:\n    6696 \u00f712 = 558, 72 \u00f712=6\n2.  Now calculate 558 \u00f76:\n    6*90=540, 558-540=18, 18\u00f76=3. Adding these together gives 90+3=93.\n\nDouble-check: 72 *93 = 6696, which matches the original dividend.\n\n**Answer: 93**",
+    "extracted": 6696.0,
+    "correct": false,
+    "response": "Let's solve 6696 \u00f7 72 step-by-step:\n\n1.  First calculate 72 \u00d7 90 = 6480\n2.  Subtract this from 6696: 6696 - 6480 = 216\n3.  216 \u00f772 = 3\n4.  Add the results: 90 +3 =93\n\nVerify: 72 \u00d793 = 6480 +216 =6696.\n\n**Answer: 93**",
     "status": "ok"
   },
   {
@@ -4826,7 +4826,7 @@
     "expected": 93,
     "extracted": 93.0,
     "correct": true,
-    "response": "Let's solve the addition step-by-step:\n90 + 3 = 93\n\nThe final answer is **93**, which is the full quotient of 6696 \u00f7 72.",
+    "response": "Let's solve this step-by-step:\n1.  You calculated the two partial multipliers: 90 and 3\n2.  Adding them together: 90 + 3 = 93\n\nThis matches the full quotient of 6696 \u00f7 72.\n**Answer: 93**",
     "status": "ok"
   },
   {
@@ -4880,9 +4880,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 24384,
-    "extracted": 384.0,
-    "correct": false,
-    "response": "Let's calculate this step-by-step:\n1.  Split 508 into 500 + 8:\n   - 500 * 48 = 24,000\n   - 8 * 48 = 384\n2.  Add the two results together: 24,000 + 384 = 24,384\n\nThe final answer is **24384** (or 24,384)",
+    "extracted": 24384.0,
+    "correct": true,
+    "response": "Let's calculate 508 \u00d7 48 step-by-step:\n1.  Break the multiplication into simpler parts:\n    -  508 \u00d7 40 = 20,320\n    -  508 \u00d7 8 = 4,064\n2.  Add the two results together: 20,320 + 4,064 = 24,384\n\n**Final answer: 24384**",
     "status": "ok"
   },
   {
@@ -4938,7 +4938,7 @@
     "expected": 24384,
     "extracted": 24384.0,
     "correct": true,
-    "response": "Let's calculate 508 \u00d7 48 step-by-step:\n\n1.  Split 48 into 40 + 8:\n    - 508 \u00d7 40 = 20,320\n    - 508 \u00d7 8 = 4,064\n2.  Add the two results together: 20,320 + 4,064 = 24,384\n\n**Final answer: 24384**",
+    "response": "Let's calculate 508 \u00d7 48 step-by-step:\n1.  Break 508 into 500 + 8\n2.  Use the distributive property:\n    $(500 +8)\u00d748 = 500\u00d748 +8\u00d748$\n3.  Calculate each term:\n    - $500\u00d748 = 24000$\n    - $8\u00d748 = 384$\n4.  Add the results together: $24000 + 384 = 24384$\n\n**Answer: 24384**",
     "status": "ok"
   },
   {
@@ -4994,7 +4994,7 @@
     "expected": 24384,
     "extracted": 24384.0,
     "correct": true,
-    "response": "Let's solve this subtraction step-by-step:\n1.  Start with 25400 - 1016\n2.  First subtract 1000: 25400 - 1000 = 24400\n3.  Then subtract the remaining 16: 24400 -16 = 24384\n\n**Final answer: 24384**",
+    "response": "Let's solve this step-by-step:\n1.  Start with 25400 - 1016\n2.  First subtract 1000: 25400 - 1000 = 24400\n3.  Then subtract the remaining 16: 24400 -16 = 24384\n\n**Final answer: 24384**",
     "status": "ok"
   },
   {
@@ -5047,10 +5047,10 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
-    "response": "Let's break this down step-by-step:\n1.  Calculate total cost for pencils: $3 per pencil \u00d7 4 pencils = $12\n2.  Calculate total cost for notebooks: $5 per notebook \u00d7 2 notebooks = $10\n3.  Add the two totals together: $12 + $10 = **$22**",
+    "correct": false,
+    "response": "Let's break this down step-by-step:\n1.  Calculate the total cost of pencils: 4 pencils \u00d7 $3 each = $12\n2.  Calculate the total cost of notebooks: 2 notebooks \u00d7 $5 each = $10\n3.  Add the two totals together: $12 + $10 = **$22**\n\nSarah spends a total of $22.",
     "status": "ok"
   },
   {
@@ -5061,9 +5061,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
+    "correct": false,
     "response": "To find the total amount Sarah spends, we need to calculate the cost of the pencils and the notebooks separately and then add them together.\n\nCost of pencils = Number of pencils * Price per pencil\nCost of pencils = 4 * $3\nCost of pencils = $12\n\nCost of notebooks = Number of notebooks * Price per notebook\nCost of notebooks = 2 * $5\nCost of notebooks = $10\n\nTotal cost = Cost of pencils + Cost of notebooks\nTotal cost = $12 + $10\nTotal cost = $22\n\nSarah spends a total of $22.",
     "status": "ok"
   },
@@ -5075,7 +5075,7 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": 2.0,
     "correct": false,
     "response": "Let the cost of each pencil be $P = 3$ dollars.\nLet the cost of each notebook be $N = 5$ dollars.\nSarah buys 4 pencils, so the cost of pencils is $4 \\times P = 4 \\times 3 = 12$ dollars.\nSarah buys 2 notebooks, so the cost of notebooks is $2 \\times N = 2 \\times 5 = 10$ dollars.\nThe total cost is the sum of the cost of pencils and the cost of notebooks.\nTotal cost = Cost of pencils + Cost of notebooks = $12 + 10 = 22$ dollars.\n\nFinal Answer: The final answer is $\\boxed{22}$",
@@ -5089,7 +5089,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": null,
     "correct": false,
     "response": "",
@@ -5103,9 +5103,9 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
+    "correct": false,
     "response": "Let's break this down step-by-step:\n1.  Cost of 4 pencils: $3 per pencil \u00d7 4 = $12\n2.  Cost of 2 notebooks: $5 per notebook \u00d7 2 = $10\n3.  Total cost: $12 + $10 = $22\n\n**Answer: $22**",
     "status": "ok"
   },
@@ -5117,9 +5117,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
+    "correct": false,
     "response": "Okay, let's organize the information we have:\n* The store sells pencils for $3 each\n* The store sells notebooks for $5 each\n* We want to buy 4 pencils and 2 notebooks\n\nNow, let's solve the problem step by step:\n\n1. Cost of 4 pencils:\n   * Each pencil costs $3\n   * So, 4 pencils will cost: 4 \u00d7 $3 = $12\n\n2. Cost of 2 notebooks:\n   * Each notebook costs $5\n   * So, 2 notebooks will cost: 2 \u00d7 $5 = $10\n\n3. Total cost of 4 pencils and 2 notebooks:\n   * Total cost = Cost of pencils + Cost of notebooks\n",
     "status": "ok"
   },
@@ -5131,7 +5131,7 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": 2.0,
     "correct": false,
     "response": "Let the cost of each pencil be $p$ and the cost of each notebook be $n$.\nWe are given that $p = 3$ and $n = 5$.\nWe want to find the cost of 4 pencils plus 2 notebooks.\nThe cost of 4 pencils is $4 \\times p = 4 \\times 3 = 12$.\nThe cost of 2 notebooks is $2 \\times n = 2 \\times 5 = 10$.\nThe total cost is the sum of the cost of 4 pencils and 2 notebooks, which is $12 + 10 = 22$.\n\nFinal Answer: The final answer is $\\boxed{22}$",
@@ -5145,7 +5145,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": null,
     "correct": false,
     "response": "",
@@ -5159,10 +5159,10 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
-    "response": "Let's solve the final step:\n12 + 10 = **22**\n\nThe total cost Sarah pays is $22.",
+    "correct": false,
+    "response": "Let's solve the final step:\n12 + 10 = 22\n\nSarah's total total spent is **$22**.",
     "status": "ok"
   },
   {
@@ -5173,9 +5173,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
+    "correct": false,
     "response": "Step 3: total = 12 + 10 = 22\n\nSarah's total cost for the pencils and notebooks is $22.",
     "status": "ok"
   },
@@ -5187,9 +5187,9 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": 22.0,
-    "correct": true,
+    "correct": false,
     "response": "Let the cost of each pencil be $p$ and the cost of each notebook be $n$.\nSarah buys 4 pencils at $3 each, so the cost of the pencils is $4 \\times 3 = 12$.\nSarah buys 2 notebooks at $5 each, so the cost of the notebooks is $2 \\times 5 = 10$.\nThe total cost of the pencils and notebooks is $12 + 10 = 22$.\nStep 1: pencils cost 4 times 3 = 12.\nStep 2: notebooks cost 2 times 5 = 10.\nStep 3: total = 12 + 10 = 22.\nThe question asks to step 3: total = 12 + 10 = ?\nThe total cost of the pencils and noteboo",
     "status": "ok"
   },
@@ -5201,7 +5201,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 22,
+    "expected": 20,
     "extracted": null,
     "correct": false,
     "response": "To determine the total cost of Sarah's purchases, we need to calculate",
@@ -5218,7 +5218,7 @@
     "expected": 31,
     "extracted": 28.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  Tom starts with 45 marbles.\n2.  After giving marbles to Alice and Bob: 45 - 8 -12 = 25 marbles\n3.  He finds 6 more: 25 +6 =31 marbles\n4.  He loses 3: 31 -3 =28 marbles\n\n**Answer: 28**",
+    "response": "Let's calculate this step-by-step:\n1.  Start with Tom's initial marbles: 45\n2.  Subtract marbles given to Alice: 45 - 8 = 37\n3.  Subtract marbles given to Bob: 37 -12 = 25\n4.  Add the 6 marbles he found: 25 +6 =31\n5.  Subtract the 3 marbles he lost: 31 -3 =28\n\nTom has **28** marbles now.",
     "status": "ok"
   },
   {
@@ -5274,7 +5274,7 @@
     "expected": 31,
     "extracted": 28.0,
     "correct": false,
-    "response": "Let's calculate step-by-step:\n1.  Start with 45\n2.  Subtract 8: $45 - 8 = 37$\n3.  Subtract 12: $37 -12 =25$\n4.  Add 6: $25 +6 =31$\n5.  Subtract 3: $31 -3 =28$\n\nFinal result: **28**",
+    "response": "Let's calculate step-by-step:\n1.  Start with 45\n2.  Subtract 8: 45 - 8 = 37\n3.  Subtract 12: 37 -12 = 25\n4.  Add 6: 25 +6 =31\n5.  Subtract 3: 31 -3 =28\n\nYou can also simplify the total adjustments upfront: $-8 -12 +6 -3 = -17$, so $45 -17 =28$.\n\nFinal result: **28**",
     "status": "ok"
   },
   {
@@ -5330,7 +5330,7 @@
     "expected": 31,
     "extracted": 28.0,
     "correct": false,
-    "response": "Let's solve that final step: 31 - 3 = 28.\n\nTom ends up with **28 marbles** total after all steps.",
+    "response": "Let's solve the final step:\n31 - 3 = 28\n\nThe full breakdown confirms this matches the sequence: Tom ends with **28 marbles** total.",
     "status": "ok"
   },
   {
@@ -5384,9 +5384,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 20,
-    "extracted": 20.0,
-    "correct": true,
-    "response": "Let's solve this step-by-step:\n\n1.  **Calculate the perimeter of the rectangle**:\n    The formula for the perimeter of a rectangle is $P = 2\\times(\\text{length} + \\text{width})$.\n    Plugging in the values: $P = 2\\times(12 +8) = 2\\times20 = 40$ meters.\n\n2.  **Find the number of fence posts**:\n    For a closed, continuous perimeter like a rectangle, the number of posts equals the total perimeter divided by the spacing between posts (since the first and final posts align at the starting corner, no",
+    "extracted": 2.0,
+    "correct": false,
+    "response": "Let's solve this step-by-step:\n\n1.  **Calculate the perimeter of the rectangle**:\n    The formula for the perimeter of a rectangle is $P = 2\\times(length + width)$\n    Plugging in the values: $P = 2\\times(12 +8) = 40$ meters.\n\n2.  Find the number of posts:\n    For a closed, looping perimeter like a rectangle, the number of fence posts equals the total number of evenly spaced segments along the perimeter (since the first and final post meet at the same corner, we do not need an extra final post).",
     "status": "ok"
   },
   {
@@ -5442,7 +5442,7 @@
     "expected": 20,
     "extracted": 20.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n\n1.  **Calculate the perimeter of the rectangle**:\n    The formula for the perimeter $P$ of a rectangle is $P = 2\\times(\\text{length} + \\text{width})$.\n    For a 12m \u00d7 8m rectangle:\n    $P = 2\\times(12 +8) = 2\\times20 = 40$ meters.\n\n2.  **Count the fence posts**:\n    For a closed loop (like a rectangle), the number of posts spaced every $d$ meters equals the total perimeter divided by the spacing, since the final post overlaps with the starting post.\n    Here, spac",
+    "response": "Let's solve this step-by-step:\n\n1.  **Calculate the perimeter of the rectangle**:\n    The formula for the perimeter of a rectangle is $P = 2(\\text{length} + \\text{width})$.\n    Here, length=12m, width=8m:\n    $P = 2(12 +8) = 40$ meters.\n\n2.  **Account for closed-loop post placement**:\n    For a closed shape like a rectangle, the final fence post lines up with the starting post, so we do not double-count the corner posts. The total number of posts is equal to the total perimeter divided by the sp",
     "status": "ok"
   },
   {
@@ -5498,7 +5498,7 @@
     "expected": 20,
     "extracted": 20.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  You already calculated the total perimeter of the closed loop is 40 meters.\n2.  For a closed perimeter shape, the number of evenly spaced posts equals total perimeter divided by the spacing between posts, no extra adjustment needed because the start and end posts overlap perfectly.\n\nSo 40 \u00f7 2 = **20** posts total.",
+    "response": "Let's solve this step-by-step:\n1.  You already correctly calculated the total closed-loop perimeter is 40 meters.\n2.  For a closed shape (like this rectangle loop), the number of evenly spaced posts exactly matches the number of 2-meter segments between posts:\n    $40 \\div 2 = 20$\n\nThe final answer is **20 posts**.",
     "status": "ok"
   },
   {
@@ -5554,7 +5554,7 @@
     "expected": 84,
     "extracted": 12.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  **Calculate total muffins baked**: The baker makes 24 muffins per batch, and bakes 5 batches.\n    $24 *5 = 120$ total muffins.\n2.  **Calculate muffins sold**: 1 dozen =12, so 3 dozen is $3*12=36$ muffins sold.\n3.  **Find remaining muffins**: Subtract sold muffins from total muffins:\n    $120 -36 = 84$\n\nAnswer: 84 muffins left.",
+    "response": "Let's solve this step-by-step:\n1.  **Calculate total muffins baked**: The baker makes 24 muffins per batch, and bakes 5 batches: $24 \\times5 = 120$ total muffins.\n2.  **Calculate muffins sold**: 1 dozen = 12, so 3 dozen is $3\\times12=36$ muffins sold.\n3.  **Find remaining muffins**: Subtract sold muffins from total muffins: $120 -36 = 84$.\n\nAnswer: 84",
     "status": "ok"
   },
   {
@@ -5610,7 +5610,7 @@
     "expected": 84,
     "extracted": 3.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  **Total muffins baked first**: 24 muffins/batch \u00d7 5 batches = 120 total muffins\n2.  Convert sold quantity to individual muffins: 1 dozen =12, so 3 dozen = 3\u00d712=36 muffins sold\n3.  **Remaining muffins**: 120 - 36 = 84\n\nAnswer: 84",
+    "response": "Let's solve this step-by-step:\n1.  **Total muffins baked**: 24 muffins/batch \u00d7 5 batches = 120 total muffins\n2.  **Muffins sold**: 3 dozen = 3 \u00d712 = 36 muffins\n3.  **Remaining muffins**: 120 - 36 = **84**",
     "status": "ok"
   },
   {
@@ -5664,9 +5664,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 84,
-    "extracted": 84.0,
-    "correct": true,
-    "response": "Let's solve the final step:\n1.  We know total muffins are 120 and 36 were sold.\n2.  Subtract the sold muffins from the total: $120 - 36 = 84$\n\n**Final remaining muffins: 84**",
+    "extracted": 36.0,
+    "correct": false,
+    "response": "Let's calculate the remaining muffins:\n1.  We know total muffins = 120 and sold muffins = 36\n2.  $120 - 36 = 84$\n\nThe final remaining number of muffins is **84**.",
     "status": "ok"
   },
   {
@@ -5719,10 +5719,10 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
-    "response": "To find the total distance traveled, we calculate the distance for each segment of the trip and add them together, using the formula **Distance = Speed \u00d7 Time**:\n\n1.  First segment: 65 mph \u00d7 3 hours = 195 miles\n2.  Second segment: 78 mph \u00d7 2 hours = 156 miles\n\nAdd the two distances:\n195 + 156 = 351 miles\n\nThe total distance traveled is **351 miles**.",
+    "correct": false,
+    "response": "Let's calculate the total distance using the formula **distance = speed \u00d7 time** for each segment, then add the results:\n\n1.  First leg: $65 \\text{ mph} \\times 3 \\text{ hours} = 195$ miles\n2.  Second leg: $78 \\text{ mph} \\times 2 \\text{ hours} = 156$ miles\n\nAdd the two distances together: $195 +156 = 351$\n\n**Total distance traveled: 351 miles**",
     "status": "ok"
   },
   {
@@ -5733,9 +5733,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
+    "correct": false,
     "response": "To find the total distance traveled, we need to calculate the distance traveled at each speed and then add them together.\n\nFor the first part of the trip, the train travels at 65 mph for 3 hours. The distance traveled can be found by multiplying the speed by the time:\n\nDistance = Speed \u00d7 Time\nDistance = 65 mph \u00d7 3 hours\nDistance = 195 miles\n\nFor the second part of the trip, the train travels at 78 mph for 2 hours. Again, we multiply the speed by the time to find the distance:\n\nDistance = Speed \u00d7",
     "status": "ok"
   },
@@ -5747,7 +5747,7 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": 156.0,
     "correct": false,
     "response": "Let $d_1$ be the distance traveled in the first part of the journey, and $d_2$ be the distance traveled in the second part of the journey.\n\nIn the first part of the journey, the train travels at 65 mph for 3 hours.\nThe distance traveled in the first part is $d_1 = \\text{speed} \\times \\text{time} = 65 \\text{ mph} \\times 3 \\text{ hours} = 195 \\text{ miles}$.\n\nIn the second part of the journey, the train travels at 78 mph for 2 hours.\nThe distance traveled in the second part is $d_2 = \\text{speed} ",
@@ -5761,7 +5761,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": null,
     "correct": false,
     "response": "",
@@ -5775,10 +5775,10 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  First calculate the two products:\n    - $65 \\times 3 = 195$\n    - $78 \\times 2 = 156$\n2.  Add the results together: $195 + 156 = 351$\n\nFinal answer: **351**",
+    "correct": false,
+    "response": "Let's solve this step-by-step:\n1.  Calculate $65 \\times 3 = 195$\n2.  Calculate $78 \\times 2 = 156$\n3.  Add the two results together: $195 + 156 = 351$\n\nThe final distance is **351**.",
     "status": "ok"
   },
   {
@@ -5789,9 +5789,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
+    "correct": false,
     "response": "To compute the distance, we need to perform the multiplication first and then add the results together.\n\n65 times 3 is 195.\n78 times 2 is 156.\n\nNow, we add these two results together:\n\n195 + 156 = 351\n\nTherefore, the distance is 351.",
     "status": "ok"
   },
@@ -5803,9 +5803,9 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
+    "correct": false,
     "response": "Let the distance be $D$.\nWe are given that the distance is 65 times 3 plus 78 times 2.\nSo, $D = 65 \\times 3 + 78 \\times 2$.\n$65 \\times 3 = 195$\n$78 \\times 2 = 156$\nTherefore, $D = 195 + 156 = 351$.\n\nThe distance is 351.\n\nFinal Answer: The final answer is $\\boxed{351}$",
     "status": "ok"
   },
@@ -5817,7 +5817,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": null,
     "correct": false,
     "response": "",
@@ -5831,10 +5831,10 @@
     "model": "seed-mini",
     "tier": 1,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
-    "response": "Let's solve this step-by-step:\n1.  We have 195 + 156. A quick shortcut: 195 is 200 -5, so 200 +156 = 356, then subtract 5 gives **351**.\n\nThe total distance is 351 miles.",
+    "correct": false,
+    "response": "Let's solve this step-by-step:\n1.  First add the two segment totals: 195 + 156 = 351\n\nThe final total distance is **351 miles**.",
     "status": "ok"
   },
   {
@@ -5845,9 +5845,9 @@
     "model": "hermes-70b",
     "tier": 2,
     "provider": "deepinfra",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
+    "correct": false,
     "response": "Step 3: total = 195 + 156 = 351 miles.",
     "status": "ok"
   },
@@ -5859,9 +5859,9 @@
     "model": "gemma3-1b",
     "tier": 1,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": 351.0,
-    "correct": true,
+    "correct": false,
     "response": "Step 3: total = 195 + 156 = 351 miles\n\nTherefore, the total distance is 351 miles.",
     "status": "ok"
   },
@@ -5873,7 +5873,7 @@
     "model": "qwen3-0.6b",
     "tier": 3,
     "provider": "ollama",
-    "expected": 351,
+    "expected": 234,
     "extracted": null,
     "correct": false,
     "response": "",
@@ -5890,7 +5890,7 @@
     "expected": 7,
     "extracted": 32.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n\n1.  Let the unknown number be $x$.\n2.  Translate the problem into an equation: $3x + 11 = 32$\n3.  Subtract 11 from both sides: $3x = 32 -11 = 21$\n4.  Divide both sides by 3: $x = \\frac{21}{3} =7$\n\n**Check: 3*7 +11 =21+11=32, which matches the problem statement.**\n\nAnswer: $\\boldsymbol{7}$",
+    "response": "Let's solve this step-by-step:\n\n1.  Let the unknown number be $x$.\n2.  Translate the problem into an equation: $3x + 11 = 32$\n3.  Subtract 11 from both sides: $3x = 32 -11 = 21$\n4.  Divide both sides by 3: $x = \\frac{21}{3} =7$\n\n**Answer: 7**",
     "status": "ok"
   },
   {
@@ -5946,7 +5946,7 @@
     "expected": 7,
     "extracted": 7.0,
     "correct": true,
-    "response": "Let's solve for \\( x \\) step-by-step:\n\n1.  Subtract 11 from both sides of the equation to isolate the term with \\( x \\):\n    $$3x + 11 -11 = 32 -11$$\n    $$3x = 21$$\n\n2.  Divide both sides by 3 to solve for \\( x \\):\n    $$x = \\frac{21}{3} =7$$\n\n**Final answer: \\( x=7 \\)**",
+    "response": "Let's solve for $x$ step-by-step:\n\n1.  First, subtract 11 from both sides of the equation to isolate the term with $x$:\n    $$3x + 11 -11 = 32 -11$$\n    $$3x = 21$$\n\n2.  Divide both sides by 3 to solve for $x$:\n    $$x = \\frac{21}{3} =7$$\n\n**Answer: $x=7$**",
     "status": "ok"
   },
   {
@@ -6002,7 +6002,7 @@
     "expected": 7,
     "extracted": 21.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\nAfter simplifying, 3x =21, so dividing both sides by 3 gives $x = 21 \\div3 =7$.\n\nThe final answer is **7**.",
+    "response": "Let's solve this step-by-step:\nAfter getting 3x=21, dividing both sides by 3 gives:\nx = 21 \u00f7 3 = **7**",
     "status": "ok"
   },
   {
@@ -6058,7 +6058,7 @@
     "expected": 19,
     "extracted": 19.0,
     "correct": true,
-    "response": "Let's solve this systematically:\n1.  Let the larger number = $x$ and the smaller number = $y$.\n2.  We know two things:\n    -  Sum: $x + y = 31$\n    -  Difference: $x - y =7$\n3.  Add the two equations together to eliminate $y$:\n    $(x + y) + (x - y) = 31 +7$\n    $2x = 38$\n4.  Divide both sides by 2: $x=19$\n\nYou can verify: the smaller number is $31-19=12$, and $19-12=7$, which matches the problem's conditions.\n\n**Answer: 19**",
+    "response": "Let's solve this problem step-by-step:\n\n1.  Let the larger number = $x$ and the smaller number = $y$.\n2.  We know two things:\n    -  Sum of the numbers: $x + y = 31$\n    -  Difference of the numbers: $x - y =7$\n3.  Add the two equations together to eliminate $y$:\n    $$(x + y) + (x - y) = 31 +7$$\n    $$2x = 38$$\n4.  Divide both sides by 2: $x = 19$\n\nYou can verify: the smaller number is $31-19=12$, and $19-12=7$, which matches the problem's conditions.\n\n**Answer: 19**",
     "status": "ok"
   },
   {
@@ -6114,7 +6114,7 @@
     "expected": 19,
     "extracted": 38.0,
     "correct": false,
-    "response": "We can solve for $x$ by adding the two given equations together to eliminate $y$:\n\n1.  $x + y = 31$\n2.  $x - y = 7$\n\nAdd the left-hand sides and right-hand sides separately:\n$$(x + y) + (x - y) = 31 +7$$\n$$2x = 38$$\n\nDivide both sides by 2:\n$$x = \\frac{38}{2} = 19$$\n\n**Answer: 19**",
+    "response": "### Step 1: Solve the system of equations to find $x$\nWe have two equations:\n1.  $x + y = 31$\n2.  $x - y = 7$\n\nAdd the two equations together to eliminate $y$:\n$$(x + y) + (x - y) = 31 +7$$\n$$2x = 38$$\n\nDivide both sides by 2:\n$$x = \\frac{38}{2} =19$$\n\n**Answer: $\\boldsymbol{19}$**",
     "status": "ok"
   },
   {
@@ -6168,9 +6168,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 19,
-    "extracted": 38.0,
-    "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  After adding the two equations you get 2x=38\n2.  Divide both sides by 2: $x = 38 \\div 2 = 19$\n\nYou can double-check: $y=31-19=12$, and $19-12=7$ which matches the second given equation.\n\nFinal answer for x is **19**",
+    "extracted": 19.0,
+    "correct": true,
+    "response": "Let's solve step-by-step:\n1.  After adding the two initial equations, we get $2x = 38$.\n2.  Dividing both sides by 2: $x = \\frac{38}{2} = 19$\n\nYou can verify this: if $x=19$, then $y=31-19=12$, and $19-12=7$ which matches the second given equation.\n\nAnswer: $\\boldsymbol{19}$",
     "status": "ok"
   },
   {
@@ -6210,9 +6210,9 @@
     "tier": 3,
     "provider": "ollama",
     "expected": 19,
-    "extracted": 1.0,
+    "extracted": null,
     "correct": false,
-    "response": "To solve the system of equations:\n\n1. $ x + y = 31 $\n2. $ x - y = 7 $\n\n### Step 1: Add the equations\nAdding the two equations:\n$$\n(x + y)",
+    "response": "",
     "status": "ok"
   },
   {
@@ -6224,9 +6224,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 14,
-    "extracted": -9.0,
+    "extracted": 1.0,
     "correct": false,
-    "response": "Let's solve this problem step-by-step:\n\n1.  **Translate the word problem into an equation**: Let the positive number be $x$. The description translates to:\n    $$x^2 -5x = 126$$\n2.  Rearrange into standard quadratic form:\n    $$x^2 -5x -126 =0$$\n3.  Factor the quadratic: We need two numbers that multiply to $-126$ and add to $-5$. These numbers are $-14$ and $+9$, so:\n    $$(x-14)(x+9)=0$$\n4.  Solve for $x$: The solutions are $x=14$ and $x=-9$. Since the number is positive, we discard the negati",
+    "response": "Let's solve this step-by-step:\n\n1.  **Translate the problem into an equation**: Let the positive number be $x$. The statement \"a number squared minus 5 times the number equals 126\" becomes:\n    $$x^2 -5x = 126$$\n2.  Rearrange into standard quadratic form:\n    $$x^2 -5x -126 =0$$\n3.  Factor the quadratic: We need two numbers that multiply to $-126$ and add to $-5$. These numbers are $+9$ and $-14$, so:\n    $$(x+9)(x-14)=0$$\n4.  Solve for $x$:\n    - $x+9=0 \\implies x=-9$ (negative, so we discard t",
     "status": "ok"
   },
   {
@@ -6280,9 +6280,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 14,
-    "extracted": -9.0,
-    "correct": false,
-    "response": "Let's solve this step-by-step:\n\n1.  **Rewrite the equation in standard quadratic form**:\n    Start with $n^2 -5n =126$, subtract 126 from both sides to set the equation to zero:\n    $$n^2 -5n -126 = 0$$\n\n2.  Factor the quadratic or use the quadratic formula:\n    We need two numbers that multiply to $-126$ and add to $-5$. These numbers are $-14$ and $+9$, so:\n    $$(n-14)(n+9)=0$$\n\n3.  Solve for $n$:\n    The solutions are $n=14$ and $n=-9$. We only take the positive value.\n\n### Verify: $14^2 -5(",
+    "extracted": 14.0,
+    "correct": true,
+    "response": "Let's solve this step-by-step:\n\n1.  Rewrite the equation into standard quadratic form:\n    $$n^2 -5n = 126 \\implies n^2 -5n -126 =0$$\n\n2.  Factor the quadratic or use the quadratic formula. We can factor by finding two numbers that multiply to $-126$ and add to $-5$: these numbers are $-14$ and $+9$.\n    $$(n-14)(n+9)=0$$\n\n3.  Solve for $n$:\n    - $n-14=0 \\implies n=14$\n    - $n+9=0 \\implies n=-9$\n\n4.  We only need the positive solution: **$n=14$**\n\nYou can verify: $14^2 -5(14)=196",
     "status": "ok"
   },
   {
@@ -6338,7 +6338,7 @@
     "expected": 14,
     "extracted": 14.0,
     "correct": true,
-    "response": "Let's solve this step-by-step using the zero product property:\n\n1.  We have the factored equation: $(n + 9)(n - 14) = 0$\n2.  Set each factor equal to zero:\n    - $n +9 =0 \\implies n=-9$ (this is negative, so we discard it per the problem's note)\n    - $n -14 =0 \\implies n=14$\n\n**Final answer: $\\boldsymbol{14}$**",
+    "response": "Let's solve this step-by-step:\n\n1.  Using the zero product property on the factored equation $(n + 9)(n - 14) = 0$:\n    -  $n +9 =0$ \u2192 $n=-9$, which is negative and discarded per the problem's note\n    -  $n -14=0$ \u2192 $n=14$\n\n2.  Verify: $14^2 -5(14) = 196 -70 =126$, which matches the original equation.\n\n**Answer: 14**",
     "status": "ok"
   },
   {
@@ -6394,7 +6394,7 @@
     "expected": 6,
     "extracted": 6.0,
     "correct": true,
-    "response": "Let's solve this step-by-step:\n\n1.  Let the smallest consecutive integer be $n$. The next two consecutive integers are $n+1$ and $n+2$.\n2.  Their sum equals 21:\n    $$n + (n+1) + (n+2) = 21$$\n3.  Simplify the equation:\n    $$3n +3 =21$$\n4.  Subtract 3 from both sides: $3n=18$, then divide by 3: $n=6$.\n\nYou can verify: $6+7+8=21$.\n\n**Answer: 6**",
+    "response": "Let's solve this step-by-step:\n\n1.  Let the smallest consecutive integer be $n$. The next two consecutive integers will be $n+1$ and $n+2$.\n2.  Their total sum is 21:\n    $$n + (n+1) + (n+2) = 21$$\n3.  Simplify the equation:\n    $$3n +3 =21$$\n4.  Subtract 3 from both sides: $3n=18$, then divide by 3: $n=6$\n\nYou can verify: $6+7+8=21$, which matches the total.\n\n**Answer: 6**",
     "status": "ok"
   },
   {
@@ -6450,7 +6450,7 @@
     "expected": 6,
     "extracted": 21.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n\n1.  First, write out the equation as given:\n    $n + (n+1) + (n+2) = 21$\n2.  Combine like terms:\n    Add the $n$-terms: $n + n +n = 3n$, and add the constant terms: $1 +2=3$. The simplified equation is:\n    $3n +3 =21$\n3.  Isolate the term with $n$: subtract 3 from both sides:\n    $3n = 21 -3 =18$\n4.  Solve for $n$: divide both sides by 3:\n    $n = \\frac{18}{3} =6$\n\n**Check:** $6 +7 +8 =21$, which matches the total. Answer: $\\boldsymbol{6}$",
+    "response": "Let's solve this step-by-step:\n\n1.  First, write the equation from the problem:\n    $n + (n+1) + (n+2) = 21$\n2.  Combine like terms:\n    The $n$ terms add up to $3n$, and the constant terms $1+2=3$, so:\n    $3n +3 =21$\n3.  Subtract 3 from both sides:\n    $3n = 21 -3 =18$\n4.  Divide both sides by 3:\n    $n = \\frac{18}{3}=6$\n\n**Check**: $6+7+8=21$, which matches the given sum.\n\nAnswer: $\\boldsymbol{6}$",
     "status": "ok"
   },
   {
@@ -6506,7 +6506,7 @@
     "expected": 6,
     "extracted": 18.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  We start from the simplified equation after step 2: $3n = 18$\n2.  Divide both sides by 3: $n = \\frac{18}{3} = 6$\n\nYou can verify this: the three consecutive integers 6,7,8 add up to $6+7+8=21$, which matches the initial sum given.\n\n**Answer: 6**",
+    "response": "Let's solve this step-by-step:\n1.  We have $3n=18$. Dividing both sides by 3 isolates $n$.\n2.  $n = 18 \\div3 = 6$\n\nYou can verify: 6 +7 +8 =21, which matches the original sum.\n\n**Answer: 6**",
     "status": "ok"
   },
   {
@@ -6560,9 +6560,9 @@
     "tier": 1,
     "provider": "deepinfra",
     "expected": 15,
-    "extracted": 39.0,
-    "correct": false,
-    "response": "Let's solve this step-by-step:\n\n1.  Let the original number be $x$.\n2.  First the number is doubled: this becomes $2x$.\n3.  Then it's increased by 9: $2x +9$. We know this equals 39.\n4.  Set up the equation:\n    $$2x +9 =39$$\n5.  Subtract 9 from both sides: $2x = 39 -9 =30$\n6.  Divide both sides by 2: $x = \\frac{30}{2}=15$\n\n**Check:** $15*2 +9=30+9=39$, which matches the problem statement.\n\nAnswer: $\\boldsymbol{15}$",
+    "extracted": 15.0,
+    "correct": true,
+    "response": "Let's solve this step-by-step:\n\n1.  Let the original number be $x$.\n2.  When doubled, it becomes $2x$, then increased by 9 gives $2x +9$.\n3.  We know this equals 39, so set up the equation:\n    $$2x +9 = 39$$\n4.  Subtract 9 from both sides:\n    $$2x = 39 -9 =30$$\n5.  Divide both sides by 2:\n    $$x=15$$\n\n**Check:** 15 doubled is 30, plus 9 is 39, which matches the problem statement.\n\nAnswer: $\\boxed{15}$",
     "status": "ok"
   },
   {
@@ -6618,7 +6618,7 @@
     "expected": 15,
     "extracted": 15.0,
     "correct": true,
-    "response": "Let's solve this equation step-by-step:\n\n1.  First, isolate the term with $x$ by subtracting 9 from both sides of the equation to undo the +9:\n    $$2x + 9 - 9 = 39 - 9$$\n    $$2x = 30$$\n\n2.  Now solve for $x$ by dividing both sides by 2:\n    $$\\frac{2x}{2} = \\frac{30}{2}$$\n    $$x = 15$$\n\n**Final answer: $\\boldsymbol{x=15}$**",
+    "response": "Let's solve the equation step-by-step:\n\n1.  First, subtract 9 from both sides to isolate the term with $x$:\n    $$2x + 9 -9 = 39 -9$$\n    $$2x = 30$$\n\n2.  Then divide both sides by 2 to solve for $x$:\n    $$x = \\frac{30}{2} = 15$$\n\n**Final answer: $\\boldsymbol{x=15}$**",
     "status": "ok"
   },
   {
@@ -6674,7 +6674,7 @@
     "expected": 15,
     "extracted": 30.0,
     "correct": false,
-    "response": "Let's solve this step-by-step:\n1.  After subtracting 9, we know $2x=30$.\n2.  Divide 30 by 2: $30 \\div2 = 15$.\n\n**Final answer: $\\boldsymbol{15}$**",
+    "response": "Let's solve this step-by-step:\n1.  After Step 1, we have `2x = 30`\n2.  Divide both sides by 2: $x = 30 \\div 2 = 15$\n\n**Final answer: 15**",
     "status": "ok"
   },
   {

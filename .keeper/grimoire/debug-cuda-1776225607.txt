@@ -1,0 +1,16 @@
+Prompt:
+Write a CUDA kernel that performs matrix multiplication with CT snap quantization. 
+The kernel should be optimized for RTX 4050 (sm_86).
+Include benchmark code that measures performance in Mvec/s.
+Return ONLY the kernel code with comments, no explanations.
+
+Example output format:
+#include <stdio.h>
+#include <math.h>
+// Kernel description
+__global__ void kernel(...) { ... }
+// Benchmark wrapper
+int main() { ... return 0; }
+
+Response:
+We need to produce the kernel with comments, no explanations.

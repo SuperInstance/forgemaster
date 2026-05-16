@@ -1,0 +1,648 @@
+{
+  "experiment": "E2-LIVE-SCALE",
+  "timestamp": "2026-05-16T05:30:39.100839+00:00",
+  "n_rounds": 15,
+  "design": "Per-agent different prompts (same topic, different framing), parallel API calls",
+  "hypotheses": {
+    "H1": "\u03b3+H follows log-linear form across V",
+    "H2": "Live values between random and Hebbian",
+    "H3": "Faster convergence at smaller V"
+  },
+  "fleets": {
+    "3": {
+      "V": 3,
+      "fleet": [
+        {
+          "name": "Seed-mini",
+          "model": "ByteDance/Seed-2.0-mini"
+        },
+        {
+          "name": "Hermes-70B",
+          "model": "NousResearch/Hermes-3-Llama-3.1-70B"
+        },
+        {
+          "name": "Qwen-35B",
+          "model": "Qwen/Qwen3.6-35B-A3B"
+        }
+      ],
+      "predicted_random": 1.1083,
+      "predicted_hebbian": 1.2524,
+      "rounds": [
+        {
+          "round": 1,
+          "gamma": 0.0,
+          "H": 0.999042,
+          "gamma_plus_H": 0.999042
+        },
+        {
+          "round": 2,
+          "gamma": 0.0,
+          "H": 0.996198,
+          "gamma_plus_H": 0.996198
+        },
+        {
+          "round": 3,
+          "gamma": 0.0,
+          "H": 0.99468,
+          "gamma_plus_H": 0.99468
+        },
+        {
+          "round": 4,
+          "gamma": 0.0,
+          "H": 0.991496,
+          "gamma_plus_H": 0.991496
+        },
+        {
+          "round": 5,
+          "gamma": 0.0,
+          "H": 0.990831,
+          "gamma_plus_H": 0.990831
+        },
+        {
+          "round": 6,
+          "gamma": 0.0,
+          "H": 0.990632,
+          "gamma_plus_H": 0.990632
+        },
+        {
+          "round": 7,
+          "gamma": 0.0,
+          "H": 0.989648,
+          "gamma_plus_H": 0.989648
+        },
+        {
+          "round": 8,
+          "gamma": 0.0,
+          "H": 0.987391,
+          "gamma_plus_H": 0.987391
+        },
+        {
+          "round": 9,
+          "gamma": 0.0,
+          "H": 0.991415,
+          "gamma_plus_H": 0.991415
+        },
+        {
+          "round": 10,
+          "gamma": 0.0,
+          "H": 0.990037,
+          "gamma_plus_H": 0.990037
+        },
+        {
+          "round": 11,
+          "gamma": 0.0,
+          "H": 0.990707,
+          "gamma_plus_H": 0.990707
+        },
+        {
+          "round": 12,
+          "gamma": 0.0,
+          "H": 0.990347,
+          "gamma_plus_H": 0.990347
+        },
+        {
+          "round": 13,
+          "gamma": 0.0,
+          "H": 0.98855,
+          "gamma_plus_H": 0.98855
+        },
+        {
+          "round": 14,
+          "gamma": 0.0,
+          "H": 0.987308,
+          "gamma_plus_H": 0.987308
+        },
+        {
+          "round": 15,
+          "gamma": 0.0,
+          "H": 0.993759,
+          "gamma_plus_H": 0.993759
+        }
+      ],
+      "random_baseline": [
+        {
+          "gamma": 0.0,
+          "H": 0.992179,
+          "gamma_plus_H": 0.992179
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.989479,
+          "gamma_plus_H": 0.989479
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.981109,
+          "gamma_plus_H": 0.981109
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.992179,
+          "gamma_plus_H": 0.992179
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.986412,
+          "gamma_plus_H": 0.986412
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.989298,
+          "gamma_plus_H": 0.989298
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.981109,
+          "gamma_plus_H": 0.981109
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.997787,
+          "gamma_plus_H": 0.997787
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.981109,
+          "gamma_plus_H": 0.981109
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.983747,
+          "gamma_plus_H": 0.983747
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.989479,
+          "gamma_plus_H": 0.989479
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.989181,
+          "gamma_plus_H": 0.989181
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.983747,
+          "gamma_plus_H": 0.983747
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.982105,
+          "gamma_plus_H": 0.982105
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.990158,
+          "gamma_plus_H": 0.990158
+        }
+      ],
+      "summary": {
+        "live_mean": 0.9915,
+        "live_std": 0.0031,
+        "early_mean": 0.9938,
+        "late_mean": 0.9901,
+        "random_mean": 0.9873,
+        "random_std": 0.0048
+      }
+    },
+    "7": {
+      "V": 7,
+      "fleet": [
+        {
+          "name": "Seed-mini",
+          "model": "ByteDance/Seed-2.0-mini"
+        },
+        {
+          "name": "Hermes-70B",
+          "model": "NousResearch/Hermes-3-Llama-3.1-70B"
+        },
+        {
+          "name": "Qwen-35B",
+          "model": "Qwen/Qwen3.6-35B-A3B"
+        },
+        {
+          "name": "Qwen-235B",
+          "model": "Qwen/Qwen3-235B-A22B-Instruct-2507"
+        },
+        {
+          "name": "Seed-code",
+          "model": "ByteDance/Seed-2.0-code"
+        },
+        {
+          "name": "Hermes-v2",
+          "model": "NousResearch/Hermes-3-Llama-3.1-70B"
+        },
+        {
+          "name": "Qwen-v2",
+          "model": "Qwen/Qwen3.6-35B-A3B"
+        }
+      ],
+      "predicted_random": 0.9736,
+      "predicted_hebbian": 1.1002,
+      "rounds": [
+        {
+          "round": 1,
+          "gamma": 0.0,
+          "H": 0.997752,
+          "gamma_plus_H": 0.997752
+        },
+        {
+          "round": 2,
+          "gamma": 0.0,
+          "H": 0.992483,
+          "gamma_plus_H": 0.992483
+        },
+        {
+          "round": 3,
+          "gamma": 0.0,
+          "H": 0.988219,
+          "gamma_plus_H": 0.988219
+        },
+        {
+          "round": 4,
+          "gamma": 0.0,
+          "H": 0.986328,
+          "gamma_plus_H": 0.986328
+        },
+        {
+          "round": 5,
+          "gamma": 0.0,
+          "H": 0.983444,
+          "gamma_plus_H": 0.983444
+        },
+        {
+          "round": 6,
+          "gamma": 0.0,
+          "H": 0.981036,
+          "gamma_plus_H": 0.981036
+        },
+        {
+          "round": 7,
+          "gamma": 0.0,
+          "H": 0.981949,
+          "gamma_plus_H": 0.981949
+        },
+        {
+          "round": 8,
+          "gamma": 0.0,
+          "H": 0.979411,
+          "gamma_plus_H": 0.979411
+        },
+        {
+          "round": 9,
+          "gamma": 0.0,
+          "H": 0.981828,
+          "gamma_plus_H": 0.981828
+        },
+        {
+          "round": 10,
+          "gamma": 0.0,
+          "H": 0.979555,
+          "gamma_plus_H": 0.979555
+        },
+        {
+          "round": 11,
+          "gamma": 0.0,
+          "H": 0.980287,
+          "gamma_plus_H": 0.980287
+        },
+        {
+          "round": 12,
+          "gamma": 0.0,
+          "H": 0.98036,
+          "gamma_plus_H": 0.98036
+        },
+        {
+          "round": 13,
+          "gamma": 0.0,
+          "H": 0.981308,
+          "gamma_plus_H": 0.981308
+        },
+        {
+          "round": 14,
+          "gamma": 0.0,
+          "H": 0.978257,
+          "gamma_plus_H": 0.978257
+        },
+        {
+          "round": 15,
+          "gamma": 0.0,
+          "H": 0.978318,
+          "gamma_plus_H": 0.978318
+        }
+      ],
+      "random_baseline": [
+        {
+          "gamma": 0.0,
+          "H": 0.980913,
+          "gamma_plus_H": 0.980913
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.979934,
+          "gamma_plus_H": 0.979934
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.97696,
+          "gamma_plus_H": 0.97696
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.985313,
+          "gamma_plus_H": 0.985313
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.973013,
+          "gamma_plus_H": 0.973013
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.974678,
+          "gamma_plus_H": 0.974678
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.974128,
+          "gamma_plus_H": 0.974128
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.985313,
+          "gamma_plus_H": 0.985313
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.973013,
+          "gamma_plus_H": 0.973013
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.980945,
+          "gamma_plus_H": 0.980945
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.972461,
+          "gamma_plus_H": 0.972461
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.980913,
+          "gamma_plus_H": 0.980913
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.974678,
+          "gamma_plus_H": 0.974678
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.968417,
+          "gamma_plus_H": 0.968417
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.975029,
+          "gamma_plus_H": 0.975029
+        }
+      ],
+      "summary": {
+        "live_mean": 0.9834,
+        "live_std": 0.0054,
+        "early_mean": 0.9882,
+        "late_mean": 0.9797,
+        "random_mean": 0.977,
+        "random_std": 0.0048
+      }
+    },
+    "9": {
+      "V": 9,
+      "fleet": [
+        {
+          "name": "Seed-mini",
+          "model": "ByteDance/Seed-2.0-mini"
+        },
+        {
+          "name": "Hermes-70B",
+          "model": "NousResearch/Hermes-3-Llama-3.1-70B"
+        },
+        {
+          "name": "Qwen-35B",
+          "model": "Qwen/Qwen3.6-35B-A3B"
+        },
+        {
+          "name": "Qwen-235B",
+          "model": "Qwen/Qwen3-235B-A22B-Instruct-2507"
+        },
+        {
+          "name": "Seed-code",
+          "model": "ByteDance/Seed-2.0-code"
+        },
+        {
+          "name": "Hermes-v2",
+          "model": "NousResearch/Hermes-3-Llama-3.1-70B"
+        },
+        {
+          "name": "Qwen-v2",
+          "model": "Qwen/Qwen3.6-35B-A3B"
+        },
+        {
+          "name": "Seed-v2",
+          "model": "ByteDance/Seed-2.0-mini"
+        },
+        {
+          "name": "Qwen-v3",
+          "model": "Qwen/Qwen3-235B-A22B-Instruct-2507"
+        }
+      ],
+      "predicted_random": 0.9336,
+      "predicted_hebbian": 1.055,
+      "rounds": [
+        {
+          "round": 1,
+          "gamma": 0.0,
+          "H": 0.999591,
+          "gamma_plus_H": 0.999591
+        },
+        {
+          "round": 2,
+          "gamma": 0.0,
+          "H": 0.999049,
+          "gamma_plus_H": 0.999049
+        },
+        {
+          "round": 3,
+          "gamma": 0.0,
+          "H": 0.997896,
+          "gamma_plus_H": 0.997896
+        },
+        {
+          "round": 4,
+          "gamma": 0.0,
+          "H": 0.997608,
+          "gamma_plus_H": 0.997608
+        },
+        {
+          "round": 5,
+          "gamma": 0.0,
+          "H": 0.997807,
+          "gamma_plus_H": 0.997807
+        },
+        {
+          "round": 6,
+          "gamma": 0.0,
+          "H": 0.997554,
+          "gamma_plus_H": 0.997554
+        },
+        {
+          "round": 7,
+          "gamma": 0.0,
+          "H": 0.996683,
+          "gamma_plus_H": 0.996683
+        },
+        {
+          "round": 8,
+          "gamma": 0.0,
+          "H": 0.997152,
+          "gamma_plus_H": 0.997152
+        },
+        {
+          "round": 9,
+          "gamma": 0.0,
+          "H": 0.996857,
+          "gamma_plus_H": 0.996857
+        },
+        {
+          "round": 10,
+          "gamma": 0.0,
+          "H": 0.99634,
+          "gamma_plus_H": 0.99634
+        },
+        {
+          "round": 11,
+          "gamma": 0.0,
+          "H": 0.992513,
+          "gamma_plus_H": 0.992513
+        },
+        {
+          "round": 12,
+          "gamma": 0.0,
+          "H": 0.994618,
+          "gamma_plus_H": 0.994618
+        }
+      ],
+      "random_baseline": [
+        {
+          "gamma": 0.0,
+          "H": 0.928458,
+          "gamma_plus_H": 0.928458
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.928458,
+          "gamma_plus_H": 0.928458
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.995876,
+          "gamma_plus_H": 0.995876
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.99462,
+          "gamma_plus_H": 0.99462
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.995876,
+          "gamma_plus_H": 0.995876
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.995715,
+          "gamma_plus_H": 0.995715
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.99462,
+          "gamma_plus_H": 0.99462
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.996353,
+          "gamma_plus_H": 0.996353
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.995876,
+          "gamma_plus_H": 0.995876
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.992669,
+          "gamma_plus_H": 0.992669
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.992669,
+          "gamma_plus_H": 0.992669
+        },
+        {
+          "gamma": 0.0,
+          "H": 0.992669,
+          "gamma_plus_H": 0.992669
+        }
+      ],
+      "summary": {
+        "live_mean": 0.997,
+        "live_std": 0.0018,
+        "early_mean": 0.9984,
+        "late_mean": 0.9955,
+        "random_mean": 0.9837,
+        "random_std": 0.0247
+      }
+    }
+  },
+  "analysis": {
+    "H1": {
+      "decreasing": false,
+      "slope": 0.0005,
+      "intercept": 0.9875,
+      "r_squared": 0.0015,
+      "supported": false
+    },
+    "H2": {
+      "supported": true
+    },
+    "H3": {
+      "convergence_cv": {
+        "3": 0.0022,
+        "7": 0.0012,
+        "9": 0.0017
+      },
+      "supported": false
+    },
+    "scaling_data": [
+      {
+        "V": 3,
+        "late_mean": 0.9901,
+        "pred_random": 1.1083,
+        "pred_hebbian": 1.2524
+      },
+      {
+        "V": 7,
+        "late_mean": 0.9797,
+        "pred_random": 0.9736,
+        "pred_hebbian": 1.1002
+      },
+      {
+        "V": 9,
+        "late_mean": 0.9955,
+        "pred_random": 0.9336,
+        "pred_hebbian": 1.055
+      }
+    ]
+  }
+}
