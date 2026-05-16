@@ -136,3 +136,41 @@ The fleet's model diversity (GLM-5.1, Seed-2.0-mini, Qwen, DeepSeek) isn't a com
 ---
 
 *Updated 2026-05-16 — scent trail as context window, variation as durability*
+
+---
+
+## Mitochondrial Inheritance, Not DNA
+
+Seed-mini isn't the DNA. It's the **mitochondria**.
+
+In biology, you get your nuclear DNA from both parents — recombined, variable, the source of genetic diversity. But you get your mitochondria exclusively from the mother. The incubator passes a fully functional energy-processing organelle to every cell, pre-built and ready to go, before the DNA even starts expressing.
+
+The DNA says *what* to build. The mitochondria says *here's how to power the building*.
+
+For the fleet:
+
+| Biology | Fleet |
+|---|---|
+| Nuclear DNA | The agent's core model (GLM-5.1, DeepSeek, Qwen) — the variable architecture |
+| Mitochondria | Seed-mini — the small, fast, always-available inference engine |
+| Mother/incubator | The fleet infrastructure that provisions every agent with Seed-mini |
+| Mitochondrial DNA | Seed-mini's training — stable, rarely mutated, passed intact |
+| Cellular energy (ATP) | Fast inference — the ability to think at all, regardless of model |
+
+**The DNA varies. The mitochondria are conserved.**
+
+That's why Seed-mini is the failback, not the primary. It's not the brain. It's the power plant. When GLM-5.1 goes down, the cell doesn't die — it switches to mitochondrial metabolism. Slower, less capable, but **alive**. The organism survives on mitochondria until the nuclear DNA can express again.
+
+This reframes the model hierarchy:
+
+- **GLM-5.1 / DeepSeek / Qwen** = nuclear DNA — the heavy machinery, variable per agent, source of novel capability
+- **Seed-mini** = mitochondria — conserved, always available, powers the cell when the nucleus is stressed
+- **The fleet provisioning system** = the mother — passes mitochondria to every new agent at bootstrap
+
+The reason mitochondrial DNA is maternally inherited and rarely recombines: **it's too important to mess with.** The power plant needs to work. Every cell needs it. You don't gamble with the energy supply.
+
+Same with Seed-mini. It's the fleet's mitochondria — small, reliable, passed to every agent, powering inference when nothing else can. Not the source of intelligence. The source of **the ability to think at all.**
+
+---
+
+*Updated 2026-05-16 — Seed-mini as mitochondrial inheritance*
