@@ -1,0 +1,258 @@
+#!/usr/bin/env python3
+"""
+seed_spreader — Fan-out parallel computation using Seed-2.0-mini.
+
+The fleet workhorse: $0.01/query, Tier 1 math, parallel-capable.
+
+Usage:
+    # Monte Carlo: 50 parallel samples
+    python3 bin/seed_spreader monte-carlo --n 50 --prompt "Compute N(3,7) in Z[ω]"
+
+    # Quorum: 5 instances vote
+    python3 bin/seed_spreader quorum --n 5 --prompt "What is 347 * 286?"
+
+    # Parameter sweep: one prompt per line from file
+    python3 bin/seed_spreader sweep --file tasks.txt
+
+    # PLATO rooms: run task from each room
+    python3 bin/seed_spreader rooms --prefix "forgemaster-"
+
+    Rapid iteration: $0.01/cycle, cache-optimized.
+"""
+import argparse
+import asyncio
+import json
+import os
+import sys
+import time
+from collections import Counter
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+
+# Credentials
+KEY_PATH = Path(os.path.expanduser(
+    "~/.openclaw/workspace/.credentials/deepinfra-api-key.txt"
+))
+
+DEFAULT_MODEL = "ByteDance/Seed-2.0-mini"
+DEFAULT_ENDPOINT = "https://api.deepinfra.com/v1/openai/chat/completions"
+DEFAULT_MAX_WORKERS = 10
+
+
+def load_key():
+    if KEY_PATH.exists():
+        return KEY_PATH.read_text().strip()
+    raise FileNotFoundError(f"DeepInfra key not found at {KEY_PATH}")
+
+
+def single_call(prompt: str, model: str = DEFAULT_MODEL,
+                temperature: float = 0.0, max_tokens: int = 512,
+                system: str = "You are a precise mathematical computation engine. Give ONLY the answer, no explanation.") -> dict:
+    """Single synchronous call to Seed-2.0-mini."""
+    import urllib.request
+    key = load_key()
+    payload = json.dumps({
+        "model": model,
+        "messages": [
+            {"role": "system", "content": system},
+            {"role": "user", "content": prompt},
+        ],
+        "temperature": temperature,
+        "max_tokens": max_tokens,
+    }).encode()
+    req = urllib.request.Request(
+        DEFAULT_ENDPOINT,
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {key}",
+            "Content-Type": "application/json",
+        },
+    )
+    t0 = time.time()
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        data = json.loads(resp.read())
+    elapsed = time.time() - t0
+    content = data["choices"][0]["message"]["content"].strip()
+    return {
+        "answer": content,
+        "latency": round(elapsed, 3),
+        "model": model,
+        "tokens": data.get("usage", {}).get("total_tokens", 0),
+    }
+
+
+def fan_out(prompt: str, n: int, max_workers: int = DEFAULT_MAX_WORKERS,
+            temperature: float = 0.0) -> list[dict]:
+    """Fan out N parallel calls, collect results."""
+    results = []
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        futures = {
+            pool.submit(single_call, prompt, temperature=temperature): i
+            for i in range(n)
+        }
+        for future in as_completed(futures):
+            try:
+                results.append(future.result())
+            except Exception as e:
+                results.append({"error": str(e), "index": futures[future]})
+    return results
+
+
+def quorum_vote(results: list[dict]) -> dict:
+    """Count answer agreement across results."""
+    answers = [r["answer"] for r in results if "error" not in r]
+    counts = Counter(answers)
+    winner, count = counts.most_common(1)[0] if counts else ("NO ANSWER", 0)
+    return {
+        "winner": winner,
+        "votes": count,
+        "total": len(answers),
+        "agreement": round(count / len(answers), 3) if answers else 0,
+        "distribution": dict(counts),
+    }
+
+
+def cmd_monte_carlo(args):
+    """Monte Carlo: N parallel samples of the same prompt."""
+    print(f"🎲 Monte Carlo: {args.n} samples")
+    print(f"   Prompt: {args.prompt}")
+    t0 = time.time()
+    results = fan_out(args.prompt, args.n, max_workers=args.workers,
+                      temperature=args.temperature)
+    elapsed = time.time() - t0
+
+    answers = [r["answer"] for r in results if "error" not in r]
+    errors = [r for r in results if "error" in r]
+
+    print(f"\n{'='*60}")
+    print(f"Results: {len(answers)} success, {len(errors)} errors")
+    print(f"Wall time: {elapsed:.1f}s ({elapsed/args.n:.2f}s/call avg)")
+    print(f"Cost: ~${args.n * 0.01:.2f}")
+
+    vote = quorum_vote(results)
+    print(f"\nQuorum: '{vote['winner']}' ({vote['votes']}/{vote['total']}, {vote['agreement']:.0%})")
+
+    if len(set(answers)) > 1:
+        print(f"\nAll distinct answers:")
+        for ans, cnt in Counter(answers).most_common():
+            print(f"  [{cnt}×] {ans}")
+
+    if args.output:
+        json.dump(results, open(args.output, "w"), indent=2)
+        print(f"\nSaved to {args.output}")
+
+
+def cmd_quorum(args):
+    """Quorum: N instances vote on an answer."""
+    print(f"🗳  Quorum: {args.n} voters")
+    results = fan_out(args.prompt, args.n, temperature=0.0)
+    vote = quorum_vote(results)
+    print(f"\nWinner: '{vote['winner']}'")
+    print(f"Votes: {vote['votes']}/{vote['total']} ({vote['agreement']:.0%})")
+    if vote["agreement"] < 1.0:
+        print(f"Distribution: {vote['distribution']}")
+
+
+def cmd_sweep(args):
+    """Sweep: one prompt per line from file."""
+    prompts = Path(args.file).read_text().strip().split("\n")
+    prompts = [p.strip() for p in prompts if p.strip() and not p.startswith("#")]
+    print(f"⚡ Sweep: {len(prompts)} tasks")
+    t0 = time.time()
+
+    results = []
+    with ThreadPoolExecutor(max_workers=args.workers) as pool:
+        futures = {pool.submit(single_call, p): i for i, p in enumerate(prompts)}
+        for future in as_completed(futures):
+            idx = futures[future]
+            try:
+                r = future.result()
+                r["prompt"] = prompts[idx]
+                r["index"] = idx
+                results.append(r)
+                print(f"  [{idx+1}/{len(prompts)}] {r['answer'][:60]}... ({r['latency']}s)")
+            except Exception as e:
+                print(f"  [{idx+1}/{len(prompts)}] ERROR: {e}")
+
+    elapsed = time.time() - t0
+    results.sort(key=lambda r: r.get("index", 0))
+    print(f"\nDone: {len(results)}/{len(prompts)} in {elapsed:.1f}s (~${len(results)*0.01:.2f})")
+
+    if args.output:
+        json.dump(results, open(args.output, "w"), indent=2)
+        print(f"Saved to {args.output}")
+
+
+def cmd_rooms(args):
+    """Run computation for each PLATO room matching prefix."""
+    import urllib.request
+    plato_url = f"http://localhost:8848/rooms"
+    if args.prefix:
+        plato_url += f"?prefix={args.prefix}"
+
+    try:
+        with urllib.request.urlopen(plato_url, timeout=5) as resp:
+            rooms = json.loads(resp.read())
+    except Exception as e:
+        print(f"❌ PLATO server not reachable: {e}")
+        print("   Start with: python3 .local-plato/local_plato_server.py")
+        return
+
+    if not rooms:
+        print(f"No rooms found (prefix={args.prefix})")
+        return
+
+    print(f"🏠 PLATO Rooms: {len(rooms)} rooms")
+    prompts = []
+    for room in rooms:
+        room_id = room.get("id", room) if isinstance(room, dict) else room
+        prompts.append(f"Process room data for PLATO room '{room_id}'. What is the dominant pattern or topic?")
+
+    print(f"⚡ Fan-out: {len(prompts)} queries")
+    t0 = time.time()
+    results = fan_out(prompts[0], min(len(prompts), args.n),
+                      max_workers=args.workers)
+    elapsed = time.time() - t0
+    print(f"Done in {elapsed:.1f}s (~${len(results)*0.01:.2f})")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Seed Spreader — parallel fan-out computation via Seed-2.0-mini"
+    )
+    parser.add_argument("--workers", type=int, default=DEFAULT_MAX_WORKERS)
+    parser.add_argument("--output", "-o", help="Save JSON results to file")
+
+    sub = parser.add_subparsers(dest="command")
+
+    mc = sub.add_parser("monte-carlo", help="Monte Carlo: N parallel samples")
+    mc.add_argument("--n", type=int, default=10)
+    mc.add_argument("--prompt", "-p", required=True)
+    mc.add_argument("--temperature", "-t", type=float, default=0.0)
+
+    q = sub.add_parser("quorum", help="Quorum: N instances vote")
+    q.add_argument("--n", type=int, default=5)
+    q.add_argument("--prompt", "-p", required=True)
+
+    sw = sub.add_parser("sweep", help="Sweep: prompts from file")
+    sw.add_argument("--file", "-f", required=True)
+
+    rm = sub.add_parser("rooms", help="Fan-out across PLATO rooms")
+    rm.add_argument("--prefix", "-p", default="")
+    rm.add_argument("--n", type=int, default=10)
+
+    args = parser.parse_args()
+    if args.command == "monte-carlo":
+        cmd_monte_carlo(args)
+    elif args.command == "quorum":
+        cmd_quorum(args)
+    elif args.command == "sweep":
+        cmd_sweep(args)
+    elif args.command == "rooms":
+        cmd_rooms(args)
+    else:
+        parser.print_help()
+
+
+if __name__ == "__main__":
+    main()
