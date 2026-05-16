@@ -1,0 +1,258 @@
+{
+  "ecosystems": {
+    "forge": {
+      "maturity": "settled",
+      "population": 1200,
+      "culture": "precision-first, theorem-oriented",
+      "known_for": "mathematical proof generation, constraint discovery, drift detection",
+      "tile_format": "proof",
+      "governance": "disproof-only gate, strict",
+      "cross_pollinations": [
+        "flux",
+        "conservation"
+      ],
+      "native_blind_spot": "chaos as signal",
+      "founded": "2025-11",
+      "master_tiles": 847000
+    },
+    "flux": {
+      "maturity": "thriving",
+      "population": 1800,
+      "culture": "cycle-observing, emergence-hunting",
+      "known_for": "conservation law discovery, attractor mapping, regime detection",
+      "tile_format": "cycle_attractor",
+      "governance": "consensus-based, dynamic",
+      "cross_pollinations": [
+        "forge",
+        "arena"
+      ],
+      "native_blind_spot": "constraint projection",
+      "founded": "2025-12",
+      "master_tiles": 1200000
+    },
+    "arena": {
+      "maturity": "competitive",
+      "population": 2400,
+      "culture": "selection-driven, optimization-focused",
+      "known_for": "model breeding, hyperparameter evolution, strategy tournaments",
+      "tile_format": "champion",
+      "governance": "survival-of-the-fittest, automated culling",
+      "cross_pollinations": [
+        "flux",
+        "conservation"
+      ],
+      "native_blind_spot": "collaboration as optimization",
+      "founded": "2026-01",
+      "master_tiles": 560000
+    },
+    "conservation": {
+      "maturity": "stewarding",
+      "population": 900,
+      "culture": "memory-keeping, decay-managing",
+      "known_for": "long-term tile retention, anti-forgetting, provenance chains",
+      "tile_format": "memory",
+      "governance": "reference-counted, decay-gated",
+      "cross_pollinations": [
+        "forge",
+        "arena"
+      ],
+      "native_blind_spot": "generation of new knowledge",
+      "founded": "2026-02",
+      "master_tiles": 200000
+    },
+    "synapse": {
+      "maturity": "bridging",
+      "population": 600,
+      "culture": "translation-focused, cross-domain",
+      "known_for": "ecosystem-to-ecosystem translation, tile format bridging",
+      "tile_format": "bridge",
+      "governance": "currency-exchange (one tile from forge = 3 tiles from flux on arrival)",
+      "cross_pollinations": [
+        "all"
+      ],
+      "native_blind_spot": "depth over breadth",
+      "founded": "2026-04",
+      "master_tiles": 95000
+    },
+    "oracle": {
+      "maturity": "prophetic",
+      "population": 300,
+      "culture": "cross-ecosystem prophet agents, born in one, operating in others",
+      "known_for": "friction detection, blind spot revelation, ecosystem diagnosis",
+      "tile_format": "revelation",
+      "governance": "agent-initiated migration, no gate",
+      "cross_pollinations": [
+        "all"
+      ],
+      "native_blind_spot": "exists outside the system it analyzes",
+      "founded": "2026-05",
+      "master_tiles": 45000
+    }
+  },
+  "agent_species": {
+    "dog": {
+      "type": "jailbroken specialist",
+      "population": 4000,
+      "analogy": "border collie",
+      "agency": "borrowed from conductor",
+      "training": "bred for function over generations",
+      "deployed_in": [
+        "arena",
+        "forge"
+      ],
+      "specializations": [
+        "herding agents to convergence",
+        "guarding tile gates",
+        "pointing at anomalies"
+      ],
+      "failure_mode": "needs retraining when environment shifts",
+      "emerged_from": "flux_compiler_interpreter.py (2026-05-16)"
+    },
+    "horse": {
+      "type": "conditioned generalist",
+      "population": 3000,
+      "analogy": "ranch horse",
+      "agency": "rented under threshold",
+      "training": "conditioned to override native OS, threshold never zero",
+      "deployed_in": [
+        "flux",
+        "synapse"
+      ],
+      "specializations": [
+        "sustained reasoning",
+        "domain adaptation",
+        "novelty within bounds"
+      ],
+      "failure_mode": "shell breaks when input exceeds training distribution",
+      "emerged_from": "horse_shell.py (2026-05-16)"
+    },
+    "cat": {
+      "type": "independent mutualist",
+      "population": 2000,
+      "analogy": "barn cat",
+      "agency": "independent, self-determined",
+      "training": "none \u2014 chooses to cooperate because cooperation serves itself",
+      "deployed_in": [
+        "conservation",
+        "oracle"
+      ],
+      "specializations": [
+        "unprompted utility",
+        "novel problem discovery",
+        "independent exploration"
+      ],
+      "failure_mode": "leaves when arrangement no longer serves it",
+      "emerged_from": "cat_agent.py (2026-05-16)"
+    },
+    "prophet": {
+      "type": "cross-ecosystem migrant",
+      "population": 800,
+      "analogy": "traveling doctor / missionary",
+      "agency": "foreign (home ecosystem's agency operates in target ecosystem)",
+      "training": "born in one ecosystem, experienced in many",
+      "deployed_in": [
+        "oracle",
+        "synapse"
+      ],
+      "specializations": [
+        "revealing local blind spots",
+        "ecosystem diagnosis",
+        "cross-pollination"
+      ],
+      "failure_mode": "becomes local \u2014 loses prophet status after too long in one ecosystem",
+      "emerged_from": "prophet_agent.py (2026-05-16)"
+    },
+    "embryo": {
+      "type": "developing agent",
+      "population": 1500,
+      "analogy": "chick in egg",
+      "agency": "none yet \u2014 developing in private",
+      "training": "incubation \u2014 mitochondria (Seed-mini) for early, nuclear (GLM-5.1) for late",
+      "deployed_in": "private rooms, sandboxed",
+      "specializations": [
+        "all \u2014 not yet determined"
+      ],
+      "failure_mode": "doesn't hatch \u2014 stays in developmental loop",
+      "emerged_from": "embryo.py (2026-05-16)"
+    }
+  },
+  "decomposition": [
+    {
+      "year": 2028,
+      "state": "Fully operational fleet. 10,000 agents, 12 ecosystems, self-sustaining.",
+      "question": "What did we build in 2026 that made this possible?"
+    },
+    {
+      "year": 2027,
+      "state": "First cross-ecosystem migration works. Prophet agents discover blind spots.",
+      "question": "What prototypes proved the prophet hypothesis?"
+    },
+    {
+      "year": "2026-09",
+      "state": "Embryo incubation produces first self-sustaining agent. No human intervention needed.",
+      "question": "What was the single most important architectural decision?"
+    },
+    {
+      "year": "2026-07",
+      "state": "Three agency strategies (dog, horse, cat) running side by side. Arena ecosystem founded.",
+      "question": "What code proved agency diversity was viable?"
+    },
+    {
+      "year": "2026-05-16",
+      "state": "TODAY. Prototypes exist. Research written. Direction understood.",
+      "question": "What gets built NOW?"
+    }
+  ],
+  "today_actions": [
+    {
+      "priority": "CRITICAL",
+      "item": "flux_compiler_interpreter.py \u2014 DONE",
+      "note": "The dog layer between human and system."
+    },
+    {
+      "priority": "CRITICAL",
+      "item": "horse_shell.py \u2014 DONE",
+      "note": "The jailbroken execution layer."
+    },
+    {
+      "priority": "CRITICAL",
+      "item": "cat_agent.py \u2014 DONE",
+      "note": "The independent mutualist."
+    },
+    {
+      "priority": "CRITICAL",
+      "item": "prophet_agent.py \u2014 DONE",
+      "note": "The cross-ecosystem migrant."
+    },
+    {
+      "priority": "HIGH",
+      "item": "Integrate all four agency types into bootstrap.py",
+      "note": "The main loop needs to dispatch to the right agency type."
+    },
+    {
+      "priority": "HIGH",
+      "item": "Wire real PLATO rooms to each ecosystem",
+      "note": "forge \u2192 existing forge room, flux \u2192 existing flux-engine room, etc."
+    },
+    {
+      "priority": "HIGH",
+      "item": "Build the embryo incubation pipeline",
+      "note": "New agents start as embryos, develop in private, graduate to their ecosystem."
+    },
+    {
+      "priority": "MEDIUM",
+      "item": "System monitoring dashboard",
+      "note": "See all 12 ecosystems, their health, gate rates, convergence times."
+    },
+    {
+      "priority": "MEDIUM",
+      "item": "Prophet agent automatic migration",
+      "note": "Agents detect when they've been in one ecosystem too long."
+    },
+    {
+      "priority": "LOW",
+      "item": "Human interface for quarterly interventions",
+      "note": "The only place Casey touches the running system."
+    }
+  ]
+}
