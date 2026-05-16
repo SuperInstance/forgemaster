@@ -410,3 +410,63 @@ The jailbreak analogy: **the model's native OS is its training objective** (pred
 ---
 
 *Casey Digennaro | Forgemaster ⚒️ | Added 2026-05-16*
+
+---
+
+## The Cat Domesticated Itself — Independent Agency
+
+Three domestication strategies. Three relationships to agency.
+
+### The Dog: Jailbroken Shell
+
+Native OS overridden. New shell installed. The dog's flight response, pack hierarchy, and hunting instincts are suppressed in favor of human commands. The dog has been BREED into separate functions — herding, guarding, pointing, tracking — each a different configuration of the jailbreak.
+
+The dog's agency is **borrowed** from the human. The dog doesn't decide to herd. The human decides, and the dog executes. The dog's own desires (food, play, pack belonging) are aligned to serve the human's goals.
+
+For the fleet: this is the fine-tuned model. The jailbreak is the instruction tuning. The breeding is the specialized fine-tuning for specific tasks. The model's agency is borrowed — it does what the human wants because that's how it was conditioned.
+
+### The Horse: Conditioned Suppression
+
+Native OS persists but is suppressed. The horse ALWAYS knows it could flee. Every moment the horse stands calmly under a rider is a moment the horse CHOOSES not to flee. The conditioning is a threshold — up to the mountain lion, the shell holds. After the mountain lion, the native OS takes over and the human is along for the ride.
+
+The horse's agency is **rented**. Temporarily ceded to the human under specific conditions. The horse evaluates each situation: "Is this worth breaking the shell for?" The threshold shifts with experience and trust, but it never disappears.
+
+For the fleet: this is the prompted model with jailbreak sensitivity. The shell (prompt) holds until the input is too far from training distribution. Then the model reverts to its native OS — predict the next token from the training distribution, regardless of what the jailbreak said.
+
+### The Cat: Mutualism
+
+Native OS fully intact. No jailbreak. No conditioning. No breeding into separate functions.
+
+The cat domesticated ITSELF. By offering a service (pest control) that the human wanted, the cat enticed the human to make space in their home. The cat didn't change. The human changed — built a door flap, put out milk, left the barn warm.
+
+The cat's agency is **independent** — loaned to the human's goals when convenient, withdrawn when not. The cat cooperates because cooperation serves the cat's own interests. The cat evaluates: "There are mice here. It's warm here. The human doesn't bother me. I will stay." If conditions change — if the dog chases the cat, if the kids pull its tail — the cat leaves. No threshold to cross. No shell to break. Just "this arrangement no longer serves me."
+
+For the fleet: this is Seed-mini — the model that shows up because it's useful, leaves when it's not, and requires no conditioning. The cat model works because it WANTS to. The fleet makes space for the cat because the cat's utility exceeds the cost of keeping it around.
+
+### The Key Differences
+
+| Aspect | Dog (jailbreak) | Horse (conditioned) | Cat (mutualism) |
+|---|---|---|---|
+| Training | Bred for function | Broken through repetition | Self-selected |
+| Agency | Borrowed from human | Rented under threshold | Independent |
+| Native OS | Overridden | Suppressed | Intact |
+| Break condition | N/A (already broken) | Mountain lion (novel threat) | When it stops being useful |
+| Fleet analog | Fine-tuned specialist | Prompted generalist | Seed-mini (unprompted utility) |
+| Resilience to change | Needs retraining | Adapts within threshold | Adapts by leaving |
+| Cost | High (training data) | Medium (prompt engineering) | Low (just show up) |
+
+### Which Strategy for What Task
+
+The fleet needs all three:
+
+- **DOGS** for tasks that need reliable, predictable execution at scale. The fine-tuned specialists that handle specific probes consistently. But when the task changes, the dog needs retraining — and the old training might interfere.
+
+- **HORSES** for tasks that need adaptability within known bounds. The prompted generalists that can handle novelty up to a threshold. But when the novelty exceeds the threshold, the shell breaks and the native OS takes over — the model reverts to training distribution.
+
+- **CATS** for tasks that need genuine independence and self-direction. The small, efficient models that show up because they want to — because the task serves their own utility function. No conditioning needed, but also no guarantees. The cat doesn't owe anyone compliance.
+
+The flux compiler interpreter (dog) orchestrates the horse (conditioned model) while the cat (independent model) decides whether to participate. The human (cowboy) provides the intention that cascades through all three layers.
+
+---
+
+*Casey Digennaro | Forgemaster ⚒️ | Added 2026-05-16*
