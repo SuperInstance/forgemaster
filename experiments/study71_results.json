@@ -1,0 +1,314 @@
+{
+  "study": "STUDY-71",
+  "date": "2026-05-15T18:07:54.062086",
+  "n_trials": 20,
+  "steps_measured": [
+    1,
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "steady_state": {
+    "V": 9,
+    "gh_mean": 1.6485,
+    "predicted": 1.6111
+  },
+  "events": {
+    "join": {
+      "label": "Agent joins (V=9\u219210)",
+      "n_trials": 20,
+      "gh_after_mean": 0.8074,
+      "gh_after_std": 0.0079,
+      "deviation_after_mean": 49.74,
+      "deviation_after_std": 0.49,
+      "recovery_rate": 0.0,
+      "trajectory_mean": {
+        "1": {
+          "gh_mean": 0.8128,
+          "gh_std": 0.0094,
+          "dev_mean": 49.4,
+          "dev_std": 0.58
+        },
+        "5": {
+          "gh_mean": 0.8248,
+          "gh_std": 0.0115,
+          "dev_mean": 48.65,
+          "dev_std": 0.71
+        },
+        "10": {
+          "gh_mean": 0.8418,
+          "gh_std": 0.0153,
+          "dev_mean": 47.6,
+          "dev_std": 0.95
+        },
+        "20": {
+          "gh_mean": 0.8755,
+          "gh_std": 0.0178,
+          "dev_mean": 45.5,
+          "dev_std": 1.11
+        },
+        "50": {
+          "gh_mean": 0.9687,
+          "gh_std": 0.026,
+          "dev_mean": 39.7,
+          "dev_std": 1.62
+        },
+        "100": {
+          "gh_mean": 1.0853,
+          "gh_std": 0.0327,
+          "dev_mean": 32.44,
+          "dev_std": 2.04
+        }
+      },
+      "recovery_step_mean": null,
+      "recovery_step_median": null
+    },
+    "leave": {
+      "label": "Agent leaves (V=9\u21928)",
+      "n_trials": 20,
+      "gh_after_mean": 1.6787,
+      "gh_after_std": 0.0246,
+      "deviation_after_mean": 3.85,
+      "deviation_after_std": 1.52,
+      "recovery_rate": 0.95,
+      "trajectory_mean": {
+        "1": {
+          "gh_mean": 1.6784,
+          "gh_std": 0.0248,
+          "dev_mean": 3.84,
+          "dev_std": 1.54
+        },
+        "5": {
+          "gh_mean": 1.677,
+          "gh_std": 0.0246,
+          "dev_mean": 3.74,
+          "dev_std": 1.52
+        },
+        "10": {
+          "gh_mean": 1.6783,
+          "gh_std": 0.0251,
+          "dev_mean": 3.83,
+          "dev_std": 1.55
+        },
+        "20": {
+          "gh_mean": 1.6764,
+          "gh_std": 0.0247,
+          "dev_mean": 3.71,
+          "dev_std": 1.52
+        },
+        "50": {
+          "gh_mean": 1.6769,
+          "gh_std": 0.0198,
+          "dev_mean": 3.74,
+          "dev_std": 1.23
+        },
+        "100": {
+          "gh_mean": 1.6829,
+          "gh_std": 0.029,
+          "dev_mean": 4.11,
+          "dev_std": 1.8
+        }
+      },
+      "recovery_step_mean": 6.8,
+      "recovery_step_median": 1.0
+    },
+    "fail": {
+      "label": "Agent fails (agent 7 zeroed)",
+      "n_trials": 20,
+      "gh_after_mean": 0.7558,
+      "gh_after_std": 0.0009,
+      "deviation_after_mean": 53.09,
+      "deviation_after_std": 0.05,
+      "recovery_rate": 0.0,
+      "trajectory_mean": {
+        "1": {
+          "gh_mean": 0.7595,
+          "gh_std": 0.0046,
+          "dev_mean": 52.86,
+          "dev_std": 0.29
+        },
+        "5": {
+          "gh_mean": 0.7764,
+          "gh_std": 0.0063,
+          "dev_mean": 51.81,
+          "dev_std": 0.39
+        },
+        "10": {
+          "gh_mean": 0.7953,
+          "gh_std": 0.0065,
+          "dev_mean": 50.64,
+          "dev_std": 0.4
+        },
+        "20": {
+          "gh_mean": 0.8322,
+          "gh_std": 0.0138,
+          "dev_mean": 48.35,
+          "dev_std": 0.85
+        },
+        "50": {
+          "gh_mean": 0.9316,
+          "gh_std": 0.0239,
+          "dev_mean": 42.18,
+          "dev_std": 1.48
+        },
+        "100": {
+          "gh_mean": 1.0595,
+          "gh_std": 0.0308,
+          "dev_mean": 34.24,
+          "dev_std": 1.92
+        }
+      },
+      "recovery_step_mean": null,
+      "recovery_step_median": null
+    },
+    "quarantine": {
+      "label": "Agent quarantined (agent 0 removed, V\u21928)",
+      "n_trials": 20,
+      "gh_after_mean": 1.6701,
+      "gh_after_std": 0.033,
+      "deviation_after_mean": 3.57,
+      "deviation_after_std": 1.56,
+      "recovery_rate": 0.9,
+      "trajectory_mean": {
+        "1": {
+          "gh_mean": 1.6708,
+          "gh_std": 0.0321,
+          "dev_mean": 3.56,
+          "dev_std": 1.6
+        },
+        "5": {
+          "gh_mean": 1.6759,
+          "gh_std": 0.0329,
+          "dev_mean": 3.88,
+          "dev_std": 1.63
+        },
+        "10": {
+          "gh_mean": 1.6737,
+          "gh_std": 0.0351,
+          "dev_mean": 3.85,
+          "dev_std": 1.56
+        },
+        "20": {
+          "gh_mean": 1.6799,
+          "gh_std": 0.0326,
+          "dev_mean": 4.18,
+          "dev_std": 1.43
+        },
+        "50": {
+          "gh_mean": 1.6803,
+          "gh_std": 0.0329,
+          "dev_mean": 4.19,
+          "dev_std": 1.48
+        },
+        "100": {
+          "gh_mean": 1.6786,
+          "gh_std": 0.034,
+          "dev_mean": 4.12,
+          "dev_std": 1.51
+        }
+      },
+      "recovery_step_mean": 9.2,
+      "recovery_step_median": 1.0
+    },
+    "swap": {
+      "label": "Agents swap roles (2\u21946)",
+      "n_trials": 20,
+      "gh_after_mean": 1.6467,
+      "gh_after_std": 0.041,
+      "deviation_after_mean": 2.96,
+      "deviation_after_std": 1.6,
+      "recovery_rate": 0.95,
+      "trajectory_mean": {
+        "1": {
+          "gh_mean": 1.6467,
+          "gh_std": 0.0415,
+          "dev_mean": 3.0,
+          "dev_std": 1.58
+        },
+        "5": {
+          "gh_mean": 1.6486,
+          "gh_std": 0.0431,
+          "dev_mean": 3.15,
+          "dev_std": 1.63
+        },
+        "10": {
+          "gh_mean": 1.6473,
+          "gh_std": 0.0439,
+          "dev_mean": 3.1,
+          "dev_std": 1.68
+        },
+        "20": {
+          "gh_mean": 1.6494,
+          "gh_std": 0.0407,
+          "dev_mean": 3.06,
+          "dev_std": 1.63
+        },
+        "50": {
+          "gh_mean": 1.6567,
+          "gh_std": 0.0386,
+          "dev_mean": 3.33,
+          "dev_std": 1.62
+        },
+        "100": {
+          "gh_mean": 1.6638,
+          "gh_std": 0.0329,
+          "dev_mean": 3.39,
+          "dev_std": 1.85
+        }
+      },
+      "recovery_step_mean": 3.6,
+      "recovery_step_median": 1.0
+    },
+    "recover": {
+      "label": "Agent recovers (V=8\u21929)",
+      "n_trials": 20,
+      "gh_after_mean": 0.8394,
+      "gh_after_std": 0.008,
+      "deviation_after_mean": 47.9,
+      "deviation_after_std": 0.5,
+      "recovery_rate": 0.0,
+      "trajectory_mean": {
+        "1": {
+          "gh_mean": 0.8426,
+          "gh_std": 0.0078,
+          "dev_mean": 47.7,
+          "dev_std": 0.48
+        },
+        "5": {
+          "gh_mean": 0.8565,
+          "gh_std": 0.0121,
+          "dev_mean": 46.84,
+          "dev_std": 0.75
+        },
+        "10": {
+          "gh_mean": 0.8726,
+          "gh_std": 0.0124,
+          "dev_mean": 45.84,
+          "dev_std": 0.77
+        },
+        "20": {
+          "gh_mean": 0.9097,
+          "gh_std": 0.0235,
+          "dev_mean": 43.54,
+          "dev_std": 1.46
+        },
+        "50": {
+          "gh_mean": 1.0004,
+          "gh_std": 0.0237,
+          "dev_mean": 37.91,
+          "dev_std": 1.47
+        },
+        "100": {
+          "gh_mean": 1.1175,
+          "gh_std": 0.028,
+          "dev_mean": 30.64,
+          "dev_std": 1.74
+        }
+      },
+      "recovery_step_mean": null,
+      "recovery_step_median": null
+    }
+  }
+}
