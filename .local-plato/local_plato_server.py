@@ -33,7 +33,13 @@ WAL_PATH = str(Path.home() / ".openclaw" / "workspace" / ".local-plato" / "tile-
 TWIN_DIR = str(Path.home() / ".openclaw" / "workspace" / ".local-plato" / "twin")
 REMOTE_PLATO = "http://147.224.38.131:8847"
 
-# ── Durability: WAL + GitHub flush ──────────────────────────
+# ── Durability: WAL + GitHub flush via PlatoSync ────────────
+
+from plato_sync import PlatoSync, SyncConfig
+
+_sync_config = SyncConfig()
+_plato_sync = PlatoSync(_sync_config)
+
 
 def wal_append(tile_data: dict):
     """Append a tile to the JSONL WAL. Every tile survives crashes."""
@@ -44,72 +50,18 @@ def wal_append(tile_data: dict):
         os.fsync(f.fileno())
 
 
-def wal_flush_to_twin():
-    """Flush WAL to GitHub twin repo. Called on cadence (every 50 tiles or 5 min).
-
-    Steps:
-    1. Read WAL entries since last flush
-    2. Group by room → write room JSONL files in twin/
-    3. git commit + push
-    4. Truncate WAL (entries now safe in git)
-    """
-    wal = Path(WAL_PATH)
-    if not wal.exists() or wal.stat().st_size == 0:
-        return {"status": "nothing to flush"}
-
-    twin = Path(TWIN_DIR)
-    twin.mkdir(parents=True, exist_ok=True)
-
-    # Read all WAL entries
-    entries = []
-    with open(wal) as f:
-        for line in f:
-            line = line.strip()
-            if line:
-                try:
-                    entries.append(json.loads(line))
-                except json.JSONDecodeError:
-                    pass
-
-    if not entries:
-        return {"status": "empty wal"}
-
-    # Group by room and append to room files
-    rooms_updated = set()
-    for entry in entries:
-        room = entry.get("room", "general")
-        room_file = twin / f"{room}.jsonl"
-        with open(room_file, "a") as f:
-            f.write(json.dumps(entry, default=str) + "\n")
-        rooms_updated.add(room)
-
-    # Git commit + push
-    token_path = Path.home() / ".openclaw" / "workspace" / ".credentials" / "github-pat.txt"
-    if token_path.exists() and (twin / ".git").exists():
-        import subprocess
-        subprocess.run(["git", "add", "-A"], cwd=str(twin), capture_output=True, timeout=10)
-        msg = f"PLATO WAL flush: {len(entries)} tiles across {len(rooms_updated)} rooms"
-        subprocess.run(["git", "commit", "-m", msg], cwd=str(twin), capture_output=True, timeout=10)
-        subprocess.run(["git", "push"], cwd=str(twin), capture_output=True, timeout=30)
-
-    # Truncate WAL (safe now — tiles are in git)
-    wal.write_text("")
-
-    return {"status": "flushed", "tiles": len(entries), "rooms": list(rooms_updated)}
-
-
 _wal_counter = 0
-WAL_FLUSH_INTERVAL = 50  # flush to GitHub every N tiles
+WAL_FLUSH_INTERVAL = _sync_config.flush_interval  # from SyncConfig
 
 
 def wal_maybe_flush():
-    """Called after every tile write. Flushes on interval."""
+    """Called after every tile write. Flushes on interval via threaded flush."""
     global _wal_counter
     _wal_counter += 1
     if _wal_counter >= WAL_FLUSH_INTERVAL:
         _wal_counter = 0
         try:
-            return wal_flush_to_twin()
+            _plato_sync.threaded_flush()
         except Exception:
             pass  # non-blocking — WAL still has the data
     return None
@@ -149,6 +101,8 @@ class PlatoHandler(BaseHTTPRequestHandler):
 
         if path == "/status" or path == "/health":
             self._handle_status()
+        elif path == "/sync/status":
+            self._send_json(_plato_sync.get_status())
         elif path == "/rooms":
             self._handle_rooms(params)
         elif path.startswith("/room/"):
@@ -285,6 +239,8 @@ class PlatoHandler(BaseHTTPRequestHandler):
 
         if path == "/submit":
             self._handle_submit()
+        elif path == "/sync/flush":
+            self._send_json(_plato_sync.flush_to_github())
         elif path == "/sync":
             self._handle_sync()
         elif path == "/wal/flush":
@@ -400,6 +356,11 @@ def main():
 
     boot_result = store.boot()
     print(f"Booted: {boot_result['rooms']} rooms, {boot_result['tiles']} tiles")
+
+    # Startup recovery: flush any unsynced WAL entries
+    recovery = _plato_sync.recover_on_startup()
+    if recovery.get("pending", 0) > 0 or recovery.get("tiles", 0) > 0:
+        print(f"  WAL recovery: {recovery}")
 
     # Wire store to handler
     PlatoHandler.store = store
