@@ -1,0 +1,552 @@
+#!/usr/bin/env python3
+"""fm-hebbian-daemon — Persistent Hebbian service daemon with fleet coupling.
+
+Starts the Hebbian service on :8849, periodically polls PLATO (:8848) for
+new tiles, feeds them into the Hebbian layer, and monitors conservation
+compliance. Shell-shock warnings fire when compliance drops below 85%.
+
+CLI:
+    fm-hebbian-daemon start       — start as background daemon
+    fm-hebbian-daemon stop        — graceful shutdown
+    fm-hebbian-daemon status      — current state, compliance, clusters
+    fm-hebbian-daemon calibrate   — force recalibration
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import logging
+import os
+import signal
+import socket
+import subprocess
+import sys
+import time
+import urllib.request
+import urllib.error
+from logging.handlers import RotatingFileHandler
+from typing import Any, Dict, List, Optional
+
+# ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
+
+WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PID_FILE = "/tmp/fm-hebbian-daemon.pid"
+LOG_FILE = "/tmp/fm-hebbian-daemon.log"
+HEBBIAN_PORT = 8849
+PLATO_PORT = 8848
+POLL_INTERVAL = 60  # seconds
+COMPLIANCE_THRESHOLD = 0.85
+
+# ---------------------------------------------------------------------------
+# Logging
+# ---------------------------------------------------------------------------
+
+def setup_logging(verbose: bool = False) -> logging.Logger:
+    logger = logging.getLogger("fm-hebbian-daemon")
+    logger.setLevel(logging.DEBUG if verbose else logging.INFO)
+    if not logger.handlers:
+        handler = RotatingFileHandler(
+            LOG_FILE, maxBytes=5 * 1024 * 1024, backupCount=3
+        )
+        handler.setFormatter(logging.Formatter(
+            "%(asctime)s [%(levelname)s] %(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S",
+        ))
+        logger.addHandler(handler)
+        # Also log to stderr for foreground mode
+        stderr_handler = logging.StreamHandler(sys.stderr)
+        stderr_handler.setFormatter(logging.Formatter(
+            "%(asctime)s [%(levelname)s] %(message)s",
+            datefmt="%H:%M:%S",
+        ))
+        logger.addHandler(stderr_handler)
+    return logger
+
+
+# ---------------------------------------------------------------------------
+# PID file management
+# ---------------------------------------------------------------------------
+
+def write_pid() -> None:
+    with open(PID_FILE, "w") as f:
+        f.write(str(os.getpid()))
+
+
+def read_pid() -> Optional[int]:
+    try:
+        with open(PID_FILE) as f:
+            return int(f.read().strip())
+    except (FileNotFoundError, ValueError):
+        return None
+
+
+def remove_pid() -> None:
+    try:
+        os.unlink(PID_FILE)
+    except FileNotFoundError:
+        pass
+
+
+def is_running() -> bool:
+    pid = read_pid()
+    if pid is None:
+        return False
+    try:
+        os.kill(pid, 0)
+        return True
+    except (ProcessLookupError, PermissionError):
+        remove_pid()
+        return False
+
+
+# ---------------------------------------------------------------------------
+# Port check
+# ---------------------------------------------------------------------------
+
+def port_in_use(port: int) -> bool:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.settimeout(1)
+        return s.connect_ex(("127.0.0.1", port)) == 0
+
+
+# ---------------------------------------------------------------------------
+# HTTP helpers (no requests dependency)
+# ---------------------------------------------------------------------------
+
+def http_get(url: str, timeout: int = 10) -> Optional[Dict[str, Any]]:
+    """GET a JSON URL, return parsed dict or None on failure."""
+    try:
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return json.loads(resp.read())
+    except (urllib.error.URLError, OSError, json.JSONDecodeError, TimeoutError):
+        return None
+
+
+def http_post(url: str, data: Dict[str, Any], timeout: int = 10) -> Optional[Dict[str, Any]]:
+    """POST JSON to a URL, return parsed dict or None on failure."""
+    try:
+        body = json.dumps(data).encode()
+        req = urllib.request.Request(
+            url, data=body,
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return json.loads(resp.read())
+    except (urllib.error.URLError, OSError, json.JSONDecodeError, TimeoutError):
+        return None
+
+
+# ---------------------------------------------------------------------------
+# PLATO tile fetcher
+# ---------------------------------------------------------------------------
+
+def fetch_plato_tiles(since: float = 0.0, limit: int = 100) -> List[Dict[str, Any]]:
+    """Fetch tiles from PLATO service newer than `since` timestamp.
+
+    Tries multiple PLATO endpoints in order of preference.
+    """
+    base = f"http://127.0.0.1:{PLATO_PORT}"
+
+    # Try /tiles/recent first (most specific)
+    result = http_get(f"{base}/tiles/recent?since={since}&limit={limit}")
+    if result and isinstance(result, list):
+        return result
+    if result and isinstance(result, dict) and "tiles" in result:
+        return result["tiles"]
+
+    # Try /tiles
+    result = http_get(f"{base}/tiles?limit={limit}")
+    if result and isinstance(result, list):
+        return [t for t in result if t.get("timestamp", 0) > since]
+    if result and isinstance(result, dict) and "tiles" in result:
+        return [t for t in result["tiles"] if t.get("timestamp", 0) > since]
+
+    # Try /flow from the Hebbian service itself as fallback
+    result = http_get(f"http://127.0.0.1:{HEBBIAN_PORT}/flow?n={limit}")
+    if result and isinstance(result, list):
+        return [t for t in result if t.get("timestamp", 0) > since]
+
+    return []
+
+
+# ---------------------------------------------------------------------------
+# Hebbian service wrapper
+# ---------------------------------------------------------------------------
+
+class HebbianDaemon:
+    """Manages the Hebbian service lifecycle and periodic tile feeding."""
+
+    def __init__(self, logger: logging.Logger, foreground: bool = False):
+        self.logger = logger
+        self.foreground = foreground
+        self.service = None
+        self._last_poll_time: float = 0.0
+        self._total_tiles_fed: int = 0
+        self._shell_shock_count: int = 0
+        self._last_compliance: float = 1.0
+        self._running: bool = False
+        self._service_thread = None
+
+    def start_service(self) -> bool:
+        """Start the Hebbian HTTP service on :8849."""
+        if port_in_use(HEBBIAN_PORT):
+            self.logger.info(f"Port :{HEBBIAN_PORT} already in use — service likely running")
+            return True
+
+        # Import and start the service in-process
+        sys.path.insert(0, WORKSPACE)
+        try:
+            from fleet_hebbian_service import FleetHebbianService
+        except ImportError as e:
+            self.logger.error(f"Cannot import fleet_hebbian_service: {e}")
+            return False
+
+        self.service = FleetHebbianService(port=HEBBIAN_PORT)
+        self.service.start(block=False)
+        self.logger.info(f"Hebbian service started on :{HEBBIAN_PORT}")
+        return True
+
+    def feed_tile(self, tile: Dict[str, Any]) -> bool:
+        """Feed a single tile to the Hebbian service via HTTP POST."""
+        result = http_post(
+            f"http://127.0.0.1:{HEBBIAN_PORT}/tile",
+            {
+                "tile_type": tile.get("tile_type", "model"),
+                "source_room": tile.get("source_room", tile.get("room", "unknown")),
+                "dest_room": tile.get("dest_room"),
+                "tile_hash": tile.get("tile_hash", tile.get("hash", "")),
+                "confidence": tile.get("confidence", 0.9),
+                "tags": tile.get("tags", []),
+            },
+        )
+        if result:
+            self._total_tiles_fed += 1
+            return True
+        return False
+
+    def check_compliance(self) -> float:
+        """Check current conservation compliance rate."""
+        status = http_get(f"http://127.0.0.1:{HEBBIAN_PORT}/status")
+        if status and "compliance_rate" in status:
+            return float(status["compliance_rate"])
+        return 1.0  # assume compliant if unreachable
+
+    def check_shell_shock(self) -> bool:
+        """Check for shell-shock condition (compliance < threshold)."""
+        self._last_compliance = self.check_compliance()
+        if self._last_compliance < COMPLIANCE_THRESHOLD:
+            self._shell_shock_count += 1
+            self.logger.warning(
+                f"⚡ SHELL SHOCK: compliance {self._last_compliance:.1%} "
+                f"below {COMPLIANCE_THRESHOLD:.0%} threshold "
+                f"(incident #{self._shell_shock_count})"
+            )
+            return True
+        return False
+
+    def poll_and_feed(self) -> int:
+        """Poll PLATO for new tiles and feed them to the Hebbian layer.
+
+        Returns number of tiles fed.
+        """
+        tiles = fetch_plato_tiles(since=self._last_poll_time)
+        if not tiles:
+            self._last_poll_time = time.time()
+            return 0
+
+        fed = 0
+        for tile in tiles:
+            if self.feed_tile(tile):
+                fed += 1
+
+        self._last_poll_time = time.time()
+        self.logger.info(f"Fed {fed} new tiles to Hebbian layer (total: {self._total_tiles_fed})")
+        return fed
+
+    def calibrate(self) -> Optional[Dict[str, Any]]:
+        """Force recalibration of the Hebbian kernel."""
+        self.logger.info("Starting forced recalibration...")
+        result = http_post(
+            f"http://127.0.0.1:{HEBBIAN_PORT}/calibrate",
+            {"n_steps": 300},
+        )
+        if result:
+            self.logger.info(
+                f"Calibration complete: compliance={result.get('compliance_rate', '?')} "
+                f"target={result.get('warmup_target', '?')}"
+            )
+        else:
+            self.logger.warning("Calibration failed — service unreachable")
+        return result
+
+    def get_status(self) -> Dict[str, Any]:
+        """Get full daemon status including service state."""
+        status = http_get(f"http://127.0.0.1:{HEBBIAN_PORT}/status")
+        compliance = self._last_compliance
+        return {
+            "daemon": {
+                "pid": os.getpid(),
+                "running": self._running,
+                "foreground": self.foreground,
+                "poll_interval": POLL_INTERVAL,
+                "last_poll": self._last_poll_time,
+                "total_tiles_fed": self._total_tiles_fed,
+                "shell_shock_count": self._shell_shock_count,
+                "last_compliance": f"{compliance:.1%}",
+                "compliance_threshold": f"{COMPLIANCE_THRESHOLD:.0%}",
+                "pid_file": PID_FILE,
+                "log_file": LOG_FILE,
+            },
+            "service": status or {"status": "unreachable"},
+            "shell_shock_active": compliance < COMPLIANCE_THRESHOLD,
+        }
+
+    def run(self) -> None:
+        """Main daemon loop: start service, poll PLATO, check compliance."""
+        self._running = True
+
+        # Install signal handlers for graceful shutdown
+        def _shutdown(signum, frame):
+            self.logger.info(f"Received signal {signum}, shutting down...")
+            self._running = False
+
+        signal.signal(signal.SIGTERM, _shutdown)
+        signal.signal(signal.SIGINT, _shutdown)
+
+        # Start the Hebbian service
+        if not self.start_service():
+            self.logger.error("Failed to start Hebbian service, exiting")
+            return
+
+        # Wait for service to be ready
+        for attempt in range(30):
+            if port_in_use(HEBBIAN_PORT):
+                break
+            time.sleep(0.5)
+        else:
+            self.logger.error("Hebbian service failed to bind, exiting")
+            return
+
+        self.logger.info(
+            f"Daemon running — polling PLATO :{PLATO_PORT} every {POLL_INTERVAL}s"
+        )
+
+        # Initial calibration
+        self.calibrate()
+
+        # Main loop
+        while self._running:
+            try:
+                # Poll and feed new tiles
+                self.poll_and_feed()
+
+                # Check conservation compliance
+                self.check_shell_shock()
+
+                # Save weights periodically
+                http_post(f"http://127.0.0.1:{HEBBIAN_PORT}/save", {})
+
+            except Exception as e:
+                self.logger.error(f"Error in poll cycle: {e}")
+
+            # Sleep with interrupt check
+            for _ in range(POLL_INTERVAL):
+                if not self._running:
+                    break
+                time.sleep(1)
+
+        self.logger.info("Daemon stopped")
+        if self.service:
+            self.service.stop()
+
+
+# ---------------------------------------------------------------------------
+# CLI commands
+# ---------------------------------------------------------------------------
+
+def cmd_start(args) -> None:
+    """Start the daemon (foreground or background)."""
+    logger = setup_logging(verbose=getattr(args, "verbose", False))
+
+    if is_running():
+        pid = read_pid()
+        print(f"Daemon already running (PID {pid})")
+        return
+
+    if args.foreground:
+        # Run in foreground
+        write_pid()
+        daemon = HebbianDaemon(logger, foreground=True)
+        try:
+            daemon.run()
+        finally:
+            remove_pid()
+    else:
+        # Fork to background
+        pid = os.fork()
+        if pid > 0:
+            # Parent — wait briefly for child to start
+            time.sleep(1)
+            if is_running():
+                print(f"Daemon started (PID {pid})")
+                print(f"  PID file: {PID_FILE}")
+                print(f"  Log file: {LOG_FILE}")
+                print(f"  Hebbian:  :{HEBBIAN_PORT}")
+                print(f"  PLATO:    :{PLATO_PORT}")
+            else:
+                print("Daemon failed to start — check log file")
+            return
+
+        # Child — detach and run
+        os.setsid()
+        write_pid()
+        daemon = HebbianDaemon(logger, foreground=False)
+        try:
+            daemon.run()
+        finally:
+            remove_pid()
+
+
+def cmd_stop(args) -> None:
+    """Stop the daemon."""
+    pid = read_pid()
+    if pid is None:
+        print("Daemon not running (no PID file)")
+        return
+
+    try:
+        os.kill(pid, signal.SIGTERM)
+        print(f"Sent SIGTERM to PID {pid}")
+        # Wait for process to exit
+        for _ in range(10):
+            time.sleep(0.5)
+            try:
+                os.kill(pid, 0)
+            except ProcessLookupError:
+                print("Daemon stopped")
+                remove_pid()
+                return
+        # Force kill
+        os.kill(pid, signal.SIGKILL)
+        print("Daemon force-killed")
+        remove_pid()
+    except ProcessLookupError:
+        print("Process not found — cleaning up PID file")
+        remove_pid()
+    except PermissionError:
+        print(f"Permission denied killing PID {pid}")
+
+
+def cmd_status(args) -> None:
+    """Show daemon status."""
+    pid = read_pid()
+    running = is_running()
+
+    print(f"Daemon: {'running' if running else 'stopped'} (PID {pid})")
+    print(f"PID file: {PID_FILE}")
+    print(f"Log file: {LOG_FILE}")
+
+    if not running:
+        return
+
+    # Query the service
+    status = http_get(f"http://127.0.0.1:{HEBBIAN_PORT}/status")
+    if status:
+        print(f"\nService: {status.get('status', '?')}")
+        print(f"Port: {status.get('port', HEBBIAN_PORT)}")
+        print(f"Rooms: {status.get('rooms', '?')}")
+        print(f"Kernel updates: {status.get('kernel_updates', '?')}")
+        print(f"Flow events: {status.get('flow_events', '?')}")
+        print(f"Compliance: {status.get('compliance_rate', '?')}")
+        print(f"Auto-calibrated: {status.get('auto_calibrated', '?')}")
+
+        # Show clusters
+        clusters = http_get(f"http://127.0.0.1:{HEBBIAN_PORT}/clusters")
+        if clusters:
+            print(f"\nClusters: {len(clusters)}")
+            for c in clusters[:5]:
+                print(f"  #{c.get('cluster_id', '?')}: "
+                      f"{c.get('rooms', [])} "
+                      f"(strength: {c.get('avg_internal_strength', '?')})")
+    else:
+        print("\nHebbian service unreachable on :{HEBBIAN_PORT}")
+
+    # Check log for recent shell-shock warnings
+    try:
+        with open(LOG_FILE) as f:
+            lines = f.readlines()
+        shocks = [l.strip() for l in lines if "SHELL SHOCK" in l]
+        if shocks:
+            print(f"\nRecent shell shocks ({len(shocks)} total):")
+            for s in shocks[-3:]:
+                print(f"  {s}")
+    except FileNotFoundError:
+        pass
+
+
+def cmd_calibrate(args) -> None:
+    """Force recalibration."""
+    if not is_running():
+        print("Daemon not running — start it first")
+        return
+
+    print("Triggering recalibration...")
+    result = http_post(
+        f"http://127.0.0.1:{HEBBIAN_PORT}/calibrate",
+        {"n_steps": 300},
+    )
+    if result:
+        print(f"Calibration complete:")
+        print(f"  Compliance: {result.get('compliance_rate', '?')}")
+        print(f"  Auto-calibrated: {result.get('auto_calibrated', '?')}")
+        print(f"  Warmup target: {result.get('warmup_target', '?')}")
+        cons = result.get("conservation", {})
+        print(f"  γ+H: {cons.get('sum', '?')} (predicted: {cons.get('predicted', '?')})")
+    else:
+        print("Calibration failed — service unreachable")
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="fm-hebbian-daemon — Persistent Hebbian service daemon"
+    )
+    parser.add_argument(
+        "--verbose", "-v", action="store_true", help="Debug logging"
+    )
+    sub = parser.add_subparsers(dest="command")
+
+    start_p = sub.add_parser("start", help="Start daemon")
+    start_p.add_argument(
+        "--foreground", "-f", action="store_true",
+        help="Run in foreground (don't fork)"
+    )
+
+    sub.add_parser("stop", help="Stop daemon")
+    sub.add_parser("status", help="Show daemon status")
+    sub.add_parser("calibrate", help="Force recalibration")
+
+    args = parser.parse_args()
+
+    if args.command == "start":
+        cmd_start(args)
+    elif args.command == "stop":
+        cmd_stop(args)
+    elif args.command == "status":
+        cmd_status(args)
+    elif args.command == "calibrate":
+        cmd_calibrate(args)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
