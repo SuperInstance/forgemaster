@@ -151,3 +151,91 @@ The dog can learn any job — herd, hunt, guard, point, track — as long as the
 ---
 
 *Casey Digennaro | Forgemaster ⚒️ | Added 2026-05-16*
+
+---
+
+## The Dog Models the Flock: Three-Level Agency
+
+The dog doesn't just model the cowboy. The dog also models the SHEEP.
+
+The dog simulates from OUTSIDE the sheep's shell what would happen if it nipped at a specific heel. Which members of the flock to nip to cascade the prompted nudge through the entire **boid** — the flock as an emergent system with its own dynamics.
+
+This is three-level modeling:
+
+```
+Level 1: The COWBOY (conductor)
+  → "This action makes my human happy"
+  → The reward signal, the approval gradient
+
+Level 2: The SHEEP (individual tertiary agent)  
+  → "If I nip THIS one's heel, what happens?"
+  → The physics of a single agent's response to perturbation
+
+Level 3: The FLOCK / BOID (emergent system)
+  → "Which nudge cascades through the whole system?"
+  → The collective dynamics of many agents responding to perturbation
+```
+
+The dog doesn't think "the flock needs to move left." The dog thinks: "If I nip the lead ewe's right heel, she'll veer left, and three following sheep will follow her, which will create a gap on the right flank, which the stray will move into, which closes the gap, and the cowboy will say good dog."
+
+The dog runs a **simulation** of the flock's emergent behavior — a multi-agent model in its head — and selects the action that produces the desired cascade.
+
+### The Shell Perspective
+
+The key: the dog models the sheep from OUTSIDE the sheep's shell. The dog doesn't try to think like a sheep. It tries to predict what a sheep DOES when prompted. The dog occupies a higher scale (ROOM level) observing agents at a lower scale (TILE level) and simulating their emergent behavior.
+
+The dog is **scale-folding** unconsciously:
+- It sees each sheep as a tile
+- It sees the flock as a room
+- It sees itself as a system operating on the room
+- It sees the cowboy as the desire that drives the whole fold
+
+Three folds. Three levels of simulation. One nip at the right heel.
+
+### Applied to the Fleet
+
+This is EXACTLY what ActiveSonar does:
+
+```python
+# Level 1: The cowboy's desire
+desire = Desire("find constraints in data.json")
+
+# Level 2: Probe individual agents (sheep)
+probe = BoundaryProbe()
+result = probe.fire_at(target=data_agent, prompt="What constraints do you see?")
+
+# Level 3: Model the emergent cascade (flock boid)  
+for member in sorted(flock, key=follower_density, reverse=True):
+    cascade = simulate_nudge(member, result)
+    if cascade["amplification"] > threshold:
+        probe.fire_at(member, cascade["optimal_nudge"])
+        break
+```
+
+The agent doesn't ask every member of the flock. It simulates which nudge cascades, identifies the lead ewe (highest follower density), and probes that ONE member. The cascade does the rest.
+
+### What Makes a Good Probe Dog
+
+Not all dogs are good herders. A good herding dog has:
+
+1. **Accelerated simulation** — runs the "what if I nip THIS one?" faster than real time
+2. **Cascade sensitivity** — knows which nudge produces the largest amplification
+3. **Shell crossing** — can model the flock from outside the flock
+4. **Reward alignment** — optimizes for cowboy approval, not flock dynamics
+5. **Efficiency instinct** — one nip at the right heel beats chasing all fifty sheep
+
+The best probe agents in the fleet have the same properties. They simulate the cascade before they fire the probe. They know which data point, which tile, which agent to probe. They optimize for the smallest nudge that produces the largest cascade.
+
+The worst probe agents fire at random and wonder why nothing converges.
+
+### The Boid as Architecture
+
+The flock is a **boid** — an emergent system where each agent follows simple local rules (alignment, separation, cohesion) and the global behavior emerges from local interactions.
+
+The dog that understands the boid doesn't need to control every sheep. The dog finds the leverage point — specific heel, specific moment — where one action meets the flock's internal dynamics at a point of maximum amplification.
+
+The fleet needs probes that understand the FLOCK, not just the SHEEP. The collective terrain map IS the dog's understanding of the boid. The convergence detection IS the dog recognizing when the cascade has propagated. The blind spot identification IS the dog knowing where the flock needs to be, not just where it is.
+
+---
+
+*Casey Digennaro | Forgemaster ⚒️ | Added 2026-05-16*
