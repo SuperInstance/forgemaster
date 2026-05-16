@@ -718,7 +718,262 @@ class CriticalAngleRouter:
 
 
 # =========================================================================
-# Self-Healing Mixin (Study 63)
+# Conservation Reweight Mixin (Study 64)
+# =========================================================================
+
+@dataclass
+class ReweightRecord:
+    """Track reweighting state per expert (Study 64)."""
+    expert_id: str
+    base_weight: float = 1.0
+    current_weight: float = 1.0
+    reweight_count: int = 0
+    consecutive_reweight_failures: int = 0
+    last_gap: float = 0.0
+    last_reweight_time: float = 0.0
+    recovery_history: List[Dict[str, Any]] = field(default_factory=list)
+
+
+class ConservationReweightMixin:
+    """
+    Conservation-guided reweighting for fleet recovery (Study 64 findings).
+
+    Study 64 proved:
+    - Conservation reweighting recovers 3.1× faster than quarantine (3.2 vs 10.0 rounds)
+    - Loses 73% fewer tiles (9.5 vs 35.8)
+    - Hebbian rebalancing is dangerous under fleet stress (convergence trap)
+    - Recovery rate should scale with conservation gap magnitude
+
+    Key principle: Never remove capacity — all experts stay active, just get
+    different traffic weights based on their conservation contribution.
+    """
+
+    MAX_REWEIGHT_ROUNDS_BEFORE_QUARANTINE = 5  # Fallback threshold
+    GAP_SCALE_FACTOR = 3.0  # Exponential scaling base
+    MAX_WEIGHT_RANGE = (0.05, 3.0)  # Never zero-weight an expert
+
+    def __init__(self, registry: ModelRegistry, healing_mixin: Optional['SelfHealingMixin'] = None):
+        self.registry = registry
+        self.healing_mixin = healing_mixin
+        self._reweight_records: Dict[str, ReweightRecord] = {}
+        self._expert_weights: Dict[str, float] = {}  # expert_id → routing weight
+        self._conservation_compliance: float = 1.0
+        self._conservation_gap: float = 0.0
+        self._hebbian_enabled: bool = True
+        self._lock = threading.Lock()
+        self._reweight_log: List[Dict[str, Any]] = []
+
+    def _get_record(self, expert_id: str) -> ReweightRecord:
+        if expert_id not in self._reweight_records:
+            self._reweight_records[expert_id] = ReweightRecord(expert_id=expert_id)
+            self._expert_weights[expert_id] = 1.0
+        return self._reweight_records[expert_id]
+
+    def check_conservation_recovery(
+        self,
+        conservation_compliance: float,
+        expert_scores: Optional[Dict[str, Dict[str, float]]] = None,
+    ) -> Dict[str, Any]:
+        """
+        Compute conservation gap and scale recovery rate.
+
+        Args:
+            conservation_compliance: Current fleet compliance rate (0.0–1.0).
+            expert_scores: Optional dict of {expert_id: {"alignment": float, "accuracy": float}}.
+
+        Returns:
+            Dict with gap, recovery_rate, reweighting actions, and Hebbian status.
+        """
+        gap = max(0.0, 1.0 - conservation_compliance)
+        recovery_rate = 0.0
+        actions = []
+
+        with self._lock:
+            self._conservation_compliance = conservation_compliance
+            self._conservation_gap = gap
+
+            # Disable Hebbian under stress (Study 64: convergence trap)
+            hebbian_was = self._hebbian_enabled
+            self._hebbian_enabled = conservation_compliance >= 0.85
+            if hebbian_was and not self._hebbian_enabled:
+                actions.append("hebbian_disabled_stress")
+                logger.warning(
+                    "Hebbian rebalancing DISABLED (compliance=%.1f%% < 85%%) — Study 64 convergence trap",
+                    conservation_compliance * 100,
+                )
+            elif not hebbian_was and self._hebbian_enabled:
+                actions.append("hebbian_reenabled")
+                logger.info("Hebbian rebalancing re-enabled (compliance=%.1f%% >= 85%%)",
+                            conservation_compliance * 100)
+
+            # Always compute recovery rate when there's a gap
+            if gap > 0.0:
+                # Exponential scaling: larger gap → more aggressive reweighting
+                recovery_rate = min(1.0, gap ** 2 * self.GAP_SCALE_FACTOR)
+
+            if gap > 0.0 and expert_scores:
+                for expert_id, scores in expert_scores.items():
+                    rec = self._get_record(expert_id)
+                    rec.last_gap = gap
+                    rec.last_reweight_time = time.time()
+
+                    # Conservation contribution = alignment × accuracy
+                    alignment = scores.get("alignment", 1.0)
+                    accuracy = scores.get("accuracy", 1.0)
+                    contribution = alignment * accuracy
+
+                    action = self._reweight_expert_internal(expert_id, contribution, recovery_rate)
+                    actions.append(action)
+
+            result = {
+                "conservation_compliance": round(conservation_compliance, 4),
+                "conservation_gap": round(gap, 4),
+                "recovery_rate": round(recovery_rate, 4),
+                "hebbian_enabled": self._hebbian_enabled,
+                "actions": actions,
+                "timestamp": time.time(),
+            }
+            self._reweight_log.append(result)
+            if len(self._reweight_log) > 5000:
+                self._reweight_log = self._reweight_log[-2500:]
+
+        return result
+
+    def _reweight_expert_internal(
+        self,
+        expert_id: str,
+        contribution: float,
+        recovery_rate: float,
+    ) -> Dict[str, Any]:
+        """Internal reweight logic. Must be called within self._lock."""
+        rec = self._get_record(expert_id)
+        old_weight = self._expert_weights.get(expert_id, 1.0)
+
+        # Scale weight toward conservation contribution
+        # contribution=1.0 → weight stays at base, contribution=0.0 → weight drops to min
+        target_weight = max(
+            self.MAX_WEIGHT_RANGE[0],
+            min(self.MAX_WEIGHT_RANGE[1], contribution * recovery_rate + (1 - recovery_rate) * old_weight),
+        )
+
+        # Blend: high recovery_rate → move fast, low → move slow
+        new_weight = old_weight + recovery_rate * (target_weight - old_weight)
+        new_weight = max(self.MAX_WEIGHT_RANGE[0], min(self.MAX_WEIGHT_RANGE[1], new_weight))
+
+        self._expert_weights[expert_id] = new_weight
+        rec.current_weight = new_weight
+        rec.reweight_count += 1
+
+        # Track failures (weight kept dropping)
+        if new_weight < old_weight:
+            rec.consecutive_reweight_failures += 1
+        else:
+            rec.consecutive_reweight_failures = 0
+
+        return {
+            "expert_id": expert_id,
+            "old_weight": round(old_weight, 4),
+            "new_weight": round(new_weight, 4),
+            "contribution": round(contribution, 4),
+            "recovery_rate": round(recovery_rate, 4),
+        }
+
+    def reweight_expert(self, expert_id: str, gap: float) -> Dict[str, Any]:
+        """
+        Manually reweight a single expert based on conservation gap.
+
+        Args:
+            expert_id: The expert to reweight.
+            gap: Conservation gap magnitude (0.0–1.0).
+
+        Returns:
+            Dict with weight change details.
+        """
+        if gap < 0.0:
+            gap = 0.0
+        if gap > 1.0:
+            gap = 1.0
+
+        # Exponential scaling
+        recovery_rate = min(1.0, gap ** 2 * self.GAP_SCALE_FACTOR)
+
+        with self._lock:
+            rec = self._get_record(expert_id)
+            old_weight = self._expert_weights.get(expert_id, 1.0)
+            # Scale down by gap contribution
+            contribution = max(0.0, 1.0 - gap)
+            action = self._reweight_expert_internal(expert_id, contribution, recovery_rate)
+            rec.last_gap = gap
+            rec.last_reweight_time = time.time()
+            action["gap"] = round(gap, 4)
+
+        return action
+
+    def get_expert_weight(self, expert_id: str) -> float:
+        """Get the current routing weight for an expert."""
+        with self._lock:
+            return self._expert_weights.get(expert_id, 1.0)
+
+    def get_all_weights(self) -> Dict[str, float]:
+        """Get all expert routing weights."""
+        with self._lock:
+            return dict(self._expert_weights)
+
+    def should_quarantine(self, expert_id: str) -> bool:
+        """
+        Check if an expert has exhausted reweighting rounds and should be quarantined.
+
+        Returns True if the expert has had MAX_REWEIGHT_ROUNDS_BEFORE_QUARANTINE
+        consecutive reweight failures (weight kept dropping without recovery).
+        """
+        with self._lock:
+            rec = self._reweight_records.get(expert_id)
+            if rec is None:
+                return False
+            return rec.consecutive_reweight_failures >= self.MAX_REWEIGHT_ROUNDS_BEFORE_QUARANTINE
+
+    def reset_expert_weight(self, expert_id: str) -> Dict[str, Any]:
+        """Reset an expert's weight to baseline (1.0)."""
+        with self._lock:
+            rec = self._get_record(expert_id)
+            old_weight = self._expert_weights.get(expert_id, 1.0)
+            self._expert_weights[expert_id] = 1.0
+            rec.current_weight = 1.0
+            rec.consecutive_reweight_failures = 0
+            rec.base_weight = 1.0
+        return {"expert_id": expert_id, "old_weight": round(old_weight, 4), "new_weight": 1.0}
+
+    def is_hebbian_enabled(self) -> bool:
+        """Check if Hebbian coupling is currently allowed."""
+        with self._lock:
+            return self._hebbian_enabled
+
+    def get_status(self) -> Dict[str, Any]:
+        """Full status of the conservation reweighting system."""
+        with self._lock:
+            experts = []
+            for eid, rec in self._reweight_records.items():
+                experts.append({
+                    "expert_id": eid,
+                    "base_weight": rec.base_weight,
+                    "current_weight": round(rec.current_weight, 4),
+                    "reweight_count": rec.reweight_count,
+                    "consecutive_failures": rec.consecutive_reweight_failures,
+                    "last_gap": round(rec.last_gap, 4),
+                    "should_quarantine": rec.consecutive_reweight_failures >= self.MAX_REWEIGHT_ROUNDS_BEFORE_QUARANTINE,
+                })
+            return {
+                "conservation_compliance": round(self._conservation_compliance, 4),
+                "conservation_gap": round(self._conservation_gap, 4),
+                "hebbian_enabled": self._hebbian_enabled,
+                "experts": experts,
+                "total_reweights": sum(r.reweight_count for r in self._reweight_records.values()),
+                "reweight_log_size": len(self._reweight_log),
+            }
+
+
+# =========================================================================
+# Self-Healing Mixin (Study 63, updated Study 64)
 # =========================================================================
 
 @dataclass
@@ -753,19 +1008,24 @@ class QuarantineConfig:
 class SelfHealingMixin:
     """
     Self-healing for fleet router using dual fault detection (Study 63).
+    Updated Study 64: reweight-first, quarantine-second approach.
 
     Features:
     - Intent drift detection (9D CI facets, cosine similarity)
     - Answer consensus checking (relative error vs fleet median)
-    - Progressive quarantine with confirmation rounds
+    - **Conservation reweighting before quarantine** (Study 64)
+    - Progressive quarantine only after reweighting fails (5 rounds)
     - Auto-restore after healthy rounds
     - Conservation-aware: more cautious when compliance < 85%
+    - Hebbian rebalancing disabled under fleet stress (Study 64)
     - Fleet protection: never drop below 4 active experts
     """
 
-    def __init__(self, registry: ModelRegistry, config: Optional[QuarantineConfig] = None):
+    def __init__(self, registry: ModelRegistry, config: Optional[QuarantineConfig] = None,
+                 reweight_mixin: Optional[ConservationReweightMixin] = None):
         self.registry = registry
         self.config = config or QuarantineConfig()
+        self.reweight_mixin = reweight_mixin
         self._health_records: Dict[str, ExpertHealthRecord] = {}
         self._detector = DualFaultDetector() if HAS_DUAL_FAULT else None
         self._lock = threading.Lock()
@@ -861,8 +1121,9 @@ class SelfHealingMixin:
                 if rec.consecutive_clean >= self.config.clean_for_restore:
                     rec.consecutive_detections = max(0, rec.consecutive_detections - 1)
 
-            # Determine action
+            # Determine action (Study 64: reweight-first, quarantine-second)
             action = "healthy"
+            reweight_result = None
             if rec.quarantined:
                 # Check for auto-restore
                 if rec.consecutive_clean >= self.config.clean_for_restore:
@@ -871,8 +1132,14 @@ class SelfHealingMixin:
                 else:
                     action = "quarantined"
             elif rec.consecutive_detections >= self.config.consecutive_for_quarantine:
-                # Try quarantine
-                if self._can_quarantine():
+                # Study 64: try conservation reweight first
+                if self.reweight_mixin and not self.reweight_mixin.should_quarantine(expert_id):
+                    # Reweight instead of quarantine
+                    rw_gap = max(0.0, 1.0 - (intent_sim * (1.0 - relative_error)))
+                    reweight_result = self.reweight_mixin.reweight_expert(expert_id, rw_gap)
+                    action = "reweighted"
+                elif self._can_quarantine():
+                    # Reweighting exhausted → quarantine as fallback
                     self._do_quarantine(expert_id)
                     action = "quarantined"
                 else:
@@ -891,6 +1158,8 @@ class SelfHealingMixin:
                 "action": action,
                 "conservation_elevated": conservation_elevated,
             }
+            if reweight_result is not None:
+                detection["reweight_result"] = reweight_result
             rec.detection_history.append(detection)
             self._detection_log.append(detection)
             # Keep log bounded
@@ -1119,6 +1388,12 @@ class RestoreExpertRequest(BaseModel):
     expert_id: str
 
 
+class RecoveryReweightBody(BaseModel):
+    """Request body for conservation-guided reweighting (Study 64)."""
+    conservation_compliance: float = Field(1.0, description="Current fleet compliance rate (0.0–1.0)")
+    expert_scores: Optional[Dict[str, Dict[str, float]]] = Field(None, description="Per-expert alignment & accuracy scores")
+
+
 # =========================================================================
 # FastAPI Application
 # =========================================================================
@@ -1149,6 +1424,10 @@ def create_app(
 
     # Self-healing mixin
     healing = SelfHealingMixin(registry)
+
+    # Conservation reweight mixin (Study 64)
+    reweight_mixin = ConservationReweightMixin(registry, healing_mixin=healing)
+    healing.reweight_mixin = reweight_mixin
 
     # Store hebbian_service reference if provided
     if hebbian_service:
@@ -1291,11 +1570,41 @@ def create_app(
             return JSONResponse(content=result, status_code=202)
         return result
 
+    # -------------------------------------------------------------------
+    # Conservation Recovery Endpoints (Study 64)
+    # -------------------------------------------------------------------
+
+    @app.post("/fleet/recovery/reweight", response_model=None)
+    async def recovery_reweight(req: RecoveryReweightBody):
+        """Trigger manual conservation-guided reweighting (Study 64).
+
+        JSON body:
+            conservation_compliance: Current fleet compliance (0.0–1.0).
+            expert_scores: Dict of {expert_id: {"alignment": float, "accuracy": float}}.
+        """
+        result = reweight_mixin.check_conservation_recovery(
+            conservation_compliance=req.conservation_compliance,
+            expert_scores=req.expert_scores,
+        )
+        return result
+
+    @app.get("/fleet/recovery/status")
+    async def recovery_status():
+        """Conservation reweighting status (Study 64)."""
+        return reweight_mixin.get_status()
+
+    @app.post("/fleet/recovery/reset", response_model=None)
+    async def recovery_reset_expert(req: RestoreExpertRequest):
+        """Reset an expert's conservation weight to baseline."""
+        result = reweight_mixin.reset_expert_weight(req.expert_id)
+        return result
+
     # Expose internals for testing
     app.state.registry = registry
     app.state.stats = stats
     app.state.router = router
     app.state.healing = healing
+    app.state.reweight = reweight_mixin
 
     return app
 
