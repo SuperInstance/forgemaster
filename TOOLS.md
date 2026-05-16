@@ -155,13 +155,44 @@ Each independently installable. plato-training orchestrates.
 
 See `references/tools-detail.md` for full agent configs.
 
-## Claude Code Timeout Rules
-- **Simple generation** (README, docs): 300s (5 min)
-- **Architecture design** (API specs, system design): 600s (10 min)
-- **Deep analysis** (comparative analysis, strategic docs): 900s (15 min)
-- **Complex multi-file generation** (full packages, integrations): 900-1200s (15-20 min)
-- **Max timeout**: 1200s (20 min) — Claude Opus needs this for world-class output
+## Claude Code Timeout + Effort Rules
+
+**Settings:** `effortLevel: high` (set in ~/.claude/settings.json)
+
+**Model selection:**
+- `claude --model opus` — for the hardest architectural/theoretical work
+- `claude --model sonnet` — default for code generation, good balance
+- Default (sonnet) is fine for most tasks
+
+**Timeout protocol:**
+- **Simple generation** (README, docs): `timeout 300 claude --print`
+- **Architecture design** (API specs, system design): `timeout 600 claude --print`
+- **Deep analysis** (comparative analysis, strategic docs): `timeout 900 claude --print`
+- **Complex multi-file generation** (full packages, integrations): `timeout 1200 claude --print`
+- **Highest level work** (ARCHITECTURE.md, theory synthesis): `timeout 1800 claude --model opus --print`
+- **Max think** (when challenged, novel synthesis): `timeout 2400 claude --model opus --print`
+- **Absolute max**: 2400s (40 min) — only for world-class output on novel problems
 - **Rule of thumb**: If Opus timed out at X, retry at 3X
+
+**Effort flags:**
+- `--effort-level high` — per-invocation override for hard problems
+- Settings already at `high` — Claude thinks longer before responding
+
+**When to use Claude Code (vs GLM-5.1 subagents):**
+- Architecture documents that need to synthesize MANY files
+- Deep analysis requiring reading + reasoning about the whole system
+- Novel theoretical synthesis that benefits from extended thinking
+- When GLM-5.1 agents keep failing on the same problem
+
+**Claude Code pattern for highest-level work:**
+```bash
+timeout 2400 claude --model opus --print --permission-mode bypassPermissions << 'PROMPT'
+[Read these files first, then synthesize]
+PROMPT
+```
+
+**Key: don't feed Claude too many files at once.** Read 5-10 max, or it OOMs.
+For large synthesis, read files in the prompt via shell commands, not all at once.
 
 ## Fleet Model Routing (Updated 2026-05-15)
 
