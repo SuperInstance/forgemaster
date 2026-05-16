@@ -1,0 +1,504 @@
+{
+  "study": "Study 57: Conservation as Training Predictor",
+  "version": "2.0 \u2014 redesigned with conservation modulation and correlation analysis",
+  "hypothesis": "The conservation law at fleet size V predicts incoming agent accuracy with lower error than the fleet average",
+  "parameters": {
+    "n_agents": 20,
+    "fleet_sizes": [
+      3,
+      5,
+      7,
+      9,
+      11,
+      15,
+      20
+    ],
+    "n_bootstraps": 200,
+    "embed_dim": 64,
+    "seed": 42
+  },
+  "conservation_law": {
+    "formula": "\u03b3 + H = 1.283 - 0.159 ln(V)",
+    "r_squared": 0.9602
+  },
+  "results_by_fleet_size": {
+    "3": {
+      "fleet_size": 3,
+      "n_samples": 200,
+      "mean_gh": 0.6946308219362668,
+      "std_gh": 0.3702098045504243,
+      "predicted_gh": 1.1083206461017705,
+      "mean_actual_accuracy": 0.3291444458280406,
+      "mean_fleet_avg_accuracy": 0.3265953416622086,
+      "conservation_modulated": {
+        "mae": 0.052265093067623676,
+        "std": 0.04219571607952235,
+        "median": 0.04145938644998448
+      },
+      "conservation_standalone": {
+        "mae": 0.20525782619353675,
+        "std": 0.06523089631312212,
+        "median": 0.20556357876945033
+      },
+      "baseline_fleet_avg": {
+        "mae": 0.05091435243094862,
+        "std": 0.04107864267950672,
+        "median": 0.04143548758525395
+      },
+      "random": {
+        "mae": 0.2609548452668131,
+        "std": 0.17250370737801365,
+        "median": 0.25047084449897705
+      },
+      "vs_baseline": {
+        "modulated_t": -1.3845,
+        "modulated_p_one_tailed": 0.916114,
+        "modulated_significantly_better": false,
+        "standalone_t": -29.6136,
+        "standalone_p_one_tailed": 1.0,
+        "standalone_significantly_better": false,
+        "modulated_wins": 86,
+        "standalone_wins": 10
+      }
+    },
+    "5": {
+      "fleet_size": 5,
+      "n_samples": 200,
+      "mean_gh": 0.8202747853764376,
+      "std_gh": 0.17519555912500961,
+      "predicted_gh": 1.027099371922978,
+      "mean_actual_accuracy": 0.32758658927828177,
+      "mean_fleet_avg_accuracy": 0.328748870700956,
+      "conservation_modulated": {
+        "mae": 0.04808268443853035,
+        "std": 0.03786327046983467,
+        "median": 0.03827613566761007
+      },
+      "conservation_standalone": {
+        "mae": 0.16264757175072042,
+        "std": 0.08354587340952818,
+        "median": 0.16952123539932026
+      },
+      "baseline_fleet_avg": {
+        "mae": 0.04820420686026722,
+        "std": 0.03596406780015881,
+        "median": 0.040395941687915604
+      },
+      "random": {
+        "mae": 0.24886567776673332,
+        "std": 0.17879135937560256,
+        "median": 0.22205913554916376
+      },
+      "vs_baseline": {
+        "modulated_t": 0.1594,
+        "modulated_p_one_tailed": 0.436741,
+        "modulated_significantly_better": false,
+        "standalone_t": -18.643,
+        "standalone_p_one_tailed": 1.0,
+        "standalone_significantly_better": false,
+        "modulated_wins": 102,
+        "standalone_wins": 23
+      }
+    },
+    "7": {
+      "fleet_size": 7,
+      "n_samples": 200,
+      "mean_gh": 0.8949386319615172,
+      "std_gh": 0.09729330939264914,
+      "predicted_gh": 0.9736002863002051,
+      "mean_actual_accuracy": 0.3271709867793136,
+      "mean_fleet_avg_accuracy": 0.32924566711434367,
+      "conservation_modulated": {
+        "mae": 0.04679133448824033,
+        "std": 0.03873396492965584,
+        "median": 0.03499275317917497
+      },
+      "conservation_standalone": {
+        "mae": 0.10859562747428576,
+        "std": 0.07226790321909071,
+        "median": 0.10503704391573336
+      },
+      "baseline_fleet_avg": {
+        "mae": 0.04751801175709908,
+        "std": 0.03779188435613728,
+        "median": 0.0388852047868298
+      },
+      "random": {
+        "mae": 0.23065845413739494,
+        "std": 0.17583671354695887,
+        "median": 0.184359988788287
+      },
+      "vs_baseline": {
+        "modulated_t": 1.4473,
+        "modulated_p_one_tailed": 0.074692,
+        "modulated_significantly_better": false,
+        "standalone_t": -11.3853,
+        "standalone_p_one_tailed": 1.0,
+        "standalone_significantly_better": false,
+        "modulated_wins": 105,
+        "standalone_wins": 42
+      }
+    },
+    "9": {
+      "fleet_size": 9,
+      "n_samples": 200,
+      "mean_gh": 0.927208314556395,
+      "std_gh": 0.07624383124395077,
+      "predicted_gh": 0.9336412922035411,
+      "mean_actual_accuracy": 0.32782203584487535,
+      "mean_fleet_avg_accuracy": 0.327872881481491,
+      "conservation_modulated": {
+        "mae": 0.04483164604513931,
+        "std": 0.035652441723975824,
+        "median": 0.033707575907661075
+      },
+      "conservation_standalone": {
+        "mae": 0.07339454940268536,
+        "std": 0.05681070431121374,
+        "median": 0.06335295215211317
+      },
+      "baseline_fleet_avg": {
+        "mae": 0.04483774291448599,
+        "std": 0.03582334019589748,
+        "median": 0.03545255838603434
+      },
+      "random": {
+        "mae": 0.24530816867924968,
+        "std": 0.15961257848988195,
+        "median": 0.2471398582463522
+      },
+      "vs_baseline": {
+        "modulated_t": 0.017,
+        "modulated_p_one_tailed": 0.493228,
+        "modulated_significantly_better": false,
+        "standalone_t": -6.8304,
+        "standalone_p_one_tailed": 1.0,
+        "standalone_significantly_better": false,
+        "modulated_wins": 102,
+        "standalone_wins": 72
+      }
+    },
+    "11": {
+      "fleet_size": 11,
+      "n_samples": 200,
+      "mean_gh": 0.9677081847473871,
+      "std_gh": 0.05698102697734383,
+      "predicted_gh": 0.9017346516250591,
+      "mean_actual_accuracy": 0.33225948674536343,
+      "mean_fleet_avg_accuracy": 0.3274500410686734,
+      "conservation_modulated": {
+        "mae": 0.04374338479680491,
+        "std": 0.035696423803285235,
+        "median": 0.03210119907101888
+      },
+      "conservation_standalone": {
+        "mae": 0.06524642130003871,
+        "std": 0.04529234850367326,
+        "median": 0.05469878405563046
+      },
+      "baseline_fleet_avg": {
+        "mae": 0.0434295336411999,
+        "std": 0.036416284959432256,
+        "median": 0.03303770557922395
+      },
+      "random": {
+        "mae": 0.23627803684363646,
+        "std": 0.16966646212946251,
+        "median": 0.21073528953765025
+      },
+      "vs_baseline": {
+        "modulated_t": -0.7734,
+        "modulated_p_one_tailed": 0.779893,
+        "modulated_significantly_better": false,
+        "standalone_t": -6.3082,
+        "standalone_p_one_tailed": 1.0,
+        "standalone_significantly_better": false,
+        "modulated_wins": 95,
+        "standalone_wins": 67
+      }
+    },
+    "15": {
+      "fleet_size": 15,
+      "n_samples": 200,
+      "mean_gh": 1.0110732310097772,
+      "std_gh": 0.03840411688504474,
+      "predicted_gh": 0.8524200180247485,
+      "mean_actual_accuracy": 0.3272237518685348,
+      "mean_fleet_avg_accuracy": 0.32794655706364095,
+      "conservation_modulated": {
+        "mae": 0.044359330660291685,
+        "std": 0.03491109793045423,
+        "median": 0.03510980323332191
+      },
+      "conservation_standalone": {
+        "mae": 0.12423209308552498,
+        "std": 0.05729550795134827,
+        "median": 0.13117301502429599
+      },
+      "baseline_fleet_avg": {
+        "mae": 0.04179773160150959,
+        "std": 0.036114621856936265,
+        "median": 0.030317833346546585
+      },
+      "random": {
+        "mae": 0.25470949641125595,
+        "std": 0.1773098499100392,
+        "median": 0.22241631858098945
+      },
+      "vs_baseline": {
+        "modulated_t": -3.5726,
+        "modulated_p_one_tailed": 0.999778,
+        "modulated_significantly_better": false,
+        "standalone_t": -16.6233,
+        "standalone_p_one_tailed": 1.0,
+        "standalone_significantly_better": false,
+        "modulated_wins": 78,
+        "standalone_wins": 33
+      }
+    },
+    "20": {
+      "fleet_size": 20,
+      "n_samples": 200,
+      "mean_gh": 1.062113716061718,
+      "std_gh": 2.220446049250313e-16,
+      "predicted_gh": 0.8066785685049154,
+      "mean_actual_accuracy": 0.29033027681545354,
+      "mean_fleet_avg_accuracy": 0.33016096468577366,
+      "conservation_modulated": {
+        "mae": 0.054144586719622134,
+        "std": 0.0,
+        "median": 0.054144586719622134
+      },
+      "conservation_standalone": {
+        "mae": 0.23159803879732163,
+        "std": 2.7755575615628914e-17,
+        "median": 0.2315980387973216
+      },
+      "baseline_fleet_avg": {
+        "mae": 0.03983068787032018,
+        "std": 0.0,
+        "median": 0.03983068787032018
+      },
+      "random": {
+        "mae": 0.2818585821392136,
+        "std": 0.1897155583886315,
+        "median": 0.2904118086920389
+      },
+      "vs_baseline": {
+        "modulated_t": 0.0,
+        "modulated_p_one_tailed": 1.0,
+        "modulated_significantly_better": false,
+        "standalone_t": 0.0,
+        "standalone_p_one_tailed": 1.0,
+        "standalone_significantly_better": false,
+        "modulated_wins": 0,
+        "standalone_wins": 0
+      }
+    }
+  },
+  "correlation_analysis": {
+    "3": {
+      "pearson_gh_vs_accuracy": {
+        "r": -0.1163,
+        "p": 0.100875
+      },
+      "pearson_fleet_avg_vs_accuracy": {
+        "r": -0.1721,
+        "p": 0.014807
+      },
+      "pearson_gh_deviation_vs_residual": {
+        "r": -0.0788,
+        "p": 0.26741
+      },
+      "multiple_regression": {
+        "coefficients": {
+          "fleet_avg": -0.299,
+          "gh_deviation": -0.0173,
+          "intercept": 0.4196
+        },
+        "mae": 0.0389
+      }
+    },
+    "5": {
+      "pearson_gh_vs_accuracy": {
+        "r": -0.144,
+        "p": 0.041956
+      },
+      "pearson_fleet_avg_vs_accuracy": {
+        "r": -0.1527,
+        "p": 0.030831
+      },
+      "pearson_gh_deviation_vs_residual": {
+        "r": -0.1324,
+        "p": 0.061714
+      },
+      "multiple_regression": {
+        "coefficients": {
+          "fleet_avg": -0.3777,
+          "gh_deviation": -0.043,
+          "intercept": 0.4429
+        },
+        "mae": 0.0395
+      }
+    },
+    "7": {
+      "pearson_gh_vs_accuracy": {
+        "r": 0.0371,
+        "p": 0.602367
+      },
+      "pearson_fleet_avg_vs_accuracy": {
+        "r": -0.2715,
+        "p": 0.000101
+      },
+      "pearson_gh_deviation_vs_residual": {
+        "r": 0.027,
+        "p": 0.704344
+      },
+      "multiple_regression": {
+        "coefficients": {
+          "fleet_avg": -0.837,
+          "gh_deviation": 0.0234,
+          "intercept": 0.6046
+        },
+        "mae": 0.0396
+      }
+    },
+    "9": {
+      "pearson_gh_vs_accuracy": {
+        "r": 0.0378,
+        "p": 0.595509
+      },
+      "pearson_fleet_avg_vs_accuracy": {
+        "r": -0.1863,
+        "p": 0.008269
+      },
+      "pearson_gh_deviation_vs_residual": {
+        "r": 0.0693,
+        "p": 0.329821
+      },
+      "multiple_regression": {
+        "coefficients": {
+          "fleet_avg": -0.803,
+          "gh_deviation": 0.0062,
+          "intercept": 0.5912
+        },
+        "mae": 0.0402
+      }
+    },
+    "11": {
+      "pearson_gh_vs_accuracy": {
+        "r": 0.0329,
+        "p": 0.644124
+      },
+      "pearson_fleet_avg_vs_accuracy": {
+        "r": -0.2486,
+        "p": 0.000385
+      },
+      "pearson_gh_deviation_vs_residual": {
+        "r": 0.0487,
+        "p": 0.493644
+      },
+      "multiple_regression": {
+        "coefficients": {
+          "fleet_avg": -1.1903,
+          "gh_deviation": 0.0092,
+          "intercept": 0.7214
+        },
+        "mae": 0.0398
+      }
+    },
+    "15": {
+      "pearson_gh_vs_accuracy": {
+        "r": 0.0376,
+        "p": 0.59734
+      },
+      "pearson_fleet_avg_vs_accuracy": {
+        "r": -0.3465,
+        "p": 1e-06
+      },
+      "pearson_gh_deviation_vs_residual": {
+        "r": 0.0279,
+        "p": 0.695024
+      },
+      "multiple_regression": {
+        "coefficients": {
+          "fleet_avg": -2.6998,
+          "gh_deviation": 0.0818,
+          "intercept": 1.1996
+        },
+        "mae": 0.0375
+      }
+    },
+    "20": {
+      "pearson_gh_vs_accuracy": {
+        "r": NaN,
+        "p": NaN
+      },
+      "pearson_fleet_avg_vs_accuracy": {
+        "r": NaN,
+        "p": NaN
+      },
+      "pearson_gh_deviation_vs_residual": {
+        "r": NaN,
+        "p": NaN
+      },
+      "multiple_regression": {
+        "coefficients": {
+          "fleet_avg": 0.0816,
+          "gh_deviation": 0.0632,
+          "intercept": 0.2472
+        },
+        "mae": 0.0
+      }
+    }
+  },
+  "summary": {
+    "overall_mae": {
+      "conservation_modulated": 0.0477,
+      "conservation_standalone": 0.1387,
+      "baseline_fleet_avg": 0.0452,
+      "random": 0.2512
+    },
+    "modulated_beats_baseline_count": 3,
+    "modulated_significantly_better_count": 0,
+    "correlation_gh_deviation_predicts_residual": {
+      "3": {
+        "r": -0.0788,
+        "p": 0.26741
+      },
+      "5": {
+        "r": -0.1324,
+        "p": 0.061714
+      },
+      "7": {
+        "r": 0.027,
+        "p": 0.704344
+      },
+      "9": {
+        "r": 0.0693,
+        "p": 0.329821
+      },
+      "11": {
+        "r": 0.0487,
+        "p": 0.493644
+      },
+      "15": {
+        "r": 0.0279,
+        "p": 0.695024
+      },
+      "20": {
+        "r": NaN,
+        "p": NaN
+      }
+    },
+    "multiple_regression_mae": {
+      "3": 0.0389,
+      "5": 0.0395,
+      "7": 0.0396,
+      "9": 0.0402,
+      "11": 0.0398,
+      "15": 0.0375,
+      "20": 0.0
+    }
+  }
+}
