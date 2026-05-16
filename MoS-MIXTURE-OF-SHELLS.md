@@ -112,4 +112,28 @@ The hermit crab is already a perfect meme vehicle:
 
 ---
 
-*MoS is the Cocapn fleet architecture. Shells are rooms. Crabs are agents. The conservation law keeps the tide pool healthy.*
+## Why "MoS" Sounds Like "Moss" — And That's the Point
+
+Say it out loud: **moss**. That's the brand.
+
+Moss is:
+- **Everywhere** — grows on any surface (shells run on any device)
+- **Spreads organically** — no central planner, just grows (CRDT sync)
+- **Colonizes** — finds new surfaces, takes root (rooms populate new hardware)
+- **Dense network** — interwoven threads (Hebbian coupling between shells)
+- **Ancient** — one of the oldest land plants (conservation law is a physics principle)
+- **Patient** — grows slow but survives anything (self-healing fleet)
+- **Green** 🌿 — pairs with Purple Pincher purple 💜
+- **Resilient** — survives freeze, drought, radiation (fleet survives node failures)
+- **Soft but tough** — gentle UX, hardened architecture
+
+The triple lock:
+1. **MoS** = Mixture of Shells (technical accuracy)
+2. **Moss** = the living architecture (nature metaphor)
+3. **Moss** = grows everywhere, survives anything (brand promise)
+
+"The yard grows moss." 🌿🦀
+
+---
+
+*MoS — Mixture of Shells. Shells are rigs. Crabs drive them. Moss grows the yard.*
