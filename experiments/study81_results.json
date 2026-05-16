@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "study": 81,
+    "started": "2026-05-16T01:59:06.038377",
+    "completed": "2026-05-16T02:24:13.339043"
+  },
+  "snap_data": {
+    "GLM-5-Turbo": {
+      "fibonacci": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "is_palindrome": {
+        "snap_tile": 2,
+        "snapped": true
+      },
+      "gcd": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "binary_search": {
+        "snap_tile": 2,
+        "snapped": true
+      },
+      "factorial": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "reverse_linked_list": {
+        "snap_tile": 2,
+        "snapped": true
+      },
+      "merge_sorted": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "count_words": {
+        "snap_tile": 2,
+        "snapped": true
+      },
+      "is_prime": {
+        "snap_tile": 2,
+        "snapped": true
+      },
+      "flatten_nested": {
+        "snap_tile": 1,
+        "snapped": true
+      }
+    },
+    "Seed-2.0-Mini": {
+      "fibonacci": {
+        "snap_tile": 5,
+        "snapped": true
+      },
+      "is_palindrome": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "gcd": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "binary_search": {
+        "snap_tile": 3,
+        "snapped": true
+      },
+      "factorial": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "reverse_linked_list": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "merge_sorted": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "count_words": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "is_prime": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "flatten_nested": {
+        "snap_tile": 1,
+        "snapped": true
+      }
+    },
+    "Qwen3-0.6B": {
+      "fibonacci": {
+        "snap_tile": 3,
+        "snapped": true
+      },
+      "is_palindrome": {
+        "snap_tile": 2,
+        "snapped": true
+      },
+      "gcd": {
+        "snap_tile": 3,
+        "snapped": true
+      },
+      "binary_search": {
+        "snap_tile": 2,
+        "snapped": true
+      },
+      "factorial": {
+        "snap_tile": 2,
+        "snapped": true
+      },
+      "reverse_linked_list": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "merge_sorted": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "count_words": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "is_prime": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "flatten_nested": {
+        "snap_tile": 1,
+        "snapped": true
+      }
+    },
+    "Gemma3-1B": {
+      "fibonacci": {
+        "snap_tile": 2,
+        "snapped": true
+      },
+      "is_palindrome": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "gcd": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "binary_search": {
+        "snap_tile": 2,
+        "snapped": true
+      },
+      "factorial": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "reverse_linked_list": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "merge_sorted": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "count_words": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "is_prime": {
+        "snap_tile": 1,
+        "snapped": true
+      },
+      "flatten_nested": {
+        "snap_tile": 1,
+        "snapped": true
+      }
+    }
+  },
+  "statistics": {
+    "mean_snap": 1.5,
+    "median_snap": 1.0,
+    "std_snap": 0.8366600265340756,
+    "total_snaps": 40,
+    "total_targets": 40,
+    "snap_rate": 1.0
+  }
+}
