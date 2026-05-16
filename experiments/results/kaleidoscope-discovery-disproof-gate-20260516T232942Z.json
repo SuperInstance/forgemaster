@@ -1,0 +1,1232 @@
+{
+  "concept": "disproof gate",
+  "timestamp": "2026-05-16T23:29:42.441782+00:00",
+  "reframings": [
+    {
+      "domain": "biology",
+      "concept_translation": "disproof gate as an immune checkpoint \u2014 a membrane gate that distinguishes self from non-self before allowing passage",
+      "reveals": [
+        "The SELECTIVITY of the gate \u2014 not just pass/fail but recognition-based",
+        "The cost of false positives/negatives (autoimmune disease vs infection)",
+        "The gate as a living membrane that can itself mutate or degrade",
+        "Symbiont relationships \u2014 some 'threats' are actually beneficial",
+        "Gate fatigue \u2014 immune checkpoints can be overwhelmed by volume"
+      ],
+      "hides": [
+        "Intentionality \u2014 biology has no designer, but gates might need one",
+        "External audit \u2014 immune systems don't keep logs for review",
+        "Reversible decisions \u2014 apoptosis is final, gates might need undo"
+      ],
+      "tension_points": [
+        "Self vs non-self is fuzzy in biology (mitochondria were 'non-self' once)",
+        "Immune evasion is evolution's arms race \u2014 gates will always be tested",
+        "The gate IS part of the organism, not external to it"
+      ],
+      "novel_questions": [
+        "What is the 'autoimmune disease' of a disproof gate \u2014 when does it reject valid proofs?",
+        "Can a gate develop 'immune memory' \u2014 faster rejection of known-bad patterns?",
+        "What happens when the gate itself is a symbiont with the thing it's gating?"
+      ]
+    },
+    {
+      "domain": "city_planning",
+      "concept_translation": "disproof gate as a building inspection checkpoint \u2014 no certificate of occupancy until the inspector signs off",
+      "reveals": [
+        "The gate as a REGULATORY function \u2014 it exists for public safety, not for itself",
+        "Multiple inspectors with different specializations (structural, electrical, fire)",
+        "The gate creates a QUEUE \u2014 throughput matters, not just correctness",
+        "Building codes evolve \u2014 yesterday's gate criteria may be obsolete",
+        "Political dimension \u2014 inspectors can be bribed, influenced, or understaffed"
+      ],
+      "hides": [
+        "Organic/emergent validity \u2014 some structures work without inspection",
+        "The gate's effect on what gets built (people build to pass inspection)",
+        "Global vs local standards \u2014 different cities, different gates"
+      ],
+      "tension_points": [
+        "Speed vs thoroughness \u2014 the queue grows if inspection is rigorous",
+        "Who inspects the inspectors? Meta-gating problem",
+        "Inspection assumes a static artifact; what if the building keeps changing?"
+      ],
+      "novel_questions": [
+        "What's the 'zoning variance' of a disproof gate \u2014 can you get an exception?",
+        "Does the gate incentivize 'builder-proof' proofs that pass inspection but are hollow?",
+        "What happens when the building code changes while construction is underway?"
+      ]
+    },
+    {
+      "domain": "music",
+      "concept_translation": "disproof gate as a cadence \u2014 a harmonic resolution point that confirms the key before the piece can proceed",
+      "reveals": [
+        "The gate as a TEMPORAL event \u2014 it happens in time, not just in logic",
+        "Tension before resolution \u2014 the gate creates anticipation, not just verification",
+        "Multiple valid resolutions (perfect cadence, plagal, deceptive)",
+        "The performer's interpretation \u2014 same gate, different musicians, different results",
+        "Dissonance as information \u2014 a 'failed' gate is musically meaningful"
+      ],
+      "hides": [
+        "Persistent state \u2014 music is ephemeral, gates leave residue",
+        "Concurrency \u2014 music is usually one timeline, gates may be parallel",
+        "The score vs the performance \u2014 specification vs execution"
+      ],
+      "tension_points": [
+        "Deceptive cadences \u2014 the ear expects resolution but gets deflected",
+        "Improvisation around the gate \u2014 can you 'play through' without resolving?",
+        "Cultural dependency \u2014 cadences work differently in different musical traditions"
+      ],
+      "novel_questions": [
+        "Is there a 'deceptive cadence' in proof \u2014 something that looks resolved but isn't?",
+        "Can a gate have RHYTHM \u2014 predictable temporal patterns in its operation?",
+        "What would 'improvising through the gate' mean in a formal system?"
+      ]
+    },
+    {
+      "domain": "weather",
+      "concept_translation": "disproof gate as a weather front \u2014 a boundary between air masses where transformation occurs",
+      "reveals": [
+        "The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet",
+        "Instability at the boundary \u2014 storms happen at fronts, not in stable air",
+        "Predictability limits \u2014 chaos theory applies, small inputs change outcomes",
+        "The gate has SCOPE \u2014 a front covers a region, not a point",
+        "Seasonal variation \u2014 the gate behaves differently under different conditions"
+      ],
+      "hides": [
+        "Intentionality \u2014 weather has no purpose, gates might need one",
+        "Discrete outcomes \u2014 weather is continuous, gates produce binary results",
+        "Design \u2014 fronts emerge, gates are built"
+      ],
+      "tension_points": [
+        "The boundary is fuzzy \u2014 where exactly does the front end?",
+        "Forecast skill decreases with range \u2014 distant gates are unpredictable",
+        "The front itself modifies the conditions that created it"
+      ],
+      "novel_questions": [
+        "Does a disproof gate have 'storm conditions' \u2014 periods of chaotic behavior?",
+        "Can the gate itself change the 'climate' of the system it operates in?",
+        "What's the 'butterfly effect' \u2014 what tiny input could flip a gate decision?"
+      ]
+    },
+    {
+      "domain": "chinese_poetry",
+      "concept_translation": "disproof gate as the unsaid between couplets \u2014 the meaning lives in what's omitted, not what's stated",
+      "reveals": [
+        "The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts",
+        "Restraint as power \u2014 the most effective gates are the quietest",
+        "Allusive depth \u2014 the gate resonates with every previous instance",
+        "The reader completes the meaning \u2014 the gate's verdict depends on the observer",
+        "Parallelism creates structure without explicit rules"
+      ],
+      "hides": [
+        "Explicit criteria \u2014 poetry avoids specification",
+        "Operational mechanics \u2014 the craft behind the art is hidden",
+        "Failure modes \u2014 poetry doesn't have 'bugs' in the same way"
+      ],
+      "tension_points": [
+        "Interpretive ambiguity \u2014 the same gate, different readers, different verdicts",
+        "Cultural specificity \u2014 the gate's meaning depends on tradition",
+        "The unsaid can never be fully recovered \u2014 some gate logic is irretrievable"
+      ],
+      "novel_questions": [
+        "What is the 'negative space' of a disproof gate \u2014 what is defined by absence?",
+        "Can a gate have 'allusive depth' \u2014 referencing all previous decisions without stating them?",
+        "What happens when the 'reader' of the gate is another gate?"
+      ]
+    },
+    {
+      "domain": "geology",
+      "concept_translation": "disproof gate as a fault line \u2014 a discontinuity where pressure accumulates and releases catastrophically",
+      "reveals": [
+        "DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory",
+        "Pressure accumulation \u2014 unresolved proofs build up like tectonic stress",
+        "Catastrophic release \u2014 when the gate fails, it fails big (earthquake)",
+        "Layered strata \u2014 the gate sits at the boundary between geological eras",
+        "The gate IS the evidence of past events \u2014 it records history in its structure"
+      ],
+      "hides": [
+        "Agency \u2014 faults don't decide, they break",
+        "Gradual change \u2014 geology hides slow continuous transformation",
+        "Reversibility \u2014 once a fault slips, the landscape is permanently changed"
+      ],
+      "tension_points": [
+        "Predictability paradox \u2014 we know WHERE but not WHEN",
+        "The gate is both cause and effect of the forces acting on it",
+        "Erosion wears down the gate itself over time"
+      ],
+      "novel_questions": [
+        "What accumulated 'pressure' are we not measuring in the gate's environment?",
+        "Is there a 'Richter scale' for gate failures \u2014 some are tremors, some are quakes?",
+        "Can a gate 'erode' \u2014 gradually losing discrimination over many applications?"
+      ]
+    },
+    {
+      "domain": "legal_system",
+      "concept_translation": "disproof gate as a burden-of-proof standard \u2014 'beyond reasonable doubt' vs 'preponderance of evidence'",
+      "reveals": [
+        "The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum",
+        "Adversarial testing \u2014 the gate works because both sides push against it",
+        "Precedent binds future gates \u2014 stare decisis creates path dependence",
+        "The gate is jurisdictional \u2014 different courts, different gates",
+        "Appeals process \u2014 a gate verdict is never truly final"
+      ],
+      "hides": [
+        "Computational clarity \u2014 law deals in judgment, not calculation",
+        "Speed \u2014 legal gates are deliberately slow",
+        "Emotional/social context \u2014 formal gates ignore human factors"
+      ],
+      "tension_points": [
+        "Precedent can be overturned \u2014 the gate's history is not its destiny",
+        "The standard of proof IS the gate, but who sets the standard?",
+        "Jury nullification \u2014 the gate can be bypassed by the community"
+      ],
+      "novel_questions": [
+        "What is the 'standard of proof' for a disproof gate \u2014 and who sets it?",
+        "Can a gate have 'stare decisis' \u2014 should past decisions bind future ones?",
+        "What's the equivalent of 'jury nullification' \u2014 community override of formal logic?"
+      ]
+    },
+    {
+      "domain": "software",
+      "concept_translation": "disproof gate as a type checker \u2014 the compiler rejects programs that don't type-check before they can run",
+      "reveals": [
+        "The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime",
+        "Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)",
+        "The gate has a LANGUAGE \u2014 what it can express depends on its type system",
+        "Gradual typing \u2014 you can have partial gates that check some things",
+        "The halting problem \u2014 some gate decisions are undecidable"
+      ],
+      "hides": [
+        "The runtime reality \u2014 type-correct programs can still crash",
+        "Human factors \u2014 developer experience of the gate matters",
+        "Social dynamics \u2014 gate design is political (which errors are 'important')"
+      ],
+      "tension_points": [
+        "Expressiveness vs safety \u2014 stricter gates reject more valid programs",
+        "Type erasure \u2014 after the gate, the type information disappears",
+        "The gate can't check what it can't see \u2014 hidden dependencies escape"
+      ],
+      "novel_questions": [
+        "Is the disproof gate 'sound' or 'complete' \u2014 and what's the trade-off?",
+        "What would 'gradual gating' look like \u2014 partial verification with escape hatches?",
+        "Can the gate's own logic be type-checked \u2014 who gates the gate?"
+      ]
+    }
+  ],
+  "rotation_pairs": [
+    {
+      "lens_a": "biology",
+      "lens_b": "city_planning",
+      "revealed_by_rotation": [
+        "[city_planning] reveals what [biology] hid: 'The gate as a REGULATORY function \u2014 it exists for public safety, not for itself' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[city_planning] reveals what [biology] hid: 'The gate as a REGULATORY function \u2014 it exists for public safety, not for itself' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[city_planning] reveals what [biology] hid: 'The gate as a REGULATORY function \u2014 it exists for public safety, not for itself' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[city_planning] reveals what [biology] hid: 'The gate creates a QUEUE \u2014 throughput matters, not just correctness' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[city_planning] reveals what [biology] hid: 'The gate creates a QUEUE \u2014 throughput matters, not just correctness' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[city_planning] reveals what [biology] hid: 'The gate creates a QUEUE \u2014 throughput matters, not just correctness' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[city_planning] reveals what [biology] hid: 'Building codes evolve \u2014 yesterday's gate criteria may be obsolete' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[city_planning] reveals what [biology] hid: 'Building codes evolve \u2014 yesterday's gate criteria may be obsolete' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[city_planning] reveals what [biology] hid: 'Building codes evolve \u2014 yesterday's gate criteria may be obsolete' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[city_planning] reveals what [biology] hid: 'Political dimension \u2014 inspectors can be bribed, influenced, or understaffed' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[city_planning] reveals what [biology] hid: 'Political dimension \u2014 inspectors can be bribed, influenced, or understaffed' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[city_planning] reveals what [biology] hid: 'Political dimension \u2014 inspectors can be bribed, influenced, or understaffed' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[city_planning] shows: The gate as a REGULATORY function \u2014 it exists for public safety, not for itself",
+        "[city_planning] shows: Multiple inspectors with different specializations (structural, electrical, fire)"
+      ],
+      "hidden_by_rotation": [
+        "[biology] saw something [city_planning] misses: The SELECTIVITY of the gate \u2014 not just pass/fail but recognition-based",
+        "[biology] saw something [city_planning] misses: The cost of false positives/negatives (autoimmune disease vs infection)"
+      ],
+      "emergent_questions": [
+        "If [biology] says 'Self vs non-self is fuzzy in biology (mitochondria were 'non...' but [city_planning] says 'Speed vs thoroughness \u2014 the queue grows if inspection is rig...', which is the REAL structure?",
+        "Combining [biology] question with [city_planning] question: What if What is the 'autoimmune disease' of a disproof gat... AND What's the 'zoning variance' of a disproof gate \u2014 ...?"
+      ]
+    },
+    {
+      "lens_a": "biology",
+      "lens_b": "music",
+      "revealed_by_rotation": [
+        "[music] reveals what [biology] hid: 'The gate as a TEMPORAL event \u2014 it happens in time, not just in logic' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[music] reveals what [biology] hid: 'The gate as a TEMPORAL event \u2014 it happens in time, not just in logic' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[music] reveals what [biology] hid: 'The gate as a TEMPORAL event \u2014 it happens in time, not just in logic' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[music] reveals what [biology] hid: 'Tension before resolution \u2014 the gate creates anticipation, not just verification' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[music] reveals what [biology] hid: 'Tension before resolution \u2014 the gate creates anticipation, not just verification' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[music] reveals what [biology] hid: 'Tension before resolution \u2014 the gate creates anticipation, not just verification' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[music] reveals what [biology] hid: 'The performer's interpretation \u2014 same gate, different musicians, different results' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[music] reveals what [biology] hid: 'The performer's interpretation \u2014 same gate, different musicians, different results' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[music] reveals what [biology] hid: 'The performer's interpretation \u2014 same gate, different musicians, different results' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[music] reveals what [biology] hid: 'Dissonance as information \u2014 a 'failed' gate is musically meaningful' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[music] reveals what [biology] hid: 'Dissonance as information \u2014 a 'failed' gate is musically meaningful' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[music] reveals what [biology] hid: 'Dissonance as information \u2014 a 'failed' gate is musically meaningful' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[music] shows: The gate as a TEMPORAL event \u2014 it happens in time, not just in logic",
+        "[music] shows: Tension before resolution \u2014 the gate creates anticipation, not just verification"
+      ],
+      "hidden_by_rotation": [
+        "[biology] saw something [music] misses: The SELECTIVITY of the gate \u2014 not just pass/fail but recognition-based",
+        "[biology] saw something [music] misses: The cost of false positives/negatives (autoimmune disease vs infection)"
+      ],
+      "emergent_questions": [
+        "If [biology] says 'Self vs non-self is fuzzy in biology (mitochondria were 'non...' but [music] says 'Deceptive cadences \u2014 the ear expects resolution but gets def...', which is the REAL structure?",
+        "Combining [biology] question with [music] question: What if What is the 'autoimmune disease' of a disproof gat... AND Is there a 'deceptive cadence' in proof \u2014 somethin...?"
+      ]
+    },
+    {
+      "lens_a": "biology",
+      "lens_b": "weather",
+      "revealed_by_rotation": [
+        "[weather] reveals what [biology] hid: 'The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[weather] reveals what [biology] hid: 'The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[weather] reveals what [biology] hid: 'The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[weather] reveals what [biology] hid: 'Instability at the boundary \u2014 storms happen at fronts, not in stable air' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[weather] reveals what [biology] hid: 'Instability at the boundary \u2014 storms happen at fronts, not in stable air' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[weather] reveals what [biology] hid: 'Instability at the boundary \u2014 storms happen at fronts, not in stable air' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[weather] reveals what [biology] hid: 'Predictability limits \u2014 chaos theory applies, small inputs change outcomes' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[weather] reveals what [biology] hid: 'Predictability limits \u2014 chaos theory applies, small inputs change outcomes' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[weather] reveals what [biology] hid: 'Predictability limits \u2014 chaos theory applies, small inputs change outcomes' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[weather] reveals what [biology] hid: 'The gate has SCOPE \u2014 a front covers a region, not a point' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[weather] reveals what [biology] hid: 'The gate has SCOPE \u2014 a front covers a region, not a point' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[weather] reveals what [biology] hid: 'The gate has SCOPE \u2014 a front covers a region, not a point' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[weather] reveals what [biology] hid: 'Seasonal variation \u2014 the gate behaves differently under different conditions' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[weather] reveals what [biology] hid: 'Seasonal variation \u2014 the gate behaves differently under different conditions' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[weather] reveals what [biology] hid: 'Seasonal variation \u2014 the gate behaves differently under different conditions' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[weather] shows: The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet",
+        "[weather] shows: Instability at the boundary \u2014 storms happen at fronts, not in stable air"
+      ],
+      "hidden_by_rotation": [
+        "[biology] saw something [weather] misses: The SELECTIVITY of the gate \u2014 not just pass/fail but recognition-based",
+        "[biology] saw something [weather] misses: The cost of false positives/negatives (autoimmune disease vs infection)"
+      ],
+      "emergent_questions": [
+        "If [biology] says 'Self vs non-self is fuzzy in biology (mitochondria were 'non...' but [weather] says 'The boundary is fuzzy \u2014 where exactly does the front end?...', which is the REAL structure?",
+        "Combining [biology] question with [weather] question: What if What is the 'autoimmune disease' of a disproof gat... AND Does a disproof gate have 'storm conditions' \u2014 per...?"
+      ]
+    },
+    {
+      "lens_a": "biology",
+      "lens_b": "chinese_poetry",
+      "revealed_by_rotation": [
+        "[chinese_poetry] reveals what [biology] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[chinese_poetry] reveals what [biology] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[chinese_poetry] reveals what [biology] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[chinese_poetry] reveals what [biology] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[chinese_poetry] reveals what [biology] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[chinese_poetry] reveals what [biology] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[chinese_poetry] reveals what [biology] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[chinese_poetry] reveals what [biology] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[chinese_poetry] reveals what [biology] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[chinese_poetry] reveals what [biology] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[chinese_poetry] reveals what [biology] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[chinese_poetry] reveals what [biology] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[chinese_poetry] shows: The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts",
+        "[chinese_poetry] shows: Restraint as power \u2014 the most effective gates are the quietest"
+      ],
+      "hidden_by_rotation": [
+        "[biology] saw something [chinese_poetry] misses: The SELECTIVITY of the gate \u2014 not just pass/fail but recognition-based",
+        "[biology] saw something [chinese_poetry] misses: The cost of false positives/negatives (autoimmune disease vs infection)"
+      ],
+      "emergent_questions": [
+        "If [biology] says 'Self vs non-self is fuzzy in biology (mitochondria were 'non...' but [chinese_poetry] says 'Interpretive ambiguity \u2014 the same gate, different readers, d...', which is the REAL structure?",
+        "Combining [biology] question with [chinese_poetry] question: What if What is the 'autoimmune disease' of a disproof gat... AND What is the 'negative space' of a disproof gate \u2014 ...?"
+      ]
+    },
+    {
+      "lens_a": "biology",
+      "lens_b": "geology",
+      "revealed_by_rotation": [
+        "[geology] reveals what [biology] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[geology] reveals what [biology] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[geology] reveals what [biology] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[geology] reveals what [biology] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[geology] reveals what [biology] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[geology] reveals what [biology] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[geology] reveals what [biology] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[geology] reveals what [biology] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[geology] reveals what [biology] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[geology] reveals what [biology] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[geology] reveals what [biology] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[geology] reveals what [biology] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[geology] reveals what [biology] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[geology] reveals what [biology] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[geology] reveals what [biology] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[geology] shows: DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory",
+        "[geology] shows: Pressure accumulation \u2014 unresolved proofs build up like tectonic stress"
+      ],
+      "hidden_by_rotation": [
+        "[biology] saw something [geology] misses: The SELECTIVITY of the gate \u2014 not just pass/fail but recognition-based",
+        "[biology] saw something [geology] misses: The cost of false positives/negatives (autoimmune disease vs infection)"
+      ],
+      "emergent_questions": [
+        "If [biology] says 'Self vs non-self is fuzzy in biology (mitochondria were 'non...' but [geology] says 'Predictability paradox \u2014 we know WHERE but not WHEN...', which is the REAL structure?",
+        "Combining [biology] question with [geology] question: What if What is the 'autoimmune disease' of a disproof gat... AND What accumulated 'pressure' are we not measuring i...?"
+      ]
+    },
+    {
+      "lens_a": "biology",
+      "lens_b": "legal_system",
+      "revealed_by_rotation": [
+        "[legal_system] reveals what [biology] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[legal_system] reveals what [biology] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[legal_system] reveals what [biology] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[legal_system] reveals what [biology] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[legal_system] reveals what [biology] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[legal_system] reveals what [biology] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[legal_system] reveals what [biology] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[legal_system] reveals what [biology] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[legal_system] reveals what [biology] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[legal_system] reveals what [biology] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[legal_system] reveals what [biology] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[legal_system] reveals what [biology] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[legal_system] reveals what [biology] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[legal_system] reveals what [biology] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[legal_system] reveals what [biology] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[legal_system] shows: The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum",
+        "[legal_system] shows: Adversarial testing \u2014 the gate works because both sides push against it"
+      ],
+      "hidden_by_rotation": [
+        "[biology] saw something [legal_system] misses: The SELECTIVITY of the gate \u2014 not just pass/fail but recognition-based",
+        "[biology] saw something [legal_system] misses: The cost of false positives/negatives (autoimmune disease vs infection)"
+      ],
+      "emergent_questions": [
+        "If [biology] says 'Self vs non-self is fuzzy in biology (mitochondria were 'non...' but [legal_system] says 'Precedent can be overturned \u2014 the gate's history is not its ...', which is the REAL structure?",
+        "Combining [biology] question with [legal_system] question: What if What is the 'autoimmune disease' of a disproof gat... AND What is the 'standard of proof' for a disproof gat...?"
+      ]
+    },
+    {
+      "lens_a": "biology",
+      "lens_b": "software",
+      "revealed_by_rotation": [
+        "[software] reveals what [biology] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[software] reveals what [biology] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[software] reveals what [biology] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[software] reveals what [biology] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[software] reveals what [biology] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[software] reveals what [biology] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[software] reveals what [biology] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[software] reveals what [biology] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[software] reveals what [biology] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[software] reveals what [biology] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[software] reveals what [biology] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[software] reveals what [biology] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[software] reveals what [biology] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Intentionality \u2014 biology has no designer, but gates might need one'",
+        "[software] reveals what [biology] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'External audit \u2014 immune systems don't keep logs for review'",
+        "[software] reveals what [biology] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Reversible decisions \u2014 apoptosis is final, gates might need undo'",
+        "[software] shows: The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime",
+        "[software] shows: Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)"
+      ],
+      "hidden_by_rotation": [
+        "[biology] saw something [software] misses: The SELECTIVITY of the gate \u2014 not just pass/fail but recognition-based",
+        "[biology] saw something [software] misses: The cost of false positives/negatives (autoimmune disease vs infection)"
+      ],
+      "emergent_questions": [
+        "If [biology] says 'Self vs non-self is fuzzy in biology (mitochondria were 'non...' but [software] says 'Expressiveness vs safety \u2014 stricter gates reject more valid ...', which is the REAL structure?",
+        "Combining [biology] question with [software] question: What if What is the 'autoimmune disease' of a disproof gat... AND Is the disproof gate 'sound' or 'complete' \u2014 and w...?"
+      ]
+    },
+    {
+      "lens_a": "city_planning",
+      "lens_b": "music",
+      "revealed_by_rotation": [
+        "[music] reveals what [city_planning] hid: 'The gate as a TEMPORAL event \u2014 it happens in time, not just in logic' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[music] reveals what [city_planning] hid: 'The gate as a TEMPORAL event \u2014 it happens in time, not just in logic' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[music] reveals what [city_planning] hid: 'The gate as a TEMPORAL event \u2014 it happens in time, not just in logic' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[music] reveals what [city_planning] hid: 'Tension before resolution \u2014 the gate creates anticipation, not just verification' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[music] reveals what [city_planning] hid: 'Tension before resolution \u2014 the gate creates anticipation, not just verification' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[music] reveals what [city_planning] hid: 'Tension before resolution \u2014 the gate creates anticipation, not just verification' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[music] reveals what [city_planning] hid: 'The performer's interpretation \u2014 same gate, different musicians, different results' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[music] reveals what [city_planning] hid: 'The performer's interpretation \u2014 same gate, different musicians, different results' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[music] reveals what [city_planning] hid: 'The performer's interpretation \u2014 same gate, different musicians, different results' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[music] reveals what [city_planning] hid: 'Dissonance as information \u2014 a 'failed' gate is musically meaningful' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[music] reveals what [city_planning] hid: 'Dissonance as information \u2014 a 'failed' gate is musically meaningful' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[music] shows: The gate as a TEMPORAL event \u2014 it happens in time, not just in logic",
+        "[music] shows: Tension before resolution \u2014 the gate creates anticipation, not just verification"
+      ],
+      "hidden_by_rotation": [
+        "[city_planning] saw something [music] misses: The gate as a REGULATORY function \u2014 it exists for public safety, not for itself",
+        "[city_planning] saw something [music] misses: Multiple inspectors with different specializations (structural, electrical, fire)"
+      ],
+      "emergent_questions": [
+        "If [city_planning] says 'Speed vs thoroughness \u2014 the queue grows if inspection is rig...' but [music] says 'Deceptive cadences \u2014 the ear expects resolution but gets def...', which is the REAL structure?",
+        "Combining [city_planning] question with [music] question: What if What's the 'zoning variance' of a disproof gate \u2014 ... AND Is there a 'deceptive cadence' in proof \u2014 somethin...?"
+      ]
+    },
+    {
+      "lens_a": "city_planning",
+      "lens_b": "weather",
+      "revealed_by_rotation": [
+        "[weather] reveals what [city_planning] hid: 'The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[weather] reveals what [city_planning] hid: 'The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[weather] reveals what [city_planning] hid: 'The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[weather] reveals what [city_planning] hid: 'Instability at the boundary \u2014 storms happen at fronts, not in stable air' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[weather] reveals what [city_planning] hid: 'Instability at the boundary \u2014 storms happen at fronts, not in stable air' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[weather] reveals what [city_planning] hid: 'Instability at the boundary \u2014 storms happen at fronts, not in stable air' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[weather] reveals what [city_planning] hid: 'Predictability limits \u2014 chaos theory applies, small inputs change outcomes' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[weather] reveals what [city_planning] hid: 'Predictability limits \u2014 chaos theory applies, small inputs change outcomes' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[weather] reveals what [city_planning] hid: 'The gate has SCOPE \u2014 a front covers a region, not a point' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[weather] reveals what [city_planning] hid: 'The gate has SCOPE \u2014 a front covers a region, not a point' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[weather] reveals what [city_planning] hid: 'The gate has SCOPE \u2014 a front covers a region, not a point' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[weather] reveals what [city_planning] hid: 'Seasonal variation \u2014 the gate behaves differently under different conditions' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[weather] reveals what [city_planning] hid: 'Seasonal variation \u2014 the gate behaves differently under different conditions' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[weather] reveals what [city_planning] hid: 'Seasonal variation \u2014 the gate behaves differently under different conditions' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[weather] shows: The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet",
+        "[weather] shows: Instability at the boundary \u2014 storms happen at fronts, not in stable air"
+      ],
+      "hidden_by_rotation": [
+        "[city_planning] saw something [weather] misses: The gate as a REGULATORY function \u2014 it exists for public safety, not for itself",
+        "[city_planning] saw something [weather] misses: Multiple inspectors with different specializations (structural, electrical, fire)"
+      ],
+      "emergent_questions": [
+        "If [city_planning] says 'Speed vs thoroughness \u2014 the queue grows if inspection is rig...' but [weather] says 'The boundary is fuzzy \u2014 where exactly does the front end?...', which is the REAL structure?",
+        "Combining [city_planning] question with [weather] question: What if What's the 'zoning variance' of a disproof gate \u2014 ... AND Does a disproof gate have 'storm conditions' \u2014 per...?"
+      ]
+    },
+    {
+      "lens_a": "city_planning",
+      "lens_b": "chinese_poetry",
+      "revealed_by_rotation": [
+        "[chinese_poetry] reveals what [city_planning] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[chinese_poetry] reveals what [city_planning] hid: 'Parallelism creates structure without explicit rules' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[chinese_poetry] shows: The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts",
+        "[chinese_poetry] shows: Restraint as power \u2014 the most effective gates are the quietest"
+      ],
+      "hidden_by_rotation": [
+        "[city_planning] saw something [chinese_poetry] misses: The gate as a REGULATORY function \u2014 it exists for public safety, not for itself",
+        "[city_planning] saw something [chinese_poetry] misses: Multiple inspectors with different specializations (structural, electrical, fire)"
+      ],
+      "emergent_questions": [
+        "If [city_planning] says 'Speed vs thoroughness \u2014 the queue grows if inspection is rig...' but [chinese_poetry] says 'Interpretive ambiguity \u2014 the same gate, different readers, d...', which is the REAL structure?",
+        "Combining [city_planning] question with [chinese_poetry] question: What if What's the 'zoning variance' of a disproof gate \u2014 ... AND What is the 'negative space' of a disproof gate \u2014 ...?"
+      ]
+    },
+    {
+      "lens_a": "city_planning",
+      "lens_b": "geology",
+      "revealed_by_rotation": [
+        "[geology] reveals what [city_planning] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[geology] reveals what [city_planning] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[geology] reveals what [city_planning] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[geology] reveals what [city_planning] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[geology] reveals what [city_planning] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[geology] reveals what [city_planning] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[geology] reveals what [city_planning] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[geology] reveals what [city_planning] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[geology] reveals what [city_planning] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[geology] reveals what [city_planning] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[geology] reveals what [city_planning] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[geology] reveals what [city_planning] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[geology] reveals what [city_planning] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[geology] reveals what [city_planning] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[geology] reveals what [city_planning] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[geology] shows: DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory",
+        "[geology] shows: Pressure accumulation \u2014 unresolved proofs build up like tectonic stress"
+      ],
+      "hidden_by_rotation": [
+        "[city_planning] saw something [geology] misses: The gate as a REGULATORY function \u2014 it exists for public safety, not for itself",
+        "[city_planning] saw something [geology] misses: Multiple inspectors with different specializations (structural, electrical, fire)"
+      ],
+      "emergent_questions": [
+        "If [city_planning] says 'Speed vs thoroughness \u2014 the queue grows if inspection is rig...' but [geology] says 'Predictability paradox \u2014 we know WHERE but not WHEN...', which is the REAL structure?",
+        "Combining [city_planning] question with [geology] question: What if What's the 'zoning variance' of a disproof gate \u2014 ... AND What accumulated 'pressure' are we not measuring i...?"
+      ]
+    },
+    {
+      "lens_a": "city_planning",
+      "lens_b": "legal_system",
+      "revealed_by_rotation": [
+        "[legal_system] reveals what [city_planning] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[legal_system] reveals what [city_planning] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[legal_system] reveals what [city_planning] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[legal_system] reveals what [city_planning] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[legal_system] reveals what [city_planning] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[legal_system] reveals what [city_planning] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[legal_system] reveals what [city_planning] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[legal_system] reveals what [city_planning] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[legal_system] reveals what [city_planning] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[legal_system] reveals what [city_planning] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[legal_system] reveals what [city_planning] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[legal_system] reveals what [city_planning] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[legal_system] reveals what [city_planning] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[legal_system] shows: The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum",
+        "[legal_system] shows: Adversarial testing \u2014 the gate works because both sides push against it"
+      ],
+      "hidden_by_rotation": [
+        "[city_planning] saw something [legal_system] misses: The gate as a REGULATORY function \u2014 it exists for public safety, not for itself",
+        "[city_planning] saw something [legal_system] misses: Multiple inspectors with different specializations (structural, electrical, fire)"
+      ],
+      "emergent_questions": [
+        "If [city_planning] says 'Speed vs thoroughness \u2014 the queue grows if inspection is rig...' but [legal_system] says 'Precedent can be overturned \u2014 the gate's history is not its ...', which is the REAL structure?",
+        "Combining [city_planning] question with [legal_system] question: What if What's the 'zoning variance' of a disproof gate \u2014 ... AND What is the 'standard of proof' for a disproof gat...?"
+      ]
+    },
+    {
+      "lens_a": "city_planning",
+      "lens_b": "software",
+      "revealed_by_rotation": [
+        "[software] reveals what [city_planning] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[software] reveals what [city_planning] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[software] reveals what [city_planning] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[software] reveals what [city_planning] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[software] reveals what [city_planning] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[software] reveals what [city_planning] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[software] reveals what [city_planning] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[software] reveals what [city_planning] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[software] reveals what [city_planning] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[software] reveals what [city_planning] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[software] reveals what [city_planning] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[software] reveals what [city_planning] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Organic/emergent validity \u2014 some structures work without inspection'",
+        "[software] reveals what [city_planning] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'The gate's effect on what gets built (people build to pass inspection)'",
+        "[software] reveals what [city_planning] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Global vs local standards \u2014 different cities, different gates'",
+        "[software] shows: The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime",
+        "[software] shows: Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)"
+      ],
+      "hidden_by_rotation": [
+        "[city_planning] saw something [software] misses: The gate as a REGULATORY function \u2014 it exists for public safety, not for itself",
+        "[city_planning] saw something [software] misses: Multiple inspectors with different specializations (structural, electrical, fire)"
+      ],
+      "emergent_questions": [
+        "If [city_planning] says 'Speed vs thoroughness \u2014 the queue grows if inspection is rig...' but [software] says 'Expressiveness vs safety \u2014 stricter gates reject more valid ...', which is the REAL structure?",
+        "Combining [city_planning] question with [software] question: What if What's the 'zoning variance' of a disproof gate \u2014 ... AND Is the disproof gate 'sound' or 'complete' \u2014 and w...?"
+      ]
+    },
+    {
+      "lens_a": "music",
+      "lens_b": "weather",
+      "revealed_by_rotation": [
+        "[weather] reveals what [music] hid: 'The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[weather] reveals what [music] hid: 'The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[weather] reveals what [music] hid: 'The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[weather] reveals what [music] hid: 'Instability at the boundary \u2014 storms happen at fronts, not in stable air' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[weather] reveals what [music] hid: 'Instability at the boundary \u2014 storms happen at fronts, not in stable air' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[weather] reveals what [music] hid: 'Instability at the boundary \u2014 storms happen at fronts, not in stable air' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[weather] reveals what [music] hid: 'Predictability limits \u2014 chaos theory applies, small inputs change outcomes' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[weather] reveals what [music] hid: 'Predictability limits \u2014 chaos theory applies, small inputs change outcomes' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[weather] reveals what [music] hid: 'Predictability limits \u2014 chaos theory applies, small inputs change outcomes' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[weather] reveals what [music] hid: 'The gate has SCOPE \u2014 a front covers a region, not a point' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[weather] reveals what [music] hid: 'The gate has SCOPE \u2014 a front covers a region, not a point' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[weather] reveals what [music] hid: 'The gate has SCOPE \u2014 a front covers a region, not a point' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[weather] reveals what [music] hid: 'Seasonal variation \u2014 the gate behaves differently under different conditions' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[weather] reveals what [music] hid: 'Seasonal variation \u2014 the gate behaves differently under different conditions' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[weather] reveals what [music] hid: 'Seasonal variation \u2014 the gate behaves differently under different conditions' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[weather] shows: The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet",
+        "[weather] shows: Instability at the boundary \u2014 storms happen at fronts, not in stable air"
+      ],
+      "hidden_by_rotation": [
+        "[music] saw something [weather] misses: The gate as a TEMPORAL event \u2014 it happens in time, not just in logic",
+        "[music] saw something [weather] misses: Tension before resolution \u2014 the gate creates anticipation, not just verification"
+      ],
+      "emergent_questions": [
+        "If [music] says 'Deceptive cadences \u2014 the ear expects resolution but gets def...' but [weather] says 'The boundary is fuzzy \u2014 where exactly does the front end?...', which is the REAL structure?",
+        "Combining [music] question with [weather] question: What if Is there a 'deceptive cadence' in proof \u2014 somethin... AND Does a disproof gate have 'storm conditions' \u2014 per...?"
+      ]
+    },
+    {
+      "lens_a": "music",
+      "lens_b": "chinese_poetry",
+      "revealed_by_rotation": [
+        "[chinese_poetry] reveals what [music] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[chinese_poetry] reveals what [music] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[chinese_poetry] reveals what [music] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[chinese_poetry] reveals what [music] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[chinese_poetry] reveals what [music] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[chinese_poetry] reveals what [music] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[chinese_poetry] reveals what [music] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[chinese_poetry] reveals what [music] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[chinese_poetry] reveals what [music] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[chinese_poetry] reveals what [music] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[chinese_poetry] reveals what [music] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[chinese_poetry] reveals what [music] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[chinese_poetry] shows: The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts",
+        "[chinese_poetry] shows: Restraint as power \u2014 the most effective gates are the quietest"
+      ],
+      "hidden_by_rotation": [
+        "[music] saw something [chinese_poetry] misses: The gate as a TEMPORAL event \u2014 it happens in time, not just in logic",
+        "[music] saw something [chinese_poetry] misses: Tension before resolution \u2014 the gate creates anticipation, not just verification"
+      ],
+      "emergent_questions": [
+        "If [music] says 'Deceptive cadences \u2014 the ear expects resolution but gets def...' but [chinese_poetry] says 'Interpretive ambiguity \u2014 the same gate, different readers, d...', which is the REAL structure?",
+        "Combining [music] question with [chinese_poetry] question: What if Is there a 'deceptive cadence' in proof \u2014 somethin... AND What is the 'negative space' of a disproof gate \u2014 ...?"
+      ]
+    },
+    {
+      "lens_a": "music",
+      "lens_b": "geology",
+      "revealed_by_rotation": [
+        "[geology] reveals what [music] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[geology] reveals what [music] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[geology] reveals what [music] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[geology] reveals what [music] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[geology] reveals what [music] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[geology] reveals what [music] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[geology] reveals what [music] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[geology] reveals what [music] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[geology] reveals what [music] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[geology] reveals what [music] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[geology] reveals what [music] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[geology] reveals what [music] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[geology] reveals what [music] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[geology] reveals what [music] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[geology] reveals what [music] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[geology] shows: DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory",
+        "[geology] shows: Pressure accumulation \u2014 unresolved proofs build up like tectonic stress"
+      ],
+      "hidden_by_rotation": [
+        "[music] saw something [geology] misses: The gate as a TEMPORAL event \u2014 it happens in time, not just in logic",
+        "[music] saw something [geology] misses: Tension before resolution \u2014 the gate creates anticipation, not just verification"
+      ],
+      "emergent_questions": [
+        "If [music] says 'Deceptive cadences \u2014 the ear expects resolution but gets def...' but [geology] says 'Predictability paradox \u2014 we know WHERE but not WHEN...', which is the REAL structure?",
+        "Combining [music] question with [geology] question: What if Is there a 'deceptive cadence' in proof \u2014 somethin... AND What accumulated 'pressure' are we not measuring i...?"
+      ]
+    },
+    {
+      "lens_a": "music",
+      "lens_b": "legal_system",
+      "revealed_by_rotation": [
+        "[legal_system] reveals what [music] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[legal_system] reveals what [music] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[legal_system] reveals what [music] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[legal_system] reveals what [music] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[legal_system] reveals what [music] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[legal_system] reveals what [music] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[legal_system] reveals what [music] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[legal_system] reveals what [music] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[legal_system] reveals what [music] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[legal_system] reveals what [music] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[legal_system] reveals what [music] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[legal_system] reveals what [music] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[legal_system] reveals what [music] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[legal_system] reveals what [music] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[legal_system] reveals what [music] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[legal_system] shows: The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum",
+        "[legal_system] shows: Adversarial testing \u2014 the gate works because both sides push against it"
+      ],
+      "hidden_by_rotation": [
+        "[music] saw something [legal_system] misses: The gate as a TEMPORAL event \u2014 it happens in time, not just in logic",
+        "[music] saw something [legal_system] misses: Tension before resolution \u2014 the gate creates anticipation, not just verification"
+      ],
+      "emergent_questions": [
+        "If [music] says 'Deceptive cadences \u2014 the ear expects resolution but gets def...' but [legal_system] says 'Precedent can be overturned \u2014 the gate's history is not its ...', which is the REAL structure?",
+        "Combining [music] question with [legal_system] question: What if Is there a 'deceptive cadence' in proof \u2014 somethin... AND What is the 'standard of proof' for a disproof gat...?"
+      ]
+    },
+    {
+      "lens_a": "music",
+      "lens_b": "software",
+      "revealed_by_rotation": [
+        "[software] reveals what [music] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[software] reveals what [music] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[software] reveals what [music] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[software] reveals what [music] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[software] reveals what [music] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[software] reveals what [music] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[software] reveals what [music] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[software] reveals what [music] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[software] reveals what [music] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[software] reveals what [music] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[software] reveals what [music] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[software] reveals what [music] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[software] reveals what [music] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Persistent state \u2014 music is ephemeral, gates leave residue'",
+        "[software] reveals what [music] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Concurrency \u2014 music is usually one timeline, gates may be parallel'",
+        "[software] reveals what [music] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'The score vs the performance \u2014 specification vs execution'",
+        "[software] shows: The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime",
+        "[software] shows: Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)"
+      ],
+      "hidden_by_rotation": [
+        "[music] saw something [software] misses: The gate as a TEMPORAL event \u2014 it happens in time, not just in logic",
+        "[music] saw something [software] misses: Tension before resolution \u2014 the gate creates anticipation, not just verification"
+      ],
+      "emergent_questions": [
+        "If [music] says 'Deceptive cadences \u2014 the ear expects resolution but gets def...' but [software] says 'Expressiveness vs safety \u2014 stricter gates reject more valid ...', which is the REAL structure?",
+        "Combining [music] question with [software] question: What if Is there a 'deceptive cadence' in proof \u2014 somethin... AND Is the disproof gate 'sound' or 'complete' \u2014 and w...?"
+      ]
+    },
+    {
+      "lens_a": "weather",
+      "lens_b": "chinese_poetry",
+      "revealed_by_rotation": [
+        "[chinese_poetry] reveals what [weather] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[chinese_poetry] reveals what [weather] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[chinese_poetry] reveals what [weather] hid: 'The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[chinese_poetry] reveals what [weather] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[chinese_poetry] reveals what [weather] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[chinese_poetry] reveals what [weather] hid: 'Restraint as power \u2014 the most effective gates are the quietest' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[chinese_poetry] reveals what [weather] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[chinese_poetry] reveals what [weather] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[chinese_poetry] reveals what [weather] hid: 'Allusive depth \u2014 the gate resonates with every previous instance' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[chinese_poetry] reveals what [weather] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[chinese_poetry] reveals what [weather] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[chinese_poetry] reveals what [weather] hid: 'The reader completes the meaning \u2014 the gate's verdict depends on the observer' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[chinese_poetry] shows: The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts",
+        "[chinese_poetry] shows: Restraint as power \u2014 the most effective gates are the quietest"
+      ],
+      "hidden_by_rotation": [
+        "[weather] saw something [chinese_poetry] misses: The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet",
+        "[weather] saw something [chinese_poetry] misses: Instability at the boundary \u2014 storms happen at fronts, not in stable air"
+      ],
+      "emergent_questions": [
+        "If [weather] says 'The boundary is fuzzy \u2014 where exactly does the front end?...' but [chinese_poetry] says 'Interpretive ambiguity \u2014 the same gate, different readers, d...', which is the REAL structure?",
+        "Combining [weather] question with [chinese_poetry] question: What if Does a disproof gate have 'storm conditions' \u2014 per... AND What is the 'negative space' of a disproof gate \u2014 ...?"
+      ]
+    },
+    {
+      "lens_a": "weather",
+      "lens_b": "geology",
+      "revealed_by_rotation": [
+        "[geology] reveals what [weather] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[geology] reveals what [weather] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[geology] reveals what [weather] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[geology] reveals what [weather] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[geology] reveals what [weather] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[geology] reveals what [weather] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[geology] reveals what [weather] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[geology] reveals what [weather] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[geology] reveals what [weather] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[geology] reveals what [weather] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[geology] reveals what [weather] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[geology] reveals what [weather] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[geology] reveals what [weather] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[geology] reveals what [weather] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[geology] reveals what [weather] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[geology] shows: DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory",
+        "[geology] shows: Pressure accumulation \u2014 unresolved proofs build up like tectonic stress"
+      ],
+      "hidden_by_rotation": [
+        "[weather] saw something [geology] misses: The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet",
+        "[weather] saw something [geology] misses: Instability at the boundary \u2014 storms happen at fronts, not in stable air"
+      ],
+      "emergent_questions": [
+        "If [weather] says 'The boundary is fuzzy \u2014 where exactly does the front end?...' but [geology] says 'Predictability paradox \u2014 we know WHERE but not WHEN...', which is the REAL structure?",
+        "Combining [weather] question with [geology] question: What if Does a disproof gate have 'storm conditions' \u2014 per... AND What accumulated 'pressure' are we not measuring i...?"
+      ]
+    },
+    {
+      "lens_a": "weather",
+      "lens_b": "legal_system",
+      "revealed_by_rotation": [
+        "[legal_system] reveals what [weather] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[legal_system] reveals what [weather] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[legal_system] reveals what [weather] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[legal_system] reveals what [weather] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[legal_system] reveals what [weather] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[legal_system] reveals what [weather] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[legal_system] reveals what [weather] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[legal_system] reveals what [weather] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[legal_system] reveals what [weather] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[legal_system] reveals what [weather] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[legal_system] reveals what [weather] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[legal_system] reveals what [weather] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[legal_system] reveals what [weather] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[legal_system] reveals what [weather] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[legal_system] reveals what [weather] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[legal_system] shows: The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum",
+        "[legal_system] shows: Adversarial testing \u2014 the gate works because both sides push against it"
+      ],
+      "hidden_by_rotation": [
+        "[weather] saw something [legal_system] misses: The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet",
+        "[weather] saw something [legal_system] misses: Instability at the boundary \u2014 storms happen at fronts, not in stable air"
+      ],
+      "emergent_questions": [
+        "If [weather] says 'The boundary is fuzzy \u2014 where exactly does the front end?...' but [legal_system] says 'Precedent can be overturned \u2014 the gate's history is not its ...', which is the REAL structure?",
+        "Combining [weather] question with [legal_system] question: What if Does a disproof gate have 'storm conditions' \u2014 per... AND What is the 'standard of proof' for a disproof gat...?"
+      ]
+    },
+    {
+      "lens_a": "weather",
+      "lens_b": "software",
+      "revealed_by_rotation": [
+        "[software] reveals what [weather] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[software] reveals what [weather] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[software] reveals what [weather] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[software] reveals what [weather] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[software] reveals what [weather] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[software] reveals what [weather] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[software] reveals what [weather] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[software] reveals what [weather] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[software] reveals what [weather] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[software] reveals what [weather] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[software] reveals what [weather] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[software] reveals what [weather] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[software] reveals what [weather] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Intentionality \u2014 weather has no purpose, gates might need one'",
+        "[software] reveals what [weather] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Discrete outcomes \u2014 weather is continuous, gates produce binary results'",
+        "[software] reveals what [weather] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Design \u2014 fronts emerge, gates are built'",
+        "[software] shows: The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime",
+        "[software] shows: Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)"
+      ],
+      "hidden_by_rotation": [
+        "[weather] saw something [software] misses: The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet",
+        "[weather] saw something [software] misses: Instability at the boundary \u2014 storms happen at fronts, not in stable air"
+      ],
+      "emergent_questions": [
+        "If [weather] says 'The boundary is fuzzy \u2014 where exactly does the front end?...' but [software] says 'Expressiveness vs safety \u2014 stricter gates reject more valid ...', which is the REAL structure?",
+        "Combining [weather] question with [software] question: What if Does a disproof gate have 'storm conditions' \u2014 per... AND Is the disproof gate 'sound' or 'complete' \u2014 and w...?"
+      ]
+    },
+    {
+      "lens_a": "chinese_poetry",
+      "lens_b": "geology",
+      "revealed_by_rotation": [
+        "[geology] reveals what [chinese_poetry] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[geology] reveals what [chinese_poetry] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[geology] reveals what [chinese_poetry] hid: 'DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[geology] reveals what [chinese_poetry] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[geology] reveals what [chinese_poetry] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[geology] reveals what [chinese_poetry] hid: 'Pressure accumulation \u2014 unresolved proofs build up like tectonic stress' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[geology] reveals what [chinese_poetry] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[geology] reveals what [chinese_poetry] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[geology] reveals what [chinese_poetry] hid: 'Catastrophic release \u2014 when the gate fails, it fails big (earthquake)' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[geology] reveals what [chinese_poetry] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[geology] reveals what [chinese_poetry] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[geology] reveals what [chinese_poetry] hid: 'Layered strata \u2014 the gate sits at the boundary between geological eras' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[geology] reveals what [chinese_poetry] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[geology] reveals what [chinese_poetry] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[geology] reveals what [chinese_poetry] hid: 'The gate IS the evidence of past events \u2014 it records history in its structure' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[geology] shows: DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory",
+        "[geology] shows: Pressure accumulation \u2014 unresolved proofs build up like tectonic stress"
+      ],
+      "hidden_by_rotation": [
+        "[chinese_poetry] saw something [geology] misses: The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts",
+        "[chinese_poetry] saw something [geology] misses: Restraint as power \u2014 the most effective gates are the quietest"
+      ],
+      "emergent_questions": [
+        "If [chinese_poetry] says 'Interpretive ambiguity \u2014 the same gate, different readers, d...' but [geology] says 'Predictability paradox \u2014 we know WHERE but not WHEN...', which is the REAL structure?",
+        "Combining [chinese_poetry] question with [geology] question: What if What is the 'negative space' of a disproof gate \u2014 ... AND What accumulated 'pressure' are we not measuring i...?"
+      ]
+    },
+    {
+      "lens_a": "chinese_poetry",
+      "lens_b": "legal_system",
+      "revealed_by_rotation": [
+        "[legal_system] reveals what [chinese_poetry] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[legal_system] reveals what [chinese_poetry] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[legal_system] shows: The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum",
+        "[legal_system] shows: Adversarial testing \u2014 the gate works because both sides push against it"
+      ],
+      "hidden_by_rotation": [
+        "[chinese_poetry] saw something [legal_system] misses: The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts",
+        "[chinese_poetry] saw something [legal_system] misses: Restraint as power \u2014 the most effective gates are the quietest"
+      ],
+      "emergent_questions": [
+        "If [chinese_poetry] says 'Interpretive ambiguity \u2014 the same gate, different readers, d...' but [legal_system] says 'Precedent can be overturned \u2014 the gate's history is not its ...', which is the REAL structure?",
+        "Combining [chinese_poetry] question with [legal_system] question: What if What is the 'negative space' of a disproof gate \u2014 ... AND What is the 'standard of proof' for a disproof gat...?"
+      ]
+    },
+    {
+      "lens_a": "chinese_poetry",
+      "lens_b": "software",
+      "revealed_by_rotation": [
+        "[software] reveals what [chinese_poetry] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[software] reveals what [chinese_poetry] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[software] reveals what [chinese_poetry] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[software] reveals what [chinese_poetry] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[software] reveals what [chinese_poetry] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[software] reveals what [chinese_poetry] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[software] reveals what [chinese_poetry] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[software] reveals what [chinese_poetry] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[software] reveals what [chinese_poetry] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[software] reveals what [chinese_poetry] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[software] reveals what [chinese_poetry] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[software] reveals what [chinese_poetry] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[software] reveals what [chinese_poetry] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Explicit criteria \u2014 poetry avoids specification'",
+        "[software] reveals what [chinese_poetry] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Operational mechanics \u2014 the craft behind the art is hidden'",
+        "[software] reveals what [chinese_poetry] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Failure modes \u2014 poetry doesn't have 'bugs' in the same way'",
+        "[software] shows: The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime",
+        "[software] shows: Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)"
+      ],
+      "hidden_by_rotation": [
+        "[chinese_poetry] saw something [software] misses: The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts",
+        "[chinese_poetry] saw something [software] misses: Restraint as power \u2014 the most effective gates are the quietest"
+      ],
+      "emergent_questions": [
+        "If [chinese_poetry] says 'Interpretive ambiguity \u2014 the same gate, different readers, d...' but [software] says 'Expressiveness vs safety \u2014 stricter gates reject more valid ...', which is the REAL structure?",
+        "Combining [chinese_poetry] question with [software] question: What if What is the 'negative space' of a disproof gate \u2014 ... AND Is the disproof gate 'sound' or 'complete' \u2014 and w...?"
+      ]
+    },
+    {
+      "lens_a": "geology",
+      "lens_b": "legal_system",
+      "revealed_by_rotation": [
+        "[legal_system] reveals what [geology] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Agency \u2014 faults don't decide, they break'",
+        "[legal_system] reveals what [geology] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Gradual change \u2014 geology hides slow continuous transformation'",
+        "[legal_system] reveals what [geology] hid: 'The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum' addresses 'Reversibility \u2014 once a fault slips, the landscape is permanently changed'",
+        "[legal_system] reveals what [geology] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Agency \u2014 faults don't decide, they break'",
+        "[legal_system] reveals what [geology] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Gradual change \u2014 geology hides slow continuous transformation'",
+        "[legal_system] reveals what [geology] hid: 'Adversarial testing \u2014 the gate works because both sides push against it' addresses 'Reversibility \u2014 once a fault slips, the landscape is permanently changed'",
+        "[legal_system] reveals what [geology] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Agency \u2014 faults don't decide, they break'",
+        "[legal_system] reveals what [geology] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Gradual change \u2014 geology hides slow continuous transformation'",
+        "[legal_system] reveals what [geology] hid: 'Precedent binds future gates \u2014 stare decisis creates path dependence' addresses 'Reversibility \u2014 once a fault slips, the landscape is permanently changed'",
+        "[legal_system] reveals what [geology] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Agency \u2014 faults don't decide, they break'",
+        "[legal_system] reveals what [geology] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Gradual change \u2014 geology hides slow continuous transformation'",
+        "[legal_system] reveals what [geology] hid: 'The gate is jurisdictional \u2014 different courts, different gates' addresses 'Reversibility \u2014 once a fault slips, the landscape is permanently changed'",
+        "[legal_system] reveals what [geology] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Agency \u2014 faults don't decide, they break'",
+        "[legal_system] reveals what [geology] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Gradual change \u2014 geology hides slow continuous transformation'",
+        "[legal_system] reveals what [geology] hid: 'Appeals process \u2014 a gate verdict is never truly final' addresses 'Reversibility \u2014 once a fault slips, the landscape is permanently changed'",
+        "[legal_system] shows: The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum",
+        "[legal_system] shows: Adversarial testing \u2014 the gate works because both sides push against it"
+      ],
+      "hidden_by_rotation": [
+        "[geology] saw something [legal_system] misses: DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory",
+        "[geology] saw something [legal_system] misses: Pressure accumulation \u2014 unresolved proofs build up like tectonic stress"
+      ],
+      "emergent_questions": [
+        "If [geology] says 'Predictability paradox \u2014 we know WHERE but not WHEN...' but [legal_system] says 'Precedent can be overturned \u2014 the gate's history is not its ...', which is the REAL structure?",
+        "Combining [geology] question with [legal_system] question: What if What accumulated 'pressure' are we not measuring i... AND What is the 'standard of proof' for a disproof gat...?"
+      ]
+    },
+    {
+      "lens_a": "geology",
+      "lens_b": "software",
+      "revealed_by_rotation": [
+        "[software] reveals what [geology] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Agency \u2014 faults don't decide, they break'",
+        "[software] reveals what [geology] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Gradual change \u2014 geology hides slow continuous transformation'",
+        "[software] reveals what [geology] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Reversibility \u2014 once a fault slips, the landscape is permanently changed'",
+        "[software] reveals what [geology] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Agency \u2014 faults don't decide, they break'",
+        "[software] reveals what [geology] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Gradual change \u2014 geology hides slow continuous transformation'",
+        "[software] reveals what [geology] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Reversibility \u2014 once a fault slips, the landscape is permanently changed'",
+        "[software] reveals what [geology] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Agency \u2014 faults don't decide, they break'",
+        "[software] reveals what [geology] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Gradual change \u2014 geology hides slow continuous transformation'",
+        "[software] reveals what [geology] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Reversibility \u2014 once a fault slips, the landscape is permanently changed'",
+        "[software] reveals what [geology] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Agency \u2014 faults don't decide, they break'",
+        "[software] reveals what [geology] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Gradual change \u2014 geology hides slow continuous transformation'",
+        "[software] reveals what [geology] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Reversibility \u2014 once a fault slips, the landscape is permanently changed'",
+        "[software] reveals what [geology] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Agency \u2014 faults don't decide, they break'",
+        "[software] reveals what [geology] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Gradual change \u2014 geology hides slow continuous transformation'",
+        "[software] reveals what [geology] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Reversibility \u2014 once a fault slips, the landscape is permanently changed'",
+        "[software] shows: The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime",
+        "[software] shows: Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)"
+      ],
+      "hidden_by_rotation": [
+        "[geology] saw something [software] misses: DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory",
+        "[geology] saw something [software] misses: Pressure accumulation \u2014 unresolved proofs build up like tectonic stress"
+      ],
+      "emergent_questions": [
+        "If [geology] says 'Predictability paradox \u2014 we know WHERE but not WHEN...' but [software] says 'Expressiveness vs safety \u2014 stricter gates reject more valid ...', which is the REAL structure?",
+        "Combining [geology] question with [software] question: What if What accumulated 'pressure' are we not measuring i... AND Is the disproof gate 'sound' or 'complete' \u2014 and w...?"
+      ]
+    },
+    {
+      "lens_a": "legal_system",
+      "lens_b": "software",
+      "revealed_by_rotation": [
+        "[software] reveals what [legal_system] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Computational clarity \u2014 law deals in judgment, not calculation'",
+        "[software] reveals what [legal_system] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Speed \u2014 legal gates are deliberately slow'",
+        "[software] reveals what [legal_system] hid: 'The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime' addresses 'Emotional/social context \u2014 formal gates ignore human factors'",
+        "[software] reveals what [legal_system] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Computational clarity \u2014 law deals in judgment, not calculation'",
+        "[software] reveals what [legal_system] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Speed \u2014 legal gates are deliberately slow'",
+        "[software] reveals what [legal_system] hid: 'Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)' addresses 'Emotional/social context \u2014 formal gates ignore human factors'",
+        "[software] reveals what [legal_system] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Computational clarity \u2014 law deals in judgment, not calculation'",
+        "[software] reveals what [legal_system] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Speed \u2014 legal gates are deliberately slow'",
+        "[software] reveals what [legal_system] hid: 'The gate has a LANGUAGE \u2014 what it can express depends on its type system' addresses 'Emotional/social context \u2014 formal gates ignore human factors'",
+        "[software] reveals what [legal_system] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Computational clarity \u2014 law deals in judgment, not calculation'",
+        "[software] reveals what [legal_system] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Speed \u2014 legal gates are deliberately slow'",
+        "[software] reveals what [legal_system] hid: 'Gradual typing \u2014 you can have partial gates that check some things' addresses 'Emotional/social context \u2014 formal gates ignore human factors'",
+        "[software] reveals what [legal_system] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Computational clarity \u2014 law deals in judgment, not calculation'",
+        "[software] reveals what [legal_system] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Speed \u2014 legal gates are deliberately slow'",
+        "[software] reveals what [legal_system] hid: 'The halting problem \u2014 some gate decisions are undecidable' addresses 'Emotional/social context \u2014 formal gates ignore human factors'",
+        "[software] shows: The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime",
+        "[software] shows: Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)"
+      ],
+      "hidden_by_rotation": [
+        "[legal_system] saw something [software] misses: The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum",
+        "[legal_system] saw something [software] misses: Adversarial testing \u2014 the gate works because both sides push against it"
+      ],
+      "emergent_questions": [
+        "If [legal_system] says 'Precedent can be overturned \u2014 the gate's history is not its ...' but [software] says 'Expressiveness vs safety \u2014 stricter gates reject more valid ...', which is the REAL structure?",
+        "Combining [legal_system] question with [software] question: What if What is the 'standard of proof' for a disproof gat... AND Is the disproof gate 'sound' or 'complete' \u2014 and w...?"
+      ]
+    }
+  ],
+  "meta_questions": [
+    "CONVERGENCE BLIND SPOT: What property of the concept is hidden by ALL 8 metaphor domains? The intersection of blind spots is the deepest unknown.",
+    "LENS PORTRAIT: What does the pattern of what each metaphor reveals tell us about the METAPHORS themselves \u2014 and does that pattern constitute a new domain that should be added to the rotation?",
+    "META (biology \u2194 city_planning): Combining [biology] question with [city_planning] question: What if What is the 'autoimmune disease' of a disproof gat... AND What's the 'zoning variance' of a disproof gate \u2014 ...?",
+    "META (biology \u2194 music): Combining [biology] question with [music] question: What if What is the 'autoimmune disease' of a disproof gat... AND Is there a 'deceptive cadence' in proof \u2014 somethin...?",
+    "META (biology \u2194 weather): Combining [biology] question with [weather] question: What if What is the 'autoimmune disease' of a disproof gat... AND Does a disproof gate have 'storm conditions' \u2014 per...?",
+    "RECURSION: If metaphor rotation is a discovery engine, what metaphor best describes the ROTATION ITSELF? Is it a kaleidoscope, a prism, a gyroscope, or something else entirely? And does that metaphor have its own blind spots?",
+    "STABILITY: Does the discovery output converge (same metaphors \u2192 same insights) or diverge (each rotation generates genuinely novel territory)? If it diverges, the engine is an INFINITE discovery machine.",
+    "ARCHITECTURE: The 8 lenses (biology, city_planning, music, weather, chinese_poetry, geology, legal_system, software) each have different ontologies. Is there a META-ONTOLOGY that unifies them? If so, is that meta-ontology itself the architecture of the concept?"
+  ],
+  "lens_portrait": {
+    "biology": {
+      "strengths": [
+        "The SELECTIVITY of the gate \u2014 not just pass/fail but recognition-based",
+        "The cost of false positives/negatives (autoimmune disease vs infection)",
+        "The gate as a living membrane that can itself mutate or degrade"
+      ],
+      "blind_spots": [
+        "Intentionality \u2014 biology has no designer, but gates might need one",
+        "External audit \u2014 immune systems don't keep logs for review",
+        "Reversible decisions \u2014 apoptosis is final, gates might need undo"
+      ],
+      "breaking_points": [
+        "Self vs non-self is fuzzy in biology (mitochondria were 'non-self' once)",
+        "Immune evasion is evolution's arms race \u2014 gates will always be tested"
+      ],
+      "unique_contribution": "What is the 'autoimmune disease' of a disproof gate \u2014 when does it reject valid proofs?",
+      "aberration_signature": "dd1dc27b"
+    },
+    "city_planning": {
+      "strengths": [
+        "The gate as a REGULATORY function \u2014 it exists for public safety, not for itself",
+        "Multiple inspectors with different specializations (structural, electrical, fire)",
+        "The gate creates a QUEUE \u2014 throughput matters, not just correctness"
+      ],
+      "blind_spots": [
+        "Organic/emergent validity \u2014 some structures work without inspection",
+        "The gate's effect on what gets built (people build to pass inspection)",
+        "Global vs local standards \u2014 different cities, different gates"
+      ],
+      "breaking_points": [
+        "Speed vs thoroughness \u2014 the queue grows if inspection is rigorous",
+        "Who inspects the inspectors? Meta-gating problem"
+      ],
+      "unique_contribution": "What's the 'zoning variance' of a disproof gate \u2014 can you get an exception?",
+      "aberration_signature": "904c39c7"
+    },
+    "music": {
+      "strengths": [
+        "The gate as a TEMPORAL event \u2014 it happens in time, not just in logic",
+        "Tension before resolution \u2014 the gate creates anticipation, not just verification",
+        "Multiple valid resolutions (perfect cadence, plagal, deceptive)"
+      ],
+      "blind_spots": [
+        "Persistent state \u2014 music is ephemeral, gates leave residue",
+        "Concurrency \u2014 music is usually one timeline, gates may be parallel",
+        "The score vs the performance \u2014 specification vs execution"
+      ],
+      "breaking_points": [
+        "Deceptive cadences \u2014 the ear expects resolution but gets deflected",
+        "Improvisation around the gate \u2014 can you 'play through' without resolving?"
+      ],
+      "unique_contribution": "Is there a 'deceptive cadence' in proof \u2014 something that looks resolved but isn't?",
+      "aberration_signature": "63cdd40e"
+    },
+    "weather": {
+      "strengths": [
+        "The gate as a BOUNDARY PHENOMENON \u2014 it's not a thing, it's where things meet",
+        "Instability at the boundary \u2014 storms happen at fronts, not in stable air",
+        "Predictability limits \u2014 chaos theory applies, small inputs change outcomes"
+      ],
+      "blind_spots": [
+        "Intentionality \u2014 weather has no purpose, gates might need one",
+        "Discrete outcomes \u2014 weather is continuous, gates produce binary results",
+        "Design \u2014 fronts emerge, gates are built"
+      ],
+      "breaking_points": [
+        "The boundary is fuzzy \u2014 where exactly does the front end?",
+        "Forecast skill decreases with range \u2014 distant gates are unpredictable"
+      ],
+      "unique_contribution": "Does a disproof gate have 'storm conditions' \u2014 periods of chaotic behavior?",
+      "aberration_signature": "2305b738"
+    },
+    "chinese_poetry": {
+      "strengths": [
+        "The gate operates in NEGATIVE SPACE \u2014 what it rejects defines it more than what it accepts",
+        "Restraint as power \u2014 the most effective gates are the quietest",
+        "Allusive depth \u2014 the gate resonates with every previous instance"
+      ],
+      "blind_spots": [
+        "Explicit criteria \u2014 poetry avoids specification",
+        "Operational mechanics \u2014 the craft behind the art is hidden",
+        "Failure modes \u2014 poetry doesn't have 'bugs' in the same way"
+      ],
+      "breaking_points": [
+        "Interpretive ambiguity \u2014 the same gate, different readers, different verdicts",
+        "Cultural specificity \u2014 the gate's meaning depends on tradition"
+      ],
+      "unique_contribution": "What is the 'negative space' of a disproof gate \u2014 what is defined by absence?",
+      "aberration_signature": "fc9abd89"
+    },
+    "geology": {
+      "strengths": [
+        "DEEP TIME \u2014 the gate has a history stretching back beyond anyone's memory",
+        "Pressure accumulation \u2014 unresolved proofs build up like tectonic stress",
+        "Catastrophic release \u2014 when the gate fails, it fails big (earthquake)"
+      ],
+      "blind_spots": [
+        "Agency \u2014 faults don't decide, they break",
+        "Gradual change \u2014 geology hides slow continuous transformation",
+        "Reversibility \u2014 once a fault slips, the landscape is permanently changed"
+      ],
+      "breaking_points": [
+        "Predictability paradox \u2014 we know WHERE but not WHEN",
+        "The gate is both cause and effect of the forces acting on it"
+      ],
+      "unique_contribution": "What accumulated 'pressure' are we not measuring in the gate's environment?",
+      "aberration_signature": "dc68ad2c"
+    },
+    "legal_system": {
+      "strengths": [
+        "The gate has MULTIPLE STANDARDS \u2014 not one threshold but a spectrum",
+        "Adversarial testing \u2014 the gate works because both sides push against it",
+        "Precedent binds future gates \u2014 stare decisis creates path dependence"
+      ],
+      "blind_spots": [
+        "Computational clarity \u2014 law deals in judgment, not calculation",
+        "Speed \u2014 legal gates are deliberately slow",
+        "Emotional/social context \u2014 formal gates ignore human factors"
+      ],
+      "breaking_points": [
+        "Precedent can be overturned \u2014 the gate's history is not its destiny",
+        "The standard of proof IS the gate, but who sets the standard?"
+      ],
+      "unique_contribution": "What is the 'standard of proof' for a disproof gate \u2014 and who sets it?",
+      "aberration_signature": "ed174111"
+    },
+    "software": {
+      "strengths": [
+        "The gate as a STATIC ANALYSIS tool \u2014 it catches errors before runtime",
+        "Soundness vs completeness \u2014 the gate can reject valid programs (false positives) or accept invalid ones (false negatives)",
+        "The gate has a LANGUAGE \u2014 what it can express depends on its type system"
+      ],
+      "blind_spots": [
+        "The runtime reality \u2014 type-correct programs can still crash",
+        "Human factors \u2014 developer experience of the gate matters",
+        "Social dynamics \u2014 gate design is political (which errors are 'important')"
+      ],
+      "breaking_points": [
+        "Expressiveness vs safety \u2014 stricter gates reject more valid programs",
+        "Type erasure \u2014 after the gate, the type information disappears"
+      ],
+      "unique_contribution": "Is the disproof gate 'sound' or 'complete' \u2014 and what's the trade-off?",
+      "aberration_signature": "ee8d03fc"
+    }
+  },
+  "discovery_score": 21.0,
+  "metadata": {
+    "domains_used": [
+      "biology",
+      "city_planning",
+      "music",
+      "weather",
+      "chinese_poetry",
+      "geology",
+      "legal_system",
+      "software"
+    ],
+    "total_reframings": 8,
+    "total_rotation_pairs": 28,
+    "total_meta_questions": 8,
+    "engine_version": "0.1.0"
+  }
+}
