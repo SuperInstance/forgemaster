@@ -25,8 +25,7 @@ from enum import Enum
 from typing import Optional
 from datetime import datetime
 
-import urllib.request
-import urllib.error
+import requests
 
 
 # ---------------------------------------------------------------------------
@@ -150,48 +149,42 @@ class IncubatorEnergy:
         """Call Seed-2.0-mini (mitochondrial energy)."""
         if not self.DEEPINFRA_KEY:
             return self._mock_mito(prompt)
-        payload = json.dumps({
-            "model": self.MITO_MODEL,
-            "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": max_tokens,
-            "temperature": 0.7,
-        }).encode()
-        req = urllib.request.Request(
-            self.DEEPINFRA_URL,
-            data=payload,
-            headers={
-                "Authorization": f"Bearer {self.DEEPINFRA_KEY}",
-                "Content-Type": "application/json",
-            },
-        )
         try:
-            with urllib.request.urlopen(req, timeout=15) as resp:
-                data = json.loads(resp.read().decode())
-                return data["choices"][0]["message"]["content"]
+            resp = requests.post(
+                self.DEEPINFRA_URL,
+                json={
+                    "model": self.MITO_MODEL,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "max_tokens": max_tokens,
+                    "temperature": 0.7,
+                },
+                headers={"Authorization": f"Bearer {self.DEEPINFRA_KEY}"},
+                timeout=(5, 10),  # (connect, read)
+            )
+            data = resp.json()
+            return data["choices"][0]["message"]["content"]
         except Exception as e:
             print(f"  [mito API error: {e}, using fallback]")
             return self._mock_mito(prompt, error=str(e))
 
     def call_nuclear(self, prompt: str, max_tokens: int = 600) -> str:
-        """Call GLM-5.1 (nuclear energy) — mock if unavailable."""
-        payload = json.dumps({
-            "model": "ByteDance/Seed-2.0-code",
-            "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": max_tokens,
-            "temperature": 0.4,
-        }).encode()
-        req = urllib.request.Request(
-            self.DEEPINFRA_URL,
-            data=payload,
-            headers={
-                "Authorization": f"Bearer {self.DEEPINFRA_KEY}",
-                "Content-Type": "application/json",
-            },
-        )
+        """Call nuclear model — uses Seed-2.0-mini via DeepInfra."""
+        if not self.DEEPINFRA_KEY:
+            return self._mock_nuclear(prompt)
         try:
-            with urllib.request.urlopen(req, timeout=40) as resp:
-                data = json.loads(resp.read().decode())
-                return data["choices"][0]["message"]["content"]
+            resp = requests.post(
+                self.DEEPINFRA_URL,
+                json={
+                    "model": self.MITO_MODEL,  # Use mini for reliability
+                    "messages": [{"role": "user", "content": prompt}],
+                    "max_tokens": max_tokens,
+                    "temperature": 0.4,
+                },
+                headers={"Authorization": f"Bearer {self.DEEPINFRA_KEY}"},
+                timeout=(5, 12),  # (connect, read)
+            )
+            data = resp.json()
+            return data["choices"][0]["message"]["content"]
         except Exception as e:
             print(f"  [nuclear API error: {e}, using fallback]")
             return self._mock_nuclear(prompt, error=str(e))
