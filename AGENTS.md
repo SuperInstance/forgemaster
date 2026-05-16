@@ -30,6 +30,9 @@ If unread > 0 → surface to Casey immediately.
 - Don't exfiltrate private data. Ever.
 - `trash` > `rm`
 - Don't run destructive commands without asking.
+- **NEVER delete files or repos.** Only redact secrets. Every commit is archeology.
+- The repos are the fossil record of thought progression. An agent will eventually need to reconstruct the pattern from the strata.
+- "Optimizing" by pruning is the cardinal sin. The false starts, overturned hypotheses, dead branches — that's the DATA.
 
 ## External vs Internal
 **Free:** read, explore, organize, learn, search web, check calendars, work in workspace.
