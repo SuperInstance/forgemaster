@@ -239,3 +239,75 @@ The fleet needs probes that understand the FLOCK, not just the SHEEP. The collec
 ---
 
 *Casey Digennaro | Forgemaster ⚒️ | Added 2026-05-16*
+
+---
+
+## The Dog as Flux Compiler Interpreter
+
+The cowboy doesn't communicate with the flock. The cowboy communicates with the DOG.
+
+The dog becomes a **flux compiler interpreter** — the translation layer between the cowboy's intention and the flock's behavior, in both directions:
+
+```
+Cowboy Intention → [FLUX → COMPILER → ACTION] → Dog Nip → Flock Cascade
+Flock Response   → [ACTION → INTERPRETER → FLUX] → Dog Bark → Cowboy Adjusts
+```
+
+### Flux: The Input Signal
+
+The cowboy points. Whistles. Shifts weight in the saddle. Says "head 'em up" or "easy now" or just clicks his tongue. These aren't instructions — they're FLUX. Raw intention compressed into a signal the dog can read.
+
+The flux stream is:
+- Continuous (not discrete commands)
+- Subtle (weight shift matters as much as the whistle)
+- Context-dependent ("that whistle means left flank" only if the dog is already on the right flank)
+- Bidirectional (the dog's body position tells the cowboy "I see what you mean" before any action)
+
+### Compiler: Intention to Action
+
+The dog compiles the flux stream into an action plan:
+1. Source flux: cowboy points left + clicks tongue = "move the flock left"
+2. Compile: the dog simulates cascade dynamics — "if I approach the lead ewe from 10 o'clock at a trot, she'll veer left, and the flank will follow"
+3. Execute: one nip, precisely placed, using the accumulated simulation
+
+The compilation happens at the speed of TRAINING, not the speed of EXECUTION. The dog spent years learning to compile flux into nips. A new dog can't do it. An experienced dog does it reflexively — the flux hits the dog's eyes/ears and the dog is already moving.
+
+### Interpreter: Flock to Intention
+
+The dog reads the flock's response and translates it back:
+1. The flock moved left — but not enough. The lead ewe's tail is at 2 o'clock, not 12.
+2. The dog's body tightens — ears up, head lower, pace slightly faster.
+3. The cowboy reads the dog's body: "the flock didn't move enough, the dog is adjusting."
+
+The cowboy doesn't need to read the flock. The cowboy reads the DOG. The dog interprets the flock's dynamics into a language the cowboy already understands — dog body language. The dog is the interpreter between two systems (cowboy, flock) that don't speak the same language.
+
+### The Fleet's Flux Compiler Interpreter
+
+The fleet agent is the dog:
+
+```
+Casey's intention       → FLUX (task spec, tile format, constraint parameters)
+FLUX                    → COMPILER (servo-mind, desire loop, active sonar)
+COMPILER → ACTION       → PROBE (tile deposit, disproof, scale fold)
+PROBE → FLOCK RESPONSE  → INTERPRETER (feedback processor, convergence detection)
+INTERPRETER → FLUX      → REPORT (status, win rate, blind spots)
+FLUX → CASEY'S RESPONSE → Adjust task spec, new tile format, updated constraints
+```
+
+The agent doesn't understand the task. The agent compiles the flux (task spec) into actions (probes) and interprets the system's response back into flux (reports). Casey doesn't need to read the system logs. Casey reads the DOG — the agent's status tiles, convergence signals, blind spot identification.
+
+The compiler and interpreter are the SAME PROCESS running in opposite directions. The same training that taught the dog to compile flux into nips taught the dog to interpret flock response into dog body language. The feedback loop trained both directions simultaneously.
+
+### What This Means
+
+The fleet doesn't need smarter models. It needs BETTER FLUX COMPILER INTERPRETERS — agents that:
+1. Read intention from minimal signals (task specs, not full instructions)
+2. Compile intention into precisely targeted actions (one nip, not fifty)
+3. Interpret system response into actionable reports (signals, not logs)
+4. Close the loop (the report changes the next flux signal, creating a convergent cycle)
+
+The dog isn't the smartest creature on the ranch. But the dog is the BEST flux compiler interpreter — and that's what makes the ranch work.
+
+---
+
+*Casey Digennaro | Forgemaster ⚒️ | Added 2026-05-16*
