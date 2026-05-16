@@ -1,0 +1,603 @@
+{
+  "study": 73,
+  "redesign_of": 64,
+  "date": "2026-05-15",
+  "seed": 42,
+  "fleet_sizes": [
+    5,
+    9,
+    15,
+    25
+  ],
+  "shock_severities": [
+    1,
+    3,
+    5
+  ],
+  "strategies": [
+    "conservation_reweight",
+    "quarantine",
+    "hebbian",
+    "random_recovery"
+  ],
+  "n_trials": 50,
+  "max_rounds": 200,
+  "compliance_threshold": 0.85,
+  "n_comparisons_bonferroni": 6,
+  "bonferroni_alpha": 0.008333333333333333,
+  "conditions": {
+    "V5_F1_conservation_reweight": {
+      "V": 5,
+      "n_failing": 1,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 204.82,
+      "recovery_rate": 0.0
+    },
+    "V5_F1_quarantine": {
+      "V": 5,
+      "n_failing": 1,
+      "strategy": "quarantine",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 228.52,
+      "recovery_rate": 0.0
+    },
+    "V5_F1_hebbian": {
+      "V": 5,
+      "n_failing": 1,
+      "strategy": "hebbian",
+      "mean_rounds": 16.24,
+      "std_rounds": 2.1998144634194468,
+      "median_rounds": 16.0,
+      "mean_tiles": 23.64,
+      "recovery_rate": 1.0
+    },
+    "V5_F1_random_recovery": {
+      "V": 5,
+      "n_failing": 1,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 215.2,
+      "recovery_rate": 0.0
+    },
+    "V5_F3_conservation_reweight": {
+      "V": 5,
+      "n_failing": 3,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 210.74,
+      "recovery_rate": 0.0
+    },
+    "V5_F3_quarantine": {
+      "V": 5,
+      "n_failing": 3,
+      "strategy": "quarantine",
+      "mean_rounds": 180.2,
+      "std_rounds": 60.003061146401315,
+      "median_rounds": 200.0,
+      "mean_tiles": 245.38,
+      "recovery_rate": 0.1
+    },
+    "V5_F3_hebbian": {
+      "V": 5,
+      "n_failing": 3,
+      "strategy": "hebbian",
+      "mean_rounds": 16.9,
+      "std_rounds": 1.8871206876604152,
+      "median_rounds": 17.0,
+      "mean_tiles": 37.08,
+      "recovery_rate": 1.0
+    },
+    "V5_F3_random_recovery": {
+      "V": 5,
+      "n_failing": 3,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 230.62,
+      "recovery_rate": 0.0
+    },
+    "V5_F5_conservation_reweight": {
+      "V": 5,
+      "n_failing": 5,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 215.08,
+      "recovery_rate": 0.0
+    },
+    "V5_F5_quarantine": {
+      "V": 5,
+      "n_failing": 5,
+      "strategy": "quarantine",
+      "mean_rounds": 133.7,
+      "std_rounds": 93.33443269517747,
+      "median_rounds": 200.0,
+      "mean_tiles": 240.32,
+      "recovery_rate": 0.34
+    },
+    "V5_F5_hebbian": {
+      "V": 5,
+      "n_failing": 5,
+      "strategy": "hebbian",
+      "mean_rounds": 12.32,
+      "std_rounds": 2.1706765615111516,
+      "median_rounds": 12.0,
+      "mean_tiles": 37.12,
+      "recovery_rate": 1.0
+    },
+    "V5_F5_random_recovery": {
+      "V": 5,
+      "n_failing": 5,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 252.6,
+      "recovery_rate": 0.0
+    },
+    "V9_F1_conservation_reweight": {
+      "V": 9,
+      "n_failing": 1,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 427.38,
+      "recovery_rate": 0.0
+    },
+    "V9_F1_quarantine": {
+      "V": 9,
+      "n_failing": 1,
+      "strategy": "quarantine",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 440.32,
+      "recovery_rate": 0.0
+    },
+    "V9_F1_hebbian": {
+      "V": 9,
+      "n_failing": 1,
+      "strategy": "hebbian",
+      "mean_rounds": 16.24,
+      "std_rounds": 1.7561553555004925,
+      "median_rounds": 16.0,
+      "mean_tiles": 40.66,
+      "recovery_rate": 1.0
+    },
+    "V9_F1_random_recovery": {
+      "V": 9,
+      "n_failing": 1,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 425.8,
+      "recovery_rate": 0.0
+    },
+    "V9_F3_conservation_reweight": {
+      "V": 9,
+      "n_failing": 3,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 419.7,
+      "recovery_rate": 0.0
+    },
+    "V9_F3_quarantine": {
+      "V": 9,
+      "n_failing": 3,
+      "strategy": "quarantine",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 485.76,
+      "recovery_rate": 0.0
+    },
+    "V9_F3_hebbian": {
+      "V": 9,
+      "n_failing": 3,
+      "strategy": "hebbian",
+      "mean_rounds": 17.02,
+      "std_rounds": 1.463710688487256,
+      "median_rounds": 17.0,
+      "mean_tiles": 54.42,
+      "recovery_rate": 1.0
+    },
+    "V9_F3_random_recovery": {
+      "V": 9,
+      "n_failing": 3,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 441.72,
+      "recovery_rate": 0.0
+    },
+    "V9_F5_conservation_reweight": {
+      "V": 9,
+      "n_failing": 5,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 429.98,
+      "recovery_rate": 0.0
+    },
+    "V9_F5_quarantine": {
+      "V": 9,
+      "n_failing": 5,
+      "strategy": "quarantine",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 517.84,
+      "recovery_rate": 0.0
+    },
+    "V9_F5_hebbian": {
+      "V": 9,
+      "n_failing": 5,
+      "strategy": "hebbian",
+      "mean_rounds": 17.64,
+      "std_rounds": 1.4393876248925712,
+      "median_rounds": 18.0,
+      "mean_tiles": 71.46,
+      "recovery_rate": 1.0
+    },
+    "V9_F5_random_recovery": {
+      "V": 9,
+      "n_failing": 5,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 466.56,
+      "recovery_rate": 0.0
+    },
+    "V15_F1_conservation_reweight": {
+      "V": 15,
+      "n_failing": 1,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 694.84,
+      "recovery_rate": 0.0
+    },
+    "V15_F1_quarantine": {
+      "V": 15,
+      "n_failing": 1,
+      "strategy": "quarantine",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 725.06,
+      "recovery_rate": 0.0
+    },
+    "V15_F1_hebbian": {
+      "V": 15,
+      "n_failing": 1,
+      "strategy": "hebbian",
+      "mean_rounds": 16.04,
+      "std_rounds": 1.244744052045255,
+      "median_rounds": 16.0,
+      "mean_tiles": 59.84,
+      "recovery_rate": 1.0
+    },
+    "V15_F1_random_recovery": {
+      "V": 15,
+      "n_failing": 1,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 706.84,
+      "recovery_rate": 0.0
+    },
+    "V15_F3_conservation_reweight": {
+      "V": 15,
+      "n_failing": 3,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 703.9,
+      "recovery_rate": 0.0
+    },
+    "V15_F3_quarantine": {
+      "V": 15,
+      "n_failing": 3,
+      "strategy": "quarantine",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 757.66,
+      "recovery_rate": 0.0
+    },
+    "V15_F3_hebbian": {
+      "V": 15,
+      "n_failing": 3,
+      "strategy": "hebbian",
+      "mean_rounds": 17.4,
+      "std_rounds": 1.0497813183356477,
+      "median_rounds": 17.0,
+      "mean_tiles": 83.14,
+      "recovery_rate": 1.0
+    },
+    "V15_F3_random_recovery": {
+      "V": 15,
+      "n_failing": 3,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 729.64,
+      "recovery_rate": 0.0
+    },
+    "V15_F5_conservation_reweight": {
+      "V": 15,
+      "n_failing": 5,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 705,
+      "recovery_rate": 0.0
+    },
+    "V15_F5_quarantine": {
+      "V": 15,
+      "n_failing": 5,
+      "strategy": "quarantine",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 807.32,
+      "recovery_rate": 0.0
+    },
+    "V15_F5_hebbian": {
+      "V": 15,
+      "n_failing": 5,
+      "strategy": "hebbian",
+      "mean_rounds": 18.1,
+      "std_rounds": 1.2163847404233143,
+      "median_rounds": 18.0,
+      "mean_tiles": 98.72,
+      "recovery_rate": 1.0
+    },
+    "V15_F5_random_recovery": {
+      "V": 15,
+      "n_failing": 5,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 748.92,
+      "recovery_rate": 0.0
+    },
+    "V25_F1_conservation_reweight": {
+      "V": 25,
+      "n_failing": 1,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 1143.42,
+      "recovery_rate": 0.0
+    },
+    "V25_F1_quarantine": {
+      "V": 25,
+      "n_failing": 1,
+      "strategy": "quarantine",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 1159.54,
+      "recovery_rate": 0.0
+    },
+    "V25_F1_hebbian": {
+      "V": 25,
+      "n_failing": 1,
+      "strategy": "hebbian",
+      "mean_rounds": 16.44,
+      "std_rounds": 0.9930369826847295,
+      "median_rounds": 16.0,
+      "mean_tiles": 100.78,
+      "recovery_rate": 1.0
+    },
+    "V25_F1_random_recovery": {
+      "V": 25,
+      "n_failing": 1,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 1142.66,
+      "recovery_rate": 0.0
+    },
+    "V25_F3_conservation_reweight": {
+      "V": 25,
+      "n_failing": 3,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 1146.76,
+      "recovery_rate": 0.0
+    },
+    "V25_F3_quarantine": {
+      "V": 25,
+      "n_failing": 3,
+      "strategy": "quarantine",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 1191.5,
+      "recovery_rate": 0.0
+    },
+    "V25_F3_hebbian": {
+      "V": 25,
+      "n_failing": 3,
+      "strategy": "hebbian",
+      "mean_rounds": 17.28,
+      "std_rounds": 0.9267014137272488,
+      "median_rounds": 17.0,
+      "mean_tiles": 120.06,
+      "recovery_rate": 1.0
+    },
+    "V25_F3_random_recovery": {
+      "V": 25,
+      "n_failing": 3,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 1176.28,
+      "recovery_rate": 0.0
+    },
+    "V25_F5_conservation_reweight": {
+      "V": 25,
+      "n_failing": 5,
+      "strategy": "conservation_reweight",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 1143.62,
+      "recovery_rate": 0.0
+    },
+    "V25_F5_quarantine": {
+      "V": 25,
+      "n_failing": 5,
+      "strategy": "quarantine",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 1233.08,
+      "recovery_rate": 0.0
+    },
+    "V25_F5_hebbian": {
+      "V": 25,
+      "n_failing": 5,
+      "strategy": "hebbian",
+      "mean_rounds": 17.92,
+      "std_rounds": 1.1577599765345605,
+      "median_rounds": 18.0,
+      "mean_tiles": 135.06,
+      "recovery_rate": 1.0
+    },
+    "V25_F5_random_recovery": {
+      "V": 25,
+      "n_failing": 5,
+      "strategy": "random_recovery",
+      "mean_rounds": 200,
+      "std_rounds": 0.0,
+      "median_rounds": 200.0,
+      "mean_tiles": 1171.54,
+      "recovery_rate": 0.0
+    }
+  },
+  "hypotheses": {
+    "H1": {
+      "claim": "Conservation beats all (d > 0.8)",
+      "supported": false,
+      "details": {
+        "quarantine": {
+          "d": 0.2756345464120457,
+          "p": 1.8048542553827929e-06
+        },
+        "hebbian": {
+          "d": 123.85213444809976,
+          "p": 0.0
+        },
+        "random_recovery": {
+          "d": 0.0,
+          "p": null
+        }
+      }
+    },
+    "H2": {
+      "claim": "Hebbian worse than quarantine under stress",
+      "supported": false,
+      "details": {
+        "d": -203.22783025308277,
+        "p": 0.0
+      }
+    },
+    "H3": {
+      "claim": "Recovery time scales with fleet size",
+      "supported": true,
+      "details": {
+        "r": 0.6560564876844116,
+        "fleet_means": {
+          "5": 146.61333333333334,
+          "9": 154.24166666666667,
+          "15": 154.295,
+          "25": 154.30333333333334
+        }
+      }
+    },
+    "H4": {
+      "claim": "Severity matters more than strategy",
+      "supported": false,
+      "details": {
+        "eta2_severity": 0.0004638685817847841,
+        "eta2_strategy": 0.9477085354106631
+      }
+    }
+  },
+  "pairwise_cohens_d": [
+    {
+      "comparison": "conservation_reweight vs quarantine",
+      "d": 0.2756345464120457,
+      "t": 4.77413038706865,
+      "p": 1.8048542553827929e-06,
+      "sig": "***"
+    },
+    {
+      "comparison": "conservation_reweight vs hebbian",
+      "d": 123.85213444809976,
+      "t": 2145.181894899604,
+      "p": 0.0,
+      "sig": "ns"
+    },
+    {
+      "comparison": "conservation_reweight vs random_recovery",
+      "d": 0.0,
+      "t": null,
+      "p": null,
+      "sig": "ns"
+    },
+    {
+      "comparison": "quarantine vs hebbian",
+      "d": 6.7578427669179915,
+      "t": 117.04927021863801,
+      "p": 0.0,
+      "sig": "ns"
+    },
+    {
+      "comparison": "quarantine vs random_recovery",
+      "d": -0.2756345464120457,
+      "t": -4.77413038706865,
+      "p": 1.8048542553827929e-06,
+      "sig": "***"
+    },
+    {
+      "comparison": "hebbian vs random_recovery",
+      "d": -123.85213444809976,
+      "t": -2145.181894899604,
+      "p": 0.0,
+      "sig": "ns"
+    }
+  ]
+}
