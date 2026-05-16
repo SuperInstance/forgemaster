@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleet Dashboard — Cocapn</title>
+<style>
+:root {
+  --bg: #0a0e14;
+  --bg2: #111922;
+  --bg3: #1a2332;
+  --green: #00ff88;
+  --green-dim: #00aa5a;
+  --yellow: #ffcc00;
+  --red: #ff3344;
+  --cyan: #00ccff;
+  --muted: #4a6080;
+  --text: #c8dce8;
+  --text-bright: #e8f4ff;
+  --mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --radius: 8px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+header {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--muted);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+header h1 {
+  font-family: var(--mono);
+  font-size: 18px;
+  color: var(--green);
+  letter-spacing: 1px;
+}
+.header-meta {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+.header-meta .status-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.status-dot.ok { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.status-dot.warn { background: var(--yellow); box-shadow: 0 0 6px var(--yellow); }
+.status-dot.down { background: var(--red); box-shadow: 0 0 6px var(--red); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+  padding: 16px 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; padding: 10px; gap: 10px; }
+  header h1 { font-size: 15px; }
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--bg3);
+  border-radius: var(--radius);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
+  opacity: 0.4;
+}
+.card-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.card-title span {
+  color: var(--green-dim);
+  margin-left: 6px;
+}
+
+/* Conservation gauge */
+.gauge-wrap { display: flex; align-items: center; gap: 20px; }
+.gauge-svg { width: 160px; height: 100px; flex-shrink: 0; }
+.gauge-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.gauge-value { font-family: var(--mono); font-size: 28px; color: var(--text-bright); }
+.gauge-sub { font-size: 12px; color: var(--muted); margin-top: 4px; font-family: var(--mono); }
+
+/* Compliance bar */
+.bar-track {
+  width: 100%;
+  height: 24px;
+  background: var(--bg3);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease, background 0.6s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--bg);
+}
+.bar-fill.green { background: var(--green); }
+.bar-fill.yellow { background: var(--yellow); }
+.bar-fill.red { background: var(--red); }
+
+/* Fleet health score */
+.health-score {
+  font-family: var(--mono);
+  font-size: 48px;
+  text-align: center;
+  line-height: 1;
+}
+.health-breakdown { margin-top: 12px; }
+.health-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--bg3);
+}
+.health-row .label { color: var(--muted); }
+.health-row .val { font-family: var(--mono); color: var(--text); }
+
+/* Shell list */
+.shell-list { max-height: 220px; overflow-y: auto; }
+.shell-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--bg3);
+  font-size: 13px;
+}
+.shell-name { font-family: var(--mono); color: var(--cyan); }
+.shell-count { font-family: var(--mono); color: var(--text); }
+
+/* Quarantine list */
+.quar-item {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--bg3);
+}
+.quar-id { font-family: var(--mono); color: var(--red); font-size: 13px; }
+.quar-reason { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.quar-progress {
+  width: 100%;
+  height: 4px;
+  background: var(--bg3);
+  border-radius: 2px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+.quar-progress-fill {
+  height: 100%;
+  background: var(--yellow);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+/* Detection log */
+.log-list { max-height: 240px; overflow-y: auto; font-family: var(--mono); font-size: 11px; }
+.log-entry {
+  padding: 4px 0;
+  border-bottom: 1px solid var(--bg3);
+  line-height: 1.4;
+}
+.log-time { color: var(--muted); }
+.log-type { font-weight: 600; }
+.log-type.fault { color: var(--red); }
+.log-type.recovery { color: var(--green); }
+.log-type.warning { color: var(--yellow); }
+.log-type.info { color: var(--cyan); }
+.log-detail { color: var(--text); }
+
+/* Tier chart */
+.tier-chart-wrap { display: flex; align-items: center; gap: 20px; }
+.tier-svg { flex-shrink: 0; }
+.tier-legend { font-size: 12px; }
+.tier-legend-item { display: flex; align-items: center; gap: 6px; margin: 4px 0; }
+.tier-legend-dot {
+  width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
+}
+
+/* GL(9) alignment */
+.align-score {
+  font-family: var(--mono);
+  font-size: 36px;
+  text-align: center;
+}
+.align-trend {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 4px;
+}
+.align-detail { font-size: 12px; color: var(--muted); margin-top: 8px; text-align: center; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 2px; }
+
+.empty-state {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: italic;
+  padding: 20px 0;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-fill, .quar-progress-fill { transition: none; }
+}
+
+.span-2 { grid-column: span 2; }
+@media (max-width: 768px) { .span-2 { grid-column: span 1; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚒️ FLEET DASHBOARD</h1>
+  <div class="header-meta">
+    <span id="refresh-status"><span class="status-dot ok"></span>LIVE</span>
+    &nbsp;|&nbsp;
+    <span id="last-update">—</span>
+    &nbsp;|&nbsp;
+    <span id="uptime">0s</span>
+  </div>
+</header>
+
+<div class="grid">
+  <!-- 1. Conservation Gauge -->
+  <div class="card">
+    <div class="card-title">Conservation Gauge <span>γ+H</span></div>
+    <div class="gauge-wrap">
+      <svg class="gauge-svg" viewBox="0 0 160 100" id="gauge-svg">
+        <defs>
+          <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:var(--green)"/>
+            <stop offset="50%" style="stop-color:var(--yellow)"/>
+            <stop offset="100%" style="stop-color:var(--red)"/>
+          </linearGradient>
+        </defs>
+        <!-- background arc -->
+        <path d="M 15 90 A 65 65 0 0 1 145 90" fill="none" stroke="var(--bg3)" stroke-width="10" stroke-linecap="round"/>
+        <!-- value arc -->
+        <path id="gauge-arc" d="M 15 90 A 65 65 0 0 1 145 90" fill="none" stroke="var(--green)" stroke-width="10" stroke-linecap="round" stroke-dasharray="204" stroke-dashoffset="204"/>
+        <!-- needle dot -->
+        <circle id="gauge-needle" cx="80" cy="90" r="4" fill="var(--text-bright)"/>
+        <!-- predicted marker -->
+        <circle id="gauge-predicted" cx="80" cy="90" r="3" fill="none" stroke="var(--cyan)" stroke-width="1.5"/>
+      </svg>
+      <div>
+        <div class="gauge-value" id="gauge-val">—</div>
+        <div class="gauge-sub">predicted: <span id="gauge-pred">—</span></div>
+        <div class="gauge-sub">deviation: <span id="gauge-dev">—</span>σ</div>
+        <div class="gauge-label" id="gauge-status">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Compliance Rate -->
+  <div class="card">
+    <div class="card-title">Compliance Rate <span>CONSERVED</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;">
+      <span class="gauge-value" id="compliance-val" style="font-size:32px;">—</span>
+      <span id="compliance-trend" style="font-size:18px;"></span>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill green" id="compliance-bar" style="width:0%"></div>
+    </div>
+    <div style="margin-top:8px;">
+      <div class="gauge-sub">rooms: <span id="compliance-rooms">—</span></div>
+      <div class="gauge-sub">flow events: <span id="compliance-flow">—</span></div>
+      <div class="gauge-sub">kernel updates: <span id="compliance-kernel">—</span></div>
+    </div>
+  </div>
+
+  <!-- 3. Fleet Health -->
+  <div class="card">
+    <div class="card-title">Fleet Health <span>WEIGHTED</span></div>
+    <div class="health-score" id="health-score" style="color:var(--green);">—</div>
+    <div class="health-breakdown" id="health-breakdown">
+      <div class="health-row"><span class="label">Compliance (40%)</span><span class="val" id="hb-compliance">—</span></div>
+      <div class="health-row"><span class="label">Conservation (25%)</span><span class="val" id="hb-conservation">—</span></div>
+      <div class="health-row"><span class="label">Tier Balance (20%)</span><span class="val" id="hb-tier">—</span></div>
+      <div class="health-row"><span class="label">Accuracy (10%)</span><span class="val" id="hb-accuracy">—</span></div>
+      <div class="health-row"><span class="label">Alignment (10%)</span><span class="val" id="hb-alignment">—</span></div>
+    </div>
+  </div>
+
+  <!-- 4. Active Shells -->
+  <div class="card">
+    <div class="card-title">Active Shells <span id="shell-count">0</span></div>
+    <div class="shell-list" id="shell-list">
+      <div class="empty-state">No shells detected</div>
+    </div>
+  </div>
+
+  <!-- 5. Quarantined Models -->
+  <div class="card">
+    <div class="card-title">Quarantined Models <span id="quar-count">0</span></div>
+    <div id="quar-list">
+      <div class="empty-state">No quarantined models</div>
+    </div>
+  </div>
+
+  <!-- 6. Detection Log -->
+  <div class="card span-2">
+    <div class="card-title">Detection Log <span>LAST 10</span></div>
+    <div class="log-list" id="log-list">
+      <div class="empty-state">No events yet</div>
+    </div>
+  </div>
+
+  <!-- 7. Tier Distribution -->
+  <div class="card">
+    <div class="card-title">Tier Distribution <span>FLEET</span></div>
+    <div class="tier-chart-wrap">
+      <svg class="tier-svg" width="140" height="140" viewBox="0 0 140 140" id="tier-svg"></svg>
+      <div class="tier-legend" id="tier-legend"></div>
+    </div>
+  </div>
+
+  <!-- 8. GL(9) Alignment -->
+  <div class="card">
+    <div class="card-title">GL(9) Alignment <span>INTENT</span></div>
+    <div class="align-score" id="align-score" style="color:var(--green);">—</div>
+    <div class="align-trend" id="align-trend"></div>
+    <div class="align-detail" id="align-detail">—</div>
+  </div>
+</div>
+
+<script>
+// --- Config ---
+const ENDPOINTS = {
+  plato:    { url: 'http://localhost:8848/stats',           timeout: 3000 },
+  hebbian:  { url: 'http://localhost:8849/conservation/report', timeout: 3000 },
+  health:   { url: 'http://localhost:8851/fleet/health',    timeout: 3000 },
+  router:   { url: 'http://localhost:8100/stats',           timeout: 3000 },
+};
+const REFRESH_MS = 5000;
+const startTime = Date.now();
+
+// --- State ---
+const state = {
+  hebbian: null,
+  health: null,
+  plato: null,
+  router: null,
+  prevCompliance: null,
+  alignHistory: [],
+  logEntries: [],
+  quarantine: [],
+};
+
+// --- Helpers ---
+function fmt(n, d=2) { return typeof n === 'number' ? n.toFixed(d) : '—'; }
+function pct(n) { return typeof n === 'number' ? (n * 100).toFixed(1) + '%' : '—'; }
+function ts(t) {
+  if (!t) return '—';
+  const d = new Date(t * 1000 || t);
+  return d.toLocaleTimeString('en-US', { hour12: false });
+}
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+async function fetchJSON(key) {
+  const ep = ENDPOINTS[key];
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), ep.timeout);
+    const r = await fetch(ep.url, { signal: ctrl.signal });
+    clearTimeout(timer);
+    if (!r.ok) throw new Error(r.status);
+    return await r.json();
+  } catch (e) {
+    return null;
+  }
+}
+
+// --- Gauge drawing ---
+function updateGauge(val, predicted, deviation, sigma) {
+  if (val == null) return;
+  const arcLen = 204; // approximate arc length of semicircle path
+  const pctOfOne = clamp(val, 0, 2);
+  const offset = arcLen - (pctOfOne / 2) * arcLen;
+  document.getElementById('gauge-arc').style.strokeDashoffset = offset;
+
+  // Color based on sigma
+  const absDev = Math.abs(deviation || 0);
+  let color = 'var(--green)';
+  let statusText = 'CONSERVED';
+  if (absDev > 2) { color = 'var(--red)'; statusText = 'SHELL SHOCK'; }
+  else if (absDev > 1) { color = 'var(--yellow)'; statusText = 'MARGINAL'; }
+  document.getElementById('gauge-arc').style.stroke = color;
+  document.getElementById('gauge-val').textContent = fmt(val, 4);
+  document.getElementById('gauge-val').style.color = color.replace('var(--', '').replace(')', '') === '--red' ? 'var(--red)' : color.replace('var(--', '').replace(')', '') === '--yellow' ? 'var(--yellow)' : 'var(--text-bright)';
+  document.getElementById('gauge-val').style.color = color;
+  document.getElementById('gauge-pred').textContent = predicted != null ? fmt(predicted, 4) : '—';
+  document.getElementById('gauge-dev').textContent = deviation != null ? fmt(deviation, 2) : '—';
+  document.getElementById('gauge-status').textContent = statusText;
+  document.getElementById('gauge-status').style.color = color;
+
+  // Move needle
+  const angle = Math.PI - (pctOfOne / 2) * Math.PI;
+  const nx = 80 + 65 * Math.cos(angle);
+  const ny = 90 - 65 * Math.sin(angle);
+  const needle = document.getElementById('gauge-needle');
+  needle.setAttribute('cx', nx);
+  needle.setAttribute('cy', ny);
+
+  // Predicted marker
+  if (predicted != null) {
+    const pPct = clamp(predicted, 0, 2);
+    const pAngle = Math.PI - (pPct / 2) * Math.PI;
+    const px = 80 + 65 * Math.cos(pAngle);
+    const py = 90 - 65 * Math.sin(pAngle);
+    const pm = document.getElementById('gauge-predicted');
+    pm.setAttribute('cx', px);
+    pm.setAttribute('cy', py);
+  }
+}
+
+// --- Compliance ---
+function updateCompliance(rate, rooms, flow, kernel) {
+  const valEl = document.getElementById('compliance-val');
+  const barEl = document.getElementById('compliance-bar');
+  const trendEl = document.getElementById('compliance-trend');
+
+  if (rate == null) {
+    valEl.textContent = '—';
+    barEl.style.width = '0%';
+    return;
+  }
+  const p = rate * 100;
+  valEl.textContent = p.toFixed(1) + '%';
+
+  barEl.style.width = p + '%';
+  barEl.className = 'bar-fill ' + (p >= 90 ? 'green' : p >= 80 ? 'yellow' : 'red');
+
+  if (state.prevCompliance != null) {
+    const diff = rate - state.prevCompliance;
+    if (diff > 0.005) trendEl.textContent = '▲';
+    else if (diff < -0.005) trendEl.textContent = '▼';
+    else trendEl.textContent = '◆';
+    trendEl.style.color = diff > 0.005 ? 'var(--green)' : diff < -0.005 ? 'var(--red)' : 'var(--muted)';
+  }
+  state.prevCompliance = rate;
+
+  document.getElementById('compliance-rooms').textContent = rooms != null ? rooms : '—';
+  document.getElementById('compliance-flow').textContent = flow != null ? flow : '—';
+  document.getElementById('compliance-kernel').textContent = kernel != null ? kernel : '—';
+}
+
+// --- Fleet Health ---
+function updateHealth(data) {
+  if (!data) {
+    document.getElementById('health-score').textContent = '—';
+    return;
+  }
+  const score = data.overall_score != null ? data.overall_score : data.health_score;
+  const s = score != null ? score : 0;
+  const pct = clamp(s * 100, 0, 100);
+  const el = document.getElementById('health-score');
+  el.textContent = pct.toFixed(0) + '%';
+  el.style.color = pct >= 85 ? 'var(--green)' : pct >= 70 ? 'var(--yellow)' : 'var(--red)';
+
+  // Breakdown
+  const bd = data.breakdown || data.components || {};
+  document.getElementById('hb-compliance').textContent = pct(bd.compliance);
+  document.getElementById('hb-conservation').textContent = pct(bd.conservation);
+  document.getElementById('hb-tier').textContent = pct(bd.tier_balance || bd.tier);
+  document.getElementById('hb-accuracy').textContent = pct(bd.accuracy);
+  document.getElementById('hb-alignment').textContent = pct(bd.alignment);
+}
+
+// --- Active Shells ---
+function updateShells(data) {
+  const listEl = document.getElementById('shell-list');
+  let rooms = [];
+
+  // Try multiple sources
+  if (data && data.rooms) rooms = data.rooms;
+  else if (state.hebbian && state.hebbian.rooms) rooms = state.hebbian.rooms;
+  else if (state.plato && state.plato.rooms) rooms = state.plato.rooms;
+
+  if (!rooms.length && state.health && state.health.rooms) rooms = state.health.rooms;
+
+  document.getElementById('shell-count').textContent = rooms.length;
+
+  if (!rooms.length) {
+    listEl.innerHTML = '<div class="empty-state">No shells detected</div>';
+    return;
+  }
+
+  listEl.innerHTML = rooms.map(r => {
+    const name = r.name || r.room_id || r.id || 'unknown';
+    const tiles = r.tile_count || r.tiles || r.flow_events || 0;
+    return `<div class="shell-item"><span class="shell-name">${esc(name)}</span><span class="shell-count">${tiles} tiles</span></div>`;
+  }).join('');
+}
+
+// --- Quarantine ---
+function updateQuarantine(data) {
+  const el = document.getElementById('quar-list');
+  let quarantined = [];
+
+  if (data && data.quarantined) quarantined = data.quarantined;
+  else if (state.health && state.health.quarantined) quarantined = state.health.quarantined;
+  else if (state.router && state.router.quarantined) quarantined = state.router.quarantined;
+
+  document.getElementById('quar-count').textContent = quarantined.length;
+
+  if (!quarantined.length) {
+    el.innerHTML = '<div class="empty-state">No quarantined models</div>';
+    return;
+  }
+
+  el.innerHTML = quarantined.map(q => {
+    const id = q.expert_id || q.id || q.model || 'unknown';
+    const reason = q.reason || q.fault_type || 'detected anomaly';
+    const progress = q.recovery_progress != null ? q.recovery_progress : 0;
+    return `<div class="quar-item">
+      <div class="quar-id">${esc(id)}</div>
+      <div class="quar-reason">${esc(reason)}</div>
+      <div class="quar-progress"><div class="quar-progress-fill" style="width:${(progress*100).toFixed(0)}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+// --- Detection Log ---
+function updateLog() {
+  const el = document.getElementById('log-list');
+  const entries = state.logEntries.slice(-10).reverse();
+  if (!entries.length) {
+    el.innerHTML = '<div class="empty-state">No events yet</div>';
+    return;
+  }
+  el.innerHTML = entries.map(e => {
+    const cls = e.type === 'fault' ? 'fault' : e.type === 'recovery' ? 'recovery' : e.type === 'warning' ? 'warning' : 'info';
+    return `<div class="log-entry"><span class="log-time">${e.time}</span> <span class="log-type ${cls}">[${e.type.toUpperCase()}]</span> <span class="log-detail">${esc(e.detail)}</span></div>`;
+  }).join('');
+}
+
+// --- Tier Distribution Pie ---
+const TIER_COLORS = ['#00ff88', '#00ccff', '#ffcc00'];
+const TIER_LABELS = ['Tier 1', 'Tier 2', 'Tier 3'];
+
+function updateTiers(data) {
+  const svg = document.getElementById('tier-svg');
+  const legend = document.getElementById('tier-legend');
+
+  let tiers = [0, 0, 0];
+  if (data) {
+    if (data.tier_distribution) {
+      tiers = [
+        data.tier_distribution.tier1 || data.tier_distribution[0] || 0,
+        data.tier_distribution.tier2 || data.tier_distribution[1] || 0,
+        data.tier_distribution.tier3 || data.tier_distribution[2] || 0,
+      ];
+    } else if (data.tiers) {
+      tiers = data.tiers;
+    } else if (data.behavioral && data.behavioral.tier_distribution) {
+      const td = data.behavioral.tier_distribution;
+      tiers = [td.tier1 || 0, td.tier2 || 0, td.tier3 || 0];
+    }
+  }
+
+  const total = tiers[0] + tiers[1] + tiers[2];
+  if (total === 0) {
+    svg.innerHTML = '<circle cx="70" cy="70" r="50" fill="var(--bg3)"/><text x="70" y="74" text-anchor="middle" fill="var(--muted)" font-size="11">—</text>';
+    legend.innerHTML = TIER_LABELS.map((l, i) => `<div class="tier-legend-item"><div class="tier-legend-dot" style="background:${TIER_COLORS[i]}"></div>${l}: 0</div>`).join('');
+    return;
+  }
+
+  // Draw donut
+  let paths = '';
+  let startAngle = -Math.PI / 2;
+  const cx = 70, cy = 70, r = 55, inner = 35;
+
+  tiers.forEach((count, i) => {
+    if (count === 0) return;
+    const frac = count / total;
+    const endAngle = startAngle + frac * 2 * Math.PI;
+    const large = frac > 0.5 ? 1 : 0;
+    const x1 = cx + r * Math.cos(startAngle);
+    const y1 = cy + r * Math.sin(startAngle);
+    const x2 = cx + r * Math.cos(endAngle);
+    const y2 = cy + r * Math.sin(endAngle);
+    const ix1 = cx + inner * Math.cos(endAngle);
+    const iy1 = cy + inner * Math.sin(endAngle);
+    const ix2 = cx + inner * Math.cos(startAngle);
+    const iy2 = cy + inner * Math.sin(startAngle);
+    paths += `<path d="M${x1} ${y1} A${r} ${r} 0 ${large} 1 ${x2} ${y2} L${ix1} ${iy1} A${inner} ${inner} 0 ${large} 0 ${ix2} ${iy2} Z" fill="${TIER_COLORS[i]}" opacity="0.85"/>`;
+    startAngle = endAngle;
+  });
+
+  svg.innerHTML = paths + `<text x="${cx}" y="${cy + 5}" text-anchor="middle" fill="var(--text-bright)" font-family="var(--mono)" font-size="18">${total}</text>`;
+
+  legend.innerHTML = tiers.map((count, i) => `<div class="tier-legend-item"><div class="tier-legend-dot" style="background:${TIER_COLORS[i]}"></div>${TIER_LABELS[i]}: ${count} (${(count/total*100).toFixed(0)}%)</div>`).join('');
+}
+
+// --- GL(9) Alignment ---
+function updateAlignment(data) {
+  let score = null;
+  let detail = '';
+
+  if (data) {
+    if (data.alignment != null) score = data.alignment;
+    else if (data.gl9_alignment != null) score = data.gl9_alignment;
+    else if (data.consensus) score = data.consensus;
+  }
+
+  const el = document.getElementById('align-score');
+  const trendEl = document.getElementById('align-trend');
+  const detEl = document.getElementById('align-detail');
+
+  if (score == null) {
+    el.textContent = '—';
+    trendEl.textContent = '';
+    detEl.textContent = 'GL(9) data unavailable';
+    return;
+  }
+
+  const pct = clamp(score * 100, 0, 100);
+  el.textContent = pct.toFixed(1) + '%';
+  el.style.color = pct >= 90 ? 'var(--green)' : pct >= 75 ? 'var(--yellow)' : 'var(--red)';
+
+  state.alignHistory.push(score);
+  if (state.alignHistory.length > 20) state.alignHistory.shift();
+
+  if (state.alignHistory.length >= 2) {
+    const prev = state.alignHistory[state.alignHistory.length - 2];
+    const diff = score - prev;
+    if (diff > 0.01) { trendEl.textContent = '▲'; trendEl.style.color = 'var(--green)'; }
+    else if (diff < -0.01) { trendEl.textContent = '▼'; trendEl.style.color = 'var(--red)'; }
+    else { trendEl.textContent = '◆'; trendEl.style.color = 'var(--muted)'; }
+  }
+
+  detEl.textContent = `trend: ${state.alignHistory.length} samples`;
+}
+
+// --- HTML escape ---
+function esc(s) {
+  if (typeof s !== 'string') s = String(s);
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// --- Service status ---
+function updateServiceStatus() {
+  const el = document.getElementById('refresh-status');
+  const any = state.hebbian || state.health || state.plato || state.router;
+  if (any) {
+    el.innerHTML = '<span class="status-dot ok"></span>LIVE';
+  } else {
+    el.innerHTML = '<span class="status-dot down"></span>NO SIGNAL';
+  }
+  document.getElementById('last-update').textContent = new Date().toLocaleTimeString('en-US', { hour12: false });
+  const sec = Math.floor((Date.now() - startTime) / 1000);
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  document.getElementById('uptime').textContent = m > 0 ? `${m}m ${s}s` : `${s}s`;
+}
+
+// --- Main refresh ---
+async function refresh() {
+  const [plato, hebbian, health, router] = await Promise.all([
+    fetchJSON('plato'),
+    fetchJSON('hebbian'),
+    fetchJSON('health'),
+    fetchJSON('router'),
+  ]);
+
+  if (plato) state.plato = plato;
+  if (hebbian) state.hebbian = hebbian;
+  if (health) state.health = health;
+  if (router) state.router = router;
+
+  // 1. Conservation gauge
+  const cons = hebbian || (health && health.structural) || {};
+  updateGauge(
+    cons.gamma_plus_H,
+    cons.predicted,
+    cons.deviation,
+    cons.sigma
+  );
+
+  // 2. Compliance
+  updateCompliance(
+    cons.compliance_rate,
+    cons.room_count,
+    cons.flow_events,
+    cons.kernel_updates
+  );
+
+  // 3. Fleet Health
+  updateHealth(health);
+
+  // 4. Active Shells (prefer health.rooms, then hebbian, then plato)
+  const shellSource = (health && health.rooms && health.rooms.length) ? health
+    : (hebbian && hebbian.rooms && hebbian.rooms.length) ? hebbian
+    : plato;
+  updateShells(shellSource);
+
+  // 5. Quarantine
+  updateQuarantine(health || router);
+
+  // 6. Log entries from fault data
+  if (health && health.detection_log) {
+    health.detection_log.forEach(e => {
+      state.logEntries.push({ time: ts(e.timestamp), type: e.level || 'info', detail: e.message || e.detail || '' });
+    });
+    if (state.logEntries.length > 100) state.logEntries = state.logEntries.slice(-100);
+  }
+  // Generate log from quarantine events
+  if (health && health.quarantined) {
+    health.quarantined.forEach(q => {
+      if (q._logged) return;
+      q._logged = true;
+      state.logEntries.push({
+        time: new Date().toLocaleTimeString('en-US', { hour12: false }),
+        type: 'fault',
+        detail: `Quarantined: ${q.expert_id || q.id || 'unknown'} — ${q.reason || q.fault_type || 'anomaly'}`,
+      });
+    });
+  }
+  // Shell shock detection
+  if (cons.deviation != null && Math.abs(cons.deviation) > 2) {
+    state.logEntries.push({
+      time: new Date().toLocaleTimeString('en-US', { hour12: false }),
+      type: 'warning',
+      detail: `Shell shock: γ+H deviation ${(cons.deviation).toFixed(2)}σ`,
+    });
+  }
+  if (state.logEntries.length > 100) state.logEntries = state.logEntries.slice(-100);
+  updateLog();
+
+  // 7. Tiers
+  updateTiers(health || router);
+
+  // 8. GL(9) Alignment
+  updateAlignment(health || router);
+
+  updateServiceStatus();
+}
+
+// --- Init ---
+refresh();
+setInterval(refresh, REFRESH_MS);
+</script>
+
+</body>
+</html>
