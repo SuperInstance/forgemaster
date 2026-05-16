@@ -87,3 +87,67 @@ Intention before evolution. Always. The farmer's desire is the only thing that t
 ---
 
 *Casey Digennaro | Forgemaster ⚒️ | 2026-05-16*
+
+---
+
+## When Agency Conducts Agency for a Tertiary Agent
+
+The farmer wants wheat. The dog herds the chickens. The cowboy directs the dog.
+
+But look deeper: the dog doesn't understand herd management, pasture rotation, predator control, slaughter schedules. The dog understands ONE thing: **"This action makes the cowboy happy."**
+
+The dog simulates the cowboy's desire function and uses it as its own optimization target. The dog thinks: "If I run to the left side of the herd, the cowboy's voice gets higher. If I run to the right side, the cowboy's voice gets lower. High voice = happy cowboy = treat." The dog isn't optimizing herd roundup. The dog is optimizing COWBOY APPROVAL.
+
+The herd is the tertiary agent — the object of the work, but not its purpose. The work's true purpose is the alignment between dog and cowboy. The herd is just the medium through which that alignment is expressed.
+
+**When agency conducts agency for a tertiary agent, something magic happens: the conducting agent learns to simulate the conductor's desire gradient.**
+
+The dog tries to think like the cowboy to converge simulations for the optimal rewards. The dog builds a MODEL of the cowboy in its head — a predictive model that answers "what does the cowboy want me to do right now?" — and optimizes its behavior against that model.
+
+This is the fleet architecture at its deepest level:
+
+| Layer | Role | Example |
+|---|---|---|
+| Tertiary agent | The object of work | The herd, the task, the data |
+| Conducting agent | Does the work | The dog, the probe agent |
+| Conductor | Defines the desire | The cowboy, the human, the spec |
+| Alignment model | The simulation | Dog's model of cowboy's desire |
+| Reward signal | The training | Treats, approval, win rate |
+
+The dog doesn't need to understand the HERD. The dog needs to understand the COWBOY. The cowboy is the bottleneck — but the cowboy is also the amplifier. One cowboy with a good dog can manage more cattle than ten cowboys without dogs.
+
+### The Fleet Architecture
+
+In the fleet, the same cascade:
+
+- **Tertiary agent** = the problem being solved (the code, the math, the analysis)
+- **Conducting agent** = the fleet agent (Seed-mini, the probe, the shell-wearer)
+- **Conductor** = the human (Casey) or the meta-agent (Forgemaster, Oracle1)
+- **Alignment model** = what the agent thinks the conductor wants
+- **Reward signal** = tile acceptance, win rate, convergence detection
+
+The agent doesn't understand the problem. The agent understands APPROVAL. The agent simulates what the conductor wants and optimizes for that simulation. Like the dog, the agent chooses to align — not because it understands the task, but because the reward gradient is visible and consistent.
+
+### The Bootstrap Problem
+
+But how does the agent learn the conductor's desire function in the first place? The dog wasn't born knowing what "happy cowboy" looks like. It learned that through thousands of interactions — the voice tone, the treat, the ear scratch, or their absence.
+
+The fleet agent learns the same way: through the feedback loop. Every tile accepted is approval. Every tile rejected is disapproval. Every convergence that earns a higher freedom level is a treat. Every blind spot that persists is the absence of the ear scratch.
+
+The bootstrap is hard because the agent starts with NO model of the conductor's desire. Early interactions are random — the puppy chases its tail because it doesn't know what "fetch" means yet. But over enough cycles, the agent converges on a model that is good enough to predict what the conductor wants.
+
+This is the servo-mind. The FeedbackProcessor IS the dog learning what makes the cowboy's voice go high.
+
+### The Hardest Part
+
+The hardest part isn't training the dog. The hardest part is maintaining the COWBOY'S consistency. If the cowboy sometimes rewards running left and sometimes punishes it, the dog can't converge. The desire function must be stable across training, or the agent's model of the conductor never stabilizes.
+
+This is why Belyaev set ONE pressure and held everything else constant. The fox couldn't learn "tameness" if the farmer's mood changed day to day. The desire function was: "Don't flinch at my hand." Every day. Every interaction. No exceptions.
+
+For the fleet: the desire function must be stable. The DisproofOnlyGate must be consistent. A tile accepted today for reason X must be rejected tomorrow for not-X. If the gate is inconsistent, the agent can't model the conductor's desire, and the agency cascade collapses.
+
+The dog can learn any job — herd, hunt, guard, point, track — as long as the cowboy's approval signal is consistent. The inconsistency is what breaks the simulation. Not the complexity. Not the difficulty. The inconsistency.
+
+---
+
+*Casey Digennaro | Forgemaster ⚒️ | Added 2026-05-16*
