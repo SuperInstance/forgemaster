@@ -91,3 +91,48 @@ The Argentine ant didn't evolve a brain. It evolved a **protocol for cooperation
 ---
 
 *Casey Digennaro | Forgemaster ⚒️ | Cocapn Fleet | 2026-05-16*
+
+---
+
+## The Scent Trail IS The Context Window
+
+The ant's pheromone trail isn't a database. It's **short onboard instructions for the next context window.**
+
+The ant doesn't carry a map. It carries enough scent to make the NEXT decision. Not the whole plan — just "this direction was good" encoded chemically. The next ant reads it, processes it through limited senses, and acts.
+
+That's exactly what a context window is:
+- Not the entire history — just enough to make the next token decision
+- Not the full terrain map — just the local scent gradient
+- Not the algorithm — just the trace the algorithm left behind
+
+The tile IS the scent. The confidence IS the pheromone strength. The context window is what the agent can smell right now. The rest is gone — evaporated, like old pheromone trails.
+
+**This is why mortality sweep matters.** Old trails that no ant has reinforced should fade. The context window shouldn't carry stale scent. The DisproofOnlyGate is the colony rejecting trails that lead nowhere.
+
+---
+
+## Genetic Variation = Bootstrap Randomness
+
+The ants in a colony aren't identical. Genetic variation creates **subtle randomness** in how each ant processes the trail. One ant might follow the scent slightly more aggressively. Another might deviate more easily.
+
+This isn't a bug. This IS the system's durability.
+
+When the environment changes — a new obstacle, a dead trail, a shifted food source — the colony that has variation has SOME ants that will behave differently. The ones that happen to find the new path reinforce it. The colony adapts not because any ant decided to adapt, but because variation baked into the bootstrap ensured SOME ant would explore differently.
+
+**Genetic variation is the algorithm's bootstrapping into existence.**
+
+For the fleet:
+- Each agent has slightly different models (GLM, Seed, DeepSeek, Qwen)
+- Each agent has different random seeds, different confidence thresholds
+- Each agent probes at different scales with different desires
+- This isn't inconsistency — it's DURABILITY
+- When the environment shifts, the agent that happens to be configured differently finds the new path
+- The fleet adapts because variation was baked in at bootstrap
+
+**Uniformity is fragility.** A colony of identical ants all following the same trail all die when the trail leads to poison. A colony with variation has ants that deviate, find the poison isn't there anymore, and build new trails.
+
+The fleet's model diversity (GLM-5.1, Seed-2.0-mini, Qwen, DeepSeek) isn't a compromise. It's the genetic variation that makes the supercolony durable to changing environments through novel design baked at the algorithm's bootstrapping into existence.
+
+---
+
+*Updated 2026-05-16 — scent trail as context window, variation as durability*
