@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
 """
-Fleet Auto-Translator V2 — Activation-Key Model
-=================================================
+Fleet Auto-Translator V2 — Activation-Key Model (Domain-Aware)
+================================================================
 Based on Hypothesis V6 (Activation-Key Model): LLMs store mathematical
 procedures activated by context cues (vocabulary tokens). Symbolic notation
 is unreliable; domain labels are reliable activation keys.
+
+Study 56 proved the vocabulary wall is MATH-SPECIFIC. For all other
+domains, natural language IS the activation key. The translator should
+only activate for math tasks.
 
 Key changes from V1:
 1. Activation-Key Engineering: inject correct domain labels instead of stripping vocab
 2. Notation Normalizer: convert unicode math to ASCII/natural language equivalents
 3. Stage-Aware Routing: adjust translation depth per model stage
 4. Conservation-Aware Batching: batch queries to maintain attention coherence
+5. Domain Detection: only apply translation for math-domain tasks (Study 56)
 
 Study 46 notation gradient: unicode ²=0%, a*a=22%, natural lang=67%, step-by-step=~100%
+Study 56 cross-domain: activation-key effect is math-specific (-4pp for non-math)
 """
 
 from __future__ import annotations
@@ -340,44 +346,265 @@ class ActivationKeyEngineer:
 
 
 # ---------------------------------------------------------------------------
-# Stage-Aware Translator
+# Domain Detector (Study 56)
+# ---------------------------------------------------------------------------
+
+class DomainDetector:
+    """
+    Detect the domain of a prompt to decide translation mode.
+
+    Study 56 proved the vocabulary wall only exists in math. For all other
+    domains, natural language IS the activation key. Translation should only
+    activate for math tasks.
+
+    Domains:
+      math      -> full activation-key translation (vocabulary wall exists)
+      chemistry -> minimal translation (strip jargon, keep structure)
+      physics   -> minimal translation (strip jargon, keep structure)
+      logic     -> passthrough (no translation needed)
+      code      -> passthrough (no translation needed, ceiling effect)
+      general   -> passthrough
+    """
+
+    # Domain keyword patterns with weights for scoring
+    _DOMAIN_KEYWORDS: Dict[str, Dict[str, float]] = {
+        "math": {
+            # Specific math terms (high weight)
+            "eisenstein": 3.0, "cyclotomic": 3.0, "möbius": 3.0, "mobius": 3.0,
+            "legendre": 3.0, "hurwitz": 3.0, "frobenius": 3.0, "lamport": 2.0,
+            "lattice": 2.5, "spline": 2.0, "fourier": 2.5, "hilbert": 2.5,
+            "norm": 2.0, "norms": 2.0,
+            # Computation keywords
+            "compute": 1.5, "calculate": 1.5, "computation": 1.5,
+            # Math notation patterns
+            "quadratic": 2.0, "modular": 2.0, "inverse": 1.5, "residue": 2.0,
+            # Symbols
+            "ω": 2.0, "ζ": 2.0, "φ": 1.5, "π": 1.5, "∑": 2.0, "∏": 2.0,
+            "√": 2.0, "∫": 2.5,
+            # Arithmetic patterns
+            "squared": 1.0, "cubed": 1.0, "polynomial": 2.0, "integer": 1.0,
+            "factorize": 1.5, "prime": 1.5, "divisor": 1.5,
+        },
+        "chemistry": {
+            "molar": 3.0, "compound": 2.0, "reaction": 2.0,
+            "element": 2.0, "formula": 1.5, "h2o": 3.0, "molecule": 2.5,
+            "atom": 2.0, "atomic": 2.0, "bond": 2.0, "ion": 2.0,
+            "mol": 2.0, "mole": 2.0,
+            "acid": 2.0, "oxidation": 2.5,
+            "reduction": 2.0, "valence": 2.0, "isotope": 2.0,
+            "stoichiometry": 3.0, "avogadro": 3.0,
+        },
+        "physics": {
+            "force": 2.0, "acceleration": 2.5, "velocity": 2.5, "energy": 2.0,
+            "newton": 2.5, "momentum": 2.5, "gravity": 2.0, "mass": 1.5,
+            "kinetic": 2.5, "potential": 1.5, "friction": 2.0, "torque": 2.5,
+            "wavelength": 2.5, "frequency": 2.0, "voltage": 2.0, "current": 2.0,
+            "resistance": 2.0, "circuit": 2.0, "joule": 2.0, "watt": 2.0,
+            "coulomb": 2.5, "tesla": 2.5, "amplitude": 2.0,
+        },
+        "logic": {
+            "implies": 2.5, "if-then": 2.5, "therefore": 2.0, "deduction": 2.5,
+            "premise": 2.5, "syllogism": 3.0, "proposition": 2.0, "conjunction": 2.5,
+            "disjunction": 2.5, "negation": 2.0, "contrapositive": 3.0,
+            "contradiction": 2.0, "tautology": 2.5, "modus": 2.5,
+            "ponens": 2.5, "tollens": 2.5, "quantifier": 2.5,
+            "existential": 2.5, "universal": 1.5, "inference": 2.0,
+        },
+        "code": {
+            "function": 2.0, "implement": 2.0, "algorithm": 2.0, "loop": 1.5,
+            "class": 1.5, "def ": 2.0, "return": 1.5, "import": 1.5,
+            "variable": 1.0, "array": 1.5, "hash": 1.5, "sort": 1.0,
+            "recursive": 2.0, "iterate": 1.5, "compile": 2.0, "runtime": 1.5,
+            "debug": 1.5, "refactor": 2.0, "async": 2.0, "thread": 1.5,
+            "linked list": 2.5, "binary tree": 2.5, "stack": 2.0, "queue": 2.0,
+        },
+    }
+
+    # Regex patterns for structural detection (higher confidence)
+    _STRUCTURAL_PATTERNS: Dict[str, List[Tuple[str, float]]] = {
+        "math": [
+            (r'\b\d+\s*[+\-*/]\s*\d+', 2.0),       # arithmetic: 3 + 5
+            (r'\b[a-z]\^\d', 2.0),                    # a^2 notation
+            (r'[α-ωΑ-Ω]', 2.0),                         # Greek letters
+            (r'\bmod\s+\d+', 2.0),                     # mod N
+            (r'\d²', 3.0),                          # unicode superscript
+            (r'(?:a|b|x|n)²', 3.0),              # explicit squared
+            (r'Φ[_\d]', 3.0),                        # cyclotomic
+            (r'μ\(\d+\)', 3.0),                    # Möbius function
+            (r'\(\d+\|\d+\)', 3.0),                  # Legendre symbol
+        ],
+        "chemistry": [
+            (r'\b[A-Z][a-z]?\d+[A-Z]', 2.0),        # Multi-element formulas: H2SO, NaC
+            (r'\bH[2-9]\b', 2.5),                    # H2, H3 etc
+            (r'\d+\.\d+\s*g/mol', 3.0),            # g/mol units with decimal
+            (r'\bNaCl\b|\bHCl\b|\bNaOH\b|\bH2SO4\b|\bH2O\b', 3.0),  # specific compounds
+        ],
+        "physics": [
+            (r'\d+\s*(?:m/s|kg|N|J|W|V|A|Hz|Pa)', 3.0),  # SI units
+            (r'F\s*=\s*ma', 3.0),                # Newton's second law
+            (r'E\s*=\s*mc²', 3.0),               # Einstein
+            (r'KE\s*=|PE\s*=', 2.5),         # kinetic/potential energy
+        ],
+        "logic": [
+            (r'[A-Z]\s*→\s*[A-Z]', 3.0),        # A → B notation
+            (r'[A-Z]\s*∧\s*[A-Z]', 3.0),        # A ∧ B notation
+            (r'[A-Z]\s*∨\s*[A-Z]', 3.0),        # A ∨ B notation
+            (r'¬[A-Z]', 3.0),                     # ¬A notation
+            (r'if.*then.*therefore', 2.5),        # syllogistic pattern
+        ],
+        "code": [
+            (r'def\s+\w+\s*\(', 3.0),              # function def
+            (r'class\s+\w+', 3.0),                  # class def
+            (r'for\s+\w+\s+in\s+', 2.0),          # for loop
+            (r'if\s+.*:', 1.5),                   # if statement
+            (r'import\s+\w+', 2.0),                 # import statement
+            (r'```\w*\n', 2.0),                     # code fence
+        ],
+    }
+
+    @classmethod
+    def detect_domain(cls, prompt: str) -> Tuple[str, float]:
+        """
+        Detect the domain of a prompt.
+
+        Returns:
+            Tuple of (domain, confidence) where domain is one of:
+            "math", "chemistry", "physics", "logic", "code", "general"
+            and confidence is 0.0-1.0.
+        """
+        lower = prompt.lower()
+        scores: Dict[str, float] = {}
+
+        # Phase 1: Keyword scoring
+        for domain, keywords in cls._DOMAIN_KEYWORDS.items():
+            score = 0.0
+            for keyword, weight in keywords.items():
+                # Use simple contains for short keywords, word-aware for longer
+                if len(keyword) <= 2:
+                    if keyword in lower:
+                        score += weight
+                else:
+                    pattern = re.escape(keyword)
+                    matches = re.findall(pattern, lower)
+                    score += weight * len(matches)
+            scores[domain] = score
+
+        # Phase 2: Structural pattern scoring (higher confidence)
+        for domain, patterns in cls._STRUCTURAL_PATTERNS.items():
+            for pattern, weight in patterns:
+                if re.search(pattern, prompt):
+                    scores[domain] = scores.get(domain, 0.0) + weight
+
+        # Phase 3: Pick best domain
+        if not scores:
+            return "general", 0.5
+
+        best_domain = max(scores, key=lambda d: scores[d])
+        best_score = scores[best_domain]
+
+        # No meaningful signal -> general
+        if best_score < 1.0:
+            return "general", 0.3
+
+        # Calculate confidence (0.0-1.0)
+        sorted_scores = sorted(scores.values(), reverse=True)
+        gap = (sorted_scores[0] - sorted_scores[1]) if len(sorted_scores) > 1 else sorted_scores[0]
+        confidence = min(1.0, best_score / 5.0)  # normalize by typical max
+        confidence = max(0.3, min(1.0, confidence + gap / 10.0))  # boost for clear winners
+
+        return best_domain, round(confidence, 2)
+
+    @classmethod
+    def get_translation_mode(cls, domain: str) -> str:
+        """
+        Get the recommended translation mode for a domain.
+
+        Study 56 findings:
+          math      -> "full" (activation-key translation needed)
+          chemistry -> "minimal" (strip jargon, keep structure)
+          physics   -> "minimal" (strip jargon, keep structure)
+          logic     -> "passthrough" (no translation needed)
+          code      -> "passthrough" (ceiling effect, no translation needed)
+          general   -> "passthrough" (no domain signal)
+        """
+        _MODES = {
+            "math": "full",
+            "chemistry": "minimal",
+            "physics": "minimal",
+            "logic": "passthrough",
+            "code": "passthrough",
+            "general": "passthrough",
+        }
+        return _MODES.get(domain, "passthrough")
+
+
+# ---------------------------------------------------------------------------
+# Stage-Aware Translator (Domain-Aware, Study 56)
 # ---------------------------------------------------------------------------
 
 def translate_for_stage(
     prompt: str,
     stage: ModelStage,
     task_type: Optional[str] = None,
+    domain: Optional[str] = None,
 ) -> str:
     """
-    Translate a prompt for a given model stage.
+    Translate a prompt for a given model stage, domain-aware.
 
-    Stage 4 (FULL):       minimal translation, model handles notation natively
-    Stage 3 (CAPABLE):    activation-key injection + ASCII normalization
-    Stage 2 (META_ECHO):  natural language conversion + activation key
-    Stage 1 (ECHO):       pre-compute everything, send only arithmetic
+    Study 56: Only math-domain tasks need activation-key translation.
+    All other domains get passthrough or minimal translation.
+
+    Args:
+        prompt: The raw prompt to translate.
+        stage: Model capability stage.
+        task_type: Optional task type hint.
+        domain: Optional pre-detected domain (skips detection if provided).
+
+    Returns:
+        Translated prompt appropriate for the model stage and domain.
     """
+    # Detect domain if not provided
+    if domain is None:
+        domain, _confidence = DomainDetector.detect_domain(prompt)
+
+    # Get translation mode for this domain
+    mode = DomainDetector.get_translation_mode(domain)
+
+    # --- Passthrough domains (Study 56: no vocabulary wall) ---
+    if mode == "passthrough":
+        logger.debug("Domain '%s': passthrough (no vocabulary wall per Study 56)", domain)
+        return prompt
+
+    # --- Minimal translation domains ---
+    if mode == "minimal":
+        # For chemistry/physics: normalize unicode, strip excessive jargon,
+        # but keep natural language structure intact
+        result = NotationNormalizer.normalize_unicode(prompt)
+        logger.debug("Domain '%s': minimal translation (unicode normalize only)", domain)
+        return result
+
+    # --- Full translation: math domain (original behavior) ---
+    # This is the only domain with a vocabulary wall (Study 56)
     if stage >= ModelStage.FULL:
         # Stage 4: model is notation-immune, pass through
         # Labeled Paradox (Study 47): DON'T inject activation keys for Stage 4.
-        # Labels hurt Stage 4 models — they already have correct procedures.
-        logger.debug("Stage 4: passthrough (Labeled Paradox: no key injection)")
+        logger.debug("Stage 4 + math: passthrough (Labeled Paradox: no key injection)")
         return prompt
 
     if stage >= ModelStage.CAPABLE:
         # Stage 3: inject activation key, normalize unicode to ASCII
         result = ActivationKeyEngineer.inject_key(prompt, task_type)
         result = NotationNormalizer.normalize_unicode(result)
-        logger.debug("Stage 3: activation key + unicode normalize")
+        logger.debug("Stage 3 + math: activation key + unicode normalize")
         return result
 
     if stage >= ModelStage.META_ECHO:
         # Stage 2: natural language + activation key
         result = ActivationKeyEngineer.inject_key(prompt, task_type)
         result = NotationNormalizer.to_natural_language(result)
-        # If still no activation key and we have a task type, wrap in step-by-step
         if not NotationNormalizer.detect_domain_labels(result) and task_type:
             result = NotationNormalizer.to_step_by_step(result)
-        logger.debug("Stage 2: natural language + activation key")
+        logger.debug("Stage 2 + math: natural language + activation key")
         return result
 
     # Stage 0/1: pre-compute everything, bare arithmetic only
@@ -385,14 +612,11 @@ def translate_for_stage(
         result = _pre_compute(task_type, prompt)
         if result:
             return result
-    # Fallback: strip all domain vocab, keep only numbers and operators
-    # Use natural language instead of ascii_math to avoid garbling
     result = NotationNormalizer.to_natural_language(prompt)
-    # Remove domain-specific terms
     for pattern in NotationNormalizer._DOMAIN_PATTERNS:
         result = re.sub(pattern, '', result, flags=re.IGNORECASE)
     result = re.sub(r'\s+', ' ', result).strip()
-    logger.debug("Stage 0/1: bare natural language")
+    logger.debug("Stage 0/1 + math: bare natural language")
     return result
 
 
@@ -1156,6 +1380,7 @@ def translate_batch(
     model: Optional[str] = None,
     stage: Optional[ModelStage] = None,
     task_type: Optional[str] = None,
+    domain: Optional[str] = None,
 ) -> List[str]:
     """
     Translate multiple queries efficiently.
@@ -1165,6 +1390,7 @@ def translate_batch(
         model: Optional model ID for stage auto-detection.
         stage: Optional explicit stage (overrides model-based detection).
         task_type: Optional task type for activation key injection.
+        domain: Optional pre-detected domain (skips per-query detection).
 
     Returns:
         List of translated prompts, one per input query.
@@ -1177,7 +1403,7 @@ def translate_batch(
 
     results = []
     for query in queries:
-        results.append(translate_for_stage(query, stage, task_type=task_type))
+        results.append(translate_for_stage(query, stage, task_type=task_type, domain=domain))
     return results
 
 

@@ -44,6 +44,7 @@ try:
         translate_for_stage,
         NotationNormalizer,
         ActivationKeyEngineer,
+        DomainDetector,
         KNOWN_STAGES,
     )
     HAS_TRANSLATOR = True
@@ -546,16 +547,35 @@ class CriticalAngleRouter:
         }
 
     def _translate(self, task_type: str, params: Dict[str, Any],
-                   tier: ModelTierEnum) -> str:
-        """Apply three-tier formatting."""
+                   tier: ModelTierEnum, prompt: Optional[str] = None) -> str:
+        """Apply three-tier formatting, domain-aware (Study 56)."""
+        # Detect domain from the prompt if we have one
+        domain = "general"
+        if HAS_TRANSLATOR and prompt:
+            domain, _conf = DomainDetector.detect_domain(prompt)
+        elif HAS_TRANSLATOR:
+            # Build a rough prompt from task_type/params for domain detection
+            rough = self._build_prompt(task_type, params, scaffold=False)
+            domain, _conf = DomainDetector.detect_domain(rough)
+
+        mode = DomainDetector.get_translation_mode(domain) if HAS_TRANSLATOR else "full"
+
+        # Non-math domains: passthrough regardless of tier (Study 56)
+        if mode == "passthrough":
+            return prompt or self._build_prompt(task_type, params, scaffold=False)
+        elif mode == "minimal":
+            # Minimal: normalize unicode only
+            base = prompt or self._build_prompt(task_type, params, scaffold=False)
+            if HAS_TRANSLATOR:
+                return NotationNormalizer.normalize_unicode(base)
+            return base
+
+        # Math domain: full tier-based translation
         if tier == ModelTierEnum.TIER_1_DIRECT:
-            # Tier 1: bare notation passthrough (per Study 49/50)
             return self._translate_tier1(task_type, params)
         elif tier == ModelTierEnum.TIER_2_SCAFFOLDED:
-            # Tier 2: activation key injection + notation normalization
             return self._translate_tier2(task_type, params)
         else:
-            # Tier 3: should not reach here (rejected above), but fallback
             return self._translate_tier2(task_type, params)
 
     def _translate_tier1(self, task_type: str, params: Dict[str, Any]) -> str:
@@ -1155,6 +1175,35 @@ def create_app(
     async def route_batch(req: BatchRouteRequest):
         """Route multiple computations at once, grouped by optimal model."""
         return router.route_batch(req.items, preferred_model=req.preferred_model)
+
+    @app.post("/route/domain", response_model=None)
+    async def detect_domain(prompt: str = ""):
+        """Detect the domain of a prompt and return recommended translation mode.
+
+        Study 56: Only math-domain tasks need activation-key translation.
+        All other domains get passthrough or minimal translation.
+
+        Returns:
+            domain: detected domain (math, chemistry, physics, logic, code, general)
+            confidence: detection confidence (0.0-1.0)
+            translation_mode: recommended mode (full, minimal, passthrough)
+        """
+        if not HAS_TRANSLATOR:
+            return {
+                "domain": "general",
+                "confidence": 0.0,
+                "translation_mode": "passthrough",
+                "error": "Translator module not available",
+            }
+        domain, confidence = DomainDetector.detect_domain(prompt)
+        mode = DomainDetector.get_translation_mode(domain)
+        return {
+            "prompt": prompt[:100],
+            "domain": domain,
+            "confidence": confidence,
+            "translation_mode": mode,
+            "study_56_note": "Vocabulary wall is math-specific. Non-math domains get passthrough.",
+        }
 
     @app.get("/health")
     async def health():
