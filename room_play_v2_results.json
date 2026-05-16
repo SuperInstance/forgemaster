@@ -1,0 +1,690 @@
+{
+  "session_id": "db3feb65",
+  "rounds": 500,
+  "rooms": 7,
+  "room_names": [
+    "boy-in-rowboat",
+    "mechanic",
+    "jazz-pianist",
+    "carpet-layer",
+    "banker",
+    "astronomer",
+    "clockmaker"
+  ],
+  "paradigm_shifts": 3,
+  "shifts_top5": [
+    "Room dbe22cd3 found structure in 'break_rule' at potential 0.580",
+    "Room c0832c3e found structure in 'break_rule' at potential 0.567",
+    "Room c0832c3e found structure in 'break_rule' at potential 0.567"
+  ],
+  "avg_gap": 5.854657742458446,
+  "max_gap": 16.51162476013204,
+  "rounds_with_big_gaps": 500,
+  "novelty_per_room": {
+    "boy-in-rowboat": {
+      "novelty_count": 1,
+      "max_novelty": 0.5798062393646136,
+      "play_style": "wander",
+      "courage": 0.9,
+      "format": "natural_language"
+    },
+    "mechanic": {
+      "novelty_count": 0,
+      "max_novelty": 0,
+      "play_style": "explore",
+      "courage": 0.3,
+      "format": "code"
+    },
+    "jazz-pianist": {
+      "novelty_count": 1,
+      "max_novelty": 0.47184702339969886,
+      "play_style": "improvise",
+      "courage": 0.7,
+      "format": "symbolic"
+    },
+    "carpet-layer": {
+      "novelty_count": 0,
+      "max_novelty": 0,
+      "play_style": "wander",
+      "courage": 0.2,
+      "format": "vector"
+    },
+    "banker": {
+      "novelty_count": 1,
+      "max_novelty": 0.4170476620560329,
+      "play_style": "impress",
+      "courage": 0.4,
+      "format": "code"
+    },
+    "astronomer": {
+      "novelty_count": 1,
+      "max_novelty": 0.5669741844826753,
+      "play_style": "explore",
+      "courage": 0.8,
+      "format": "natural_language"
+    },
+    "clockmaker": {
+      "novelty_count": 1,
+      "max_novelty": 0.9999904249024762,
+      "play_style": "improvise",
+      "courage": 0.6,
+      "format": "symbolic"
+    }
+  },
+  "gauge": {
+    "phase_locks_detected": 2311,
+    "phase_locks": [
+      {
+        "rooms": [
+          "dbe22cd3",
+          "1c54b62e"
+        ],
+        "diff": 0.024108158251224053,
+        "round": 496
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "c0832c3e"
+        ],
+        "diff": 0.024108158251224053,
+        "round": 496
+      },
+      {
+        "rooms": [
+          "1c54b62e",
+          "c0832c3e"
+        ],
+        "diff": 0.0,
+        "round": 496
+      },
+      {
+        "rooms": [
+          "d08146e3",
+          "dba278f8"
+        ],
+        "diff": 0.07296567327332255,
+        "round": 496
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "1c54b62e"
+        ],
+        "diff": 0.03396774694084428,
+        "round": 497
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "c0832c3e"
+        ],
+        "diff": 0.03396774694084428,
+        "round": 497
+      },
+      {
+        "rooms": [
+          "1c54b62e",
+          "c0832c3e"
+        ],
+        "diff": 0.0,
+        "round": 497
+      },
+      {
+        "rooms": [
+          "d08146e3",
+          "dba278f8"
+        ],
+        "diff": 0.04218099067912897,
+        "round": 497
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "1c54b62e"
+        ],
+        "diff": 0.04403308880776517,
+        "round": 498
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "c0832c3e"
+        ],
+        "diff": 0.04403308880776517,
+        "round": 498
+      },
+      {
+        "rooms": [
+          "1c54b62e",
+          "c0832c3e"
+        ],
+        "diff": 0.0,
+        "round": 498
+      },
+      {
+        "rooms": [
+          "d08146e3",
+          "dba278f8"
+        ],
+        "diff": 0.0002537642830850118,
+        "round": 498
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "1c54b62e"
+        ],
+        "diff": 0.053385547389104726,
+        "round": 499
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "c0832c3e"
+        ],
+        "diff": 0.053385547389104726,
+        "round": 499
+      },
+      {
+        "rooms": [
+          "1c54b62e",
+          "c0832c3e"
+        ],
+        "diff": 0.0,
+        "round": 499
+      },
+      {
+        "rooms": [
+          "d08146e3",
+          "dba278f8"
+        ],
+        "diff": -0.060110511169096895,
+        "round": 499
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "1c54b62e"
+        ],
+        "diff": 0.059915094854642706,
+        "round": 500
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "c0832c3e"
+        ],
+        "diff": 0.059915094854642706,
+        "round": 500
+      },
+      {
+        "rooms": [
+          "1c54b62e",
+          "c0832c3e"
+        ],
+        "diff": 0.0,
+        "round": 500
+      },
+      {
+        "rooms": [
+          "d08146e3",
+          "dba278f8"
+        ],
+        "diff": -0.07015471466140086,
+        "round": 500
+      }
+    ],
+    "avg_phase_velocities": {
+      "dbe22cd3": 0.1114892608126682,
+      "1c54b62e": 0.049012108006871495,
+      "d08146e3": 0.2537128412377812,
+      "a1785cbf": 0.03817153177475739,
+      "0630c7ab": 0.09569934898035189,
+      "c0832c3e": 0.03170091842822302,
+      "dba278f8": 0.2251003409872714
+    },
+    "avg_curvature": 0.3119882812608916,
+    "curvature_measurements": 500,
+    "max_curvature": 0.991715049954913
+  },
+  "format_bridge": {
+    "semantic_preservation": {
+      "symbolic": 0.6666666666666666,
+      "code": 0.8095238095238095,
+      "natural_language": 0.7619047619047619
+    },
+    "avg_fidelity_loss": {
+      "code\u2192symbolic": 8.385667919159964,
+      "symbolic\u2192code": 1.4027142134883923,
+      "vector\u2192natural_language": 6.94602675121164,
+      "symbolic\u2192natural_language": 2.3848323369882274,
+      "natural_language\u2192code": 7.394809547665872,
+      "vector\u2192symbolic": 4.855405045828163,
+      "natural_language\u2192symbolic": 8.919666958451032,
+      "vector\u2192code": 6.590631567979246,
+      "natural_language\u2192vector": 0.0,
+      "code\u2192vector": 0.0,
+      "code\u2192natural_language": 10.287450229163992
+    },
+    "total_translations": 43
+  },
+  "time_analogue": {
+    "global_time": 50.00000000000044,
+    "chords_detected": 839,
+    "chords": [
+      {
+        "rooms": [
+          "dbe22cd3",
+          "1c54b62e",
+          "dba278f8",
+          "a1785cbf",
+          "c0832c3e"
+        ],
+        "coherence": 0.5999999999999999,
+        "time": 48.10000000000041
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "1c54b62e",
+          "a1785cbf",
+          "dba278f8",
+          "c0832c3e"
+        ],
+        "coherence": 0.6000000000000001,
+        "time": 48.200000000000415
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "a1785cbf",
+          "dba278f8",
+          "c0832c3e"
+        ],
+        "coherence": 0.5,
+        "time": 48.300000000000416
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "a1785cbf",
+          "c0832c3e",
+          "dba278f8"
+        ],
+        "coherence": 0.9724415137034339,
+        "time": 48.40000000000042
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "a1785cbf",
+          "c0832c3e",
+          "dba278f8"
+        ],
+        "coherence": 0.9736423587384263,
+        "time": 48.50000000000042
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "a1785cbf",
+          "c0832c3e",
+          "dba278f8"
+        ],
+        "coherence": 0.962025479240229,
+        "time": 48.60000000000042
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "c0832c3e",
+          "dba278f8",
+          "a1785cbf"
+        ],
+        "coherence": 0.937255984341547,
+        "time": 48.70000000000042
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "dba278f8",
+          "c0832c3e",
+          "a1785cbf"
+        ],
+        "coherence": 0.912486489442865,
+        "time": 48.80000000000042
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "dba278f8"
+        ],
+        "coherence": 0.9682250402229828,
+        "time": 48.900000000000425
+      },
+      {
+        "rooms": [
+          "a1785cbf",
+          "c0832c3e"
+        ],
+        "coherence": 0.9766587309118597,
+        "time": 48.900000000000425
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "dba278f8"
+        ],
+        "coherence": 0.9599801016549315,
+        "time": 49.000000000000426
+      },
+      {
+        "rooms": [
+          "a1785cbf",
+          "c0832c3e"
+        ],
+        "coherence": 0.9807009778053393,
+        "time": 49.000000000000426
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "dba278f8"
+        ],
+        "coherence": 0.9517351630868802,
+        "time": 49.10000000000043
+      },
+      {
+        "rooms": [
+          "a1785cbf",
+          "c0832c3e"
+        ],
+        "coherence": 0.9847432246988187,
+        "time": 49.10000000000043
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "dba278f8"
+        ],
+        "coherence": 0.9434902245188288,
+        "time": 49.20000000000043
+      },
+      {
+        "rooms": [
+          "a1785cbf",
+          "c0832c3e"
+        ],
+        "coherence": 0.9887854715922981,
+        "time": 49.20000000000043
+      },
+      {
+        "rooms": [
+          "a1785cbf",
+          "c0832c3e"
+        ],
+        "coherence": 0.9928277184857776,
+        "time": 49.30000000000043
+      },
+      {
+        "rooms": [
+          "a1785cbf",
+          "c0832c3e"
+        ],
+        "coherence": 0.996869965379257,
+        "time": 49.40000000000043
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "0630c7ab"
+        ],
+        "coherence": 0.9393330292081794,
+        "time": 49.50000000000043
+      },
+      {
+        "rooms": [
+          "a1785cbf",
+          "c0832c3e"
+        ],
+        "coherence": 0.9990877877272635,
+        "time": 49.50000000000043
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "0630c7ab"
+        ],
+        "coherence": 0.9513316817924385,
+        "time": 49.600000000000435
+      },
+      {
+        "rooms": [
+          "a1785cbf",
+          "c0832c3e"
+        ],
+        "coherence": 0.995045540833784,
+        "time": 49.600000000000435
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "0630c7ab"
+        ],
+        "coherence": 0.9633303343766978,
+        "time": 49.700000000000436
+      },
+      {
+        "rooms": [
+          "1c54b62e",
+          "d08146e3",
+          "c0832c3e",
+          "a1785cbf"
+        ],
+        "coherence": 0.9083981471728717,
+        "time": 49.700000000000436
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "0630c7ab"
+        ],
+        "coherence": 0.9753289869609569,
+        "time": 49.80000000000044
+      },
+      {
+        "rooms": [
+          "1c54b62e",
+          "d08146e3",
+          "c0832c3e",
+          "a1785cbf"
+        ],
+        "coherence": 0.9233043808693961,
+        "time": 49.80000000000044
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "0630c7ab"
+        ],
+        "coherence": 0.9873276395452162,
+        "time": 49.90000000000044
+      },
+      {
+        "rooms": [
+          "1c54b62e",
+          "d08146e3",
+          "c0832c3e",
+          "a1785cbf"
+        ],
+        "coherence": 0.9382106145659207,
+        "time": 49.90000000000044
+      },
+      {
+        "rooms": [
+          "dbe22cd3",
+          "0630c7ab"
+        ],
+        "coherence": 0.9993262921294753,
+        "time": 50.00000000000044
+      },
+      {
+        "rooms": [
+          "1c54b62e",
+          "a1785cbf",
+          "d08146e3",
+          "c0832c3e"
+        ],
+        "coherence": 0.9531168482624451,
+        "time": 50.00000000000044
+      }
+    ],
+    "clock_rates": {
+      "dbe22cd3": 2.5997156465303455,
+      "1c54b62e": 1.029194613926398,
+      "d08146e3": 2.412737953115042,
+      "a1785cbf": 0.9113709294923487,
+      "0630c7ab": 1.845818070296654,
+      "c0832c3e": 0.6573890666012716,
+      "dba278f8": 2.0816708778365687
+    },
+    "harmonic_spectrum": {
+      "dbe22cd3": {
+        "dominant_freqs": [
+          0.0,
+          -0.002,
+          0.002,
+          -0.004,
+          0.004
+        ],
+        "dominant_mags": [
+          32561.43847279244,
+          10344.007955176017,
+          10344.007955176017,
+          5172.106070533811,
+          5172.10607053381
+        ],
+        "clock_rate": 2.5997156465303455
+      },
+      "1c54b62e": {
+        "dominant_freqs": [
+          0.0,
+          -0.002,
+          0.002,
+          -0.004,
+          0.004
+        ],
+        "dominant_mags": [
+          12890.66253942816,
+          4095.062199624627,
+          4095.062199624627,
+          2047.5715171210393,
+          2047.5715171210393
+        ],
+        "clock_rate": 1.029194613926398
+      },
+      "d08146e3": {
+        "dominant_freqs": [
+          0.0,
+          0.002,
+          -0.002,
+          0.004,
+          -0.004
+        ],
+        "dominant_mags": [
+          30219.542862765862,
+          9600.04245621482,
+          9600.042456214816,
+          4800.115978287243,
+          4800.115978287243
+        ],
+        "clock_rate": 2.412737953115042
+      },
+      "a1785cbf": {
+        "dominant_freqs": [
+          0.0,
+          -0.002,
+          0.002,
+          0.004,
+          -0.004
+        ],
+        "dominant_mags": [
+          11414.920891891692,
+          3626.253570219106,
+          3626.2535702191058,
+          1813.1625753864603,
+          1813.1625753864603
+        ],
+        "clock_rate": 0.9113709294923487
+      },
+      "0630c7ab": {
+        "dominant_freqs": [
+          0.0,
+          -0.002,
+          0.002,
+          0.004,
+          -0.004
+        ],
+        "dominant_mags": [
+          23118.871330465558,
+          7344.325072028023,
+          7344.325072028023,
+          3672.2350227893967,
+          3672.235022789396
+        ],
+        "clock_rate": 1.845818070296654
+      },
+      "c0832c3e": {
+        "dominant_freqs": [
+          0.0,
+          -0.002,
+          0.002,
+          -0.004,
+          0.004
+        ],
+        "dominant_mags": [
+          8233.79805918092,
+          2615.6851975887666,
+          2615.6851975887666,
+          1307.8684149971791,
+          1307.868414997179
+        ],
+        "clock_rate": 0.6573890666012716
+      },
+      "dba278f8": {
+        "dominant_freqs": [
+          0.0,
+          -0.002,
+          0.002,
+          0.004,
+          -0.004
+        ],
+        "dominant_mags": [
+          26072.92774490293,
+          8282.75975072046,
+          8282.75975072046,
+          4141.461624267007,
+          4141.461624267007
+        ],
+        "clock_rate": 2.0816708778365687
+      }
+    }
+  },
+  "eratosthenes": {
+    "observations": 3500,
+    "curvature_estimates": 2625,
+    "avg_curvature": 0.030106716892049284,
+    "max_curvature": 1.091937783977085,
+    "curvature_std": 0.05928136930213674,
+    "most_curved_pair": "dba278f8 \u2194 d08146e3"
+  },
+  "total_chords": 839,
+  "unique_chord_sizes": [
+    2,
+    3,
+    4,
+    5,
+    7
+  ]
+}
