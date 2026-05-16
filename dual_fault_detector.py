@@ -4,9 +4,12 @@ dual_fault_detector — Combined GL(9) + Hebbian fault detection for fleet.
 Study 54: Conservation and GL(9) are orthogonal (r=-0.179) → 2-signal health
 Study 58: GL(9) and Hebbian are complementary (60% agreement) → both needed
 Study 63: Self-healing uses this detector to trigger quarantine
+Study 72: Original hash-based GL(9) has zero precision/recall → replaced with
+         SemanticGL9Consensus using real semantic features
 
 Architecture:
-  GL(9): detects intent divergence (confidence_drop, silent_expert)
+  Semantic GL(9): detects intent divergence via embedding sim, entropy, KL div,
+                  confidence calibration, domain consistency, temporal drift
   Hebbian: detects frequency anomalies (content_scramble, domain_drift)
   Combined: union for max recall, intersection for max precision
 """
@@ -14,6 +17,11 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
 import time
+
+from gl9_consensus import (
+    SemanticGL9Consensus, ExpertObservation, FleetContext,
+    compute_fleet_context, compute_semantic_intent,
+)
 
 
 class FaultType(Enum):
@@ -78,10 +86,17 @@ class DualFaultDetector:
     def __init__(self,
                  gl9_weight: float = 0.7,
                  hebbian_weight: float = 0.3,
-                 quarantine_threshold: float = 0.6):
+                 quarantine_threshold: float = 0.6,
+                 use_semantic_gl9: bool = True,
+                 gl9_similarity_threshold: float = 0.3):
         self.gl9_weight = gl9_weight
         self.hebbian_weight = hebbian_weight
         self.quarantine_threshold = quarantine_threshold
+        self.use_semantic_gl9 = use_semantic_gl9
+        self._semantic_gl9 = SemanticGL9Consensus(
+            tolerance=0.5,
+            similarity_threshold=gl9_similarity_threshold,
+        )
         self._history: list[DualDetectionResult] = []
     
     def detect(self,
@@ -91,13 +106,13 @@ class DualFaultDetector:
                hebbian_details: Optional[dict] = None) -> DualDetectionResult:
         """
         Combine GL(9) and Hebbian fault detection results.
-        
+
         Args:
             gl9_faulty: List of expert IDs flagged by GL(9)
             hebbian_anomalies: List of expert IDs flagged by Hebbian
             gl9_details: Optional dict of {expert_id: deviation}
             hebbian_details: Optional dict of {expert_id: anomaly_score}
-        
+
         Returns:
             DualDetectionResult with combined fault reports
         """
@@ -176,6 +191,34 @@ class DualFaultDetector:
         self._history.append(result)
         return result
     
+    def detect_observations(
+        self,
+        observations: list[ExpertObservation],
+        hebbian_anomalies: Optional[list[str]] = None,
+        hebbian_details: Optional[dict] = None,
+    ) -> DualDetectionResult:
+        """
+        One-step detection using ExpertObservation objects.
+
+        Runs SemanticGL9 on the observations, combines with Hebbian results.
+        This is the preferred API for production use.
+
+        Args:
+            observations: List of ExpertObservation from fleet experts
+            hebbian_anomalies: Optional list of expert IDs flagged by Hebbian
+            hebbian_details: Optional dict of {expert_id: anomaly_score}
+
+        Returns:
+            DualDetectionResult with combined fault reports
+        """
+        gl9_faulty, gl9_devs = self._semantic_gl9.detect_with_details(observations)
+        return self.detect(
+            gl9_faulty=gl9_faulty,
+            hebbian_anomalies=hebbian_anomalies,
+            gl9_details=gl9_devs,
+            hebbian_details=hebbian_details,
+        )
+
     def should_quarantine(self, expert_id: str) -> tuple[bool, str]:
         """Check if an expert should be quarantined based on detection history."""
         if not self._history:
