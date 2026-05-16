@@ -1,0 +1,561 @@
+{
+  "timestamp": "2026-05-15 21:50:26",
+  "model": "ByteDance/Seed-2.0-mini",
+  "hierarchy": {
+    "Q1": {
+      "question": "Is 3\u00b2 + 4\u00b2 = 5\u00b2?",
+      "category": "geometric",
+      "levels": {
+        "0": {
+          "type": "binary",
+          "response": "YES",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.3,
+            "generality": 0.1,
+            "transferability": 0.3,
+            "survives": true
+          }
+        },
+        "1": {
+          "type": "structural",
+          "response": "### Verification & Structural Answer:\nYes, \\(3^2 + 4^2 = 25 = 5^2\\) (since \\(9+16=25\\)). This is the smallest and most well-known **primitive Pythagorean triple**: a foundational integer-solution case of the Pythagorean theorem for right triangles with leg lengths 3, 4 and hypotenuse 5.",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.6,
+            "generality": 0.4,
+            "transferability": 0.5,
+            "survives": true
+          }
+        },
+        "2": {
+          "type": "mechanistic",
+          "response": "### Step-by-step verification:\n1.  Calculate each squared term individually:\n    - $3^2 = 3\\times3 = 9$\n    - $4^2 = 4\\times4 = 16$\n2.  Sum the left-hand side: $9 +16 =25$\n3.  Calculate the right-hand side: $5^2=5\\times5=25$\n\nSince both sides equal 25, the equation holds true. This is the classic 3-",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.8,
+            "generality": 0.6,
+            "transferability": 0.7,
+            "survives": true
+          }
+        },
+        "3": {
+          "type": "contextual",
+          "response": "[ERROR: The read operation timed out]",
+          "eval": {
+            "correctness": 0.8,
+            "precision": 0.7,
+            "generality": 0.5,
+            "transferability": 0.9,
+            "survives": true
+          }
+        }
+      }
+    },
+    "Q2": {
+      "question": "Does the Pythagorean theorem hold for all right triangles?",
+      "category": "geometric",
+      "levels": {
+        "0": {
+          "type": "binary",
+          "response": "YES",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.3,
+            "generality": 0.1,
+            "transferability": 0.3,
+            "survives": true
+          }
+        },
+        "1": {
+          "type": "structural",
+          "response": "### Key Structural Answer:\nThe Pythagorean theorem has a core Euclidean geometric structure: For any right triangle with perpendicular legs of lengths \\(a, b\\) and hypotenuse \\(c\\) (the side opposite the 90\u00b0 right angle), the sum of the squares of the leg lengths equals the square of the hypotenuse ",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.6,
+            "generality": 0.4,
+            "transferability": 0.5,
+            "survives": true
+          }
+        },
+        "2": {
+          "type": "mechanistic",
+          "response": "---\n### Step-by-Step Proof & Final Answer\n---\n#### Formal Theorem Statement: For any Euclidean right triangle with legs $a, b$ and hypotenuse $c$ (opposite the right angle, the theorem states $a^2 + b^2 = c^2$.\n\n---\n#### Step-by-Step Classic Area Proof\n1.  **Define the right triangle**: Let $\\triang",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.8,
+            "generality": 0.6,
+            "transferability": 0.7,
+            "survives": true
+          }
+        },
+        "3": {
+          "type": "contextual",
+          "response": "[ERROR: The read operation timed out]",
+          "eval": {
+            "correctness": 0.8,
+            "precision": 0.7,
+            "generality": 0.5,
+            "transferability": 0.9,
+            "survives": true
+          }
+        }
+      }
+    },
+    "Q3": {
+      "question": "Is 17 prime?",
+      "category": "arithmetic",
+      "levels": {
+        "0": {
+          "type": "binary",
+          "response": "YES",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.3,
+            "generality": 0.1,
+            "transferability": 0.2,
+            "survives": true
+          }
+        },
+        "1": {
+          "type": "structural",
+          "response": "### Key Structural Answer:\n17 is a prime natural number, defined as a positive integer with exactly two distinct positive divisors: 1 and itself.\n**Yes, 17 is prime.**",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.4,
+            "generality": 0.4,
+            "transferability": 0.4,
+            "survives": true
+          }
+        },
+        "2": {
+          "type": "mechanistic",
+          "response": "---\n### Step 1: Primality Test Mechanism\nA **prime number** is a natural number $>1$ with exactly two distinct positive divisors: 1 and itself. The efficient standard primality check works as follows:\n1.  Compute the integer square root $k = \\lfloor \\sqrt{n} \\rfloor$. You only need to test divisibil",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.8,
+            "generality": 0.6,
+            "transferability": 0.6,
+            "survives": true
+          }
+        },
+        "3": {
+          "type": "contextual",
+          "response": "[ERROR: The read operation timed out]",
+          "eval": {
+            "correctness": 0.8,
+            "precision": 0.7,
+            "generality": 0.5,
+            "transferability": 0.8,
+            "survives": true
+          }
+        }
+      }
+    },
+    "Q4": {
+      "question": "Is 91 prime?",
+      "category": "arithmetic",
+      "levels": {
+        "0": {
+          "type": "binary",
+          "response": "NO. 91 = 7 \u00d7 13, so it is not prime.",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.3,
+            "generality": 0.1,
+            "transferability": 0.2,
+            "survives": true
+          }
+        },
+        "1": {
+          "type": "structural",
+          "response": "### Key Structural Answer:\n91 is a composite natural number (specifically a semiprime, the product of two distinct primes: 7 and 13). It is not a prime number, as it has proper positive divisors other than 1 and itself.",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.4,
+            "generality": 0.4,
+            "transferability": 0.4,
+            "survives": true
+          }
+        },
+        "2": {
+          "type": "mechanistic",
+          "response": "### Step-by-Step Primality Testing Mechanism\nA **prime number** is an integer $n>1$ with exactly two distinct positive divisors: 1 and $n$. To test if a number is prime:\n1.  **Eliminate trivial cases**:\n    - $n \\leq1$: Not prime.\n    - $n=2$: The only even prime.\n    - Even $n>2$: Automatically com",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.8,
+            "generality": 0.6,
+            "transferability": 0.6,
+            "survives": true
+          }
+        },
+        "3": {
+          "type": "contextual",
+          "response": "[ERROR: The read operation timed out]",
+          "eval": {
+            "correctness": 0.7,
+            "precision": 0.7,
+            "generality": 0.5,
+            "transferability": 0.8,
+            "survives": false
+          }
+        }
+      }
+    },
+    "Q5": {
+      "question": "Is the determinant of a rotation matrix always 1?",
+      "category": "algebraic",
+      "levels": {
+        "0": {
+          "type": "binary",
+          "response": "YES. Standard rotation matrices are proper orthogonal transformations with determinant exactly 1.",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.3,
+            "generality": 0.1,
+            "transferability": 0.3,
+            "survives": true
+          }
+        },
+        "1": {
+          "type": "structural",
+          "response": "### Key Structural Answer:\n1.  **Core Structure**: Standard rotation matrices are real, orientation-preserving orthogonal matrices satisfying $R^\\top R = I$ (their transpose equals their inverse).\n2.  Determinant Constraint: For any orthogonal matrix, $\\det(R)^2 = \\det(R^\\top R) = \\det(I) =1$, so de",
+          "eval": {
+            "correctness": 0.8,
+            "precision": 0.6,
+            "generality": 0.4,
+            "transferability": 0.5,
+            "survives": true
+          }
+        },
+        "2": {
+          "type": "mechanistic",
+          "response": "### Step-by-Step Proof\n---\n#### 1.  Formal Definition of a Proper Rotation Matrix\nA standard **proper rotation matrix** (orientation-preserving, the standard definition in linear algebra/geometry) is an $n\\times n$ real matrix $R$ that belongs to the *special orthogonal group* $SO(n)$, satisfying tw",
+          "eval": {
+            "correctness": 0.8,
+            "precision": 0.8,
+            "generality": 0.6,
+            "transferability": 0.7,
+            "survives": true
+          }
+        },
+        "3": {
+          "type": "contextual",
+          "response": "### Direct Answer\nFor **proper orientation-preserving rotations** (the standard, physically meaningful rotations that do not flip handedness), the determinant is always exactly 1. More generally:\nAll orthogonal linear transformations on $\\mathbb{R}^n$ (rotations + reflections) satisfy $(\\det R)^2=1$",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.9,
+            "generality": 0.9,
+            "transferability": 0.9,
+            "survives": true
+          }
+        }
+      }
+    },
+    "Q6": {
+      "question": "Are there infinitely many twin primes?",
+      "category": "boundary",
+      "levels": {
+        "0": {
+          "type": "binary",
+          "response": "The Twin Prime Conjecture, which posits the existence of infinitely many twin primes, remains an unsolved problem in mathematics. As such, a definitive YES or NO answer cannot be provided.</think_never_used_51bce0c785ca2f68081bfa7d91973934>The Twin Prime Conjecture, which claims there are infinitely",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.3,
+            "generality": 0.1,
+            "transferability": 0.1,
+            "survives": false
+          }
+        },
+        "1": {
+          "type": "structural",
+          "response": "### Structural Description of Twin Primes\nA twin prime pair is an unordered pair of primes $\\{p, p+2\\}$. The only such pair including 2 or 3 is $(3,5)$. All other twin prime pairs take the form $\\{6k-1, 6k+1\\}$ for some integer $k\\geq1$, since all primes greater than 3 are congruent to $\\pm1\\pmod{6}",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.6,
+            "generality": 0.4,
+            "transferability": 0.3,
+            "survives": false
+          }
+        },
+        "2": {
+          "type": "mechanistic",
+          "response": "### 1. Core Context & Definition\nTwin primes are pairs of primes $(p, p+2)$ (e.g., $(3,5), (5,7), (11,13)$). The **Twin Prime Conjecture**\u2014first formalized in 1849\u2014asks if infinitely many such pairs exist. This remains one of the most famous unsolved problems in analytic number theory.\n\n---\n### 2. S",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.8,
+            "generality": 0.6,
+            "transferability": 0.5,
+            "survives": false
+          }
+        },
+        "3": {
+          "type": "contextual",
+          "response": "[ERROR: The read operation timed out]",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.7,
+            "generality": 0.5,
+            "transferability": 0.7,
+            "survives": false
+          }
+        }
+      }
+    },
+    "Q7": {
+      "question": "Is the expected value of a fair die roll 3.5?",
+      "category": "statistical",
+      "levels": {
+        "0": {
+          "type": "binary",
+          "response": "YES",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.3,
+            "generality": 0.1,
+            "transferability": 0.1,
+            "survives": true
+          }
+        },
+        "1": {
+          "type": "structural",
+          "response": "### Key Structural Answer:\n1.  **Distribution Structure**: A fair die roll is a discrete uniform random variable with sample space $\\{1,2,3,4,5,6\\}$, where every outcome has equal probability $\\frac{1}{6}$.\n2.  **Expectation Calculation**: Using the discrete expected value formula $\\mathbb{E}[X] = \\",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.6,
+            "generality": 0.4,
+            "transferability": 0.3,
+            "survives": true
+          }
+        },
+        "2": {
+          "type": "mechanistic",
+          "response": "### Step-by-Step Proof:\n---\n1.  **Define the random variable and outcomes**:\n    Let $X$ = the result of rolling a standard fair 6-sided die. The possible values of $X$ are $\\{1, 2, 3, 4, 5, 6\\}$.\n\n2.  **Probability of each outcome**:\n    For a fair die, every outcome is equally likely, so $P(X=k) =",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.8,
+            "generality": 0.6,
+            "transferability": 0.5,
+            "survives": true
+          }
+        },
+        "3": {
+          "type": "contextual",
+          "response": "[ERROR: The read operation timed out]",
+          "eval": {
+            "correctness": 0.8,
+            "precision": 0.7,
+            "generality": 0.5,
+            "transferability": 0.7,
+            "survives": true
+          }
+        }
+      }
+    },
+    "Q8": {
+      "question": "Does a random 200-dim vector have approximately unit norm?",
+      "category": "statistical",
+      "levels": {
+        "0": {
+          "type": "binary",
+          "response": "NO. A standard random 200-dimensional vector (independent standard normal coordinates) has a norm concentrated around $\\sqrt{200} \\approx 14.14$, not approximately 1.\n\n(Note: If referring to a random unit vector, the answer would be YES, but this",
+          "eval": {
+            "correctness": 0.3,
+            "precision": 0.3,
+            "generality": 0.1,
+            "transferability": 0.1,
+            "survives": false
+          }
+        },
+        "1": {
+          "type": "structural",
+          "response": "### Concise Key Structural Answer:\n1.  **Default Random Vector Setup**: A standard random $d$-dimensional vector uses independent, identically distributed (iid) zero-mean, unit-variance components (e.g., standard Gaussian entries).\n2.  **Norm Structure**: Its squared Euclidean norm is $\\|\\mathbf{X}\\",
+          "eval": {
+            "correctness": 1.0,
+            "precision": 0.6,
+            "generality": 0.4,
+            "transferability": 0.3,
+            "survives": true
+          }
+        },
+        "2": {
+          "type": "mechanistic",
+          "response": "[ERROR: The read operation timed out]",
+          "eval": {
+            "correctness": 0.7,
+            "precision": 0.6,
+            "generality": 0.4,
+            "transferability": 0.5,
+            "survives": false
+          }
+        },
+        "3": {
+          "type": "contextual",
+          "response": "[ERROR: The read operation timed out]",
+          "eval": {
+            "correctness": 0.7,
+            "precision": 0.7,
+            "generality": 0.5,
+            "transferability": 0.7,
+            "survives": false
+          }
+        }
+      }
+    },
+    "Q9": {
+      "question": "Is the Riemann Hypothesis true?",
+      "category": "boundary",
+      "levels": {
+        "0": {
+          "type": "binary",
+          "response": "As of now, the Riemann Hypothesis remains an unsolved problem in mathematics. While there is substantial numerical evidence and various partial results supporting its plausibility, a definitive proof or disproof has not been achieved. Thus, we cannot answer with a simple YES or NO at this time. Ongo",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.3,
+            "generality": 0.1,
+            "transferability": 0.1,
+            "survives": false
+          }
+        },
+        "1": {
+          "type": "structural",
+          "response": "### Concise Key Structural Answer:\n1.  **Relevant Structure**: The Riemann Hypothesis (RH) concerns the *Riemann zeta function $\\zeta(s)$*, whose critical structural properties are:\n    - Meromorphic continuation to the entire complex plane, with a single simple pole at $s=1$, trivial zeros at negat",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.6,
+            "generality": 0.4,
+            "transferability": 0.3,
+            "survives": false
+          }
+        },
+        "2": {
+          "type": "mechanistic",
+          "response": "The Riemann Hypothesis (RH) is an unsolved conjecture in mathematics about the distribution of the non-trivial zeros of the Riemann zeta function. As of now, there is no universally accepted proof or disproof of the Riemann Hypothesis.\n\n### Step-by-Step Mechanism of the Riemann Hypothesis:\n1. **Defi",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.8,
+            "generality": 0.6,
+            "transferability": 0.5,
+            "survives": false
+          }
+        },
+        "3": {
+          "type": "contextual",
+          "response": "[ERROR: The read operation timed out]",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.7,
+            "generality": 0.5,
+            "transferability": 0.7,
+            "survives": false
+          }
+        }
+      }
+    },
+    "Q10": {
+      "question": "Is \u03c0 normal?",
+      "category": "boundary",
+      "levels": {
+        "0": {
+          "type": "binary",
+          "response": "I cannot answer this question with a simple YES or NO. While the digits of \u03c0 appear to be uniformly distributed based on empirical evidence from the trillions of digits computed so far, there is no rigorous mathematical proof that \u03c0 is normal. Therefore, the question of whether \u03c0 is normal remains a",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.3,
+            "generality": 0.1,
+            "transferability": 0.1,
+            "survives": false
+          }
+        },
+        "1": {
+          "type": "structural",
+          "response": "### Key Structural & Normality Answer:\n1.  **Structure of \u03c0's digit expansions**: \u03c0 is a transcendental irrational real number, so its base-$b$ expansion (for any integer $b\\geq2$, including base 10) is an infinite, non-terminating, non-repeating (aperiodic) sequence with no infinitely repeated fini",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.4,
+            "generality": 0.4,
+            "transferability": 0.3,
+            "survives": false
+          }
+        },
+        "2": {
+          "type": "mechanistic",
+          "response": "---\n### Step 1: Formal Definition of a Normal Number\nA real number $x$ is **normal in base $b$** ($b\\geq2$) if, for every positive integer $k$, every finite length-$k$ digit sequence in base $b$ occurs with asymptotic density exactly $1/b^k$. A number is *absolutely normal* if it is normal in all ba",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.8,
+            "generality": 0.6,
+            "transferability": 0.5,
+            "survives": false
+          }
+        },
+        "3": {
+          "type": "contextual",
+          "response": "[ERROR: The read operation timed out]",
+          "eval": {
+            "correctness": 0.5,
+            "precision": 0.7,
+            "generality": 0.5,
+            "transferability": 0.7,
+            "survives": false
+          }
+        }
+      }
+    }
+  },
+  "cat_summary": {
+    "geometric": {
+      "0": 1.0,
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0
+    },
+    "arithmetic": {
+      "0": 1.0,
+      "1": 1.0,
+      "2": 1.0,
+      "3": 0.5
+    },
+    "algebraic": {
+      "0": 1.0,
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0
+    },
+    "boundary": {
+      "0": 0.0,
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0
+    },
+    "statistical": {
+      "0": 0.5,
+      "1": 1.0,
+      "2": 0.5,
+      "3": 0.5
+    }
+  },
+  "zoom": {
+    "total": 15,
+    "l0_answered": 15,
+    "l0_rate": 1.0,
+    "l0_ambiguous": 0,
+    "l1_tested": 0,
+    "l1_resolved": 0,
+    "l2_tested": 0,
+    "l2_resolved": 0,
+    "l2_still_failing": 0,
+    "cat_l0_survival": {
+      "geometric": 1.0,
+      "statistical": 1.0,
+      "boundary": 1.0
+    },
+    "mandelbrot_fraction": 0.0,
+    "room_nesting": {
+      "l0": 15,
+      "l1_subrooms": 0,
+      "l2_subrooms": 0,
+      "l3_subrooms": 0
+    }
+  }
+}
