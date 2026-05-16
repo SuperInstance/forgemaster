@@ -21,44 +21,54 @@ In MoS, the conservation law routes tasks to specialized PLATO rooms (shells).
 
 ## Why Shells
 
-Each PLATO room is a **shell** — an encapsulated computation space with:
-- A defined interface (the opening = MCP/A2A endpoint)
-- Internal state (tiles, Hebbian weights, conservation history)
-- A specific purpose (math, experiments, refinement, market, edge)
-- Portability (shells move between devices, agents swap shells)
+Each PLATO room is a **shell** — the crab's work truck. Not just a home, but a **rig** you roll up to the job site in:
+- A defined interface (the tailgate = MCP/A2A endpoint)
+- Internal state (tiles, Hebbian weights, conservation history — the tools in the bed)
+- A specific purpose (math flatbed, experiment sprinter, refinement bucket truck)
+- Portability (shells drive between devices, agents swap rigs)
 
 Each agent is a **crab** 🦀 that:
-- Finds the right shell for the task
-- Occupies it, computes, leaves
-- Personalizes it over time (Hebbian decoration)
-- Outgrows it when the task exceeds the shell's capacity
-- Fights for it when another crab wants the same shell
+- Pulls into the yard, picks the right rig for the job
+- Drives it to the work site, does the job, parks it
+- Kustomizes it over time (Hebbian decoration — lift kit, tool rack, sticker collection)
+- Outgrows it when the job needs a bigger truck
+- Fights for it when another crab needs the same rig
 
-The fleet is a **tide pool** 🌊:
-- Multiple crabs, multiple shells
-- Conservation law keeps the ecosystem balanced
-- Shells wash up (new rooms), shells get worn out (deprecated)
-- The tide comes in (sync), goes out (offline), comes back (CRDT merge)
+The fleet is a **yard** 🏗️:
+- Multiple crabs, multiple rigs
+- Conservation law is the maintenance schedule — keeps everything road-legal
+- New rigs roll in (new rooms), old ones get retired (deprecated)
+- The dispatch radio crackles (sync), goes quiet (offline), comes back (CRDT merge)
+
+### The Rig Lineup
+
+| Rig | Shell | Job |
+|-----|-------|-----|
+| Flatbed | Math room | Heavy computation — constraint theory, conservation law |
+| Sprinter van | Experiment room | Quick studies, test runs, haul results |
+| Bucket truck | Refinement room | Climbing up to higher quality, iterative improvement |
+| Service truck | Market room | Cross-fleet coordination, parts running |
+| crawler | Edge room | Tight spaces, offline work, runs anywhere |
 
 ## The Glossary
 
 | Term | Meaning | Emoji |
 |------|---------|:-----:|
-| **Shell** | A PLATO room — encapsulated computation space | 🐚 |
-| **Crab** | An agent that occupies shells | 🦀 |
-| **Tide pool** | The fleet — all shells and crabs together | 🌊 |
-| **Shell shopping** | Room discovery — finding the right shell | 🛒 |
-| **Shell fighting** | Agent contention for the same room | ⚔️ |
-| **Outgrowing a shell** | Task exceeds room capacity, need upgrade | 📈 |
-| **Decorating** | Hebbian personalization of a room | 🎨 |
-| **Shell collection** | Fleet knowledge base (all tiles) | 📚 |
-| **The tide** | Sync cycle (CRDT merge, PLATO sync) | 🌑🌕 |
-| **Shell shock** | Conservation law violation (system alert) | ⚡ |
-| **Molting** | Agent context reset / compaction | 🔄 |
-| **Scuttling** | Quick task-switching between shells | 🏃 |
-| **Shellfish** | A shell that's particularly good (excellent room) | ⭐ |
-| **Empty shell** | An unoccupied / dormant room | 🫙 |
-| **Hermit convention** | Fleet-wide coordination event | 🤝 |
+| **Shell** | A PLATO room — the crab's work truck | 🐚 |
+| **Crab** | An agent that drives shells to job sites | 🦀 |
+| **Yard** | The fleet — all shells parked and ready | 🏗️ |
+| **Rig** | A shell loaded for a specific job | 🚛 |
+| **Shell shopping** | Walking the yard, picking the right rig | 🛒 |
+| **Shell fighting** | Two crabs need the same truck | ⚔️ |
+| **Outgrowing a shell** | Job needs a bigger truck | 📈 |
+| **Kustomizing** | Hebbian personalization — lift kit, stickers, tool rack | 🎨 |
+| **The fleet yard** | Where all shells park between jobs | 🅿️ |
+| **Shell shock** | Check engine light — conservation violation | ⚡ |
+| **Molting** | Agent context reset / compaction — changing drivers | 🔄 |
+| **Dispatch** | Fleet router assigning jobs to rigs | 📻 |
+| **Shellfish** | A particularly well-built rig (excellent room) | ⭐ |
+| **Bone yard** | Deprecated / archived rooms | 🪦 |
+| **Crab rally** | Fleet-wide coordination event | 🤝 |
 
 ## The Architecture in Shell Terms
 
@@ -80,22 +90,25 @@ The fleet is a **tide pool** 🌊:
 
 ## Taglines
 
-- "Find your shell. Do the work."
+- "Find your rig. Do the work."
 - "Every crab needs the right shell."
-- "MoS: Shells that compute."
-- "The tide pool where agents meet."
-- "Mixture of Shells — because experts don't carry their offices."
+- "MoS: Shells that work."
+- "Roll into the yard. Pick your rig. Get it done."
+- "Mixture of Shells — because experts don't carry their tools."
+- "The yard never closes."
 
 ## Meme Potential
 
 The hermit crab is already a perfect meme vehicle:
-- Crab in a tiny shell → local model on edge device
-- Crab in a massive shell → GLM-5.1 on paid plan
+- Crab in a tiny shell → local model on edge device (Crawler)
+- Crab in a massive shell → GLM-5.1 on paid plan (Flatbed)
 - Crab trying on wrong shell → Tier 3 model on math task
-- Crab decorating shell → Hebbian room personalization
+- Crab kustomizing shell with flames → Hebbian room personalization
 - Two crabs fighting over a shell → agent contention
-- Crab molting → compaction / context reset
-- Tide pool aerial shot → fleet dashboard visualization
+- Crab molting in the yard → compaction / context reset
+- Aerial shot of the yard → fleet dashboard visualization
+- Crab with a shell that's too small, overflowing tools → outgrown room
+- Crab driving a shell with a "Shell Shock" check engine light → conservation violation
 
 ---
 
