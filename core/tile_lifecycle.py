@@ -512,3 +512,105 @@ class TileCancerDetector:
             "history_snapshots": len(self.history),
             "thresholds_to_watch": [t for t in self.THRESHOLDS if t > tile_count][:3],
         }
+
+# ─── RockMemory — The system remembers where it hit the rock ──────────────
+# A retracted/superseded tile is NOT erased. It becomes a ROCK — a marker
+# that says "I was here, I tried this, it failed, here is why."
+# The next agent reads the rock before trying the same path.
+
+class RockMemory:
+    """Permanent record of retracted/superseded tiles.
+    
+    When a tile fails the disproof gate OR gets superseded by new evidence,
+    it doesn't vanish. It becomes a ROCK — a permanent marker that records:
+    - WHAT the tile claimed
+    - WHY it failed (disproof reason, evidence that superseded it)
+    - WHAT HEADING the system was on (what problem it was trying to solve)
+    - WHEN it was laid down (timestamp)
+    - WHO laid it (which agent)
+    
+    The next agent that queries in this direction hits the rock first.
+    The rock says: "I tried this. It failed for these reasons. 
+    If you want to try again, you must supersede THIS rock first,
+    not just re-discover the tile.
+    
+    The system doesn't forget the rock. The system learns around it.
+    The rock becomes part of the navigation terrain.
+    """
+    
+    def __init__(self):
+        self.rocks: dict = {}  # tile_id / path_hash -> Rock
+    
+    def lay_rock(self, tile: 'Tile', reason: str, heading: str = "",
+                 agent: str = "") -> str:
+        """A tile failed or was superseded. Mark the rock permanently.
+        
+        The rock preserves WHAT was tried, WHY it failed, and
+        the HEADING the system was on — what problem it was trying
+        to solve when it went off course.
+        """
+        rock_id = f"rock::{tile.falsifies or tile.id}"
+        rock = {
+            "id": rock_id,
+            "type": "rock",
+            "original_tile_id": tile.id,
+            "original_content": tile.content[:500],
+            "original_negative": tile.negative,  # what boundaries it claimed
+            "reason": reason,                     # WHY it failed
+            "heading": heading,                   # what we were trying to do
+            "agent": agent,                       # who laid the rock
+            "born": time.time(),
+            "tried_again": 0,                     # how many times reattempted
+            "last_failure_reason": reason,
+        }
+        self.rocks[rock_id] = rock
+        return rock_id
+    
+    def check_path(self, tile: 'Tile') -> dict:
+        """Before admitting a tile, check if this path has rocks.
+        
+        Returns: {
+            "has_rock": bool,
+            "rock": rock_or_None,
+            "message": "This path was tried before. Here is what happened."
+        }
+        """
+        rock_id = f"rock::{tile.falsifies}" if tile.falsifies else ""
+        if rock_id and rock_id in self.rocks:
+            rock = self.rocks[rock_id]
+            return {
+                "has_rock": True,
+                "rock": rock,
+                "message": f"⚠ ROCK: '{tile.falsifies}' was previously retracted. "
+                           f"Reason: {rock['reason'][:100]}. "
+                           f"Tried {rock['tried_again']} times since."
+            }
+        return {"has_rock": False, "rock": None, "message": "Path clear."}
+    
+    def mark_reattempt(self, tile: 'Tile') -> dict:
+        """An agent is attempting a path that has a rock.
+        Record the reattempt. If it succeeds, the rock becomes a navigation note.
+        """
+        rock_id = f"rock::{tile.falsifies}" if tile.falsifies else ""
+        if rock_id in self.rocks:
+            self.rocks[rock_id]["tried_again"] += 1
+            self.rocks[rock_id]["last_attempt"] = time.time()
+            return {"status": "logged", "attempts": self.rocks[rock_id]["tried_again"]}
+        return {"status": "no_rock_to_mark"}
+    
+    def survey(self) -> dict:
+        """Survey all rocks in the terrain. What have we learned from failure?"""
+        if not self.rocks:
+            return {"total_rocks": 0, "message": "Clear sailing — no rocks yet."}
+        
+        reattempts = sum(r["tried_again"] for r in self.rocks.values())
+        return {
+            "total_rocks": len(self.rocks),
+            "total_reattempts": reattempts,
+            "most_rocky": sorted(self.rocks.items(), 
+                                 key=lambda x: x[1]["tried_again"], 
+                                 reverse=True)[:3],
+            "message": f"{len(self.rocks)} rocks in the terrain. "
+                       f"{reattempts} reattempts across all paths. "
+                       f"The system remembers where it went off course."
+        }
