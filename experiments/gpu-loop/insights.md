@@ -684,3 +684,49 @@ eff_rank(C) = (Σλᵢ)² / Σλᵢ²
 3. Is the structural mechanism limited to rank-1, or does it generalize to low-rank?
 4. Can we engineer coupling that smoothly transitions between mechanisms?
 5. Real neural network layers: what is the effective rank of attention coupling in practice?
+
+---
+
+## Cycle 11 (P vs Contraction Metric) — 2026-05-17
+
+### FINDING: P does NOT exist as a genuine quadratic form (confidence: HIGH)
+
+- Tested whether γ+H(x) is a quadratic function of x: **R² < 0 for all architectures**
+- Full quadratic x^T P x fits WORSE than predicting the mean across all C types
+- The "R²=1.0" from Cycle 4 was confirmed as an artifact of static coupling (already noted in insights)
+- γ+H depends on x through Jacobian eigenvalues J(x) = diag(sech²(Cx))·C — inherently nonlinear
+
+### FINDING: Conservation is spectral, not metric (confidence: HIGH)
+
+| Architecture | CV(γ+H) | CV(||x||²) | Conservation Advantage |
+|---|---|---|---|
+| Random | 0.000296 | 2.75 | 9300× |
+| Attention | 0.002545 | 0.40 | 160× |
+| Hebbian | 0.003470 | 0.43 | 123× |
+| Symmetric | 0.000117 | 0.000605 | 5× |
+
+- γ+H is conserved 100-9300× better than ||x||² alone
+- Conservation is NOT "x doesn't move" — it's a genuine spectral property
+- The mechanism: Jacobian eigenvalue structure is a first integral on the attractor
+
+### REVISED: Quadratic invariant hypothesis → FALSE
+
+Previous theory statement: *"γ+H = x^T P x is an exact quadratic form (R²=1.0)"*
+This is now **retracted**. The conservation is:
+- Real (CV < 0.01 along trajectories)
+- Spectral (depends on eigenvalue structure, not state-space metric)
+- Novel (nobody has found this spectral first integral)
+- But NOT quadratic — no matrix P exists such that x^T P x = γ+H
+
+### Corrected Theorem Path
+
+NOT: "Find P such that x^T P x = const"
+YES: "Prove γ+H converges monotonically to C-determined constant under contraction"
+
+The theorem is: *For contracting tanh-coupled systems, the spectral quantity γ+H converges to a coupling-determined constant. This spectral first integral is maintained during transient dynamics, with quality proportional to contractivity and inversely proportional to eigenvector rotation rate.*
+
+### Open Questions for Cycle 12
+1. Can we prove γ+H is a Lyapunov function (monotonically non-increasing)?
+2. What is the exact relationship between contractivity and CV(γ+H)?
+3. Is the spectral first integral related to any known quantity in dynamical systems?
+4. Test with Hamiltonian-adjacent activations: does conservation survive under non-contractive maps?

@@ -1,0 +1,8 @@
+CYCLE 011: P Matrix vs Contraction Metric Test
+Result: P DOES NOT EXIST as a genuine quadratic form
+- γ+H is conserved (CV 0.0001-0.003) but NOT quadratic in x (R² < 0)
+- Full quadratic x^T P x fits WORSE than predicting the mean
+- Cycle 4's R²=1.0 was an artifact of static coupling / single-trajectory near-equilibrium
+- Conservation is spectral (Jacobian eigenvalue structure), not metric
+- No contraction metric comparison possible — P is undefined
+- The theory needs revision: conservation is a spectral first integral, not a quadratic invariant
