@@ -1,0 +1,409 @@
+{
+  "exp1_nonspectral": [
+    {
+      "defect_strength": 0.0,
+      "frac_diagonalizable": 1.0,
+      "mean_CV": 5.28026995914083e-07,
+      "mean_spectral_stability": 6.3866489979136e-05
+    },
+    {
+      "defect_strength": 0.1,
+      "frac_diagonalizable": 0.0,
+      "mean_CV": 5.763145651979636e-05,
+      "mean_spectral_stability": 0.0017215790854167618
+    },
+    {
+      "defect_strength": 0.5,
+      "frac_diagonalizable": 0.0,
+      "mean_CV": 0.0004275015617653725,
+      "mean_spectral_stability": 0.0039647784058304495
+    },
+    {
+      "defect_strength": 1.0,
+      "frac_diagonalizable": 0.0,
+      "mean_CV": 0.0013699602765337437,
+      "mean_spectral_stability": 0.0072757759091176336
+    },
+    {
+      "defect_strength": 2.0,
+      "frac_diagonalizable": 0.0,
+      "mean_CV": 0.0036893660308955933,
+      "mean_spectral_stability": 0.01370323428550751
+    }
+  ],
+  "exp2_time_varying": [
+    {
+      "frequency": 0.01,
+      "amplitude": 0.1,
+      "mean_CV": 0.04136668048765644,
+      "mean_spectral_stability": 0.05857830286048839
+    },
+    {
+      "frequency": 0.01,
+      "amplitude": 0.5,
+      "mean_CV": 0.04247886445422512,
+      "mean_spectral_stability": 0.14014920804580724
+    },
+    {
+      "frequency": 0.01,
+      "amplitude": 1.0,
+      "mean_CV": 0.06744658549122731,
+      "mean_spectral_stability": 0.2566489042781816
+    },
+    {
+      "frequency": 0.1,
+      "amplitude": 0.1,
+      "mean_CV": 0.03295490283266115,
+      "mean_spectral_stability": 0.08867402322804227
+    },
+    {
+      "frequency": 0.1,
+      "amplitude": 0.5,
+      "mean_CV": 0.07752955086149634,
+      "mean_spectral_stability": 0.20785628458907662
+    },
+    {
+      "frequency": 0.1,
+      "amplitude": 1.0,
+      "mean_CV": 0.08822542967816996,
+      "mean_spectral_stability": 0.28714209541192337
+    },
+    {
+      "frequency": 0.5,
+      "amplitude": 0.1,
+      "mean_CV": 6.713146375171102e-16,
+      "mean_spectral_stability": 1.1389956210457635e-15
+    },
+    {
+      "frequency": 0.5,
+      "amplitude": 0.5,
+      "mean_CV": 2.5369861874670498e-15,
+      "mean_spectral_stability": 3.4357826410253455e-15
+    },
+    {
+      "frequency": 0.5,
+      "amplitude": 1.0,
+      "mean_CV": 4.468285405806675e-15,
+      "mean_spectral_stability": 7.900110542319548e-15
+    },
+    {
+      "frequency": 1.0,
+      "amplitude": 0.1,
+      "mean_CV": 7.372795559884268e-16,
+      "mean_spectral_stability": 1.3867059745808945e-15
+    },
+    {
+      "frequency": 1.0,
+      "amplitude": 0.5,
+      "mean_CV": 2.886917991805285e-15,
+      "mean_spectral_stability": 7.0435881572028034e-15
+    },
+    {
+      "frequency": 1.0,
+      "amplitude": 1.0,
+      "mean_CV": 5.3834357314345425e-15,
+      "mean_spectral_stability": 9.240737053333217e-15
+    },
+    {
+      "frequency": 5.0,
+      "amplitude": 0.1,
+      "mean_CV": 2.765059510101819e-15,
+      "mean_spectral_stability": 1.1392321623589053e-14
+    },
+    {
+      "frequency": 5.0,
+      "amplitude": 0.5,
+      "mean_CV": 1.5020840374153656e-14,
+      "mean_spectral_stability": 5.291985984093924e-14
+    },
+    {
+      "frequency": 5.0,
+      "amplitude": 1.0,
+      "mean_CV": 6.28859611530241e-14,
+      "mean_spectral_stability": 8.876716851953214e-14
+    }
+  ],
+  "exp3_chaotic": [
+    {
+      "scale": 0.5,
+      "spectral_radius_est": 0.5113585601054453,
+      "mean_CV": 9.221963902398349e-05,
+      "mean_spectral_stability": 8.380327294722141e-05,
+      "period_indicator": 0.23990377362670207
+    },
+    {
+      "scale": 1.0,
+      "spectral_radius_est": 1.1165187990075849,
+      "mean_CV": 7.872475210429849e-05,
+      "mean_spectral_stability": 8.94888306872673e-05,
+      "period_indicator": 0.22720916297918697
+    },
+    {
+      "scale": 2.0,
+      "spectral_radius_est": 1.9983009016513045,
+      "mean_CV": 8.965591041548257e-05,
+      "mean_spectral_stability": 0.0001887250817464638,
+      "period_indicator": 0.060275216587956315
+    },
+    {
+      "scale": 5.0,
+      "spectral_radius_est": 4.990656088910482,
+      "mean_CV": 0.00014470518793296554,
+      "mean_spectral_stability": 0.0002566556730980852,
+      "period_indicator": 0.0613955491248687
+    },
+    {
+      "scale": 10.0,
+      "spectral_radius_est": 9.179806528328275,
+      "mean_CV": 4.085749380167553e-05,
+      "mean_spectral_stability": 9.843461806124528e-05,
+      "period_indicator": 0.05178689045916053
+    },
+    {
+      "scale": 20.0,
+      "spectral_radius_est": 16.239202945905262,
+      "mean_CV": 3.240648255124404e-05,
+      "mean_spectral_stability": 6.870327159064121e-05,
+      "period_indicator": 0.017571330966271382
+    },
+    {
+      "scale": 50.0,
+      "spectral_radius_est": 62.92311299500325,
+      "mean_CV": 7.507087865559409e-06,
+      "mean_spectral_stability": 1.4946200703386155e-05,
+      "period_indicator": 0.0222654795873481
+    }
+  ],
+  "exp4_nonsquare": [
+    {
+      "M": 3,
+      "N": 5,
+      "mean_CV": 0.000131278701737103,
+      "mean_spectral_stability": 0.00023129634051581452
+    },
+    {
+      "M": 5,
+      "N": 3,
+      "mean_CV": 0.00010691430255709495,
+      "mean_spectral_stability": 0.00020587566395654562
+    },
+    {
+      "M": 2,
+      "N": 5,
+      "mean_CV": 0.00015436091462281586,
+      "mean_spectral_stability": 0.0002356522916892755
+    },
+    {
+      "M": 5,
+      "N": 2,
+      "mean_CV": 5.6152516638755194e-05,
+      "mean_spectral_stability": 5.5085110686921494e-05
+    },
+    {
+      "M": 1,
+      "N": 5,
+      "mean_CV": 0.0,
+      "mean_spectral_stability": 0.00019047619018611238
+    },
+    {
+      "M": 5,
+      "N": 1,
+      "mean_CV": 0.0,
+      "mean_spectral_stability": 9.910779703590387e-15
+    },
+    {
+      "M": 4,
+      "N": 3,
+      "mean_CV": 0.00010659957038479684,
+      "mean_spectral_stability": 0.0002167271802852193
+    },
+    {
+      "M": 3,
+      "N": 4,
+      "mean_CV": 0.0001796457306024032,
+      "mean_spectral_stability": 0.00022199019561945283
+    }
+  ],
+  "exp5_random_activation": [
+    {
+      "coupling": "random",
+      "scale": 0.5,
+      "mean_CV_random_act": 0.0004947587519162724,
+      "mean_CV_fixed_tanh": 0.0001633252377637003,
+      "CV_ratio": 3.0292853614705377,
+      "mean_spectral_stability": 0.0007078585540312936
+    },
+    {
+      "coupling": "random",
+      "scale": 1.0,
+      "mean_CV_random_act": 0.00019268586796084271,
+      "mean_CV_fixed_tanh": 0.00013896011096373057,
+      "CV_ratio": 1.3866271883672783,
+      "mean_spectral_stability": 0.0005200960093995768
+    },
+    {
+      "coupling": "random",
+      "scale": 2.0,
+      "mean_CV_random_act": NaN,
+      "mean_CV_fixed_tanh": 8.521887672857018e-05,
+      "CV_ratio": NaN,
+      "mean_spectral_stability": 0.37249605036581507
+    },
+    {
+      "coupling": "attention",
+      "scale": 0.5,
+      "mean_CV_random_act": 1.1134784044823648e-16,
+      "mean_CV_fixed_tanh": 0.3889256194634796,
+      "CV_ratio": 2.8629597762636494e-16,
+      "mean_spectral_stability": 7.692394093670658e-06
+    },
+    {
+      "coupling": "attention",
+      "scale": 1.0,
+      "mean_CV_random_act": 9.739261751765898e-17,
+      "mean_CV_fixed_tanh": 1.094380725498757e-16,
+      "CV_ratio": Infinity,
+      "mean_spectral_stability": 1.5578520967377049e-10
+    },
+    {
+      "coupling": "attention",
+      "scale": 2.0,
+      "mean_CV_random_act": 0.047943430103557005,
+      "mean_CV_fixed_tanh": 6.537837679112674e-17,
+      "CV_ratio": Infinity,
+      "mean_spectral_stability": 0.036000000058097247
+    },
+    {
+      "coupling": "hebbian",
+      "scale": 0.5,
+      "mean_CV_random_act": 0.48400774148002323,
+      "mean_CV_fixed_tanh": 0.1544956792048505,
+      "CV_ratio": 3.13282380433606,
+      "mean_spectral_stability": 1.3400826231142413
+    },
+    {
+      "coupling": "hebbian",
+      "scale": 1.0,
+      "mean_CV_random_act": 0.47204728921908023,
+      "mean_CV_fixed_tanh": 0.1640584177503569,
+      "CV_ratio": 2.877312214100354,
+      "mean_spectral_stability": 1.2815822149394087
+    },
+    {
+      "coupling": "hebbian",
+      "scale": 2.0,
+      "mean_CV_random_act": 0.4565017065498155,
+      "mean_CV_fixed_tanh": 0.18213025590376755,
+      "CV_ratio": 2.5064572840166544,
+      "mean_spectral_stability": 1.0969282556408315
+    }
+  ],
+  "exp6_adversarial": [
+    {
+      "strategy": "rank_oscillation",
+      "frequency": 0.1,
+      "mean_CV": 0.31837536980637215,
+      "mean_spectral_stability": 0.41690576589121947
+    },
+    {
+      "strategy": "rank_oscillation",
+      "frequency": 0.5,
+      "mean_CV": 1.690862683948562e-15,
+      "mean_spectral_stability": 2.8873811239479662e-15
+    },
+    {
+      "strategy": "rank_oscillation",
+      "frequency": 1.0,
+      "mean_CV": 2.876348565713069e-15,
+      "mean_spectral_stability": 5.105237279659709e-15
+    },
+    {
+      "strategy": "rank_oscillation",
+      "frequency": 2.0,
+      "mean_CV": 6.998433109960812e-15,
+      "mean_spectral_stability": 1.0103998885875185e-14
+    },
+    {
+      "strategy": "eigenvalue_rotation",
+      "rotation_speed": 0.01,
+      "mean_CV": 2.660523797750243e-16,
+      "mean_spectral_stability": 4.909471522129186e-16
+    },
+    {
+      "strategy": "eigenvalue_rotation",
+      "rotation_speed": 0.1,
+      "mean_CV": 3.097847499992391e-16,
+      "mean_spectral_stability": 4.905117706346342e-16
+    },
+    {
+      "strategy": "eigenvalue_rotation",
+      "rotation_speed": 0.5,
+      "mean_CV": 2.4473259451325967e-16,
+      "mean_spectral_stability": 4.851239236033649e-16
+    },
+    {
+      "strategy": "eigenvalue_rotation",
+      "rotation_speed": 1.0,
+      "mean_CV": 2.8219116283460743e-16,
+      "mean_spectral_stability": 4.557900897664553e-16
+    },
+    {
+      "strategy": "unstable_spectrum_swap",
+      "mean_CV": 3.27595599547704e-16,
+      "mean_spectral_stability": 5.781763956491659e-16
+    },
+    {
+      "strategy": "unstable_spectrum_scale",
+      "mean_CV": 3.503690441935043e-16,
+      "mean_spectral_stability": 0.3180750069647824
+    },
+    {
+      "strategy": "unstable_spectrum_redistribute",
+      "mean_CV": 0.20009506046583203,
+      "mean_spectral_stability": 0.2523076542522305
+    },
+    {
+      "strategy": "degeneracy_search",
+      "trials": 1000,
+      "degeneracies_found": 2,
+      "sample_pairs": [
+        {
+          "spec1": [
+            2.598144178350179,
+            1.294941338746209,
+            0.49566873273736356,
+            0.4465997959666005,
+            0.16464595419964798
+          ],
+          "spec2": [
+            2.0792878182634915,
+            1.937205658958991,
+            0.7198877752502841,
+            0.26128954400571386,
+            0.0023292035215194446
+          ],
+          "gamma_H": 4.056492895735848,
+          "spectral_diff": 0.642264320212782
+        },
+        {
+          "spec1": [
+            2.1846261163897185,
+            1.870119014221017,
+            0.4661015971017517,
+            0.24319098854534227,
+            0.23596228374217101
+          ],
+          "spec2": [
+            2.703997348236034,
+            0.7163164401574529,
+            0.6826289175476586,
+            0.6294564913873575,
+            0.26760080267149716
+          ],
+          "gamma_H": 4.14824344981017,
+          "spectral_diff": 1.153802574063564
+        }
+      ]
+    }
+  ]
+}

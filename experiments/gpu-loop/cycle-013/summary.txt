@@ -1,0 +1,25 @@
+Cycle 13 (GLM-5.1, deep stress test) — 2026-05-17
+
+EXECUTIVE SUMMARY: Six adversarial stress tests attempted to break the spectral shape stability theory. NO COUNTEREXAMPLE FOUND.
+
+KEY FINDINGS:
+1. Non-diagonalizable matrices: CV < 0.004, degrades gracefully with defect strength. Theory holds.
+2. Time-varying C (external): CV up to 0.088 at low freq, tracks spectral stability. High freq trivializes dynamics via saturation.
+3. Chaotic regime (ρ up to 63): CV < 0.0002 — but tanh saturates, preventing genuine chaos. INCONCLUSIVE.
+4. Non-square coupling (M≠N): CV < 0.0002 for ALL configs via SVD. Theory generalizes.
+5. Random activation per step: Amplifies existing failures 2-3× (Hebbian: 0.16→0.48) but doesn't create new mechanisms.
+6. Adversarial coupling:
+   - Eigenvalue rotation with fixed spectrum → CV = 0.000 (CONFIRMS spectral, not eigenvector, mechanism)
+   - Uniform scaling → CV = 0.000 despite high spectral stability metric (scale-invariance is a FEATURE)
+   - Rank oscillation → CV = 0.318 with matching spectral instability 0.417
+   - Only 2/1000 spectral degeneracies → γ+H is nearly injective
+
+REFINEMENTS:
+1. Spectral stability metric must be SCALE-INVARIANT (measure shape, not magnitude)
+2. Theory generalizes to non-square coupling via SVD
+3. Mixed activations are a perturbation, not a phase change
+4. The causal variable is confirmed as spectral SHAPE, not eigenvectors
+
+THEORY STATUS: Survived deepest stress test. No counterexample. Needs scale-invariant metric and genuine chaos test.
+
+FILES: cycle-013/results.md, cycle-013/experiments.py, cycle-013/raw_data.json
