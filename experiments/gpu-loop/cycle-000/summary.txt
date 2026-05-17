@@ -1,0 +1,33 @@
+GPU LOOP CYCLE 0 — COMPLETE
+Model: GLM-5.1
+Date: 2026-05-16 23:14 AKDT
+Runtime: ~5 seconds (all 5 experiments)
+
+EXPERIMENTS RUN: 5/5 (exp-3 partially failed at 1-bit, others all succeeded)
+
+KEY FINDING: The conservation law is SUBSTRATE-INVARIANT.
+γ+H is conserved regardless of precision heterogeneity, even at ratios of 10^15:1.
+
+HYPOTHESES TESTED:
+- H1 (C depends on precision): FALSIFIED
+- H2 (Heterogeneity prevents γ→0): FALSIFIED  
+- H3 (BBP transition broadens): FALSIFIED
+- H4 (Annealing helps convergence): WEAK SUPPORT (1.2× speedup)
+- H5 (Conservation breaks at critical ratio): STRONGLY FALSIFIED (no breakdown found)
+
+NOVEL DISCOVERY: INT8 "Frozen Conservation" — quantization pins γ+H to exact conservation (CV=0.0000).
+
+FILES:
+- analysis.md — Full analysis with confidence ratings
+- results.md — All numerical results in tables
+- results_exp[1-5].json — Raw JSON data
+- exp-[1-5].py — Experiment scripts
+
+NEXT CYCLE SHOULD:
+1. Test asymmetric coupling (direction-dependent precision translation)
+2. Investigate INT8 frozen conservation as a coordination mechanism
+3. Test coupling architecture × precision interaction
+4. Try larger matrices for BBP analysis
+5. Investigate sub-2-bit regime (where breakdown might occur)
+
+STATUS: READY FOR CYCLE 1

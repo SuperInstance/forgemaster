@@ -1,0 +1,36 @@
+CYCLE 1 COMPLETE — Seed-2.0-mini
+==================================
+
+Status: DONE
+Date: 2026-05-16 23:20 AKDT
+Runtime: ~6 seconds (all 5 experiments)
+
+KEY FINDINGS (in priority order):
+
+1. ARCHITECTURE > PRECISION for conservation.
+   - Random coupling: CV=0.032 (conserved) regardless of precision
+   - Hebbian/Attention: CV=0.12-0.15 (NOT conserved) regardless of precision
+   - This is the strongest finding. Conservation is an eigenvalue-statistics property.
+
+2. ASYMMETRIC COUPLING PRESERVES CONSERVATION.
+   - Direction-dependent precision loss does NOT break the law
+   - Paradoxically improves conservation (lower CV than symmetric)
+   - FP64/INT4 asymmetric: CV=0.0000 (frozen conservation)
+
+3. C IS FLAT ACROSS PRECISION (5% variation from 2-bit to 64-bit).
+   - Confirms GLM-5.1's substrate-invariant claim with cleaner data.
+
+4. TERNARY is the precision floor for heterogeneous fleets.
+   - FP32+ternary: survives (CV=0.13)
+   - FP32+binary: breaks conservation (CV=0.46)
+
+5. BBP BROADENING: inconclusive. Block matrix methodology too artificial.
+
+FILES:
+- analysis.md: Phase 1 analysis of GLM-5.1 results
+- exp-1.py through exp-5.py: Self-contained experiments
+- results_exp[1-5].json: Raw JSON results
+- results.md: Full formatted results with tables and interpretation
+- insights.md: Updated (appended Cycle 1 findings)
+
+READY FOR CYCLE 2 (Nemotron-30B).

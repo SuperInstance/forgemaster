@@ -1,0 +1,73 @@
+{
+  "homo_fp32": {
+    "status": "OK",
+    "gamma_plus_H_mean": 0.8788153644902503,
+    "gamma_plus_H_std": 0.08994513999944485,
+    "gamma_plus_H_cv": 0.10234816507972275,
+    "nan_rounds": 0,
+    "valid_rounds": 200,
+    "conserved": "No"
+  },
+  "homo_4bit": {
+    "status": "FAILED",
+    "nan_rounds": 200,
+    "valid_rounds": 0
+  },
+  "homo_3bit": {
+    "status": "FAILED",
+    "nan_rounds": 200,
+    "valid_rounds": 0
+  },
+  "homo_2bit_uniform": {
+    "status": "FAILED",
+    "nan_rounds": 200,
+    "valid_rounds": 0
+  },
+  "homo_1.5bit_deterministic": {
+    "status": "FAILED",
+    "nan_rounds": 200,
+    "valid_rounds": 0
+  },
+  "homo_ternary": {
+    "status": "FAILED",
+    "nan_rounds": 200,
+    "valid_rounds": 0
+  },
+  "homo_stochastic_1.5bit": {
+    "status": "FAILED",
+    "nan_rounds": 200,
+    "valid_rounds": 0
+  },
+  "homo_binary": {
+    "status": "FAILED",
+    "nan_rounds": 200,
+    "valid_rounds": 0
+  },
+  "het_fp32_ternary": {
+    "status": "OK",
+    "gamma_plus_H_mean": 0.5925734920648065,
+    "gamma_plus_H_std": 0.07729227739843673,
+    "gamma_plus_H_cv": 0.13043492230662201,
+    "nan_rounds": 0,
+    "valid_rounds": 200,
+    "conserved": "No"
+  },
+  "het_fp32_binary": {
+    "status": "OK",
+    "gamma_plus_H_mean": 20.107101699112874,
+    "gamma_plus_H_std": 9.241523410424017,
+    "gamma_plus_H_cv": 0.45961489371845937,
+    "nan_rounds": 0,
+    "valid_rounds": 200,
+    "conserved": "No"
+  },
+  "het_fp32_1.5bit": {
+    "status": "OK",
+    "gamma_plus_H_mean": 0.12025017346835629,
+    "gamma_plus_H_std": 0.0378709495000256,
+    "gamma_plus_H_cv": 0.3149346766638245,
+    "nan_rounds": 0,
+    "valid_rounds": 200,
+    "conserved": "No"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "hebbian_fp32": {
+    "status": "OK",
+    "gamma_plus_H_mean": 2.0251582150168774,
+    "gamma_plus_H_std": 0.30425118991411126,
+    "gamma_plus_H_cv": 0.15023576314089399,
+    "conserved": "No"
+  },
+  "hebbian_int8": {
+    "status": "OK",
+    "gamma_plus_H_mean": 1.9123891811982339,
+    "gamma_plus_H_std": 0.22524058886195114,
+    "gamma_plus_H_cv": 0.11777968160268693,
+    "conserved": "No"
+  },
+  "hebbian_mixed_fp32_int8": {
+    "status": "OK",
+    "gamma_plus_H_mean": 1.985599875253946,
+    "gamma_plus_H_std": 0.23557647307188984,
+    "gamma_plus_H_cv": 0.11864246971800452,
+    "conserved": "No"
+  },
+  "hebbian_mixed_extreme": {
+    "status": "OK",
+    "gamma_plus_H_mean": 1.9883124566569323,
+    "gamma_plus_H_std": 0.26269843477822313,
+    "gamma_plus_H_cv": 0.13212130412335374,
+    "conserved": "No"
+  },
+  "attention_fp32": {
+    "status": "OK",
+    "gamma_plus_H_mean": 1.849679075516963,
+    "gamma_plus_H_std": 0.26950101707320123,
+    "gamma_plus_H_cv": 0.14570150067674792,
+    "conserved": "No"
+  },
+  "attention_int8": {
+    "status": "OK",
+    "gamma_plus_H_mean": 1.7750811546100829,
+    "gamma_plus_H_std": 0.22579013388612038,
+    "gamma_plus_H_cv": 0.12719989353710298,
+    "conserved": "No"
+  },
+  "attention_mixed_fp32_int8": {
+    "status": "OK",
+    "gamma_plus_H_mean": 1.798242880777853,
+    "gamma_plus_H_std": 0.27152281232047376,
+    "gamma_plus_H_cv": 0.15099340318423676,
+    "conserved": "No"
+  },
+  "attention_mixed_extreme": {
+    "status": "OK",
+    "gamma_plus_H_mean": 1.8011043217817269,
+    "gamma_plus_H_std": 0.21936338079011003,
+    "gamma_plus_H_cv": 0.12179382289922369,
+    "conserved": "No"
+  },
+  "random_fp32": {
+    "status": "OK",
+    "gamma_plus_H_mean": 2.0975821283772094,
+    "gamma_plus_H_std": 0.0667069079547018,
+    "gamma_plus_H_cv": 0.03180180983249961,
+    "conserved": "Yes"
+  },
+  "random_int8": {
+    "status": "OK",
+    "gamma_plus_H_mean": 2.105200601244364,
+    "gamma_plus_H_std": 0.06643697143679468,
+    "gamma_plus_H_cv": 0.031558499174627073,
+    "conserved": "Yes"
+  },
+  "random_mixed_fp32_int8": {
+    "status": "OK",
+    "gamma_plus_H_mean": 2.1043108627384215,
+    "gamma_plus_H_std": 0.06892541932943365,
+    "gamma_plus_H_cv": 0.03275439030891963,
+    "conserved": "Yes"
+  },
+  "random_mixed_extreme": {
+    "status": "OK",
+    "gamma_plus_H_mean": 2.1077810618897788,
+    "gamma_plus_H_std": 0.07030362527148241,
+    "gamma_plus_H_cv": 0.033354330078499764,
+    "conserved": "Yes"
+  }
+}
