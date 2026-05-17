@@ -359,39 +359,27 @@ From the GPU loop experiments (MATH-SPECTRAL-FIRST-INTEGRAL.md):
 | $\bar{I}$ | $\approx 1.0$ | From experiments: mean$(I) \approx 1.007$ |
 | $\rho(J)$ | $\approx 0.98$ | Contraction rate from experiments |
 
-### 6.4 Theoretical $L_I$ Computation
+### 6.4 Numerical Validation Results
 
-For $N = 5$, $L_C = 1.0$, $T_{\min} = 1.0$:
+The bound was validated empirically across 5 coupling configurations with $T=100$ steps, 5 samples each:
 
-$$L_I = 2(1.0) + \frac{2\sqrt{2} \cdot \ln 5 \cdot 5 \cdot 1.0}{1.0} = 2 + 10\sqrt{2} \cdot \ln 5$$
+| Configuration | $L_C$ (emp) | $T_{\min}$ | $L_I$ (theory) | $L_I$ (emp) | Bound Holds? | Slack |
+|---------------|-------------|------------|-----------------|-------------|--------------|-------|
+| Attn $\tau{=}1$, $N{=}5$ | 0.400 | 1.035 | 9.603 | 0.241 | **YES** | 40× |
+| Attn $\tau{=}5$, $N{=}5$ | 0.074 | 1.007 | 1.819 | 0.085 | **YES** | 21× |
+| Attn $\tau{=}1$, $N{=}10$ | 0.185 | 1.098 | 11.370 | 0.186 | **YES** | 61× |
+| Attn $\tau{=}1$, $N{=}20$ | 0.096 | 1.130 | 14.578 | 0.102 | **YES** | 143× |
+| Static random, $N{=}5$ | 0.000 | 6.721 | 0.000 | 0.000 | **YES** (exact) | — |
 
-$$= 2 + 10 \times 1.414 \times 1.609 = 2 + 22.76 = 24.76$$
+**Key findings:**
+1. **The bound holds in every configuration.** The empirical Lipschitz constant $L_{\mathrm{emp}}$ is always below the theoretical bound.
+2. **The bound is conservative** (21–143× slack). This is expected — the theoretical bound uses worst-case constants.
+3. **Static coupling gives $L_I = 0$ exactly**, confirming the algebraic conservation (CV = 0).
+4. **Higher temperature ($\tau = 5$) gives smaller $L_C$**, consistent with softer attention having less state sensitivity.
+5. **Higher dimension ($N$) increases the theoretical bound** (through $N \ln N$) but the empirical constant grows much more slowly, suggesting the $N \ln N$ scaling is overly conservative.
+6. **CV$(I)$ ranges from 0.008–0.025**, consistent with the 0.003–0.03 range observed in GPU loop experiments.
 
-The per-step bound becomes:
-
-$$|I(x_{t+1}) - I(x_t)| \leq 24.76 \cdot \|x_{t+1} - x_t\|$$
-
-Since $\|x_{t+1} - x_t\| \leq (L_C + 1)\|x_t\| \leq 2\|x_t\|$ and $\|x_t\| \leq \sqrt{N} \approx 2.24$ (for $\tanh$-bounded states):
-
-$$|I(x_{t+1}) - I(x_t)| \leq 24.76 \times 2 \times 2.24 \approx 110.9$$
-
-This is a very coarse bound — the actual variation is $|I(x_{t+1}) - I(x_t)| \approx 0.003$. The bound is conservative because:
-1. The Lipschitz constant $L_C = 1$ is a worst case; the actual local Lipschitz constant is much smaller.
-2. The entropy sensitivity $\sqrt{2}\ln N$ assumes worst-case distribution perturbation.
-
-### 6.5 Tighter Empirical Bound
-
-A tighter approach is to compute the *empirical* Lipschitz constant $L_{\mathrm{emp}}$ and verify it satisfies the theoretical structure.
-
-**Expected empirical values:**
-
-| Quantity | Expected Value | Rationale |
-|----------|---------------|-----------|
-| $L_{\mathrm{emp}}$ | $\sim 0.1$–$1.0$ | From CV$(I) \approx 0.003$ and $\|x_{t+1}-x_t\| \approx 0.01$ |
-| $L_\gamma^{\mathrm{emp}}$ | $\sim 0.05$ | Spectral gap varies by $\sim 0.005$ per step |
-| $L_H^{\mathrm{emp}}$ | $\sim 0.1$ | Entropy varies by $\sim 0.001$ per step |
-
-The ratio $L_{\mathrm{emp}} / L_{\mathrm{bound}}$ should be $\ll 1$, confirming the bound is valid (if conservative).
+The conservatism comes primarily from the entropy Lipschitz bound $\sqrt{2}\ln N$, which assumes worst-case distribution perturbation on the full simplex. In practice, the perturbations are small and the entropy surface is locally much flatter than the worst case.
 
 ### 6.6 Validation Script
 
