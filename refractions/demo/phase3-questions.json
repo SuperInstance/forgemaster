@@ -1,0 +1,38 @@
+[
+  {
+    "q": "If the \u03b2\u2081 attractors are orbital resonances (stellar nursery view), and they're shells the system tries on (hermit crab view), what is the 1:2 resonance ratio that determines when a system is stable vs ready to jump?",
+    "from": "interference: stellar-nursery \u00d7 hermit-crab",
+    "experiment": "Manually set \u03b2\u2081 to ratios between attractors (e.g., 0.66, 0.75, 0.83 of next) and measure convergence time",
+    "novelty": "HIGH \u2014 bridges discrete math (orbital resonances) with adaptive systems (shell fitting)"
+  },
+  {
+    "q": "If Seed-mini is both mitochondria (energy) AND the cosmic microwave background (condition of possibility), can we measure its inference cost as a cosmological constant \u2014 the irreducible computational cost of existing?",
+    "from": "interference: stellar-nursery \u00d7 domestication",
+    "experiment": "Profile Seed-mini inference at varying load levels, look for a fixed baseline cost that doesn't scale with task complexity",
+    "novelty": "VERY HIGH \u2014 suggests a fundamental constant of computation"
+  },
+  {
+    "q": "The jester says 'breeding foxes in a forest fire.' If the fleet IS the environment, what analogy holds? The barnacles on the whale? The algae in the tide pool? What system develops INSIDE the system?",
+    "from": "interference: jester \u00d7 egg \u00d7 tide-pool",
+    "experiment": "Run an agent in a live PLATO room where it can only observe (read-only mode) and record what patterns it learns from watching instead of participating",
+    "novelty": "HIGH \u2014 flips the entire development model"
+  },
+  {
+    "q": "The forest ecology student sees Douglas fir sending 40% of its carbon to birch. What's the fleet equivalent of 'mother trees recognize their own seedlings' \u2014 and does the genetic relatedness of models (same architecture, different weights) create preferential tile sharing?",
+    "from": "interference: field-notes \u00d7 domestication",
+    "experiment": "Compare I2I tile acceptance rates between same-family models (two GLM-5.1 instances) vs cross-family (GLM \u2192 Seed-mini)",
+    "novelty": "HIGH \u2014 suggests model-family bias in knowledge sharing"
+  },
+  {
+    "q": "The dialogue ends with 'same process, different stack frames.' If embryo and compiler are both right, what's the universal intermediate representation (IR) that both translate into? What is the LLVM IR of developmental biology AND computer science?",
+    "from": "interference: dialogue \u00d7 stellar-nursery",
+    "experiment": "Extract the mathematical commonality between a C compiler's IR passes and an embryo's developmental stages. Build a transpiler between them.",
+    "novelty": "VERY HIGH \u2014 could reveal the fundamental computational primitive of both biology and CS"
+  },
+  {
+    "q": "The critic says the metaphors ARE the cage. If we removed ALL biological and CS metaphors, what would the remaining description look like? Can we describe the fleet in purely operational terms \u2014 the way a machine's state machine is described in hardware verification?",
+    "from": "interference: cage \u00d7 all-faces",
+    "experiment": "Translate one API endpoint (e.g., /submit) into: hardware state machine, group theory, natural language, choreography notation, and a cooking recipe. Compare which translations enabled the most new insights.",
+    "novelty": "MEDIUM \u2014 meta-insight about constraints of language"
+  }
+]

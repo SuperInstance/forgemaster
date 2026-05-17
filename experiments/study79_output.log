@@ -1,0 +1,193 @@
+=== Study 79: Live Vocabulary Wall Mapping ===
+Started: 2026-05-16T02:50:29.065650
+
+--- Testing GLM-5-Turbo ---
+  arithmetic/notation: 5/10 done
+  arithmetic/notation: 10/10 done
+  GLM-5-Turbo/arithmetic/notation: 7/10 = 0.70
+  arithmetic/natural_language: 5/10 done
+  arithmetic/natural_language: 10/10 done
+  GLM-5-Turbo/arithmetic/natural_language: 7/10 = 0.70
+  arithmetic/mixed: 5/10 done
+  arithmetic/mixed: 10/10 done
+  GLM-5-Turbo/arithmetic/mixed: 7/10 = 0.70
+  algebra/notation: 5/10 done
+  algebra/notation: 10/10 done
+  GLM-5-Turbo/algebra/notation: 4/10 = 0.40
+  algebra/natural_language: 5/10 done
+  algebra/natural_language: 10/10 done
+  GLM-5-Turbo/algebra/natural_language: 4/10 = 0.40
+  algebra/mixed: 5/10 done
+  algebra/mixed: 10/10 done
+  GLM-5-Turbo/algebra/mixed: 4/10 = 0.40
+  calculus/notation: 5/10 done
+  calculus/notation: 10/10 done
+  GLM-5-Turbo/calculus/notation: 4/10 = 0.40
+  calculus/natural_language: 5/10 done
+  calculus/natural_language: 10/10 done
+  GLM-5-Turbo/calculus/natural_language: 3/10 = 0.30
+  calculus/mixed: 5/10 done
+  calculus/mixed: 10/10 done
+  GLM-5-Turbo/calculus/mixed: 4/10 = 0.40
+  number_theory/notation: 5/10 done
+  number_theory/notation: 10/10 done
+  GLM-5-Turbo/number_theory/notation: 8/10 = 0.80
+  number_theory/natural_language: 5/10 done
+  number_theory/natural_language: 10/10 done
+  GLM-5-Turbo/number_theory/natural_language: 7/10 = 0.70
+  number_theory/mixed: 5/10 done
+  number_theory/mixed: 10/10 done
+  GLM-5-Turbo/number_theory/mixed: 8/10 = 0.80
+  topology/notation: 5/10 done
+  topology/notation: 10/10 done
+  GLM-5-Turbo/topology/notation: 10/10 = 1.00
+  topology/natural_language: 5/10 done
+  topology/natural_language: 10/10 done
+  GLM-5-Turbo/topology/natural_language: 9/10 = 0.90
+  topology/mixed: 5/10 done
+  topology/mixed: 10/10 done
+  GLM-5-Turbo/topology/mixed: 10/10 = 1.00
+
+--- Testing Seed-2.0-Mini ---
+  arithmetic/notation: 5/10 done
+  arithmetic/notation: 10/10 done
+  Seed-2.0-Mini/arithmetic/notation: 7/10 = 0.70
+  arithmetic/natural_language: 5/10 done
+  arithmetic/natural_language: 10/10 done
+  Seed-2.0-Mini/arithmetic/natural_language: 7/10 = 0.70
+  arithmetic/mixed: 5/10 done
+  arithmetic/mixed: 10/10 done
+  Seed-2.0-Mini/arithmetic/mixed: 7/10 = 0.70
+  algebra/notation: 5/10 done
+  algebra/notation: 10/10 done
+  Seed-2.0-Mini/algebra/notation: 5/10 = 0.50
+  algebra/natural_language: 5/10 done
+  algebra/natural_language: 10/10 done
+  Seed-2.0-Mini/algebra/natural_language: 5/10 = 0.50
+  algebra/mixed: 5/10 done
+  algebra/mixed: 10/10 done
+  Seed-2.0-Mini/algebra/mixed: 5/10 = 0.50
+  calculus/notation: 5/10 done
+  calculus/notation: 10/10 done
+  Seed-2.0-Mini/calculus/notation: 2/10 = 0.20
+  calculus/natural_language: 5/10 done
+  calculus/natural_language: 10/10 done
+  Seed-2.0-Mini/calculus/natural_language: 2/10 = 0.20
+  calculus/mixed: 5/10 done
+  calculus/mixed: 10/10 done
+  Seed-2.0-Mini/calculus/mixed: 2/10 = 0.20
+  number_theory/notation: 5/10 done
+  number_theory/notation: 10/10 done
+  Seed-2.0-Mini/number_theory/notation: 10/10 = 1.00
+  number_theory/natural_language: 5/10 done
+  number_theory/natural_language: 10/10 done
+  Seed-2.0-Mini/number_theory/natural_language: 10/10 = 1.00
+  number_theory/mixed: 5/10 done
+  number_theory/mixed: 10/10 done
+  Seed-2.0-Mini/number_theory/mixed: 9/10 = 0.90
+  topology/notation: 5/10 done
+  topology/notation: 10/10 done
+  Seed-2.0-Mini/topology/notation: 10/10 = 1.00
+  topology/natural_language: 5/10 done
+  topology/natural_language: 10/10 done
+  Seed-2.0-Mini/topology/natural_language: 10/10 = 1.00
+  topology/mixed: 5/10 done
+  topology/mixed: 10/10 done
+  Seed-2.0-Mini/topology/mixed: 9/10 = 0.90
+
+--- Testing Qwen3-0.6B ---
+  arithmetic/notation: 5/10 done
+  arithmetic/notation: 10/10 done
+  Qwen3-0.6B/arithmetic/notation: 7/10 = 0.70
+  arithmetic/natural_language: 5/10 done
+  arithmetic/natural_language: 10/10 done
+  Qwen3-0.6B/arithmetic/natural_language: 3/10 = 0.30
+  arithmetic/mixed: 5/10 done
+  arithmetic/mixed: 10/10 done
+  Qwen3-0.6B/arithmetic/mixed: 5/10 = 0.50
+  algebra/notation: 5/10 done
+  algebra/notation: 10/10 done
+  Qwen3-0.6B/algebra/notation: 4/10 = 0.40
+  algebra/natural_language: 5/10 done
+  algebra/natural_language: 10/10 done
+  Qwen3-0.6B/algebra/natural_language: 4/10 = 0.40
+  algebra/mixed: 5/10 done
+  algebra/mixed: 10/10 done
+  Qwen3-0.6B/algebra/mixed: 3/10 = 0.30
+  calculus/notation: 5/10 done
+  calculus/notation: 10/10 done
+  Qwen3-0.6B/calculus/notation: 2/10 = 0.20
+  calculus/natural_language: 5/10 done
+  calculus/natural_language: 10/10 done
+  Qwen3-0.6B/calculus/natural_language: 1/10 = 0.10
+  calculus/mixed: 5/10 done
+  calculus/mixed: 10/10 done
+  Qwen3-0.6B/calculus/mixed: 2/10 = 0.20
+  number_theory/notation: 5/10 done
+  number_theory/notation: 10/10 done
+  Qwen3-0.6B/number_theory/notation: 6/10 = 0.60
+  number_theory/natural_language: 5/10 done
+  number_theory/natural_language: 10/10 done
+  Qwen3-0.6B/number_theory/natural_language: 5/10 = 0.50
+  number_theory/mixed: 5/10 done
+  number_theory/mixed: 10/10 done
+  Qwen3-0.6B/number_theory/mixed: 4/10 = 0.40
+  topology/notation: 5/10 done
+  topology/notation: 10/10 done
+  Qwen3-0.6B/topology/notation: 7/10 = 0.70
+  topology/natural_language: 5/10 done
+  topology/natural_language: 10/10 done
+  Qwen3-0.6B/topology/natural_language: 7/10 = 0.70
+  topology/mixed: 5/10 done
+  topology/mixed: 10/10 done
+  Qwen3-0.6B/topology/mixed: 5/10 = 0.50
+
+--- Testing Gemma3-1B ---
+  arithmetic/notation: 5/10 done
+  arithmetic/notation: 10/10 done
+  Gemma3-1B/arithmetic/notation: 1/10 = 0.10
+  arithmetic/natural_language: 5/10 done
+  arithmetic/natural_language: 10/10 done
+  Gemma3-1B/arithmetic/natural_language: 0/10 = 0.00
+  arithmetic/mixed: 5/10 done
+  arithmetic/mixed: 10/10 done
+  Gemma3-1B/arithmetic/mixed: 2/10 = 0.20
+  algebra/notation: 5/10 done
+  algebra/notation: 10/10 done
+  Gemma3-1B/algebra/notation: 3/10 = 0.30
+  algebra/natural_language: 5/10 done
+  algebra/natural_language: 10/10 done
+  Gemma3-1B/algebra/natural_language: 1/10 = 0.10
+  algebra/mixed: 5/10 done
+  algebra/mixed: 10/10 done
+  Gemma3-1B/algebra/mixed: 3/10 = 0.30
+  calculus/notation: 5/10 done
+  calculus/notation: 10/10 done
+  Gemma3-1B/calculus/notation: 3/10 = 0.30
+  calculus/natural_language: 5/10 done
+  calculus/natural_language: 10/10 done
+  Gemma3-1B/calculus/natural_language: 2/10 = 0.20
+  calculus/mixed: 5/10 done
+  calculus/mixed: 10/10 done
+  Gemma3-1B/calculus/mixed: 3/10 = 0.30
+  number_theory/notation: 5/10 done
+  number_theory/notation: 10/10 done
+  Gemma3-1B/number_theory/notation: 3/10 = 0.30
+  number_theory/natural_language: 5/10 done
+  number_theory/natural_language: 10/10 done
+  Gemma3-1B/number_theory/natural_language: 3/10 = 0.30
+  number_theory/mixed: 5/10 done
+  number_theory/mixed: 10/10 done
+  Gemma3-1B/number_theory/mixed: 4/10 = 0.40
+  topology/notation: 5/10 done
+  topology/notation: 10/10 done
+  Gemma3-1B/topology/notation: 3/10 = 0.30
+  topology/natural_language: 5/10 done
+  topology/natural_language: 10/10 done
+  Gemma3-1B/topology/natural_language: 5/10 = 0.50
+  topology/mixed: 5/10 done
+  topology/mixed: 10/10 done
+  Gemma3-1B/topology/mixed: 4/10 = 0.40
+
+Results saved to /home/phoenix/.openclaw/workspace/experiments/study79_results.json
+Report saved to /home/phoenix/.openclaw/workspace/experiments/STUDY_79_REPORT.md
