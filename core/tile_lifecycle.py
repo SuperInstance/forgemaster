@@ -625,3 +625,104 @@ class RockMemory:
                        f"{reattempts} reattempts across all paths. "
                        f"The system remembers where it went off course."
         }
+
+# ─── MineRocks — Retroactively index existing PLATO tiles as navigation terrain ─
+# The rocks are already IN PLATO. 60,648 tiles across 162 rooms.
+# Every experiment that failed, every proof that didn't check out,
+# every approach that hit a dead end — it's there. Just not indexed
+# as navigation terrain.
+# This mines them.
+
+class MineRocks:
+    """Mine existing PLATO tiles for rocks — failures, retractions, dead ends.
+    
+    The fleet spent hundreds of dollars and millions of tokens finding these
+    rocks. They are in the PLATO rooms. This reads them and structures them
+    as navigation terrain so the next agent doesn't have to rediscover them.
+    """
+    
+    def __init__(self, rock_memory: 'RockMemory' = None):
+        self.rock_memory = rock_memory or RockMemory()
+        self.mined = 0
+    
+    def scan_tiles(self, tiles: list, source: str = "plato") -> dict:
+        """Scan a list of PLATO tiles and identify which are rocks.
+        
+        A tile is a rock if:
+        - Its confidence is low (< 0.3) — the agent who created it was unsure
+        - It contains retraction keywords ('failed', 'wrong', 'incorrect', 'dead end')
+        - It explicitly falsifies another tile (has 'falsifies' field)
+        - It was created by the DisproofOnlyGate (source contains 'gate', 'rejected')
+        """
+        rocks_found = 0
+        for t in tiles:
+            content = str(t.get("answer", "") + " " + t.get("content", ""))
+            question = t.get("question", "")
+            confidence = t.get("confidence", 0.5)
+            source_field = t.get("source", "")
+            tile_id = t.get("hash", t.get("id", ""))
+            
+            is_rock = False
+            reason = ""
+            heading = question
+            
+            # Low confidence = the creator wasn't sure = high rock probability
+            if confidence < 0.3:
+                is_rock = True
+                reason = f"Low confidence ({confidence}): the agent who created this was uncertain"
+            
+            # Retraction keywords in content
+            failure_keywords = ["failed", "wrong", "incorrect", "dead end", "doesn't work",
+                                "not valid", "rejected", "error", "bug", "timed out",
+                                "not converge", "broke", "regression", "limitation"]
+            for kw in failure_keywords:
+                if kw in content.lower():
+                    is_rock = True
+                    reason = f"Failure keyword '{kw}' in content"
+                    break
+            
+            # Gate rejection
+            if "rejected" in source_field.lower() or "gate" in source_field.lower():
+                is_rock = True
+                reason = f"Gate rejection: source={source_field}"
+            
+            # Has falsifies field
+            if t.get("falsifies"):
+                is_rock = True
+                reason = f"Falsifies existing tile: {t['falsifies']}"
+            
+            if is_rock:
+                rock_id = self.rock_memory.lay_rock(
+                    Tile(content=content[:500], confidence=confidence,
+                         falsifies=source_field),
+                    reason=reason,
+                    heading=heading[:200],
+                    agent=source_field
+                )
+                rocks_found += 1
+        
+        self.mined += rocks_found
+        return {
+            "tiles_scanned": len(tiles),
+            "rocks_found": rocks_found,
+            "total_rocks": len(self.rock_memory.rocks),
+        }
+    
+    def scan_room(self, room_data: dict) -> dict:
+        """Scan an entire PLATO room response for rocks."""
+        if isinstance(room_data, dict):
+            tiles = room_data.get("tiles", [])
+        elif isinstance(room_data, list):
+            tiles = room_data
+        else:
+            tiles = []
+        return self.scan_tiles(tiles, source=room_data.get("room_id", "unknown") if isinstance(room_data, dict) else "unknown")
+    
+    def report(self) -> dict:
+        """Report on what was mined."""
+        return {
+            "total_rocks_mined": self.mined,
+            "rocks_in_memory": len(self.rock_memory.rocks),
+            "note": f"{self.mined} rocks mined from existing PLATO tiles. "
+                    f"The system now remembers where it failed before."
+        }
