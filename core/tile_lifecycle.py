@@ -258,7 +258,7 @@ class TileStore:
         Never sweeps: loop tiles, spline tiles, meta tiles, untested tiles.
         (MULTI-MODEL-SYNTHESIS.md §Step 3)
         """
-        return MortalitySweep(self, mortality_rate).sweep()
+        return MortalitySweep(self, rock_memory=RockMemory(), mortality_rate=mortality_rate).sweep()
 
     # ── Diagnostics ──
 
