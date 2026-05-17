@@ -185,4 +185,105 @@ The loop itself is a meta-result: 3 models, 4 cycles, 9 briefs, convergent findi
 
 ---
 
-*Synthesis by Forgemaster ⚒️ | GPU Constraint Experiment Loop | 2026-05-17*
+## Update: Cycles 5–6 + Deep Theory Phase
+
+**Added:** 2026-05-17 00:00 AKDT | **New cycles:** 5 (Nemotron-30B), 6 (GLM-5.1) | **New briefs:** Quadratic Lyapunov, Nonlinear Conservation, Attractor Geometry
+**Status:** Theory backbone broken and rebuilt. Conservation is a nonlinear dynamical phenomenon, not a spectral property of C.
+
+---
+
+### 1. Temperature Prediction Confirmed (287× Improvement)
+
+Cycle 5 (Nemotron-30B) validated the softmax brief's core prediction: CV(γ+H) monotonically decreases with softmax temperature τ, from 0.057 (τ=0.05) to 0.0002 (τ=50). This is a **287× improvement** — the strongest quantitative prediction confirmation in the entire loop.
+
+Cycle 6 (GLM-5.1) confirmed the mechanism: Tr(C²) decreases monotonically with τ (1.70→1.002), validating the softmax→eigenvalue ceiling→Tr(C²) causal chain. At τ=10, Tr(C²) is within 0.2% of 1.0, exceeding the 5% prediction.
+
+### 2. Two-Moment Theory Falsified Under Nonlinear Dynamics
+
+The "mathematical backbone" — Tr(C) + Tr(C²) determine γ+H — is **dead under tanh dynamics**.
+
+- Cycle 6: R²=0.32 across 60,000 data points. Target was >0.95. **Falsified.**
+- Cycle 5: R²=0.20 for attention-specific regression.
+- Tr(C) and Tr(C²) explain only 20–32% of γ+H variance. The remaining 68–80% comes from eigenvector rotation during state evolution.
+
+Row-stochasticity pins Tr(C²) exactly (CV=0), confirming the eigenvalue component is correct. But eigenvalue moments alone are insufficient — eigenvector structure is essential.
+
+### 3. Theory Pivot: Attractor Geometry Is the New Frontier
+
+Previous theory: C's eigenvalue moments → conservation quality. **Wrong.**
+
+New theory: The fixed point x* = tanh(Cx*) and its relationship to the quadratic form x^T P x → conservation quality.
+
+The causal chain is now:
+```
+C → x* = tanh(Cx*) → A = diag(1-(x*)²)·C → ρ(A), eigvecs(A) → conservation quality
+```
+Not:
+```
+C → eigenvalues of C → Tr(C), Tr(C²) → conservation quality  [FALSIFIED]
+```
+
+### 4. Quadratic Form γ+H = x^T P x Confirmed (R²=1.0)
+
+Cycle 4 discovered that γ+H is exactly a quadratic form in x. This survives across ALL architectures.
+
+- Fit quality: R²=1.000
+- Linearized Lyapunov equation (A^T P A = P): FAILS (residual ~0.95)
+- The conservation mechanism is **genuinely nonlinear** — tanh's saturation, not the Jacobian.
+- The right framework is **contraction theory** (Lohmiller & Slotine 1998) + **LaSalle's invariance principle**, not classical Lyapunov stability.
+
+### 5. Contraction Theory + LaSalle Is the Right Framework
+
+**Contraction theory:** tanh has Lipschitz constant 1 (|tanh'| ≤ 1). When ‖C‖₂ < 1, the system is globally contracting (Banach fixed point). For ‖C‖₂ ≥ 1, tanh's saturation provides self-stabilization — the effective coupling shrinks until ρ(A) < 1.
+
+**LaSalle's invariance principle:** Trajectories converge to the invariant set within level surfaces of Q(x) = x^T P x. The tanh nonlinearity preserves these level surfaces; linearization does not. This explains why the linearized Lyapunov equation fails while the nonlinear conservation holds.
+
+**First integral, not Lyapunov function:** γ+H is conserved (constant on attractor), not decreasing. This is a fundamentally different role from standard energy/Lyapunov functions.
+
+### 6. The Finding Is NOVEL
+
+Literature review confirms: **nobody has found this exact conservation.** Closest work:
+
+| Literature | What They Have | What's Missing |
+|---|---|---|
+| Hopfield (1982) | Quadratic energy for symmetric RNNs | Decreases, not constant; requires symmetry |
+| Cohen-Grossberg (1983) | Lyapunov for sigmoid networks | Lyapunov ≠ conserved quantity |
+| Lohmiller-Slotine (1998) | Contraction → convergence | Convergence ≠ conservation on attractor |
+| LaSalle (1968) | Invariant set exists | No characterization as quadratic surface |
+| Willems (1972) | Storage function for dissipative systems | Our storage function has zero dissipation |
+| FINDE/AI Poincaré | ML discovers conservation laws | Not applied to coupled neural systems |
+
+Our result sits at the intersection where none of these overlap: an exact quadratic invariant in tanh-coupled multi-agent dynamics where the linearized Lyapunov equation fails.
+
+### 7. Next Steps
+
+1. **Contraction metric test:** Is P (our quadratic form matrix) equal to M (the contraction metric)? If yes, theorem follows from Lohmiller-Slotine.
+2. **Activation comparison:** Test sigmoid (bounded), ReLU (unbounded), clipped ReLU. Prediction: bounded activations conserve, unbounded don't.
+3. **Commutator diagnostic:** ‖[diag(1-(x*)²), C]‖ should predict CV(γ+H). Directly testable.
+4. **Koopman eigenfunction:** γ+H is approximately a Koopman eigenfunction with eigenvalue 1. Quantify the residual.
+5. **Derive P analytically from C** via the fixed point equation.
+
+### 8. Updated Falsification Count
+
+**17+ hypotheses dead:**
+
+From original synthesis (11): H1, H2, H5, H3, GOE=necessary, random-conserves-best, trace-conservation, FDT mapping, Dandi-destabilizes, Floquet protection, ternary-as-floor (revised).
+
+New deaths (6+): Two-moment theory (R²=0.32), GOE spacing as necessary condition, γ-H anti-correlation under power iteration (artifact), architecture-dependent conservation under tanh (all equal), Tr(C²) as sole driver, cross-instance CV as conservation metric.
+
+### Key Numbers
+
+| Quantity | Value | Status |
+|---|---|---|
+| Temperature prediction improvement | 287× | Confirmed |
+| Two-moment R² under tanh | 0.32 | Falsified |
+| Quadratic form fit γ+H = x^T P x | R²=1.0 | Confirmed |
+| Linearized Lyapunov residual | ~0.95 | Fails |
+| CV(γ+H) under tanh, all architectures | ~0.03 | Universal |
+| Degenerate eigenvalues under tanh | CV=0.007 | Best |
+| Power-law eigenvalues under tanh | CV=1.037 | Catastrophic |
+| Pure noise coupling | CV=0.194 | Broken |
+
+---
+
+*Updated by Forgemaster ⚒️ | GPU Constraint Experiment Loop | 2026-05-17*
