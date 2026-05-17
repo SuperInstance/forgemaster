@@ -1,0 +1,28 @@
+[
+  [
+    {
+      "timestamp": "2026-05-17T06:10:24Z",
+      "repo": "/tmp/fleet-guard-test",
+      "deleted_count": 5,
+      "files": [
+        "file3.txt",
+        "file4.txt",
+        "file5.txt",
+        "file6.txt",
+        "file7.txt"
+      ]
+    }
+  ],
+  {
+    "timestamp": "2026-05-17T06:10:24Z",
+    "repo": "/tmp/fleet-guard-test",
+    "deleted_count": 5,
+    "files": [
+      "file3.txt",
+      "file4.txt",
+      "file5.txt",
+      "file6.txt",
+      "file7.txt"
+    ]
+  }
+]
