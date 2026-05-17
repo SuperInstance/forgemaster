@@ -1,0 +1,62 @@
+{
+  "correlation_lipschitz_alpha": NaN,
+  "correlation_contractivity_alpha": NaN,
+  "activations": {
+    "relu": {
+      "lipschitz_constant": 1.0,
+      "smooth": false,
+      "decay_rate_alpha": 0.6343992114260265,
+      "decay_rate_std": 0.0005036022397736979,
+      "empirical_contractivity": 0.360668366780033,
+      "n_trials": 10000
+    },
+    "gelu": {
+      "lipschitz_constant": 1.0,
+      "smooth": true,
+      "decay_rate_alpha": 0.259863266852058,
+      "decay_rate_std": 0.0024249472355745323,
+      "empirical_contractivity": 0.26094224907584906,
+      "n_trials": 10000
+    },
+    "silu": {
+      "lipschitz_constant": 1.0,
+      "smooth": true,
+      "decay_rate_alpha": 0.2598614498659831,
+      "decay_rate_std": 0.002428049189418748,
+      "empirical_contractivity": 0.2586799900400296,
+      "n_trials": 10000
+    },
+    "tanh": {
+      "lipschitz_constant": 1.0,
+      "smooth": true,
+      "decay_rate_alpha": 0.9958726635193623,
+      "decay_rate_std": 0.003652062470947,
+      "empirical_contractivity": 0.5084448833618478,
+      "n_trials": 219
+    },
+    "sigmoid": {
+      "lipschitz_constant": 0.25,
+      "smooth": true,
+      "decay_rate_alpha": NaN,
+      "decay_rate_std": NaN,
+      "empirical_contractivity": 0.5120292006051839,
+      "n_trials": 0
+    },
+    "softplus": {
+      "lipschitz_constant": 1.0,
+      "smooth": true,
+      "decay_rate_alpha": NaN,
+      "decay_rate_std": NaN,
+      "empirical_contractivity": 0.25737091378119203,
+      "n_trials": 0
+    },
+    "mish": {
+      "lipschitz_constant": 1.0,
+      "smooth": true,
+      "decay_rate_alpha": 0.3741952344412831,
+      "decay_rate_std": 0.0035001163008032228,
+      "empirical_contractivity": 0.31041858233754277,
+      "n_trials": 10000
+    }
+  }
+}

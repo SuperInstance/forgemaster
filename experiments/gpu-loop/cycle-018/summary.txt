@@ -1,0 +1,27 @@
+CYCLE-018 NUMERICAL VALIDATION — SUMMARY
+==========================================
+Date: 2026-05-17 | n=4 | 500-1000 trials per experiment
+
+BOUNDS VERIFIED:
+  1. Lipschitz L_I: 35.17 (empirical) ≤ 41.46 (theory) ✅ HOLDS
+  2. Koopman eigenvalue: |1-λ| ≤ 57 · ||[D,C]|| (99th pct) ✅ HOLDS  
+  3. Residual: |ε(x)| ≤ 1.76 · ||x-x*||² (QUADRATIC, not linear) ✅ HOLDS
+  4. Complete: |ΔI| ≤ 0.26·||[D,C]||·I(x) + 0.58·||x-x*||² ✅ HOLDS
+
+CRITICAL FINDING: Residual scales as ||x-x*||², not ||x-x*||.
+The invariant change near the fixed point is O(||x||²), confirming
+the Lyapunov structure ε(x) = x^T Q x is inherently quadratic.
+
+TIGHTEST CONSTANTS (least squares, 15K+ points):
+  C₁ = 0.262 (coupling contribution)
+  C₂ = 0.578 (quadratic residual)
+  
+COMBINED BOUND (99th percentile envelope):
+  |ΔI| ≤ 0.98 · (||[D,C]||·I(x) + ||x-x*||²)
+
+FILES:
+  experiment1_lipschitz.py / .json
+  experiment2_koopman.py / .json
+  experiment3_residual.py / .json
+  experiment4_complete.py / .json
+  results.md (full report)

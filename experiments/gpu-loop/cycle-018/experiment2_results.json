@@ -1,0 +1,17 @@
+{
+  "experiment": "Koopman eigenvalue bound",
+  "n": 4,
+  "N_trials": 1000,
+  "empirical_C1_99th_percentile": 57.03488474311035,
+  "empirical_C1_median": 4.013842696538071,
+  "empirical_C1_max": 155.51107452409101,
+  "empirical_C1_min": 0.4778214373151778,
+  "bound_summary": "|1-\u03bb| \u2264 57.0349 \u00b7 ||[D,C]|| (99th percentile)",
+  "ratios_percentiles": {
+    "p50": 4.013842696538071,
+    "p90": 16.51608540497503,
+    "p95": 24.87955698770422,
+    "p99": 57.03488474311035,
+    "max": 155.51107452409101
+  }
+}

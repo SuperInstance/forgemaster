@@ -1,0 +1,11 @@
+[package]
+name = "spectral_integrity"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "spectral_integrity"
+path = "spectral_integrity.rs"
+
+[features]
+default = []

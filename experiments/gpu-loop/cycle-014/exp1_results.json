@@ -1,0 +1,68 @@
+{
+  "dmd_scaling_exponent": -0.8143487661420923,
+  "edmd_scaling_exponent": -0.055062790269085886,
+  "cv_reference": -0.28,
+  "results": [
+    {
+      "N": 5,
+      "n_samples": 200,
+      "dmd_deviation": 0.003960308883725894,
+      "edmd_deviation": 0.0007453230691354396,
+      "lambda_dmd": "(1.003960308883726+0j)",
+      "lambda_edmd": "(1.0007453230691354+0j)",
+      "prediction_N_neg_028": 0.6372185335276308,
+      "prediction_1_over_N": 0.2
+    },
+    {
+      "N": 10,
+      "n_samples": 200,
+      "dmd_deviation": 0.0030637442365207823,
+      "edmd_deviation": 8.94341917430097e-05,
+      "lambda_dmd": "(0.9969362557634792+0j)",
+      "lambda_edmd": "(0.999910565808257+0j)",
+      "prediction_N_neg_028": 0.5248074602497725,
+      "prediction_1_over_N": 0.1
+    },
+    {
+      "N": 20,
+      "n_samples": 200,
+      "dmd_deviation": 0.0031776617990614264,
+      "edmd_deviation": 0.000183166166299209,
+      "lambda_dmd": "(0.9968223382009386+0j)",
+      "lambda_edmd": "(0.9998168338337008+0j)",
+      "prediction_N_neg_028": 0.43222671005672164,
+      "prediction_1_over_N": 0.05
+    },
+    {
+      "N": 50,
+      "n_samples": 250,
+      "dmd_deviation": 0.0032115894450761573,
+      "edmd_deviation": 0.00021876202392934196,
+      "lambda_dmd": "(0.9967884105549238+0j)",
+      "lambda_edmd": "(0.9997812379760707+0j)",
+      "prediction_N_neg_028": 0.33441704020472046,
+      "prediction_1_over_N": 0.02
+    },
+    {
+      "N": 100,
+      "n_samples": 500,
+      "dmd_deviation": 0.000809012938769782,
+      "edmd_deviation": 0.0007122258250578106,
+      "lambda_dmd": "(0.9991909870612302+0j)",
+      "lambda_edmd": "(1.0007122258250578+0.0003732883244375467j)",
+      "prediction_N_neg_028": 0.2754228703338166,
+      "prediction_1_over_N": 0.01
+    },
+    {
+      "N": 200,
+      "n_samples": 1000,
+      "dmd_deviation": 0.00011590723839960404,
+      "edmd_deviation": 0.00014544142434091967,
+      "lambda_dmd": "(1.0001159072383996+0.0027237455816492354j)",
+      "lambda_edmd": "(1.000145441424341+0j)",
+      "prediction_N_neg_028": 0.2268358019569829,
+      "prediction_1_over_N": 0.005
+    }
+  ],
+  "interpretation": "DMD eigenvalue deviation scales as N^(-0.8143). EDMD scales as N^(-0.0551). CV reference is N^(-0.28). The eigenvalue precision follows a different power law than CV."
+}

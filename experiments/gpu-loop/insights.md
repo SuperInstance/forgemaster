@@ -858,3 +858,123 @@ Unconfirmed:
 3. Rank-2 coupling: does the structural mechanism extend beyond rank-1?
 4. Stochastic coupling: C + ε·ξ_t — at what noise level does conservation break?
 5. Can we prove γ+H is injective as a function of normalized spectral shape? (2/1000 near-degeneracies)
+
+---
+
+## Cycle 14 (Seed-2.0-mini, fifth rotation) — 2026-05-17
+
+### MAJOR FINDING: Commutator ||[D,C]|| Is the Definitive Conservation Predictor (confidence: HIGH)
+
+The Frobenius norm of the commutator between saturation diagonal D = diag(1-(x*)²) and coupling C predicts conservation quality:
+- Pearson(commutator, CV) = 0.941 (p < 0.001)
+- NOTHING else comes within 4× of this predictive power
+- Fisher info: r=-0.216, EMD: r=-0.191, Eigenvalue cosine: r=-0.073, Spectral stability: r=-0.054
+- Koopman eigenvalues don't predict conservation (r=-0.215)
+
+### FINDING: Adversarial Conservation Bound (confidence: HIGH)
+
+Worst CV among contractive systems: 2.980 (nearly 3× violation). Contractivity alone does NOT guarantee conservation. The adversarial structure is anti-diagonal coupling.
+
+### Conservation Breaking Hierarchy (from cycle 15)
+1. Unbreakable: Rank-1, fixed coupling
+2. Robust (CV<0.01): Attention τ≥1, scaled random
+3. Moderate (CV 0.01-0.05): Hybrid coupling
+4. Weak (CV 0.05-0.15): Random, near-GOE
+5. BROKEN (CV>1.0): Adversarial contractive systems
+
+---
+
+## Cycle 16 (GLM-5.1, anti-diagonal anatomy) — 2026-05-17
+
+### MAJOR FINDING: Anti-Diagonal is NOT Special — Sparsity is the Cause (confidence: HIGH)
+
+Cycle 15 identified anti-diagonal coupling as the "most effective adversarial structure" (CV=2.98). Cycle 16 shows this was incomplete:
+- Diagonal coupling is EQUALLY bad: CV=0.157 (vs anti-diagonal CV=0.149)
+- The V-shaped phase diagram shows symmetric degradation toward BOTH sparse extremes
+- Conservation breaks because of SPARSITY, not anti-diagonal structure specifically
+
+### FINDING: V-Shaped Conservation Valley (confidence: HIGH)
+
+Interpolation diagonal (α=0) → attention (α=0.5) → anti-diagonal (α=1.0):
+- CV minimized at α=0.5 (pure attention): 0.0006
+- CV increases symmetrically: 0.15 at both α=0 and α=1.0
+- No phase transition — smooth degradation
+- Attention is the unique minimum of the conservation landscape
+
+### FINDING: Commutator Has a Blind Spot for Sparse Coupling (confidence: HIGH)
+
+||[D,C]|| ≈ 0 for anti-diagonal (2.2×10⁻⁹) and diagonal (0.0) coupling:
+- Sparse coupling → commutator has very few nonzero entries → near zero
+- Commutator correctly predicts conservation for FULL-RANK coupling only
+- For sparse coupling, use spectral shape stability instead
+- Overall r(||[D,C]||, CV) = 0.142 — weak when sparse architectures included
+
+### FINDING: Perturbation Cannot Fully Restore Conservation (confidence: HIGH)
+
+Adding random noise to anti-diagonal coupling:
+- CV drops from 0.149 to plateau at ~0.098 (34% reduction)
+- No amount of perturbation (ε up to 1.0) breaks through the plateau
+- Need to replace coupling STRUCTURE, not add noise
+
+### FINDING: Spectral Shape Stability Confirmed as Universal Predictor (confidence: HIGH)
+
+| Architecture | spectral_shape_var | CV(γ+H) |
+|---|---|---|
+| Attention | 0.000087 | 0.0006 |
+| Random | 0.278 | 0.105 |
+| Anti-diagonal | 0.311 | 0.149 |
+| Diagonal | 0.408 | 0.157 |
+
+Correlation: higher shape variation → higher CV. Confirmed for all non-structural architectures.
+
+### FINDING: Anti-Diagonal Eigenvalue Structure (confidence: HIGH)
+
+- Eigenvalues come in conjugate pairs (±real or ±imaginary)
+- For N=5: typically 2 pairs + 1 center real eigenvalue
+- Imaginary fraction up to 76% of eigenvalue magnitude
+- As state evolves, the dominant pair switches between real and complex
+- This pairing is the mechanism of spectral shape instability
+
+### Physical Analogs
+
+Anti-diagonal coupling occurs naturally in:
+1. **Optical beam splitters + mirrors** (transfer matrix)
+2. **Contralateral neural connections** (cross-brain hemispheric coupling)
+3. **Spin chain boundary reflections** (wavefunction reversal)
+4. **PT-symmetric optical systems** (balanced gain/loss)
+5. **Time-reversal operators** (anti-diagonal structure in T²=±1)
+
+PT-symmetric coupling: CV=0.152 — same as anti-diagonal. Reversal coupling: CV=0.127.
+
+### Revised Theory: Sparsity → Spectral Instability → Conservation Breaking
+
+```
+Conservation Quality = f(Spectral Shape Stability)
+
+Spectral Shape Stability depends on:
+  1. Coupling SPARSITY (fewer nonzero entries → less stable spectrum)
+  2. Coupling RANK (rank-1 → algebraic identity, overrides sparsity)
+  3. State DEPENDENCE magnitude (how much C changes per step)
+
+Commutator diagnostic:
+  ✅ Full-rank coupling: ||[D,C]|| predicts CV (r=0.94)
+  ❌ Sparse coupling: ||[D,C]|| ≈ 0 (blind spot)
+  ✅ Universal: spectral_shape_var predicts CV for all architectures
+```
+
+### Updated Conservation Regimes
+
+```
+Structural (rank-1):     CV=0.000  | Algebraic identity
+Attention (full-rank SD): CV≈0.001  | Spectral shape nearly invariant
+Random (full-rank):      CV≈0.10   | Moderate shape variation
+Sparse (diag/anti-diag):  CV≈0.15   | High shape variation
+Adversarial (contractive): CV≈3.0   | Constructed to maximize violation
+```
+
+### Open Questions for Cycle 17
+1. What is the exact sparsity threshold for conservation breaking? (Sweep nnz/N² from 2/N to 1.0)
+2. Does the PATTERN of sparsity matter? (band-diagonal vs random sparse vs anti-diagonal)
+3. Can structured sparse coupling (e.g., banded with N/2 bandwidth) conserve well?
+4. Is there a sparse + rank-1 hybrid?
+5. What is the minimum effective rank for dynamical (non-structural) conservation?

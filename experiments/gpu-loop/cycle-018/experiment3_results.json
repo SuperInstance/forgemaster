@@ -1,0 +1,30 @@
+{
+  "experiment": "Residual bound",
+  "n": 4,
+  "N_trials": 1000,
+  "N_steps": 50,
+  "total_points": 45428,
+  "Q_eigenvalues_sample": [
+    -1.2181456681110872,
+    -0.9997979045867396,
+    -0.8587191750943538,
+    -0.7908001949697271
+  ],
+  "linear_bound": {
+    "C2_near_fp": 1.2915923311305584,
+    "note": "Linear bound only valid near fixed point; diverges far from it"
+  },
+  "quadratic_bound": {
+    "C2_empirical_max": 1.760101657138317,
+    "C2_empirical_99th": 1.2111475304360124,
+    "C2_empirical_median": 0.9628455947157329,
+    "note": "|\u03b5(x)| \u2264 C\u2082 \u00b7 ||x - x*||\u00b2 \u2014 quadratic bound is the correct scaling"
+  },
+  "percentiles_quadratic": {
+    "p50": 0.9628455947157329,
+    "p90": 1.030355263632185,
+    "p95": 1.0748535232377874,
+    "p99": 1.2111475304360124,
+    "max": 1.760101657138317
+  }
+}
