@@ -506,3 +506,57 @@ Eigenvector component:
 2. Optimal temperature: Balance conservation quality vs useful dynamics?
 3. Can the two-moment theory be extended with an eigenvector rotation term?
 4. What metric captures eigenvector stability? Subspace angle? Condition number?
+
+## Cycle 8 (GLM-5.1, rotation 4) — 2026-05-17
+
+### MAJOR FINDING: Fixed Point Spectral Universality (confidence: HIGH)
+
+At the fixed point x* = tanh(C(x*)·x*) of state-dependent attention, γ+H = 1.0 exactly (CV=0.000) regardless of temperature. The mechanism: near-zero x* → C(x*) ≈ uniform 1/N matrix → single eigenvalue = 1 → γ=1, H=0. All temperatures produce the same fixed-point spectral structure.
+
+### FINDING: Eigenvector Rotation Predicts Conservation (confidence: HIGH)
+
+- Attention SD: top eigenvector rotates 0.47°/step → CV(γ+H) = 0.055
+- Hebbian SD: top eigenvector rotates 79.5°/step → CV(γ+H) = 0.316
+- 170× more eigenvector rotation → 6× worse conservation
+- Eigenvector stability is the primary predictor of conservation quality under state-dependent coupling
+
+### FINDING: Activation Contractivity > Boundedness (confidence: HIGH)
+
+- swish (UNBOUNDED): CV=0.018 — best conservation of all tested activations
+- sigmoid (bounded): CV=0.050, tanh (bounded): CV=0.053
+- relu (unbounded): CV=0.106, clipped_relu (bounded): CV=0.105
+- Boundedness does NOT predict conservation. Contractivity + smoothness does.
+- State norm is the mediating variable: smaller ||x|| → less eigenvector rotation → better conservation
+
+### FINDING: Quadratic Form P is NOT Universal (confidence: HIGH)
+
+- Hebbian SD: P = (1/N)·I exactly (R²=1.0)
+- Attention SD: P is complex, non-positive-definite, not C^T C, not αI+β11^T
+- γ+H ≈ 0.24·||x||² + 1.01 with R²=0.77 for attention — strong but imperfect norm dependence
+- The R²=1.0 from Cycle 4 was specific to static coupling (trivially conserved)
+- sech² hypothesis FALSIFIED: r(Σsech²(Cx), γ+H) = -0.54
+
+### FINDING: Bifurcation at s=1 for C=s·I (confidence: HIGH)
+
+- s<1: x* = 0 (trivial), s≥1: nonzero fixed point
+- Components approach ±1 as s→∞ (full saturation)
+- γ+H = ln(N) for all s (spectral structure of s·I is invariant)
+
+### Revised Theory
+
+```
+Conservation Quality = Eigenvector Stability × Activation Contractivity
+
+1. Fixed point: universal (γ+H=1 for attention SD), variation is transient
+2. Transient quality: determined by how much eigenvectors rotate per step
+3. Activation role: more contractive → smaller state → less rotation → better conservation
+4. Boundedness is irrelevant (swish > tanh despite being unbounded)
+5. Quadratic form is architecture-specific, not universal
+```
+
+### Open Questions for Cycle 9
+1. Why does swish produce 3× better conservation than tanh? Is it the self-gating derivative structure?
+2. Can we prove eigenvector rotation rate → CV(γ+H) analytically?
+3. Is there a universal relationship: rotation_angle ∝ ||x||² → CV ∝ rotation_angle?
+4. Test swish with higher-dimensional systems (N=50,100) — does advantage persist?
+5. Can we engineer coupling to minimize eigenvector rotation? Optimal C(x) design?

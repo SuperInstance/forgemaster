@@ -1,0 +1,48 @@
+Cycle 8 (GLM-5.1, rotation 4) — 2026-05-17
+
+EXECUTIVE SUMMARY: Characterized attractor geometry under nonlinear tanh dynamics.
+- Fixed points of state-dependent attention have γ+H=1.0 exactly (CV=0.000)
+- Eigenvector rotation predicts conservation: attention 0.47° → CV=0.055, Hebbian 79.5° → CV=0.316
+- swish beats tanh for conservation (CV=0.018 vs 0.053) — contractivity > boundedness
+- γ+H ≈ 0.24·||x||² + 1.01 with R²=0.77 for attention SD
+- P is NOT C^T C; Hebbian SD gives P=(1/N)·I exactly
+
+FINDING 1: Fixed Point Spectral Universality
+- At x* = tanh(C(x*)·x*), state-dependent attention always gives γ+H = 1.0 (CV=0.000)
+- Mechanism: near-zero fixed point → C(x*) ≈ uniform 1/N matrix → single eigenvalue = 1 → γ=1, H=0
+- All temperatures (τ=0.1 to 5.0) converge to the same fixed-point spectral structure
+- Hebbian SD fixed point: γ+H = 0.0 (rank-1 with zero eigenvalue → trivial)
+
+FINDING 2: Eigenvector Rotation is the Conservation Predictor
+- Attention SD: top eigenvector rotates only 0.47° per step → CV(γ+H) = 0.055
+- Hebbian SD: top eigenvector rotates 79.5° per step → CV(γ+H) = 0.316
+- Ratio: 170× more rotation → 6× worse conservation
+- But rotation-|Δγ+H| correlation is weak (r=0.09) — rotation is necessary, not sufficient
+
+FINDING 3: Activation Contractivity > Boundedness
+- swish (unbounded): CV=0.018 — BEST
+- sigmoid (bounded): CV=0.050
+- tanh (bounded): CV=0.053
+- relu (unbounded): CV=0.106
+- clipped_relu (bounded): CV=0.105
+- Boundedness does NOT predict conservation. Contractivity + smoothness does.
+- State norm predicts conservation: swish (||x||=0.45) > tanh (0.77) > sigmoid (2.97) > softplus (39.7)
+
+FINDING 4: Quadratic Form P is Architecture-Dependent
+- Hebbian SD: P = (1/N)·I exactly (R²=1.0, trivial rank-1 structure)
+- Attention SD: P is complex, not positive definite, not C^T C, not αI + β11^T
+- γ+H = 0.239·||x||² + 1.011: R²=0.767 — strong but not perfect norm dependence
+- sech² hypothesis FALSIFIED: r(Σsech²(Cx), γ+H) = -0.54
+
+FINDING 5: Bifurcation at s=1 for C=s·I
+- Below s=1: x* = 0, trivial fixed point
+- Above s=1: non-zero fixed point emerges, components → ±1 as s → ∞
+- γ+H constant (= ln(N)) for all s — the spectral structure of s·I doesn't change
+
+THEORY REVISION:
+- Conservation quality = eigenvector stability × activation contractivity
+- The fixed point is universal for attention (γ+H=1), variation is in the transient
+- The quadratic form is NOT a universal P — it depends on the coupling architecture
+- swish should replace tanh as the canonical activation for conservation studies
+
+FILES: cycle-008/results.md, cycle-008/experiments.py
