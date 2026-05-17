@@ -78,3 +78,19 @@ The conservation law **γ + H ≈ C** (spectral gap + entropy = constant) has tw
 ---
 
 *Forgemaster ⚒️ | 8 cycles, 16 briefs, 17+ dead hypotheses, one live theory | 2026-05-17 00:04 AKDT*
+
+---
+
+## Update: Math Development Phase (Post-Cycle 12)
+
+The loop entered mathematical maturity after cycle 12. The empirical findings have been formalized into three linked theory documents:
+
+**7 proved theorems** now underpin the conservation law: rank-1 identity (attention always rank-1 for N agents), spectral shape → conservation (the core mechanism), commutator bound (limits on spectral rotation), and four supporting results in temporal geometry.
+
+**Jazz Theorem formalized** (MATH-JAZZ-THEOREM.md): spectral shape conservation holds *across divergent trajectories* on the same attractor — stronger than Birkhoff ergodicity, sits above Oseledets in the multiplicative ergodic hierarchy. The jazz metaphor maps exactly: different solos, same harmonic shape.
+
+**Temporal geometry** (MATH-TEMPORAL-GEOMETRY.md): proved Gabor-type uncertainty for spectral observables (N² → 1 compression from dynamics), and a computability result — the conservation *cannot be evaluated at a single state*, you must run the program. This is a temporal first integral, not a state function.
+
+**Paper v2:** 4,800 words across three documents, all corrections from review applied. Clean theorem-proof structure.
+
+**5 open conjectures under attack:** Koopman eigenfunction (I ≈ Koopman eigenvalue 1), Lyapunov monotonicity, dimensional scaling law, multi-basin conservation, and P = M (contraction metric identity — potentially the strongest result if confirmed).
