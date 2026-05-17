@@ -560,3 +560,75 @@ Conservation Quality = Eigenvector Stability × Activation Contractivity
 3. Is there a universal relationship: rotation_angle ∝ ||x||² → CV ∝ rotation_angle?
 4. Test swish with higher-dimensional systems (N=50,100) — does advantage persist?
 5. Can we engineer coupling to minimize eigenvector rotation? Optimal C(x) design?
+
+## Cycle 9 (Nemotron-30B, rotation 3) — 2026-05-17
+
+### MAJOR FINDING: Commutator ||[D,C]|| Is the Master Diagnostic (confidence: HIGH)
+
+The commutator between the saturation diagonal D = diag(1-(x*)²) and the coupling matrix C predicts conservation quality:
+- **State-dependent coupling:** r(||[D,C]||, CV(γ+H)) = 0.965, p = 0.0004
+- **Static coupling (cross-instance):** r = 0.896, p = 0.016
+
+This validates the attractor geometry brief's central prediction (§6.4). The commutator measures eigenvector rotation between the dynamics basis (A = D·C) and the γ+H computation basis (C). Large rotation → conservation degrades.
+
+This diagnostic SUBSUMES all previous findings:
+- Attention conserves well → softmax produces near-uniform rows → low commutator
+- High temperature improves → C becomes more uniform → lower commutator
+- Large ρ(C) degrades → larger saturation variation → larger commutator
+- Noise degrades → random D variation → larger effective commutator
+
+### FINDING: Phase Diagram — Smooth Transition, No γ+H Bifurcation (confidence: HIGH)
+
+Sweeping ρ(C) from 0.7 to 6.8:
+- γ+H grows smoothly: 2.85 → 3.45 (~log(ρ(C)))
+- No sharp transition in γ+H itself
+- Period-2 orbits onset at ρ(C)≈1.0 (62% of samples)
+- ρ(A) crosses 1.0 at scale≈1.0 — self-stabilization threshold
+- ‖x*‖ saturates near √N ≈ 4.47
+- Cross-instance CV grows from 0.02 to 0.15 with ρ(C)
+
+The pitchfork bifurcation at ρ(C)≈1 affects x* (from 0 to non-zero), not γ+H.
+
+### FINDING: Boundedness NOT Required for Conservation (confidence: HIGH)
+
+Under state-dependent coupling (attention τ=1.0):
+- sigmoid: CV=0.007 (bounded) ✓
+- swish: CV=0.007 (UNBOUNDED) ← matches best!
+- softsign: CV=0.011 (bounded)
+- tanh: CV=0.020 (bounded)
+- clipped_relu: CV=0.025 (bounded)
+- relu: CV=0.026 (unbounded)
+
+Swish (unbounded) achieves the SAME conservation quality as sigmoid. The state-dependent coupling keeps dynamics bounded regardless of activation. What matters is the SHAPE of the activation (smooth, contractive near origin), not whether it bounds outputs.
+
+Sigmoid > tanh: the asymmetric sigmoid shape (centered at 0) produces smaller effective states → less eigenvector rotation → better conservation.
+
+### FINDING: Multi-Fixed-Point Regime Is Universal for ρ(C)>1 (confidence: HIGH)
+
+- Scale=1.5: mean 2.9 FPs, max 6, multi-FP rate 100%
+- Scale=2.0: mean 4.5 FPs, max 9
+- Scale=3.0: mean 7.7 FPs, max 15
+- Scale=5.0: mean 9.5 FPs, max 15
+
+FP norms are similar (CV≈0.01-0.02 across FPs) but alignment with top eigenvector varies (0.30-0.85). x^T P x varies CV≈0.08 across FPs.
+
+With static C, γ+H is the same at all FPs. But x^T P x differs, meaning P encodes FP-specific attractor structure.
+
+### Updated Theory
+
+```
+Conservation quality = f(||[D, C]||)
+
+D = diag(1 - (x*)²)  — saturation factors at fixed point
+||[D, C]||_F          — Frobenius norm of commutator
+
+Small commutator → D ≈ c·I → A ≈ cC → eigenvectors preserved → conservation
+Large commutator → D non-uniform → A ≠ cC → eigenvectors rotate → degradation
+```
+
+### Cycle 10 Open Questions
+1. Can we derive an ANALYTICAL bound on CV(γ+H) in terms of ||[D,C]||?
+2. Is there a coupling architecture that minimizes the commutator for all states?
+3. Can we engineer P analytically from C using the commutator structure?
+4. Does the commutator diagnostic hold for N=50,100 (scaling)?
+5. Higher-order Koopman modes: is γ+H the ONLY near-conserved quantity?

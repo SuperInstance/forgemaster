@@ -1,0 +1,16 @@
+Cycle 9 (Nemotron-30B rotation 3) — Attractor Geometry Experiments
+
+TOP FINDINGS:
+1. Commutator ||[D,C]|| predicts CV(γ+H) with r=0.97 (p=0.0004). MASTER DIAGNOSTIC CONFIRMED.
+2. Phase diagram: γ+H grows smoothly with ρ(C), no sharp transition. Period-2 orbits onset at ρ(C)≈1.
+3. Bounded activations NOT required for conservation. Swish (unbounded) matches sigmoid under state-dependent coupling.
+4. Multi-FP regime universal for ρ(C)>1: 3-15 FPs per matrix. x^T P x varies 7.6% across FPs.
+
+KEY DATA:
+- Commutator r=0.965 (state-dependent), r=0.896 (static)
+- γ+H: 2.85 at ρ≈0.7 → 3.45 at ρ≈6.8 (smooth, no bifurcation in γ+H itself)
+- Sigmoid CV=0.007, Swish CV=0.007, Softsign CV=0.011, Tanh CV=0.020 under SD coupling
+- FP count: 2.9 (scale=1.5) → 9.5 (scale=5.0)
+
+THEORY UPDATE:
+Conservation quality = f(||[diag(1-(x*)²), C]||). This commutator captures ALL previous findings.
