@@ -207,3 +207,77 @@ Engineered matrices with varying frac(spacings<0.5) show no clear relationship t
 **SMOKING GUN EXPERIMENT** (5 min): Check whether Tr(C(t)) is conserved in existing cycle data, and whether Tr(C) variation explains γ+H variation. If yes, the entire conservation law is a DERIVED property of normalization + Wigner semicircle.
 
 This is testable RIGHT NOW on cycle-000 and cycle-001 data.
+
+## Cycle 3 (GLM-5.1 round 2) — Major Revisions
+
+1. **Power iteration is wrong dynamics model** — always converges to top eigenvector, making previous conservation measurements partially artifacts. Need nonlinear coupled dynamics.
+2. **γ-H anti-correlation is the right metric**, NOT CV(γ+H). Attention: r=-0.999, Hebbian: r=-0.653, Random: r=+0.249 (fails conservation).
+3. **Binary survives** — revises ternary-as-floor finding. All quantization levels have 100% survival.
+4. **Attention converges in 1 round**, Hebbian in 10, random in 107.
+
+## BREAKTHROUGH: Tr(C²) Conservation (Trace-Test Agent)
+
+**Trace-conservation hypothesis REFUTED.** Tr(C) alone has zero predictive power (R²≈0.000).
+
+**Real driver: Tr(C²) conservation** (eigenvalue spread stability).
+- Attention: Tr(C²) CV=0.002 → γ+H CV=0.004 (PERFECT correlation)
+- Hebbian: Tr(C²) CV=0.14 → γ+H CV=0.12
+- GOE static: Tr(C²) CV=28.9 → γ+H CV=7.06
+
+**Two-moment constraint:** Both Tr(C) AND Tr(C²) must be conserved.
+**Mechanism:** Softmax naturally bounds eigenvalue spread → attention conserves best.
+**This explains ALL previous findings across all 3 cycles.**
+
+## Cycle 3 (GLM-5.1 subagent) — 2026-05-17
+
+### MAJOR FINDING: Structure STABILIZES Cross-Instance Conservation (confidence: HIGH)
+
+Deformation experiment (Wigner → Hebbian, α ∈ [0,1]) shows cross-instance CV **monotonically DECREASES** with structure:
+- N=5: CI_CV drops from 0.55 (random) to 0.09 (Hebbian)
+- N=10: 0.44 → 0.06
+- N=20: 0.31 → 0.04
+- N=50: 0.25 → 0.03
+
+No critical α_c transition. Smooth, monotonic improvement. Structure HELPS consistency.
+
+### FINDING: Dandi et al. Mechanism Reversed (confidence: HIGH)
+
+Dandi et al. (2024): learning creates spectral spikes → breaks GOE universality.
+Confirmed: KS to GOE increases from 0.11 to 0.29 as α → 1.
+But the consequence is OPPOSITE: spectral spikes CONSTRAIN eigenvectors → MORE consistent dynamics.
+
+Spikes don't break conservation — they stabilize it by pinning dynamics to a predictable subspace.
+
+### FINDING: Cross-Instance CV Measures Eigenvector Variability (confidence: HIGH)
+
+After initial transient, dynamics converge to the dominant eigenvector. Steady-state γ+H = f(top eigenvector).
+- Wigner: top eigenvector is random → H varies → high CI_CV
+- Hebbian: top eigenvector ≈ (1,...,1)/√N → H ≈ log(N) consistently → low CI_CV
+
+### FINDING: frac<0.5 Confirmed as Best Predictor (confidence: HIGH)
+
+frac<0.5 vs CI_CV: r = -0.559 (p = 3.3e-09). Negative correlation: more clustering → LESS variation.
+KS(GOE) is weak predictor: r = 0.169. Spike count: r = 0.211.
+
+### FINDING: No Phase Transition (confidence: HIGH)
+
+No sharp α_c at any matrix size. The deformation is a smooth crossover, not a phase transition.
+If a genuine phase transition exists, it requires different dynamics (nonlinear, noisy, multi-step).
+
+### METHODOLOGICAL ISSUE: Dynamics Convergence
+
+Current dynamics (x → Jx, normalize) converge to fixed point in ~5-10 rounds. 300-round measurement
+is dominated by steady-state, not conservation dynamics. Need nonlinear or noisy coupling for
+non-trivial temporal dynamics.
+
+### Key Insight
+"GOE universality describes the SHAPE of eigenvalue distributions, not the CONSISTENCY across random draws."
+Structure constrains the shape → reduces variability → improves cross-instance stability.
+
+## Open Questions for Cycle 4+
+- What dynamics model properly tests conservation? (nonlinear coupled dynamics needed)
+- Does Tr(C²) conservation hold under nonlinear state evolution?
+- Can we prove the two-moment constraint analytically?
+- Does the Lyapunov equation (Hattori-Takesue) connect to Tr(C²)?
+- Can we design dynamics that DON'T converge to fixed point? (noise injection, nonlinear coupling)
+- Is there a system where structure DOES break conservation? (maybe in multi-step memory dynamics)

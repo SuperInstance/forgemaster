@@ -1,31 +1,30 @@
 #!/usr/bin/env python3
 """
-Fluctuation-Dissipation Theorem Test for Coupled Agent Systems
-==============================================================
+Fluctuation-Dissipation Theorem Test for Coupled Agent Systems — v2
+===================================================================
 
-Tests whether the thermodynamic mapping holds:
-  γ (spectral gap) ↔ Temperature (T)
-  H (entropy)      ↔ Entropy (S)
-  C (γ + H)        ↔ Free Energy (F)
+CORRECTED INTERPRETATION:
+  γ = spectral gap of W (STATIC property of coupling matrix)
+  H = spectral entropy of W (STATIC property of coupling matrix)  
+  C = γ + H (conserved across architectures/precisions)
 
-The Fluctuation-Dissipation Theorem (FDT) states:
-  ⟨δA(t)δA(0)⟩ = kT · χ(t)
+FDT test: The DYNAMICS of state x(t) under coupling W should satisfy:
+  1. Fluctuation amplitude ⟨|x|²⟩ ∝ γ (thermal energy = kT)
+  2. Relaxation time τ ∝ 1/γ (dissipation rate)
+  3. Fluctuation autocorrelation shape determined by γ (FDT proper)
+  4. If γ↔T, then for an ensemble of matrices: C = γ+H should behave like F = TS
 
-where the autocorrelation of fluctuations relates to the linear response
-function through temperature.
-
-If FDT holds for our system, then:
-  1. ⟨δγ(t)δγ(0)⟩ should predict the H response function
-  2. C = γ + H should hold with the same thermodynamic consistency
-  3. The effective "temperature" kT should be extractable and architecture-dependent
+Three levels of FDT testing:
+  Level 1: Ensemble thermodynamics — across many W matrices, does C = γ+H behave like F(T,S)?
+  Level 2: Dynamic FDT — within one W, does ⟨δx(t)δx(0)⟩ relate to γ as kT·χ(t)?
+  Level 3: Architecture comparison — which architectures satisfy FDT most completely?
 
 Author: Forgemaster ⚒️ (research subagent)
 Date: 2026-05-17
 """
 
 import numpy as np
-from numpy.linalg import eigvalsh
-from scipy.linalg import expm
+from numpy.linalg import eigvalsh, eigh
 import json
 import warnings
 from pathlib import Path
@@ -37,16 +36,16 @@ RESULTS_DIR = Path(__file__).parent
 RESULTS_DIR.mkdir(exist_ok=True)
 
 # ============================================================================
-# Matrix Generation
+# Matrix Generation (same as cycles 0-1)
 # ============================================================================
 
 def make_random_coupling(N):
-    """GOE random matrix (Wigner). Maximal eigenvalue repulsion."""
+    """GOE random matrix."""
     A = np.random.randn(N, N)
     return (A + A.T) / (2 * np.sqrt(N))
 
 def make_hebbian_coupling(N, n_patterns=None):
-    """Hebbian coupling from stored patterns. Prone to eigenvalue degeneracy."""
+    """Hebbian coupling from stored patterns."""
     if n_patterns is None:
         n_patterns = max(3, N // 3)
     patterns = np.random.choice([-1, 1], size=(n_patterns, N))
@@ -55,35 +54,54 @@ def make_hebbian_coupling(N, n_patterns=None):
     return W / np.linalg.norm(W, ord=2)
 
 def make_attention_coupling(N, d=None):
-    """Attention-style coupling. Structured but non-degenerate."""
+    """Attention-style coupling."""
     if d is None:
         d = max(4, N // 4)
     Q = np.random.randn(N, d) / np.sqrt(d)
     K = np.random.randn(N, d) / np.sqrt(d)
     W = Q @ K.T / np.sqrt(d)
-    W = (W + W.T) / 2  # symmetrize for real eigenvalues
+    W = (W + W.T) / 2
     return W / np.linalg.norm(W, ord=2)
 
 # ============================================================================
-# State Evolution
+# Static Observables (from W eigenvalues)
 # ============================================================================
 
-def evolve_system(W, x0, n_steps, dt=0.01, beta=1.0):
+def compute_static_gamma(W):
+    """Spectral gap: λ₁ - λ₂ (largest - second largest eigenvalue)."""
+    eigs = np.sort(eigvalsh(W))[::-1]
+    return max(eigs[0] - eigs[1], 1e-12)
+
+def compute_static_entropy(W):
+    """Spectral entropy: H = -Σ pᵢ ln(pᵢ) from eigenvalue distribution."""
+    eigs = eigvalsh(W)
+    abs_eigs = np.abs(eigs)
+    total = np.sum(abs_eigs)
+    if total < 1e-15:
+        return 0.0
+    probs = abs_eigs / total
+    probs = probs[probs > 1e-15]
+    return -np.sum(probs * np.log(probs))
+
+def compute_static_C(W):
+    """Conservation constant: C = γ + H."""
+    return compute_static_gamma(W) + compute_static_entropy(W)
+
+# ============================================================================
+# State Evolution (Langevin dynamics)
+# ============================================================================
+
+def evolve_langevin(W, x0, n_steps, dt=0.01, beta=1.0):
     """
-    Evolve state vector under coupling matrix W.
-    
-    dx/dt = -β W x + η(t)  (Langevin dynamics)
-    
-    Returns time series of state vectors and observables.
+    Langevin dynamics: dx = -β W x dt + √(2T) dW
+    Temperature T controls noise level.
     """
     N = W.shape[0]
     states = np.zeros((n_steps, N))
     states[0] = x0.copy()
-    
-    noise_scale = np.sqrt(2 * dt)  # diffusion coefficient
+    noise_scale = np.sqrt(2 * dt)
     
     for t in range(1, n_steps):
-        # Langevin update: drift toward equilibrium + thermal noise
         drift = -beta * W @ states[t-1] * dt
         noise = noise_scale * np.random.randn(N)
         states[t] = states[t-1] + drift + noise
@@ -91,778 +109,653 @@ def evolve_system(W, x0, n_steps, dt=0.01, beta=1.0):
     return states
 
 # ============================================================================
-# Observable Computation
+# LEVEL 1: Ensemble Thermodynamics
 # ============================================================================
 
-def compute_spectral_gap(W, x):
+def level1_ensemble_thermodynamics(n_matrices=500, N=20):
     """
-    Compute effective spectral gap γ from coupling and state.
-    γ measures how strongly the current state couples to the slowest mode.
+    Generate ensemble of coupling matrices.
+    For each: compute γ (T), H (S), C (F = T·S... wait, F = E - TS).
+    
+    Actually in thermodynamics: F = E - TS (Helmholtz) or G = H - TS (Gibbs).
+    Our conservation is C = γ + H. 
+    
+    For FDT, the key prediction is:
+    - If γ plays the role of temperature, then across the ensemble,
+      the VARIANCE of state fluctuations should scale with γ.
+    - If H plays the role of entropy, then it should be maximized at equilibrium.
+    
+    More precisely: the Boltzmann distribution gives
+      P(state) ∝ exp(-β E(state))
+    where β = 1/(kT). The equilibrium distribution of x under W is Gaussian:
+      P(x) ∝ exp(-β xᵀW x / 2)
+    So the "energy" is E = xᵀWx/2 and "temperature" controls variance.
     """
-    eigenvalues = eigvalsh(W)
-    # Sort descending
-    eigenvalues = np.sort(eigenvalues)[::-1]
+    print("=" * 70)
+    print("LEVEL 1: ENSEMBLE THERMODYNAMICS")
+    print("=" * 70)
     
-    # Spectral gap: difference between largest and second-largest eigenvalue
-    if len(eigenvalues) > 1:
-        gamma = eigenvalues[0] - eigenvalues[1]
-    else:
-        gamma = eigenvalues[0]
-    
-    return max(gamma, 1e-10)
-
-def compute_state_spectral_gap(W, x):
-    """
-    Compute γ from the instantaneous coupling matrix scaled by state energy.
-    This gives a dynamic spectral gap that varies with time.
-    """
-    eigenvalues = eigvalsh(W)
-    eigenvalues = np.sort(eigenvalues)[::-1]
-    
-    # Weight by how much the state projects onto each eigenvector
-    _, eigvecs = np.linalg.eigh(W)
-    # eigvecs columns are eigenvectors, sorted ascending
-    eigvecs = eigvecs[:, ::-1]  # now descending
-    
-    projections = np.abs(eigvecs.T @ x)
-    weights = projections / (np.sum(projections) + 1e-15)
-    
-    # Effective spectral gap weighted by state projection
-    if len(eigenvalues) > 1:
-        # Gap between most-occupied eigenvalue and next
-        sorted_idx = np.argsort(weights)[::-1]
-        i0 = sorted_idx[0]
-        i1 = sorted_idx[1] if len(sorted_idx) > 1 else 0
-        gamma = abs(eigenvalues[i0] - eigenvalues[i1])
-    else:
-        gamma = eigenvalues[0]
-    
-    return max(gamma, 1e-10)
-
-def compute_entropy(W, x):
-    """
-    Compute entropy-like quantity from coupling matrix and state.
-    
-    H = -Σ pᵢ ln(pᵢ) where pᵢ are normalized eigenvalue weights of W
-    This is the spectral entropy.
-    """
-    eigenvalues = eigvalsh(W)
-    
-    # Use absolute eigenvalues as "energies", compute Boltzmann weights
-    abs_evals = np.abs(eigenvalues)
-    total = np.sum(abs_evals)
-    if total < 1e-15:
-        return 0.0
-    
-    probs = abs_evals / total
-    probs = probs[probs > 1e-15]  # avoid log(0)
-    
-    H = -np.sum(probs * np.log(probs))
-    return H
-
-def compute_state_entropy(W, x):
-    """
-    Compute dynamic entropy from state-conditioned spectral distribution.
-    
-    H(x) = -Σ wᵢ(x) ln(wᵢ(x)) where wᵢ are state-dependent weights.
-    """
-    eigenvalues, eigvecs = np.linalg.eigh(W)
-    
-    # State projection onto each eigenmode
-    projections = np.abs(eigvecs.T @ x) ** 2  # energy in each mode
-    total_energy = np.sum(projections)
-    if total_energy < 1e-15:
-        return np.log(len(x))
-    
-    weights = projections / total_energy
-    weights = weights[weights > 1e-15]
-    
-    H = -np.sum(weights * np.log(weights))
-    return H
-
-def compute_coupling_entropy(W):
-    """
-    Static spectral entropy of the coupling matrix.
-    H = -Σ pᵢ ln(pᵢ) from eigenvalue distribution.
-    """
-    eigenvalues = eigvalsh(W)
-    abs_evals = np.abs(eigenvalues)
-    total = np.sum(abs_evals)
-    if total < 1e-15:
-        return 0.0
-    probs = abs_evals / total
-    probs = probs[probs > 1e-15]
-    return -np.sum(probs * np.log(probs))
-
-# ============================================================================
-# FDT Tests
-# ============================================================================
-
-def compute_autocorrelation(series, max_lag=None):
-    """Compute normalized autocorrelation function."""
-    n = len(series)
-    if max_lag is None:
-        max_lag = n // 4
-    max_lag = min(max_lag, n // 4)
-    
-    series = series - np.mean(series)
-    var = np.var(series)
-    if var < 1e-15:
-        return np.zeros(max_lag)
-    
-    acf = np.zeros(max_lag)
-    for lag in range(max_lag):
-        if lag == 0:
-            acf[0] = 1.0
-        else:
-            acf[lag] = np.mean(series[:n-lag] * series[lag:]) / var
-    
-    return acf
-
-def compute_cross_correlation(series_a, series_b, max_lag=None):
-    """Compute cross-correlation between two time series."""
-    n = min(len(series_a), len(series_b))
-    if max_lag is None:
-        max_lag = n // 4
-    max_lag = min(max_lag, n // 4)
-    
-    a = series_a[:n] - np.mean(series_a[:n])
-    b = series_b[:n] - np.mean(series_b[:n])
-    
-    std_a = np.std(a)
-    std_b = np.std(b)
-    if std_a < 1e-15 or std_b < 1e-15:
-        return np.zeros(max_lag)
-    
-    ccf = np.zeros(max_lag)
-    for lag in range(max_lag):
-        ccf[lag] = np.mean(a[:n-lag] * b[lag:]) / (std_a * std_b)
-    
-    return ccf
-
-def compute_response_function(perturb_series, max_lag=None):
-    """
-    Compute linear response function from perturbation response.
-    χ(t) = ⟨δH(t)⟩ after a δγ kick at t=0.
-    """
-    n = len(perturb_series)
-    if max_lag is None:
-        max_lag = n // 4
-    max_lag = min(max_lag, n // 4)
-    
-    # Response = mean relaxation after perturbation
-    baseline = np.mean(perturb_series[-n//4:])
-    response = np.zeros(max_lag)
-    for lag in range(max_lag):
-        response[lag] = perturb_series[lag] - baseline
-    
-    return response
-
-def test_fdt(gamma_series, H_series, C_series):
-    """
-    Core FDT test:
-    
-    If γ = T and H = S, then FDT predicts:
-      ⟨δγ(t)δγ(0)⟩ = kT_eff · χ_H(t)
-    
-    where χ_H is the H response to a γ perturbation.
-    
-    We test multiple predictions:
-    1. γ-H cross-correlation structure
-    2. Fluctuation amplitude ∝ temperature
-    3. Conservation C = γ + H as thermodynamic first law
-    4. Heat capacity (∂C/∂γ) consistency
-    """
     results = {}
     
-    # --- Test 1: γ+H Conservation (First Law) ---
-    C_mean = np.mean(C_series)
-    C_std = np.std(C_series)
-    C_cv = C_std / C_mean if abs(C_mean) > 1e-15 else float('inf')
-    results['conservation'] = {
-        'C_mean': float(C_mean),
-        'C_std': float(C_std),
-        'C_cv': float(C_cv),
-        'first_law_holds': C_cv < 0.1,  # CV < 10% means conservation
-    }
-    
-    # --- Test 2: Autocorrelation functions ---
-    max_lag = min(100, len(gamma_series) // 4)
-    acf_gamma = compute_autocorrelation(gamma_series, max_lag)
-    acf_H = compute_autocorrelation(H_series, max_lag)
-    
-    results['autocorrelation'] = {
-        'gamma_decay_rate': float(-np.log(np.abs(acf_gamma[1]) + 1e-10)),
-        'H_decay_rate': float(-np.log(np.abs(acf_H[1]) + 1e-10)),
-        'gamma_memory': float(np.sum(np.abs(acf_gamma[:20]))),
-        'H_memory': float(np.sum(np.abs(acf_H[:20]))),
-    }
-    
-    # --- Test 3: Cross-correlation (γ → H coupling) ---
-    ccf_gh = compute_cross_correlation(gamma_series, H_series, max_lag)
-    ccf_hg = compute_cross_correlation(H_series, gamma_series, max_lag)
-    
-    # FDT predicts CCF should be asymmetric: γ leads, H follows
-    results['cross_correlation'] = {
-        'max_ccf_gh': float(np.max(np.abs(ccf_gh))),
-        'max_ccf_hg': float(np.max(np.abs(ccf_hg))),
-        'lag_max_ccf_gh': int(np.argmax(np.abs(ccf_gh))),
-        'lag_max_ccf_hg': int(np.argmax(np.abs(ccf_hg))),
-        'asymmetry': float(np.max(np.abs(ccf_gh)) - np.max(np.abs(ccf_hg))),
-        'ccf_gh_first5': [float(x) for x in ccf_gh[:5]],
-        'ccf_hg_first5': [float(x) for x in ccf_hg[:5]],
-    }
-    
-    # --- Test 4: Effective Temperature ---
-    # From equipartition: ⟨(δγ)²⟩ = kT_eff
-    # From FDT: ⟨δγ(t)δγ(0)⟩ / χ(t) = kT_eff
-    gamma_var = np.var(gamma_series)
-    kT_eff_variance = gamma_var  # kT from variance (equipartition)
-    
-    # Also from C = γ + H: dH/dγ should equal -1 if perfect conservation
-    # Test with linear regression
-    if np.var(gamma_series) > 1e-15:
-        slope_dH_dgamma = np.polyfit(gamma_series, H_series, 1)[0]
-    else:
-        slope_dH_dgamma = 0.0
-    
-    results['effective_temperature'] = {
-        'kT_from_variance': float(kT_eff_variance),
-        'gamma_mean': float(np.mean(gamma_series)),
-        'gamma_std': float(np.std(gamma_series)),
-        'H_mean': float(np.mean(H_series)),
-        'H_std': float(np.std(H_series)),
-        'slope_dH_dgamma': float(slope_dH_dgamma),
-        'slope_is_minus_one': abs(slope_dH_dgamma + 1.0) < 0.3,
-    }
-    
-    # --- Test 5: FDT Ratio Test ---
-    # FDT: autocorrelation / response = kT
-    # Use γ autocorrelation as "fluctuation" and H time derivative as "dissipation"
-    dH_dt = np.diff(H_series)
-    gamma_mid = gamma_series[:-1]
-    
-    if np.var(dH_dt) > 1e-15 and np.var(gamma_mid) > 1e-15:
-        # Response function: how does H respond to γ changes?
-        # If FDT holds: ⟨δγ(t)δγ(0)⟩ = kT · ⟨dH/dt(t)·δγ(0)⟩
-        # Simplified: Corr(γ(t), γ(0)) / Corr(dH/dt(t), γ(0)) = kT
+    for name, gen in [('random', make_random_coupling),
+                       ('attention', make_attention_coupling),
+                       ('hebbian', make_hebbian_coupling)]:
         
-        # Cross-correlation of dH/dt with γ
-        ccf_dHdt_gamma = compute_cross_correlation(dH_dt, gamma_mid, min(50, max_lag))
+        gammas = []
+        entropies = []
+        C_vals = []
+        fluct_energies = []  # ⟨xᵀWx⟩ at equilibrium
+        fluct_variances = []  # ⟨|x|²⟩ at equilibrium
+        relaxation_times = []  # time to reach equilibrium
         
-        # FDT ratio: acf_gamma(t) / ccf_dHdt_gamma(t) should = kT (constant)
-        # Only use points where both are significant
-        valid = (np.abs(ccf_dHdt_gamma) > 0.01) & (np.abs(acf_gamma[:len(ccf_dHdt_gamma)]) > 0.01)
-        if np.sum(valid) > 2:
-            fdt_ratios = acf_gamma[:len(ccf_dHdt_gamma)][valid] / ccf_dHdt_gamma[valid]
-            fdt_ratio_cv = np.std(fdt_ratios) / (np.abs(np.mean(fdt_ratios)) + 1e-15)
+        for i in range(n_matrices):
+            W = gen(N)
+            gamma = compute_static_gamma(W)
+            H = compute_static_entropy(W)
+            C = gamma + H
+            
+            gammas.append(gamma)
+            entropies.append(H)
+            C_vals.append(C)
+            
+            # Evolve and measure equilibrium fluctuations
+            x0 = np.random.randn(N)
+            states = evolve_langevin(W, x0, 3000, dt=0.01, beta=1.0)
+            
+            # Equilibrium phase (last half)
+            eq_states = states[1500:]
+            
+            # Average energy: ⟨xᵀWx⟩
+            energies = np.array([x @ W @ x for x in eq_states])
+            fluct_energies.append(np.mean(energies))
+            
+            # State variance: ⟨|x|²⟩
+            norms2 = np.sum(eq_states**2, axis=1)
+            fluct_variances.append(np.mean(norms2))
+            
+            # Relaxation time: time for |x|² to stabilize
+            # Use autocorrelation decay of state energy
+            eq_energies = energies - np.mean(energies)
+            if np.var(eq_energies) > 1e-15:
+                acf = np.correlate(eq_energies[:200], eq_energies[:200], mode='full')
+                acf = acf[len(acf)//2:]
+                acf = acf / acf[0]
+                # Find where ACF drops below 1/e
+                threshold_idx = np.where(acf < 1/np.e)[0]
+                tau = threshold_idx[0] if len(threshold_idx) > 0 else 200
+            else:
+                tau = 1
+            relaxation_times.append(tau)
+        
+        gammas = np.array(gammas)
+        entropies = np.array(entropies)
+        C_vals = np.array(C_vals)
+        fluct_energies = np.array(fluct_energies)
+        fluct_variances = np.array(fluct_variances)
+        relaxation_times = np.array(relaxation_times)
+        
+        # === Key thermodynamic tests ===
+        
+        # Test 1a: Conservation C = γ + H
+        C_cv = np.std(C_vals) / np.mean(C_vals)
+        
+        # Test 1b: Fluctuation energy vs γ (thermal energy = kT?)
+        # If γ = kT, then ⟨xᵀWx⟩ should be proportional to γ
+        corr_energy_gamma = np.corrcoef(fluct_energies, gammas)[0, 1]
+        
+        # Test 1c: State variance vs γ (equipartition: ⟨x²⟩ = kT per mode)
+        corr_variance_gamma = np.corrcoef(fluct_variances, gammas)[0, 1]
+        
+        # Test 1d: Relaxation time vs 1/γ (FDT: dissipation rate ∝ γ)
+        # Avoid div by zero for Hebbian (γ→0)
+        valid_gamma = gammas > 1e-8
+        if np.sum(valid_gamma) > 10:
+            corr_tau_inv_gamma = np.corrcoef(
+                relaxation_times[valid_gamma], 
+                1.0 / gammas[valid_gamma]
+            )[0, 1]
         else:
-            fdt_ratios = np.array([0.0])
-            fdt_ratio_cv = float('inf')
+            corr_tau_inv_gamma = 0.0
         
-        results['fdt_ratio'] = {
-            'mean_ratio': float(np.mean(fdt_ratios)),
-            'std_ratio': float(np.std(fdt_ratios)),
-            'cv_ratio': float(fdt_ratio_cv),
-            'fdt_holds': fdt_ratio_cv < 0.5,  # ratio is approximately constant
-            'n_valid_points': int(np.sum(valid)),
+        # Test 1e: Does dH/dγ = -1 (thermodynamic consistency)?
+        # From C = γ + H → H = C - γ → dH/dγ = -1 if C is constant
+        if np.std(gammas) > 1e-10:
+            slope_dH_dgamma = np.polyfit(gammas, entropies, 1)[0]
+        else:
+            slope_dH_dgamma = 0.0
+        
+        # Test 1f: Entropy is maximized at equilibrium?
+        # Compare H of W eigenvalues to H of state energy distribution
+        state_entropies = []
+        for i in range(min(100, n_matrices)):
+            W = gen(N)
+            x0 = np.random.randn(N)
+            states = evolve_langevin(W, x0, 3000, dt=0.01, beta=1.0)
+            eq = states[1500:]
+            energies = np.array([x @ W @ x for x in eq])
+            # Energy distribution entropy
+            hist, _ = np.histogram(energies, bins=30, density=True)
+            hist = hist[hist > 0]
+            state_entropies.append(-np.sum(hist * np.log(hist)))
+        
+        avg_state_entropy = np.mean(state_entropies)
+        
+        results[name] = {
+            'gamma_mean': float(np.mean(gammas)),
+            'gamma_std': float(np.std(gammas)),
+            'H_mean': float(np.mean(entropies)),
+            'H_std': float(np.std(entropies)),
+            'C_mean': float(np.mean(C_vals)),
+            'C_std': float(np.std(C_vals)),
+            'C_cv': float(C_cv),
+            'conservation_holds': bool(C_cv < 0.1),
+            'corr_energy_gamma': float(corr_energy_gamma),
+            'corr_variance_gamma': float(corr_variance_gamma),
+            'corr_tau_inv_gamma': float(corr_tau_inv_gamma),
+            'slope_dH_dgamma': float(slope_dH_dgamma),
+            'slope_is_minus_one': bool(abs(slope_dH_dgamma + 1.0) < 0.3),
+            'avg_state_entropy': float(avg_state_entropy),
+            'n_matrices': n_matrices,
         }
-    else:
-        results['fdt_ratio'] = {
-            'mean_ratio': 0.0,
-            'std_ratio': 0.0,
-            'cv_ratio': float('inf'),
-            'fdt_holds': False,
-            'n_valid_points': 0,
-        }
-    
-    # --- Test 6: Fluctuation Magnitude vs Temperature ---
-    # In thermodynamics: ⟨(δT)²⟩ ∝ T² / Cv
-    # If γ = T, then σ_γ² should scale with γ_mean²
-    
-    results['fluctuation_scaling'] = {
-        'sigma_gamma': float(np.std(gamma_series)),
-        'mean_gamma': float(np.mean(gamma_series)),
-        'ratio_sigma_to_mean': float(np.std(gamma_series) / (np.mean(gamma_series) + 1e-15)),
-        'thermodynamic_scaling': float(np.var(gamma_series) / (np.mean(gamma_series)**2 + 1e-15)),
-    }
-    
-    # --- Test 7: Onsager Reciprocity ---
-    # If the system is thermodynamic, cross-correlations should satisfy Onsager:
-    # CCF(γ→H, lag) = CCF(H→γ, -lag)  [time-reversal symmetry]
-    # Check if ccf_gh[lag] ≈ ccf_hg[lag] (symmetric under exchange)
-    onsager_error = np.mean((ccf_gh[:20] - ccf_hg[:20])**2)
-    results['onsager'] = {
-        'reciprocity_error': float(onsager_error),
-        'reciprocity_holds': onsager_error < 0.1,
-    }
+        
+        print(f"\n  {name.upper()}:")
+        print(f"    γ: {np.mean(gammas):.6f} ± {np.std(gammas):.6f}")
+        print(f"    H: {np.mean(entropies):.6f} ± {np.std(entropies):.6f}")
+        print(f"    C: {np.mean(C_vals):.6f} ± {np.std(C_vals):.6f} (CV={C_cv:.4f})")
+        print(f"    Corr(⟨xᵀWx⟩, γ): {corr_energy_gamma:.4f} (expect >0 if γ=kT)")
+        print(f"    Corr(⟨|x|²⟩, γ): {corr_variance_gamma:.4f} (expect >0 if γ=kT)")
+        print(f"    Corr(τ, 1/γ): {corr_tau_inv_gamma:.4f} (expect >0 if FDT)")
+        print(f"    dH/dγ: {slope_dH_dgamma:.4f} (expect -1.0)")
     
     return results
 
 # ============================================================================
-# Perturbation Response Test (Dynamic FDT)
+# LEVEL 2: Dynamic FDT — State Fluctuations vs γ
 # ============================================================================
 
-def perturbation_response_test(W, n_equilibrium=1000, n_perturbed=200, 
-                                perturbation_scale=0.1, dt=0.01, beta=1.0,
-                                n_trials=50):
+def level2_dynamic_fdt(N=20, n_matrices=30, n_steps=5000, dt=0.01):
     """
-    Test FDT by applying perturbations and measuring response.
+    For each W, compute the state autocorrelation function.
     
-    1. Evolve to equilibrium
-    2. Apply a small perturbation to γ (modify spectral gap)
-    3. Measure H(t) response
-    4. Compare with γ fluctuation autocorrelation
+    FDT predicts: ⟨x(t)x(0)⟩ = exp(-γ t) for the slowest mode.
+    More precisely, the relaxation is governed by the eigenvalues of W.
     
-    FDT predicts: ⟨δH(t)⟩_pert = β_eff · ⟨δγ(t)δγ(0)⟩
+    If γ = spectral gap = λ₁ - λ₂, then the slowest mode decays as exp(-γ t).
+    This is the FDT prediction: fluctuation autocorrelation = response function × kT.
+    
+    We test:
+    1. Does the slowest relaxation rate equal γ?
+    2. Is the ACF shape exponential with rate γ?
+    3. Does the fluctuation amplitude scale with γ?
     """
-    N = W.shape[0]
+    print(f"\n{'='*70}")
+    print("LEVEL 2: DYNAMIC FDT — STATE FLUCTUATION AUTOCORRELATION")
+    print(f"{'='*70}")
     
-    # Equilibrium fluctuations (no perturbation)
-    gamma_eq = []
-    H_eq = []
+    results = {}
     
-    for trial in range(n_trials):
-        x0 = np.random.randn(N)
-        states = evolve_system(W, x0, n_equilibrium, dt, beta)
+    for name, gen in [('random', make_random_coupling),
+                       ('attention', make_attention_coupling),
+                       ('hebbian', make_hebbian_coupling)]:
         
-        for t in range(n_equilibrium // 2, n_equilibrium):
-            gamma_eq.append(compute_state_spectral_gap(W, states[t]))
-            H_eq.append(compute_state_entropy(W, states[t]))
-    
-    gamma_eq = np.array(gamma_eq)
-    H_eq = np.array(H_eq)
-    
-    # Autocorrelation of equilibrium γ fluctuations
-    delta_gamma = gamma_eq - np.mean(gamma_eq)
-    max_lag = min(50, len(delta_gamma) // 4)
-    acf_delta_gamma = compute_autocorrelation(delta_gamma, max_lag)
-    
-    # Perturbation response
-    H_responses = np.zeros((n_trials, n_perturbed))
-    
-    for trial in range(n_trials):
-        # Evolve to equilibrium
-        x0 = np.random.randn(N)
-        states_eq = evolve_system(W, x0, n_equilibrium, dt, beta)
-        x_eq = states_eq[-1]
+        observed_rates = []
+        predicted_gammas = []
+        rate_errors = []
+        acf_amplitudes = []
         
-        # Apply perturbation: kick the state in the direction of the first eigenvector
-        eigenvalues, eigvecs = np.linalg.eigh(W)
-        eigvecs = eigvecs[:, ::-1]  # descending
+        for trial in range(n_matrices):
+            W = gen(N)
+            gamma = compute_static_gamma(W)
+            predicted_gammas.append(gamma)
+            
+            # Evolve
+            x0 = np.random.randn(N)
+            states = evolve_langevin(W, x0, n_steps, dt, beta=1.0)
+            
+            # Use the state energy time series
+            eq_states = states[n_steps//2:]
+            energies = np.array([x @ W @ x for x in eq_states])
+            
+            if np.var(energies) < 1e-15:
+                observed_rates.append(0)
+                rate_errors.append(float('inf'))
+                acf_amplitudes.append(0)
+                continue
+            
+            # Autocorrelation of energy fluctuations
+            e_fluct = energies - np.mean(energies)
+            n_acf = min(500, len(e_fluct) // 2)
+            acf = np.correlate(e_fluct[:n_acf*2], e_fluct[:n_acf*2], mode='full')
+            acf = acf[len(acf)//2:]
+            acf = acf / (acf[0] + 1e-15)
+            
+            # Fit exponential decay to ACF
+            # ACF(t) ≈ exp(-λ t), so log(ACF) ≈ -λ t
+            valid = acf[:n_acf] > 0.01
+            if np.sum(valid) > 10:
+                t_vals = np.arange(n_acf)[valid] * dt
+                log_acf = np.log(acf[:n_acf][valid])
+                slope = np.polyfit(t_vals, log_acf, 1)[0]
+                observed_rate = -slope
+            else:
+                observed_rate = 0
+            
+            observed_rates.append(observed_rate)
+            if gamma > 1e-8:
+                rate_errors.append(abs(observed_rate - gamma) / gamma)
+            else:
+                rate_errors.append(0 if observed_rate < 0.01 else float('inf'))
+            
+            # ACF amplitude (first lag)
+            acf_amplitudes.append(acf[1] if len(acf) > 1 else 0)
+        
+        observed_rates = np.array(observed_rates)
+        predicted_gammas = np.array(predicted_gammas)
+        rate_errors = np.array(rate_errors)
+        
+        # Correlation between observed relaxation rate and predicted γ
+        valid_pred = predicted_gammas > 1e-8
+        if np.sum(valid_pred) > 5:
+            corr_rate_gamma = np.corrcoef(observed_rates[valid_pred], 
+                                           predicted_gammas[valid_pred])[0, 1]
+        else:
+            corr_rate_gamma = 0.0
+        
+        mean_rate_error = np.mean(rate_errors[np.isfinite(rate_errors)])
+        
+        # FDT holds if: relaxation rate = γ (spectral gap)
+        # AND the correlation between them is high
+        
+        results[name] = {
+            'mean_observed_rate': float(np.mean(observed_rates)),
+            'mean_predicted_gamma': float(np.mean(predicted_gammas)),
+            'rate_gamma_correlation': float(corr_rate_gamma),
+            'mean_relative_error': float(mean_rate_error),
+            'fdt_prediction_matches': bool(corr_rate_gamma > 0.5 and mean_rate_error < 1.0),
+            'n_samples': n_matrices,
+        }
+        
+        print(f"\n  {name.upper()}:")
+        print(f"    Predicted γ: {np.mean(predicted_gammas):.6f}")
+        print(f"    Observed relaxation rate: {np.mean(observed_rates):.6f}")
+        print(f"    Corr(observed_rate, γ): {corr_rate_gamma:.4f}")
+        print(f"    Mean relative error: {mean_rate_error:.4f}")
+        print(f"    FDT prediction: {'MATCHES' if corr_rate_gamma > 0.5 else 'NO MATCH'}")
+    
+    return results
+
+# ============================================================================
+# LEVEL 3: FDT via Perturbation-Response
+# ============================================================================
+
+def level3_perturbation_response(N=20, n_trials=100, n_equil=2000, 
+                                   n_response=300, dt=0.01):
+    """
+    Apply perturbations to the system and measure response.
+    
+    FDT states: the LINEAR RESPONSE of the system to an external perturbation
+    is determined by the EQUILIBRIUM FLUCTUATIONS.
+    
+    Specifically: if we perturb x → x + δx along eigenvector v₁,
+    the response ⟨δE(t)⟩ should match the autocorrelation of spontaneous fluctuations.
+    
+    We test:
+    1. Response function shape = equilibrium fluctuation autocorrelation shape
+    2. Response amplitude ∝ perturbation strength (linearity)
+    3. Response rate = γ (spectral gap)
+    """
+    print(f"\n{'='*70}")
+    print("LEVEL 3: PERTURBATION-RESPONSE FDT TEST")
+    print(f"{'='*70}")
+    
+    results = {}
+    
+    for name, gen in [('random', make_random_coupling),
+                       ('attention', make_attention_coupling),
+                       ('hebbian', make_hebbian_coupling)]:
+        
+        W = gen(N)
+        gamma = compute_static_gamma(W)
+        
+        # --- Equilibrium fluctuations ---
+        x0 = np.random.randn(N)
+        eq_states = evolve_langevin(W, x0, n_equil, dt, beta=1.0)
+        eq_energies = np.array([x @ W @ x for x in eq_states[n_equil//2:]])
+        
+        # Equilibrium ACF
+        eq_fluct = eq_energies - np.mean(eq_energies)
+        n_acf = min(200, len(eq_fluct) // 2)
+        eq_acf = np.correlate(eq_fluct[:n_acf*2], eq_fluct[:n_acf*2], mode='full')
+        eq_acf = eq_acf[len(eq_acf)//2:]
+        eq_acf = eq_acf / (eq_acf[0] + 1e-15)
+        
+        # --- Perturbation response ---
+        eigenvalues, eigvecs = eigh(W)
+        eigvecs = eigvecs[:, ::-1]
         v1 = eigvecs[:, 0]  # top eigenvector
         
-        x_perturbed = x_eq + perturbation_scale * v1 * np.linalg.norm(x_eq)
+        perturbation_scales = [0.01, 0.05, 0.1, 0.2]
+        response_curves = {}
+        linearity_check = []
         
-        # Measure H(t) after perturbation
-        states_pert = evolve_system(W, x_perturbed, n_perturbed, dt, beta)
-        for t in range(n_perturbed):
-            H_responses[trial, t] = compute_state_entropy(W, states_pert[t])
+        for pscale in perturbation_scales:
+            responses = np.zeros((n_trials, n_response))
+            
+            for trial in range(n_trials):
+                # Equilibrate
+                x0 = np.random.randn(N)
+                eq = evolve_langevin(W, x0, n_equil, dt, beta=1.0)
+                x_eq = eq[-1]
+                
+                # Perturb along v1
+                x_pert = x_eq + pscale * v1 * np.linalg.norm(x_eq)
+                
+                # Measure response
+                resp_states = evolve_langevin(W, x_pert, n_response, dt, beta=1.0)
+                for t in range(n_response):
+                    responses[trial, t] = resp_states[t] @ W @ resp_states[t]
+            
+            # Average response
+            mean_response = np.mean(responses, axis=0)
+            baseline = np.mean(eq_energies)
+            response_curve = mean_response - baseline
+            
+            # Normalize for shape comparison
+            max_abs = np.max(np.abs(response_curve))
+            if max_abs > 1e-15:
+                response_norm = response_curve / max_abs
+            else:
+                response_norm = np.zeros_like(response_curve)
+            
+            response_curves[str(pscale)] = response_norm.tolist()
+            linearity_check.append(float(max_abs))
+        
+        # Linearity: response amplitude should be proportional to perturbation
+        scales_arr = np.array(perturbation_scales)
+        amps_arr = np.array(linearity_check)
+        if np.var(amps_arr) > 1e-15:
+            linearity_corr = np.corrcoef(scales_arr, amps_arr)[0, 1]
+            linearity_slope = np.polyfit(scales_arr, amps_arr, 1)[0]
+        else:
+            linearity_corr = 0.0
+            linearity_slope = 0.0
+        
+        # Shape match: normalized response should match normalized ACF
+        resp_main = response_curves[str(perturbation_scales[1])]  # use mid-scale
+        min_len = min(len(eq_acf), len(resp_main))
+        if min_len > 10:
+            shape_corr = np.corrcoef(eq_acf[:min_len], resp_main[:min_len])[0, 1]
+        else:
+            shape_corr = 0.0
+        
+        # Response rate estimation (exponential fit to response decay)
+        resp_arr = np.array(resp_main)
+        valid = resp_arr > 0.01
+        if np.sum(valid) > 10:
+            t_vals = np.arange(len(resp_arr))[valid] * dt
+            log_resp = np.log(np.abs(resp_arr[valid]) + 1e-15)
+            resp_rate = -np.polyfit(t_vals, log_resp, 1)[0]
+        else:
+            resp_rate = 0.0
+        
+        results[name] = {
+            'gamma': float(gamma),
+            'linearity_correlation': float(linearity_corr),
+            'linearity_holds': bool(linearity_corr > 0.9),
+            'shape_correlation_acf_response': float(shape_corr),
+            'shape_match': bool(abs(shape_corr) > 0.5) if not np.isnan(shape_corr) else False,
+            'response_rate': float(resp_rate),
+            'rate_matches_gamma': bool(abs(resp_rate - gamma) / (gamma + 1e-10) < 0.5) if gamma > 1e-8 else False,
+            'n_trials': n_trials,
+        }
+        
+        print(f"\n  {name.upper()}:")
+        print(f"    γ: {gamma:.6f}")
+        print(f"    Response linearity: r={linearity_corr:.4f} {'(LINEAR)' if linearity_corr > 0.9 else '(NONLINEAR)'}")
+        print(f"    ACF-Response shape match: r={shape_corr:.4f} {'(MATCH)' if abs(shape_corr) > 0.5 else '(NO MATCH)'}")
+        print(f"    Response rate: {resp_rate:.4f} vs γ: {gamma:.4f}")
+        print(f"    Rate matches γ: {'YES' if results[name]['rate_matches_gamma'] else 'NO'}")
     
-    # Average response
-    mean_H_response = np.mean(H_responses, axis=0)
-    H_baseline = np.mean(H_eq)
-    delta_H_response = mean_H_response - H_baseline
-    
-    # Normalize
-    response_norm = np.max(np.abs(delta_H_response))
-    if response_norm > 1e-15:
-        delta_H_response_norm = delta_H_response / response_norm
-    else:
-        delta_H_response_norm = delta_H_response
-    
-    acf_norm = acf_delta_gamma[:len(delta_H_response_norm)]
-    acf_max = np.max(np.abs(acf_norm))
-    if acf_max > 1e-15:
-        acf_norm = acf_norm / acf_max
-    
-    # FDT comparison: shape of response should match shape of fluctuation autocorrelation
-    min_len = min(len(acf_norm), len(delta_H_response_norm))
-    if min_len > 2:
-        # Correlation between shapes
-        shape_corr = np.corrcoef(acf_norm[:min_len], delta_H_response_norm[:min_len])[0, 1]
-    else:
-        shape_corr = 0.0
-    
-    return {
-        'perturbation_scale': perturbation_scale,
-        'n_trials': n_trials,
-        'shape_correlation': float(shape_corr) if not np.isnan(shape_corr) else 0.0,
-        'shape_match': abs(shape_corr) > 0.5 if not np.isnan(shape_corr) else False,
-        'gamma_mean': float(np.mean(gamma_eq)),
-        'gamma_std': float(np.std(gamma_eq)),
-        'H_mean': float(np.mean(H_eq)),
-        'H_std': float(np.std(H_eq)),
-        'max_response': float(np.max(np.abs(delta_H_response))),
-        'acf_gamma_first5': [float(x) for x in acf_delta_gamma[:5]],
-        'response_first5': [float(x) for x in delta_H_response[:5]],
-    }
+    return results
 
 # ============================================================================
-# Main Experiment
+# LEVEL 4: Cross-Architecture Thermodynamic Consistency
 # ============================================================================
 
-def run_experiment():
-    """Run the full FDT experiment across architectures."""
+def level4_thermodynamic_consistency(N=20, n_ensemble=300):
+    """
+    For each architecture, generate ensemble and test full thermodynamic mapping.
     
-    print("=" * 70)
-    print("FLUCTUATION-DISSIPATION THEOREM TEST")
-    print("GPU Constraint Experiment Loop — Cycle 3")
-    print("=" * 70)
+    In thermodynamics:
+      F = E - TS (Helmholtz free energy)
+      dF = -S dT - P dV (at constant volume)
+      Cp = T (∂S/∂T)_P (heat capacity)
     
-    all_results = {}
+    Our mapping: γ ↔ T, H ↔ S, C = γ + H ↔ ?
     
-    configs = {
-        'random': {'gen': make_random_coupling, 'label': 'GOE (Random)'},
-        'attention': {'gen': make_attention_coupling, 'label': 'Attention'},
-        'hebbian': {'gen': make_hebbian_coupling, 'label': 'Hebbian'},
-    }
+    For the mapping to be thermodynamic:
+    1. ∂H/∂γ should be consistent (from C = γ + H → dH/dγ = dC/dγ - 1)
+    2. If C is constant → dH/dγ = -1 (exact first law)
+    3. "Heat capacity" = dH/d(ln γ) should be well-defined
+    4. Clausius-Clapeyron: relationships between phases should hold
+    """
+    print(f"\n{'='*70}")
+    print("LEVEL 4: THERMODYNAMIC CONSISTENCY CHECK")
+    print(f"{'='*70}")
     
-    N = 20  # system size
-    n_steps = 5000  # evolution steps
-    dt = 0.01
-    beta = 1.0
-    n_samples = 10  # number of independent samples per architecture
+    results = {}
     
-    for name, config in configs.items():
-        print(f"\n{'='*60}")
-        print(f"Architecture: {config['label']}")
-        print(f"{'='*60}")
+    for name, gen in [('random', make_random_coupling),
+                       ('attention', make_attention_coupling),
+                       ('hebbian', make_hebbian_coupling)]:
         
-        gen = config['gen']
+        gammas = []
+        entropies = []
+        C_vals = []
+        traces = []
         
-        # Accumulate time series across samples
-        all_gamma = []
-        all_H = []
-        all_C = []
-        
-        for sample in range(n_samples):
+        for _ in range(n_ensemble):
             W = gen(N)
-            
-            # Equilibration + production
-            x0 = np.random.randn(N)
-            states = evolve_system(W, x0, n_steps, dt, beta)
-            
-            # Compute observables from production phase (skip equilibration)
-            equil = n_steps // 4
-            gamma_t = []
-            H_t = []
-            
-            for t in range(equil, n_steps):
-                g = compute_state_spectral_gap(W, states[t])
-                h = compute_state_entropy(W, states[t])
-                gamma_t.append(g)
-                H_t.append(h)
-            
-            gamma_t = np.array(gamma_t)
-            H_t = np.array(H_t)
-            C_t = gamma_t + H_t
-            
-            all_gamma.append(gamma_t)
-            all_H.append(H_t)
-            all_C.append(C_t)
+            gammas.append(compute_static_gamma(W))
+            entropies.append(compute_static_entropy(W))
+            C_vals.append(compute_static_gamma(W) + compute_static_entropy(W))
+            traces.append(np.trace(W))
         
-        # Concatenate across samples
-        gamma_series = np.concatenate(all_gamma)
-        H_series = np.concatenate(all_H)
-        C_series = np.concatenate(all_C)
+        gammas = np.array(gammas)
+        entropies = np.array(entropies)
+        C_vals = np.array(C_vals)
+        traces = np.array(traces)
         
-        print(f"  Samples: {n_samples}, Points per sample: {n_steps - n_steps//4}")
-        print(f"  γ: mean={np.mean(gamma_series):.6f}, std={np.std(gamma_series):.6f}")
-        print(f"  H: mean={np.mean(H_series):.6f}, std={np.std(H_series):.6f}")
-        print(f"  C: mean={np.mean(C_series):.6f}, std={np.std(C_series):.6f}")
+        # Test: dH/dγ
+        if np.std(gammas) > 1e-10:
+            dH_dgamma = np.polyfit(gammas, entropies, 1)[0]
+        else:
+            dH_dgamma = 0.0
         
-        # Run FDT tests
-        print(f"\n  Running FDT tests...")
-        fdt_results = test_fdt(gamma_series, H_series, C_series)
+        # Test: dC/dγ (should be 0 if C is constant)
+        if np.std(gammas) > 1e-10:
+            dC_dgamma = np.polyfit(gammas, C_vals, 1)[0]
+        else:
+            dC_dgamma = 0.0
         
-        # Run perturbation test
-        print(f"  Running perturbation response test...")
-        W_test = gen(N)
-        perturb_results = perturbation_response_test(
-            W_test, n_equilibrium=1000, n_perturbed=200,
-            perturbation_scale=0.1, dt=dt, beta=beta, n_trials=30
-        )
+        # Test: is C constant? (CV)
+        C_cv = np.std(C_vals) / np.mean(C_vals) if np.mean(C_vals) > 0 else float('inf')
         
-        # Summary
-        print(f"\n  --- Results ---")
-        print(f"  Conservation C=γ+H: CV = {fdt_results['conservation']['C_cv']:.6f} "
-              f"({'HOLDS' if fdt_results['conservation']['first_law_holds'] else 'FAILS'})")
-        print(f"  dH/dγ slope: {fdt_results['effective_temperature']['slope_dH_dgamma']:.4f} "
-              f"(expect -1.0 for perfect conservation)")
-        print(f"  Effective kT: {fdt_results['effective_temperature']['kT_from_variance']:.6f}")
-        print(f"  σ_γ/γ: {fdt_results['fluctuation_scaling']['ratio_sigma_to_mean']:.4f}")
-        print(f"  γ-H cross-corr: {fdt_results['cross_correlation']['max_ccf_gh']:.4f}")
-        print(f"  FDT ratio constancy: CV = {fdt_results['fdt_ratio']['cv_ratio']:.4f} "
-              f"({'HOLDS' if fdt_results['fdt_ratio']['fdt_holds'] else 'FAILS'})")
-        print(f"  Onsager reciprocity: error = {fdt_results['onsager']['reciprocity_error']:.6f} "
-              f"({'HOLDS' if fdt_results['onsager']['reciprocity_holds'] else 'FAILS'})")
-        print(f"  Perturbation shape corr: {perturb_results['shape_correlation']:.4f} "
-              f"({'MATCH' if perturb_results['shape_match'] else 'NO MATCH'})")
+        # Test: "Heat capacity" = dH/d(ln γ) = γ · dH/dγ
+        heat_capacity = np.mean(gammas) * dH_dgamma if np.mean(gammas) > 0 else 0
         
-        all_results[name] = {
-            'label': config['label'],
-            'N': N,
-            'n_steps': n_steps,
-            'n_samples': n_samples,
-            'observables': {
-                'gamma_mean': float(np.mean(gamma_series)),
-                'gamma_std': float(np.std(gamma_series)),
-                'H_mean': float(np.mean(H_series)),
-                'H_std': float(np.std(H_series)),
-                'C_mean': float(np.mean(C_series)),
-                'C_std': float(np.std(C_series)),
-            },
-            'fdt': fdt_results,
-            'perturbation': perturb_results,
+        # Test: Trace conservation (smoking gun from insights)
+        corr_trace_C = np.corrcoef(traces, C_vals)[0, 1]
+        
+        # Test: Is C just a function of Tr(W)?
+        if np.std(traces) > 1e-15:
+            trace_explains_C = 1.0 - np.var(C_vals - np.polyval(np.polyfit(traces, C_vals, 1), traces)) / np.var(C_vals)
+        else:
+            trace_explains_C = 0.0
+        
+        # Thermodynamic score
+        criteria = {
+            'C_is_constant': C_cv < 0.1,
+            'dC_dgamma_near_zero': abs(dC_dgamma) < 0.5,
+            'dH_dgamma_near_minus_one': abs(dH_dgamma + 1.0) < 0.3,
+            'heat_capacity_well_defined': abs(heat_capacity) < 5.0,
         }
-    
-    # ========================================================================
-    # Comparative Analysis
-    # ========================================================================
-    print(f"\n{'='*70}")
-    print("COMPARATIVE ANALYSIS")
-    print(f"{'='*70}")
-    
-    print(f"\n{'Architecture':<15} {'C_cv':<12} {'dH/dγ':<10} {'kT_eff':<12} "
-          f"{'FDT_CV':<10} {'Onsager':<10} {'Perturb':<10}")
-    print("-" * 80)
-    
-    for name in ['random', 'attention', 'hebbian']:
-        r = all_results[name]
-        fdt = r['fdt']
-        perturb = r['perturbation']
+        score = sum(criteria.values()) / len(criteria)
         
-        print(f"{r['label']:<15} "
-              f"{fdt['conservation']['C_cv']:<12.6f} "
-              f"{fdt['effective_temperature']['slope_dH_dgamma']:<10.4f} "
-              f"{fdt['effective_temperature']['kT_from_variance']:<12.6f} "
-              f"{fdt['fdt_ratio']['cv_ratio']:<10.4f} "
-              f"{fdt['onsager']['reciprocity_error']:<10.6f} "
-              f"{perturb['shape_correlation']:<10.4f}")
-    
-    # ========================================================================
-    # Thermodynamic Verdict
-    # ========================================================================
-    print(f"\n{'='*70}")
-    print("THERMODYNAMIC VERDICT")
-    print(f"{'='*70}")
-    
-    verdict = {}
-    for name in ['random', 'attention', 'hebbian']:
-        r = all_results[name]
-        fdt = r['fdt']
-        perturb = r['perturbation']
-        
-        # Score each thermodynamic criterion
-        conservation_holds = fdt['conservation']['first_law_holds']
-        slope_good = fdt['effective_temperature']['slope_is_minus_one']
-        fdt_holds = fdt['fdt_ratio']['fdt_holds']
-        onsager = fdt['onsager']['reciprocity_holds']
-        perturb_match = perturb['shape_match']
-        
-        criteria = [conservation_holds, slope_good, fdt_holds, onsager, perturb_match]
-        score = sum(criteria) / len(criteria)
-        
-        verdict[name] = {
-            'conservation': conservation_holds,
-            'slope_dH_dgamma': slope_good,
-            'fdt': fdt_holds,
-            'onsager': onsager,
-            'perturbation_response': perturb_match,
+        results[name] = {
+            'C_cv': float(C_cv),
+            'dC_dgamma': float(dC_dgamma),
+            'dH_dgamma': float(dH_dgamma),
+            'heat_capacity': float(heat_capacity),
+            'corr_trace_C': float(corr_trace_C),
+            'trace_explains_C_R2': float(trace_explains_C),
+            'criteria': {k: bool(v) for k, v in criteria.items()},
             'thermodynamic_score': float(score),
-            'is_thermodynamic': score >= 0.6,
+            'is_thermodynamic': bool(score >= 0.6),
         }
         
-        status = "✓ THERMODYNAMIC" if score >= 0.6 else "✗ NOT THERMODYNAMIC"
-        print(f"\n  {r['label']}: {status} (score: {score:.0%})")
-        print(f"    Conservation (C=γ+H): {'✓' if conservation_holds else '✗'}")
-        print(f"    dH/dγ ≈ -1: {'✓' if slope_good else '✗'} (slope={fdt['effective_temperature']['slope_dH_dgamma']:.4f})")
-        print(f"    FDT ratio constant: {'✓' if fdt_holds else '✗'}")
-        print(f"    Onsager reciprocity: {'✓' if onsager else '✗'}")
-        print(f"    Perturbation-response match: {'✓' if perturb_match else '✗'}")
-        
-        if verdict[name]['is_thermodynamic']:
-            kT = fdt['effective_temperature']['kT_from_variance']
-            print(f"\n    → Effective temperature kT = {kT:.6f}")
-            print(f"    → This system satisfies thermodynamic consistency")
+        print(f"\n  {name.upper()}:")
+        print(f"    C CV: {C_cv:.4f} {'✓' if C_cv < 0.1 else '✗'}")
+        print(f"    dC/dγ: {dC_dgamma:.4f} {'✓' if abs(dC_dgamma) < 0.5 else '✗'} (expect 0)")
+        print(f"    dH/dγ: {dH_dgamma:.4f} {'✓' if abs(dH_dgamma + 1) < 0.3 else '✗'} (expect -1)")
+        print(f"    Heat capacity: {heat_capacity:.4f}")
+        print(f"    Corr(Tr(W), C): {corr_trace_C:.4f}")
+        print(f"    Tr(W) explains C: R²={trace_explains_C:.4f}")
+        print(f"    Thermodynamic score: {score:.0%} {'✓ THERMODYNAMIC' if score >= 0.6 else '✗ NOT THERMODYNAMIC'}")
+    
+    return results
+
+# ============================================================================
+# Custom JSON encoder for numpy types
+# ============================================================================
+
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, (np.integer,)):
+            return int(obj)
+        elif isinstance(obj, (np.floating,)):
+            return float(obj)
+        elif isinstance(obj, (np.bool_,)):
+            return bool(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return super().default(obj)
+
+# ============================================================================
+# Main
+# ============================================================================
+
+def main():
+    print("=" * 70)
+    print("FLUCTUATION-DISSIPATION THEOREM TEST — v2")
+    print("GPU Constraint Experiment Loop — Cycle 3")
+    print("Forgemaster Research Subagent")
+    print("=" * 70)
+    
+    N = 20
+    
+    # Level 1: Ensemble thermodynamics
+    level1 = level1_ensemble_thermodynamics(n_matrices=300, N=N)
+    
+    # Level 2: Dynamic FDT
+    level2 = level2_dynamic_fdt(N=N, n_matrices=40, n_steps=5000)
+    
+    # Level 3: Perturbation response
+    level3 = level3_perturbation_response(N=N, n_trials=50)
+    
+    # Level 4: Thermodynamic consistency
+    level4 = level4_thermodynamic_consistency(N=N, n_ensemble=500)
     
     # ========================================================================
-    # Cross-Architecture Temperature Comparison
+    # FINAL SUMMARY
     # ========================================================================
     print(f"\n{'='*70}")
-    print("EFFECTIVE TEMPERATURE COMPARISON")
+    print("FINAL SUMMARY — DOES FDT HOLD?")
     print(f"{'='*70}")
     
-    temps = {}
-    for name in ['random', 'attention', 'hebbian']:
-        r = all_results[name]
-        kT = r['fdt']['effective_temperature']['kT_from_variance']
-        gamma_mean = r['observables']['gamma_mean']
-        gamma_std = r['observables']['gamma_std']
-        ratio = gamma_std / gamma_mean if gamma_mean > 0 else float('inf')
+    summary = {}
+    for name, label in [('random', 'GOE Random'), ('attention', 'Attention'), 
+                         ('hebbian', 'Hebbian')]:
         
-        temps[name] = {
-            'kT_variance': float(kT),
-            'gamma_mean': float(gamma_mean),
-            'sigma_over_gamma': float(ratio),
+        l1 = level1[name]
+        l2 = level2[name]
+        l3 = level3[name]
+        l4 = level4[name]
+        
+        # Aggregate score across all levels
+        checks = [
+            ('L1: Conservation C=γ+H', l1['conservation_holds']),
+            ('L1: Energy∝γ (equipartition)', l1['corr_energy_gamma'] > 0.3),
+            ('L1: Variance∝γ', l1['corr_variance_gamma'] > 0.3),
+            ('L2: Rate=γ (FDT prediction)', l2['fdt_prediction_matches']),
+            ('L3: Linear response', l3['linearity_holds']),
+            ('L3: ACF=Response shape', l3['shape_match']),
+            ('L3: Rate matches γ', l3['rate_matches_gamma']),
+            ('L4: Thermodynamic consistency', l4['is_thermodynamic']),
+        ]
+        
+        total = len(checks)
+        passed = sum(1 for _, v in checks if v)
+        score = passed / total
+        
+        summary[name] = {
+            'label': label,
+            'score': float(score),
+            'passed': int(passed),
+            'total': int(total),
+            'is_thermodynamic': bool(score >= 0.5),
+            'checks': {k: bool(v) for k, v in checks},
         }
         
-        print(f"\n  {r['label']}:")
-        print(f"    kT (from variance): {kT:.6f}")
-        print(f"    γ mean: {gamma_mean:.6f}")
-        print(f"    σ_γ / γ: {ratio:.4f}")
-        print(f"    Analogy: {'hot' if ratio > 0.1 else 'cold'} system")
+        status = "✓ THERMODYNAMIC" if score >= 0.5 else "✗ NOT THERMODYNAMIC"
+        print(f"\n  {label}: {status} ({passed}/{total} = {score:.0%})")
+        for check_name, check_val in checks:
+            print(f"    {'✓' if check_val else '✗'} {check_name}")
     
-    # ========================================================================
-    # Save Results
-    # ========================================================================
+    # Overall verdict
+    print(f"\n{'='*70}")
+    print("OVERALL VERDICT")
+    print(f"{'='*70}")
+    
+    thermo_architectures = [name for name, s in summary.items() if s['is_thermodynamic']]
+    if thermo_architectures:
+        print(f"\n  Architectures with thermodynamic behavior: {', '.join(thermo_architectures)}")
+        for name in thermo_architectures:
+            s = summary[name]
+            print(f"    {s['label']}: score={s['score']:.0%}, kT~γ={level1[name]['gamma_mean']:.4f}")
+    else:
+        print("\n  No architecture shows full thermodynamic behavior.")
+        print("  The conservation law C=γ+H may NOT be thermodynamic in origin.")
+        print("  It may instead arise from random matrix universality (Wigner statistics).")
+    
+    # Key insight from trace test
+    print(f"\n  Trace-Conservation Analysis:")
+    for name in ['random', 'attention', 'hebbian']:
+        l4n = level4[name]
+        print(f"    {name}: Corr(Tr,C)={l4n['corr_trace_C']:.4f}, "
+              f"Tr explains C: R²={l4n['trace_explains_C_R2']:.4f}")
+    
+    # Save all results
     output = {
-        'experiment': 'fdt_test',
+        'experiment': 'fdt_test_v2',
         'cycle': 3,
         'date': '2026-05-17',
         'author': 'Forgemaster (research subagent)',
-        'parameters': {
-            'N': N,
-            'n_steps': n_steps,
-            'dt': dt,
-            'beta': beta,
-            'n_samples': n_samples,
-        },
-        'architectures': all_results,
-        'verdict': verdict,
-        'effective_temperatures': temps,
+        'N': N,
+        'level1_ensemble': level1,
+        'level2_dynamic_fdt': level2,
+        'level3_perturbation': level3,
+        'level4_consistency': level4,
+        'summary': summary,
     }
     
     output_path = RESULTS_DIR / 'fdt-results.json'
     with open(output_path, 'w') as f:
-        json.dump(output, f, indent=2)
+        json.dump(output, f, indent=2, cls=NumpyEncoder)
     
-    print(f"\n\nResults saved to {output_path}")
+    print(f"\n  Results saved to {output_path}")
     
     return output
 
-# ============================================================================
-# Additional: Trace-Conservation Smoking Gun
-# ============================================================================
-
-def test_trace_conservation():
-    """
-    Test whether Tr(C) conservation explains γ+H conservation.
-    
-    If Tr(W) is fixed (e.g., by normalization), and the eigenvalue distribution
-    follows Wigner semicircle, then γ+H may be trivially determined by Tr(W).
-    """
-    print(f"\n{'='*70}")
-    print("TRACE-CONSERVATION SMOKING GUN TEST")
-    print(f"{'='*70}")
-    
-    N = 20
-    n_steps = 3000
-    dt = 0.01
-    beta = 1.0
-    
-    results = {}
-    
-    for name, gen in [('random', make_random_coupling), 
-                       ('attention', make_attention_coupling),
-                       ('hebbian', make_hebbian_coupling)]:
-        
-        trace_vals = []
-        gamma_vals = []
-        H_vals = []
-        C_vals = []
-        
-        for trial in range(20):
-            W = gen(N)
-            x0 = np.random.randn(N)
-            states = evolve_system(W, x0, n_steps, dt, beta)
-            
-            equil = n_steps // 2
-            for t in range(equil, n_steps, 10):
-                x = states[t]
-                
-                # Trace of coupling × state outer product
-                # This measures how much total coupling energy is in the state
-                trace_val = x @ W @ x
-                
-                g = compute_state_spectral_gap(W, x)
-                h = compute_state_entropy(W, x)
-                
-                trace_vals.append(trace_val)
-                gamma_vals.append(g)
-                H_vals.append(h)
-                C_vals.append(g + h)
-        
-        trace_vals = np.array(trace_vals)
-        gamma_vals = np.array(gamma_vals)
-        H_vals = np.array(H_vals)
-        C_vals = np.array(C_vals)
-        
-        # Correlation between Tr and C
-        corr_trace_C = np.corrcoef(trace_vals, C_vals)[0, 1] if np.var(C_vals) > 1e-15 else 0
-        corr_trace_gamma = np.corrcoef(trace_vals, gamma_vals)[0, 1]
-        corr_trace_H = np.corrcoef(trace_vals, H_vals)[0, 1]
-        
-        # If Tr explains C, then residual C - f(Tr) should have near-zero variance
-        if np.var(trace_vals) > 1e-15:
-            slope = np.polyfit(trace_vals, C_vals, 1)
-            C_predicted = np.polyval(slope, trace_vals)
-            residual_var = np.var(C_vals - C_predicted)
-            total_var = np.var(C_vals)
-            explained_fraction = 1.0 - residual_var / total_var if total_var > 0 else 0
-        else:
-            explained_fraction = 0
-            slope = [0, 0]
-        
-        results[name] = {
-            'corr_trace_C': float(corr_trace_C),
-            'corr_trace_gamma': float(corr_trace_gamma),
-            'corr_trace_H': float(corr_trace_H),
-            'trace_explains_C_R2': float(explained_fraction),
-            'C_cv': float(np.std(C_vals) / (np.mean(C_vals) + 1e-15)),
-            'trace_cv': float(np.std(trace_vals) / (np.mean(trace_vals) + 1e-15)),
-        }
-        
-        print(f"\n  {name}:")
-        print(f"    Corr(Tr, C):  {corr_trace_C:.4f}")
-        print(f"    Corr(Tr, γ):  {corr_trace_gamma:.4f}")
-        print(f"    Corr(Tr, H):  {corr_trace_H:.4f}")
-        print(f"    Tr explains C: R² = {explained_fraction:.4f}")
-        print(f"    C CV: {results[name]['C_cv']:.4f}")
-        print(f"    Tr CV: {results[name]['trace_cv']:.4f}")
-    
-    verdict = "TRACE EXPLAINS CONSERVATION" if any(
-        r['trace_explains_C_R2'] > 0.8 for r in results.values()
-    ) else "TRACE DOES NOT EXPLAIN CONSERVATION"
-    
-    print(f"\n  VERDICT: {verdict}")
-    
-    return results
-
-# ============================================================================
-# Run Everything
-# ============================================================================
-
 if __name__ == "__main__":
-    print("Starting FDT experiment...\n")
-    
-    main_results = run_experiment()
-    
-    trace_results = test_trace_conservation()
-    
-    print(f"\n{'='*70}")
-    print("EXPERIMENT COMPLETE")
-    print(f"{'='*70}")
-    
-    # Final summary
-    print("\nFINAL SUMMARY:")
-    for name in ['random', 'attention', 'hebbian']:
-        v = main_results['verdict'][name]
-        score = v['thermodynamic_score']
-        label = main_results['architectures'][name]['label']
-        print(f"  {label}: {score:.0%} thermodynamic "
-              f"({'IS' if v['is_thermodynamic'] else 'NOT'} a thermodynamic system)")
-    
-    print("\n  Trace conservation explains γ+H: "
-          f"{'YES' if any(r['trace_explains_C_R2'] > 0.8 for r in trace_results.values()) else 'NO'}")
+    main()

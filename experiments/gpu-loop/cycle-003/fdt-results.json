@@ -1,32 +1,221 @@
 {
-  "experiment": "fdt_test",
+  "experiment": "fdt_test_v2",
   "cycle": 3,
   "date": "2026-05-17",
   "author": "Forgemaster (research subagent)",
-  "parameters": {
-    "N": 20,
-    "n_steps": 5000,
-    "dt": 0.01,
-    "beta": 1.0,
-    "n_samples": 10
-  },
-  "architectures": {
+  "N": 20,
+  "level1_ensemble": {
     "random": {
-      "label": "GOE (Random)",
-      "N": 20,
-      "n_steps": 5000,
-      "n_samples": 10,
-      "observables": {
-        "gamma_mean": 0.11393710656643753,
-        "gamma_std": 0.05329676189029417,
-        "H_mean": 0.14624619204396358,
-        "H_std": 0.21400409222806976,
-        "C_mean": 0.2601832986104011,
-        "C_std": 0.18261611782552858
+      "gamma_mean": 0.19528591883847396,
+      "gamma_std": 0.10233076614049308,
+      "H_mean": 2.773062972287127,
+      "H_std": 0.02591055766569763,
+      "C_mean": 2.968348891125601,
+      "C_std": 0.1032299351727587,
+      "C_cv": 0.0347768874074684,
+      "conservation_holds": true,
+      "corr_energy_gamma": -0.01621183383696629,
+      "corr_variance_gamma": 0.016209363617722367,
+      "corr_tau_inv_gamma": NaN,
+      "slope_dH_dgamma": -0.023230635534358075,
+      "slope_is_minus_one": false,
+      "avg_state_entropy": 4.5841167431762966e-26,
+      "n_matrices": 300
+    },
+    "attention": {
+      "gamma_mean": 0.2618044058263549,
+      "gamma_std": 0.1279032954672156,
+      "H_mean": 2.126501060972152,
+      "H_std": 0.04189454047532155,
+      "C_mean": 2.388305466798507,
+      "C_std": 0.12685843477346453,
+      "C_cv": 0.053116503117801195,
+      "conservation_holds": true,
+      "corr_energy_gamma": 0.18515745415955903,
+      "corr_variance_gamma": -0.1851624477838279,
+      "corr_tau_inv_gamma": NaN,
+      "slope_dH_dgamma": -0.06177980867784004,
+      "slope_is_minus_one": false,
+      "avg_state_entropy": 2.2968608426413468e-14,
+      "n_matrices": 300
+    },
+    "hebbian": {
+      "gamma_mean": 0.2703536528849751,
+      "gamma_std": 0.1149912130078193,
+      "H_mean": 2.7770150408924064,
+      "H_std": 0.040074331216454886,
+      "C_mean": 3.0473686937773814,
+      "C_std": 0.10882260982498454,
+      "C_cv": 0.035710352359790414,
+      "conservation_holds": true,
+      "corr_energy_gamma": 0.3863599137052454,
+      "corr_variance_gamma": -0.405775042138479,
+      "corr_tau_inv_gamma": NaN,
+      "slope_dH_dgamma": -0.11293108257784693,
+      "slope_is_minus_one": false,
+      "avg_state_entropy": 0.00028513537604979455,
+      "n_matrices": 300
+    }
+  },
+  "level2_dynamic_fdt": {
+    "random": {
+      "mean_observed_rate": 0.13635147357634123,
+      "mean_predicted_gamma": 0.23472062493025417,
+      "rate_gamma_correlation": 0.1695894379632783,
+      "mean_relative_error": 0.8151094498480285,
+      "fdt_prediction_matches": false,
+      "n_samples": 40
+    },
+    "attention": {
+      "mean_observed_rate": 0.13635147357774627,
+      "mean_predicted_gamma": 0.24092954192905455,
+      "rate_gamma_correlation": -0.16636110749595573,
+      "mean_relative_error": 1.1841354676339033,
+      "fdt_prediction_matches": false,
+      "n_samples": 40
+    },
+    "hebbian": {
+      "mean_observed_rate": 0.1363886350036862,
+      "mean_predicted_gamma": 0.27714723003039965,
+      "rate_gamma_correlation": 0.6792830974697612,
+      "mean_relative_error": 0.5416935148262494,
+      "fdt_prediction_matches": true,
+      "n_samples": 40
+    }
+  },
+  "level3_perturbation": {
+    "random": {
+      "gamma": 0.10550904335895084,
+      "linearity_correlation": 0.6594789917996001,
+      "linearity_holds": false,
+      "shape_correlation_acf_response": 0.7261177166840684,
+      "shape_match": true,
+      "response_rate": 0.0,
+      "rate_matches_gamma": false,
+      "n_trials": 50
+    },
+    "attention": {
+      "gamma": 0.48286692099378725,
+      "linearity_correlation": -0.9839969531188696,
+      "linearity_holds": false,
+      "shape_correlation_acf_response": 0.8891659451495162,
+      "shape_match": true,
+      "response_rate": 0.0,
+      "rate_matches_gamma": false,
+      "n_trials": 50
+    },
+    "hebbian": {
+      "gamma": 0.3834175257265645,
+      "linearity_correlation": 0.33280227018228964,
+      "linearity_holds": false,
+      "shape_correlation_acf_response": 0.9912694525406917,
+      "shape_match": true,
+      "response_rate": 0.0,
+      "rate_matches_gamma": false,
+      "n_trials": 50
+    }
+  },
+  "level4_consistency": {
+    "random": {
+      "C_cv": 0.038085019383939975,
+      "dC_dgamma": 0.9656108016615613,
+      "dH_dgamma": -0.034389198338438065,
+      "heat_capacity": -0.007194367380922556,
+      "corr_trace_C": -0.036655152112674325,
+      "trace_explains_C_R2": 0.0013436001764028926,
+      "criteria": {
+        "C_is_constant": true,
+        "dC_dgamma_near_zero": false,
+        "dH_dgamma_near_minus_one": false,
+        "heat_capacity_well_defined": true
       },
-      "fdt": {
-        "conservation": {
-          "C_mean": 0.2601832986104011,
-          "C_std": 0.18261611782552858,
-          "C_cv": 0.7018748659151187,
-          "first_law_holds": 
+      "thermodynamic_score": 0.5,
+      "is_thermodynamic": false
+    },
+    "attention": {
+      "C_cv": 0.05745057969481414,
+      "dC_dgamma": 0.931691108944386,
+      "dH_dgamma": -0.0683088910556132,
+      "heat_capacity": -0.018977846654357762,
+      "corr_trace_C": 0.1616077551536219,
+      "trace_explains_C_R2": 0.02611706652579293,
+      "criteria": {
+        "C_is_constant": true,
+        "dC_dgamma_near_zero": false,
+        "dH_dgamma_near_minus_one": false,
+        "heat_capacity_well_defined": true
+      },
+      "thermodynamic_score": 0.5,
+      "is_thermodynamic": false
+    },
+    "hebbian": {
+      "C_cv": 0.03818794444372178,
+      "dC_dgamma": 0.8841618244186513,
+      "dH_dgamma": -0.1158381755813492,
+      "heat_capacity": -0.032656187667447115,
+      "corr_trace_C": NaN,
+      "trace_explains_C_R2": 0.0,
+      "criteria": {
+        "C_is_constant": true,
+        "dC_dgamma_near_zero": false,
+        "dH_dgamma_near_minus_one": false,
+        "heat_capacity_well_defined": true
+      },
+      "thermodynamic_score": 0.5,
+      "is_thermodynamic": false
+    }
+  },
+  "summary": {
+    "random": {
+      "label": "GOE Random",
+      "score": 0.25,
+      "passed": 2,
+      "total": 8,
+      "is_thermodynamic": false,
+      "checks": {
+        "L1: Conservation C=\u03b3+H": true,
+        "L1: Energy\u221d\u03b3 (equipartition)": false,
+        "L1: Variance\u221d\u03b3": false,
+        "L2: Rate=\u03b3 (FDT prediction)": false,
+        "L3: Linear response": false,
+        "L3: ACF=Response shape": true,
+        "L3: Rate matches \u03b3": false,
+        "L4: Thermodynamic consistency": false
+      }
+    },
+    "attention": {
+      "label": "Attention",
+      "score": 0.25,
+      "passed": 2,
+      "total": 8,
+      "is_thermodynamic": false,
+      "checks": {
+        "L1: Conservation C=\u03b3+H": true,
+        "L1: Energy\u221d\u03b3 (equipartition)": false,
+        "L1: Variance\u221d\u03b3": false,
+        "L2: Rate=\u03b3 (FDT prediction)": false,
+        "L3: Linear response": false,
+        "L3: ACF=Response shape": true,
+        "L3: Rate matches \u03b3": false,
+        "L4: Thermodynamic consistency": false
+      }
+    },
+    "hebbian": {
+      "label": "Hebbian",
+      "score": 0.5,
+      "passed": 4,
+      "total": 8,
+      "is_thermodynamic": true,
+      "checks": {
+        "L1: Conservation C=\u03b3+H": true,
+        "L1: Energy\u221d\u03b3 (equipartition)": true,
+        "L1: Variance\u221d\u03b3": false,
+        "L2: Rate=\u03b3 (FDT prediction)": true,
+        "L3: Linear response": false,
+        "L3: ACF=Response shape": true,
+        "L3: Rate matches \u03b3": false,
+        "L4: Thermodynamic consistency": false
+      }
+    }
+  }
+}
