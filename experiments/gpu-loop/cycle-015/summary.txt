@@ -1,0 +1,30 @@
+CYCLE-015 SUMMARY
+=================
+Date: 2026-05-17 | Model: Seed-2.0-mini | Samples: 100-150 per experiment
+
+EXP1: Koopman vs Commutator (N=100)
+  - Pearson(commutator, koopman_dev) = -0.215 (WEAK, negative)
+  - Pearson(commutator, CV) = 0.941 (confirmed)
+  - Koopman eigenvalues don't predict conservation
+
+EXP2: Decay Rate Map (21 arch×act combos, 50 samples each)
+  - Fastest: 16-dim ELU (α=0.0041)
+  - Slowest: sigmoid/linear (α≈0)
+  - ELU > tanh > leaky_relu > softplus > relu > sigmoid > linear
+  - Decay grows with architecture size
+
+EXP3: Metric Comparison (N=150, nonlinear dynamics)
+  - Commutator: r=0.905 (WINNER by 4×)
+  - Fisher info: r=-0.216
+  - EMD: r=-0.191
+  - Eigenvalue cosine: r=-0.073
+  - Spectral stability: r=-0.054
+  - NOTHING beats commutator for predicting CV
+
+EXP4: Adversarial Conservation Bound
+  - Worst CV (contractive): 2.980
+  - Contractivity does NOT guarantee conservation
+  - CV>1 means the "conserved" quantity grows, not decays
+  - Anti-diagonal coupling is most effective adversarial structure
+
+KEY TAKEAWAY: The commutator ||[D,C]|| is the definitive metric for conservation prediction. No Koopman, spectral, or Fisher alternative comes within 4× of its predictive power. But conservation is fragile — adversarial contractive systems can violate it by 3×.

@@ -1,0 +1,54 @@
+{
+  "experiment": "spectral_metric_comparison_nonlinear",
+  "samples": 150,
+  "dynamics": "x_{t+1} = D @ tanh(x_t) + C @ x_t",
+  "correlations_with_cv": {
+    "eigenvalue_cosine": {
+      "pearson_r": -0.0729,
+      "pearson_p": 0.375,
+      "spearman_rho": -0.1415
+    },
+    "emd_eigenvalues": {
+      "pearson_r": -0.1912,
+      "pearson_p": 0.0191,
+      "spearman_rho": -0.1768
+    },
+    "fisher_information": {
+      "pearson_r": -0.2163,
+      "pearson_p": 0.00785,
+      "spearman_rho": -0.1836
+    },
+    "commutator_norm": {
+      "pearson_r": 0.9049,
+      "pearson_p": 8.89e-57,
+      "spearman_rho": 0.8916
+    },
+    "spectral_stability": {
+      "pearson_r": -0.0542,
+      "pearson_p": 0.51,
+      "spearman_rho": -0.0491
+    }
+  },
+  "ranking": [
+    [
+      "commutator_norm",
+      0.9049
+    ],
+    [
+      "fisher_information",
+      -0.2163
+    ],
+    [
+      "emd_eigenvalues",
+      -0.1912
+    ],
+    [
+      "eigenvalue_cosine",
+      -0.0729
+    ],
+    [
+      "spectral_stability",
+      -0.0542
+    ]
+  ]
+}

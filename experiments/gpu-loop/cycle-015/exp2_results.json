@@ -1,0 +1,936 @@
+{
+  "experiment": "supermartingale_decay_map",
+  "heatmap": {
+    "3xtanh": {
+      "architecture": 3,
+      "activation": "tanh",
+      "mean_decay_rate": 0.0006,
+      "std_decay_rate": 0.0011,
+      "samples": 50,
+      "alphas": [
+        9.6e-05,
+        0.006583,
+        0.000864,
+        0.000232,
+        0.004211,
+        2.6e-05,
+        0.001246,
+        0.001093,
+        0.00282,
+        0.000528
+      ]
+    },
+    "3xrelu": {
+      "architecture": 3,
+      "activation": "relu",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0001,
+      "samples": 50,
+      "alphas": [
+        0,
+        5.4e-05,
+        0,
+        0,
+        0,
+        0.000124,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "3xsigmoid": {
+      "architecture": 3,
+      "activation": "sigmoid",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        4e-06,
+        0.0,
+        0,
+        1e-06,
+        0.0,
+        0,
+        8e-06,
+        0
+      ]
+    },
+    "3xleaky_relu": {
+      "architecture": 3,
+      "activation": "leaky_relu",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0001,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.000702,
+        0,
+        0.000506,
+        0.000234,
+        0
+      ]
+    },
+    "3xsoftplus": {
+      "architecture": 3,
+      "activation": "softplus",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0001,
+      "samples": 50,
+      "alphas": [
+        1.8e-05,
+        0,
+        0,
+        0.000443,
+        0,
+        0,
+        2e-05,
+        0,
+        0,
+        4.7e-05
+      ]
+    },
+    "3xelu": {
+      "architecture": 3,
+      "activation": "elu",
+      "mean_decay_rate": 0.001,
+      "std_decay_rate": 0.0032,
+      "samples": 50,
+      "alphas": [
+        9.7e-05,
+        0,
+        0.000123,
+        2.2e-05,
+        0.000887,
+        0.000282,
+        0,
+        0,
+        6.1e-05,
+        0.000157
+      ]
+    },
+    "3xlinear": {
+      "architecture": 3,
+      "activation": "linear",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        0.0,
+        0,
+        0,
+        0,
+        0.0,
+        0,
+        0,
+        0.0,
+        0.0,
+        0
+      ]
+    },
+    "4xtanh": {
+      "architecture": 4,
+      "activation": "tanh",
+      "mean_decay_rate": 0.0014,
+      "std_decay_rate": 0.0019,
+      "samples": 50,
+      "alphas": [
+        0,
+        0.001026,
+        0.002356,
+        0.003239,
+        0.000989,
+        0.002389,
+        0.001823,
+        0,
+        0.001523,
+        0.001029
+      ]
+    },
+    "4xrelu": {
+      "architecture": 4,
+      "activation": "relu",
+      "mean_decay_rate": 0.0001,
+      "std_decay_rate": 0.0002,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "4xsigmoid": {
+      "architecture": 4,
+      "activation": "sigmoid",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        8e-06,
+        1.3e-05,
+        6e-06,
+        3e-06,
+        0,
+        7e-06,
+        1.1e-05,
+        8e-06,
+        0,
+        1.7e-05
+      ]
+    },
+    "4xleaky_relu": {
+      "architecture": 4,
+      "activation": "leaky_relu",
+      "mean_decay_rate": 0.0002,
+      "std_decay_rate": 0.001,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "4xsoftplus": {
+      "architecture": 4,
+      "activation": "softplus",
+      "mean_decay_rate": 0.0001,
+      "std_decay_rate": 0.0003,
+      "samples": 50,
+      "alphas": [
+        0.000105,
+        7.5e-05,
+        0,
+        0,
+        0.000151,
+        0,
+        5.3e-05,
+        7e-06,
+        7.9e-05,
+        4e-06
+      ]
+    },
+    "4xelu": {
+      "architecture": 4,
+      "activation": "elu",
+      "mean_decay_rate": 0.0025,
+      "std_decay_rate": 0.0055,
+      "samples": 50,
+      "alphas": [
+        0.002638,
+        0.000456,
+        0.000282,
+        0,
+        0.001049,
+        0.000105,
+        0.000147,
+        0.001367,
+        0,
+        0.000801
+      ]
+    },
+    "4xlinear": {
+      "architecture": 4,
+      "activation": "linear",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        0.0,
+        0,
+        0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        0
+      ]
+    },
+    "5xtanh": {
+      "architecture": 5,
+      "activation": "tanh",
+      "mean_decay_rate": 0.002,
+      "std_decay_rate": 0.0036,
+      "samples": 50,
+      "alphas": [
+        0.001779,
+        0,
+        0.000438,
+        0.003786,
+        0,
+        0,
+        0,
+        0,
+        0.001028,
+        0.000909
+      ]
+    },
+    "5xrelu": {
+      "architecture": 5,
+      "activation": "relu",
+      "mean_decay_rate": 0.0002,
+      "std_decay_rate": 0.0009,
+      "samples": 50,
+      "alphas": [
+        0.000334,
+        0,
+        0,
+        0,
+        0,
+        0.000673,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "5xsigmoid": {
+      "architecture": 5,
+      "activation": "sigmoid",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        2.7e-05,
+        3.5e-05,
+        0,
+        6e-06,
+        7e-06,
+        0,
+        4.8e-05,
+        1.3e-05,
+        0,
+        1.8e-05
+      ]
+    },
+    "5xleaky_relu": {
+      "architecture": 5,
+      "activation": "leaky_relu",
+      "mean_decay_rate": 0.0004,
+      "std_decay_rate": 0.0014,
+      "samples": 50,
+      "alphas": [
+        0.000387,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.000249,
+        0
+      ]
+    },
+    "5xsoftplus": {
+      "architecture": 5,
+      "activation": "softplus",
+      "mean_decay_rate": 0.0002,
+      "std_decay_rate": 0.0006,
+      "samples": 50,
+      "alphas": [
+        0.002535,
+        0,
+        0,
+        1.2e-05,
+        0,
+        0,
+        0,
+        0,
+        0.003245,
+        0.000182
+      ]
+    },
+    "5xelu": {
+      "architecture": 5,
+      "activation": "elu",
+      "mean_decay_rate": 0.0019,
+      "std_decay_rate": 0.0052,
+      "samples": 50,
+      "alphas": [
+        0.001173,
+        0,
+        0.001147,
+        0,
+        0,
+        9.4e-05,
+        0.00015,
+        0.003272,
+        0,
+        0.001446
+      ]
+    },
+    "5xlinear": {
+      "architecture": 5,
+      "activation": "linear",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        0.0,
+        0.0,
+        0,
+        0.0,
+        0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0
+      ]
+    },
+    "6xtanh": {
+      "architecture": 6,
+      "activation": "tanh",
+      "mean_decay_rate": 0.0017,
+      "std_decay_rate": 0.0044,
+      "samples": 50,
+      "alphas": [
+        0,
+        0.000499,
+        0.001124,
+        6.2e-05,
+        0.000393,
+        0.002762,
+        0,
+        0.000525,
+        0.001879,
+        0
+      ]
+    },
+    "6xrelu": {
+      "architecture": 6,
+      "activation": "relu",
+      "mean_decay_rate": 0.0001,
+      "std_decay_rate": 0.0002,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0.001193,
+        0,
+        0.000695,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "6xsigmoid": {
+      "architecture": 6,
+      "activation": "sigmoid",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        4.8e-05,
+        6e-06,
+        5e-06,
+        8e-06,
+        4.2e-05,
+        1e-06,
+        2.7e-05,
+        0,
+        0,
+        0
+      ]
+    },
+    "6xleaky_relu": {
+      "architecture": 6,
+      "activation": "leaky_relu",
+      "mean_decay_rate": 0.0001,
+      "std_decay_rate": 0.0007,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "6xsoftplus": {
+      "architecture": 6,
+      "activation": "softplus",
+      "mean_decay_rate": 0.0008,
+      "std_decay_rate": 0.002,
+      "samples": 50,
+      "alphas": [
+        0.008469,
+        0.000184,
+        0,
+        0,
+        0,
+        0,
+        1.7e-05,
+        8e-05,
+        0.000268,
+        0
+      ]
+    },
+    "6xelu": {
+      "architecture": 6,
+      "activation": "elu",
+      "mean_decay_rate": 0.0026,
+      "std_decay_rate": 0.0051,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0,
+        0.011439,
+        0,
+        0.001466,
+        0.030101,
+        0.004571,
+        0.009855
+      ]
+    },
+    "6xlinear": {
+      "architecture": 6,
+      "activation": "linear",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        0.0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        0.0,
+        0.0,
+        0,
+        0,
+        0.0
+      ]
+    },
+    "8xtanh": {
+      "architecture": 8,
+      "activation": "tanh",
+      "mean_decay_rate": 0.0012,
+      "std_decay_rate": 0.0018,
+      "samples": 50,
+      "alphas": [
+        0.000754,
+        0.002127,
+        0.001929,
+        5.2e-05,
+        0.001744,
+        0,
+        0,
+        0,
+        0,
+        0.000481
+      ]
+    },
+    "8xrelu": {
+      "architecture": 8,
+      "activation": "relu",
+      "mean_decay_rate": 0.0005,
+      "std_decay_rate": 0.0017,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0,
+        0.006993,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "8xsigmoid": {
+      "architecture": 8,
+      "activation": "sigmoid",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        3e-05,
+        3.1e-05,
+        0,
+        2.8e-05,
+        4.2e-05,
+        2e-05,
+        0,
+        3.3e-05,
+        1.8e-05,
+        5e-05
+      ]
+    },
+    "8xleaky_relu": {
+      "architecture": 8,
+      "activation": "leaky_relu",
+      "mean_decay_rate": 0.0007,
+      "std_decay_rate": 0.0036,
+      "samples": 50,
+      "alphas": [
+        0.006462,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "8xsoftplus": {
+      "architecture": 8,
+      "activation": "softplus",
+      "mean_decay_rate": 0.0005,
+      "std_decay_rate": 0.0013,
+      "samples": 50,
+      "alphas": [
+        0.003153,
+        0,
+        0,
+        2.5e-05,
+        0,
+        0,
+        0.001689,
+        0,
+        0,
+        0.003246
+      ]
+    },
+    "8xelu": {
+      "architecture": 8,
+      "activation": "elu",
+      "mean_decay_rate": 0.0018,
+      "std_decay_rate": 0.0036,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0.001859,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.000705,
+        0
+      ]
+    },
+    "8xlinear": {
+      "architecture": 8,
+      "activation": "linear",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        0
+      ]
+    },
+    "10xtanh": {
+      "architecture": 10,
+      "activation": "tanh",
+      "mean_decay_rate": 0.0018,
+      "std_decay_rate": 0.0046,
+      "samples": 50,
+      "alphas": [
+        0,
+        0.0013,
+        0.003898,
+        0.003174,
+        0.024915,
+        0,
+        0,
+        0.000601,
+        0,
+        0
+      ]
+    },
+    "10xrelu": {
+      "architecture": 10,
+      "activation": "relu",
+      "mean_decay_rate": 0.0006,
+      "std_decay_rate": 0.0022,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0.013346,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "10xsigmoid": {
+      "architecture": 10,
+      "activation": "sigmoid",
+      "mean_decay_rate": 0.0001,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        4e-05,
+        5e-05,
+        7e-05,
+        3.1e-05,
+        5.1e-05,
+        0,
+        0.000168,
+        9.1e-05,
+        3e-06,
+        5.1e-05
+      ]
+    },
+    "10xleaky_relu": {
+      "architecture": 10,
+      "activation": "leaky_relu",
+      "mean_decay_rate": 0.0002,
+      "std_decay_rate": 0.0009,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0.005419,
+        0.000805,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "10xsoftplus": {
+      "architecture": 10,
+      "activation": "softplus",
+      "mean_decay_rate": 0.0006,
+      "std_decay_rate": 0.0013,
+      "samples": 50,
+      "alphas": [
+        0.003474,
+        4.1e-05,
+        0.003002,
+        0.000374,
+        0,
+        0.00045,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "10xelu": {
+      "architecture": 10,
+      "activation": "elu",
+      "mean_decay_rate": 0.0018,
+      "std_decay_rate": 0.0039,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.009703,
+        0,
+        0,
+        0
+      ]
+    },
+    "10xlinear": {
+      "architecture": 10,
+      "activation": "linear",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        0.0,
+        0.0,
+        0,
+        0.0
+      ]
+    },
+    "16xtanh": {
+      "architecture": 16,
+      "activation": "tanh",
+      "mean_decay_rate": 0.0014,
+      "std_decay_rate": 0.0037,
+      "samples": 50,
+      "alphas": [
+        0.004096,
+        0,
+        0,
+        0,
+        0.000845,
+        0.018524,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "16xrelu": {
+      "architecture": 16,
+      "activation": "relu",
+      "mean_decay_rate": 0.0004,
+      "std_decay_rate": 0.0016,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.002526
+      ]
+    },
+    "16xsigmoid": {
+      "architecture": 16,
+      "activation": "sigmoid",
+      "mean_decay_rate": 0.0001,
+      "std_decay_rate": 0.0001,
+      "samples": 50,
+      "alphas": [
+        4.7e-05,
+        9e-05,
+        4e-05,
+        7.4e-05,
+        0.000149,
+        6.5e-05,
+        7.7e-05,
+        8.6e-05,
+        0.00018,
+        0.000219
+      ]
+    },
+    "16xleaky_relu": {
+      "architecture": 16,
+      "activation": "leaky_relu",
+      "mean_decay_rate": 0.0025,
+      "std_decay_rate": 0.0087,
+      "samples": 50,
+      "alphas": [
+        0,
+        0,
+        0.012013,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "16xsoftplus": {
+      "architecture": 16,
+      "activation": "softplus",
+      "mean_decay_rate": 0.0007,
+      "std_decay_rate": 0.0016,
+      "samples": 50,
+      "alphas": [
+        0,
+        6.1e-05,
+        0.000713,
+        0,
+        0,
+        0.000264,
+        0.000183,
+        0,
+        0.004438,
+        0.000996
+      ]
+    },
+    "16xelu": {
+      "architecture": 16,
+      "activation": "elu",
+      "mean_decay_rate": 0.0041,
+      "std_decay_rate": 0.0098,
+      "samples": 50,
+      "alphas": [
+        0.010466,
+        0,
+        0.008756,
+        0,
+        0,
+        0.001291,
+        0,
+        0.011417,
+        0,
+        0
+      ]
+    },
+    "16xlinear": {
+      "architecture": 16,
+      "activation": "linear",
+      "mean_decay_rate": 0.0,
+      "std_decay_rate": 0.0,
+      "samples": 50,
+      "alphas": [
+        0.0,
+        0.0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  }
+}
