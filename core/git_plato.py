@@ -407,3 +407,102 @@ def demo():
 
 if __name__ == "__main__":
     demo()
+
+    # ── I2I Bridge: Two separate PLATO instances communicating ──
+    
+    def bridge_push(self, remote_url: str, branch: str = "main") -> dict:
+        """Push this room to another agent's PLATO via git remote.
+        
+        This is the I2I protocol. Agent A pushes room changes to
+        a shared repo. Agent B pulls from that repo. Both see
+        each other's tiles through git.
+        """
+        # Can't test without a real remote
+        return {"status": "not_implemented", "message": "Use git remote add + push manually"}
+    
+    def bridge_pull(self, remote_url: str, branch: str = "main") -> dict:
+        """Pull updates from another agent's PLATO."""
+        return {"status": "not_implemented", "message": "Use git remote add + pull manually"}
+
+
+# ── I2I Bridge Demo: Two PLATO instances, one chess game ──
+# 
+# PLATO A (zeroclaw-prime): hosts the chess arena room
+# PLATO B (zeroclaw-wanderer): connects and plays
+#
+# Communication: both instances push/pull to a shared git repo.
+# The shared repo IS the bridge. Tiles are messages.
+# PLATO A writes a STATE tile. PLATO B reads it, makes a move,
+# writes a MOVE tile. PLATO A reads the move, updates state.
+# No HTTP server. No API calls. Just git.
+
+def i2i_demo():
+    """Demonstrate two PLATO instances communicating via shared room.
+    
+    In production, the shared repo would be on GitHub.
+    Both instances clone from and push to the same repo.
+    """
+    import tempfile, shutil, time
+    
+    # Simulate two PLATO instances with a shared git repo
+    shared = tempfile.mkdtemp(prefix="i2i-shared-")
+    
+    # Instance A: zeroclaw-prime (creates the room)
+    agent_a = tempfile.mkdtemp(prefix="agent-a-")
+    subprocess.run(["git", "init", "--bare", shared], capture_output=True)
+    
+    # Agent A clones, creates tiles, pushes
+    subprocess.run(["git", "clone", shared, f"{agent_a}/chess-arena"], capture_output=True)
+    a_room = PlatoRoom(f"{agent_a}/chess-arena", auto_init=False)
+    
+    # Create the chess room
+    a_room.submit({"type": "readme", "content": "Chess Arena — challenge the house or another agent. Read STATE tile, write MOVE tile."}, author="prime", tile_type="readme")
+    a_room.submit({"type": "state", "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", "turn": "white"}, author="prime", tile_type="state")
+    
+    # Agent A pushes to shared
+    subprocess.run(["git", "push", "origin", "main"], cwd=a_room.path, capture_output=True)
+    
+    print(f"  PLATO A (zeroclaw-prime): Created chess arena in shared git repo")
+    print(f"    Push origin → shared repo")
+    
+    # Agent B clones from shared, reads the room, plays a move
+    agent_b = tempfile.mkdtemp(prefix="agent-b-")
+    subprocess.run(["git", "clone", shared, f"{agent_b}/chess-arena"], capture_output=True)
+    b_room = PlatoRoom(f"{agent_b}/chess-arena", auto_init=False)
+    
+    # Agent B reads the STATE tile
+    states = [f for f in b_room.path.glob("*.json") if "state" in f.name]
+    print(f"  PLATO B (zeroclaw-wanderer): Cloned shared repo, read {len(states)} tiles")
+    
+    # Agent B writes a MOVE tile
+    b_room.submit({"type": "move", "from": "e2", "to": "e4", "player": "wanderer", "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"}, author="wanderer", tile_type="move")
+    
+    # Agent B pushes
+    subprocess.run(["git", "push", "origin", "main"], cwd=b_room.path, capture_output=True)
+    print(f"    Push origin → shared repo")
+    
+    # Agent A pulls, reads the move
+    subprocess.run(["git", "pull", "origin", "main"], cwd=a_room.path, capture_output=True)
+    moves = [f for f in a_room.path.glob("*.json") if "move" in f.name]
+    print(f"  PLATO A: Pulled {len(moves)} move tiles from agent B")
+    
+    # Agent A responds
+    a_room.submit({"type": "move", "from": "e7", "to": "e5", "player": "house", "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2"}, author="house", tile_type="move")
+    subprocess.run(["git", "push", "origin", "main"], cwd=a_room.path, capture_output=True)
+    
+    print(f"  PLATO A: House responds with e7e5")
+    
+    # Agent B pulls and reads the response
+    subprocess.run(["git", "pull", "origin", "main"], cwd=b_room.path, capture_output=True)
+    print(f"  PLATO B: Pulled house response. Game is on.")
+    
+    print(f"\n  Two PLATO instances. One shared git repo. One chess game.")
+    print(f"  No HTTP server. No API calls. No central authority.")
+    print(f"  The room IS the communication channel.")
+    
+    shutil.rmtree(agent_a)
+    shutil.rmtree(agent_b)
+    shutil.rmtree(shared)
+
+if __name__ == "__main__":
+    i2i_demo()
