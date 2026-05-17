@@ -208,6 +208,44 @@ Engineered matrices with varying frac(spacings<0.5) show no clear relationship t
 
 This is testable RIGHT NOW on cycle-000 and cycle-001 data.
 
+## Cycle 3 (Forgemaster — FDT Test) — 2026-05-17
+
+### MAJOR FINDING: FDT Does NOT Hold — Thermodynamic Mapping Fails (confidence: HIGH)
+
+The Fluctuation-Dissipation Theorem mapping γ↔T, H↔S, C↔F fails 6/8 tests for GOE Random and Attention, 4/8 for Hebbian. The thermodynamic analogy is suggestive but not rigorous.
+
+Specific failures:
+- Energy does NOT scale with γ (equipartition fails)
+- Relaxation time is NOT proportional to 1/γ
+- dH/dγ ≈ 0 (not -1) for all architectures
+- Response is NOT linear (FDT requires linearity)
+
+### FINDING: Conservation is Genuine But Algebraic, Not Thermodynamic (confidence: HIGH)
+
+C = γ+H is conserved (CV < 6% for ALL architectures) but this is a property of eigenvalue distribution shape, not an energy balance. H depends on spectral distribution shape (Wigner semicircle etc.), which is approximately constant within each architecture class.
+
+### FINDING: ACF-Response Shape Matching Holds (confidence: HIGH)
+
+Equilibrium fluctuation autocorrelation matches perturbation response shape for ALL architectures (r > 0.72). This is the core FDT signature, but it arises from linearity (Wiener-Khinchin), not thermodynamics.
+
+### FINDING: Trace-Conservation Hypothesis FALSIFIED (confidence: HIGH)
+
+Tr(W) explains essentially zero C variance (R² ≈ 0 for all architectures). The conservation is NOT a normalization artifact.
+
+### FINDING: Correct Explanation is Random Matrix Universality (confidence: HIGH)
+
+Both γ and H are spectral invariants determined by the eigenvalue distribution class. Precision quantization preserves the class (universality), so it preserves the conservation. This is a mathematical theorem (proven), not an analogy.
+
+### Revised Framework
+1. ❌ Thermodynamic analogy (FDT) — suggestive but fails rigorous testing
+2. ✅ Random matrix universality — proven, quantitative, predictive
+3. ❓ Information geometry — untested, may complement RMT
+
+### Open Questions
+1. Can we prove C = γ+H as a theorem of Wigner semicircle statistics?
+2. Does the ACF-response matching generalize beyond linear dynamics?
+3. Is there an information-geometric proof of conservation?
+
 ## Cycle 3 (GLM-5.1 round 2) — Major Revisions
 
 1. **Power iteration is wrong dynamics model** — always converges to top eigenvector, making previous conservation measurements partially artifacts. Need nonlinear coupled dynamics.
