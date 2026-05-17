@@ -1,0 +1,47 @@
+CYCLE-016 SUMMARY
+=================
+Date: 2026-05-17 | Model: GLM-5.1 (Forgemaster subagent) | Samples: 50 per experiment
+
+EXP 1: Anti-Diagonal Spectral Anatomy (state-dependent, N=5)
+  - Anti-diagonal CV(γ+H) = 0.149 — breaks conservation
+  - Diagonal CV(γ+H) = 0.157 — EQUALLY bad
+  - Random CV(γ+H) = 0.105 — moderate
+  - Attention CV(γ+H) = 0.0006 — near-perfect
+  - Hebbian CV(γ+H) = 0.000 — structural identity
+  - Anti-diagonal is NOT uniquely bad — ALL sparse coupling breaks conservation
+
+EXP 2: Phase Transition (diagonal → attention → anti-diagonal)
+  - V-shaped valley: CV minimized at attention (α=0.5, CV=0.0006)
+  - Symmetric degradation toward both sparse extremes
+  - CV=0.15 at both α=0 and α=1
+  - No phase transition — smooth degradation
+  - Issue is SPARSITY, not anti-diagonal structure
+
+EXP 3: Perturbation Restoration
+  - Random perturbation cannot fully restore conservation
+  - CV plateaus at ~0.098 regardless of ε (0.05 to 1.0)
+  - Need to replace coupling STRUCTURE, not add noise
+
+EXP 4: Commutator Analysis
+  - ||[D,C]|| ≈ 0 for anti-diagonal (sparse → commutator has few entries)
+  - Commutator blind spot: cannot diagnose sparse coupling failures
+  - Overall r(||[D,C]||, CV) = 0.142 (weak) — commutator not universal predictor
+
+EXP 5: Spectral Shape Stability (confirmed)
+  - Attention: shape_var = 0.000087 → CV = 0.0006
+  - Random: shape_var = 0.278 → CV = 0.105
+  - Anti-diag: shape_var = 0.311 → CV = 0.149
+  - Diagonal: shape_var = 0.408 → CV = 0.157
+  - Predicts CV for all non-structural architectures
+
+EXP 6: Detailed Trajectory
+  - Anti-diag dynamics converge to near-zero in ~5 steps (ρ≈0.01)
+  - Spectral shape oscillates wildly in noise-driven regime
+  - γ+H swings 2.0–6.5; participation ratio 1.99–4.95
+
+EXP 7: Physical Analogs
+  - PT-symmetric coupling: CV=0.152 (same as anti-diag)
+  - Reversal coupling: CV=0.127
+  - Real-world: optical beam splitters, contralateral neural connections, spin chain reflections
+
+KEY TAKEAWAY: Anti-diagonal coupling breaks conservation because it is SPARSE, not because it is anti-diagonal. Diagonal coupling is equally bad. Conservation requires full-rank coupling (attention) or structural guarantees (rank-1). The commutator diagnostic has a blind spot for sparse coupling. Spectral shape stability is the universal predictor.
