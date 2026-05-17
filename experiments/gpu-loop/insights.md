@@ -142,3 +142,11 @@ This metric predicts conservation better than KS distance to GOE. Threshold appe
 3. Fix the dynamics-based conservation metric and re-run EXP-2 through 5
 4. For asymmetric matrices: Ginibre ensemble spacing (complex eigenvalues)?
 5. Can the frac<0.5 diagnostic predict conservation for arbitrary coupling?
+
+## URGENT: Theory Gap Finding (Research Assistant)
+
+**Trace-Conservation Hypothesis** — if Tr(C) is conserved (normalization), then for GOE matrices with fixed trace, γ+H is determined by Tr(C) alone. This would reduce the mystery from "why is γ+H conserved across substrates?" to "why is Tr(C) conserved?" — answer: normalization.
+
+**SMOKING GUN EXPERIMENT** (5 min): Check whether Tr(C(t)) is conserved in existing cycle data, and whether Tr(C) variation explains γ+H variation. If yes, the entire conservation law is a DERIVED property of normalization + Wigner semicircle.
+
+This is testable RIGHT NOW on cycle-000 and cycle-001 data.
