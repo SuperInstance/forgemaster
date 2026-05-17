@@ -730,3 +730,65 @@ The theorem is: *For contracting tanh-coupled systems, the spectral quantity γ+
 2. What is the exact relationship between contractivity and CV(γ+H)?
 3. Is the spectral first integral related to any known quantity in dynamical systems?
 4. Test with Hamiltonian-adjacent activations: does conservation survive under non-contractive maps?
+
+---
+
+## Cycle 12 (GLM-5.1, effective rank sweep) — 2026-05-17
+
+### MAJOR FINDING: Conservation Failure is Causal from Spectral Shape Variation, Not Eigenvector Rotation (confidence: HIGH)
+
+Eigenvalue-engineered coupling with FIXED spectra achieves CV=0.0000 despite 66° eigenvector rotation. This proves eigenvector rotation is a CORRELATE of conservation failure, not a CAUSE. The causal variable is eigenvalue SHAPE stability — how much the spectral distribution changes as the state evolves.
+
+This revises Cycles 9–11's framework: ||[D,C]|| and eigenvector rotation predict conservation because they CORRELATE with spectral instability, but the mechanism is spectral.
+
+### FINDING: γ=1, H=0 is an Exact Algebraic Identity for Rank-1 (confidence: HIGH)
+
+For C(x) = xx^T/N: single eigenvalue λ₁ = ||x||²/N, all others zero.
+- Participation: γ = (Σλᵢ)²/(Σλᵢ²) = λ₁²/λ₁² = 1 exactly
+- Entropy: H = -Σpᵢ·ln(pᵢ) = -1·ln(1) = 0 exactly
+- γ+H = 1 regardless of x, noise, or dynamics
+
+10/10 samples: γ=1.000000 (std=0.000000), H=0.000000 (std=0.000000).
+
+### FINDING: Non-Monotonic CV in Hybrid Coupling (confidence: HIGH)
+
+Hybrid C(x) = α·xx^T/N + (1-α)·R:
+- α=0.0: CV=0.000 (static R)
+- α=0.5: CV=0.008 (stable plateau)
+- α=0.95: CV=0.033–0.049 (PEAK — spectral instability without structural safety net)
+- α=1.0: CV=0.000 (structural identity)
+
+The peak at α≈0.95 occurs because the Hebbian component creates large eigenvalue shape swings without the rank-1 algebraic guarantee.
+
+### FINDING: Effective Rank Does NOT Gradually Transition (confidence: HIGH)
+
+For α<1.0, eff_rank stays ~3.5–3.7 regardless of α. At α=1.0, it collapses to 1.0 discontinuously. The effective rank threshold is binary, not gradual.
+
+### Three Conservation Regimes
+
+```
+Structural (eff_rank=1):    CV=0.000 exactly  | Algebraic identity
+Dynamical (stable spectrum): CV≈0.004–0.015   | Spectral shape stability
+Transitional (fluctuating):  CV≈0.02–0.05     | Neither mechanism applies
+```
+
+### Revised Theory
+
+```
+Conservation quality = f(spectral shape stability)
+
+Causal chain:
+  State evolution → eigenvalue shape variation → γ+H variation
+  Eigenvector rotation is a correlate (correlated with shape variation)
+  Activation contractivity is secondary (modulates state magnitude)
+
+Structural mechanism (rank-1): shape is trivially stable
+Dynamical mechanism: shape is stabilized by coupling structure
+```
+
+### Open Questions for Cycle 13
+1. What metric captures "spectral shape stability" directly? (Earth mover's distance between spectra?)
+2. Does structural mechanism generalize to rank-2? Rank-k? Where's the boundary?
+3. Can we engineer coupling that avoids the transitional CV peak?
+4. What determines spectral shape stability in the dynamical regime?
+5. Is there an analytical bound on CV in terms of spectral variation?

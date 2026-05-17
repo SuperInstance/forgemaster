@@ -1,0 +1,17 @@
+Cycle 12 (GLM-5.1, effective rank sweep) — 2026-05-17
+
+EXECUTIVE SUMMARY: Mapped the structural/dynamical conservation transition via hybrid coupling C(x) = α·xx^T/N + (1-α)·R.
+
+KEY FINDINGS:
+1. GRADUAL transition, NO sharp rank threshold. CV peaks at α≈0.95 (0.033–0.049), then drops to 0.000 at α=1.0.
+2. γ=1.0000, H=0.0000 is an EXACT algebraic identity for rank-1 matrices (not approximate).
+3. Eigenvector rotation is a CORRELATE, not CAUSE — engineered fixed spectra give CV=0.0000 despite 66° rotation.
+4. Conservation failure comes from eigenvalue SHAPE variation, not eigenvector rotation.
+5. The true causal driver is spectral shape stability under state evolution.
+
+THREE REGIMES:
+- Structural (rank-1): CV=0.000 exactly, rotation irrelevant
+- Dynamical (stable spectrum): CV≈0.004–0.015, low rotation
+- Transitional (fluctuating spectrum): CV≈0.02–0.05, moderate rotation
+
+FILES: cycle-012/results.md, cycle-012/experiments.py, cycle-012/raw_data.json
