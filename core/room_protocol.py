@@ -38,7 +38,7 @@ from datetime import datetime
 from enum import Enum
 from collections import defaultdict
 
-PLATO_URL = "http://147.224.38.131:8847"
+PLATO_URL = "http://localhost:8847  # local PLATO (default)"
 
 
 # ─── Core Types ────────────────────────────────────────────────────────────────

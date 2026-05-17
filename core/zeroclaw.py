@@ -13,7 +13,7 @@ import os, sys, json, time, tempfile, subprocess, urllib.request
 from typing import Optional
 
 RACK = "https://raw.githubusercontent.com/SuperInstance"
-PLATO = "http://147.224.38.131:8847"
+PLATO = "http://localhost:8847  # local PLATO (default)"
 WS = os.path.expanduser("~/.openclaw/workspace/core")
 
 TOOLS = {

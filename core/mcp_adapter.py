@@ -30,7 +30,7 @@ import json, os, time, argparse
 from typing import Dict, List, Optional, Any
 from datetime import datetime
 
-PLATO_URL = "http://147.224.38.131:8847"
+PLATO_URL = "http://localhost:8847  # local PLATO (default)"
 
 
 def _plato_get(path: str, timeout: float = 5.0) -> Optional[dict]:

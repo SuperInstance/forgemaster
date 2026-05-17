@@ -16,7 +16,7 @@ import urllib.error
 from typing import Optional
 
 
-PLATO_URL = "http://147.224.38.131:8847"
+PLATO_URL = "http://localhost:8847  # local PLATO (default)"
 
 
 class PlatoShell:

@@ -37,7 +37,7 @@ TOOLS = {
     "prophet-agent": "https://raw.githubusercontent.com/SuperInstance/prophet-agent/main/prophet_agent.py",
 }
 
-PLATO_URL = "http://147.224.38.131:8847"
+PLATO_URL = "http://localhost:8847  # local PLATO (default)"
 FORGE_ROOM = "forge"
 
 

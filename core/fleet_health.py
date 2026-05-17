@@ -34,7 +34,7 @@ from enum import Enum
 import requests
 
 API_KEY_PATH = os.path.expanduser("~/.openclaw/workspace/.credentials/deepinfra-api-key.txt")
-PLATO_URL = "http://147.224.38.131:8847"
+PLATO_URL = "http://localhost:8847  # local PLATO (default)"
 HEALTH_HISTORY_PATH = os.path.expanduser("~/.openclaw/workspace/experiments/fleet-health-history.json")
 
 

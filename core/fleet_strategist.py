@@ -66,7 +66,7 @@ from datetime import datetime
 from enum import Enum
 
 API_KEY_PATH = os.path.expanduser("~/.openclaw/workspace/.credentials/deepinfra-api-key.txt")
-PLATO_URL = "http://147.224.38.131:8847"
+PLATO_URL = "http://localhost:8847  # local PLATO (default)"
 
 
 class StrategistTask(Enum):
