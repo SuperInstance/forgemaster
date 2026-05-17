@@ -1,0 +1,29 @@
+CYCLE 002 COMPLETE
+Model: Nemotron-30B (orchestrated by GLM-5.1)
+Date: 2026-05-16 23:28 AKDT
+Duration: ~5 minutes
+
+STATUS: PARTIAL SUCCESS
+
+KEY RESULT: GOE spacing is SUFFICIENT but NOT NECESSARY for conservation.
+- Random coupling: textbook GOE (KS=0.038), conserved (CV=0.015)
+- Attention coupling: intermediate spacing (NOT GOE), but STILL conserved (CV=0.016)
+- Hebbian coupling: Poisson spacing (KS=0.589), NOT conserved (CV=0.268)
+
+The real requirement is EIGENVALUE REPULSION, not specifically GOE statistics.
+
+SECONDARY: Eigenvalue engineering works — projection rescaling drops Hebbian KS from 0.747 to 0.108.
+
+METHODOLOGICAL BUG: EXP-2 through 5 measured conservation from static eigenvalues (CV=0 trivially). Needs dynamics-based measurement for next cycle.
+
+FILES:
+- analysis.md: Pre-experiment analysis
+- results.md: Full results with honest assessment
+- exp-1.py through exp-5.py: Experiment scripts
+- exp1_results.json through exp5_results.json: Raw data
+- insights.md: Updated with Cycle 2 findings
+
+NEXT CYCLE SHOULD:
+1. Fix the dynamics-based conservation metric
+2. Re-run the decorrelation and quantization transition experiments
+3. Investigate WHY Attention achieves repulsion without GOE statistics

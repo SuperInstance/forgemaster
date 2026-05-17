@@ -1,0 +1,55 @@
+{
+  "random_baseline": {
+    "mean_cv": 7.894646634270676e-17,
+    "mean_goe_ks": 0.10382849542105607,
+    "n_valid": 30
+  },
+  "hebbian_original": {
+    "mean_cv": 1.0081072037634033e-16,
+    "mean_goe_ks": 0.7469775432214069,
+    "n_valid": 30
+  },
+  "hebbian_goe_projected": {
+    "mean_cv": 1.2125618894384365e-16,
+    "mean_goe_ks": 0.1075865911467031,
+    "n_valid": 30
+  },
+  "attention_original": {
+    "mean_cv": 1.3937437192174532e-16,
+    "mean_goe_ks": 0.5571951878526141,
+    "n_valid": 30
+  },
+  "attention_goe_projected": {
+    "mean_cv": 1.0780406760741526e-16,
+    "mean_goe_ks": 0.10852001532693627,
+    "n_valid": 30
+  },
+  "hebbian_mix_0.0": {
+    "mix_ratio": 0.0,
+    "mean_cv": 1.0084826441347739e-16
+  },
+  "hebbian_mix_0.1": {
+    "mix_ratio": 0.1,
+    "mean_cv": 1.3542787981707287e-16
+  },
+  "hebbian_mix_0.2": {
+    "mix_ratio": 0.2,
+    "mean_cv": 1.1314099694276682e-16
+  },
+  "hebbian_mix_0.3": {
+    "mix_ratio": 0.3,
+    "mean_cv": 1.2336236448182186e-16
+  },
+  "hebbian_mix_0.5": {
+    "mix_ratio": 0.5,
+    "mean_cv": 1.3523477375738619e-16
+  },
+  "hebbian_mix_0.7": {
+    "mix_ratio": 0.7,
+    "mean_cv": 1.3762215053090296e-16
+  },
+  "hebbian_mix_1.0": {
+    "mix_ratio": 1.0,
+    "mean_cv": 1.1869397771856997e-16
+  }
+}

@@ -1,0 +1,23 @@
+================================================================================
+EXP-4: Designing Coupling Matrices That Conserve
+================================================================================
+Method                    | CV       | GOE_KS   | Conserved 
+----------------------------------------------------------------------
+random_baseline           | 0.0000   |   0.1038 | ✓         
+hebbian_original          | 0.0000   |   0.7470 | ✓         
+hebbian_goe_projected     | 0.0000   |   0.1076 | ✓         
+attention_original        | 0.0000   |   0.5572 | ✓         
+attention_goe_projected   | 0.0000   |   0.1085 | ✓         
+
+======================================================================
+HYBRID: Structured + Random Eigenvalue Fraction
+======================================================================
+  mix_ratio=0.0 | CV=0.0000 | ✓
+  mix_ratio=0.1 | CV=0.0000 | ✓
+  mix_ratio=0.2 | CV=0.0000 | ✓
+  mix_ratio=0.3 | CV=0.0000 | ✓
+  mix_ratio=0.5 | CV=0.0000 | ✓
+  mix_ratio=0.7 | CV=0.0000 | ✓
+  mix_ratio=1.0 | CV=0.0000 | ✓
+
+Results saved to exp4_results.json

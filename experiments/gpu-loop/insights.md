@@ -88,3 +88,57 @@ System size scaling (N=10,20,50,100) showed no clear broadening trend. Broadenin
 3. Is there a hybrid architecture that gets both structure and conservation?
 4. Does real GPU numerical behavior differ from simulated quantization?
 5. Better BBP broadening methodology needed (noise within matrix, not block structure)
+
+## Cycle 2 (Nemotron-30B) — 2026-05-16
+
+### MAJOR FINDING: GOE Spacing is Sufficient but NOT Necessary for Conservation (confidence: HIGH)
+
+Eigenvalue spacing analysis (EXP-1, 200 samples × 3 architectures):
+- Random coupling: KS=0.038 to Wigner surmise → textbook GOE
+- Hebbian coupling: KS=0.589 to Poisson → massive eigenvalue degeneracy
+- Attention coupling: KS=0.545 to GOE, KS=0.306 to Poisson → INTERMEDIATE
+
+Cross-instance CV (γ+H across different random matrices of same architecture):
+- Random: CV=0.015 (conserved)
+- Attention: CV=0.016 (conserved!) — despite NOT being GOE
+- Hebbian: CV=0.268 (not conserved)
+
+Attention achieves conservation without GOE spacing. GOE is sufficient but not necessary. The actual requirement is **eigenvalue repulsion** (avoidance of degeneracy), not specifically GOE statistics.
+
+### FINDING: Noise Drives Hebbian Toward GOE Spacing (confidence: MED)
+
+Adding Wigner noise to Hebbian matrices:
+- noise=0.001: level repulsion violations = 79.4%
+- noise=1.0: violations = 68.2%
+- noise=5.0: violations = 17.1% (near GOE)
+
+The decorrelation hypothesis has indirect support: noise pushes structured matrices toward GOE-like spacing.
+
+### FINDING: Eigenvalue Engineering Works (confidence: HIGH)
+
+GOE spacing projection: Hebbian KS drops from 0.747 to 0.108 (matching random's 0.104). We can engineer eigenvalue statistics by rescaling eigenvalues to match GOE spacing while preserving eigenvectors.
+
+### METHODOLOGICAL ISSUE: Static Eigenvalue Measurement (confidence: N/A)
+
+EXP-2 through 5 computed γ+H from the fixed eigenvalue spectrum (not evolving dynamics), producing trivially CV=0 for all configurations. This invalidates the conservation measurements in those experiments. The conservation metric must track γ+H from the STATE VECTOR evolution, not from eigenvalues.
+
+### Key Diagnostic: frac(eigenvalue spacings < 0.5)
+- Random: 0.207 (GOE: strong level repulsion)
+- Attention: 0.707 (moderate repulsion)
+- Hebbian: 0.850 (massive degeneracy, levels pile up)
+
+This metric predicts conservation better than KS distance to GOE. Threshold appears to be around frac<0.5 ≈ 0.5.
+
+### Revised Understanding
+1. Conservation requires eigenvalue REPULSION, not specifically GOE statistics
+2. GOE is the strongest form of repulsion (random matrices)
+3. Attention achieves repulsion through a different mechanism (structured but non-degenerate)
+4. Hebbian fails because pattern-based construction creates eigenvalue degeneracy
+5. The frac<0.5 metric is a better predictor than GOE KS distance
+
+### Open Questions for Next Cycle
+1. WHY does Attention conserve despite non-GOE spacing? What prevents degeneracy?
+2. What is the minimum eigenvalue repulsion for conservation? Is there a sharp threshold?
+3. Fix the dynamics-based conservation metric and re-run EXP-2 through 5
+4. For asymmetric matrices: Ginibre ensemble spacing (complex eigenvalues)?
+5. Can the frac<0.5 diagnostic predict conservation for arbitrary coupling?

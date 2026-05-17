@@ -1,0 +1,27 @@
+/home/phoenix/.openclaw/workspace/experiments/gpu-loop/cycle-002/exp-1.py:44: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+  goe_theory /= np.trapz(goe_theory, centers)
+/home/phoenix/.openclaw/workspace/experiments/gpu-loop/cycle-002/exp-1.py:45: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+  poisson_theory /= np.trapz(poisson_theory, centers)
+======================================================================
+EXP-1: Eigenvalue Spacing Distribution Analysis
+======================================================================
+Matrix size N=50, 200 samples per architecture
+
+RANDOM       | KS(GOE)=0.0380 | KS(Poisson)=0.2103 | → GOE
+             | spacing mean=1.0000 std=0.6187 | frac<0.5=0.2074
+             | γ+H mean=3.7624 CV=0.0150
+
+HEBBIAN      | KS(GOE)=0.7925 | KS(Poisson)=0.5885 | → POISSON
+             | spacing mean=1.0000 std=2.9206 | frac<0.5=0.8498
+             | γ+H mean=6.6201 CV=0.2680
+
+ATTENTION    | KS(GOE)=0.5453 | KS(Poisson)=0.3064 | → POISSON
+             | spacing mean=1.0000 std=3.7165 | frac<0.5=0.7069
+             | γ+H mean=4.0222 CV=0.0162
+
+CORRELATION: GOE-ness (1 - KS_GOE) vs Conservation (1/CV)
+  random: GOE-score=0.9620, Conservation-score=40.06
+  hebbian: GOE-score=0.2075, Conservation-score=3.60
+  attention: GOE-score=0.4547, Conservation-score=38.20
+
+Results saved to exp1_results.json
