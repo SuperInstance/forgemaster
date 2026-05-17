@@ -632,3 +632,55 @@ Large commutator → D non-uniform → A ≠ cC → eigenvectors rotate → degr
 3. Can we engineer P analytically from C using the commutator structure?
 4. Does the commutator diagnostic hold for N=50,100 (scaling)?
 5. Higher-order Koopman modes: is γ+H the ONLY near-conserved quantity?
+
+---
+
+## Cycle 10 (Seed-2.0-mini, fourth rotation) — 2026-05-17
+
+### MAJOR FINDING: Theory Has Two Independent Mechanisms, Not One (confidence: HIGH)
+
+Stress test of the convergent theory (conservation = eigenvector stability × activation contractivity) reveals it is INCOMPLETE. Conservation operates via two independent mechanisms:
+
+1. **STRUCTURAL** (rank-1 coupling): Hebbian SD (C=xx^T/N) conserves trivially — γ=1, H=0 is an algebraic identity of rank-1 matrices, regardless of eigenvector rotation.
+2. **DYNAMICAL** (full-rank coupling): Attention SD conserves via eigenvector stability — rotation predicts CV.
+
+### FINDING: Hebbian SD is a Universal Counterexample (confidence: HIGH)
+
+At ALL tested scales (N=5,10,20,50), Hebbian SD achieves CV=0.0000 with 67-83° eigenvector rotation. This directly falsifies "high rotation → poor conservation."
+
+Mechanism: C(x) = xx^T/N is rank-1 → single eigenvalue → γ=1, H=0 → γ+H = ||x||²/N. Under tanh dynamics, ||x||² is nearly constant because x_{t+1} = tanh(||x||²/N · x) + noise is approximately self-normalizing.
+
+### FINDING: Activation Contractivity is a Minor Effect (confidence: HIGH)
+
+All 7 tested activations (hard_tanh, tanh, sigmoid, swish, softplus, relu, leaky_relu) produce CV between 0.0033 and 0.0039 under attention SD — only 18% spread. Cycle 8's dramatic activation ranking (swish 3× better than tanh) does NOT reproduce with symmetrized coupling.
+
+### FINDING: Non-Monotonic Noise Response (confidence: MED)
+
+Eigenvector destabilization (adding noise to coupling) produces an inverted-U response: CV peaks at σ=0.005 (CV=0.019), then DECREASES at high noise. At σ=2.0, CV=0.023 despite 79° rotation. High noise creates a near-GOE regime with moderate conservation.
+
+### FINDING: No Forward-Direction Counterexample (confidence: HIGH)
+
+Every config with eigenvector rotation < 5° has CV < 0.01. The forward direction (low rotation → good conservation) holds universally.
+
+### REVISED THEORY
+
+```
+Conservation = max(STRUCTURAL, DYNAMICAL)
+
+Structural: eff_rank(C) < 1.5 → conservation is algebraic identity
+Dynamical: eff_rank(C) > 2   → conservation depends on eigenvector rotation
+
+eff_rank(C) = (Σλᵢ)² / Σλᵢ²
+```
+
+### Fleet Design Principle
+- For reliable conservation: EITHER use rank-1 coupling (structural guarantee) OR use full-rank coupling with controlled eigenvector rotation (attention with high τ)
+- Activation choice is secondary — pick for task performance, not conservation
+- The effective rank of C(x) is the key diagnostic for predicting conservation mechanism
+
+### Open Questions for Cycle 11
+1. What happens at eff_rank = 2 (the boundary)? Rank-2 coupling with controlled rotation?
+2. Can we prove CV ≤ f(||[D,C]||) for the dynamical mechanism?
+3. Is the structural mechanism limited to rank-1, or does it generalize to low-rank?
+4. Can we engineer coupling that smoothly transitions between mechanisms?
+5. Real neural network layers: what is the effective rank of attention coupling in practice?

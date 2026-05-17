@@ -1,0 +1,23 @@
+Cycle 10 (Seed-2.0-mini, fourth rotation) — 2026-05-17
+
+EXECUTIVE SUMMARY: Stress-tested the convergent theory (conservation = eigenvector stability × activation contractivity). PARTIALLY FALSIFIED.
+
+THEORY REVISION: Conservation has TWO independent mechanisms, not one:
+1. STRUCTURAL: rank-1 coupling (Hebbian SD) conserves trivially via algebraic identity — eigenvector rotation irrelevant
+2. DYNAMICAL: full-rank coupling (Attention SD) conserves via eigenvector stability — rotation predicts CV
+
+KEY FINDINGS:
+- Hebbian SD: CV=0.0000 with 79° rotation at ALL scales (N=5,10,20,50) — direct counterexample
+- r(rotation, CV) = 0.78 across mixed configs, but NON-LINEAR (R²=0.60)
+- All 7 activations within 18% of each other under attention SD (CV 0.0033–0.0039)
+- Activation contractivity is NOT a primary driver
+- Eigenvector destabilization: non-monotonic (inverted-U) response
+- Switching coupling: moderate rotation (6.8°) but moderate CV (0.030) — not well predicted
+
+THEORY STATUS:
+- ✅ Low rotation → good conservation (no counterexamples found)
+- ❌ High rotation → poor conservation (Hebbian SD disproves at all scales)
+- ❌ Activation contractivity matters (all activations ~equal)
+- Need: effective rank of C(x) as the diagnostic that determines which mechanism applies
+
+FILES: cycle-010/results.md, cycle-010/experiments.py, cycle-010/raw_data.json
