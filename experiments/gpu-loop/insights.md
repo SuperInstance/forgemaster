@@ -143,6 +143,63 @@ This metric predicts conservation better than KS distance to GOE. Threshold appe
 4. For asymmetric matrices: Ginibre ensemble spacing (complex eigenvalues)?
 5. Can the frac<0.5 diagnostic predict conservation for arbitrary coupling?
 
+## Cycle 3 (GLM-5.1, rotation 2) — 2026-05-16
+
+### MAJOR REVISION: Dynamics Model Matters More Than Architecture (confidence: HIGH)
+
+Fixed the methodology: computed γ+H from state vector evolution (200 rounds of power iteration), not static eigenvalues. This revealed that **pure power iteration dynamics are too simple to properly test conservation** — all architectures converge to the top eigenvector, making γ+H trivially constant at steady state.
+
+### FINDING: γ-H Anti-Correlation is the Real Diagnostic (confidence: HIGH)
+
+Previous cycles used CV(γ+H) as the conservation metric. With proper dynamics, the key metric is the **γ-H anti-correlation** during the transient:
+- Attention: r(γ,H) = -0.999 (near-perfect anti-correlation — genuine conservation tradeoff)
+- Hebbian: r(γ,H) = -0.653 (moderate conservation)
+- Random: r(γ,H) = +0.249 (POSITIVE — both decrease, conservation FAILS)
+
+**This inverts the previous ranking.** Attention, not random, shows the strongest conservation dynamics.
+
+### FINDING: Convergence Speed Explains Previous Results (confidence: HIGH)
+
+- Attention converges to top eigenvector in ~1 round (dominant eigenvalue)
+- Hebbian converges in ~10 rounds
+- Random converges in ~107 rounds
+
+Previous cycles' low CV for random was an artifact of cross-instance measurement, not temporal dynamics. Random γ+H drifts 25% during the power iteration transient.
+
+### FINDING: GOE Projection Does NOT Change Dynamics (confidence: HIGH)
+
+Projecting Hebbian eigenvalues to GOE spacing (while preserving eigenvectors) produces IDENTICAL γ+H trajectories. The dynamics are determined by eigenvectors and spectral gap, not eigenvalue spacing distribution.
+
+### FINDING: Binary Survives with Dynamics-Based Measurement (confidence: HIGH)
+
+All quantization levels (FP32 through binary) survive with CV < 0.01 and 100% survival rate. Binary gives a different C value (3.15 vs 2.70 for FP32) but still conserves. This revises Cycle 1's ternary-as-floor finding.
+
+### FINDING: Floquet Alternation Increases CV (confidence: HIGH)
+
+Alternating between two coupling matrices (J₁, J₂) increases CV from 0.033 to 0.056 compared to static coupling. Does NOT support the Floquet symmetry protection hypothesis from the research brief.
+
+### FINDING: No Eigenvalue Repulsion Threshold (confidence: MED)
+
+Engineered matrices with varying frac(spacings<0.5) show no clear relationship to CV(γ+H). The eigenvector structure confounds eigenvalue spacing manipulation.
+
+### Revised Understanding
+
+1. **Three conservation metrics are different things:** cross-instance CV (variation across matrix samples), within-instance CV (temporal drift), γ-H correlation (tradeoff mechanism)
+2. **Previous cycles conflated these metrics**, leading to incorrect rankings
+3. **Power iteration is the wrong dynamics model** for testing conservation — it always converges to the top eigenvector
+4. **Attention has the strongest conservation mechanism** (γ-H anti-correlation = -0.999)
+5. **Random coupling does NOT conserve** during the transient (γ+H drifts 25%)
+6. **The dynamics model, not the coupling architecture, is the primary variable**
+
+### Open Questions for Cycle 4
+1. **What dynamics model properly tests conservation?** Nonlinear coupled dynamics (x = tanh(Jx))? Multi-agent with independent states?
+2. **Is γ-H anti-correlation the right conservation metric?** If so, attention wins.
+3. **Can we find dynamics where γ+H=C holds during the transient?** Pure power iteration: no.
+4. **Why does attention have such strong γ-H tradeoff?** Row-stochastic structure + dominant eigenvalue?
+5. **What happens with multi-agent dynamics (not single power iteration)?**
+
+---
+
 ## URGENT: Theory Gap Finding (Research Assistant)
 
 **Trace-Conservation Hypothesis** — if Tr(C) is conserved (normalization), then for GOE matrices with fixed trace, γ+H is determined by Tr(C) alone. This would reduce the mystery from "why is γ+H conserved across substrates?" to "why is Tr(C) conserved?" — answer: normalization.

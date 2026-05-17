@@ -1,0 +1,32 @@
+{
+  "experiment": "fdt_test",
+  "cycle": 3,
+  "date": "2026-05-17",
+  "author": "Forgemaster (research subagent)",
+  "parameters": {
+    "N": 20,
+    "n_steps": 5000,
+    "dt": 0.01,
+    "beta": 1.0,
+    "n_samples": 10
+  },
+  "architectures": {
+    "random": {
+      "label": "GOE (Random)",
+      "N": 20,
+      "n_steps": 5000,
+      "n_samples": 10,
+      "observables": {
+        "gamma_mean": 0.11393710656643753,
+        "gamma_std": 0.05329676189029417,
+        "H_mean": 0.14624619204396358,
+        "H_std": 0.21400409222806976,
+        "C_mean": 0.2601832986104011,
+        "C_std": 0.18261611782552858
+      },
+      "fdt": {
+        "conservation": {
+          "C_mean": 0.2601832986104011,
+          "C_std": 0.18261611782552858,
+          "C_cv": 0.7018748659151187,
+          "first_law_holds": 

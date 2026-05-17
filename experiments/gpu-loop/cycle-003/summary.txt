@@ -1,0 +1,31 @@
+Cycle 3 (GLM-5.1, rotation 2) — COMPLETED
+
+METHODOLOGY FIX: Successfully moved from static eigenvalue decomposition to state vector evolution over 200 rounds. The bug from Cycle 2 is fixed.
+
+5 experiments run, all producing valid results.
+
+KEY FINDINGS (3 major revisions to accumulated knowledge):
+
+1. γ-H ANTI-CORRELATION is the right conservation metric, NOT CV(γ+H).
+   - Attention: r(γ,H) = -0.999 (best conservation)
+   - Hebbian: r(γ,H) = -0.653 
+   - Random: r(γ,H) = +0.249 (FAILS conservation during transient)
+   This INVERTS the Cycle 1-2 ranking (random was "best", now it's worst).
+
+2. POWER ITERATION IS THE WRONG DYNAMICS MODEL.
+   - All architectures converge to top eigenvector → trivially constant γ+H
+   - Random γ+H drifts 25% during convergence transient
+   - Need nonlinear coupled dynamics (tanh, multi-agent) for Cycle 4
+
+3. ALL QUANTIZATION LEVELS SURVIVE (including binary).
+   - Binary: 100% survival, CV=0.009
+   - This revises Cycle 1's ternary-as-floor finding
+
+SECONDARY FINDINGS:
+- GOE projection doesn't change dynamics (eigenvectors unchanged)
+- Floquet alternation increases CV (no symmetry protection)
+- No eigenvalue repulsion threshold (eigenvector structure confounds)
+- Convergence speed: attention (1 round) >> hebbian (10) >> random (107)
+
+CRITICAL OPEN QUESTION: What dynamics model properly tests conservation?
+Power iteration always converges to top eigenvector, making all conservation measurements artifacts of convergence speed.
