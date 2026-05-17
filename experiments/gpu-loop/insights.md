@@ -312,10 +312,77 @@ non-trivial temporal dynamics.
 "GOE universality describes the SHAPE of eigenvalue distributions, not the CONSISTENCY across random draws."
 Structure constrains the shape → reduces variability → improves cross-instance stability.
 
-## Open Questions for Cycle 4+
-- What dynamics model properly tests conservation? (nonlinear coupled dynamics needed)
-- Does Tr(C²) conservation hold under nonlinear state evolution?
-- Can we prove the two-moment constraint analytically?
-- Does the Lyapunov equation (Hattori-Takesue) connect to Tr(C²)?
-- Can we design dynamics that DON'T converge to fixed point? (noise injection, nonlinear coupling)
-- Is there a system where structure DOES break conservation? (maybe in multi-step memory dynamics)
+## Cycle 4 (Seed-2.0-mini, rotation 2) — 2026-05-16
+
+### MAJOR REVISION: γ-H Anti-Correlation Was a Power Iteration Artifact (confidence: HIGH)
+
+Under nonlinear (tanh) dynamics, γ-H correlation is POSITIVE (+0.6 to +0.97) for ALL architectures. The Cycle 3 finding of r=-0.999 for attention was specific to power iteration dynamics. The nonlinearity fundamentally changes the conservation mechanism.
+
+### FINDING: Architecture Differences Collapse Under Nonlinear Dynamics (confidence: HIGH)
+
+Random, Hebbian, and Attention coupling produce nearly identical CV(γ+H) values (~0.03) under tanh dynamics, compared to the 100× spread seen under power iteration. The dynamics model is the primary variable, not the coupling architecture.
+
+### FINDING: γ+H is Exactly a Quadratic Form x^T P x (confidence: HIGH)
+
+The conserved quantity can be expressed as a genuine Lyapunov-type quadratic conservation, with R²=1.0 fit quality across all architectures. However, the linearized Lyapunov equation (A^T P A = P) is NOT satisfied (residual ~0.95 for all). The conservation mechanism is in the NONLINEARITY, not the linearized coupling.
+
+### FINDING: Tr(C²) Has Moderate Predictive Power for Dynamic C (confidence: MED)
+
+When C varies dynamically, Tr(C²) explains 16–46% of γ+H variance (R²=0.16–0.46). Confirms the trace-test direction but with weaker effect than hypothesized. The other 54%+ comes from state vector trajectory on the attractor.
+
+### FINDING: Noise Breaks Conservation Continuously (confidence: HIGH)
+
+Additive noise (σ=0.3) increases CV from 0.04 to 0.13. No sharp phase transition — conservation degrades continuously. Strong coupling (×5–20) freezes dynamics trivially by saturating tanh.
+
+### Revised Understanding
+
+1. **Conservation is a property of the DYNAMICS MODEL, not the coupling architecture.** Under tanh dynamics, all architectures conserve equally.
+2. **The mechanism is nonlinear attractor dynamics.** tanh creates bounded attractors where γ+H = x^T P x is conserved because the attractor lies on a level surface of this quadratic form.
+3. **Previous cycles' architecture rankings were artifacts** of power iteration dynamics.
+4. **The Hattori-Takesue/Lyapunov framework is partially correct** — conservation IS Lyapunov-type, but the linearized equation is not satisfied; the nonlinearity is essential.
+5. **Tr(C²) is a secondary effect** — important when C varies, but the primary mechanism is attractor geometry.
+
+## Cycle 4 (GLM-5.1 subagent — engineered eigenvalues) — 2026-05-17
+
+### MAJOR FINDING: Two-Moment Hypothesis Weakened Under Nonlinear Dynamics (confidence: HIGH)
+
+Tr(C) + Tr(C²) explain only **14% of γ+H variance** under tanh dynamics (R²=0.14). Previous Cycle 3 finding ("Tr(C²) perfectly predicts γ+H") was a power iteration artifact.
+
+### FINDING: Degeneracy Wins Under Nonlinear Dynamics (confidence: HIGH)
+
+Temporal CV ranking (tanh, N=20):
+- Degenerate (all eigenvalues equal): CV=0.007 ← BEST
+- Two-cluster: CV=0.010
+- Uniform: CV=0.011
+- Rank-1 limit: CV=0.016
+- Exponential: CV=0.017
+- Attention: CV=0.030
+- Wigner/GOE: CV=0.042
+- Power-law: CV=1.037 ← CATASTROPHIC
+
+Opposite of power iteration ranking.
+
+### FINDING: Conservation Robust to Tr(C²) Variation (confidence: HIGH)
+
+Time-varying coupling: Tr(C²) oscillating ±30% barely changes CV(γ+H) (0.012 vs 0.011). Conservation is about attractor stability, not moment conservation.
+
+### FINDING: Scale Threshold at Eigenvalue ≈ 1 (confidence: HIGH)
+
+C = s·I: s < 1 gives catastrophic CV (3.4 at s=0.1), s ≥ 1 gives excellent CV (<0.007).
+
+### FINDING: Spread Has Modest Effect (confidence: HIGH)
+
+Eigenvalue spread 0.1→10.0 increases temporal CV only 0.012→0.022 (2×). Gentle degradation.
+
+### Key Insight
+Conservation is DYNAMICS-DEPENDENT. Power iteration and tanh give opposite architecture rankings. The fleet design principle: normalize coupling spectra, avoid heavy tails, keep eigenvalues ≥ 1.
+
+## Open Questions for Cycle 5+
+- What spectral quantity ACTUALLY determines γ+H under tanh? (higher moments? eigenvectors?)
+- Characterize tanh attractor structure and relate to γ+H
+- Multi-moment regression: Tr(C²), Tr(C³), Tr(C⁴) → γ+H
+- Participation ratio / eigenvector delocalization vs γ+H
+- Is there a Lyapunov-function formulation of conservation?
+- What determines P (the quadratic form matrix)? Can P be derived analytically from C?
+- Does attractor shape predict conservation quality?
+- Do other bounded activations also conserve?

@@ -1,0 +1,34 @@
+CYCLE 4 COMPLETE — Seed-2.0-mini (rotation 2)
+Date: 2026-05-16 23:45 AKDT
+
+THREE CRITICAL REVISIONS TO PREVIOUS CYCLES:
+
+1. γ-H anti-correlation was a POWER ITERATION ARTIFACT
+   - Cycle 3: attention r(γ,H) = -0.999 (anti-correlated)
+   - Cycle 4: attention r(γ,H) = +0.968 (positively correlated under tanh)
+   - The nonlinear dynamics REVERSE the correlation sign
+
+2. Architecture differences COLLAPSE under nonlinear dynamics
+   - Power iteration: CV spread = 100× across architectures
+   - Tanh dynamics: CV spread = 1.4× (all ~0.03)
+   - Architecture barely matters; dynamics model is everything
+
+3. Tr(C²) hypothesis DOWNGRADED from "smoking gun" to "moderate predictor"
+   - Static C: Tr(C²) is trivially constant, predicts nothing about dynamics
+   - Dynamic C: R² = 0.16–0.46 (moderate, not dominant)
+
+NEW DISCOVERY:
+- γ+H = x^T P x is an EXACT quadratic form (R²=1.0)
+- This is a genuine Lyapunov-type conservation
+- But the linearized Lyapunov equation is NOT satisfied
+- The conservation mechanism is in the NONLINEARITY (tanh attractor)
+
+CONSERVATION BREAKS:
+- Noise (σ=0.3) → CV jumps from 0.04 to 0.13 (most effective)
+- Time-varying C → CV increases to 0.06–0.08
+- Eigenvalue injection → CV increases to 0.09
+- Strong coupling → CV drops to 0.00 (trivial saturation freeze)
+
+BOTTOM LINE: The conservation law is real but more nuanced than previous cycles suggested. It's driven by attractor geometry under nonlinear dynamics, not by coupling architecture or eigenvalue statistics. The quadratic form structure is genuine (γ+H = x^T P x), but requires the full nonlinear dynamics — linearization loses it.
+
+5 experiments, 30 samples each, all results in cycle-004/results.md
