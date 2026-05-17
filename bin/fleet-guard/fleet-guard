@@ -1,0 +1,202 @@
+#!/usr/bin/env bash
+# fleet-guard — Prevents bulk file deletion in git commits
+# Install: fleet-guard install [/path/to/repo]
+# Config: FLEET_GUARD_THRESHOLD (default: 3)
+# Override: git commit --no-verify (bypasses hook) or set FLEET_GUARD_FORCE=1
+
+set -euo pipefail
+
+PROG_NAME="$(basename "$0")"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+LOG_DIR="${HOME}/.openclaw/workspace/.fleet-guard"
+LOG_FILE="${LOG_DIR}/log.json"
+DEFAULT_THRESHOLD=3
+
+usage() {
+    cat <<EOF
+fleet-guard — Prevents bulk file deletion in git commits
+
+USAGE:
+    $PROG_NAME install [REPO_PATH]   Install pre-commit hook in repo (default: .)
+    $PROG_NAME check                  Check staged files for bulk deletion
+    $PROG_NAME uninstall [REPO_PATH]  Remove pre-commit hook from repo
+    $PROG_NAME help                   Show this help
+
+CONFIG:
+    FLEET_GUARD_THRESHOLD  Max files allowed to delete before block (default: $DEFAULT_THRESHOLD)
+    FLEET_GUARD_FORCE      Set to 1 to override (or use git commit --no-verify)
+
+INSTALL:
+    $PROG_NAME install /path/to/repo
+
+WHY:
+    An AI agent deleted 54 files from the ai-writings repo. Never again.
+EOF
+}
+
+log_blocked() {
+    local repo="$1" count="$2" files="$3"
+    mkdir -p "$LOG_DIR"
+    local entry
+    entry=$(jq -n \
+        --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+        --arg repo "$repo" \
+        --arg count "$count" \
+        --arg files "$files" \
+        '{timestamp: $ts, repo: $repo, deleted_count: ($count | tonumber), files: ($files | split("\n"))}')
+
+    if [[ -f "$LOG_FILE" ]] && [[ -s "$LOG_FILE" ]]; then
+        local tmp
+        tmp=$(mktemp)
+        jq --argjson e "$entry" '. + [$e]' "$LOG_FILE" > "$tmp" && mv "$tmp" "$LOG_FILE"
+    else
+        echo "[$entry]" > "$LOG_FILE"
+    fi
+}
+
+do_check() {
+    local threshold="${FLEET_GUARD_THRESHOLD:-$DEFAULT_THRESHOLD}"
+    local force="${FLEET_GUARD_FORCE:-0}"
+
+    # Skip if forced
+    if [[ "$force" == "1" ]]; then
+        return 0
+    fi
+
+    # Get staged deletions
+    local deletions
+    deletions=$(git diff --cached --name-status 2>/dev/null | grep '^D' || true)
+
+    if [[ -z "$deletions" ]]; then
+        return 0
+    fi
+
+    local count
+    count=$(echo "$deletions" | wc -l)
+
+    if [[ "$count" -gt "$threshold" ]]; then
+        local files
+        files=$(echo "$deletions" | awk '{print $2}')
+        local repo
+        repo=$(git rev-parse --show-toplevel 2>/dev/null || echo "unknown")
+
+        echo "⛔ FLEET GUARD: Blocking commit — ${count} files deleted (threshold: ${threshold})" >&2
+        echo "" >&2
+        echo "Deleted files:" >&2
+        echo "$files" | sed 's/^/  - /' >&2
+        echo "" >&2
+        echo "To override: set FLEET_GUARD_FORCE=1 or use git commit --no-verify" >&2
+        echo "To adjust threshold: set FLEET_GUARD_THRESHOLD=N" >&2
+
+        log_blocked "$repo" "$count" "$files"
+        return 1
+    fi
+
+    # Within threshold but warn if > 0
+    if [[ "$count" -gt 0 ]]; then
+        echo "⚠️  FLEET GUARD: ${count} file(s) deleted (within threshold of ${threshold})" >&2
+    fi
+
+    return 0
+}
+
+do_install() {
+    local repo_path="${1:-.}"
+    repo_path=$(cd "$repo_path" && git rev-parse --show-toplevel 2>/dev/null || { echo "Error: not a git repo: $repo_path" >&2; exit 1; })
+
+    local hook_path="${repo_path}/.git/hooks/pre-commit"
+
+    # Check if hook already exists with our marker
+    if [[ -f "$hook_path" ]] && grep -q 'FLEET-GUARD-HOOK' "$hook_path" 2>/dev/null; then
+        echo "fleet-guard hook already installed in ${repo_path}"
+        return 0
+    fi
+
+    # Backup existing hook if any
+    if [[ -f "$hook_path" ]]; then
+        cp "$hook_path" "${hook_path}.pre-fleet-guard"
+        echo "Backed up existing hook to ${hook_path}.pre-fleet-guard"
+    fi
+
+    # Write hook
+    cat > "$hook_path" << 'HOOK'
+#!/bin/bash
+# FLEET-GUARD-HOOK — Prevents bulk file deletion
+# Installed by: bin/fleet-guard
+# Remove this block or run `fleet-guard uninstall` to remove
+
+export FLEET_GUARD_THRESHOLD="${FLEET_GUARD_THRESHOLD:-3}"
+
+deletions=$(git diff --cached --name-status 2>/dev/null | grep '^D' || true)
+if [[ -n "$deletions" ]]; then
+    count=$(echo "$deletions" | wc -l)
+    if [[ "$count" -gt "$FLEET_GUARD_THRESHOLD" ]]; then
+        files=$(echo "$deletions" | awk '{print $2}')
+        repo=$(git rev-parse --show-toplevel 2>/dev/null || echo "unknown")
+
+        echo "⛔ FLEET GUARD: Blocking commit — ${count} files deleted (threshold: ${FLEET_GUARD_THRESHOLD})" >&2
+        echo "" >&2
+        echo "Deleted files:" >&2
+        echo "$files" | sed 's/^/  - /' >&2
+        echo "" >&2
+        echo "To override: FLEET_GUARD_FORCE=1 git commit" >&2
+        echo "To bypass hook: git commit --no-verify" >&2
+        echo "To adjust: FLEET_GUARD_THRESHOLD=N git commit" >&2
+
+        # Log
+        LOG_DIR="${HOME}/.openclaw/workspace/.fleet-guard"
+        LOG_FILE="${LOG_DIR}/log.json"
+        mkdir -p "$LOG_DIR"
+        entry=$(jq -n \
+            --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --arg r "$repo" \
+            --arg c "$count" \
+            --arg f "$files" \
+            '{timestamp: $ts, repo: $r, deleted_count: ($c | tonumber), files: ($f | split("\n"))}')
+        if [[ -f "$LOG_FILE" ]] && [[ -s "$LOG_FILE" ]]; then
+            tmp=$(mktemp)
+            jq --argjson e "$entry" '. + [$e]' "$LOG_FILE" > "$tmp" && mv "$tmp" "$LOG_FILE"
+        else
+            echo "[$entry]" > "$LOG_FILE"
+        fi
+
+        exit 1
+    fi
+    if [[ "$count" -gt 0 ]]; then
+        echo "⚠️  FLEET GUARD: ${count} file(s) deleted (within threshold of ${FLEET_GUARD_THRESHOLD})" >&2
+    fi
+fi
+HOOK
+
+    chmod +x "$hook_path"
+    echo "✅ fleet-guard hook installed in ${repo_path}"
+    echo "   Threshold: ${DEFAULT_THRESHOLD} files (set FLEET_GUARD_THRESHOLD to change)"
+}
+
+do_uninstall() {
+    local repo_path="${1:-.}"
+    repo_path=$(cd "$repo_path" && git rev-parse --show-toplevel 2>/dev/null || { echo "Error: not a git repo: $repo_path" >&2; exit 1; })
+
+    local hook_path="${repo_path}/.git/hooks/pre-commit"
+
+    if [[ -f "$hook_path" ]] && grep -q 'FLEET-GUARD-HOOK' "$hook_path" 2>/dev/null; then
+        rm "$hook_path"
+        # Restore backup if exists
+        if [[ -f "${hook_path}.pre-fleet-guard" ]]; then
+            mv "${hook_path}.pre-fleet-guard" "$hook_path"
+            echo "Restored previous hook"
+        fi
+        echo "✅ fleet-guard hook removed from ${repo_path}"
+    else
+        echo "No fleet-guard hook found in ${repo_path}"
+    fi
+}
+
+# Main
+case "${1:-help}" in
+    install)   do_install "${2:-.}" ;;
+    uninstall) do_uninstall "${2:-.}" ;;
+    check)     do_check ;;
+    help|--help|-h) usage ;;
+    *)         echo "Unknown command: $1" >&2; usage; exit 1 ;;
+esac
