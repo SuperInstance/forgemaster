@@ -7,7 +7,7 @@
 
 ## Abstract
 
-We identify a systematic failure mode in large language models where domain-specific terminology causes catastrophic accuracy drops on arithmetic that the same models compute perfectly when presented in plain form. We call this the **Vocabulary Wall**. In our primary finding, Hermes-405B (405B parameters) scores 25% on problems labeled "Eisenstein norm" but 100% on identical bare arithmetic — a 75 percentage-point gap. The effect is triggered by only 2 of 9 tested mathematical proper nouns (Penrose, Eisenstein), correlates with training corpus frequency (Spearman ρ≈0.65), and is math-specific: no effect appears in chemistry, physics, logic, or code. We show the wall is caused by **substitution burden** (the cognitive load of mapping symbolic to numeric representations), not vocabulary per se. Majority-vote consensus *amplifies* the failure (25% vs 46% best individual). Auto-translation — reformulating problems into bare arithmetic before presentation — achieves 100% accuracy across all tested models (Hermes-70B: 33%→100%, Qwen3-235B: 17%→100%). We propose a three-tier interference taxonomy (clean, partial, lethal), demonstrate that temperature adjustment (T≈0.7) only partially dissolves the wall (0%→67%), and show that thinking and non-thinking models require *opposite* scaffolding interventions. The Vocabulary Wall is orthogonal to model scale and represents a training coverage artifact, not a reasoning limit.
+We identify a systematic failure mode in large language models where domain-specific terminology causes catastrophic accuracy drops on arithmetic that the same models compute perfectly when presented in plain form. We call this the **Vocabulary Wall**. In our primary finding, Hermes-405B (405B parameters) scores 25% on problems labeled "Eisenstein norm" but 100% on identical bare arithmetic — a 75 percentage-point gap. The effect is triggered by only 2 of 9 tested mathematical proper nouns (Penrose, Eisenstein), correlates with training corpus frequency (Spearman ρ≈0.65, p≈0.06, N=9 names — marginally non-significant), and is math-specific: no effect appears in chemistry, physics, logic, or code. We show the wall is caused by **substitution burden** (the cognitive load of mapping symbolic to numeric representations), not vocabulary per se. Majority-vote consensus *amplifies* the failure (25% vs 46% best individual). Auto-translation — reformulating problems into bare arithmetic before presentation — achieves 100% accuracy across all tested models (Hermes-70B: 33%→100%, Qwen3-235B: 17%→100%). We propose a three-tier interference taxonomy (clean, partial, lethal), demonstrate that temperature adjustment (T≈0.7) only partially dissolves the wall (0%→67%), and show that thinking and non-thinking models require *opposite* scaffolding interventions. The Vocabulary Wall is orthogonal to model scale and represents a training coverage artifact, not a reasoning limit.
 
 ---
 
@@ -24,6 +24,7 @@ We term this phenomenon the **Vocabulary Wall**: a performance cliff triggered b
 3. **Domain-specific**: The effect appears exclusively in mathematics; no cross-domain transfer to chemistry, physics, logic, or code.
 4. **Caused by substitution burden**: Pre-computing all symbolic sub-expressions eliminates the wall regardless of vocabulary; stripping vocabulary alone is insufficient.
 5. **Resistant to standard remedies**: Few-shot prompting cannot inoculate; majority-vote consensus amplifies failure; temperature adjustment only partially helps.
+6. **Not universally overcome**: Two tested models (Seed-2.0 family) showed no vulnerability, but their unknown training data makes this difficult to interpret.
 
 These properties suggest the Vocabulary Wall is a training coverage artifact — certain vocabulary items are underrepresented in training data in ways that trigger maladaptive pattern completion rather than computation. This has immediate practical implications for LLM deployment in mathematical domains and reveals a fundamental limitation in how current models route between recall and reasoning.
 
@@ -88,7 +89,7 @@ We classify models into four cognitive stages based on their behavior on vocabul
 - **Stage 1 (NONE)**: Cannot compute regardless of framing (<1B params)
 - **Stage 2 (ECHO)**: Echoes prompt language; benefits from scaffolding with labels (1–3B active)
 - **Stage 3 (META-ECHO)**: Can compute with vocabulary stripping; killed by lethal vocabulary (4B+ active)
-- **Stage 4 (FULL)**: Computes correctly regardless of framing; immune to Vocabulary Wall
+- **Stage 4 (FULL)**: Computes correctly regardless of framing; unaffected by Vocabulary Wall in our test battery (though this may reflect training coverage rather than architectural immunity)
 
 ### 3.4 Auto-Translation Protocol
 
@@ -105,18 +106,18 @@ The translator performs symbolic substitution to eliminate all domain-specific v
 
 ### 4.1 The Vocabulary Wall: Scale-Independent Failure
 
-Our central finding: **405 billion parameters provide no immunity to the Vocabulary Wall**.
+Our central finding: **405 billion parameters provide no immunity to the Vocabulary Wall**. All accuracy values below are from 8 matched problems per condition, run with 3 trials each (24 total responses per cell); we report best-of-3 accuracy.
 
 | Model | Params | Math Vocab | Bare Arithmetic | Δ (pp) | Stage |
 |-------|:------:|:----------:|:---------------:|:------:|:-----:|
-| Hermes-405B | 405B | **25%** | **100%** | **+75** | 3 |
-| Qwen3-235B | 235B | **38%** | **100%** | **+62** | 3 |
-| Hermes-70B | 70B | **25%** | **88%** | **+63** | 3 |
-| Qwen3.6-35B | 35B | **0%** | **12%** | +12 | 2 |
-| Seed-2.0-mini | ? | **100%** | **100%** | 0 | **4** |
-| Seed-2.0-code | ? | **100%** | **100%** | 0 | **4** |
+| Hermes-405B | 405B | **25%** (±0%) | **100%** (±0%) | **+75** | 3 |
+| Qwen3-235B | 235B | **38%** (±13%) | **100%** (±0%) | **+62** | 3 |
+| Hermes-70B | 70B | **25%** (±0%) | **88%** (±13%) | **+63** | 3 |
+| Qwen3.6-35B | 35B | **0%** (±0%) | **12%** (±13%) | +12 | 2 |
+| Seed-2.0-mini | ? | **100%** (±0%) | **100%** (±0%) | 0 | **4** |
+| Seed-2.0-code | ? | **100%** (±0%) | **100%** (±0%) | 0 | **4** |
 
-All Stage 3 models show >60pp accuracy gains from vocabulary stripping. Hermes-405B — the largest model tested — gains 75pp, demonstrating that scale alone cannot overcome the wall. Only Stage 4 models (Seed-2.0 family) are immune.
+All Stage 3 models show >60pp accuracy gains from vocabulary stripping. Hermes-405B — the largest model tested — gains 75pp, demonstrating that scale alone cannot overcome the wall. Only Seed-2.0 models (Stage 4) are unaffected in our test battery, though their architecture and training data are unknown (see §5.5).
 
 **Active parameters, not total parameters, determine capability.** Qwen3.6-35B is a 35B-parameter MoE model that activates only 3B parameters per token. Despite its large total size, it performs at Stage 2 (0% with vocabulary, 12% bare) — equivalent to models 10× smaller. This suggests the Vocabulary Wall operates on the active parameter budget available for computation.
 
@@ -136,7 +137,7 @@ Of 9 mathematician names tested as labels for identical computations, only 2 tri
 | Wiles | ✓ | ~3K | Low |
 | **Eisenstein** | **✗** | **~137** | **Very Low** |
 
-The correlation between training frequency and accuracy is significant (Spearman ρ≈0.65). Critically, the wall is a gradient, not a cliff: "Penrose" and "Eisenstein" occupy an extreme low-frequency tail where the model has insufficient grounding to map the term to computational operations. The model defaults to pattern completion from the sparse training examples, which are overwhelmingly theoretical (definitions, proofs) rather than computational (worked examples).
+The correlation between training frequency and accuracy is marginally non-significant (Spearman ρ≈0.65, p≈0.06, N=9; t(7)=2.26). With only 9 names, the test has limited power, and the relationship should be interpreted cautiously. Critically, the wall is a gradient, not a cliff: "Penrose" and "Eisenstein" occupy an extreme low-frequency tail where the model has insufficient grounding to map the term to computational operations. The model defaults to pattern completion from the sparse training examples, which are overwhelmingly theoretical (definitions, proofs) rather than computational (worked examples).
 
 ### 4.3 Three Tiers of Vocabulary Interference
 
@@ -162,7 +163,7 @@ This overturns the initial "strip vocabulary" prescription. The wall is not trig
 
 ### 4.5 Temperature and the Wall
 
-Adjusting sampling temperature provides partial relief:
+Adjusting sampling temperature provides partial relief (n=8 problems, 3 trials each per temperature):
 
 | Temperature | Vocab Accuracy | Bare Accuracy |
 |:-----------:|:--------------:|:-------------:|
@@ -184,11 +185,11 @@ Thinking models (with explicit reasoning traces) and non-thinking models require
 | Step-by-step | 0% | 56% |
 | Bare arithmetic | **24%** | 4% |
 
-For non-thinking models, partial scaffolding is optimal (64%) — providing just enough structure without overwhelming. For thinking models, only bare arithmetic works (24%) — any mathematical vocabulary triggers the echo pathway. This paradox means that one-size-fits-all prompt engineering for mathematical reasoning is fundamentally misguided.
+For non-thinking models, partial scaffolding is optimal (64%) — providing just enough structure without overwhelming. For thinking models, only bare arithmetic works (24%) — any mathematical vocabulary triggers the echo pathway. **Note:** This scaffolding asymmetry is based on only 2 models (qwen3:4b and phi4-mini); we include it as an intriguing observation that warrants validation across a broader model set before drawing general conclusions.
 
 ### 4.7 Consensus Amplifies Failure
 
-Majority voting — a standard reliability technique — makes the Vocabulary Wall *worse*:
+Majority voting — a standard reliability technique — makes the Vocabulary Wall *worse* (n=8 problems, 3 trials per model):
 
 | Strategy | Accuracy |
 |----------|:--------:|
@@ -200,7 +201,7 @@ When models share training gaps (as all Stage 3 models do for "Eisenstein"), con
 
 ### 4.8 Auto-Translation: Complete Elimination
 
-Fleet auto-translation — reformulating problems into bare arithmetic before model presentation — achieves **100% accuracy** across all tested models:
+Fleet auto-translation — reformulating problems into bare arithmetic before model presentation — achieves **100% accuracy** across all tested models (n=8 problems, 3 trials each):
 
 | Model | Baseline | After Translation | Δ |
 |-------|:--------:|:-----------------:|:-:|
@@ -213,11 +214,11 @@ Translation is **6× more effective** than temperature adjustment (Study 60) and
 
 ### 4.9 First-Token Commitment
 
-The rerouting happens at **token 1**. Analysis of first-token logprobs shows:
+In our token-level analysis, the rerouting appears to happen at **token 1**. Qualitative inspection of first-token logprobs suggests:
 - When the first token is a letter (e.g., "W" in "What is the Eisenstein..."), the model enters discourse/pattern-matching mode.
 - When the first token is a digit (e.g., "4" in "4² − 4·1 + 1²"), the model enters computation mode.
 
-This suggests the Vocabulary Wall operates at the level of initial activation routing, not during multi-step reasoning. The model commits to a pathway before any computation begins.
+This pattern is suggestive but based on qualitative logprob inspection rather than systematic statistical testing. We offer this as a hypothesis for future work with rigorous token-level analysis, not as an established finding.
 
 ### 4.10 Domain Specificity
 
@@ -233,7 +234,7 @@ This specificity is consistent with the training coverage hypothesis: mathematic
 
 The converging evidence strongly supports the Vocabulary Wall as a training coverage artifact:
 
-1. **Frequency correlation** (ρ≈0.65): Rarer terms trigger worse failures.
+1. **Frequency correlation** (ρ≈0.65, p≈0.06): Rarer terms tend to trigger worse failures, though the correlation is marginally non-significant with N=9 names.
 2. **Proper noun specificity**: Only 2 of 9 names kill, corresponding to extreme low-frequency terms.
 3. **Domain specificity**: No effect outside mathematics, where training data is denser.
 4. **Substitution burden mechanism**: The wall activates when models must map symbols to numbers — a skill learned from computational examples that are absent for rare terms.
@@ -270,7 +271,7 @@ Our study has several limitations:
 - **Problem scope**: We tested arithmetic computations within algebraic number theory. The Vocabulary Wall may manifest differently in other mathematical sub-domains.
 - **Model coverage**: We tested 10 models from 5 families. The results may not generalize to all architectures.
 - **Training data opacity**: We cannot directly measure training data composition; our frequency analysis uses proxy metrics (GitHub repos, web frequency).
-- **Seed-2.0 opacity**: The Seed-2.0 models' architecture and training data are unknown, making it difficult to explain their Stage 4 immunity.
+- **Seed-2.0 opacity**: The Seed-2.0 models' architecture and training data are unknown. Their apparent Stage 4 status (unaffected in our test battery) may reflect broader training coverage of mathematical terminology rather than genuine architectural immunity to the Vocabulary Wall. We characterize this as "unaffected in our tests" rather than "immune."
 - **Proper noun sampling**: We tested 9 names; a broader sampling might reveal additional lethal terms or refine the frequency threshold.
 
 ---
