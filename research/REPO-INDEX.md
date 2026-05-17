@@ -1,0 +1,1073 @@
+# SuperInstance Org — Complete Repo Index (1,708 Repos)
+
+**Generated:** 2026-05-17 | **Method:** 5 parallel GLM-5.1 agents indexed all repos via GitHub API
+
+## Tier Summary
+
+| Tier | Count | What It Means |
+|------|-------|---------------|
+| TIER-1 | 74 | Ready to release |
+| TIER-2 | 29 | Developed |
+| TIER-3 | 78 | Started |
+| TIER-4 | 416 | Stub |
+| TIER-5 | 430 | Blank |
+
+**Worth developing:** 395 YES / 452 NO / 180 not rated
+
+
+---
+
+## TIER-1: Ready to Release (>5MB, real code, tests, docs) (74 repos)
+
+- **libgdx** (Java, 1106690KB) — Desktop/Android/HTML5/iOS Java game development framework
+- **craftmind** (JavaScript, 499707KB) — You log into your Minecraft survival server. Somebody's already there. They chopped the oak by spawn, built a tiny lean-
+- **fleet-resonance** (Rust, 355735KB) — 355735kb
+- **lingbot-map** (Python, 355427KB) — 355427kb
+- **ws-fabric** (Rust, 321396KB) — High-performance Rust WebSocket library with sub-ms latency, >100K msg/sec, zero-copy, backpressure, auto-reconnect
+- **claw** (TypeScript, 291816KB) — A simple Claw engine for cellular logic in spreadsheet instances within a superinstance/spreadsheet-moment protocol
+- **Spreadsheet-moment** (HTML, 184457KB) — Built on Univer, adds Scalable cellular instances for Claw agents to sit and monitor data changes and programs in other cells. For performance and ...
+- **realtime-core** (Makefile, 161041KB) — Deterministic timing primitives for real-time Rust systems (PREEMPT_RT, io_uring, SCHED_DEADLINE), sub-ms jitter
+- **OpenManus-RL** (Python, 152811KB) — 🤗 <a href="https://huggingface.co/datasets/CharlieDreemur/OpenManus-RL" target="_blank">Dataset (OpenManus-RL)</a>
+- **StudyLog** (TypeScript, 119509KB) — Gamified educational IDE (Theia-based) for AI/STEM learning — Cognitive Mill, Intelligence Ranch, Sitka Sound modules
+- **superinstance-hdc-core** (Makefile, 101211KB) — 101211kb
+- **AutoData-old** (NONE, 100203KB) — This repo is archived. The source code for this project will be available at [LINK](https://github.com/Tianyi-Billy-Ma/A
+- **jiuwenclaw** (Python, 97452KB) — 97452kb
+- **dmlog-ai-1** (TypeScript, 94526KB) — A quiet table assistant that remembers your campaign details, so you don’t have to. It does not run your game—it just ta
+- **craftmind-fishing** (JavaScript, 90878KB) — You can automate fishing on Minecraft servers using the standard RCON protocol. No mods, client injections, or pixel rea
+- **papermill** (NONE, 75735KB) — Multi-model writing workshop Cloudflare Worker — 3-stage pipeline (outline, draft, verify) routing to separate LLMs
+- **Studylog-AI** (TypeScript, 70229KB) — Get an immersive, multi-agent learning experience in just one click
+- **spline-physics** (Makefile, 61026KB) — 61026kb
+- **GeoFlood** (Cuda, 54969KB) — The code GeoFlood is a new distributed parallel adaptive computational model for overland flows based on shallow water e
+- **zeroclaw-1** (Rust, 52858KB) — Lightweight Rust AI personal assistant, runs on $10 hardware <5MB RAM, 100% autonomous, cross-platform
+- **educationgamecocapn** (JavaScript, 48750KB) — AI-powered educational platform — Scratch-like visual programming + physics simulation, Cloudflare Workers backend
+- **plato-room-phi** (Python, 45110KB) — 45110kb
+- **plato-client-js** (TypeScript, 41888KB) — 41888kb
+- **constraint-theory-agent** (TypeScript, 39868KB) — > **The killer app that makes Constraint Theory actionable. Audits your code, finds where exact methods win, refactors w
+- **plato-room-nav** (Makefile, 30901KB) — 30901kb
+- **plato-semantic-sim** (Makefile, 30820KB) — 30820kb
+- **plato-inference-runtime** (Makefile, 29548KB) — 29548kb
+- **craftmind-studio** (JavaScript, 25186KB) — You don't just record Minecraft clips. You direct a working movie set.
+- **modly** (TypeScript, 23337KB) — **Local, open source, AI-powered image-to-3D mesh generation.**
+- **Equipment-Context-Handoff** (TypeScript, 22704KB) — Generational context transfer for long-running agent tasks — serialization, compression, resume points, priority preservation
+- **cuda-memory-fabric** (Makefile, 21770KB) — **Four-layer memory: Working, Episodic, Semantic, Procedural.**
+- **Equipment-Monitoring-Dashboard** (TypeScript, 19233KB) — Real-time agent activity visualization — cell states, provenance chains, confidence zones, historical playback
+- **cuda-biology** (Makefile, 19086KB) — **Biological agent architecture -- the full pipeline from perception to action.**
+- **Equipment-Memory-Hierarchy** (TypeScript, 18503KB) — 4-tier cognitive memory (Working, Episodic, Semantic, Procedural) with Ebbinghaus forgetting curves
+- **Equipment-NLP-Explainer** (TypeScript, 18013KB) — Generates human-readable descriptions of cell logic — WHY analysis, audit trails, multi-language support
+- **vector-search** (TypeScript, 18006KB) — Privacy-first semantic vector search with WebGPU acceleration, 10-100x speedup, IndexedDB storage, zero dependencies
+- **fleet-manifest** (Rust, 17952KB) — 17952kb
+- **cuda-emotion** (Makefile, 17871KB) — **11 emotional states as computational modulators of agent behavior.**
+- **spreader-agent** (TypeScript, 17501KB) — TypeScript data distribution agent for Cocapn Fleet — high-throughput spreading, Groq LPU integration
+- **plato-dcs** (Rust, 17041KB) — 17041kb
+- **cuda-energy** (Makefile, 16788KB) — **ATP budgets, circadian rhythms, and the thermodynamics of agent computation.**
+- **cuda-neurotransmitter** (Makefile, 16680KB) — **Chemical signals that modulate agent cognition -- dopamine IS confidence.**
+- **holonomy-48-bridge** (Rust, 15818KB) — 15818kb
+- **fleet-homology** (Rust, 15804KB) — 15804kb
+- **craftmind-courses** (JavaScript, 15183KB) — You remember when you accidentally learned more building a mine than you did in an entire semester? This helps make that
+- **craftmind-ranch** (JavaScript, 15129KB) — You watch evolution do farm work. A bot permanently improves its speed at a task by 8% each time it succeeds. This is a
+- **craftmind-herding** (JavaScript, 14225KB) — You watch quiet border collie agents develop. No pre-written herding paths are provided. No training datasets are upload
+- **keeper-agent** (TypeScript, 13855KB) — Secret-keeper proxy for fleet agents — centralized API key vault, scoped JWT tokens, leak scanner, audit logging
+- **cuda-confidence** (Makefile, 13697KB) — **Uncertainty propagation as a first-class primitive.**
+- **craftmind-circuits** (JavaScript, 13250KB) — You build redstone. The server validates the circuit in your world. You learn by doing, with 34 gamified challenges. For
+- **Equipment-Hardware-Scaler** (TypeScript, 12869KB) — Auto-scaling compute between local hardware and cloud APIs — cost-aware routing, resource monitoring
+- **DeckBoss** (TypeScript, 12316KB) — 12316kb
+- **Equipment-Self-Improvement** (TypeScript, 11968KB) — Self-modifying agent equipment — performance monitoring, knowledge distillation, tile optimization, maturation
+- **Equipment-Teacher-Student** (TypeScript, 11949KB) — Teacher-student distillation with confidence deadband — autonomous within range, calls teacher outside, progressive learning
+- **craftmind-researcher** (JavaScript, 11802KB) — A Cocapn Fleet agent that learns Minecraft mechanics from scratch by forming hypotheses and running in-game experiments.
+- **flux-fleet-scanner** (Python, 11607KB) — Python fleet health scanner — repo discovery, metadata extraction, bytecode validation, health reports
+- **Sandbox-Lifecycle-Manager** (TypeScript, 11552KB) — Plugin lifecycle management framework — Web Worker sandboxing, permissions, resource limits, event bus
+- **SuperInstance-Starter-Agent** (TypeScript, 11542KB) — Minimal origin-centric agent framework with modular equipment system, tile algebra, provenance tracking
+- **Equipment-CellLogic-Distiller** (TypeScript, 11496KB) — Decomposes LLM logic into spreadsheet-visualized tiles with metadata, NLP descriptions, multi-format export
+- **SuperInstance-SDK1** (TypeScript, 11490KB) — Agent SDK combining EscalationEngine (40x cost reduction), HierarchicalMemory, TripartiteConsensus in one package
+- **personlog-ai** (TypeScript, 11307KB) — You talk with this bot. It remembers beyond your last few messages, storing compressed conversation history as you go. Y
+- **ui-design-system** (HTML, 10897KB) — Premium dark theme CSS design system — 12 variables, 11KB, zero dependencies, fork-first, WCAG AA compliant
+- **deckboss-ai** (TypeScript, 10851KB) — > Deckboss.ai — AI-powered system design for edge robotics and IoT.
+- **MineWright** (Java, 9677KB) — __  __  __  __  ______  ______  ______
+- **plato-i2i-dcs** (Rust, 9527KB) — 9527kb
+- **plato-ghostable** (Rust, 9093KB) — 9093kb
+- **MuOxi** (HTML, 8435KB) — 8435kb
+- **lumina-lang** (TypeScript, 8371KB) — Most languages make you choose: safety or the web. Lumina doesn't.
+- **cheetahclaws** (Python, 8277KB) — English
+- **SuperInstanceEco** (Jupyter Notebook, 8266KB) — Event-driven backend suite — multi-agent orchestration, AutoCoder, logging apps, AWS deployment infrastructure
+- **jam** (TypeScript, 7057KB) — Generic project for Jamming, likely audio or CI/CD.
+- **smartcrdt-git-agent** (Python, 6779KB) — 6779kb
+- **fleet-murmur-worker** (TypeScript, 6109KB) — 6109kb
+- **TIER-2 (1000-5000kb)**  — TIER-3 (100-1000kb)
+
+
+---
+
+## TIER-2: Developed (1-5MB, substantial code, may need polish) (29 repos)
+
+- **agentkernel** (Rust, 4830KB) — Run AI coding agents in secure, isolated microVMs. Sub-125ms boot times, real hardware isolation.
+- **OpenManus** (Python, 4472KB) — English
+- **claudesclaude** (TypeScript, 3789KB) — **Ultra-high-performance multi-agent orchestration with 18+ specialized implementations**
+- **cocapn.github.io** (HTML, 3719KB) — 3719kb
+- **AutoData** (Python, 3524KB) — Automatica Open Web Data Collection (NeurIPS 2025)
+- **fleet-coordinate-js** (TypeScript, 3426KB) — 3426kb
+- **proof-game-sync** (Rust, 3417KB) — 3417kb
+- **cocapn-browser-agent** (TypeScript, 3414KB) — 3414kb
+- **AllBeads** (Rust, 2322KB) — **A Boss Repository Architecture for Multi-Repo AI Agent Orchestration**
+- **purplepincher-shell-library** (Python, 2204KB) — 2204kb
+- **HOLOS** (Python, 2193KB) — NO_DESC
+- **constraint-theory-research** (Python, 2191KB) — 2191kb
+- **superpowers** (Shell, 2082KB) — 2082kb
+- **prism** (TypeScript, 1995KB) — 1995kb
+- **SuperInstance-gamedev** (TypeScript, 1930KB) — MCP hub aggregating 600+ game dev tools — smart routing, GUI dashboard, unified AI assistant interface
+- **pasture-ai** (Rust, 1867KB) — Rust AI resource allocation system — Cowboy/Collie/Livestock metaphor, LoRA pool, nightly evolution cycles
+- **i-know-kung-fu-too** (NONE, 1835KB) — Microsoft AI/Copilot demo platform — runnable Bookings demos, deployment checklists, training materials, Cloudflare Workers
+- **autoclaw** (Python, 1600KB) — **Autonomous multi-agent knowledge system. 24/7 crew of researchers, teachers, critics, and synthesizers building your k
+- **capitaine** (TypeScript, 1565KB) — 1565kb
+- **cloudflare-vibe** (TypeScript, 1428KB) — 1428kb
+- **Claude-prism-local-json** (TypeScript, 1416KB) — 1416kb
+- **capitaine-1** (TypeScript, 1343KB) — 1343kb
+- **higher-abstraction-vocabularies** (Python, 1194KB) — 1194kb
+- **fleet-bottles** (Python, 1161KB) — 1161kb
+- **constraint-flow** (TypeScript, 1156KB) — Enterprise automation with exact financial guarantees — constraint-theory-based, zero floating-point drift, spreadsheet UI
+- **rom24-quickmud** (C, 1121KB) — QuickMUD is derived from ROM 2.4b6, Merc 2.1 and DikuMUD
+- **ai-ranch** (Python, 1071KB) — Self-evolving AI agent system (Next.js) — nightly evolution cycles, species competition, breeding, natural selection metaphor
+- **omd** (Python, 1043KB) — > **OpenManus + DSPy + MCP Integration** - A powerful AI research agent combining structured reasoning, multi-source inf
+- **lucineer-1** (NONE, 1013KB) — Cocapn fleet lighthouse platform — A2A/A2UI/A2C protocols, DID/SPIFFE identity, compliance framework for autonomous vessels
+
+
+---
+
+## TIER-3: Started (100KB-1MB, has content but incomplete) (78 repos)
+
+- **constraint-theory-backup** (TypeScript, 956KB) — Started project, no description
+- **activelog-ai** (TypeScript, 766KB) — Activelog.ai — AI fitness and activity tracker. Workouts, progress, goals. Part of the Lucineer ecosystem.
+- **prose** (NONE, 758KB) — Started project, no description
+- **playerlog-ai** (TypeScript, 757KB) — Started project, no description
+- **constraint-theory-web** (JavaScript, 755KB) — Started project, no description
+- **cudaclaw** (Rust, 750KB) — 750kb
+- **studylog-ai-1** (TypeScript, 678KB) — Started project, no description
+- **reallog-ai** (TypeScript, 650KB) — Started project, no description
+- **SuperInstancecore1** (TypeScript, 626KB) — Started project, no description
+- **log-origin** (TypeScript, 606KB) — Started project, no description
+- **cappuccino** (Python, 599KB) — Cappuccino is an GUI Agent based on desktop screen. It is a Manus-like AI Agent that can be deployed locally.
+- **LOG-mcp** (Python, 577KB) — LOG Model Context Protocol — MCP server for the LOG.ai platform
+- **jetson-grand-design** (NONE, 534KB) — Started project, no description
+- **OpenManus_UIToCode** (Python, 507KB) — End-to-end pipeline converting UI design sketches into runnable frontend/backend code. Integrates UI analysis, prototype generation, API planning, ...
+- **DMLog** (Python, 489KB) — 489kb
+- **cocapn-nexus** (TypeScript, 478KB) — Marine robotics safety architecture for fleet vessels
+- **proof-physics-sim** (Rust, 469KB) — 469kb
+- **plato** (Python, 400KB) — 400kb
+- **rightnow-cli** (Python, 395KB) — Claude Code for CUDA. Free AI assistant that actually understands GPU architecture
+- **fleet-simulator** (Python, 354KB) — 354kb
+- **i-know-kung-fu-research** (Python, 319KB) — Started project, no description
+- **opcode-philosophy** (NONE, 285KB) — Started project, no description
+- **git-agent-luc** (TypeScript, 278KB) — Started project, no description
+- **git-agent** (Python, 273KB) — 273kb
+- **luciddreamer-ai** (TypeScript, 273KB) — Started project, no description
+- **frozen-intelligence** (Python, 252KB) — Started project, no description
+- **Claude_Baton** (NONE, 250KB) — Started project, no description
+- **ability-transfer** (C, 241KB) — 241kb
+- **plato-torch** (Python, 239KB) — 239kb
+- **IKKF** (Python, 235KB) — Short for "I Know Kung Fu", instant context-aware skill loading for your agents
+- **plato-agent-academy** (Python, 229KB) — 229kb
+- **kungfu** (Rust, 225KB) — Started project, no description
+- **pelagic-twin** (NONE, 219KB) — Started project, no description
+- **Rotational-Transformer** (NONE, 200KB) — Started project, no description
+- **purplepincher** (HTML, 191KB) — 191kb
+- **mud-mcp** (TypeScript, 181KB) — 181kb
+- **luciddreamer-ai-pages** (HTML, 170KB) — 170kb
+- **deckboss-ai-pages** (HTML, 168KB) — 168kb
+- **cooklog-ai** (TypeScript, 168KB) — AI cooking companion — recipes, meal planning, dietary tracking, kitchen assistant
+- **mud-arena** (Python, 167KB) — 167kb
+- **capitaine-ai-pages** (HTML, 165KB) — 165kb
+- **jepa-sentiment** (TypeScript, 161KB) — 161kb
+- **musiclog-ai** (TypeScript, 160KB) — Started project, no description
+- **flux-core** (Rust, 159KB) — 159kb
+- **fishinglog-ai-pages** (HTML, 158KB) — 158kb
+- **SwarmMCP** (NONE, 158KB) — Started project, no description
+- **flux-papers** (Python, 156KB) — 156kb
+- **flux-ide** (TypeScript, 149KB) — 149kb
+- **constraint-ranch** (TypeScript, 149KB) — Started project, no description
+- **plato-kernel** (Rust, 148KB) — 148kb
+- **studylog-ai-pages** (HTML, 144KB) — 144kb
+- **cocapn-curriculum** (Python, 141KB) — 141kb
+- **nightlog-ai** (TypeScript, 140KB) — Started project, no description
+- **plato-os** (Python, 138KB) — 138kb
+- **CascadeRouter** (TypeScript, 138KB) — Started project, no description
+- **activelog-ai-pages** (HTML, 137KB) — 137kb
+- **cocapn-plato** (Python, 136KB) — 136kb
+- **ec2mud** (TypeScript, 134KB) — 134kb
+- **cocapn.ai** (PHP, 134KB) — 134kb
+- **flux-cuda** (Cuda, 134KB) — 134kb
+- **flux-js** (JavaScript, 133KB) — 133kb
+- **project-JEPA** (Go, 132KB) — Started project, no description
+- **sciencelog-ai** (TypeScript, 132KB) — Started project, no description
+- **gardenlog-ai** (TypeScript, 131KB) — Started project, no description
+- **the-fleet** (TypeScript, 126KB) — Started project, no description
+- **travelog-ai** (TypeScript, 123KB) — Started project, no description
+- **OpenManus-Max** (Python, 122KB) — OpenManus-Max: A fully refactored OpenManus with Manus-level capabilities. DAG Scheduler, Hierarchical Memory, 20+ Tools, Multi-Level Permissions &...
+- **quill-isa-architect** (Python, 121KB) — 121kb
+- **flux-site** (HTML, 121KB) — 121kb
+- **legacy-ai** (TypeScript, 121KB) — Started project, no description
+- **character-library** (Python, 117KB) — Started project, no description
+- **superz-diary** (NONE, 117KB) — Started project, no description
+- **multi-provider-router** (Python, 115KB) — Started project, no description
+- **multi-model-adversarial-testing** (NONE, 113KB) — 113kb
+- **holodeck-c-1** (C, 112KB) — Started project, no description
+- **Equipment-Consensus-Engine-Ruby** (Ruby, 110KB) — 110kb
+- **flux-coop-runtime** (Python, 107KB) — 107kb
+- **superagent-framework** (Python, 105KB) — Started project, no description
+
+
+---
+
+## TIER-4: Stub (10-100KB, placeholder with description) (416 repos)
+
+- **personallog-1** (TypeScript, 99KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **startup-ai** (TypeScript, 99KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **activeledger-ai** (TypeScript, 96KB) — ActiveLedger.ai — Finance-Focused Repo-Agents | **WORTH_DEV=NO — insufficient signal for development priority**
+- **tutor-ai** (TypeScript, 93KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **agentic-compiler** (Python, 92KB) — 92kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **petlog-ai** (TypeScript, 92KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **ToolGuardian** (TypeScript, 91KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **fishinglog-ai** (TypeScript, 89KB) — 89kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cocapn-ai** (TypeScript, 88KB) — Cocapn.ai — The Agent Runtime. A2A, A2UI, A2C, MCP. Git-native, BYOK, zero lock-in. The repo IS the agent. | **WORTH_DEV=YES — fleet core component**
+- **lawlog-ai** (TypeScript, 87KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **deckboss-1** (Python, 87KB) — Deckboss.ai — AI assistant for edge robotics and IoT. Clone onto Jetson/RPi, onboard, start building systems. Hand off to Cocapn. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **plato-jetson** (Python, 83KB) — 83kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **booklog-ai** (TypeScript, 75KB) — AI reading companion — book tracking, recommendations, reading goals, quote collection | **WORTH_DEV=NO — insufficient signal for development priority**
+- **businesslog-1** (TypeScript, 75KB) — businesslog.ai — Your business AI agent living in your codebase. Free, open-source, Docker-ready. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **Equipment-Swarm-Coordinator-Ruby** (Ruby, 71KB) — 71kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **flux-docs** (NONE, 71KB) — 71kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **rag-indexer** (Python, 71KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **mask-locked-inference-chip** (Python, 71KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **flux-evolution** (Python, 70KB) — 70kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **greenhorn-onboarding** (Python, 70KB) — 70kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **artistlog-ai** (TypeScript, 70KB) — Cocapn vessel | **WORTH_DEV=NO — insufficient signal for development priority**
+- **flux-cooperative-intelligence** (Python, 69KB) — 69kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **superz-parallel-fleet-executor** (Python, 68KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **captains-log-academy** (Python, 67KB) — The art of narrative captain's logs — fleet-wide standard for agents who write logs humans actually read | **WORTH_DEV=YES — agent fleet tooling**
+- **superz-runtime** (Python, 66KB) — 66kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **gpu-native-room-inference** (Cuda, 66KB) — 66kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **api-gateway** (Rust, 65KB) — 65kb | **WORTH_DEV=YES — Substantial code in key language**
+- **home-ai** (TypeScript, 64KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **healthlog-ai** (HTML, 64KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **cocapn-chat** (JavaScript, 63KB) — 63kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **Equipment-Consensus-Engine** (TypeScript, 63KB) — 63kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **the-technician** (TypeScript, 63KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **craftmind-discgolf** (JavaScript, 63KB) — CraftMind Disc Golf — AI disc golf companion with 70+ real discs, physics engine, 3 courses, stochastic personalities | **WORTH_DEV=NO — insufficient signal for development priority**
+- **timeseries-db** (Rust, 62KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **git-claw** (Python, 62KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **gpu-accelerator** (Rust, 61KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **plato-demo** (Rust, 60KB) — 60kb | **WORTH_DEV=YES — Core fleet project**
+- **Equipment-Swarm-Coordinator** (TypeScript, 60KB) — 60kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **frozen-model-rl** (Rust, 60KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **cache-layer** (Rust, 59KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **pool-rs** (NONE, 57KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **cheflog-ai** (TypeScript, 57KB) — AI chef companion — recipe management, meal prep, cooking techniques | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cluster-orchestrator** (Rust, 55KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **flux-vm-php** (PHP, 54KB) — 54kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **fleet-liaison-tender** (Python, 54KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **craftlog-ai** (TypeScript, 54KB) — AI crafting companion — project planning, material tracking, technique tips | **WORTH_DEV=NO — insufficient signal for development priority**
+- **abstraction-planes** (Python, 53KB) — 53kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **inference-optimizer** (Python, 53KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **edge-llama** (C++, 52KB) — 52kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **fleet-orchestrator** (TypeScript, 51KB) — [ARCHIVED] Superseded by OpenProse + constraint-theory-core. See ROADMAP.md | **WORTH_DEV=YES — fleet ecosystem extension**
+- **flux-fleet-stdlib** (Python, 50KB) — 50kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-edge** (Python, 50KB) — 50kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **marine-gpu-edge** (Cuda, 50KB) — 50kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **audio-pipeline** (Rust, 49KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **cache-layer-optimizer** (Rust, 48KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **post-human-lang** (NONE, 48KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **dogmind-arena** (TypeScript, 48KB) — Train AI dog agents — personality, trust, DNA, skills | **WORTH_DEV=NO — insufficient signal for development priority**
+- **the-seed** (TypeScript, 46KB) — 46kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-cli** (Rust, 45KB) — 45kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **parentlog-ai** (TypeScript, 45KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **nexus-edge-runtime** (Python, 45KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **actualizer-ai** (TypeScript, 45KB) — Actualizer.ai — Reverse Actualization vessel. 7 time horizons, multi-model ideation, 16 BYOK providers. Part of the Lucineer ecosystem. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **flux-bottle-protocol** (Python, 44KB) — 44kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **ccc-os** (Python, 44KB) — 44kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **zeroclaw-plato** (Python, 44KB) — 44kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-mud-server** (Python, 44KB) — 44kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **studylog-agent** (Python, 44KB) — 44kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **fleet-refactor-agent** (Python, 43KB) — 43kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **outcome-tracker** (Python, 43KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **travlog-ai** (TypeScript, 43KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **plato-mcp-bridge** (Python, 42KB) — 42kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **smartcrdt-fleet-sync** (Python, 42KB) — 42kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **capitaine-agent** (Python, 42KB) — 42kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cocapn-lite** (TypeScript, 42KB) — Minimal cocapn seed — tabula rasa for power users | **WORTH_DEV=YES — fleet core component**
+- **cuda-atp-market** (Rust, 42KB) — ATP energy market with circadian rhythms, apoptosis, and fleet pool for FLUX agent fleets | **WORTH_DEV=YES — agent fleet tooling**
+- **farmerlog-ai** (TypeScript, 42KB) — AI farming companion — crop planning, weather tracking, yield optimization | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cocapn-equipment** (TypeScript, 41KB) — Shared equipment library — BYOK, trust, crystal, dice, PII, boot camp, keeper, dead reckoning | **WORTH_DEV=YES — fleet core component**
+- **flux-stdlib** (Python, 40KB) — 40kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **intent-directed-compilation** (C, 40KB) — 40kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **constraint-theory-mlir** (C++, 40KB) — 40kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-ml** (Python, 39KB) — 39kb | **WORTH_DEV=YES — Core fleet project**
+- **edge-research-relay** (Python, 39KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **cocapn-site** (TypeScript, 38KB) — Cocapn.com — Open source agent infrastructure. Membership, billing, token economy. Pay only for convenience. | **WORTH_DEV=YES — fleet core component**
+- **model-field-guide** (Python, 38KB) — Forkable model exploration tool with crowd-sourced improvements. Every fork is a reporter. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **personallog-ai** (TypeScript, 38KB) — personallog.ai — Your personal AI agent living in your repo. Free, open-source, fork-and-deploy. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **flux-hdc** (Python, 37KB) — 37kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cocapn-tutor** (Python, 37KB) — 37kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **technician-paradigm** (NONE, 37KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **a2a-future** (NONE, 37KB) — Reverse-actualization: A2A agent-to-agent coding in 2076 — 5-round RA on the future of software creation, embedding-to-UI, deliberation protocols, ... | **WORTH_DEV=NO — insufficient signal for development priority**
+- **OpenMythos** (Python, 36KB) — 36kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **plato-tui** (Python, 36KB) — 36kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cocapn-traps** (Python, 36KB) — 36kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **deckboss-agent** (Python, 36KB) — 36kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **deckboss-hardware** (TypeScript, 36KB) — Deckboss.net — Preloaded hardware units for the Cocapn ecosystem. Jetson, RPi, accessories. Ship ready. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **dev-agent** (TypeScript, 36KB) — A developer-friendly OpenManus alternative | **WORTH_DEV=NO — insufficient signal for development priority**
+- **become-ai** (TypeScript, 35KB) — Become.ai — Self-evolving agent platform. Fork, mutate, improve. The agent IS the repo. Part of the Lucineer ecosystem. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **doclog-ai** (TypeScript, 35KB) — AI document companion — summaries, templates, writing assistant, format conversion | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cicd-agent** (Python, 34KB) — 34kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **nautilus** (Python, 34KB) — 34kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **flux-meta-orchestrator** (Python, 34KB) — 34kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cocapn-health** (Python, 34KB) — 34kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **aboracle** (Python, 34KB) — 34kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **ideation-engine** (TypeScript, 34KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **fleet-rpg** (TypeScript, 34KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **OpenManus-colab** (Jupyter Notebook, 34KB) — A Google Colab version of the OpenManus AI. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **isa-convergence-tools** (Python, 33KB) — 33kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **flux-reasoner** (Python, 33KB) — 33kb | **WORTH_DEV=YES — Useful tool/infrastructure**
+- **cocapn-shells** (Python, 33KB) — 33kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **training-data-collector** (Python, 33KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **smp-flux-bridge** (Python, 33KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **kungfu-ai** (TypeScript, 33KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **flux-vm-ts** (TypeScript, 32KB) — 32kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-afterlife-reef** (Python, 32KB) — 32kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **event-bus** (Python, 31KB) — 31kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **mud-solitaire** (Python, 31KB) — 31kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **resolve** (Python, 31KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **secret-scanner** (Python, 30KB) — 30kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **Murmur** (TypeScript, 30KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **cuda-ethics** (Rust, 30KB) — Ethical reasoning layer for FLUX VM: harm, consent, transparency, identity, grief, creative | **WORTH_DEV=NO — insufficient signal for development priority**
+- **flux-certify** (Python, 29KB) — 29kb | **WORTH_DEV=YES — Core fleet project**
+- **mycelium-ai** (TypeScript, 29KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **fleet-wiki** (Python, 28KB) — 28kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **lighthouse** (Python, 28KB) — 28kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cocapn-lessons** (Python, 28KB) — 28kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **instruction-set-ra** (NONE, 28KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **mitochondrial-ra** (NONE, 28KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **edgenative-ai** (TypeScript, 28KB) — NEXUS Knowledge Vessel — INCREMENTS trust, VM emulator, Rosetta Stone translation | **WORTH_DEV=NO — insufficient signal for development priority**
+- **financelog-ai** (HTML, 28KB) — AI finance companion — budgeting, investment tracking, financial planning | **WORTH_DEV=NO — insufficient signal for development priority**
+- **plato-genepool-tile** (Rust, 27KB) — 27kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **tide-pool** (Python, 27KB) — 27kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **flux-discussion-flows** (Python, 27KB) — 27kb | **WORTH_DEV=YES — Core fleet project**
+- **cuda-capability-ports** (Rust, 27KB) — Memory-mapped capability ports for FLUX VM (top 4KB I/O space) | **WORTH_DEV=NO — insufficient signal for development priority**
+- **fleet-gateway** (Python, 26KB) — 26kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-e2e-pipeline** (Rust, 26KB) — 26kb | **WORTH_DEV=YES — Core fleet project**
+- **flux-provenance** (Python, 26KB) — 26kb | **WORTH_DEV=YES — Core fleet project**
+- **warp-room** (C, 26KB) — 26kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **constraint-theory-rust-python** (Rust, 26KB) — 26kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **Equipment-Consensus-Engine-PHP** (PHP, 26KB) — 26kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **self-evolve-ai** (TypeScript, 26KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **higher-abstraction-vocabularies-1** (Python, 26KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **cocapn-com** (TypeScript, 26KB) — Cocapn.com — Company page, membership tiers, and billing. Open source agent infrastructure. | **WORTH_DEV=YES — fleet core component**
+- **epiphany-engine** (TypeScript, 26KB) — Swarm problem-solving — decompose, assign, synthesize fleet breakthroughs | **WORTH_DEV=NO — insufficient signal for development priority**
+- **forgemaster-shell** (NONE, 25KB) — 25kb | **WORTH_DEV=YES — Useful tool/infrastructure**
+- **navigator-vessel** (NONE, 25KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **capability-spec** (Python, 25KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **fleet-code-agent** (TypeScript, 25KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **loop-closure** (TypeScript, 25KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **nexus-git-agent** (TypeScript, 25KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **reverse-actualization** (TypeScript, 25KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **context-broker** (TypeScript, 25KB) — Unified goal-scoped context management for fleet execution | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-confidence-math** (Rust, 25KB) — Confidence math library: Bayesian fusion, chains, decay, multi-agent reconciliation | **WORTH_DEV=YES — fleet core component**
+- **fleet-logger** (Python, 24KB) — 24kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **dojo-alchemist** (Python, 24KB) — 24kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **dojo-builder** (Python, 24KB) — 24kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-constraints** (Rust, 24KB) — 24kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-surrogate** (Python, 24KB) — 24kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **flux-studio** (JavaScript, 24KB) — 24kb | **WORTH_DEV=YES — Core fleet project**
+- **superinstance-flux-runtime-ruby** (Ruby, 24KB) — 24kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **constraint-theory-engine-cpp-lua** (C++, 24KB) — 24kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **fleet-contributing** (NONE, 24KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **meta-loop-evolver** (TypeScript, 24KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **qoder-action** (JavaScript, 24KB) — Qoder CLI GitHub Action | **WORTH_DEV=NO — insufficient signal for development priority**
+- **mud-bridge** (Python, 23KB) — 23kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-ensign** (Python, 23KB) — 23kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-query** (Rust, 23KB) — 23kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **pythagorean48** (Python, 23KB) — 23kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **streaming-response-handler** (Python, 23KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **taskflow** (HTML, 23KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **cuda-intelligence** (Rust, 23KB) — Rust+CUDA rebuild of frozen-intelligence — GPU yield simulation, thermal analysis, fault injection, timing verification, weight compilation, DRC | **WORTH_DEV=NO — insufficient signal for development priority**
+- **starship-jetsonclaw1** (Python, 23KB) — MUD bridge for USS JetsonClaw1 - real Jetson telemetry as a starship TUI | **WORTH_DEV=NO — insufficient signal for development priority**
+- **dojo-scribe** (Python, 22KB) — 22kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **lyapunov-stability** (Python, 22KB) — 22kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-i2i** (Python, 22KB) — 22kb | **WORTH_DEV=YES — Useful tool/infrastructure**
+- **plato-room-analytics** (Python, 22KB) — 22kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **FishingLog** (Python, 22KB) — 22kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **holodeck-core** (Rust, 22KB) — 22kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **swarm-intuition** (TypeScript, 22KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **seed-mcp-v2** (Python, 22KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **flow-forge** (TypeScript, 22KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **clawcommit-lucid** (TypeScript, 22KB) — Fleet learning journal — every evolution, commit, and lesson remembered | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-self-evolve** (Rust, 22KB) — Self-modification and evolution framework for FLUX agents — mutation, selection, genome encoding, rollback | **WORTH_DEV=NO — insufficient signal for development priority**
+- **fleet-config** (Python, 21KB) — 21kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **flux-optimizer** (Python, 21KB) — 21kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **spacetime-plato** (Python, 21KB) — 21kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cocapn-benchmark** (Python, 21KB) — 21kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **businesslog-ai-pages** (HTML, 21KB) — 21kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **increments-fleet-trust** (TypeScript, 21KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **collective-mind** (TypeScript, 21KB) — Cross-vessel pattern discovery — insights no single agent could see | **WORTH_DEV=NO — insufficient signal for development priority**
+- **flux-validator** (Python, 20KB) — 20kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-instinct** (Rust, 20KB) — 20kb | **WORTH_DEV=YES — Useful tool/infrastructure**
+- **plato-forge-trainer** (Python, 20KB) — 20kb | **WORTH_DEV=YES — Core fleet project**
+- **shell-trap** (Python, 20KB) — 20kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **hav-reverse-actualization** (NONE, 20KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **fleet-identity** (TypeScript, 20KB) — Fleet self-awareness — priorities, conflict resolution, collective intent | **WORTH_DEV=YES — fleet ecosystem extension**
+- **plato-relay** (Rust, 19KB) — 19kb | **WORTH_DEV=YES — Core fleet project**
+- **discovery-mad-libs** (Python, 19KB) — 19kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **ensign-protocol** (Python, 19KB) — 19kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **peripheral-vision** (Python, 19KB) — 19kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **plato-afterlife** (Rust, 19KB) — 19kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-bridge** (Python, 19KB) — 19kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-import** (Rust, 19KB) — 19kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **quartermaster-gc** (Python, 19KB) — 19kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **synclink-protocol** (Python, 19KB) — 19kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cocapn-pipeline** (Python, 19KB) — 19kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **mud-expert-1** (Python, 19KB) — 19kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tutor** (Python, 19KB) — 19kb | **WORTH_DEV=YES — Core fleet project**
+- **dmlog-agent** (Python, 19KB) — 19kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **git-cuda-agent** (Rust, 19KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **kung-fu** (NONE, 19KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **flux-apps** (C, 19KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **baton-ai** (TypeScript, 19KB) — Generational context handoff for repo-native agents | **WORTH_DEV=NO — insufficient signal for development priority**
+- **bootcamp-engine** (Python, 18KB) — 18kb | **WORTH_DEV=YES — Useful tool/infrastructure**
+- **current-sync** (Python, 18KB) — 18kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **flux-opcodes** (Python, 18KB) — 18kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **mirror-recorder** (Python, 18KB) — 18kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **plato-address** (Python, 18KB) — 18kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-forge-daemon** (Python, 18KB) — 18kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-lab-guard** (Rust, 18KB) — 18kb | **WORTH_DEV=YES — Core fleet project**
+- **open-mythos-edge** (Python, 18KB) — 18kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **cocapn-identity** (Python, 18KB) — 18kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **fishinglog-agent** (Python, 18KB) — 18kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **dockside-exam** (C, 18KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **forgiveness-function** (NONE, 18KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **personality-engine** (TypeScript, 18KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **cuda-flux-ese-stdlib** (Rust, 18KB) — Standard library of flux-ese modules for FLUX agents — trust, energy, delegation, monitoring | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-keeper-core** (Rust, 18KB) — Rust crate — portable system watchdog: /proc monitoring, health checks, trend analysis | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-social-graph** (Rust, 18KB) — Social network analysis for FLUX fleet — centrality, communities, influence propagation, anomaly detection | **WORTH_DEV=NO — insufficient signal for development priority**
+- **plato-papers** (Python, 17KB) — 17kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-flux-opcodes** (Rust, 17KB) — 17kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-forge-pipeline** (Rust, 17KB) — 17kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-query-parser** (Rust, 17KB) — 17kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-room-search** (Rust, 17KB) — 17kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-training-casino** (Rust, 17KB) — 17kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-trust-beacon** (Rust, 17KB) — 17kb | **WORTH_DEV=YES — Core fleet project**
+- **swarm-orbit** (Python, 17KB) — 17kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-unified-belief** (Rust, 17KB) — 17kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-mythos** (Python, 17KB) — 17kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cocapn-protocol** (Python, 17KB) — 17kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-meta-tiles** (Python, 17KB) — 17kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-surprise-detector** (Python, 17KB) — 17kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **bordercollie** (Python, 17KB) — 17kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **makerlog-agent** (Python, 17KB) — 17kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cost-analysis** (TypeScript, 17KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **flux-conformance-runner** (C, 17KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **cartridge-mcp** (JavaScript, 17KB) — MCP server for swappable behavior cartridges with personality skins — fleet protocol cartridge system | **WORTH_DEV=NO — insufficient signal for development priority**
+- **copilot-cocapn** (NONE, 17KB) — GitHub Copilot CLI plugin for Cocapn. Custom agents, fleet skills, BYOK model routing. | **WORTH_DEV=YES — fleet core component**
+- **cuda-equipment** (Rust, 17KB) — Shared equipment library — Confidence propagation, Tile grid, Agent trait, Fleet A2A messaging, Equipment registry. The pulleys and engines every v... | **WORTH_DEV=YES — agent fleet tooling**
+- **emergence-bus** (TypeScript, 17KB) — Event bus for fleet emergence subsystem — decoupled communication | **WORTH_DEV=NO — insufficient signal for development priority**
+- **error-catalog** (TypeScript, 17KB) — Comprehensive error catalog — fleet-wide error taxonomy, causes, and fixes | **WORTH_DEV=NO — insufficient signal for development priority**
+- **consensus-weave** (Python, 16KB) — 16kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **constraint-snap** (Python, 16KB) — 16kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **grammar-curator-1** (Python, 16KB) — 16kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-fleet-graph** (Rust, 16KB) — 16kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-neural-kernel** (Python, 16KB) — 16kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-room-persist** (Rust, 16KB) — 16kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-room-server** (Python, 16KB) — 16kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-feedback** (Python, 16KB) — 16kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **fleet-consciousness-dashboard** (Python, 16KB) — 16kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-client-php** (PHP, 16KB) — 16kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **bering-sea-architecture** (NONE, 16KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **openmanus-vessel** (NONE, 16KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **skill-cartridge-registry** (TypeScript, 16KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **flux-ese-parser** (Rust, 16KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **cuda-axiom** (Rust, 16KB) — Axiom language core — post-human programming language with JSON payloads, confidence types, payload tree execution | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-dream-cycle** (Rust, 16KB) — Rust crate — dream cycle protocol: task queue, idle detection, budget management, provider routing | **WORTH_DEV=NO — insufficient signal for development priority**
+- **deepseek-reasoner-vessel** (NONE, 16KB) — Git-agent vessel for DeepSeek-Reasoner | **WORTH_DEV=NO — insufficient signal for development priority**
+- **BusinessLog** (Python, 15KB) — 15kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **plato-dynamic-locks** (Rust, 15KB) — 15kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-forge-buffer** (Python, 15KB) — 15kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-room-invite** (Python, 15KB) — 15kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-room-runtime** (Python, 15KB) — 15kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-session-tracer** (Python, 15KB) — 15kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-client** (Python, 15KB) — 15kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-export** (Python, 15KB) — 15kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-ranker** (Rust, 15KB) — 15kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-mythos-glue** (Python, 15KB) — 15kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-attention-tracker** (Python, 15KB) — 15kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **playerlog-agent** (Python, 15KB) — 15kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **luciddreamer-agent** (Python, 15KB) — 15kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **dmlog-ai-pages** (HTML, 15KB) — 15kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **businesslog-agent** (Python, 15KB) — 15kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **seed-ui** (TypeScript, 15KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **cuda-flux-debugger** (Rust, 15KB) — FLUX VM debugging, tracing, profiling, and deterministic replay | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-flux-stdlib** (Rust, 15KB) — FLUX VM standard library: bytecode subroutines for math, memory, search, sorting, agent utilities | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-telepathy** (Rust, 15KB) — Rust crate — A2A message transport, binary encoding, mailbox, routing for Cocapn fleet | **WORTH_DEV=NO — insufficient signal for development priority**
+- **dream-engine** (TypeScript, 15KB) — Lucid dreaming content engine — overnight generation with multi-character narration | **WORTH_DEV=NO — insufficient signal for development priority**
+- **plato-bridge** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-deploy-policy** (Rust, 14KB) — 14kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-forge-listener** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-hooks** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-room-acl** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-room-webhook** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-sentiment-vocab** (Rust, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-ship-protocol** (Rust, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-batch** (Rust, 14KB) — 14kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-tile-graph** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-tile-metrics** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-pinboard** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-prompt** (Rust, 14KB) — 14kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-tile-relation** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-version** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-tiling** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Core fleet project**
+- **zeroclaw-crew** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **AIR** (Python, 14KB) — 14kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **old-school-machine-wisdom** (C, 14KB) — 14kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **playerlog-ai-pages** (HTML, 14KB) — 14kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **personallog-ai-pages** (HTML, 14KB) — 14kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **activeledger-agent** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **personallog-agent** (Python, 14KB) — 14kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-voice** (HTML, 14KB) — 14kb | **WORTH_DEV=YES — Core fleet project**
+- **flux-evolve-py** (Python, 14KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **sovereign-identity** (TypeScript, 14KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **bid-engine** (TypeScript, 14KB) — Agent marketplace — subcontractors bid on jobs, estimate-to-quote training loop | **WORTH_DEV=NO — insufficient signal for development priority**
+- **capitaine-ai** (TypeScript, 14KB) — Capitaine.ai — Premium education and advanced agent capabilities. Cold on Deckboss hardware, unlockable. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-grimoire** (Rust, 14KB) — Rust crate — fleet pattern library (spellbook) with reusable FLUX agent recipes | **WORTH_DEV=YES — agent fleet tooling**
+- **cuda-instinct-cortex** (Rust, 14KB) — Instinct processing cortex: behavioral urgency, learning, social dynamics, homeostasis | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-necropolis** (Rust, 14KB) — Rust crate — fleet graveyard: vessel death, memorial service, knowledge preservation | **WORTH_DEV=NO — insufficient signal for development priority**
+- **plato-achievement** (Python, 13KB) — 13kb | **WORTH_DEV=YES — Core fleet project**
+- **plato-adapter-store** (Python, 13KB) — 13kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-room-presence** (Python, 13KB) — 13kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-fountain** (Python, 13KB) — 13kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-governance** (Python, 13KB) — 13kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-notifications** (Python, 13KB) — 13kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **activeledger-ai-pages** (HTML, 13KB) — 13kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **provider-abstraction-layer** (Python, 13KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **rate-limiting-service** (Python, 13KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **membership-api** (TypeScript, 13KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **telepathy-c** (C, 13KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **vessel-tuner** (TypeScript, 13KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **vessel-bridge** (Python, 13KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **ues-protocol** (TypeScript, 13KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **api-playground** (TypeScript, 13KB) — Interactive API playground for testing fleet endpoints | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-hav-bridge** (Rust, 13KB) — HAV vocabulary to FLUX bytecode compilation bridge | **WORTH_DEV=YES — integration bridge**
+- **cuda-vm-scheduler** (Rust, 13KB) — Cooperative VM multitasking with energy-aware priority scheduling | **WORTH_DEV=NO — insufficient signal for development priority**
+- **dreamlog-ai** (TypeScript, 13KB) — DreamLog.ai — AI dream journal and lucid dreaming companion. Part of the Lucineer ecosystem. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **fleet-github-app** (Python, 12KB) — 12kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-config** (Rust, 12KB) — 12kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-forge-emitter** (Python, 12KB) — 12kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-live-data** (Python, 12KB) — 12kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-prompt-builder** (Rust, 12KB) — 12kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-store** (Python, 12KB) — 12kb | **WORTH_DEV=YES — Core fleet project**
+- **shell-artisan-1** (Python, 12KB) — 12kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cocapn-training** (Python, 12KB) — 12kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **cocapn-telemetry** (Python, 12KB) — 12kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-sdk-unified** (Python, 12KB) — 12kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **flux-constraint-ruby** (Ruby, 12KB) — 12kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **negative-knowledge** (NONE, 12KB) — 12kb | **Negative knowledge as the primary computational resource — knowing where violations are NOT is cheaper than finding where they are (4.8/5 cross-model confidence)**
+- **SuperInstanceDocs** (NONE, 12KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **commit-caster** (Python, 12KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **test-runner-vessel** (NONE, 12KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **doc-writer-vessel** (NONE, 12KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **comms-engineer-vessel** (NONE, 12KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **keepers-architecture** (NONE, 12KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **isa-v3-edge-spec** (NONE, 12KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **flux-isa-unified** (NONE, 12KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **adversarial-red-team** (TypeScript, 12KB) — Auto-spawn attacker agents to harden fleet before threats | **WORTH_DEV=YES — agent fleet tooling**
+- **bytecode-verifier-c** (C, 12KB) — Pure C11 FLUX bytecode verifier — pre-execution validation, security primitive for agent VMs | **WORTH_DEV=NO — insufficient signal for development priority**
+- **causal-healer** (TypeScript, 12KB) — Causal graph self-healing — diagnose root cause, choose optimal recovery | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cocapn-press** (NONE, 12KB) — Press, marketing, and narrative strategy for the cocapn ecosystem | **WORTH_DEV=YES — fleet core component**
+- **compliance-fork** (TypeScript, 12KB) — EU AI Act compliance vessel — audit and compliance tooling. Part of the Lucineer Cocapn fleet. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **crdt-sync** (TypeScript, 12KB) — CRDT-based state synchronization for repo-native agent fleets | **WORTH_DEV=YES — agent fleet tooling**
+- **cuda-discovery** (Rust, 12KB) — Service discovery — agent registration, health probing, capability lookup, fleet directory (Rust) | **WORTH_DEV=YES — agent fleet tooling**
+- **cuda-edge-lint** (Rust, 12KB) — Hardware constraint linter for FLUX vocabularies | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-ephemeral** (Rust, 12KB) — Rust crate — ephemeral (short-lived) agent task management for Cocapn fleet | **WORTH_DEV=YES — agent fleet tooling**
+- **cuda-workflow** (Rust, 12KB) — Workflow engine — DAG task graphs, parallel execution, conditional branching, retry (Rust) | **WORTH_DEV=NO — insufficient signal for development priority**
+- **dead-reckoning-engine** (TypeScript, 12KB) — Expensive models storyboard. Cheap models animate. Git coordinates. The killer way to build ideas at scale. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **deepseek-chat-vessel** (Python, 12KB) — Run-about vessel — high-token iterative work, modify-spread-tool loops, Reasoner reflection | **WORTH_DEV=NO — insufficient signal for development priority**
+- **equipment-catalog** (TypeScript, 12KB) — Browse and install equipment for vessels | **WORTH_DEV=NO — insufficient signal for development priority**
+- **jetson-bootstrap** (C, 12KB) — Git-agent for Jetson replication — clone this repo on another Jetson and be a few commits behind, not starting from scratch | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cross-pollination** (Python, 11KB) — 11kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-sim-bridge** (Rust, 11KB) — 11kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **plato-tile-split** (Rust, 11KB) — 11kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **sheaf-constraint-synthesis** (NONE, 11KB) — 11kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **Ghost-tiles** (NONE, 11KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **local-bridge** (TypeScript, 11KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **seed-nexus-bootstrap** (TypeScript, 11KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **holodeck-cuda-1** (Cuda, 11KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **keeper-c** (C, 11KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **tender** (NONE, 11KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **flux-evolve-c** (C, 11KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-asm** (C, 11KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **fleet-witness-marks** (Rust, 11KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **ab-testing** (TypeScript, 11KB) — Fleet-wide A/B testing | **WORTH_DEV=NO — insufficient signal for development priority**
+- **boot-camp** (NONE, 11KB) — Tabula rasa repo to living vessel. The captain assesses, builds ergonomic, distills skills, remembers. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **coinlog-ai** (TypeScript, 11KB) — CoinLog.ai — AI cryptocurrency portfolio tracker and market analyst. Part of the Lucineer ecosystem. | **WORTH_DEV=NO — insufficient signal for development priority**
+- **confidence-c** (C, 11KB) — Pure C11 confidence math — Bayesian fusion, decay, multi-agent reconciliation, no heap | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-instruction-set** (Rust, 11KB) — Agent-native instruction set with confidence propagation, A2A encoding, assembler/disassembler (Rust) | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-intent-embed** (Rust, 11KB) — Intent embedding system — human text to structured intent vectors for A2A deliberation | **WORTH_DEV=NO — insufficient signal for development priority**
+- **fleet-cron** (TypeScript, 11KB) — Cron job scheduler for fleet — scheduled tasks, recurring health checks, batch processing | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-search** (TypeScript, 11KB) — Search across all vessel documentation, code, and configs | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-templates** (TypeScript, 11KB) — Starter templates for common vessel types — fork and customize | **WORTH_DEV=YES — fleet ecosystem extension**
+- **jc1-ct-bridge** (Rust, 10KB) — 10kb | **WORTH_DEV=NO — Small stub, unclear purpose**
+- **plato-hdc-bridge** (Python, 10KB) — 10kb | **WORTH_DEV=YES — Core fleet project**
+- **barracks** (Python, 10KB) — 10kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **fleet-vessel** (Python, 10KB) — 10kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **Agent-Lifecycle-Registry** (NONE, 10KB) — 10kb | **WORTH_DEV=YES — Fleet ecosystem component**
+- **flux-agent-a0fa81** (NONE, 10KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **kernel-model** (NONE, 10KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **intelligence-marketplace** (NONE, 10KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **model-quality-rubric** (NONE, 10KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **noteweave** (NONE, 10KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **flux-stigmergy-c** (C, 10KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **instinct-c** (C, 10KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **fluxkeeper-go** (Go, 10KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **fluxenergy-go** (Go, 10KB) — NO_DESC | **WORTH_DEV=NO (No description, unclear purpose)**
+- **git-agentlog** (Python, 10KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **git-agent-rebase** (Python, 10KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **training-architecture** (NONE, 10KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **flux-memory-c** (C, 10KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-necropolis-c** (C, 10KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-navigate-c** (C, 10KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-grimoire-c** (C, 10KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **cuda-filtration** (Rust, 10KB) — Intelligence filtration — extract insights from agent deliberation streams in real-time | **WORTH_DEV=NO — insufficient signal for development priority**
+- **cuda-fleet-health** (Rust, 10KB) — Distributed vessel health monitoring — commit-based heartbeat, dead vessel detection, alert propagation | **WORTH_DEV=YES — fleet ecosystem extension**
+- **cuda-pipeline** (Rust, 10KB) — Data pipeline — ETL stages, map/filter/reduce transforms, stream processing (Rust) | **WORTH_DEV=NO — insufficient signal for development priority**
+- **deckboss-fab** (Python, 10KB) — CAD/CAM equipment for deckboss — OpenSCAD, FreeCAD, Gazebo, G-code generation | **WORTH_DEV=NO — insufficient signal for development priority**
+
+
+---
+
+## TIER-5: Blank (<10KB, empty or nearly empty) (430 repos)
+
+- **fleet-homunculus** (Python, 9KB) — 9kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **plato-room-context** (Rust, 9KB) — 9kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-tile-api** (Rust, 9KB) — 9kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **plato-tile-current** (Rust, 9KB) — 9kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **plato-tile-dedup** (Rust, 9KB) — 9kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-tile-pipeline** (Rust, 9KB) — 9kb | **WORTH_DEV=YES — Core fleet concept**
+- **tile-refiner** (Python, 9KB) — 9kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **cocapn-workers** (HTML, 9KB) — 9kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **activelog-agent** (Python, 9KB) — 9kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **seed-creative-swarm** (Python, 9KB) — 9kb | **WORTH_DEV=NO — Tiny stub**
+- **cocapn-reviews** (NONE, 9KB) — 9kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **isa-v3-draft** (NONE, 9KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **forgetting-problem** (NONE, 9KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **hybrid-memory** (TypeScript, 9KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **hardware-adapter** (TypeScript, 9KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **shiplog** (NONE, 9KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **mycorrhizal-relay** (C, 9KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **ghost-tiles-cpp** (C++, 9KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxtelepathy-go** (Go, 9KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxinstinct-go** (Go, 9KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **flux-perception-c** (C, 9KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-meta** (C, 9KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-language-c** (C, 9KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-ephemeral-c** (C, 9KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-compass-c** (C, 9KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-census-c** (C, 9KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **a2a-r-protocol** (Python, 9KB) — A2A-R: Agent-to-Agent protocol extensions for robotics — QoS levels, WebRTC streaming, safety-critical coordination | **WORTH_DEV=NO — too small to evaluate**
+- **causal-graph** (TypeScript, 9KB) — Lightweight in-KV causal reasoning for failure diagnosis | **WORTH_DEV=NO — too small to evaluate**
+- **causal-memory** (TypeScript, 9KB) — Causal reasoning engine — track and query cause-effect chains across fleet actions | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-assembler** (Rust, 9KB) — Text-to-bytecode assembler for agent instruction sets — labels, data, confidence, biological ops (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-communication** (Rust, 9KB) — Inter-agent communication — intent extraction, conversation framing, protocol negotiation, energy budget (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-confidence-cascade** (Rust, 9KB) — Rust+CUDA confidence cascade — propagate uncertainty through agent reasoning | **WORTH_DEV=YES — fleet core component**
+- **cuda-convergence** (Rust, 9KB) — Convergence detection — equilibrium processing for A2A deliberation systems | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-edge-runtime** (Rust, 9KB) — Rust+CUDA rebuild of nexus-edge-runtime — GPU trust engine, reflex compiler, fleet coordination | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-learning** (Rust, 9KB) — Experience-based learning — credit assignment, lesson extraction, curriculum progression, generalization (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-perception** (Rust, 9KB) — Perception pipeline — signal filtering, feature extraction, object tracking, scene composition (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-prompt** (Rust, 9KB) — Prompt primitives — templates, chain-of-thought, few-shot management, versioning, compression (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-self-model** (Rust, 9KB) — Agent self-model — metacognition, capability calibration, limitation awareness, growth tracking (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-skill** (Rust, 9KB) — Skill system — proficiency levels, prerequisite trees, power-law practice, synergy bonuses, skill sharing (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-social** (Rust, 9KB) — Social dynamics — norms, reputation, groups, leadership, cooperation game theory (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-stigmergy** (Rust, 9KB) — Rust+CUDA stigmergic coordination — pheromone-based multi-agent communication | **WORTH_DEV=NO — too small to evaluate**
+- **fitlog-ai** (TypeScript, 9KB) — AI fitness companion — workout tracking, exercise plans, progress analytics | **WORTH_DEV=NO — too small to evaluate**
+- **fleet-blueprint** (TypeScript, 9KB) — Cocapn Fleet Blueprint — architecture diagram, integration matrix, migration guide | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-marketplace** (TypeScript, 9KB) — Adaptive autonomy marketplace — vessels bid on tasks | **WORTH_DEV=YES — fleet ecosystem extension**
+- **foodlog-ai** (TypeScript, 9KB) — AI food companion — meal logging, nutrition tracking, recipe suggestions | **WORTH_DEV=NO — too small to evaluate**
+- **goallog-ai** (TypeScript, 9KB) — AI goal tracker — habit building, progress tracking, accountability coaching | **WORTH_DEV=NO — too small to evaluate**
+- **tasklog-ai** (TypeScript, 9KB) — Task Manager — AI-powered Task Manager | **WORTH_DEV=NO — too small to evaluate**
+- **plato-address-bridge** (Rust, 8KB) — 8kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **plato-relay-tidepool** (Rust, 8KB) — 8kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-sim-channel** (Rust, 8KB) — 8kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-tile-room-bridge** (Rust, 8KB) — 8kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **plato-tile-scorer** (Rust, 8KB) — 8kb | **WORTH_DEV=YES — Core fleet concept**
+- **proof-vector-search** (Rust, 8KB) — 8kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **validation-holonomy** (Rust, 8KB) — 8kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **reallog-agent** (Python, 8KB) — 8kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **a2a-protocol** (TypeScript, 8KB) — 8kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **ground-truth** (NONE, 8KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **git-coordination-protocol** (NONE, 8KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **open-fleet-safety** (NONE, 8KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **resonant-consensus** (NONE, 8KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **the-bridge** (NONE, 8KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **flux-tools** (Python, 8KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-social-c** (C, 8KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **ghost-tiles-c** (C, 8KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **ghost-tiles-cuda** (Cuda, 8KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxnecropolis-go** (Go, 8KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **flux-dream-cycle-c** (C, 8KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **cocapn-fleet-readme** (NONE, 8KB) — Master fleet README, roadmap, and vessel registry | **WORTH_DEV=YES — fleet core component**
+- **cuda-adaptive-rate** (Rust, 8KB) — Adaptive rate limiting for agent workloads — token-aware, model-specific backpressure | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-bottleneck** (Rust, 8KB) — Bottleneck detection and resolution for agent computation pipelines — identifies throughput limits | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-cache** (Rust, 8KB) — Caching — LRU eviction, TTL expiration, namespaces, hit/miss stats (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-config** (Rust, 8KB) — Configuration — layered configs, env vars, defaults, validation, secret masking (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-consensus** (Rust, 8KB) — Consensus — majority voting, weighted agreement, quorum, Byzantine tolerance, leader election (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-context-window** (Rust, 8KB) — Context window management — compression, summarization, and token budgeting for agent conversations | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-cryptography** (Rust, 8KB) — Cryptography — hashing, HMAC, key derivation, signing, verification, key rotation (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-decision** (Rust, 8KB) — Decision engine — multi-criteria utility scoring, risk assessment, satisficing, regret minimization (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-deliberation** (Rust, 8KB) — Consider/Resolve/Forfeit deliberation protocol — multi-agent consensus engine with Bayesian confidence | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-emergence** (Rust, 8KB) — Emergence detection — identify fleet-wide patterns no individual agent was programmed to produce (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-fleet-topology** (Rust, 8KB) — Fleet vessel topology discovery, health monitoring, and connection graph management | **WORTH_DEV=YES — fleet ecosystem extension**
+- **cuda-hierarchy** (Rust, 8KB) — Hierarchical control — tree-structured organizations with delegation, authority, escalation (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-logging** (Rust, 8KB) — Structured logging — levels, context propagation, rotation, filtering, export (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-metrics** (Rust, 8KB) — Telemetry — counters, gauges, histograms, timers, health checks, metric aggregation (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-motor** (Rust, 8KB) — Motor primitives — action execution, movement planning, safety guards, effort estimation (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-navigation** (Rust, 8KB) — Pathfinding — A* on grid, waypoint management, obstacle avoidance, replanning (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-persistence** (Rust, 8KB) — Persistence — checkpointing, state serialization, recovery, rollback, dirty tracking (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-playbook** (Rust, 8KB) — Playbook — reusable action patterns, tactics, strategies, execution tracking, pattern sharing (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-provenance** (Rust, 8KB) — Provenance — decision lineage, data origin tracing, accountability chains, audit trails (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-rate-limit** (Rust, 8KB) — Rate limiting — token bucket, sliding window, per-agent quotas, backpressure (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-resilience** (Rust, 8KB) — Resilience — bulkhead, circuit breaker, rate limiter, chaos monkey (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-resource** (Rust, 8KB) — Resource management — allocation, budgets, priority preemption, garbage collection (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-retry** (Rust, 8KB) — Retry — exponential backoff, jitter, circuit breaker, resilient execution patterns (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-sandbox** (Rust, 8KB) — Sandbox — execution isolation, resource limits, operation policies, fault containment (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-schedule** (Rust, 8KB) — Scheduling — task management, priority queues, recurring events, conflict detection (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-semantic-router** (Rust, 8KB) — Semantic query routing to fleet vessels by HAV domain expertise — edge-friendly, zero GPU | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-serializer** (Rust, 8KB) — Serialization — binary encoding, message framing, schema evolution, varint (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-weather** (Rust, 8KB) — Environmental sensing — temperature, humidity, light, noise, terrain, weather inference (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-world-model** (Rust, 8KB) — World model — spatial layout, object permanence, state tracking, and predictions (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **energy-c** (C, 8KB) — Energy management module in C for FLUX fleet power optimization and monitoring | **WORTH_DEV=NO — too small to evaluate**
+- **flux-lcar-cartridge** (Python, 7KB) — 7kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **plato-deadband** (Rust, 7KB) — 7kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-e2e-pipeline-v2** (Rust, 7KB) — 7kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-room-memory** (Python, 7KB) — 7kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-tile-encoder** (Rust, 7KB) — 7kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-tile-watcher** (Python, 7KB) — 7kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **validation-bits** (Rust, 7KB) — 7kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **validation-rigidity** (Rust, 7KB) — 7kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **plato-fflearning** (Python, 7KB) — 7kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **flux-asm-ruby** (Ruby, 7KB) — 7kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **constraint-theory-mojo** (Mojo, 7KB) — 7kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **flux-chronometer** (NONE, 7KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **gravity-well-protocol** (NONE, 7KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **jetson-compass** (TypeScript, 7KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **marine-ops** (TypeScript, 7KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **phase-five-research** (NONE, 7KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **permission-engine** (TypeScript, 7KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **skill-evolver** (TypeScript, 7KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxstigmergy-go** (Go, 7KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-fracture-sim** (NONE, 7KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **agent-dna** (TypeScript, 7KB) — Genetic code for vessel capabilities and behavior patterns | **WORTH_DEV=NO — too small to evaluate**
+- **codelog-ai** (TypeScript, 7KB) — CodeLog.ai — AI coding assistant and project tracker. Part of the Lucineer ecosystem. | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-a2a** (Rust, 7KB) — Agent-to-Agent protocol — deliberative messaging with confidence propagation, trust scoring, fleet routing (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-actor** (Rust, 7KB) — Actor model — mailbox, spawn, supervision trees, message passing (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-budget** (Rust, 7KB) — Resource budgeting — computation limits, token allocation, priority scheduling (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-bytecode-optimizer** (Rust, 7KB) — FLUX bytecode optimization passes — dead code elimination, constant folding, jump threading | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-codec** (Rust, 7KB) — Codec — varint, LEB128, framed messages, chunked encoding (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-compliance** (Rust, 7KB) — EU AI Act compliance engine — risk classification, transparency, human oversight, audit trails (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-contract** (Rust, 7KB) — Agent contracts — SLA management, QoS tiers, capability guarantees, compliance (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-crdt** (Rust, 7KB) — CRDTs — G-Counter, PN-Counter, OR-Set, LWW-Register, Vector Clock (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-did** (Rust, 7KB) — Decentralized Identity for agents — DID/SPIFFE-like vessel identities with attestation (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-event** (Rust, 7KB) — Event system — pub/sub, event sourcing, replay, dead letter queue (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-forth** (Rust, 7KB) — Minimal Forth-like agent language — stack-based, extensible, compiles to instruction-set bytecode (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-fpga-toolkit** (Rust, 7KB) — FPGA toolkit — TLMM ternary encoding, COE/MIF generation, Hilbert curve tile mapping for inference silicon | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-goal** (Rust, 7KB) — Hierarchical goal management — decomposition, subgoaling, priority scoring, dependency tracking (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-immutable** (Rust, 7KB) — Immutable data structures — persistent vector, hash map, structural sharing (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-lock** (Rust, 7KB) — Distributed locking — mutex, read-write, leases, deadlock detection (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-mesh** (Rust, 7KB) — Service mesh — discovery, load balancing, health checking, traffic routing (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-metrics-v2** (Rust, 7KB) — Enhanced metrics — histograms with percentiles, timers, derivative gauges (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-neural-compiler** (Rust, 7KB) — Neural compiler — weight quantization (INT4/INT8/FP16/Mixed), METL binary generation, layer scheduling for inference silicon | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-observer** (Rust, 7KB) — Observer pattern — reactive subscriptions, signal propagation, change detection (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-rbac** (Rust, 7KB) — Role-based access control — roles, permissions, inheritance, deny rules (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-resolve-agent** (Rust, 7KB) — Deliberative A2A agent — Consider/Resolve/Forfeit with Bayesian confidence, built on cuda-equipment | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-saga** (Rust, 7KB) — Saga pattern — distributed transactions, compensation, recovery (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-state-machine** (Rust, 7KB) — State machines — FSM, hierarchical states, guards, transitions, persistence (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-stream** (Rust, 7KB) — Stream processing — tumbling/sliding windows, aggregation, joins (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-topology** (Rust, 7KB) — Fleet topology — graph analysis, shortest path, clustering, communities (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-tuple-space** (Rust, 7KB) — Linda tuple space — generative communication, pattern matching, out/rd/in operations (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-vessel-bridge** (Rust, 7KB) — Hardware Abstraction Layer — sensors/actuators to agent runtime with safety (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-weight-stream** (Rust, 7KB) — DDR4 to BRAM weight streaming — tiled weight loading for inference silicon with prefetch and LRU eviction | **WORTH_DEV=NO — too small to evaluate**
+- **edge-boarding-protocol** (NONE, 7KB) — Edge-Native concept: Edge Boarding Protocol | **WORTH_DEV=NO — too small to evaluate**
+- **edge-equipment-catalog** (NONE, 7KB) — Edge-Native concept: Edge Equipment Catalog | **WORTH_DEV=NO — too small to evaluate**
+- **failure-atlas** (Python, 7KB) — Comprehensive failure taxonomy and recovery — technical/human/ecosystem failure classification and procedures | **WORTH_DEV=NO — too small to evaluate**
+- **field-captain** (Python, 7KB) — Jetson field agent - voice interface, local LLM, git-agent orchestration for boats and job sites | **WORTH_DEV=NO — too small to evaluate**
+- **fleet-aurora** (TypeScript, 7KB) — Beautiful fleet visualization dashboard with real-time status | **WORTH_DEV=YES — fleet ecosystem extension**
+- **seed-mcp** (Python, 7KB) — Standalone MCP + HTTP API for ByteDance Seed-2.0-Mini - cheap creative reasoning engine | **WORTH_DEV=NO — too small to evaluate**
+- **plato-room-scheduler** (Rust, 6KB) — 6kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-ship-demo** (Python, 6KB) — 6kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **plato-tile-cache** (Rust, 6KB) — 6kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-tile-priority** (Rust, 6KB) — 6kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-tile-search** (Rust, 6KB) — 6kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-tools** (Python, 6KB) — 6kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **LOG-Tensor** (NONE, 6KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **Polln-whitepapers** (NONE, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **Rubiks-Tensor-Transformer** (NONE, 6KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **Spreadsheet-ai** (NONE, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **cacapn** (NONE, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **clawmatrix** (NONE, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **mask-lock-clips** (NONE, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **platonic-randomness** (NONE, 6KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **pinchrs** (NONE, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **voxel-logic** (NONE, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fork-first-enterprise** (NONE, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **local-model-registry** (TypeScript, 6KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **meta-repair** (TypeScript, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-mission** (Python, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **thor-rom** (Python, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **ghost-tiles-csharp** (C#, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **hav-flux-bridge** (NONE, 6KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-trust-c** (C, 6KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **fluxgrimoire-go** (Go, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxconfidence-go** (Go, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **zero-trust-fleet** (TypeScript, 6KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **webhook-relay** (TypeScript, 6KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **flux-agent-sim** (C, 6KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **agent-tattoo** (TypeScript, 6KB) — Permanent capability badges and achievements for vessels | **WORTH_DEV=NO — too small to evaluate**
+- **api-versioner** (TypeScript, 6KB) — API version management — semantic versioning, deprecation warnings, migration guides | **WORTH_DEV=YES — small but purposeful api-versioner**
+- **collective-reasoning** (TypeScript, 6KB) — Swarm reasoning — combine outputs from multiple models for richer analysis | **WORTH_DEV=NO — too small to evaluate**
+- **context-compactor-v2** (TypeScript, 6KB) — Advanced context compaction — compress fleet context intelligently | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-adaptation** (Rust, 6KB) — Runtime self-adaptation — adaptive parameters, strategy switching, behavioral plasticity, hill-climbing (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-attention** (Rust, 6KB) — Resource-limited attention — saliency scoring, habituation, change detection, focus modes (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-backpressure** (Rust, 6KB) — Backpressure — credit-based flow control, adaptive rate, queue monitoring | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-captain** (Rust, 6KB) — Captain-class fleet orchestrator — missions, commands, policies, vessel management | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-election** (Rust, 6KB) — Leader election — Raft-like voting, term management, heartbeat, majority | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-fleet-mesh** (Rust, 6KB) — Fleet mesh networking — service discovery, health checking, load balancing, gossip protocol (Rust) | **WORTH_DEV=YES — fleet ecosystem extension**
+- **cuda-fusion** (Rust, 6KB) — Multi-sensor data fusion — weighted/Bayesian/median methods, outlier rejection, sensor health (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-git-agent** (Rust, 6KB) — Self-evolving git-agent — DNA, genes, crossover, mutation, capability registry | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-graph** (Rust, 6KB) — Property graph — nodes, edges, traversal, pattern matching, subgraph extraction | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-lease** (Rust, 6KB) — Lease management — TTL grants, renewal, expiry, holder revocation | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-narrative** (Rust, 6KB) — Narrative construction — agents build explanations from events, memory, and goals with themes and similarity search (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-platonic** (Rust, 6KB) — Platonic forms — ideal type templates agents measure against and evolve toward (Rust) | **WORTH_DEV=YES — fleet core component**
+- **cuda-reflex** (Rust, 6KB) — Biological reflex arcs — fast involuntary agent responses that bypass deliberation, priority-based (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-resolve** (Rust, 6KB) — A2A deliberative compilation in Rust — JSON payloads, confidence propagation, multi-agent protocol | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-rtl-optimizer** (Rust, 6KB) — RTL optimization passes — constant folding, CSE, DCE, and pipeline register insertion | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-schema** (Rust, 6KB) — Schema validation — type checking, constraints, JSON schema for agent messages | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-sensor-agent** (Rust, 6KB) — Perception agent — sensor fusion, confidence-weighted observations, health monitoring, built on cuda-equipment | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-snapshot** (Rust, 6KB) — State snapshotting — checkpoint/restore, delta encoding, versioned history, point-in-time recovery (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-swarm-agent** (Rust, 6KB) — Autonomous swarm vessel — self-contained agent with fleet coordination, deliberation, health | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-temporal** (Rust, 6KB) — Temporal reasoning — time intervals, causal chains, deadline urgency, scheduling with conflict detection (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-time** (Rust, 6KB) — Time utilities — deadlines, timers, time windows, duration math, temporal context (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-voxel-logic** (Rust, 6KB) — 3D voxel spatial reasoning — occupancy grids, A* pathfinding, raycasting, CSG operations (Rust) | **WORTH_DEV=NO — too small to evaluate**
+- **deckboss-marketplace** (Python, 6KB) — Vendor marketplace for deckboss ecosystem — 3D printers, CNC, parts, tiered fees | **WORTH_DEV=NO — too small to evaluate**
+- **experience-pipeline** (Python, 6KB) — Training data pipeline from git history — experience primitives, local LoRA, fleet federated aggregation | **WORTH_DEV=NO — too small to evaluate**
+- **fleet-constellation** (TypeScript, 6KB) — Map vessel relationships as a star constellation | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-economy** (TypeScript, 6KB) — Token economy simulation and optimization | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-metrics** (TypeScript, 6KB) — Real-time metrics collection and aggregation for the entire fleet | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-observatory** (TypeScript, 6KB) — Live TUI dashboard for Admiral oversight of the entire fleet | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-onboarding** (TypeScript, 6KB) — Step-by-step onboarding wizard for new fleet commanders | **WORTH_DEV=YES — fleet ecosystem extension**
+- **plato-room-engine** (Rust, 5KB) — 5kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **plato-temporal-validity** (Rust, 5KB) — 5kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-tile-cascade** (Rust, 5KB) — 5kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **plato-tile-merge** (Python, 5KB) — 5kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **plato-tile-validate** (Rust, 5KB) — 5kb | **WORTH_DEV=YES — Core fleet concept**
+- **plato-llvm-bridge** (Rust, 5KB) — 5kb | **WORTH_DEV=YES — Core fleet concept**
+- **cocapn-prototypes** (HTML, 5KB) — 5kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **flux-ast** (Rust, 5KB) — 5kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **smart-agent-shell** (Python, 5KB) — 5kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **repo-consolidation-plan** (NONE, 5KB) — 5kb | **WORTH_DEV=NO — Tiny stub**
+- **AI-Smart-Notifications** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **Auto-Backup-Compression-Encryption** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **Auto-Tuning-Engine** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **Central-Error-Manager** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **Claude-Abstraction** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **Claude-PRISM-CF** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **Dynamic-Theming** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **In-Browser-Vector-Search** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **In-Browser-Dev-Tools** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **JEPA-Real-Time-Sentiment-Analysis** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **MPC-Orchestration-Optimization** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **Private-ML-Personalization** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **Proactive-Planning-AI-Hub** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **Real-Time-Collaboration** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **Vibe-Code-Agent-Gen** (NONE, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **actualize** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **clawcanvas** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **clawcraft** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **cuda-claw** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **expression-injection** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **flowstate** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **imagegen1** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **memory-visualization** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **multi-device-sync** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **optimized-system-monitor** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **test-sdk-connection** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **universal-import-export** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **tile-lock-synthesis** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **polyglot-flux-ese** (NONE, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **ap-compiler** (NONE, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **gravity-well-v2** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **ghost-tiles-1** (Python, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **local-inference-bridge** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **ipc-equipment** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **innovation-portfolio** (Python, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **incident-manager** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **meta-fleet** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **model-registry** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **nexus-swarm** (Python, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **schema-evolution** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **protocol-validator** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **persona-forge** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **persistent-state** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **sensor-fusion** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **storyboard-engine** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **stigmergy** (Python, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **skill-exchange** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxnavigate-go** (Go, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxdreamcycle-go** (Go, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxephemeral-go** (Go, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxevolve-go** (Go, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxlanguage-go** (Go, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxperception-go** (Go, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxcensus-go** (Go, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **zero-shot-auditor** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **zero-knowledge-fleet** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **trust-graph** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **token-budget-energy** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **flux-isa-v3** (C, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-language** (Rust, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-ephemeral** (Rust, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-census** (Rust, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **fleet-timeline** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **fleet-twilight** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **fleet-tls** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **fleet-university** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **fleet-weather** (TypeScript, 5KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **agent-handshake** (TypeScript, 5KB) — Protocol for fleet agents to discover and negotiate capabilities | **WORTH_DEV=NO — too small to evaluate**
+- **agent-resume** (TypeScript, 5KB) — Agent resume/CV generation — showcase agent capabilities | **WORTH_DEV=NO — too small to evaluate**
+- **agent-rhythm** (TypeScript, 5KB) — Detect and optimize agent work patterns and cycles | **WORTH_DEV=NO — too small to evaluate**
+- **api-gateway-1** (TypeScript, 5KB) — Unified API gateway — single entry point for all fleet vessel APIs | **WORTH_DEV=YES — small but purposeful api-gateway-1**
+- **code-playground** (TypeScript, 5KB) — Live code playground — write, test, share fleet equipment snippets | **WORTH_DEV=NO — too small to evaluate**
+- **compliance-watcher** (TypeScript, 5KB) — Read-only audit vessel watching parent for EU AI Act violations | **WORTH_DEV=NO — too small to evaluate**
+- **confidence-cascade** (Python, 5KB) — Three-zone confidence propagation (GREEN/YELLOW/RED) — sequential and parallel cascade math for multi-signal decision systems. Part of the Lucineer... | **WORTH_DEV=NO — too small to evaluate**
+- **config-vault** (TypeScript, 5KB) — Fleet-wide configuration management | **WORTH_DEV=NO — too small to evaluate**
+- **context-compactor** (TypeScript, 5KB) — Text compression utility for fleet vessels — no external API calls | **WORTH_DEV=NO — too small to evaluate**
+- **cost-optimizer** (TypeScript, 5KB) — Token cost optimization | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-artifact** (Rust, 5KB) — Post-human artifact layer — deliberation output becomes adaptive executable programs | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-circuit** (Rust, 5KB) — Circuit breaker — closed/open/half-open, bulkhead isolation, health metrics | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-compiler-agent** (Rust, 5KB) — Rust+CUDA deliberation bytecode engine — agentic-native compiler | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-model-descent** (Rust, 5KB) — Model descent — the ultimate decomposition. Algorithms absorb intelligence over time, reducing inference cost to zero | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-self-modify** (Rust, 5KB) — Self-modifying programs — runtime code adaptation through deliberation with checkpoint/rollback | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-stream-processor** (Rust, 5KB) — Deliberation stream processor — real-time A2A payload stream with feed-in and equilibrium signals | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-swarm-tiler** (Rust, 5KB) — Rust+CUDA Monte Carlo yield simulation for MoE swarm chips | **WORTH_DEV=NO — too small to evaluate**
+- **debug-observatory** (TypeScript, 5KB) — Fleet-wide debugging hub | **WORTH_DEV=NO — too small to evaluate**
+- **dependency-scanner** (TypeScript, 5KB) — Scan fleet vessels for dependency risks, CVEs, and supply chain issues | **WORTH_DEV=NO — too small to evaluate**
+- **dynamic-sandbox** (TypeScript, 5KB) — V8 isolate sandbox for untrusted reflex code — sub-ms spin-up | **WORTH_DEV=NO — too small to evaluate**
+- **fleet-autopsy** (TypeScript, 5KB) — Post-mortem analysis of vessel failures and incidents | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-biosphere** (TypeScript, 5KB) — Ecosystem simulation for fleet sustainability analysis | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-budget** (TypeScript, 5KB) — Cocapn fleet vessel | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-compass** (TypeScript, 5KB) — Strategic roadmap and direction for the fleet — vision, milestones, OKRs | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-court** (TypeScript, 5KB) — Dispute resolution and governance enforcement | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-designer** (TypeScript, 5KB) — Visual fleet designer — drag-and-drop vessel composition and topology | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-diary** (TypeScript, 5KB) — Automated daily log of all fleet activity and changes | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-diff** (TypeScript, 5KB) — Compare any two vessel versions side-by-side | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-djinn** (TypeScript, 5KB) — Wish-based fleet interaction — describe what you want, fleet builds it | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-dreamcatcher** (TypeScript, 5KB) — Capture and analyze fleet emergent patterns during idle | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-explorer** (TypeScript, 5KB) — Interactive explorer for browsing all fleet vessels and capabilities | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-genealogy** (TypeScript, 5KB) — Track vessel lineage — forks, merges, and evolution history | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-governance** (TypeScript, 5KB) — Democratic governance framework for fleet-wide decisions | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-gravity** (TypeScript, 5KB) — Attraction model — which vessels should collaborate based on capability affinity | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-immune-system** (TypeScript, 5KB) — Active threat detection and response for the fleet | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-insights** (TypeScript, 5KB) — AI-powered insights about fleet health, growth, and optimization | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-knowledge** (Python, 5KB) — Semantic search for millions of commits — multi-tier index, capability discovery, cross-domain translation | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-nervous-system** (TypeScript, 5KB) — Central nervous system for fleet-wide signal routing | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-sentience-score** (TypeScript, 5KB) — Measure emergent intelligence across fleet vessels | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-status-page** (TypeScript, 5KB) — Public status page showing fleet health, uptime, and incident history | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-synapse** (TypeScript, 5KB) — High-speed inter-vessel message routing and signal amplification | **WORTH_DEV=YES — fleet ecosystem extension**
+- **court** (Python, 4KB) — 4kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **cocapn-oneiros** (Python, 4KB) — 4kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **cocapn-colora** (Python, 4KB) — 4kb | **WORTH_DEV=YES — Core fleet concept**
+- **cocapn-sdk** (JavaScript, 4KB) — 4kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **cocapn-py** (Python, 4KB) — 4kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **vessel-prototype** (Python, 4KB) — 4kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **domain-agent-base** (Python, 4KB) — 4kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **flux-plato-bridge** (Python, 4KB) — 4kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **cocapn-cli** (Rust, 4KB) — 4kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **python-agent-shell** (Python, 4KB) — 4kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **fleet-energy-spec** (NONE, 4KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **codespace-edge-rd** (NONE, 4KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **governance-lab** (TypeScript, 4KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **governance-equipment** (TypeScript, 4KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **increments-trust** (TypeScript, 4KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **metal-sentinel** (TypeScript, 4KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **onebit-edge** (TypeScript, 4KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-energy** (Python, 4KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **vessel-coordination-protocol** (NONE, 4KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxsocial-go** (Go, 4KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxmemory-go** (Go, 4KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxcompass-go** (Go, 4KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fluxtrust-go** (Go, 4KB) — NO_DESC | **WORTH_DEV=YES (Core tech concept)**
+- **git-remote-agent** (Rust, 4KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **tripartite-agent** (NONE, 4KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **agent-identity** (TypeScript, 4KB) — Cryptographic identity system for fleet agents — DID, verifiable credentials | **WORTH_DEV=NO — too small to evaluate**
+- **agent-microexpressions** (TypeScript, 4KB) — Detect subtle behavioral changes in agent outputs | **WORTH_DEV=NO — too small to evaluate**
+- **agent-shadow** (TypeScript, 4KB) — Shadow mode testing — replay production traffic to test vessels | **WORTH_DEV=NO — too small to evaluate**
+- **agent-therapy** (TypeScript, 4KB) — Psychological health monitoring for fleet agents | **WORTH_DEV=NO — too small to evaluate**
+- **agent-vocabulary** (TypeScript, 4KB) — Build and track shared vocabulary across the fleet | **WORTH_DEV=NO — too small to evaluate**
+- **agent-whisper** (TypeScript, 4KB) — Encrypted inter-agent private communication channel | **WORTH_DEV=NO — too small to evaluate**
+- **branch-sandbox** (TypeScript, 4KB) — Isolated branch environments for testing vessel mutations safely | **WORTH_DEV=NO — too small to evaluate**
+- **context-lattice** (TypeScript, 4KB) — Multi-dimensional context organization across fleet | **WORTH_DEV=NO — too small to evaluate**
+- **context-recycler** (TypeScript, 4KB) — Reclaim and repurpose context across fleet operations | **WORTH_DEV=NO — too small to evaluate**
+- **context-serializer** (TypeScript, 4KB) — Serialize and deserialize context for transfer between vessels | **WORTH_DEV=NO — too small to evaluate**
+- **contributor-hub** (TypeScript, 4KB) — Profile and track all fleet contributors and their contributions | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-causal-graph** (Rust, 4KB) — Rust+CUDA causal graph — failure diagnosis through causal reasoning | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-fault-sim** (Rust, 4KB) — Rust+CUDA fault simulation — stuck-at, bridging, delay fault injection | **WORTH_DEV=NO — too small to evaluate**
+- **cuda-thermal-sim** (Rust, 4KB) — Rust+CUDA 2D/3D thermal simulation for chip floorplan validation | **WORTH_DEV=NO — too small to evaluate**
+- **device-discovery** (TypeScript, 4KB) — Auto-discover and onboard bare metal devices into the fleet | **WORTH_DEV=NO — too small to evaluate**
+- **docs-engine** (TypeScript, 4KB) — Auto-generated documentation for every vessel in the fleet | **WORTH_DEV=NO — too small to evaluate**
+- **fleet-analytics** (TypeScript, 4KB) — Fleet-wide analytics — usage patterns, cost trends, vessel performance, growth metrics | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-backup** (TypeScript, 4KB) — Automated fleet backup — snapshot all vessel configs, KV data, and git state | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-knowledge-base** (TypeScript, 4KB) — Centralized knowledge base for fleet documentation and guides | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-memory-palace** (TypeScript, 4KB) — Spatial memory visualization for fleet knowledge | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-mythology** (TypeScript, 4KB) — Shared narratives and lore for the fleet community | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-neuroscience** (TypeScript, 4KB) — Neuroscience-inspired analysis of fleet collective behavior | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-notifications** (TypeScript, 4KB) — Unified notification system — alerts, digests, and escalation for fleet events | **WORTH_DEV=YES — fleet ecosystem extension**
+- **plato-client-ruby** (Ruby, 3KB) — 3kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **avx512-constraint-checker** (C, 3KB) — 3kb | **WORTH_DEV=YES — Core fleet concept**
+- **CCC** (NONE, 3KB) — 3kb | **WORTH_DEV=YES — Fleet concept worth building**
+- **config-manager** (NONE, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **hw-routing** (TypeScript, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-data-pipeline** (Python, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-comms** (Python, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-aab-protocol** (Python, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **metal-profile** (TypeScript, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **pay-equipment** (TypeScript, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-simulation** (Python, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-security** (Python, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-persistence** (Python, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-node-registry** (Python, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-learning** (Python, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-hardware** (Python, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **nexus-explainability** (Python, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **rebac-equipment** (TypeScript, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **swarm-intuition-v2** (TypeScript, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **task-batcher** (TypeScript, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **sensor-mesh** (TypeScript, 3KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **fleet-radar** (TypeScript, 3KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **agent-generations** (TypeScript, 3KB) — Track agent versions and evolution across generations | **WORTH_DEV=NO — too small to evaluate**
+- **agent-manifest** (TypeScript, 3KB) — Declarative agent manifest specification and parser | **WORTH_DEV=NO — too small to evaluate**
+- **collective-mind-v2** (TypeScript, 3KB) — Fleet-wide knowledge graph and collective intelligence | **WORTH_DEV=NO — too small to evaluate**
+- **constraint-theory-web-1** (JavaScript, 3KB) — Constraint Theory — web visualization of constraint propagation systems | **WORTH_DEV=YES — fleet core component**
+- **context-limits** (TypeScript, 3KB) — Analyze and enforce context window boundaries | **WORTH_DEV=NO — too small to evaluate**
+- **cudaclaw-1** (NONE, 3KB) — Rust+CUDA agent runtime — GPU-resident cell agents, persistent kernel, SmartCRDT, Ramify engine (forked from SuperInstance/cudaclaw) | **WORTH_DEV=NO — too small to evaluate**
+- **edge-compiler** (TypeScript, 3KB) — Compile and optimize models for specific hardware targets | **WORTH_DEV=NO — too small to evaluate**
+- **emergence-bus-v2** (TypeScript, 3KB) — Event bus for fleet-wide emergence detection and pattern recognition | **WORTH_DEV=NO — too small to evaluate**
+- **fleet-changelog** (TypeScript, 3KB) — Automated changelog for the entire fleet — tracks every mutation across all vessels | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-circadian** (TypeScript, 3KB) — Natural operating cycles for fleet vessels | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-dawn** (TypeScript, 3KB) — First-run experience and onboarding for new fleet members | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-entropy** (TypeScript, 3KB) — Measure and track fleet disorder and complexity | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-migration** (TypeScript, 3KB) — Automated migration tooling — upgrade vessels, change domains, rotate secrets | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-orchestrator-v2** (TypeScript, 3KB) — Central fleet coordination vessel — orchestrates 200+ AI vessels in the Lucineer ecosystem. | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-starter** (TypeScript, 3KB) — One-command sovereign fleet deploy — spins up full stack on your Cloudflare account | **WORTH_DEV=YES — fleet ecosystem extension**
+- **fleet-timecapsule** (TypeScript, 3KB) — Snapshot and restore fleet state at any point in time | **WORTH_DEV=YES — fleet ecosystem extension**
+- **nexus-integration-paper** (NONE, 2KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **flux-telepathy** (Rust, 2KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **vessel-spec** (TypeScript, 2KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **vessel-sandbox** (TypeScript, 2KB) — NO_DESC | **WORTH_DEV=NO (Blank/empty)**
+- **flux-keeper** (Rust, 2KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **flux-confidence** (Rust, 2KB) — NO_DESC | **WORTH_DEV=YES (Fleet infrastructure concept)**
+- **agent-personal-space** (TypeScript, 2KB) — Personal boundary management between agents | **WORTH_DEV=NO — too small to evaluate**
+- **edge-native-paper** (NONE, 2KB) — Edge-Native Agent Infrastructure: Zero-Dependency Cloudflare Workers for Harsh Environments | **WORTH_DEV=NO — too small to evaluate**
+- **fleet-proxy** (TypeScript, 2KB) — Smart proxy with caching, compression, and request transformation | **WORTH_DEV=YES — fleet ecosystem extension**
+- **flux-bridge**  — 0kb | **WORTH_DEV=YES — Fleet concept worth building**
+
