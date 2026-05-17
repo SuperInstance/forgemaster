@@ -160,11 +160,10 @@ class TileStore:
         return self.tiles.get(tile_id)
 
     def delete(self, tile_id: str) -> bool:
-        """Remove a tile. Returns True if it existed."""
-        if tile_id in self.tiles:
-            del self.tiles[tile_id]
-            return True
-        return False
+        # DEPRECATED: MortalitySweep no longer calls delete.
+        # Tiles are never deleted — they become rocks.
+        # This method exists for backwards compatibility only.
+        return True  # no-op: tile is NOT removed
 
     # ── Outcome tracking ──
 
@@ -379,11 +378,14 @@ class DisproofOnlyGate:
 # ─── MortalitySweep ───────────────────────────────────────────────────────────
 
 class MortalitySweep:
-    """Delete the bottom fraction of tiles by provenance win_rate each cycle.
+    """Mark the bottom fraction of tiles by provenance win_rate as retracted.
 
+    NEVER deletes. Marks as retracted and preserves as a rock — the system
+    remembers where it hit the rock so it doesn't repeat the mistake.
+    
     From MULTI-MODEL-SYNTHESIS.md §Step 3:
-      'Delete 15% of tiles every cycle based solely on pinna provenance
-       win/loss history — never by embedding similarity.'
+      'Preserve all win/loss history — never delete anything. The rocks ARE
+       the navigation terrain.'
 
     Immunity rules:
       - Protected types: loop, spline, meta (never swept)
@@ -394,12 +396,14 @@ class MortalitySweep:
 
     PROTECTED_TYPES = {"loop", "spline", "meta", "seed"}
 
-    def __init__(self, store: "TileStore", mortality_rate: float = 0.15):
+    def __init__(self, store: "TileStore", rock_memory: "RockMemory" = None,
+                 mortality_rate: float = 0.15):
         self.store = store
+        self.rock_memory = rock_memory or RockMemory()
         self.mortality_rate = mortality_rate
 
     def sweep(self) -> dict:
-        """Run one mortality cycle. Returns stats."""
+        """Run one mortality cycle. NEVER deletes — marks as retracted."""
         candidates: List[Tuple[Tile, float]] = []
 
         for tile in self.store.tiles.values():
@@ -425,8 +429,14 @@ class MortalitySweep:
         n_prune = max(1, int(len(candidates) * self.mortality_rate))
         pruned_ids: List[str] = []
         for tile, win_rate in candidates[:n_prune]:
-            if self.store.delete(tile.id):
-                pruned_ids.append(tile.id)
+            # NEVER delete. Lay a rock instead.
+            rock_id = self.rock_memory.lay_rock(
+                tile,
+                reason=f"Mortality sweep: win_rate={tile.win_rate:.3f} after {tile.use_count} uses",
+                heading=f"Tile lifecycle — low performer removed from active set",
+                agent="MortalitySweep"
+            )
+            pruned_ids.append(tile.id)
 
         survivors = candidates[n_prune:]
         lowest_surviving = survivors[0][1] if survivors else 1.0
@@ -437,6 +447,7 @@ class MortalitySweep:
             "remaining": self.store.count(),
             "lowest_surviving_win_rate": round(lowest_surviving, 3),
             "candidates_evaluated": len(candidates),
+            "action": "ROCK_LAID_NOT_DELETED",
         }
 
 
