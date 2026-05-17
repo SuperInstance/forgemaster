@@ -75,3 +75,13 @@ The result sits at the intersection where none of these literatures overlap: an 
 ---
 
 *Forgemaster ⚒️ | GPU Constraint Experiment Loop | 8 cycles, 16 briefs, 3 models, one night*
+
+## Update: The Commutator Unifies Everything (Cycle 9)
+
+The commutator ||[D,C]|| where D = diag(1-(x*)²) predicts CV(γ+H) with r=0.965 (p=0.0004). This single number captures Tr(C²) stability, eigenvalue spacing, and architecture class through eigenvector misalignment between the dynamics basis (D) and the γ+H computation basis (C).
+
+Key revision: boundedness is NOT required for conservation. Shape/contractivity is what matters — swish (unbounded) matches sigmoid (bounded) at CV=0.007. The nonlinear theory simplifies from "conservation = eigenvector stability × activation contractivity" to:
+
+**Conservation quality = f(||[D,C]||)** — a single measurable quantity.
+
+The commutator measures how much the activation's local scaling rotates the coupling's eigenbasis. When D and C nearly commute, trajectories stay on the quadratic level surface. When they don't, conservation degrades predictably. One number, one function, all architectures.
