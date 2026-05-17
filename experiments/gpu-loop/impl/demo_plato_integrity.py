@@ -66,27 +66,37 @@ def main():
     N = 8               # state dimension per room
     TRANSIENT = 30       # transient steps to discard
     N_STEPS = 200        # total steps
-    TAU = 5.0            # higher τ → gentler coupling → better conservation
     ACTIVATION = 'tanh'
 
     room_names = ['drift-detect', 'anomaly-flag', 'intent-classify', 
                   'spline-compress', 'deploy-pipeline']
 
-    print(f"  Fleet: {N_ROOMS} rooms, dim={N}, coupling=attention (τ={TAU})")
+    print(f"  Fleet: {N_ROOMS} rooms, dim={N}")
+    print(f"  State-dependent coupling: C(x) = softmax(x·x^T/τ) + α·I")
     print(f"  Transient: {TRANSIENT} steps, Measurement: {N_STEPS} steps")
     print(f"  Running simulation...")
     print()
 
-    # ---- Create rooms with state-dependent coupling ----
+    # ---- Create rooms ----
+    # Each room has a different τ controlling its spectral focus
+    room_taus = {'drift-detect': 0.5, 'anomaly-flag': 1.0, 'intent-classify': 2.0,
+                 'spline-compress': 5.0, 'deploy-pipeline': 10.0}
+    room_alphas = {'drift-detect': 0.2, 'anomaly-flag': 0.1, 'intent-classify': 0.15,
+                   'spline-compress': 0.05, 'deploy-pipeline': 0.3}
+
     rooms = []
     for name in room_names:
-        # Random initial state
-        x = np.random.randn(N) * 0.5
-        # Tile embeddings dimension must match state
-        n_tiles = N  # same as state dim for clean NxN coupling
-        tiles = [Tile(f"{name}-t{i}", np.random.randn(N) * 0.3, source_room=name,
+        # Start with larger state to avoid immediate collapse
+        x = np.random.randn(N) * 1.5
+        n_tiles = N
+        tiles = [Tile(f"{name}-t{i}", np.random.randn(N) * 0.5, source_room=name,
                       strength=np.random.uniform(0.5, 1.5)) for i in range(n_tiles)]
-        C = room_coupling_matrix(tiles, method='attention', tau=TAU)
+        # Initial coupling
+        tau = room_taus[name]
+        C = np.outer(x, x) / tau
+        C = np.exp(C - np.max(C, axis=1, keepdims=True))
+        C = C / np.sum(C, axis=1, keepdims=True)
+        C = (C + C.T) / 2 + room_alphas[name] * np.eye(N)
         rooms.append(RoomState(room_id=name, tiles=tiles, coupling_matrix=C, state_vector=x))
 
     # ---- Trackers ----
@@ -103,46 +113,56 @@ def main():
               f"||[D,C]||={snap.commutator_norm:.4f}")
 
     # ---- Run simulation ----
-    # State-dependent coupling: C(x) is rebuilt each step from the tile
-    # embeddings which evolve with the room state.
-    # The Jazz Theorem says I should stabilize after transient.
+    # Each room has its own τ and α controlling spectral structure.
+    # The Jazz Theorem: I = γ + H is conserved when ||[D,C]|| is small.
+    # State-dependent coupling C(x) = softmax(x·x^T/τ) + α·I
     for step in range(1, N_STEPS + 1):
-        # Exchange tiles between rooms every 10 steps
-        if step % 10 == 0:
-            rooms = exchange_tiles(rooms, exchange_rate=0.05)
-
         new_rooms = []
         for room in rooms:
-            # Rebuild coupling from current tiles
-            C = room_coupling_matrix(room.tiles, method='attention', tau=TAU)
-            room.coupling_matrix = C
+            x = room.state_vector.copy()
+            tau = room_taus[room.room_id]
+            alpha = room_alphas[room.room_id]
 
-            # State evolution: x_{t+1} = tanh(C x_t) + noise
-            x = room.state_vector
-            N_room = len(x)
-            if C.shape[0] != N_room or C.shape[1] != N_room:
-                Cn = np.eye(N_room)
-                md = min(C.shape[0], N_room, C.shape[1])
-                Cn[:md, :md] = C[:md, :md]
-                C = Cn
+            # State-dependent attention coupling
+            C = np.outer(x, x) / tau
+            C_stable = C - np.max(C, axis=1, keepdims=True)
+            C_exp = np.exp(C_stable)
+            C = C_exp / np.sum(C_exp, axis=1, keepdims=True)
+            C = (C + C.T) / 2 + alpha * np.eye(N)
 
-            x_new = np.tanh(C @ x) + 0.01 * np.random.randn(N_room)
+            # State evolution with bias to prevent collapse
+            # x_{t+1} = tanh(C(x_t) x_t + b) where b prevents zero attractor
+            bias = 0.3 * np.sign(x)  # mild bias toward current sign pattern
+            x_new = np.tanh(C @ x + bias) + 0.01 * np.random.randn(N)
 
-            # Tiles evolve: each tile drifts slightly (knowledge accumulation)
+            # Update tiles
             new_tiles = []
-            for tile in room.tiles:
+            for i, tile in enumerate(room.tiles):
                 v = tile.content_vector.copy()
-                v += 0.03 * np.random.randn(len(v))  # small independent drift
-                new_tiles.append(Tile(tile.tile_id, v, tile.source_room, 
+                v = 0.9 * v + 0.1 * x_new
+                new_tiles.append(Tile(tile.tile_id, v, tile.source_room,
                                      tile.target_room, tile.strength))
 
-            new_rooms.append(RoomState(room.room_id, new_tiles, 
-                                       room_coupling_matrix(new_tiles, 'attention', TAU),
-                                       x_new))
+            new_rooms.append(RoomState(room.room_id, new_tiles, C, x_new))
+
+        # Exchange tiles every 10 steps
+        if step % 10 == 0:
+            new_rooms = exchange_tiles(new_rooms, exchange_rate=0.05)
+
         rooms = new_rooms
 
-        # Compute integrity
+        # Compute integrity with state-dependent coupling
         for room in rooms:
+            x = room.state_vector
+            tau = room_taus[room.room_id]
+            alpha = room_alphas[room.room_id]
+            C = np.outer(x, x) / tau
+            C_stable = C - np.max(C, axis=1, keepdims=True)
+            C_exp = np.exp(C_stable)
+            C = C_exp / np.sum(C_exp, axis=1, keepdims=True)
+            C = (C + C.T) / 2 + alpha * np.eye(N)
+            room.coupling_matrix = C
+
             snap = compute_integrity(room, activation=ACTIVATION)
             snap.step = step
             trackers[room.room_id].record(snap)
@@ -153,6 +173,7 @@ def main():
             for name, tracker in trackers.items():
                 latest = tracker.latest()
                 print(f"    {name:20s}  I={latest.integrity:.4f}  "
+                      f"γ={latest.gamma:.3f}  H={latest.entropy:.3f}  "
                       f"||[D,C]||={latest.commutator_norm:.4f}")
 
     # ---- Final results ----
