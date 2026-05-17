@@ -386,3 +386,123 @@ Conservation is DYNAMICS-DEPENDENT. Power iteration and tanh give opposite archi
 - What determines P (the quadratic form matrix)? Can P be derived analytically from C?
 - Does attractor shape predict conservation quality?
 - Do other bounded activations also conserve?
+
+## Cycle 6 (GLM-5.1, rotation 3) — 2026-05-17
+
+### PREDICTION TESTING: 3 Priority-1 Predictions Under Tanh Dynamics
+
+**Dynamics:** x_{t+1} = tanh(C @ x_t), 200 timesteps, 50 samples per condition
+
+### FINDING: Temperature Monotonically Controls Tr(C²) — CONFIRMED (confidence: HIGH)
+
+Tr(C²) decreases monotonically with softmax temperature τ:
+- τ=0.1: 1.70, τ=0.5: 1.38, τ=1.0: 1.19, τ=2.0: 1.08, τ=5.0: 1.006, τ=10.0: 1.002
+- Convex relationship: rapid drop at low τ, flattens near 1.0 at high τ
+- At τ=10, within 0.2% of 1.0 (exceeded 5% prediction)
+- Validates the softmax→eigenvalue ceiling→Tr(C²) causal chain
+- The Gibbs measure structure produces smooth, monotonic eigenvalue concentration
+
+### FINDING: Row-Stochastic Normalization Improves Hebbian 10× But Misses Target — PARTIAL (confidence: HIGH)
+
+- Raw Hebbian: CV(γ+H)=2.03 (catastrophic)
+- Row-stoch Hebbian: CV(γ+H)=0.20 (10× improvement)
+- Attention: CV(γ+H)=0.00 (perfect, static coupling)
+- The 5× improvement threshold is met but CV target of <0.02 is missed by 10×
+- Theory's caveat confirmed: Hebbian zero entries violate strict positivity
+- Need BOTH row-stochastic AND strict positivity for full conservation
+
+### FINDING: Two-Moment Regression FALSIFIED Under Tanh Dynamics (confidence: HIGH)
+
+- R²=0.32 across 60,000 data points (12 configurations)
+- Tr(C) alone: R²=0.23, Tr(C²) alone: R²=0.29, Both: R²=0.32
+- Target was R² > 0.95. Result is 0.32. PREDICTION FALSIFIED.
+- Confirms Cycle 4: two-moment hypothesis was a power iteration artifact
+- Most within-config R² values are 0.01-0.41
+- Static coupling configs have R²≈0 (Tr(C) and Tr(C²) are constant)
+
+### MAJOR REVISION: Theory Backbone Broken
+
+The two-moment constraint (Tr(C) + Tr(C²) → γ+H) was the "mathematical backbone" of the theory.
+Under nonlinear dynamics, this backbone is broken (R²=0.32).
+
+Revised theory status:
+- ✓ Softmax constrains eigenvalue spread (confirmed)
+- ✓ Temperature controls Tr(C²) monotonically (confirmed)
+- ~ Row-stochastic normalization helps but needs strict positivity (partial)
+- ✗ Tr(C) + Tr(C²) determine γ+H (falsified under tanh)
+
+The conservation mechanism is about ATTRACTOR GEOMETRY, not eigenvalue moments.
+Need to characterize x* = tanh(Cx*) and its relationship to γ+H.
+
+### Key Diagnostic: What Predicts γ+H Under Tanh?
+
+Within-config R² for attention_n20_τ1.0 was 0.41 — the best single config.
+This suggests eigenvalue moments have SOME predictive power but are far from sufficient.
+The remaining 59% comes from eigenvector structure and attractor dynamics.
+
+### Open Questions for Cycle 7
+1. Characterize the fixed point x* = tanh(Cx*) as a function of C
+2. Is there a Lyapunov function V(x) such that γ+H ≈ V(x*) for the attractor?
+3. Does the participation ratio (eigenvector delocalization) predict γ+H?
+4. Test other bounded activations (sigmoid, LeakyReLU) — is conservation activation-dependent?
+5. Can we derive P (from γ+H = x^T P x) analytically from C?
+
+---
+
+## Cycle 5 (Nemotron-30B, rotation 2) — 2026-05-17
+
+### MAJOR FINDING: Temperature Prediction Confirmed (confidence: HIGH)
+
+CV(γ+H) monotonically decreases with softmax temperature τ: 0.057 (τ=0.05) → 0.0002 (τ=50). This is a 287× improvement. The softmax brief's prediction is validated quantitatively.
+
+### MAJOR FINDING: Two-Moment Theory Is Partially Wrong (confidence: HIGH)
+
+Regressing γ+H ~ f(Tr(C), Tr(C²)) on state-dependent attention data gives R²=0.20. Tr(C) and Tr(C²) explain only 20% of γ+H variation. The remaining 80% comes from eigenvector rotation during state evolution.
+
+Row-stochasticity DOES exactly pin Tr(C²) (CV=0 for all τ). But eigenvalue moments alone don't determine γ+H — eigenvector structure matters.
+
+### FINDING: Pure Noise Breaks Conservation (confidence: HIGH)
+
+Random coupling resampled each step: CV(γ+H)=0.194, CV(TrC²)=1.374. First genuine falsification — conservation requires SOME structure.
+
+### FINDING: Nonlinear Dynamics Are Essential (confidence: HIGH)
+
+With fixed coupling J, ALL architectures give CV(γ+H)=0 regardless of dynamics model (tanh, sigmoid, power iteration). State-dependent coupling is necessary to produce measurable variation.
+
+### FINDING: Normalized Hebbian Improves Anti-Correlation (confidence: MED)
+
+Row-stochastic Hebbian: r(γ,H)=-0.685 (vs raw Hebbian trivially 0). The normalization activates the γ-H tradeoff mechanism. But CV(γ+H)=0.053 — not perfectly conserved.
+
+### METHODOLOGICAL ADVANCEMENT
+
+1. **Fixed coupling = trivial result.** Eigenvalues of J don't change, so γ+H is constant. Must use state-dependent coupling.
+2. **Noise injection prevents fixed-point convergence.** σ=0.1-0.15 is sufficient to keep dynamics non-trivial.
+3. **The metric must track C's spectral properties, not just the state vector.**
+
+### Revised Theory
+
+```
+Conservation = eigenvalue stability (SOLVED) + eigenvector stability (OPEN)
+
+Eigenvalue component:
+  Row-stochastic normalization → Tr(C²) exactly conserved
+  Temperature controls concentration → smoother eigenvector rotation
+
+Eigenvector component:
+  NOT captured by trace moments (R²=0.20)
+  Causes residual CV ≈ 0.04 in attention
+  No theory yet for what controls eigenvector rotation stability
+```
+
+### Conservation Breaking Hierarchy
+1. Unbreakable (CV≈0): Rank-1, fixed coupling
+2. Robust (CV<0.01): Attention τ≥1, scaled random, anti-correlated
+3. Moderate (CV 0.01-0.05): Attention τ=0.3-0.5, competitive, oscillating
+4. Weak (CV 0.05-0.06): Hebbian normalized, attention τ≤0.1, random resampled
+5. BROKEN (CV>0.10): Pure noise coupling
+
+### Open Questions for Cycle 6
+1. Eigenvector dynamics theory: What controls eigenvector rotation under state-dependent coupling?
+2. Optimal temperature: Balance conservation quality vs useful dynamics?
+3. Can the two-moment theory be extended with an eigenvector rotation term?
+4. What metric captures eigenvector stability? Subspace angle? Condition number?

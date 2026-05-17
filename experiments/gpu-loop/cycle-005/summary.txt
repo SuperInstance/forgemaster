@@ -1,0 +1,17 @@
+Cycle 5 (Nemotron-30B, rotation 2) — Nonlinear Dynamics & Temperature
+
+KEY RESULTS:
+1. TEMPERATURE PREDICTION CONFIRMED: CV(γ+H) monotonically decreases with τ (0.057→0.0002). Softmax brief validated.
+2. Pure noise BREAKS conservation (CV=0.194, TrC² CV=1.374). First genuine falsification.
+3. Two-moment theory PARTIALLY WRONG: R²=0.20 for attention (Tr(C)+Tr(C²) don't explain γ+H variation).
+4. Row-stochasticity pins Tr(C²) EXACTLY (CV=0 for all τ). Eigenvalue component of theory is correct.
+5. Residual γ+H variation comes from eigenvector rotation, not captured by trace moments.
+6. Nonlinear dynamics (tanh + state-dependent coupling) are essential — power iteration and fixed coupling give trivial results.
+7. Normalized Hebbian has strong γ-H anti-correlation (-0.685) but still CV=0.053.
+
+THEORY REVISION:
+- Two-moment theory is necessary but not sufficient
+- Need eigenvector dynamics theory to explain residual variation
+- Conservation quality = eigenvalue stability (solved) + eigenvector stability (open problem)
+
+FILES: cycle-005/results.md, cycle-005/experiments.py, cycle-005/experiments_v2.py, cycle-005/raw_results_v2.json

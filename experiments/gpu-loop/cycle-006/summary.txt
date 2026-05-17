@@ -1,0 +1,35 @@
+Cycle 6 (GLM-5.1, rotation 3) — 2026-05-17
+
+EXECUTIVE SUMMARY: Ran 3 Priority-1 predictions under nonlinear (tanh) dynamics.
+- Prediction 1 (Temperature→Tr(C²)): CONFIRMED. Monotonic decrease, smooth, τ=10→Tr(C²)≈1.002.
+- Prediction 2 (Row-stochastic Hebbian): PARTIAL. 10× improvement but CV=0.20, target was <0.02.
+- Prediction 5 (Two-moment regression): FALSIFIED. R²=0.32, far from 0.95 target.
+
+PREDICTION 1 CONFIRMED: Temperature monotonically controls Tr(C²)
+- τ=0.1: Tr(C²)=1.70, τ=0.5: 1.38, τ=1.0: 1.19, τ=2.0: 1.08, τ=5.0: 1.006, τ=10.0: 1.002
+- Smooth monotonic decrease. At τ=10, within 0.2% of 1.0 (theory predicted 5%).
+- Validates softmax→eigenvalue ceiling→Tr(C²) causal chain.
+- Confirms the research brief's Gibbs measure prediction.
+
+PREDICTION 2 PARTIALLY CONFIRMED: Row-stochastic helps but isn't sufficient
+- Raw Hebbian: CV(γ+H)=2.03, Tr(C²) CV=3.04 → catastrophically unstable
+- Row-stoch Hebbian: CV(γ+H)=0.20, Tr(C²) CV=0.00 → 10× improvement
+- Attention: CV(γ+H)=0.00, Tr(C²) CV=0.00 → perfect (static coupling)
+- Theory's caveat confirmed: Hebbian zero entries violate strict positivity, no guaranteed spectral gap
+- Need BOTH row-stochastic AND strict positivity for attention-level conservation
+
+PREDICTION 5 FALSIFIED: Two-moment regression fails under nonlinear dynamics
+- R²=0.32 across 60,000 data points (12 configs × 50 samples × 100 timesteps)
+- Tr(C) alone: R²=0.23, Tr(C²) alone: R²=0.29, Both: R²=0.32
+- Most within-config R² values are 0.01-0.41 — not even close to 0.95
+- Confirms Cycle 4: two-moment hypothesis was a power iteration artifact
+- Conservation mechanism is attractor geometry, not eigenvalue moments
+
+THEORY REVISION:
+- The softmax→Tr(C²) mechanism is REAL (Prediction 1 confirmed)
+- But Tr(C²) conservation does NOT explain γ+H conservation under nonlinear dynamics
+- The "mathematical backbone" (Prediction 5) is broken
+- Conservation under tanh is about fixed-point stability, not eigenvalue moments
+- The correct explanation requires characterizing the attractor x* = tanh(Cx*)
+
+MISSING LINK: Need to study x* = tanh(Cx*) as a function of C, and how γ+H depends on the fixed point, not just C's eigenvalues. This is the next frontier.
