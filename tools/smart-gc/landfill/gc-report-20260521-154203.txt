@@ -1,0 +1,144 @@
+🏗️ SMART GC REPORT — 2026-05-21 15:42
+
+📊 DISCOVERY
+  Processes: 40 running, 0 zombie, 0 Docker containers
+  Files: 106190 scanned, 4673 candidates (0.0MB potential savings)
+  Build artifacts: 149 dirs (39057.9MB)
+  Logs: 370 files (15.1MB)
+
+🧠 UNDERSTANDING
+  ESSENTIAL   :   38 items
+  USEFUL      : 4634 items
+  STALE       :    1 items
+
+⛏️ MINING (value extracted)
+  Logs: 1 unique error patterns in night-shift-sprint1.log
+  Logs: 1 unique error patterns in activity.log
+  Logs: 1 unique error patterns in forge-watch.log
+  Logs: 1 unique error patterns in publish.log
+  Logs: 1 unique error patterns in activity.log
+  Logs: 11 unique error patterns in ml_hardware_sim.log
+  Logs: 1 unique error patterns in crab-trap.log
+  Logs: 3 unique error patterns in plato-server.log
+  Logs: 12 unique error patterns in mud.log
+  Logs: 2 unique error patterns in oracle1-beachcomb.log
+  Logs: 1 unique error patterns in synthesizer.log
+  Logs: 3 unique error patterns in loop.log
+  Logs: 3 unique error patterns in server.log
+  Logs: 4 unique error patterns in crush.log
+  Logs: 2 unique error patterns in CMakeOutput.log
+  Logs: 1 unique error patterns in forge-watch.log
+  Logs: 1 unique error patterns in publish.log
+  Logs: 1 unique error patterns in crab-trap.log
+  Logs: 3 unique error patterns in plato-server.log
+  Logs: 12 unique error patterns in mud.log
+  Logs: 2 unique error patterns in oracle1-beachcomb.log
+  Logs: 1 unique error patterns in synthesizer.log
+  Logs: 3 unique error patterns in loop.log
+  Logs: 3 unique error patterns in server.log
+  Logs: 4 unique error patterns in crush.log
+  Logs: 25 unique error patterns in config.log
+  Logs: 10 unique error patterns in config.log
+  Logs: 10 unique error patterns in config.log
+  Logs: 25 unique error patterns in config.log
+  Logs: 10 unique error patterns in config.log
+  Logs: 10 unique error patterns in config.log
+  Logs: 1 unique error patterns in crab-trap.log
+  Logs: 3 unique error patterns in plato-server.log
+  Logs: 12 unique error patterns in mud.log
+  Logs: 2 unique error patterns in oracle1-beachcomb.log
+  Logs: 1 unique error patterns in synthesizer.log
+  Logs: 3 unique error patterns in loop.log
+  Logs: 3 unique error patterns in server.log
+  Logs: 4 unique error patterns in crush.log
+  Logs: 6 unique error patterns in CMakeOutput.log
+  Logs: 1 unique error patterns in activity.log
+  Logs: 1 unique error patterns in forge-watch.log
+  Logs: 1 unique error patterns in publish.log
+  Logs: 2 unique error patterns in CMakeOutput.log
+  Logs: 2 unique error patterns in openclaw-2026-05-21.log
+  Memory: PID 3120 using 730MB — /usr/bin/node /home/phoenix/.nvm/versions/node/v24
+  Memory: PID 756 using 168MB — /sbin/conduwuit
+
+🗑️ RECOMMENDATIONS
+  [KEEP] /home/phoenix/.openclaw/workspace/pbft-rust/target/debug/pbft-rust (124.3MB) — useful, active cache
+  [KEEP] ...ix/.openclaw/workspace/pbft-rust/target/debug/deps/pbft_rust-b4bebc5f7692318d (124.3MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/OpenShell/target/debug/openshell-driver-vm (116.2MB) — useful, active cache
+  [KEEP] ...e/phoenix/.openclaw/workspace/OpenShell/target/debug/libopenshell_server.rlib (104.8MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/OpenShell/target/debug/openshell (152.7MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/OpenShell/target/debug/openshell-sandbox (144.7MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/OpenShell/target/debug/openshell-gateway (241.0MB) — useful, active cache
+  [KEEP] ...er-2spl4hqlmvlux/s-hiqn533h2a-1ufrb0r-7qm08a3ub9jl49fd8bbkamg63/dep-graph.bin (136.1MB) — useful, active cache
+  [KEEP] ...er-2spl4hqlmvlux/s-hiqn3zochr-0m295q6-29diaxtobjz6xf7i1049clkyc/dep-graph.bin (136.0MB) — useful, active cache
+  [KEEP] ...er-1h2b5azbapagm/s-hiqn531r1w-19cb840-9kclrqoyjzdc95dzjfuxlgy4v/dep-graph.bin (107.0MB) — useful, active cache
+  [KEEP] ...er-1h2b5azbapagm/s-hiqn37d7g0-0b9tfs4-7igi0rd9hw449mpnwt45t63t5/dep-graph.bin (106.9MB) — useful, active cache
+  [KEEP] ...er-1jlg90vj27x3i/s-hiqn257w4b-1w005pu-bvnljtud7u0mxm2tj25bplb9a/dep-graph.bin (106.9MB) — useful, active cache
+  [KEEP] ...tal/openshell_server-1jlg90vj27x3i/s-hiqn88894u-1labe4d-working/dep-graph.bin (106.9MB) — useful, active cache
+  [KEEP] ...nclaw/workspace/OpenShell/target/debug/deps/mtls_integration-77834fc513b53c0f (108.8MB) — useful, active cache
+  [KEEP] ...ix/.openclaw/workspace/OpenShell/target/debug/deps/openshell-a15a7e1b506d880e (123.0MB) — useful, active cache
+  [KEEP] ...rkspace/OpenShell/target/debug/deps/libopenshell_server-3efadb7524c5bc48.rlib (104.8MB) — useful, active cache
+  [KEEP] ...nclaw/workspace/OpenShell/target/debug/deps/edge_tunnel_auth-abca61d2c7473ee4 (182.9MB) — useful, active cache
+  [KEEP] ...openclaw/workspace/OpenShell/target/debug/deps/openshell_cli-d107fc4444bc77a3 (103.0MB) — useful, active cache
+  [KEEP] ...nclaw/workspace/OpenShell/target/debug/deps/openshell_server-ef4993aa3be921f4 (218.5MB) — useful, active cache
+  [KEEP] ...kspace/OpenShell/target/debug/deps/auth_endpoint_integration-7afc7274cb560c25 (181.1MB) — useful, active cache
+  [KEEP] ...claw/workspace/OpenShell/target/debug/deps/openshell_sandbox-6ce5773beded031d (146.4MB) — useful, active cache
+  [KEEP] ...ace/OpenShell/target/debug/deps/ensure_providers_integration-0a10b31b22fe3303 (109.5MB) — useful, active cache
+  [KEEP] ...ce/OpenShell/target/debug/deps/provider_commands_integration-4ac89b6bbe530d54 (113.7MB) — useful, active cache
+  [KEEP] ...aw/workspace/OpenShell/target/debug/deps/openshell_driver_vm-176f442dca7aca17 (116.2MB) — useful, active cache
+  [KEEP] .../workspace/OpenShell/target/debug/deps/multiplex_integration-162f29591ef3d80a (179.6MB) — useful, active cache
+  [KEEP] ...nclaw/workspace/OpenShell/target/debug/deps/system_inference-25fbe2f108aeaba0 (104.2MB) — useful, active cache
+  [KEEP] .../workspace/OpenShell/target/debug/deps/ws_tunnel_integration-396648e13a29e430 (186.0MB) — useful, active cache
+  [KEEP] ...claw/workspace/OpenShell/target/debug/deps/openshell_sandbox-3f64b55cafa19895 (148.9MB) — useful, active cache
+  [KEEP] ...ix/.openclaw/workspace/OpenShell/target/debug/deps/openshell-b3aa22422bb3b9d5 (152.7MB) — useful, active cache
+  [KEEP] ...claw/workspace/OpenShell/target/debug/deps/openshell_sandbox-543f914a9fca9ff0 (146.6MB) — useful, active cache
+  [KEEP] ...kspace/OpenShell/target/debug/deps/multiplex_tls_integration-9ad815e68a0acb1d (182.8MB) — useful, active cache
+  [KEEP] ...nclaw/workspace/OpenShell/target/debug/deps/system_inference-e19e3e51bc1b0588 (105.7MB) — useful, active cache
+  [KEEP] ...claw/workspace/OpenShell/target/debug/deps/openshell_gateway-ddad37da4fe7e75e (241.0MB) — useful, active cache
+  [KEEP] ...ace/OpenShell/target/debug/deps/supervisor_relay_integration-a57b80004ae03a7b (178.0MB) — useful, active cache
+  [KEEP] ...Shell/target/debug/deps/sandbox_create_lifecycle_integration-7fa91b2c59082667 (117.5MB) — useful, active cache
+  [KEEP] ...claw/workspace/OpenShell/target/debug/deps/openshell_sandbox-feebbe284c55e45a (144.7MB) — useful, active cache
+  [KEEP] ...penShell/target/debug/deps/sandbox_name_fallback_integration-c9403f455fdc474d (109.5MB) — useful, active cache
+  [KEEP] ...claw/workspace/OpenShell/target/debug/deps/openshell_sandbox-3543927faecb8ee3 (150.6MB) — useful, active cache
+  [KEEP] ...ix/.openclaw/workspace/OpenShell/target/debug/deps/openshell-0ba0192cd9bbd866 (152.7MB) — useful, active cache
+  [KEEP] ...claw/workspace/OpenShell/target/debug/deps/openshell_gateway-b7f4edf5ee28eb7e (241.0MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/turbovec/target (3284.1MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/turbovec/target/release/build (123.6MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/turbovec/target/debug/build (527.5MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/deadband-rs/target (103.9MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/memory-crystal/target (284.4MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/fleet-resonance/target (1327.2MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/fleet-resonance/target/debug/build (202.3MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/penrose-memory/target (332.8MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/lighthouse-cli/target (160.5MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/deadband-constrained/vedic-lang/target (128.0MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/constraint-theory-ecosystem/src/rust/target (188.3MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/flux-ffi/target (298.6MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/flux-ffi/target/debug/build (128.7MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/flux-lucid/target (261.8MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/pbft-rust/target (1431.7MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/pbft-rust/target/debug/build (188.8MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/flux-contracts/target (136.6MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/dodecet-encoder/target (751.8MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/dodecet-encoder/target/debug/build (136.0MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/flux-fracture/target (352.5MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/openhuman/target (1030.2MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/openhuman/target/debug/build (369.4MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/OpenShell/target (19094.3MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/OpenShell/target/debug/build (1283.2MB) — useful, active cache
+  [KEEP] ...orkspace/OpenShell/target/debug/build/protobuf-src-1f4a582aabdd1fc1/out/build (123.8MB) — useful, active cache
+  [KEEP] ...orkspace/OpenShell/target/debug/build/protobuf-src-82aad4d090c1b8cf/out/build (123.8MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/constraint-theory-llvm/target (190.5MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/flux-hardware/hdc/flux-hdc-rust/target (121.8MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/flux-vm-v3/target (457.2MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/flux-vm-v3/target/debug/build (102.3MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/superinstance-ffi/target (475.1MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/superinstance-ffi/target/debug/build (114.6MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/target (147.3MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/constraint-theory-rust-python/target (595.8MB) — useful, active cache
+  [KEEP] .../phoenix/.openclaw/workspace/constraint-theory-rust-python/target/debug/build (156.4MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/forgemaster/target (2211.2MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/forgemaster/target/debug/build (287.2MB) — useful, active cache
+  [KEEP] /home/phoenix/.openclaw/workspace/forgemaster/.flux.fvt (81.3MB) — essential
+  [DELETE] ...ace/constraint-theory-engine-cpp-lua/build/Testing/Temporary/LastTest.log.tmp — temp file
+
+💰 POTENTIAL SAVINGS: 898MB RAM + 0.0MB disk
