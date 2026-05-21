@@ -1,0 +1,24 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/fleet-murmur/.crush/logs/crush.log",
+  "size_mb": 0.57,
+  "age_days": 0,
+  "unique_error_patterns": 4,
+  "top_patterns": [
+    {
+      "pattern": "{\"time\":\"<TIMESTAMP>.<N>Z\",\"level\":\"ERROR\",\"source\":{\"function\":\"github.com<PATH>(*sessionAgent).generateTitle\",\"file\":\"github.com<PATH>\",\"line\":<N>},\"msg\":\"Error generating title with small model; tr",
+      "count": 12
+    },
+    {
+      "pattern": "{\"time\":\"<TIMESTAMP>.<N>Z\",\"level\":\"ERROR\",\"source\":{\"function\":\"github.com<PATH>(*sessionAgent).generateTitle\",\"file\":\"github.com<PATH>\",\"line\":<N>},\"msg\":\"Error generating title with large model\",\"e",
+      "count": 7
+    },
+    {
+      "pattern": "{\"time\":\"<TIMESTAMP>.<N>Z\",\"level\":\"INFO\",\"source\":{\"function\":\"github.com<PATH>\",\"file\":\"github.com<PATH>\",\"line\":<N>},\"msg\":\"Skill discovery complete\",\"component\":\"skills\",\"builtin_ok\":<N>,\"builtin_",
+      "count": 5
+    },
+    {
+      "pattern": "{\"time\":\"<TIMESTAMP>.<N>Z\",\"level\":\"DEBUG\",\"source\":{\"function\":\"github.com<PATH>(*HTTPRoundTripLogger).RoundTrip\",\"file\":\"github.com<PATH>\",\"line\":<N>},\"msg\":\"HTTP Request\",\"method\":\"POST\",\"url\":{\"Sc",
+      "count": 3
+    }
+  ]
+}

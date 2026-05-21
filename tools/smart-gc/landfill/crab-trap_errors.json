@@ -1,0 +1,12 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/fleet-murmur/data/crab-trap.log",
+  "size_mb": 0.0,
+  "age_days": 14,
+  "unique_error_patterns": 1,
+  "top_patterns": [
+    {
+      "pattern": "ConnectionResetError: [Errno <N>] Connection reset by peer",
+      "count": 1
+    }
+  ]
+}

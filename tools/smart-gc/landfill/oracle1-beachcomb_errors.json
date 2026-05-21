@@ -1,0 +1,16 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/fleet-murmur/data/oracle1-beachcomb.log",
+  "size_mb": 0.02,
+  "age_days": 14,
+  "unique_error_patterns": 2,
+  "top_patterns": [
+    {
+      "pattern": "[<N>:<N>:<N>] ERROR: 'last_work'",
+      "count": 1
+    },
+    {
+      "pattern": "[<N>:<N>:<N>] ERROR: 'crab-trap'",
+      "count": 1
+    }
+  ]
+}

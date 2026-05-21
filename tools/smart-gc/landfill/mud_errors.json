@@ -1,0 +1,48 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/fleet-murmur/data/mud.log",
+  "size_mb": 0.02,
+  "age_days": 14,
+  "unique_error_patterns": 12,
+  "top_patterns": [
+    {
+      "pattern": "UnicodeDecodeError: 'utf-<N>' codec can't decode byte <HEX> in position <N>: invalid start byte",
+      "count": 6
+    },
+    {
+      "pattern": "UnicodeDecodeError: 'utf-<N>' codec can't decode byte <HEX> in position <N>: invalid continuation byte",
+      "count": 4
+    },
+    {
+      "pattern": "future: <Task finished name='Task-<N>' coro=<handle_client() done, defined at <PATH>:<N>> exception=UnicodeDecodeError('utf-<N>', b'\\x<N>\\x<N>\\x<N>\\x<N>\\xa<N>\\x<N>\\x<N>\\x<N>\\xa<N>\\x<N>\\x<N>\\xadq\\xccp\\",
+      "count": 1
+    },
+    {
+      "pattern": "future: <Task finished name='Task-<N>' coro=<handle_client() done, defined at <PATH>:<N>> exception=UnicodeDecodeError('utf-<N>', b'\\x<N>\\x<N>\\x<N>\\x<N>\\xfc\\x<N>\\x<N>\\x<N>\\xf<N>\\x<N>\\x<N>$\\xa<N>\\xe<N>",
+      "count": 1
+    },
+    {
+      "pattern": "future: <Task finished name='Task-<N>' coro=<handle_client() done, defined at <PATH>:<N>> exception=UnicodeDecodeError('utf-<N>', b'\\xc<N>\\xe<N>\\xe<N>\\xe<N>\\x<N>e\\xa<N>\\xd<N>\\xa<N>\\xa<N>\\xd<N>\\xd<N>\\x",
+      "count": 1
+    },
+    {
+      "pattern": "future: <Task finished name='Task-<N>' coro=<handle_client() done, defined at <PATH>:<N>> exception=UnicodeDecodeError('utf-<N>', b'\\x<N>\\x<N>\\x<N>\\x<N>\\x<N>\\x<N>\\x<N>\\x<N>\\x<N>\\x<N>\\n', <N>, <N>, 'in",
+      "count": 1
+    },
+    {
+      "pattern": "future: <Task finished name='Task-<N>' coro=<handle_client() done, defined at <PATH>:<N>> exception=UnicodeDecodeError('utf-<N>', b'{\\x<N>\\x<N>\\x<N>\\xc<N>\\xa<N>\\x<N>\\x<N>\\x<N>\\x<N>{', <N>, <N>, 'inval",
+      "count": 1
+    },
+    {
+      "pattern": "future: <Task finished name='Task-<N>' coro=<handle_client() done, defined at <PATH>:<N>> exception=UnicodeDecodeError('utf-<N>', b'\\x<N>\\x<N>\\x<N>\\x<N>b\\x<N>\\xe<N>\\x<N>\\x<N>\\x<N>\\x<N>\\x<N>', <N>, <N>",
+      "count": 1
+    },
+    {
+      "pattern": "future: <Task finished name='Task-<N>' coro=<handle_client() done, defined at <PATH>:<N>> exception=UnicodeDecodeError('utf-<N>', b'\\x<N>\\x<N>\\x<N>.\\xe<N>\\x<N>\\x<N>\\x<N>\\x<N>\\x<N>Cookie: mstshash=Admi",
+      "count": 1
+    },
+    {
+      "pattern": "future: <Task finished name='Task-<N>' coro=<handle_client() done, defined at <PATH>:<N>> exception=UnicodeDecodeError('utf-<N>', b'+.\\x<N>L\\xbe\\x<N>\\x<N>dR,\\x<N>d\\x<N>\\xfa\\xc<N>\"\\xc<N>\\t\\xbbx\\xcc\\x<N",
+      "count": 1
+    }
+  ]
+}

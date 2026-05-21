@@ -1,0 +1,48 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/OpenShell/target/debug/build/protobuf-src-82aad4d090c1b8cf/out/build/third_party/googletest/googlemock/config.log",
+  "size_mb": 0.03,
+  "age_days": 0,
+  "unique_error_patterns": 10,
+  "top_patterns": [
+    {
+      "pattern": "cc: fatal error: no input files",
+      "count": 3
+    },
+    {
+      "pattern": "Configured with: ..<PATH> -v --with-pkgversion='Ubuntu <N>.<N>.<N>-<N>ubuntu<N>~<N>.<N>.<N>' --with-bugurl=file:<PATH><N><PATH> --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,m<N> --prefi",
+      "count": 2
+    },
+    {
+      "pattern": "c++: fatal error: no input files",
+      "count": 2
+    },
+    {
+      "pattern": "conftest.cpp:<N>:<N>: fatal error: ac_nonexistent.h: No such file or directory",
+      "count": 2
+    },
+    {
+      "pattern": "cc: error: unrecognized command-line option '-V'",
+      "count": 1
+    },
+    {
+      "pattern": "cc: error: unrecognized command-line option '-qversion'; did you mean '--version'?",
+      "count": 1
+    },
+    {
+      "pattern": "cc: error: unrecognized command-line option '-version'",
+      "count": 1
+    },
+    {
+      "pattern": "c++: error: unrecognized command-line option '-V'",
+      "count": 1
+    },
+    {
+      "pattern": "c++: error: unrecognized command-line option '-qversion'; did you mean '--version'?",
+      "count": 1
+    },
+    {
+      "pattern": "collect<N>: error: ld returned <N> exit status",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/lucineer/research/deepseek_orchestration/ml_hardware_sim.log",
+  "size_mb": 0.01,
+  "age_days": 18,
+  "unique_error_patterns": 11,
+  "top_patterns": [
+    {
+      "pattern": "[<N>/<N>] ternary_quantizer: Implement ternary quantizer with error feedback. E...",
+      "count": 1
+    },
+    {
+      "pattern": "[<N>/<N>] error_propagation: Analyze quantization error through <N>-layer transf...",
+      "count": 1
+    },
+    {
+      "pattern": "[<N>/<N>] error_propagation: Model SQNR degradation through attention layers. E...",
+      "count": 1
+    },
+    {
+      "pattern": "[<N>/<N>] error_propagation: Design error compensation circuits. Calculate impr...",
+      "count": 1
+    },
+    {
+      "pattern": "[<N>/<N>] error_propagation: Analyze ternary quantization on attention scores. ...",
+      "count": 1
+    },
+    {
+      "pattern": "[<N>/<N>] error_propagation: Model quantization error through layer norm. Calcu...",
+      "count": 1
+    },
+    {
+      "pattern": "[<N>/<N>] error_propagation: Design error-aware training for robustness. Evalua...",
+      "count": 1
+    },
+    {
+      "pattern": "[<N>/<N>] error_propagation: Analyze cross-layer quantization correlation. Calc...",
+      "count": 1
+    },
+    {
+      "pattern": "[<N>/<N>] error_propagation: Implement statistical quantization modeling. Estim...",
+      "count": 1
+    },
+    {
+      "pattern": "[<N>/<N>] mask_locked_rom: Design error-tolerant ROM for defects. Calculate y...",
+      "count": 1
+    }
+  ]
+}

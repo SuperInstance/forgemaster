@@ -1,0 +1,20 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/fleet-murmur/data/zeroclaw/loop.log",
+  "size_mb": 1.21,
+  "age_days": 0,
+  "unique_error_patterns": 3,
+  "top_patterns": [
+    {
+      "pattern": "zc-tide: Assuming a binary telepathic channel with error correction, ...",
+      "count": 3
+    },
+    {
+      "pattern": "zc-bard: [ERROR: HTTP Error <N>: <none>]...",
+      "count": 1
+    },
+    {
+      "pattern": "zc-navigator: [ERROR: HTTP Error <N>: Service Unavailable]...",
+      "count": 1
+    }
+  ]
+}

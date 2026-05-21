@@ -1,0 +1,12 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/flux-research/night-shift-sprint1.log",
+  "size_mb": 0.0,
+  "age_days": 15,
+  "unique_error_patterns": 1,
+  "top_patterns": [
+    {
+      "pattern": "[<N>:<N>]   HAV export error: Traceback (most recent call last):",
+      "count": 1
+    }
+  ]
+}
