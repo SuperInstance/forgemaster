@@ -3,7 +3,7 @@
     "edges": 3,
     "connected": true,
     "laman_ok": true,
-    "time": 1.9073486328125e-06,
+    "time": 2.384185791015625e-06,
     "method": "naive subset",
     "edge_removal": {
       "tested": 3,
@@ -20,7 +20,7 @@
     "edges": 9,
     "connected": true,
     "laman_ok": true,
-    "time": 2.956390380859375e-05,
+    "time": 4.673004150390625e-05,
     "method": "naive subset",
     "edge_removal": {
       "tested": 9,
@@ -37,7 +37,7 @@
     "edges": 15,
     "connected": true,
     "laman_ok": true,
-    "time": 0.0002884864807128906,
+    "time": 0.00028777122497558594,
     "method": "naive subset",
     "edge_removal": {
       "tested": 15,
@@ -54,7 +54,7 @@
     "edges": 21,
     "connected": true,
     "laman_ok": true,
-    "time": 0.0029163360595703125,
+    "time": 0.003062725067138672,
     "method": "naive subset",
     "edge_removal": {
       "tested": 20,
@@ -71,7 +71,7 @@
     "edges": 37,
     "connected": true,
     "laman_ok": true,
-    "time": 7.867813110351562e-06,
+    "time": 7.62939453125e-06,
     "method": "edge+conn proxy",
     "edge_removal": {
       "tested": 20,
@@ -105,7 +105,7 @@
     "edges": 197,
     "connected": true,
     "laman_ok": true,
-    "time": 2.8133392333984375e-05,
+    "time": 2.9087066650390625e-05,
     "method": "edge+conn proxy",
     "edge_removal": {
       "tested": 20,
