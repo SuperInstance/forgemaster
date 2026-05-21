@@ -117,6 +117,7 @@ for n in ns:
     for _ in range(test_count):
         # Add random edge not already present
         edge_set = set(tuple(sorted(e)) for e in edges)
+        augmented = edges  # fallback: no new edge found
         for _ in range(100):
             u, v = random.sample(range(n), 2)
             e = tuple(sorted((u,v)))
