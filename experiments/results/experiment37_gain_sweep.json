@@ -1,0 +1,908 @@
+{
+  "experiment": "experiment37_gain_sweep",
+  "description": "Correction gain sweep to find optimal \u03b1 for Laman topology consensus",
+  "config": {
+    "n_agents": 10,
+    "topology": "laman_henneberg_type1",
+    "edges": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        5
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        7,
+        0
+      ],
+      [
+        8,
+        1
+      ],
+      [
+        8,
+        4
+      ],
+      [
+        9,
+        6
+      ],
+      [
+        9,
+        0
+      ]
+    ],
+    "latency": 5,
+    "ticks": 1000,
+    "trials": 10,
+    "delta": 1.0,
+    "convergence_window": 50,
+    "gains_tested": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ]
+  },
+  "spectral_analysis": {
+    "lambda_2": 1.2621171532080875,
+    "lambda_n": 7.482522025781527,
+    "alpha_star_predicted": 0.2287115521936363
+  },
+  "results": {
+    "0.1": {
+      "gain": 0.1,
+      "avg_convergence_tick": 97.5,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.2049652105301017,
+      "avg_overshoot": 90.4602356932551,
+      "avg_jitter": 9.989891637847859e-14,
+      "trials": [
+        {
+          "convergence_tick": 98,
+          "steady_state_drift": 0.2049652105301027,
+          "overshoot": 84.0037042098019,
+          "jitter": 1.0021867140864568e-13,
+          "max_drift_final": 0.20496521052996286
+        },
+        {
+          "convergence_tick": 100,
+          "steady_state_drift": 0.20496521053010155,
+          "overshoot": 94.03836999614063,
+          "jitter": 9.986338804179336e-14,
+          "max_drift_final": 0.20496521053019023
+        },
+        {
+          "convergence_tick": 96,
+          "steady_state_drift": 0.20496521053010155,
+          "overshoot": 91.15177329248185,
+          "jitter": 9.986338804179336e-14,
+          "max_drift_final": 0.20496521052996286
+        },
+        {
+          "convergence_tick": 99,
+          "steady_state_drift": 0.20496521053010155,
+          "overshoot": 94.81595378455617,
+          "jitter": 9.986338804179336e-14,
+          "max_drift_final": 0.20496521053019023
+        },
+        {
+          "convergence_tick": 97,
+          "steady_state_drift": 0.20496521053010155,
+          "overshoot": 81.90675593814055,
+          "jitter": 9.986338804179336e-14,
+          "max_drift_final": 0.20496521053007655
+        },
+        {
+          "convergence_tick": 96,
+          "steady_state_drift": 0.20496521053010155,
+          "overshoot": 87.60609591142101,
+          "jitter": 9.986338804179336e-14,
+          "max_drift_final": 0.20496521053007655
+        },
+        {
+          "convergence_tick": 96,
+          "steady_state_drift": 0.20496521053010155,
+          "overshoot": 93.3545056448811,
+          "jitter": 9.986338804179336e-14,
+          "max_drift_final": 0.20496521053019023
+        },
+        {
+          "convergence_tick": 97,
+          "steady_state_drift": 0.20496521053010155,
+          "overshoot": 96.76860913493236,
+          "jitter": 9.986338804179336e-14,
+          "max_drift_final": 0.20496521053019023
+        },
+        {
+          "convergence_tick": 96,
+          "steady_state_drift": 0.20496521053010155,
+          "overshoot": 85.97704748471008,
+          "jitter": 9.986338804179336e-14,
+          "max_drift_final": 0.20496521053019023
+        },
+        {
+          "convergence_tick": 100,
+          "steady_state_drift": 0.20496521053010155,
+          "overshoot": 94.97954153548542,
+          "jitter": 9.986338804179336e-14,
+          "max_drift_final": 0.20496521053019023
+        }
+      ]
+    },
+    "0.2": {
+      "gain": 0.2,
+      "avg_convergence_tick": 59.4,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.09581593859828337,
+      "avg_overshoot": 90.4602356932551,
+      "avg_jitter": 7.915388948210834e-14,
+      "trials": [
+        {
+          "convergence_tick": 60,
+          "steady_state_drift": 0.09581593859827478,
+          "overshoot": 84.0037042098019,
+          "jitter": 7.310293518446031e-14,
+          "max_drift_final": 0.09581593859832083
+        },
+        {
+          "convergence_tick": 61,
+          "steady_state_drift": 0.0958159385982782,
+          "overshoot": 94.03836999614063,
+          "jitter": 7.251714363390575e-14,
+          "max_drift_final": 0.09581593859832083
+        },
+        {
+          "convergence_tick": 58,
+          "steady_state_drift": 0.09581593859827364,
+          "overshoot": 91.15177329248185,
+          "jitter": 7.326188364995555e-14,
+          "max_drift_final": 0.09581593859820714
+        },
+        {
+          "convergence_tick": 60,
+          "steady_state_drift": 0.09581593859828047,
+          "overshoot": 94.81595378455617,
+          "jitter": 8.010486241998758e-14,
+          "max_drift_final": 0.09581593859832083
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.09581593859829411,
+          "overshoot": 81.90675593814055,
+          "jitter": 8.637768522318882e-14,
+          "max_drift_final": 0.09581593859843451
+        },
+        {
+          "convergence_tick": 58,
+          "steady_state_drift": 0.09581593859828728,
+          "overshoot": 87.60609591142101,
+          "jitter": 8.357915813457931e-14,
+          "max_drift_final": 0.09581593859843451
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.09581593859829013,
+          "overshoot": 93.3545056448811,
+          "jitter": 8.253852331565445e-14,
+          "max_drift_final": 0.09581593859843451
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.09581593859828047,
+          "overshoot": 96.76860913493236,
+          "jitter": 7.681016274217556e-14,
+          "max_drift_final": 0.09581593859832083
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.09581593859828728,
+          "overshoot": 85.97704748471008,
+          "jitter": 8.162327025858795e-14,
+          "max_drift_final": 0.09581593859843451
+        },
+        {
+          "convergence_tick": 61,
+          "steady_state_drift": 0.09581593859828728,
+          "overshoot": 94.97954153548542,
+          "jitter": 8.162327025858795e-14,
+          "max_drift_final": 0.09581593859832083
+        }
+      ]
+    },
+    "0.3": {
+      "gain": 0.3,
+      "avg_convergence_tick": 47.4,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.05943284795438576,
+      "avg_overshoot": 90.4602356932551,
+      "avg_jitter": 2.974963667253805e-14,
+      "trials": [
+        {
+          "convergence_tick": 48,
+          "steady_state_drift": 0.05943284795438217,
+          "overshoot": 84.0037042098019,
+          "jitter": 3.2135390105252585e-14,
+          "max_drift_final": 0.059432847954383305
+        },
+        {
+          "convergence_tick": 48,
+          "steady_state_drift": 0.05943284795438672,
+          "overshoot": 94.03836999614063,
+          "jitter": 2.9884721492916805e-14,
+          "max_drift_final": 0.059432847954383305
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.05943284795438615,
+          "overshoot": 91.15177329248185,
+          "jitter": 2.8279243960554756e-14,
+          "max_drift_final": 0.059432847954383305
+        },
+        {
+          "convergence_tick": 48,
+          "steady_state_drift": 0.05943284795438501,
+          "overshoot": 94.81595378455617,
+          "jitter": 2.9487437973387137e-14,
+          "max_drift_final": 0.059432847954383305
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.05943284795438444,
+          "overshoot": 81.90675593814055,
+          "jitter": 3.005721754429966e-14,
+          "max_drift_final": 0.059432847954383305
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.05943284795438785,
+          "overshoot": 87.60609591142101,
+          "jitter": 2.86256144134996e-14,
+          "max_drift_final": 0.059432847954383305
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.05943284795438672,
+          "overshoot": 93.3545056448811,
+          "jitter": 3.094705259091581e-14,
+          "max_drift_final": 0.059432847954383305
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.05943284795438615,
+          "overshoot": 96.76860913493236,
+          "jitter": 2.8279243960554756e-14,
+          "max_drift_final": 0.059432847954383305
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.05943284795438615,
+          "overshoot": 85.97704748471008,
+          "jitter": 3.1521200723444665e-14,
+          "max_drift_final": 0.059432847954383305
+        },
+        {
+          "convergence_tick": 48,
+          "steady_state_drift": 0.05943284795438615,
+          "overshoot": 94.97954153548542,
+          "jitter": 2.8279243960554756e-14,
+          "max_drift_final": 0.059432847954383305
+        }
+      ]
+    },
+    "0.4": {
+      "gain": 0.4,
+      "avg_convergence_tick": 44.2,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.04124130263249532,
+      "avg_overshoot": 90.4602356932551,
+      "avg_jitter": 3.9746663412184584e-14,
+      "trials": [
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.04124130263249413,
+          "overshoot": 84.0037042098019,
+          "jitter": 3.979039322676655e-14,
+          "max_drift_final": 0.04124130263255665
+        },
+        {
+          "convergence_tick": 48,
+          "steady_state_drift": 0.041241302632494696,
+          "overshoot": 94.03836999614063,
+          "jitter": 3.9460142972631786e-14,
+          "max_drift_final": 0.04124130263249981
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.041241302632495265,
+          "overshoot": 91.15177329248185,
+          "jitter": 3.9936294580479286e-14,
+          "max_drift_final": 0.04124130263249981
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.041241302632495834,
+          "overshoot": 94.81595378455617,
+          "jitter": 4.039883825037346e-14,
+          "max_drift_final": 0.04124130263249981
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.041241302632487875,
+          "overshoot": 81.90675593814055,
+          "jitter": 3.9623573559779295e-14,
+          "max_drift_final": 0.04124130263244297
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.041241302632495265,
+          "overshoot": 87.60609591142101,
+          "jitter": 4.073734294445975e-14,
+          "max_drift_final": 0.04124130263249981
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.041241302632502086,
+          "overshoot": 93.3545056448811,
+          "jitter": 3.848597522842764e-14,
+          "max_drift_final": 0.04124130263249981
+        },
+        {
+          "convergence_tick": 48,
+          "steady_state_drift": 0.041241302632489575,
+          "overshoot": 96.76860913493236,
+          "jitter": 4.049869217208503e-14,
+          "max_drift_final": 0.04124130263255665
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.041241302632496396,
+          "overshoot": 85.97704748471008,
+          "jitter": 4.0049405958415434e-14,
+          "max_drift_final": 0.04124130263244297
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.041241302632502086,
+          "overshoot": 94.97954153548542,
+          "jitter": 3.848597522842764e-14,
+          "max_drift_final": 0.04124130263249981
+        }
+      ]
+    },
+    "0.5": {
+      "gain": 0.5,
+      "avg_convergence_tick": 45.4,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.03074958754743375,
+      "avg_overshoot": 90.4602356932551,
+      "avg_jitter": 4.404103250503653e-14,
+      "trials": [
+        {
+          "convergence_tick": 40,
+          "steady_state_drift": 0.030749587547432497,
+          "overshoot": 84.0037042098019,
+          "jitter": 4.51144840554127e-14,
+          "max_drift_final": 0.030749587547404644
+        },
+        {
+          "convergence_tick": 51,
+          "steady_state_drift": 0.030749587547430794,
+          "overshoot": 94.03836999614063,
+          "jitter": 4.577219021187394e-14,
+          "max_drift_final": 0.030749587547461488
+        },
+        {
+          "convergence_tick": 45,
+          "steady_state_drift": 0.030749587547433635,
+          "overshoot": 91.15177329248185,
+          "jitter": 4.4392490200825427e-14,
+          "max_drift_final": 0.030749587547461488
+        },
+        {
+          "convergence_tick": 46,
+          "steady_state_drift": 0.030749587547430794,
+          "overshoot": 94.81595378455617,
+          "jitter": 4.577219021187394e-14,
+          "max_drift_final": 0.030749587547461488
+        },
+        {
+          "convergence_tick": 45,
+          "steady_state_drift": 0.030749587547434204,
+          "overshoot": 81.90675593814055,
+          "jitter": 4.3647455246769966e-14,
+          "max_drift_final": 0.030749587547461488
+        },
+        {
+          "convergence_tick": 46,
+          "steady_state_drift": 0.030749587547435907,
+          "overshoot": 87.60609591142101,
+          "jitter": 4.282162301279133e-14,
+          "max_drift_final": 0.030749587547461488
+        },
+        {
+          "convergence_tick": 40,
+          "steady_state_drift": 0.030749587547434204,
+          "overshoot": 93.3545056448811,
+          "jitter": 4.3647455246769966e-14,
+          "max_drift_final": 0.030749587547461488
+        },
+        {
+          "convergence_tick": 51,
+          "steady_state_drift": 0.030749587547433635,
+          "overshoot": 96.76860913493236,
+          "jitter": 4.4392490200825427e-14,
+          "max_drift_final": 0.030749587547461488
+        },
+        {
+          "convergence_tick": 44,
+          "steady_state_drift": 0.030749587547434773,
+          "overshoot": 85.97704748471008,
+          "jitter": 4.2881945834697535e-14,
+          "max_drift_final": 0.0307495875473478
+        },
+        {
+          "convergence_tick": 46,
+          "steady_state_drift": 0.030749587547437045,
+          "overshoot": 94.97954153548542,
+          "jitter": 4.1968000828525075e-14,
+          "max_drift_final": 0.030749587547461488
+        }
+      ]
+    },
+    "0.6": {
+      "gain": 0.6,
+      "avg_convergence_tick": 48.0,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.024513545178422018,
+      "avg_overshoot": 90.4602356932551,
+      "avg_jitter": 3.0406841633158765e-14,
+      "trials": [
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.02451354517842219,
+          "overshoot": 84.0037042098019,
+          "jitter": 3.113442275577916e-14,
+          "max_drift_final": 0.024513545178479035
+        },
+        {
+          "convergence_tick": 56,
+          "steady_state_drift": 0.02451354517842219,
+          "overshoot": 94.03836999614063,
+          "jitter": 3.00787099952753e-14,
+          "max_drift_final": 0.02451354517842219
+        },
+        {
+          "convergence_tick": 44,
+          "steady_state_drift": 0.024513545178420484,
+          "overshoot": 91.15177329248185,
+          "jitter": 3.160310062234028e-14,
+          "max_drift_final": 0.024513545178365348
+        },
+        {
+          "convergence_tick": 50,
+          "steady_state_drift": 0.024513545178421622,
+          "overshoot": 94.81595378455617,
+          "jitter": 3.06058396476734e-14,
+          "max_drift_final": 0.02451354517842219
+        },
+        {
+          "convergence_tick": 44,
+          "steady_state_drift": 0.02451354517842219,
+          "overshoot": 81.90675593814055,
+          "jitter": 3.00787099952753e-14,
+          "max_drift_final": 0.02451354517842219
+        },
+        {
+          "convergence_tick": 50,
+          "steady_state_drift": 0.024513545178421053,
+          "overshoot": 87.60609591142101,
+          "jitter": 2.8962265815188734e-14,
+          "max_drift_final": 0.02451354517842219
+        },
+        {
+          "convergence_tick": 44,
+          "steady_state_drift": 0.024513545178425602,
+          "overshoot": 93.3545056448811,
+          "jitter": 3.0947052411995745e-14,
+          "max_drift_final": 0.024513545178479035
+        },
+        {
+          "convergence_tick": 56,
+          "steady_state_drift": 0.024513545178420484,
+          "overshoot": 96.76860913493236,
+          "jitter": 2.9487437973387137e-14,
+          "max_drift_final": 0.02451354517842219
+        },
+        {
+          "convergence_tick": 44,
+          "steady_state_drift": 0.02451354517842333,
+          "overshoot": 85.97704748471008,
+          "jitter": 3.111365957037295e-14,
+          "max_drift_final": 0.024513545178479035
+        },
+        {
+          "convergence_tick": 49,
+          "steady_state_drift": 0.024513545178421053,
+          "overshoot": 94.97954153548542,
+          "jitter": 3.005721754429966e-14,
+          "max_drift_final": 0.02451354517842219
+        }
+      ]
+    },
+    "0.7": {
+      "gain": 0.7,
+      "avg_convergence_tick": 51.1,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.02005922920055738,
+      "avg_overshoot": 90.4602356932551,
+      "avg_jitter": 2.338334979506563e-14,
+      "trials": [
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.02005922920055184,
+          "overshoot": 84.0037042098019,
+          "jitter": 1.9600679081575905e-14,
+          "max_drift_final": 0.02005922920056946
+        },
+        {
+          "convergence_tick": 61,
+          "steady_state_drift": 0.020059229200558946,
+          "overshoot": 94.03836999614063,
+          "jitter": 2.1137422309668386e-14,
+          "max_drift_final": 0.02005922920056946
+        },
+        {
+          "convergence_tick": 54,
+          "steady_state_drift": 0.02005922920055525,
+          "overshoot": 91.15177329248185,
+          "jitter": 2.5261767908988273e-14,
+          "max_drift_final": 0.02005922920056946
+        },
+        {
+          "convergence_tick": 55,
+          "steady_state_drift": 0.020059229200560934,
+          "overshoot": 94.81595378455617,
+          "jitter": 2.1831129297960206e-14,
+          "max_drift_final": 0.020059229200626305
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.020059229200560368,
+          "overshoot": 81.90675593814055,
+          "jitter": 2.601168764237741e-14,
+          "max_drift_final": 0.020059229200512618
+        },
+        {
+          "convergence_tick": 55,
+          "steady_state_drift": 0.020059229200560084,
+          "overshoot": 87.60609591142101,
+          "jitter": 2.3456090893564068e-14,
+          "max_drift_final": 0.020059229200626305
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.020059229200557523,
+          "overshoot": 93.3545056448811,
+          "jitter": 2.3499099640720387e-14,
+          "max_drift_final": 0.02005922920056946
+        },
+        {
+          "convergence_tick": 61,
+          "steady_state_drift": 0.020059229200550987,
+          "overshoot": 96.76860913493236,
+          "jitter": 2.178482777215471e-14,
+          "max_drift_final": 0.020059229200512618
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.02005922920055866,
+          "overshoot": 85.97704748471008,
+          "jitter": 2.535114517890165e-14,
+          "max_drift_final": 0.020059229200626305
+        },
+        {
+          "convergence_tick": 54,
+          "steady_state_drift": 0.02005922920055923,
+          "overshoot": 94.97954153548542,
+          "jitter": 2.589964822474534e-14,
+          "max_drift_final": 0.020059229200626305
+        }
+      ]
+    },
+    "0.8": {
+      "gain": 0.8,
+      "avg_convergence_tick": 54.7,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.016718492217175623,
+      "avg_overshoot": 90.4602356932551,
+      "avg_jitter": 2.2609102952289363e-14,
+      "trials": [
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.016718492217171102,
+          "overshoot": 84.0037042098019,
+          "jitter": 2.262875040431108e-14,
+          "max_drift_final": 0.016718492217137282
+        },
+        {
+          "convergence_tick": 66,
+          "steady_state_drift": 0.016718492217178776,
+          "overshoot": 94.03836999614063,
+          "jitter": 2.216893338351518e-14,
+          "max_drift_final": 0.016718492217165704
+        },
+        {
+          "convergence_tick": 54,
+          "steady_state_drift": 0.01671849221717565,
+          "overshoot": 91.15177329248185,
+          "jitter": 2.178482777215471e-14,
+          "max_drift_final": 0.016718492217165704
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.01671849221717679,
+          "overshoot": 94.81595378455617,
+          "jitter": 2.2700033403684426e-14,
+          "max_drift_final": 0.016718492217165704
+        },
+        {
+          "convergence_tick": 53,
+          "steady_state_drift": 0.01671849221717508,
+          "overshoot": 81.90675593814055,
+          "jitter": 2.4135035584912482e-14,
+          "max_drift_final": 0.016718492217137282
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.01671849221717565,
+          "overshoot": 87.60609591142101,
+          "jitter": 2.178482777215471e-14,
+          "max_drift_final": 0.016718492217165704
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.016718492217177642,
+          "overshoot": 93.3545056448811,
+          "jitter": 2.450867801292603e-14,
+          "max_drift_final": 0.016718492217165704
+        },
+        {
+          "convergence_tick": 66,
+          "steady_state_drift": 0.016718492217173093,
+          "overshoot": 96.76860913493236,
+          "jitter": 2.2241690144297964e-14,
+          "max_drift_final": 0.016718492217165704
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.016718492217175935,
+          "overshoot": 85.97704748471008,
+          "jitter": 2.183852838673977e-14,
+          "max_drift_final": 0.016718492217137282
+        },
+        {
+          "convergence_tick": 54,
+          "steady_state_drift": 0.016718492217176504,
+          "overshoot": 94.97954153548542,
+          "jitter": 2.2299724658197272e-14,
+          "max_drift_final": 0.016718492217165704
+        }
+      ]
+    },
+    "0.9": {
+      "gain": 0.9,
+      "avg_convergence_tick": 57.2,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.01412014123008356,
+      "avg_overshoot": 90.4602356932551,
+      "avg_jitter": 2.8095465980178062e-14,
+      "trials": [
+        {
+          "convergence_tick": 41,
+          "steady_state_drift": 0.014120141230083903,
+          "overshoot": 84.0037042098019,
+          "jitter": 2.7158724307263412e-14,
+          "max_drift_final": 0.014120141230080208
+        },
+        {
+          "convergence_tick": 71,
+          "steady_state_drift": 0.014120141230084472,
+          "overshoot": 94.03836999614063,
+          "jitter": 2.8809857523403726e-14,
+          "max_drift_final": 0.014120141230051786
+        },
+        {
+          "convergence_tick": 53,
+          "steady_state_drift": 0.014120141230077933,
+          "overshoot": 91.15177329248185,
+          "jitter": 2.8895249281354864e-14,
+          "max_drift_final": 0.014120141230023364
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.014120141230083618,
+          "overshoot": 94.81595378455617,
+          "jitter": 2.9613184501099846e-14,
+          "max_drift_final": 0.014120141230051786
+        },
+        {
+          "convergence_tick": 53,
+          "steady_state_drift": 0.014120141230089872,
+          "overshoot": 81.90675593814055,
+          "jitter": 2.8766364569795745e-14,
+          "max_drift_final": 0.014120141230023364
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.014120141230077933,
+          "overshoot": 87.60609591142101,
+          "jitter": 2.5949503225348562e-14,
+          "max_drift_final": 0.014120141230023364
+        },
+        {
+          "convergence_tick": 53,
+          "steady_state_drift": 0.01412014123008646,
+          "overshoot": 93.3545056448811,
+          "jitter": 2.801521426543755e-14,
+          "max_drift_final": 0.014120141230051786
+        },
+        {
+          "convergence_tick": 71,
+          "steady_state_drift": 0.014120141230079071,
+          "overshoot": 96.76860913493236,
+          "jitter": 2.6637677631423595e-14,
+          "max_drift_final": 0.014120141230051786
+        },
+        {
+          "convergence_tick": 53,
+          "steady_state_drift": 0.01412014123008845,
+          "overshoot": 85.97704748471008,
+          "jitter": 2.822062504698246e-14,
+          "max_drift_final": 0.014120141230023364
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.014120141230083903,
+          "overshoot": 94.97954153548542,
+          "jitter": 2.8888259449670874e-14,
+          "max_drift_final": 0.014120141230023364
+        }
+      ]
+    },
+    "1.0": {
+      "gain": 1.0,
+      "avg_convergence_tick": 57.2,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.012041460440406212,
+      "avg_overshoot": 90.4602356932551,
+      "avg_jitter": 1.902306113325076e-14,
+      "trials": [
+        {
+          "convergence_tick": 41,
+          "steady_state_drift": 0.012041460440416358,
+          "overshoot": 84.0037042098019,
+          "jitter": 1.941017567227501e-14,
+          "max_drift_final": 0.012041460440428864
+        },
+        {
+          "convergence_tick": 71,
+          "steady_state_drift": 0.012041460440396747,
+          "overshoot": 94.03836999614063,
+          "jitter": 1.9131420888230835e-14,
+          "max_drift_final": 0.012041460440428864
+        },
+        {
+          "convergence_tick": 53,
+          "steady_state_drift": 0.012041460440398168,
+          "overshoot": 91.15177329248185,
+          "jitter": 1.8278496095820433e-14,
+          "max_drift_final": 0.012041460440400442
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.012041460440422895,
+          "overshoot": 94.81595378455617,
+          "jitter": 1.4655794411802666e-14,
+          "max_drift_final": 0.012041460440428864
+        },
+        {
+          "convergence_tick": 53,
+          "steady_state_drift": 0.012041460440409822,
+          "overshoot": 81.90675593814055,
+          "jitter": 2.128973862332519e-14,
+          "max_drift_final": 0.01204146044037202
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.012041460440409537,
+          "overshoot": 87.60609591142101,
+          "jitter": 2.160049916811011e-14,
+          "max_drift_final": 0.012041460440400442
+        },
+        {
+          "convergence_tick": 53,
+          "steady_state_drift": 0.012041460440403853,
+          "overshoot": 93.3545056448811,
+          "jitter": 2.060524930221042e-14,
+          "max_drift_final": 0.01204146044037202
+        },
+        {
+          "convergence_tick": 71,
+          "steady_state_drift": 0.012041460440409822,
+          "overshoot": 96.76860913493236,
+          "jitter": 2.128973862332519e-14,
+          "max_drift_final": 0.012041460440428864
+        },
+        {
+          "convergence_tick": 53,
+          "steady_state_drift": 0.012041460440403853,
+          "overshoot": 85.97704748471008,
+          "jitter": 2.060524930221042e-14,
+          "max_drift_final": 0.01204146044037202
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.012041460440391063,
+          "overshoot": 94.97954153548542,
+          "jitter": 1.3364249245197312e-14,
+          "max_drift_final": 0.012041460440400442
+        }
+      ]
+    }
+  },
+  "conclusion": {
+    "spectral_prediction": 0.2287115521936363,
+    "empirical_best": 0.4,
+    "spectral_match": false,
+    "hypothesis_0_5_confirmed": true
+  }
+}
