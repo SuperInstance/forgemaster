@@ -1,0 +1,389 @@
+{
+  "experiment": "experiment17_edge_augmentation",
+  "description": "Edge augmentation effects on Laman topology convergence",
+  "parameters": {
+    "N": 20,
+    "laman_edges": 37,
+    "augmentation_levels": [
+      0.0,
+      0.1,
+      0.2,
+      0.5,
+      1.0
+    ],
+    "max_ticks": 500,
+    "num_trials": 5
+  },
+  "summary": [
+    {
+      "augmentation_frac": 0.0,
+      "augmentation_pct": "0%",
+      "base_laman_edges": 37,
+      "extra_edges": 0,
+      "total_edges": 37,
+      "avg_convergence_tick": 36.2,
+      "avg_max_drift_final": 0.00201545,
+      "avg_messages_per_tick": 5.51,
+      "avg_spectral_gap": 0.784549,
+      "avg_wall_time_s": 0.106,
+      "trials": [
+        {
+          "convergence_tick": 39,
+          "max_drift_final": 0.00198181,
+          "avg_messages_per_tick": 5.76,
+          "total_messages": 2882,
+          "wall_time_s": 0.1064,
+          "spectral_gap": 0.769721,
+          "augmentation_frac": 0.0,
+          "total_edges": 37,
+          "extra_edges": 0,
+          "trial": 0
+        },
+        {
+          "convergence_tick": 34,
+          "max_drift_final": 0.00229535,
+          "avg_messages_per_tick": 5.13,
+          "total_messages": 2566,
+          "wall_time_s": 0.1052,
+          "spectral_gap": 0.749277,
+          "augmentation_frac": 0.0,
+          "total_edges": 37,
+          "extra_edges": 0,
+          "trial": 1
+        },
+        {
+          "convergence_tick": 29,
+          "max_drift_final": 0.00170021,
+          "avg_messages_per_tick": 4.62,
+          "total_messages": 2308,
+          "wall_time_s": 0.0936,
+          "spectral_gap": 0.849643,
+          "augmentation_frac": 0.0,
+          "total_edges": 37,
+          "extra_edges": 0,
+          "trial": 2
+        },
+        {
+          "convergence_tick": 48,
+          "max_drift_final": 0.00258692,
+          "avg_messages_per_tick": 7.3,
+          "total_messages": 3652,
+          "wall_time_s": 0.1235,
+          "spectral_gap": 0.62267,
+          "augmentation_frac": 0.0,
+          "total_edges": 37,
+          "extra_edges": 0,
+          "trial": 3
+        },
+        {
+          "convergence_tick": 31,
+          "max_drift_final": 0.00151295,
+          "avg_messages_per_tick": 4.76,
+          "total_messages": 2382,
+          "wall_time_s": 0.1015,
+          "spectral_gap": 0.931436,
+          "augmentation_frac": 0.0,
+          "total_edges": 37,
+          "extra_edges": 0,
+          "trial": 4
+        }
+      ]
+    },
+    {
+      "augmentation_frac": 0.1,
+      "augmentation_pct": "10%",
+      "base_laman_edges": 37,
+      "extra_edges": 3,
+      "total_edges": 40,
+      "avg_convergence_tick": 30.2,
+      "avg_max_drift_final": 0.00157564,
+      "avg_messages_per_tick": 4.98,
+      "avg_spectral_gap": 0.913137,
+      "avg_wall_time_s": 0.1138,
+      "trials": [
+        {
+          "convergence_tick": 33,
+          "max_drift_final": 0.00161099,
+          "avg_messages_per_tick": 5.46,
+          "total_messages": 2732,
+          "wall_time_s": 0.1515,
+          "spectral_gap": 0.927654,
+          "augmentation_frac": 0.1,
+          "total_edges": 40,
+          "extra_edges": 3,
+          "trial": 0
+        },
+        {
+          "convergence_tick": 32,
+          "max_drift_final": 0.00152395,
+          "avg_messages_per_tick": 5.33,
+          "total_messages": 2664,
+          "wall_time_s": 0.1041,
+          "spectral_gap": 0.809546,
+          "augmentation_frac": 0.1,
+          "total_edges": 40,
+          "extra_edges": 3,
+          "trial": 1
+        },
+        {
+          "convergence_tick": 30,
+          "max_drift_final": 0.00179203,
+          "avg_messages_per_tick": 5.06,
+          "total_messages": 2530,
+          "wall_time_s": 0.1043,
+          "spectral_gap": 0.890178,
+          "augmentation_frac": 0.1,
+          "total_edges": 40,
+          "extra_edges": 3,
+          "trial": 2
+        },
+        {
+          "convergence_tick": 34,
+          "max_drift_final": 0.00160046,
+          "avg_messages_per_tick": 5.46,
+          "total_messages": 2730,
+          "wall_time_s": 0.1161,
+          "spectral_gap": 0.869412,
+          "augmentation_frac": 0.1,
+          "total_edges": 40,
+          "extra_edges": 3,
+          "trial": 3
+        },
+        {
+          "convergence_tick": 22,
+          "max_drift_final": 0.00135077,
+          "avg_messages_per_tick": 3.59,
+          "total_messages": 1796,
+          "wall_time_s": 0.0929,
+          "spectral_gap": 1.068894,
+          "augmentation_frac": 0.1,
+          "total_edges": 40,
+          "extra_edges": 3,
+          "trial": 4
+        }
+      ]
+    },
+    {
+      "augmentation_frac": 0.2,
+      "augmentation_pct": "20%",
+      "base_laman_edges": 37,
+      "extra_edges": 7,
+      "total_edges": 44,
+      "avg_convergence_tick": 24.8,
+      "avg_max_drift_final": 0.00137212,
+      "avg_messages_per_tick": 4.51,
+      "avg_spectral_gap": 1.096346,
+      "avg_wall_time_s": 0.1218,
+      "trials": [
+        {
+          "convergence_tick": 29,
+          "max_drift_final": 0.00143592,
+          "avg_messages_per_tick": 5.24,
+          "total_messages": 2618,
+          "wall_time_s": 0.116,
+          "spectral_gap": 1.081424,
+          "augmentation_frac": 0.2,
+          "total_edges": 44,
+          "extra_edges": 7,
+          "trial": 0
+        },
+        {
+          "convergence_tick": 23,
+          "max_drift_final": 0.00186376,
+          "avg_messages_per_tick": 4.04,
+          "total_messages": 2018,
+          "wall_time_s": 0.104,
+          "spectral_gap": 1.0427,
+          "augmentation_frac": 0.2,
+          "total_edges": 44,
+          "extra_edges": 7,
+          "trial": 1
+        },
+        {
+          "convergence_tick": 20,
+          "max_drift_final": 0.00130607,
+          "avg_messages_per_tick": 3.72,
+          "total_messages": 1862,
+          "wall_time_s": 0.1097,
+          "spectral_gap": 1.076114,
+          "augmentation_frac": 0.2,
+          "total_edges": 44,
+          "extra_edges": 7,
+          "trial": 2
+        },
+        {
+          "convergence_tick": 31,
+          "max_drift_final": 0.0009992,
+          "avg_messages_per_tick": 5.7,
+          "total_messages": 2848,
+          "wall_time_s": 0.1475,
+          "spectral_gap": 0.997306,
+          "augmentation_frac": 0.2,
+          "total_edges": 44,
+          "extra_edges": 7,
+          "trial": 3
+        },
+        {
+          "convergence_tick": 21,
+          "max_drift_final": 0.00125563,
+          "avg_messages_per_tick": 3.83,
+          "total_messages": 1914,
+          "wall_time_s": 0.132,
+          "spectral_gap": 1.284188,
+          "augmentation_frac": 0.2,
+          "total_edges": 44,
+          "extra_edges": 7,
+          "trial": 4
+        }
+      ]
+    },
+    {
+      "augmentation_frac": 0.5,
+      "augmentation_pct": "50%",
+      "base_laman_edges": 37,
+      "extra_edges": 18,
+      "total_edges": 55,
+      "avg_convergence_tick": 17.6,
+      "avg_max_drift_final": 0.00113442,
+      "avg_messages_per_tick": 4.01,
+      "avg_spectral_gap": 1.668775,
+      "avg_wall_time_s": 0.1299,
+      "trials": [
+        {
+          "convergence_tick": 20,
+          "max_drift_final": 0.00143499,
+          "avg_messages_per_tick": 4.62,
+          "total_messages": 2310,
+          "wall_time_s": 0.1311,
+          "spectral_gap": 1.445241,
+          "augmentation_frac": 0.5,
+          "total_edges": 55,
+          "extra_edges": 18,
+          "trial": 0
+        },
+        {
+          "convergence_tick": 16,
+          "max_drift_final": 0.00129176,
+          "avg_messages_per_tick": 3.53,
+          "total_messages": 1764,
+          "wall_time_s": 0.1257,
+          "spectral_gap": 1.678097,
+          "augmentation_frac": 0.5,
+          "total_edges": 55,
+          "extra_edges": 18,
+          "trial": 1
+        },
+        {
+          "convergence_tick": 20,
+          "max_drift_final": 0.00122087,
+          "avg_messages_per_tick": 4.44,
+          "total_messages": 2222,
+          "wall_time_s": 0.1383,
+          "spectral_gap": 1.465769,
+          "augmentation_frac": 0.5,
+          "total_edges": 55,
+          "extra_edges": 18,
+          "trial": 2
+        },
+        {
+          "convergence_tick": 16,
+          "max_drift_final": 0.00093774,
+          "avg_messages_per_tick": 3.79,
+          "total_messages": 1894,
+          "wall_time_s": 0.1253,
+          "spectral_gap": 1.73399,
+          "augmentation_frac": 0.5,
+          "total_edges": 55,
+          "extra_edges": 18,
+          "trial": 3
+        },
+        {
+          "convergence_tick": 16,
+          "max_drift_final": 0.00078672,
+          "avg_messages_per_tick": 3.67,
+          "total_messages": 1834,
+          "wall_time_s": 0.1289,
+          "spectral_gap": 2.02078,
+          "augmentation_frac": 0.5,
+          "total_edges": 55,
+          "extra_edges": 18,
+          "trial": 4
+        }
+      ]
+    },
+    {
+      "augmentation_frac": 1.0,
+      "augmentation_pct": "100%",
+      "base_laman_edges": 37,
+      "extra_edges": 37,
+      "total_edges": 74,
+      "avg_convergence_tick": 12.0,
+      "avg_max_drift_final": 0.00113768,
+      "avg_messages_per_tick": 3.73,
+      "avg_spectral_gap": 3.041561,
+      "avg_wall_time_s": 0.1687,
+      "trials": [
+        {
+          "convergence_tick": 12,
+          "max_drift_final": 0.00097824,
+          "avg_messages_per_tick": 3.8,
+          "total_messages": 1898,
+          "wall_time_s": 0.1839,
+          "spectral_gap": 3.05317,
+          "augmentation_frac": 1.0,
+          "total_edges": 74,
+          "extra_edges": 37,
+          "trial": 0
+        },
+        {
+          "convergence_tick": 11,
+          "max_drift_final": 0.00096128,
+          "avg_messages_per_tick": 3.49,
+          "total_messages": 1744,
+          "wall_time_s": 0.1686,
+          "spectral_gap": 3.054646,
+          "augmentation_frac": 1.0,
+          "total_edges": 74,
+          "extra_edges": 37,
+          "trial": 1
+        },
+        {
+          "convergence_tick": 12,
+          "max_drift_final": 0.00156689,
+          "avg_messages_per_tick": 3.53,
+          "total_messages": 1764,
+          "wall_time_s": 0.1669,
+          "spectral_gap": 3.518912,
+          "augmentation_frac": 1.0,
+          "total_edges": 74,
+          "extra_edges": 37,
+          "trial": 2
+        },
+        {
+          "convergence_tick": 14,
+          "max_drift_final": 0.00121446,
+          "avg_messages_per_tick": 4.37,
+          "total_messages": 2186,
+          "wall_time_s": 0.1744,
+          "spectral_gap": 2.93497,
+          "augmentation_frac": 1.0,
+          "total_edges": 74,
+          "extra_edges": 37,
+          "trial": 3
+        },
+        {
+          "convergence_tick": 11,
+          "max_drift_final": 0.00096753,
+          "avg_messages_per_tick": 3.45,
+          "total_messages": 1726,
+          "wall_time_s": 0.1496,
+          "spectral_gap": 2.646108,
+          "augmentation_frac": 1.0,
+          "total_edges": 74,
+          "extra_edges": 37,
+          "trial": 4
+        }
+      ]
+    }
+  ]
+}
