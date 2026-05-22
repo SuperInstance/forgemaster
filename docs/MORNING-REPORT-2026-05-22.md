@@ -78,6 +78,14 @@ The night shift ran 19 new experiments (Exp 24–42), built 3 ship-ready product
 | Compression | d=1 SVD at 8× ratio |
 | Convergence | ~log₂(N) ticks |
 
+## Production Config: FAILURE (Exp 43)
+
+The combined stress test (heterogeneous drift + packet loss + random latency + churn + frequency step) produced unbounded drift. Components work individually but fail together.
+
+**This is the most important result of the night** — it tells us the system needs more work before production deployment.
+
+**Exp 44 is running** to isolate which stressor combination is the culprit.
+
 ## What Needs Your Decision
 - **PyPI packages** — 8 packages blocked by rate limit, retry after cooldown
 - **PR #28** (turbovec-integration-ccc) — still awaiting merge approval
