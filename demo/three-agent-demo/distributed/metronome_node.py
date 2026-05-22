@@ -21,6 +21,19 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from metronome_core import MetronomeAgent, PlatoTileStore, CorrectionMode
 
+# Import spec-compliant fleet protocol (same dir)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from fleet_protocol import (
+    MAGIC as FLEET_MAGIC,
+    MessageType,
+    encode_tick,
+    encode_cadence_call,
+    encode_sunset,
+    encode_message,
+    decode_message,
+    now_ms,
+)
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(name)s] %(levelname)s %(message)s",
@@ -29,64 +42,51 @@ logging.basicConfig(
 log = logging.getLogger("metronome_node")
 
 # ---------------------------------------------------------------------------
-# Tensor-MIDI encoding
+# Tensor-MIDI encoding (spec-compliant via fleet_protocol)
+#
+# Wire format (big-endian):
+#   [4B magic=0xF1EE7] [1B type] [1B sender] [8B timestamp_ms]
+#   [N bytes payload] [2B CRC16]
+#
+# Message types: BEACON, TICK, DRIFT_REPORT, CADENCE_CALL, CORRECTION,
+#                SUNSET, INHERIT, ACK, LEAVE
 # ---------------------------------------------------------------------------
-
-MIDI_CHANNELS = 16
-MIDI_CC_MAX = 127  # INT8 saturation ceiling (7-bit)
 
 
 def tensor_midi_encode(payload: dict) -> bytes:
-    """Encode a dict into a compact Tensor-MIDI wire format.
+    """Encode a dict into Tensor-MIDI wire format using fleet_protocol.
 
-    Layout (all big-endian):
-      [4B magic=0x544D4944] [1B version] [2B num_entries]
-      For each entry:
-        [1B key_len] [key_len B key] [8B float64 value]
-    All float values are clamped to [-1.0, 1.0] then scaled to int64 range
-    for INT8 saturation semantics.
+    The payload dict must include a 'type' key indicating the MessageType name,
+    a 'sender_id' key, and type-specific fields.
+    Falls back to TICK encoding for simple {key: float} payloads (backward compat).
     """
-    MAGIC = 0x544D4944  # "TMID"
-    VERSION = 1
+    msg_type_name = payload.get("type")
+    sender_id = payload.get("sender_id", 0)
+    ts = payload.get("timestamp_ms") or now_ms()
 
-    # Convert payload values to float, clamp for INT8 saturation
-    entries = []
-    for k, v in payload.items():
-        fv = float(v)
-        # Clamp to [-1.0, 1.0] range for saturation
-        fv = max(-1.0, min(1.0, fv))
-        # Scale to int64 range for "INT8 saturation" semantics
-        scaled = int(fv * (2**23 - 1))
-        entries.append((k.encode("utf-8"), scaled))
+    if msg_type_name and hasattr(MessageType, msg_type_name):
+        msg_type = MessageType[msg_type_name]
+        kwargs = {k: v for k, v in payload.items() if k not in ("type", "sender_id", "timestamp_ms")}
+        kwargs["timestamp_ms"] = ts
+        return encode_message(msg_type, sender_id=sender_id, **kwargs)
 
-    buf = struct.pack(">IBH", MAGIC, VERSION, len(entries))
-    for key_bytes, value in entries:
-        buf += struct.pack(">Bq", len(key_bytes), value)
-        buf += key_bytes
-
-    return buf
+    # Backward-compatible: simple float payload → TICK
+    beat = int(payload.get("beat", 0))
+    time_ms = int(payload.get("t", 0) * 10000) if "t" in payload else 0
+    drift = float(payload.get("c", 0.0))
+    return encode_tick(
+        sender_id=sender_id,
+        timestamp_ms=ts,
+        beat=beat,
+        time_ms=time_ms,
+        drift=drift,
+        state=0,
+    )
 
 
 def tensor_midi_decode(data: bytes) -> dict:
-    """Decode Tensor-MIDI wire format back to dict."""
-    MAGIC = 0x544D4944
-    offset = 0
-    magic, version, num_entries = struct.unpack_from(">IBH", data, offset)
-    offset += 7
-
-    if magic != MAGIC:
-        raise ValueError(f"Bad magic: {magic:#x}")
-
-    result = {}
-    for _ in range(num_entries):
-        key_len, value = struct.unpack_from(">Bq", data, offset)
-        offset += 9
-        key = data[offset : offset + key_len].decode("utf-8")
-        offset += key_len
-        # Unscale from int64 back to float
-        result[key] = value / (2**23 - 1)
-
-    return result
+    """Decode Tensor-MIDI wire format back to a dict using fleet_protocol."""
+    return decode_message(data)
 
 
 # ---------------------------------------------------------------------------
@@ -331,37 +331,39 @@ class MetronomeNode:
             log.info(f"Node {self.name} lost cadence caller to {winner}")
 
     def _broadcast_cadence(self):
-        """Broadcast current cadence reference time via Tensor-MIDI."""
+        """Broadcast current cadence reference time via spec-compliant Tensor-MIDI."""
         cadence = self.agent.get_cadence()
         # Normalize cadence to [-1, 1] range using modular arithmetic
         normalized = float(cadence % Fraction(1000)) / 1000.0
 
-        payload = {
-            "type": "cadence",
-            "name": self.name,
-            "cadence_norm": max(-1.0, min(1.0, normalized)),
-            "tick": self.tick_count,
-        }
-
-        # Encode as Tensor-MIDI and also JSON fallback
         try:
-            encoded = tensor_midi_encode({"c": normalized, "t": self.tick_count / 10000.0})
-            # Send both JSON and binary
-            json_msg = json.dumps(payload).encode()
-            self._cadence_sock.sendto(json_msg, (MULTICAST_GROUP, self.port))
+            encoded = encode_tick(
+                sender_id=0,  # cadence caller
+                timestamp_ms=now_ms(),
+                beat=self.tick_count,
+                time_ms=int(time.time() * 1000),
+                drift=normalized,
+                state=1 if self.is_cadence_caller else 0,
+            )
+            # Send binary Tensor-MIDI packet
+            self._cadence_sock.sendto(encoded, (MULTICAST_GROUP, self.port))
         except Exception as e:
             log.debug(f"Cadence broadcast error: {e}")
 
     def _send_sunset(self):
-        """Broadcast sunset message with inheritance data."""
+        """Broadcast sunset message with inheritance data via spec-compliant Tensor-MIDI."""
         sunset_data = self.agent.sunset()
-        sunset_data["type"] = "sunset"
-        sunset_data["name"] = self.name
-        sunset_data["is_cadence_caller"] = self.is_cadence_caller
 
-        msg = json.dumps(sunset_data).encode()
         try:
-            self._cadence_sock.sendto(msg, (MULTICAST_GROUP, self.port))
+            # Encode as SUNSET message via fleet_protocol
+            node_id_bytes = self.name.encode("utf-8")
+            encoded = encode_sunset(
+                sender_id=0,
+                timestamp_ms=now_ms(),
+                node_id=hash(self.name) % 256,
+                tile_count=self.tick_count,
+            )
+            self._cadence_sock.sendto(encoded, (MULTICAST_GROUP, self.port))
         except Exception as e:
             log.debug(f"Sunset broadcast error: {e}")
         log.info(f"Node {self.name} sent sunset broadcast")
