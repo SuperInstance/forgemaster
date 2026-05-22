@@ -16,6 +16,7 @@ import numpy as np
 
 from metronome_core import PlatoTileStore
 from network_bus import NetworkBus, Message, MessageType
+from network.udp_bus import UDPBus
 from agents.forgemaster import ForgemasterAgent
 from agents.oracle1 import Oracle1Agent
 from agents.kimi1 import Kimi1Agent
@@ -26,6 +27,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="3-Agent Metronome Demo")
     parser.add_argument("--verbose", action="store_true", help="Show detailed per-agent thinking")
     parser.add_argument("--quick", action="store_true", help="Run only 100 ticks")
+    parser.add_argument("--udp", action="store_true", help="Use real UDP transport instead of simulated bus")
     return parser.parse_args()
 
 
@@ -171,7 +173,17 @@ def run_demo():
     # Initialize shared infrastructure
     tile_store = PlatoTileStore()
     seed_tile_store(tile_store)
-    bus = NetworkBus(latency_ms=0, packet_loss=0.005, reorder_prob=0.002)
+
+    if args.udp:
+        bus = UDPBus(
+            latency_ms=1.0,
+            packet_loss=0.005,
+            reorder_prob=0.002,
+        )
+        print("Transport: REAL UDP (localhost multicast)")
+    else:
+        bus = NetworkBus(latency_ms=0, packet_loss=0.005, reorder_prob=0.002)
+        print("Transport: SIMULATED (in-process)")
 
     # Create agents
     forgemaster = ForgemasterAgent(bus, tile_store)
@@ -254,6 +266,8 @@ def run_demo():
     print(f"Forge violations caught: {forgemaster.total_violations}")
 
     tile_store.close()
+    if hasattr(bus, 'close'):
+        bus.close()
     print("\nDemo complete.")
 
 
