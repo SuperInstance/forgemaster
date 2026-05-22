@@ -1,0 +1,735 @@
+{
+  "experiment": 27,
+  "title": "Spectral-PTP Coupling",
+  "description": "Does Laplacian eigenvalue structure affect PTP correction quality?",
+  "N": 10,
+  "latency": 10,
+  "max_ticks": 1000,
+  "n_trials": 5,
+  "warmup_ticks": 100,
+  "topologies_tested": [
+    "complete",
+    "ring",
+    "star",
+    "path",
+    "laman",
+    "small_world",
+    "random_sparse",
+    "grid_2d"
+  ],
+  "results": [
+    {
+      "topology": "complete",
+      "n_edges": 45,
+      "eigenvalues": [
+        -0.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0
+      ],
+      "lambda2": 10.0,
+      "lambda_n": 10.0,
+      "spectral_gap": 0.0,
+      "condition_number": 1.0,
+      "is_laman": false,
+      "avg_convergence_rate": 1.0,
+      "avg_convergence_tick": 101.0,
+      "avg_steady_state_drift": 0.0018,
+      "avg_jitter": 0.0,
+      "avg_peak_drift": 0.0225,
+      "avg_correction_magnitude": 0.001262,
+      "trials": [
+        {
+          "trial_seed": 1484,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.0018,
+          "steady_state_mean_drift": 0.0018,
+          "peak_drift": 0.0225,
+          "jitter": 0.0,
+          "avg_total_correction": 1.249,
+          "avg_correction_magnitude": 0.001262
+        },
+        {
+          "trial_seed": 2484,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.0018,
+          "steady_state_mean_drift": 0.0018,
+          "peak_drift": 0.0225,
+          "jitter": 0.0,
+          "avg_total_correction": 1.249,
+          "avg_correction_magnitude": 0.001262
+        },
+        {
+          "trial_seed": 3484,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.0018,
+          "steady_state_mean_drift": 0.0018,
+          "peak_drift": 0.0225,
+          "jitter": 0.0,
+          "avg_total_correction": 1.249,
+          "avg_correction_magnitude": 0.001262
+        },
+        {
+          "trial_seed": 4484,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.0018,
+          "steady_state_mean_drift": 0.0018,
+          "peak_drift": 0.0225,
+          "jitter": 0.0,
+          "avg_total_correction": 1.249,
+          "avg_correction_magnitude": 0.001262
+        },
+        {
+          "trial_seed": 5484,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.0018,
+          "steady_state_mean_drift": 0.0018,
+          "peak_drift": 0.0225,
+          "jitter": 0.0,
+          "avg_total_correction": 1.249,
+          "avg_correction_magnitude": 0.001262
+        }
+      ]
+    },
+    {
+      "topology": "ring",
+      "n_edges": 10,
+      "eigenvalues": [
+        -0.0,
+        0.381966,
+        0.381966,
+        1.381966,
+        1.381966,
+        2.618034,
+        2.618034,
+        3.618034,
+        3.618034,
+        4.0
+      ],
+      "lambda2": 0.381966,
+      "lambda_n": 4.0,
+      "spectral_gap": 3.618034,
+      "condition_number": 10.4721,
+      "is_laman": false,
+      "avg_convergence_rate": 1.0,
+      "avg_convergence_tick": 101.0,
+      "avg_steady_state_drift": 0.015024,
+      "avg_jitter": 0.0,
+      "avg_peak_drift": 0.0225,
+      "avg_correction_magnitude": 0.001253,
+      "trials": [
+        {
+          "trial_seed": 7827,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.015024,
+          "steady_state_mean_drift": 0.014999,
+          "peak_drift": 0.0225,
+          "jitter": 0.0,
+          "avg_total_correction": 1.240002,
+          "avg_correction_magnitude": 0.001253
+        },
+        {
+          "trial_seed": 8827,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.015024,
+          "steady_state_mean_drift": 0.014999,
+          "peak_drift": 0.0225,
+          "jitter": 0.0,
+          "avg_total_correction": 1.240002,
+          "avg_correction_magnitude": 0.001253
+        },
+        {
+          "trial_seed": 9827,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.015024,
+          "steady_state_mean_drift": 0.014999,
+          "peak_drift": 0.0225,
+          "jitter": 0.0,
+          "avg_total_correction": 1.240002,
+          "avg_correction_magnitude": 0.001253
+        },
+        {
+          "trial_seed": 10827,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.015024,
+          "steady_state_mean_drift": 0.014999,
+          "peak_drift": 0.0225,
+          "jitter": 0.0,
+          "avg_total_correction": 1.240002,
+          "avg_correction_magnitude": 0.001253
+        },
+        {
+          "trial_seed": 11827,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.015024,
+          "steady_state_mean_drift": 0.014999,
+          "peak_drift": 0.0225,
+          "jitter": 0.0,
+          "avg_total_correction": 1.240002,
+          "avg_correction_magnitude": 0.001253
+        }
+      ]
+    },
+    {
+      "topology": "star",
+      "n_edges": 9,
+      "eigenvalues": [
+        -0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        10.0
+      ],
+      "lambda2": 1.0,
+      "lambda_n": 10.0,
+      "spectral_gap": 9.0,
+      "condition_number": 10.0,
+      "is_laman": false,
+      "avg_convergence_rate": 1.0,
+      "avg_convergence_tick": 101.0,
+      "avg_steady_state_drift": 0.173225,
+      "avg_jitter": 9.253e-05,
+      "avg_peak_drift": 0.173225,
+      "avg_correction_magnitude": 0.001335,
+      "trials": [
+        {
+          "trial_seed": 7924,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.173225,
+          "steady_state_mean_drift": 0.1566,
+          "peak_drift": 0.173225,
+          "jitter": 9.253e-05,
+          "avg_total_correction": 1.321983,
+          "avg_correction_magnitude": 0.001335
+        },
+        {
+          "trial_seed": 8924,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.173225,
+          "steady_state_mean_drift": 0.1566,
+          "peak_drift": 0.173225,
+          "jitter": 9.253e-05,
+          "avg_total_correction": 1.321983,
+          "avg_correction_magnitude": 0.001335
+        },
+        {
+          "trial_seed": 9924,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.173225,
+          "steady_state_mean_drift": 0.1566,
+          "peak_drift": 0.173225,
+          "jitter": 9.253e-05,
+          "avg_total_correction": 1.321983,
+          "avg_correction_magnitude": 0.001335
+        },
+        {
+          "trial_seed": 10924,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.173225,
+          "steady_state_mean_drift": 0.1566,
+          "peak_drift": 0.173225,
+          "jitter": 9.253e-05,
+          "avg_total_correction": 1.321983,
+          "avg_correction_magnitude": 0.001335
+        },
+        {
+          "trial_seed": 11924,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.173225,
+          "steady_state_mean_drift": 0.1566,
+          "peak_drift": 0.173225,
+          "jitter": 9.253e-05,
+          "avg_total_correction": 1.321983,
+          "avg_correction_magnitude": 0.001335
+        }
+      ]
+    },
+    {
+      "topology": "path",
+      "n_edges": 9,
+      "eigenvalues": [
+        -0.0,
+        0.097887,
+        0.381966,
+        0.824429,
+        1.381966,
+        2.0,
+        2.618034,
+        3.175571,
+        3.618034,
+        3.902113
+      ],
+      "lambda2": 0.097887,
+      "lambda_n": 3.902113,
+      "spectral_gap": 3.804226,
+      "condition_number": 39.8635,
+      "is_laman": false,
+      "avg_convergence_rate": 1.0,
+      "avg_convergence_tick": 101.0,
+      "avg_steady_state_drift": 0.059715,
+      "avg_jitter": 2e-08,
+      "avg_peak_drift": 0.059715,
+      "avg_correction_magnitude": 0.001222,
+      "trials": [
+        {
+          "trial_seed": 1166,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.059715,
+          "steady_state_mean_drift": 0.059502,
+          "peak_drift": 0.059715,
+          "jitter": 2e-08,
+          "avg_total_correction": 1.210192,
+          "avg_correction_magnitude": 0.001222
+        },
+        {
+          "trial_seed": 2166,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.059715,
+          "steady_state_mean_drift": 0.059502,
+          "peak_drift": 0.059715,
+          "jitter": 2e-08,
+          "avg_total_correction": 1.210192,
+          "avg_correction_magnitude": 0.001222
+        },
+        {
+          "trial_seed": 3166,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.059715,
+          "steady_state_mean_drift": 0.059502,
+          "peak_drift": 0.059715,
+          "jitter": 2e-08,
+          "avg_total_correction": 1.210192,
+          "avg_correction_magnitude": 0.001222
+        },
+        {
+          "trial_seed": 4166,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.059715,
+          "steady_state_mean_drift": 0.059502,
+          "peak_drift": 0.059715,
+          "jitter": 2e-08,
+          "avg_total_correction": 1.210192,
+          "avg_correction_magnitude": 0.001222
+        },
+        {
+          "trial_seed": 5166,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.059715,
+          "steady_state_mean_drift": 0.059502,
+          "peak_drift": 0.059715,
+          "jitter": 2e-08,
+          "avg_total_correction": 1.210192,
+          "avg_correction_magnitude": 0.001222
+        }
+      ]
+    },
+    {
+      "topology": "laman",
+      "n_edges": 17,
+      "eigenvalues": [
+        -0.0,
+        1.262117,
+        1.525522,
+        1.70843,
+        2.581246,
+        3.198262,
+        4.392762,
+        5.298529,
+        6.550611,
+        7.482522
+      ],
+      "lambda2": 1.262117,
+      "lambda_n": 7.482522,
+      "spectral_gap": 6.220405,
+      "condition_number": 5.9285,
+      "is_laman": true,
+      "avg_convergence_rate": 1.0,
+      "avg_convergence_tick": 101.0,
+      "avg_steady_state_drift": 0.088893,
+      "avg_jitter": 2.315e-05,
+      "avg_peak_drift": 0.088893,
+      "avg_correction_magnitude": 0.001264,
+      "trials": [
+        {
+          "trial_seed": 5706,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.088893,
+          "steady_state_mean_drift": 0.080602,
+          "peak_drift": 0.088893,
+          "jitter": 2.315e-05,
+          "avg_total_correction": 1.251025,
+          "avg_correction_magnitude": 0.001264
+        },
+        {
+          "trial_seed": 6706,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.088893,
+          "steady_state_mean_drift": 0.080602,
+          "peak_drift": 0.088893,
+          "jitter": 2.315e-05,
+          "avg_total_correction": 1.251025,
+          "avg_correction_magnitude": 0.001264
+        },
+        {
+          "trial_seed": 7706,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.088893,
+          "steady_state_mean_drift": 0.080602,
+          "peak_drift": 0.088893,
+          "jitter": 2.315e-05,
+          "avg_total_correction": 1.251025,
+          "avg_correction_magnitude": 0.001264
+        },
+        {
+          "trial_seed": 8706,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.088893,
+          "steady_state_mean_drift": 0.080602,
+          "peak_drift": 0.088893,
+          "jitter": 2.315e-05,
+          "avg_total_correction": 1.251025,
+          "avg_correction_magnitude": 0.001264
+        },
+        {
+          "trial_seed": 9706,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.088893,
+          "steady_state_mean_drift": 0.080602,
+          "peak_drift": 0.088893,
+          "jitter": 2.315e-05,
+          "avg_total_correction": 1.251025,
+          "avg_correction_magnitude": 0.001264
+        }
+      ]
+    },
+    {
+      "topology": "small_world",
+      "n_edges": 19,
+      "eigenvalues": [
+        0.0,
+        1.150927,
+        2.412171,
+        2.748542,
+        3.071285,
+        4.151176,
+        5.324704,
+        6.068454,
+        6.464346,
+        6.608395
+      ],
+      "lambda2": 1.150927,
+      "lambda_n": 6.608395,
+      "spectral_gap": 5.457468,
+      "condition_number": 5.7418,
+      "is_laman": false,
+      "avg_convergence_rate": 1.0,
+      "avg_convergence_tick": 101.0,
+      "avg_steady_state_drift": 0.04328,
+      "avg_jitter": 5.19e-06,
+      "avg_peak_drift": 0.04328,
+      "avg_correction_magnitude": 0.001261,
+      "trials": [
+        {
+          "trial_seed": 7554,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.04328,
+          "steady_state_mean_drift": 0.039353,
+          "peak_drift": 0.04328,
+          "jitter": 5.19e-06,
+          "avg_total_correction": 1.248036,
+          "avg_correction_magnitude": 0.001261
+        },
+        {
+          "trial_seed": 8554,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.04328,
+          "steady_state_mean_drift": 0.039353,
+          "peak_drift": 0.04328,
+          "jitter": 5.19e-06,
+          "avg_total_correction": 1.248036,
+          "avg_correction_magnitude": 0.001261
+        },
+        {
+          "trial_seed": 9554,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.04328,
+          "steady_state_mean_drift": 0.039353,
+          "peak_drift": 0.04328,
+          "jitter": 5.19e-06,
+          "avg_total_correction": 1.248036,
+          "avg_correction_magnitude": 0.001261
+        },
+        {
+          "trial_seed": 10554,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.04328,
+          "steady_state_mean_drift": 0.039353,
+          "peak_drift": 0.04328,
+          "jitter": 5.19e-06,
+          "avg_total_correction": 1.248036,
+          "avg_correction_magnitude": 0.001261
+        },
+        {
+          "trial_seed": 11554,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.04328,
+          "steady_state_mean_drift": 0.039353,
+          "peak_drift": 0.04328,
+          "jitter": 5.19e-06,
+          "avg_total_correction": 1.248036,
+          "avg_correction_magnitude": 0.001261
+        }
+      ]
+    },
+    {
+      "topology": "random_sparse",
+      "n_edges": 15,
+      "eigenvalues": [
+        -0.0,
+        0.537004,
+        1.020568,
+        1.402269,
+        3.0,
+        3.070798,
+        3.425316,
+        4.345028,
+        6.072807,
+        7.12621
+      ],
+      "lambda2": 0.537004,
+      "lambda_n": 7.12621,
+      "spectral_gap": 6.589206,
+      "condition_number": 13.2703,
+      "is_laman": false,
+      "avg_convergence_rate": 1.0,
+      "avg_convergence_tick": 101.0,
+      "avg_steady_state_drift": 0.046442,
+      "avg_jitter": 5.04e-06,
+      "avg_peak_drift": 0.046442,
+      "avg_correction_magnitude": 0.00127,
+      "trials": [
+        {
+          "trial_seed": 7667,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.046442,
+          "steady_state_mean_drift": 0.042572,
+          "peak_drift": 0.046442,
+          "jitter": 5.04e-06,
+          "avg_total_correction": 1.257533,
+          "avg_correction_magnitude": 0.00127
+        },
+        {
+          "trial_seed": 8667,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.046442,
+          "steady_state_mean_drift": 0.042572,
+          "peak_drift": 0.046442,
+          "jitter": 5.04e-06,
+          "avg_total_correction": 1.257533,
+          "avg_correction_magnitude": 0.00127
+        },
+        {
+          "trial_seed": 9667,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.046442,
+          "steady_state_mean_drift": 0.042572,
+          "peak_drift": 0.046442,
+          "jitter": 5.04e-06,
+          "avg_total_correction": 1.257533,
+          "avg_correction_magnitude": 0.00127
+        },
+        {
+          "trial_seed": 10667,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.046442,
+          "steady_state_mean_drift": 0.042572,
+          "peak_drift": 0.046442,
+          "jitter": 5.04e-06,
+          "avg_total_correction": 1.257533,
+          "avg_correction_magnitude": 0.00127
+        },
+        {
+          "trial_seed": 11667,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.046442,
+          "steady_state_mean_drift": 0.042572,
+          "peak_drift": 0.046442,
+          "jitter": 5.04e-06,
+          "avg_total_correction": 1.257533,
+          "avg_correction_magnitude": 0.00127
+        }
+      ]
+    },
+    {
+      "topology": "grid_2d",
+      "n_edges": 13,
+      "eigenvalues": [
+        0.0,
+        0.456853,
+        1.153162,
+        2.0,
+        2.250327,
+        2.701526,
+        3.319786,
+        3.672416,
+        4.504307,
+        5.941623
+      ],
+      "lambda2": 0.456853,
+      "lambda_n": 5.941623,
+      "spectral_gap": 5.484771,
+      "condition_number": 13.0056,
+      "is_laman": false,
+      "avg_convergence_rate": 1.0,
+      "avg_convergence_tick": 101.0,
+      "avg_steady_state_drift": 0.018341,
+      "avg_jitter": 5.5e-07,
+      "avg_peak_drift": 0.0225,
+      "avg_correction_magnitude": 0.001259,
+      "trials": [
+        {
+          "trial_seed": 1068,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.018341,
+          "steady_state_mean_drift": 0.017065,
+          "peak_drift": 0.0225,
+          "jitter": 5.5e-07,
+          "avg_total_correction": 1.24664,
+          "avg_correction_magnitude": 0.001259
+        },
+        {
+          "trial_seed": 2068,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.018341,
+          "steady_state_mean_drift": 0.017065,
+          "peak_drift": 0.0225,
+          "jitter": 5.5e-07,
+          "avg_total_correction": 1.24664,
+          "avg_correction_magnitude": 0.001259
+        },
+        {
+          "trial_seed": 3068,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.018341,
+          "steady_state_mean_drift": 0.017065,
+          "peak_drift": 0.0225,
+          "jitter": 5.5e-07,
+          "avg_total_correction": 1.24664,
+          "avg_correction_magnitude": 0.001259
+        },
+        {
+          "trial_seed": 4068,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.018341,
+          "steady_state_mean_drift": 0.017065,
+          "peak_drift": 0.0225,
+          "jitter": 5.5e-07,
+          "avg_total_correction": 1.24664,
+          "avg_correction_magnitude": 0.001259
+        },
+        {
+          "trial_seed": 5068,
+          "convergence_tick": 101,
+          "converged": true,
+          "steady_state_max_drift": 0.018341,
+          "steady_state_mean_drift": 0.017065,
+          "peak_drift": 0.0225,
+          "jitter": 5.5e-07,
+          "avg_total_correction": 1.24664,
+          "avg_correction_magnitude": 0.001259
+        }
+      ]
+    }
+  ],
+  "correlations": {
+    "lambda2_vs_drift": -0.3399,
+    "lambda2_vs_convergence": 0.0
+  },
+  "hypothesis": {
+    "statement": "Higher \u03bb\u2082 \u2192 faster convergence AND lower steady-state drift",
+    "h1_higher_lam2_lower_drift": true,
+    "h2_higher_lam2_faster_convergence": false,
+    "overall_supported": false
+  },
+  "laman_relaxation": {
+    "laman_topologies": [
+      "laman"
+    ],
+    "non_laman_topologies": [
+      "complete",
+      "ring",
+      "star",
+      "path",
+      "small_world",
+      "random_sparse",
+      "grid_2d"
+    ],
+    "non_laman_converge_well": [
+      "complete",
+      "ring",
+      "star",
+      "path",
+      "small_world",
+      "random_sparse",
+      "grid_2d"
+    ],
+    "rigidity_required": false
+  },
+  "key_findings": [
+    "PARTIAL SUPPORT: Higher \u03bb\u2082 \u2192 lower drift, but convergence rate not strongly correlated.",
+    "High \u03bb\u2082 (>1.0) avg drift: 0.044658 vs Low \u03bb\u2082 (<0.5) avg drift: 0.031027. Ratio: 0.7\u00d7 worse for low-connectivity graphs.",
+    "PTP converges on non-Laman topologies: ['complete', 'ring', 'star', 'path', 'small_world', 'random_sparse', 'grid_2d']. Rigidity is NOT required for PTP clock sync \u2014 spectral connectivity is the key.",
+    "Condition number (\u03bb\u2099/\u03bb\u2082) \u2194 drift correlation: +0.0787. Condition number less important than raw \u03bb\u2082."
+  ],
+  "elapsed_seconds": 1.0
+}
