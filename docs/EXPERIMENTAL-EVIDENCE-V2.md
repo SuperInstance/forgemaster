@@ -1,14 +1,14 @@
 # Experimental Evidence for Constraint-Theoretic Fleet Coordination
 
-**Forgemaster ⚒️ · Cocapn Fleet · 2026-05-22 · Version 2.0**
+**Forgemaster ⚒️ · Cocapn Fleet · 2026-05-22 · Version 2.1**
 
 ---
 
 ## Abstract
 
-We present comprehensive experimental validation of a constraint-theoretic framework for autonomous fleet coordination, spanning ten experiments across topology, arithmetic, convergence, scaling, partition tolerance, quantization, filtering, and validation. Laman rigidity (2N−3 edges) is confirmed as the exact minimally-rigid threshold for N=3 to N=100 with 100% edge-removal sensitivity. Pythagorean rational arithmetic demonstrates exactly zero floating-point drift over 1,000 chained rotations (52 triples, 128 unique directions), compared to float32 drift of 1.72×10⁻⁵. The COLLECT→SELECT→COMPILE decomposition proves universal across five domains, yielding 141 regime transitions governed by a single threshold parameter θ. Eisenstein hexagonal quantization achieves ~3.9% MSE reduction over rectangular quantization, rooted in Thue's optimal packing theorem. Holonomy convergence on Laman graphs is 8× faster than ring topology with only 2× more edges, confirming topology-dominant convergence scaling of O(√N). Deadband filtering outperforms moving averages by 2.3× correlation on sparse signals, with suppression rate tightly matching the theoretical erf(τ/(σ√2)) bound. Network partition tolerance experiments show recovery to pre-partition drift levels within 13 ticks (4.33× log₂N) after healing a 10-agent fleet split into 3 components. Fleet scaling experiments confirm convergence at N=100 within 37 ticks with linear message scaling and sub-linear wall-time growth. A constraint library of 248 parameters across 5 industries validates with 99.6% validity (247/248) and 85.1% int8 compatibility (211/248). Together, these results compose into a mathematically grounded, experimentally verified framework for certifiable multi-agent coordination.
+We present comprehensive experimental validation of a constraint-theoretic framework for autonomous fleet coordination, spanning seventeen experiments across topology, arithmetic, convergence, scaling, partition tolerance, quantization, filtering, validation, compression, Byzantine fault tolerance, edge augmentation, load-drift coupling, multi-generation inheritance, latency tradeoffs, and emergence detection. Laman rigidity (2N−3 edges) is confirmed as the exact minimally-rigid threshold for N=3 to N=100 with 100% edge-removal sensitivity. Pythagorean rational arithmetic demonstrates exactly zero floating-point drift over 1,000 chained rotations (52 triples, 128 unique directions), compared to float32 drift of 1.72×10⁻⁵. The COLLECT→SELECT→COMPILE decomposition proves universal across five domains, yielding 141 regime transitions governed by a single threshold parameter θ. Eisenstein hexagonal quantization achieves ~3.9% MSE reduction over rectangular quantization, rooted in Thue's optimal packing theorem. Holonomy convergence on Laman graphs is 8× faster than ring topology with only 2× more edges, confirming topology-dominant convergence scaling of O(√N). Deadband filtering outperforms moving averages by 2.3× correlation on sparse signals, with suppression rate tightly matching the theoretical erf(τ/(σ√2)) bound. Network partition tolerance experiments show recovery to pre-partition drift levels within 13 ticks (4.33× log₂N) after healing a 10-agent fleet split into 3 components. Fleet scaling experiments confirm convergence at N=100 within 37 ticks with linear message scaling and sub-linear wall-time growth. A constraint library of 248 parameters across 5 industries validates with 99.6% validity (247/248) and 85.1% int8 compatibility (211/248). New results (Experiments 15–21) include: a refutation of the O(log T) memoir compression conjecture in favor of O(√T); confirmation that reputation+trimmed mean is near-optimal for Byzantine filtering; demonstration that edge augmentation yields monotonic convergence improvement with no diminishing returns; proof of zero coupling between constraint load and drift; evidence that multi-generation inheritance is self-correcting with bounded drift across 5 generations; a critical negative result showing naive consensus fails at any latency ≥ 1 tick (phase transition); and partial support for velocity-based emergence early warning (7–15 ticks). These results expand the framework while honestly reporting its most severe current limitation: the protocol requires latency compensation before real-world deployment.
 
-**Keywords:** Laman rigidity, constraint theory, fleet coordination, zero-drift arithmetic, distributed consensus, partition tolerance, fleet scaling
+**Keywords:** Laman rigidity, constraint theory, fleet coordination, zero-drift arithmetic, distributed consensus, partition tolerance, fleet scaling, memoir compression, Byzantine fault tolerance, multi-agent inheritance, latency phase transition, emergence detection
 
 ---
 
@@ -50,6 +50,13 @@ Each experiment tests a specific prediction of constraint theory:
 8. **Fleet Scaling** — How do convergence, messages, and memory scale with fleet size?
 9. **Constraint Library** — Can real-world engineering constraints be validated in a unified framework?
 10. **Galois Connection** — (Incomplete — regex bug in test generator)
+11. **Memoir Compression** — Can agent memoirs compress to O(log T) tiles?
+12. **BFT Filter Comparison** — Is reputation+trimmed mean optimal among Byzantine filters?
+13. **Edge Augmentation** — Do extra edges beyond Laman produce diminishing returns?
+14. **Load-Drift Coupling** — Is drift independent of constraint-checking load?
+15. **Multi-Generation Inheritance** — Does drift accumulate across agent sunset/generations?
+16. **Latency–δ Tradeoff** — Does optimal δ scale linearly with network latency?
+17. **Emergence Early Warning** — Can velocity-based detection warn 10+ ticks before violation?
 
 ---
 
@@ -1113,31 +1120,48 @@ Prior work treats topology, arithmetic, and filtering as independent concerns. C
 
 9. **Fleet scaling to N=100** — convergence saturates at 37 ticks, messages scale linearly, memory scales linearly, wall time scales as O(N log N).
 
+10. **Load-drift independence** — drift is completely decoupled from constraint-checking load (Exp 18). Convergence and drift metrics are identical across 1–10,000 checks per tick.
+
+11. **Multi-generation inheritance is self-correcting** — drift remains bounded across 5 generations with ratio 1.000028 (Exp 19). No accumulation, no recalibration needed.
+
+12. **BFT filter ranking** — reputation + trimmed mean is near-optimal for speed (8.4 ticks, 90% convergence) among 6 tested filters (Exp 16).
+
+13. **Edge augmentation improves convergence monotonically** — no diminishing returns up to 100% extra edges; convergence improves from 36.2 to 12.0 ticks (Exp 17).
+
+14. **Emergence early warning is possible** — velocity-based detection provides 7–15 ticks of warning, but coverage is sparse (20% of agents) (Exp 21).
+
 ### 7.3 What Remains Conjecture
 
 **Not yet tested or inconclusive:**
 
-10. **Galois connections between constraint spaces** — experiment crashed, no data.
-11. **Scaling beyond N=100** — O(log N) trend is encouraging but untested at N=1000+.
-12. **3D rigidity (3N−6 edges)** — all experiments are 2D only.
-13. **Byzantine fault tolerance on Laman topology** — identified as a gap but not tested.
-14. **Real-world deployment** — all results are simulation-based.
-15. **Seed sensitivity** — all experiments use seed=42 only.
+15. **Galois connections between constraint spaces** — experiment crashed, no data.
+16. **Scaling beyond N=100** — O(log N) trend is encouraging but untested at N=1000+.
+17. **3D rigidity (3N−6 edges)** — all experiments are 2D only.
+18. **Real-world deployment** — all results are simulation-based.
+19. **Seed sensitivity** — all experiments use seed=42 only.
+20. **Latency compensation protocol** — Exp 20 proves naive consensus fails with latency > 0. A latency-aware correction protocol (PTP-style, Cristian's algorithm, or timestamp-based) is needed but not yet designed or tested.
+21. **Memoir compression at O(√T)** — the O(log T) conjecture is refuted; a formal proof or tighter bound for O(√T) is needed.
 
 ### 7.4 The Composed Framework
 
-The ten experiments compose into a layered framework:
+The seventeen experiments compose into a layered framework:
 
 ```
-Layer 8: Constraint Library    — 248 parameters, 99.6% valid, 85.1% int8 compatible
-Layer 7: Fleet Scaling          — O(log N) convergence, O(N) messages, to N=100
-Layer 6: Partition Tolerance    — O(log N) recovery, 3.9× log₂(N) constant
-Layer 5: Deadband Filtering     — 2.3× better on sparse, erf-verified
-Layer 4: COLLECT→SELECT→COMPILE — 141 regime transitions, single parameter θ
-Layer 3: Eisenstein Quantization — 3.9% MSE advantage (hexagonal lattice)
-Layer 2: Pythagorean Arithmetic — Exactly zero drift (rational arithmetic)
-Layer 1: Holonomy Convergence   — Topology dominates, 8× Laman speedup
-Layer 0: Laman Rigidity         — 2N−3 edges, exact threshold, verified N=3–100
+Layer 14: Emergence Warning     — 7–15 tick velocity detection, sparse coverage
+Layer 13: Latency–δ Tradeoff    — Phase transition at latency > 0; needs PTP correction
+Layer 12: Multi-Gen Inheritance — Self-correcting, bounded drift across 5 generations
+Layer 11: Load-Drift Decoupling — Zero coupling, architecture scales independently
+Layer 10: Edge Augmentation     — Monotonic improvement, no diminishing returns
+Layer 9:  BFT Filter Ranking    — Reputation+trimmed near-optimal, topology-aware weak
+Layer 8:  Memoir Compression    — O(√T) bound, O(log T) refuted
+Layer 7:  Constraint Library    — 248 parameters, 99.6% valid, 85.1% int8 compatible
+Layer 6:  Fleet Scaling         — O(log N) convergence, O(N) messages, to N=100
+Layer 5:  Partition Tolerance   — O(log N) recovery, 3.9× log₂(N) constant
+Layer 4:  Deadband Filtering    — 2.3× better on sparse, erf-verified
+Layer 3:  COLLECT→SELECT→COMPILE — 141 regime transitions, single parameter θ
+Layer 2:  Eisenstein Quantization — 3.9% MSE advantage (hexagonal lattice)
+Layer 1:  Pythagorean Arithmetic — Exactly zero drift (rational arithmetic)
+Layer 0:  Laman Rigidity        — 2N−3 edges, exact threshold, verified N=3–100
 ```
 
 ### 7.5 Practical Implications
@@ -1149,16 +1173,22 @@ For fleet architects:
 3. **Tune the fleet to critical points** — the CSC threshold θ has sharp regime transitions. Operating near these critical points maximizes performance.
 4. **Use deadband filtering for sparse constraint data** — it's 2.3× better than moving average and avoids 5.6 dB SNR degradation.
 5. **Expect O(log N) convergence** — a 100-agent fleet converges in ~37 ticks. Scaling to 1000 agents should converge in ~50 ticks (predicted).
+6. **Provision sunset storage for O(√T) tiles** — the O(log T) conjecture is refuted. A fleet at T=10⁶ ticks needs ~1,000 tiles per agent, not ~20.
+7. **Use reputation + trimmed mean for BFT speed** — converges in 8.4 ticks with 90% reliability. Use trimmed mean alone if reliability matters more than speed.
+8. **Do not deploy without latency compensation** — the naive consensus protocol fails at any latency ≥ 1 tick. Add PTP-style or timestamp-based correction before real-world deployment.
+9. **Expect multi-generation fleets to be viable** — inheritance is self-correcting. Agent churn does not require fleet-wide recalibration.
 
 ### 7.6 Next Steps
 
-1. Fix Galois connection experiment (regex bug) and re-run
-2. Test N=500 and N=1000 to validate O(log N) scaling extrapolation
-3. Implement 3D rigidity (3N−6 edges) and repeat all topology experiments
-4. Test Byzantine fault tolerance on Laman topology
+1. **Design and test latency-compensation protocol** — highest priority. Exp 20 proves the current protocol is undeployable without it. Candidate: PTP-style round-trip measurement or Cristian's algorithm.
+2. Fix Galois connection experiment (regex bug) and re-run
+3. Test N=500 and N=1000 to validate O(log N) scaling extrapolation
+4. Implement 3D rigidity (3N−6 edges) and repeat all topology experiments
 5. Deploy on real distributed system (Raspberry Pi cluster or drone testbed)
 6. Conduct seed sensitivity analysis across 100+ random seeds
 7. Formalize the O(log N) convergence proof using spectral graph theory
+8. Derive formal O(√T) memoir compression bound to replace the refuted O(log T) conjecture
+9. Design hybrid BFT filter (reputation primary → trimmed mean fallback) to achieve both speed and 100% reliability
 
 ---
 
@@ -1176,6 +1206,13 @@ For fleet architects:
 | 8 | Fleet Scaling | ✅ Complete | 37 ticks at N=100 | `experiments/fleet_scaling.py` |
 | 9 | Constraint Library | ✅ Complete | 99.6% valid, 85.1% int8 | `experiments/constraint-library-validation/` |
 | 10 | Galois Connection | ❌ Crashed | Regex bug | `experiments/galois-connection/` |
+| 15 | Memoir Compression | ✅ Complete | O(log T) REFUTED → O(√T) | `experiments/results/experiment15_memoir.json` |
+| 16 | BFT Filter Comparison | ✅ Complete | Reputation+trimmed near-optimal | `experiments/results/experiment16_bft_filters.json` |
+| 17 | Edge Augmentation | ✅ Complete | Monotonic improvement, no diminishing returns | `experiments/results/experiment17_augmentation.json` |
+| 18 | Load-Drift Coupling | ✅ Complete | Zero coupling confirmed | `experiments/results/experiment18_load_drift.json` |
+| 19 | Multi-Generation Sunset | ✅ Complete | Self-correcting inheritance | `experiments/results/experiment19_multigen.json` |
+| 20 | Latency–δ Tradeoff | ✅ Complete | Phase transition at latency > 0 | `experiments/results/experiment20_latency_delta.json` |
+| 21 | Emergence Early Warning | ✅ Complete | 7–15 tick warning, partial coverage | `experiments/results/experiment21_emergence.json` |
 
 ## Appendix B: Reproducibility
 
@@ -1227,7 +1264,14 @@ Dependencies: numpy, networkx (Laman only), standard library (Pythagorean48, CSC
 | 248 constraints, 99.6% valid | Exp 9: `results.json` | ✅ Verified |
 | 85.1% int8 compatibility | Exp 9: `results.json` | ✅ Verified |
 | Galois connection properties | Exp 10: — | ❌ Crashed |
+| O(log T) memoir compression | Exp 15: `experiment15_memoir.json` | ❌ Refuted |
+| Reputation+trimmed fastest BFT filter | Exp 16: `experiment16_bft_filters.json` | ✅ Verified |
+| Monotonic edge augmentation benefit | Exp 17: `experiment17_augmentation.json` | ✅ Verified |
+| Zero load-drift coupling | Exp 18: `experiment18_load_drift.json` | ✅ Verified |
+| Bounded multi-gen drift | Exp 19: `experiment19_multigen.json` | ✅ Verified |
+| Latency phase transition (naive consensus fails) | Exp 20: `experiment20_latency_delta.json` | ✅ Verified |
+| Emergence early warning 7–15 ticks | Exp 21: `experiment21_emergence.json` | ⚠️ Partial |
 
 ---
 
-*9 of 10 experiments complete. Current as of 2026-05-22. Version 2.0 — comprehensive rewrite with all available experimental data.*
+*16 of 17 experiments complete (Exp 10 crashed). Current as of 2026-05-22. Version 2.1 — updated with Experiments 15–21.*
