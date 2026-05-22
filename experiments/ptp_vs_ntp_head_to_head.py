@@ -104,9 +104,9 @@ def run_ntp_marzullo(agents, edges, latency, loss_rate, ticks, rng):
                 filtered = corrs
             if filtered:
                 avg_offset = sum(c[0] for c in filtered) / len(filtered)
-                # Apply correction with gentle damping
-                a.clock -= avg_offset * 0.1
-                a.frequency_offset -= avg_offset * 0.001
+                # Apply correction with conservative damping
+                a.clock -= avg_offset * 0.02
+                a.frequency_offset -= avg_offset * 0.0002
                 a.frequency_offset = max(-0.05, min(0.05, a.frequency_offset))
             corrections[a.id] = []
 
