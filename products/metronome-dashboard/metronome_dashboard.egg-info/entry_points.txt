@@ -1,0 +1,2 @@
+[console_scripts]
+metronome-dashboard = metronome_dashboard.cli:main

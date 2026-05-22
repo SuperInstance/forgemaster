@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: metronome-dashboard
+Version: 0.1.0
+Summary: Real-time terminal dashboard for fleet clock synchronization
+Requires-Python: >=3.10
+Requires-Dist: numpy>=1.24
+Requires-Dist: rich>=13.0
