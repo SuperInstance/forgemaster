@@ -1,0 +1,111 @@
+{
+  "experiment": "fleet_scaling",
+  "description": "Fleet scaling characteristics: convergence, messages, memory vs fleet size N",
+  "parameters": {
+    "fleet_sizes": [
+      3,
+      5,
+      10,
+      20,
+      50,
+      100
+    ],
+    "max_ticks": 500,
+    "convergence_threshold": 0.01,
+    "deadband": 0.001,
+    "smallworld_fraction": 0.2,
+    "arithmetic": "Fraction (exact)"
+  },
+  "results": [
+    {
+      "n": 3,
+      "laman_edges": 3,
+      "total_edges": 3,
+      "smallworld_edges": 0,
+      "convergence_tick": 1,
+      "max_drift_final": 0.0,
+      "avg_messages_per_tick": 0.01,
+      "total_messages": 6,
+      "wall_time_s": 0.0099,
+      "peak_memory_kb": 27.17
+    },
+    {
+      "n": 5,
+      "laman_edges": 7,
+      "total_edges": 8,
+      "smallworld_edges": 1,
+      "convergence_tick": 10,
+      "max_drift_final": 0.00073861,
+      "avg_messages_per_tick": 0.29,
+      "total_messages": 144,
+      "wall_time_s": 0.0285,
+      "peak_memory_kb": 15.38
+    },
+    {
+      "n": 10,
+      "laman_edges": 17,
+      "total_edges": 20,
+      "smallworld_edges": 3,
+      "convergence_tick": 14,
+      "max_drift_final": 0.00092606,
+      "avg_messages_per_tick": 1.2,
+      "total_messages": 598,
+      "wall_time_s": 0.092,
+      "peak_memory_kb": 16.78
+    },
+    {
+      "n": 20,
+      "laman_edges": 37,
+      "total_edges": 44,
+      "smallworld_edges": 7,
+      "convergence_tick": 21,
+      "max_drift_final": 0.00139558,
+      "avg_messages_per_tick": 3.85,
+      "total_messages": 1924,
+      "wall_time_s": 0.1941,
+      "peak_memory_kb": 19.52
+    },
+    {
+      "n": 50,
+      "laman_edges": 97,
+      "total_edges": 116,
+      "smallworld_edges": 19,
+      "convergence_tick": 35,
+      "max_drift_final": 0.00233058,
+      "avg_messages_per_tick": 15.54,
+      "total_messages": 7768,
+      "wall_time_s": 0.6544,
+      "peak_memory_kb": 30.75
+    },
+    {
+      "n": 100,
+      "laman_edges": 197,
+      "total_edges": 236,
+      "smallworld_edges": 39,
+      "convergence_tick": 37,
+      "max_drift_final": 0.00204252,
+      "avg_messages_per_tick": 33.68,
+      "total_messages": 16842,
+      "wall_time_s": 1.5091,
+      "peak_memory_kb": 53.9
+    }
+  ],
+  "scaling_analysis": {
+    "converged_fleet_sizes": [
+      3,
+      5,
+      10,
+      20,
+      50,
+      100
+    ],
+    "convergence_ticks": [
+      1,
+      10,
+      14,
+      21,
+      35,
+      37
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+[package]
+name = "fleet-clock"
+version = "0.1.0"
+edition = "2021"
+description = "Anti-fragile PTP clock synchronization with Laman topology, Fraction arithmetic, and Tensor-MIDI wire format"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/SuperInstance/fleet-clock"
+keywords = ["ptp", "clock", "synchronization", "distributed", "no_std"]
+categories = ["embedded", "network-programming", "concurrency", "mathematics"]
+rust-version = "1.75.0"
+
+[features]
+default = ["std"]
+std = []
+serde = ["dep:serde"]
+defmt = ["dep:defmt"]
+
+[dependencies]
+libm = "0.2"
+serde = { version = "1.0", default-features = false, optional = true }
+defmt = { version = "0.3", optional = true }
+
+[dev-dependencies]
+
+[lib]
+name = "fleet_clock"
+path = "src/lib.rs"
+
+[[test]]
+name = "integration"
+path = "tests/integration.rs"

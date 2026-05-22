@@ -1,0 +1,20 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/fleet-murmur/data/plato-server.log",
+  "size_mb": 0.01,
+  "age_days": 14,
+  "unique_error_patterns": 3,
+  "top_patterns": [
+    {
+      "pattern": "BrokenPipeError: [Errno <N>] Broken pipe",
+      "count": 7
+    },
+    {
+      "pattern": "ConnectionResetError: [Errno <N>] Connection reset by peer",
+      "count": 1
+    },
+    {
+      "pattern": "self._send_json({\"error\": \"Not found\"}, <N>)",
+      "count": 1
+    }
+  ]
+}

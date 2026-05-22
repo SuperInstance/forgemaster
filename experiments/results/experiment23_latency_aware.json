@@ -1,0 +1,239 @@
+{
+  "experiment": 23,
+  "title": "Latency-Aware Correction Strategies",
+  "description": "Fixes Exp20 phase transition with 3 correction strategies",
+  "N": 10,
+  "latencies": [
+    0,
+    1,
+    5,
+    10,
+    20,
+    50
+  ],
+  "strategies": [
+    "NAIVE",
+    "CRISTIAN",
+    "PTP_OFFSET"
+  ],
+  "delta": 0.0625,
+  "max_ticks": 500,
+  "warmup_ticks": 100,
+  "convergence_threshold": 0.1,
+  "all_results": [
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "strategy": "NAIVE",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 32.1041,
+      "peak_drift": 32.1041,
+      "mean_drift_last100": 29.0061,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 1,
+      "strategy": "NAIVE",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 32.0625,
+      "peak_drift": 32.0625,
+      "mean_drift_last100": 28.8574,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 5,
+      "strategy": "NAIVE",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 31.75,
+      "peak_drift": 31.75,
+      "mean_drift_last100": 28.5449,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 10,
+      "strategy": "NAIVE",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 31.125,
+      "peak_drift": 31.125,
+      "mean_drift_last100": 27.9199,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 20,
+      "strategy": "NAIVE",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 29.25,
+      "peak_drift": 29.25,
+      "mean_drift_last100": 26.0449,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 50,
+      "strategy": "NAIVE",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "strategy": "CRISTIAN",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 31.7558,
+      "peak_drift": 31.7558,
+      "mean_drift_last100": 28.6446,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 1,
+      "strategy": "CRISTIAN",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 32.0625,
+      "peak_drift": 32.0625,
+      "mean_drift_last100": 28.8574,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 5,
+      "strategy": "CRISTIAN",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 31.75,
+      "peak_drift": 31.75,
+      "mean_drift_last100": 28.5449,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 10,
+      "strategy": "CRISTIAN",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 31.125,
+      "peak_drift": 31.125,
+      "mean_drift_last100": 27.9199,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 20,
+      "strategy": "CRISTIAN",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 29.25,
+      "peak_drift": 29.25,
+      "mean_drift_last100": 26.0449,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 50,
+      "strategy": "CRISTIAN",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2533,
+      "peak_drift": 0.2533,
+      "mean_drift_last100": 0.2286,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "strategy": "PTP_OFFSET",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.1701,
+      "peak_drift": 0.1701,
+      "mean_drift_last100": 0.1536,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 1,
+      "strategy": "PTP_OFFSET",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.0758,
+      "peak_drift": 0.0758,
+      "mean_drift_last100": 0.0687,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 5,
+      "strategy": "PTP_OFFSET",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.0472,
+      "peak_drift": 0.0472,
+      "mean_drift_last100": 0.0431,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 10,
+      "strategy": "PTP_OFFSET",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.0313,
+      "peak_drift": 0.045,
+      "mean_drift_last100": 0.0285,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 20,
+      "strategy": "PTP_OFFSET",
+      "delta": 0.0625
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.0338,
+      "peak_drift": 0.1125,
+      "mean_drift_last100": 0.0241,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 50,
+      "strategy": "PTP_OFFSET",
+      "delta": 0.0625
+    }
+  ],
+  "hypothesis": {
+    "ptp_bounded_drift_at_all_latencies": true,
+    "ptp_converges_at_all_latencies": true,
+    "naive_diverges_for_positive_latency": true,
+    "hypothesis_supported": true
+  },
+  "key_findings": [
+    "Latency=0: All strategies converge. NAIVE drift=0.2515, CRISTIAN drift=0.2515, PTP drift=0.2533. No advantage to smarter strategies when latency=0.",
+    "Latency=1: NAIVE drift=32.1041, CRISTIAN drift=31.7558 (+1.1%), PTP drift=0.1701 (+99.5%). PTP converges=YES.",
+    "Latency=5: NAIVE drift=32.0625, CRISTIAN drift=32.0625 (+0.0%), PTP drift=0.0758 (+99.8%). PTP converges=YES.",
+    "Latency=10: NAIVE drift=31.7500, CRISTIAN drift=31.7500 (+0.0%), PTP drift=0.0472 (+99.9%). PTP converges=YES.",
+    "Latency=20: NAIVE drift=31.1250, CRISTIAN drift=31.1250 (+0.0%), PTP drift=0.0313 (+99.9%). PTP converges=YES.",
+    "Latency=50: NAIVE drift=29.2500, CRISTIAN drift=29.2500 (+0.0%), PTP drift=0.0338 (+99.9%). PTP converges=YES.",
+    "HYPOTHESIS CONFIRMED: PTP_OFFSET achieves bounded drift at all latencies while NAIVE diverges for any latency>0. The midpoint estimation correctly compensates for message staleness.",
+    "CRISTIAN improves over NAIVE in 1/5 nonzero-latency cases. Mixed results for recency weighting."
+  ]
+}

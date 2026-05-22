@@ -1,0 +1,12 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/forgemaster/.keeper/publish.log",
+  "size_mb": 0.0,
+  "age_days": 4,
+  "unique_error_patterns": 1,
+  "top_patterns": [
+    {
+      "pattern": "h an error (status <N> Bad Request): missing or empty metadata fields: description. Please see https:<PATH> for more information on configuring these fields",
+      "count": 1
+    }
+  ]
+}

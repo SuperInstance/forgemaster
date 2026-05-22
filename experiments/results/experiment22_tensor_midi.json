@@ -1,0 +1,64 @@
+{
+  "experiment": 22,
+  "name": "Tensor-MIDI Fidelity",
+  "N": 10,
+  "ticks": 2000,
+  "topology": "Laman",
+  "baseline_float64": {
+    "max_drift": 0.07416128052136628,
+    "final_drift": 0.07416128052136628,
+    "convergence_tick": 0
+  },
+  "int8_sweep": [
+    {
+      "delta": 0.00390625,
+      "delta_label": "1/256",
+      "max_drift": 0.07438656497424745,
+      "final_drift": 0.07431102348709828,
+      "convergence_tick": 0,
+      "additional_drift_pct": 0.2019
+    },
+    {
+      "delta": 0.0078125,
+      "delta_label": "1/128",
+      "max_drift": 0.07417273622229459,
+      "final_drift": 0.07412647640808245,
+      "convergence_tick": 0,
+      "additional_drift_pct": 0.0469
+    },
+    {
+      "delta": 0.015625,
+      "delta_label": "1/64",
+      "max_drift": 0.0764596456988329,
+      "final_drift": 0.07640255908472682,
+      "convergence_tick": 0,
+      "additional_drift_pct": 3.0222
+    },
+    {
+      "delta": 0.03125,
+      "delta_label": "1/32",
+      "max_drift": 0.08033070868896175,
+      "final_drift": 0.08021653546074958,
+      "convergence_tick": 0,
+      "additional_drift_pct": 8.165
+    },
+    {
+      "delta": 0.0625,
+      "delta_label": "1/16",
+      "max_drift": 0.07381889765065353,
+      "final_drift": 0.07332677167869406,
+      "convergence_tick": 0,
+      "additional_drift_pct": 1.1253
+    },
+    {
+      "delta": 0.125,
+      "delta_label": "1/8",
+      "max_drift": 0.07237795276955694,
+      "final_drift": 0.07086614174750139,
+      "convergence_tick": 0,
+      "additional_drift_pct": 4.4432
+    }
+  ],
+  "hypothesis": "INT8 produces <1% additional drift for \u03b4\u22651/64",
+  "hypothesis_confirmed": false
+}

@@ -1,0 +1,1119 @@
+{
+  "experiment": "experiment38_deadband_sweep",
+  "description": "Deadband sweep for message suppression in Laman topology PTP consensus",
+  "config": {
+    "n_agents": 10,
+    "topology": "laman_henneberg_type1",
+    "edges": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        5
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        7,
+        0
+      ],
+      [
+        8,
+        1
+      ],
+      [
+        8,
+        4
+      ],
+      [
+        9,
+        6
+      ],
+      [
+        9,
+        0
+      ]
+    ],
+    "latency": 5,
+    "gain": 0.4,
+    "ticks": 1000,
+    "trials": 10,
+    "delta_convergence": 1.0,
+    "convergence_window": 50,
+    "deadbands_tested": [
+      0,
+      0.01,
+      0.05,
+      0.1,
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      5.0
+    ]
+  },
+  "results": {
+    "0.00": {
+      "deadband": 0,
+      "avg_convergence_tick": 42.5,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.041241302632500546,
+      "avg_jitter": 4.058485668676721e-14,
+      "avg_messages_sent": 34000.0,
+      "avg_messages_suppressed": 0.0,
+      "avg_comm_savings": 0.0,
+      "savings_vs_baseline": 0.0,
+      "trials": [
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.04124130263249839,
+          "jitter": 4.0768066742463705e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.04124130263249867,
+          "jitter": 4.0578398293870176e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.041241302632503786,
+          "jitter": 4.039883825037346e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.04124130263249981,
+          "jitter": 4.059432074281432e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.0412413026325035,
+          "jitter": 4.022550565304956e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.04124130263249384,
+          "jitter": 4.114674395617931e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.04124130263249839,
+          "jitter": 4.0768066742463705e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.0412413026325018,
+          "jitter": 4.074428258303485e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.041241302632503786,
+          "jitter": 4.039883825037346e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.0412413026325035,
+          "jitter": 4.022550565304956e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        }
+      ]
+    },
+    "0.01": {
+      "deadband": 0.01,
+      "avg_convergence_tick": 43.5,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.04124130263249887,
+      "avg_jitter": 4.030375199353385e-14,
+      "avg_messages_sent": 33995.5,
+      "avg_messages_suppressed": 4.5,
+      "avg_comm_savings": 0.00013235294117647058,
+      "savings_vs_baseline": 0.00013235294117641683,
+      "trials": [
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.0412413026325035,
+          "jitter": 4.022550565304956e-14,
+          "messages_sent": 33998,
+          "messages_suppressed": 2,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 5.882352941176471e-05,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.0412413026325035,
+          "jitter": 4.022550565304956e-14,
+          "messages_sent": 33998,
+          "messages_suppressed": 2,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 5.882352941176471e-05,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.041241302632498957,
+          "jitter": 4.038583899976131e-14,
+          "messages_sent": 33994,
+          "messages_suppressed": 6,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.00017647058823529413,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.041241302632503786,
+          "jitter": 4.039883825037346e-14,
+          "messages_sent": 33985,
+          "messages_suppressed": 15,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0004411764705882353,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.04124130263249725,
+          "jitter": 4.110746123193467e-14,
+          "messages_sent": 33993,
+          "messages_suppressed": 7,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.00020588235294117648,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.0412413026325018,
+          "jitter": 4.113889043088121e-14,
+          "messages_sent": 33992,
+          "messages_suppressed": 8,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.00023529411764705883,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.041241302632503224,
+          "jitter": 4.045079307380529e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.041241302632491,
+          "jitter": 3.9422253185496094e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.04124130263249725,
+          "jitter": 4.0712548756583134e-14,
+          "messages_sent": 34000,
+          "messages_suppressed": 0,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.041241302632488444,
+          "jitter": 3.896988470040416e-14,
+          "messages_sent": 33995,
+          "messages_suppressed": 5,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.00014705882352941175,
+          "corrections_applied": 9950
+        }
+      ]
+    },
+    "0.05": {
+      "deadband": 0.05,
+      "avg_convergence_tick": 44.9,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.04124130263249848,
+      "avg_jitter": 4.071270064550932e-14,
+      "avg_messages_sent": 33944.7,
+      "avg_messages_suppressed": 55.3,
+      "avg_comm_savings": 0.0016264705882352941,
+      "savings_vs_baseline": 0.0016264705882353958,
+      "trials": [
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.041241302632494696,
+          "jitter": 4.02706638730509e-14,
+          "messages_sent": 33948,
+          "messages_suppressed": 52,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0015294117647058824,
+          "corrections_applied": 9949
+        },
+        {
+          "convergence_tick": 48,
+          "steady_state_drift": 0.04124130263249441,
+          "jitter": 4.0433815092271323e-14,
+          "messages_sent": 33925,
+          "messages_suppressed": 75,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0022058823529411764,
+          "corrections_applied": 9948
+        },
+        {
+          "convergence_tick": 48,
+          "steady_state_drift": 0.0412413026324981,
+          "jitter": 4.0954884509429027e-14,
+          "messages_sent": 33939,
+          "messages_suppressed": 61,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0017941176470588234,
+          "corrections_applied": 9948
+        },
+        {
+          "convergence_tick": 44,
+          "steady_state_drift": 0.041241302632498957,
+          "jitter": 4.11781431960008e-14,
+          "messages_sent": 33950,
+          "messages_suppressed": 50,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0014705882352941176,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 44,
+          "steady_state_drift": 0.04124130263249981,
+          "jitter": 4.059432074281432e-14,
+          "messages_sent": 33954,
+          "messages_suppressed": 46,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0013529411764705882,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 46,
+          "steady_state_drift": 0.041241302632497534,
+          "jitter": 4.053059341623817e-14,
+          "messages_sent": 33949,
+          "messages_suppressed": 51,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0015,
+          "corrections_applied": 9949
+        },
+        {
+          "convergence_tick": 44,
+          "steady_state_drift": 0.04124130263249867,
+          "jitter": 4.097460372930797e-14,
+          "messages_sent": 33950,
+          "messages_suppressed": 50,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0014705882352941176,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.04124130263250038,
+          "jitter": 4.0986430707365916e-14,
+          "messages_sent": 33953,
+          "messages_suppressed": 47,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0013823529411764706,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.04124130263249867,
+          "jitter": 4.0578398293870176e-14,
+          "messages_sent": 33953,
+          "messages_suppressed": 47,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0013823529411764706,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 48,
+          "steady_state_drift": 0.0412413026325035,
+          "jitter": 4.0625152894744594e-14,
+          "messages_sent": 33926,
+          "messages_suppressed": 74,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.002176470588235294,
+          "corrections_applied": 9950
+        }
+      ]
+    },
+    "0.10": {
+      "deadband": 0.1,
+      "avg_convergence_tick": 45.9,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.04124130263250052,
+      "avg_jitter": 4.070968333484144e-14,
+      "avg_messages_sent": 33906.5,
+      "avg_messages_suppressed": 93.5,
+      "avg_comm_savings": 0.00275,
+      "savings_vs_baseline": 0.00275000000000003,
+      "trials": [
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.04124130263250123,
+          "jitter": 4.0768066742463705e-14,
+          "messages_sent": 33898,
+          "messages_suppressed": 102,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.003,
+          "corrections_applied": 9947
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.0412413026324981,
+          "jitter": 4.134748248513472e-14,
+          "messages_sent": 33913,
+          "messages_suppressed": 87,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.002558823529411765,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.041241302632503786,
+          "jitter": 4.039883825037346e-14,
+          "messages_sent": 33923,
+          "messages_suppressed": 77,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0022647058823529412,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 45,
+          "steady_state_drift": 0.04124130263249498,
+          "jitter": 4.090258257656716e-14,
+          "messages_sent": 33904,
+          "messages_suppressed": 96,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.002823529411764706,
+          "corrections_applied": 9949
+        },
+        {
+          "convergence_tick": 50,
+          "steady_state_drift": 0.04124130263250294,
+          "jitter": 4.067284665561118e-14,
+          "messages_sent": 33873,
+          "messages_suppressed": 127,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.003735294117647059,
+          "corrections_applied": 9945
+        },
+        {
+          "convergence_tick": 48,
+          "steady_state_drift": 0.0412413026325035,
+          "jitter": 4.022550565304956e-14,
+          "messages_sent": 33903,
+          "messages_suppressed": 97,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.002852941176470588,
+          "corrections_applied": 9946
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.04124130263249498,
+          "jitter": 4.090258257656716e-14,
+          "messages_sent": 33894,
+          "messages_suppressed": 106,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0031176470588235292,
+          "corrections_applied": 9949
+        },
+        {
+          "convergence_tick": 42,
+          "steady_state_drift": 0.041241302632503224,
+          "jitter": 4.0049405958415434e-14,
+          "messages_sent": 33927,
+          "messages_suppressed": 73,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0021470588235294116,
+          "corrections_applied": 9950
+        },
+        {
+          "convergence_tick": 47,
+          "steady_state_drift": 0.041241302632503224,
+          "jitter": 4.045079307380529e-14,
+          "messages_sent": 33914,
+          "messages_suppressed": 86,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0025294117647058825,
+          "corrections_applied": 9948
+        },
+        {
+          "convergence_tick": 43,
+          "steady_state_drift": 0.04124130263249924,
+          "jitter": 4.1378729376426726e-14,
+          "messages_sent": 33916,
+          "messages_suppressed": 84,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.0024705882352941176,
+          "corrections_applied": 9948
+        }
+      ]
+    },
+    "0.25": {
+      "deadband": 0.25,
+      "avg_convergence_tick": 77.1,
+      "convergence_rate": 1.0,
+      "avg_steady_state_drift": 0.04124130263250024,
+      "avg_jitter": 4.064864619670495e-14,
+      "avg_messages_sent": 33480.6,
+      "avg_messages_suppressed": 519.4,
+      "avg_comm_savings": 0.015276470588235298,
+      "savings_vs_baseline": 0.015276470588235336,
+      "trials": [
+        {
+          "convergence_tick": 69,
+          "steady_state_drift": 0.041241302632503224,
+          "jitter": 4.045079307380529e-14,
+          "messages_sent": 33515,
+          "messages_suppressed": 485,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.014264705882352941,
+          "corrections_applied": 9921
+        },
+        {
+          "convergence_tick": 96,
+          "steady_state_drift": 0.04124130263249924,
+          "jitter": 4.1378729376426726e-14,
+          "messages_sent": 33382,
+          "messages_suppressed": 618,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.018176470588235294,
+          "corrections_applied": 9911
+        },
+        {
+          "convergence_tick": 70,
+          "steady_state_drift": 0.04124130263250038,
+          "jitter": 4.0590340716134117e-14,
+          "messages_sent": 33536,
+          "messages_suppressed": 464,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.013647058823529411,
+          "corrections_applied": 9934
+        },
+        {
+          "convergence_tick": 134,
+          "steady_state_drift": 0.04124130263250152,
+          "jitter": 4.055848644245514e-14,
+          "messages_sent": 32774,
+          "messages_suppressed": 1226,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.03605882352941177,
+          "corrections_applied": 9852
+        },
+        {
+          "convergence_tick": 81,
+          "steady_state_drift": 0.04124130263249924,
+          "jitter": 4.0590340716134117e-14,
+          "messages_sent": 33516,
+          "messages_suppressed": 484,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.01423529411764706,
+          "corrections_applied": 9928
+        },
+        {
+          "convergence_tick": 53,
+          "steady_state_drift": 0.041241302632503786,
+          "jitter": 4.039883825037346e-14,
+          "messages_sent": 33598,
+          "messages_suppressed": 402,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.011823529411764707,
+          "corrections_applied": 9924
+        },
+        {
+          "convergence_tick": 59,
+          "steady_state_drift": 0.041241302632499525,
+          "jitter": 4.039383896031548e-14,
+          "messages_sent": 33697,
+          "messages_suppressed": 303,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.008911764705882353,
+          "corrections_applied": 9938
+        },
+        {
+          "convergence_tick": 75,
+          "steady_state_drift": 0.041241302632499525,
+          "jitter": 4.079183703426157e-14,
+          "messages_sent": 33594,
+          "messages_suppressed": 406,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.011941176470588235,
+          "corrections_applied": 9928
+        },
+        {
+          "convergence_tick": 68,
+          "steady_state_drift": 0.04124130263249413,
+          "jitter": 4.019436696626235e-14,
+          "messages_sent": 33580,
+          "messages_suppressed": 420,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.012352941176470587,
+          "corrections_applied": 9928
+        },
+        {
+          "convergence_tick": 66,
+          "steady_state_drift": 0.0412413026325018,
+          "jitter": 4.113889043088121e-14,
+          "messages_sent": 33614,
+          "messages_suppressed": 386,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.011352941176470588,
+          "corrections_applied": 9933
+        }
+      ]
+    },
+    "0.50": {
+      "deadband": 0.5,
+      "avg_convergence_tick": 568.0,
+      "convergence_rate": 0.3,
+      "avg_steady_state_drift": 0.9282613657397208,
+      "avg_jitter": 0.46090628597306393,
+      "avg_messages_sent": 17724.8,
+      "avg_messages_suppressed": 16275.2,
+      "avg_comm_savings": 0.47868235294117645,
+      "savings_vs_baseline": 0.47868235294117645,
+      "trials": [
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.3019278772043026,
+          "jitter": 0.6414821981126128,
+          "messages_sent": 17848,
+          "messages_suppressed": 16152,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.47505882352941176,
+          "corrections_applied": 7411
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.024348915251882,
+          "jitter": 0.5371036447416948,
+          "messages_sent": 17910,
+          "messages_suppressed": 16090,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.47323529411764703,
+          "corrections_applied": 7324
+        },
+        {
+          "convergence_tick": 889,
+          "steady_state_drift": 0.4141794076091773,
+          "jitter": 0.42444393564816,
+          "messages_sent": 17582,
+          "messages_suppressed": 16418,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.4828823529411765,
+          "corrections_applied": 6823
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.3303863028916363,
+          "jitter": 0.6533759602837699,
+          "messages_sent": 18034,
+          "messages_suppressed": 15966,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.46958823529411764,
+          "corrections_applied": 7312
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.2303975545291888,
+          "jitter": 0.5885255773470704,
+          "messages_sent": 17561,
+          "messages_suppressed": 16439,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.4835,
+          "corrections_applied": 7207
+        },
+        {
+          "convergence_tick": 528,
+          "steady_state_drift": 0.09151290266134993,
+          "jitter": 0.008729146897772004,
+          "messages_sent": 17628,
+          "messages_suppressed": 16372,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.4815294117647059,
+          "corrections_applied": 6230
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.1787444253874642,
+          "jitter": 0.5555575969493974,
+          "messages_sent": 17810,
+          "messages_suppressed": 16190,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.4761764705882353,
+          "corrections_applied": 7225
+        },
+        {
+          "convergence_tick": 287,
+          "steady_state_drift": 0.09127742924018378,
+          "jitter": 0.008653034643184586,
+          "messages_sent": 17452,
+          "messages_suppressed": 16548,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.48670588235294115,
+          "corrections_applied": 5662
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.4027983419329602,
+          "jitter": 0.6071415379677845,
+          "messages_sent": 17686,
+          "messages_suppressed": 16314,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.4798235294117647,
+          "corrections_applied": 7372
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.2170405006890619,
+          "jitter": 0.5840502271391933,
+          "messages_sent": 17737,
+          "messages_suppressed": 16263,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.4783235294117647,
+          "corrections_applied": 7242
+        }
+      ]
+    },
+    "1.00": {
+      "deadband": 1.0,
+      "avg_convergence_tick": null,
+      "convergence_rate": 0.0,
+      "avg_steady_state_drift": 1.8631064346738537,
+      "avg_jitter": 0.6878708400067965,
+      "avg_messages_sent": 12272.0,
+      "avg_messages_suppressed": 21728.0,
+      "avg_comm_savings": 0.6390588235294118,
+      "savings_vs_baseline": 0.6390588235294118,
+      "trials": [
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.0146980782790656,
+          "jitter": 0.6911368600788471,
+          "messages_sent": 12158,
+          "messages_suppressed": 21842,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.6424117647058823,
+          "corrections_applied": 6510
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.143758032590411,
+          "jitter": 0.9237036797825449,
+          "messages_sent": 12364,
+          "messages_suppressed": 21636,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.6363529411764706,
+          "corrections_applied": 6536
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.7405543124196317,
+          "jitter": 0.6213305208867045,
+          "messages_sent": 12135,
+          "messages_suppressed": 21865,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.6430882352941176,
+          "corrections_applied": 6572
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.922762094397354,
+          "jitter": 0.711722896423857,
+          "messages_sent": 12373,
+          "messages_suppressed": 21627,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.6360882352941176,
+          "corrections_applied": 6662
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.861423717716638,
+          "jitter": 0.6161056291292866,
+          "messages_sent": 12262,
+          "messages_suppressed": 21738,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.6393529411764706,
+          "corrections_applied": 6625
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.7483908422985663,
+          "jitter": 0.6831610153541171,
+          "messages_sent": 12219,
+          "messages_suppressed": 21781,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.6406176470588235,
+          "corrections_applied": 6546
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.9704143596654513,
+          "jitter": 0.7235621273348413,
+          "messages_sent": 12283,
+          "messages_suppressed": 21717,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.6387352941176471,
+          "corrections_applied": 6684
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.7753593378388106,
+          "jitter": 0.5956390043303749,
+          "messages_sent": 12349,
+          "messages_suppressed": 21651,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.6367941176470588,
+          "corrections_applied": 6562
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.7451601170022277,
+          "jitter": 0.6419370023395184,
+          "messages_sent": 12298,
+          "messages_suppressed": 21702,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.6382941176470588,
+          "corrections_applied": 6584
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 1.7085434545303806,
+          "jitter": 0.6704096644078736,
+          "messages_sent": 12279,
+          "messages_suppressed": 21721,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.6388529411764706,
+          "corrections_applied": 6487
+        }
+      ]
+    },
+    "2.00": {
+      "deadband": 2.0,
+      "avg_convergence_tick": null,
+      "convergence_rate": 0.0,
+      "avg_steady_state_drift": 2.5342940275543553,
+      "avg_jitter": 0.8282658897874121,
+      "avg_messages_sent": 7548.7,
+      "avg_messages_suppressed": 26451.3,
+      "avg_comm_savings": 0.777979411764706,
+      "savings_vs_baseline": 0.7779794117647059,
+      "trials": [
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.542842285106248,
+          "jitter": 0.853989166837554,
+          "messages_sent": 7560,
+          "messages_suppressed": 26440,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.7776470588235294,
+          "corrections_applied": 4986
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.388092688140461,
+          "jitter": 0.8157688395535986,
+          "messages_sent": 7498,
+          "messages_suppressed": 26502,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.7794705882352941,
+          "corrections_applied": 4951
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.459850060107531,
+          "jitter": 0.8366132333917179,
+          "messages_sent": 7574,
+          "messages_suppressed": 26426,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.777235294117647,
+          "corrections_applied": 4947
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.554187531548618,
+          "jitter": 0.754677118221281,
+          "messages_sent": 7577,
+          "messages_suppressed": 26423,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.7771470588235294,
+          "corrections_applied": 4938
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.816482077132591,
+          "jitter": 0.8868481434690554,
+          "messages_sent": 7595,
+          "messages_suppressed": 26405,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.7766176470588235,
+          "corrections_applied": 4960
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.5977109063720967,
+          "jitter": 0.8937283358259738,
+          "messages_sent": 7506,
+          "messages_suppressed": 26494,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.779235294117647,
+          "corrections_applied": 4894
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.687251047520307,
+          "jitter": 0.9907982762616759,
+          "messages_sent": 7587,
+          "messages_suppressed": 26413,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.7768529411764706,
+          "corrections_applied": 4951
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.477835719361073,
+          "jitter": 0.7062114927284907,
+          "messages_sent": 7437,
+          "messages_suppressed": 26563,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.781264705882353,
+          "corrections_applied": 4987
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.238491446189225,
+          "jitter": 0.8044744014511859,
+          "messages_sent": 7638,
+          "messages_suppressed": 26362,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.7753529411764706,
+          "corrections_applied": 4912
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.5801965140654,
+          "jitter": 0.7395498901335883,
+          "messages_sent": 7515,
+          "messages_suppressed": 26485,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.7789705882352941,
+          "corrections_applied": 4904
+        }
+      ]
+    },
+    "5.00": {
+      "deadband": 5.0,
+      "avg_convergence_tick": null,
+      "convergence_rate": 0.0,
+      "avg_steady_state_drift": 3.5927975261818914,
+      "avg_jitter": 0.936719827461937,
+      "avg_messages_sent": 3914.8,
+      "avg_messages_suppressed": 30085.2,
+      "avg_comm_savings": 0.8848588235294118,
+      "savings_vs_baseline": 0.8848588235294117,
+      "trials": [
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.937348691317181,
+          "jitter": 0.7100145582205568,
+          "messages_sent": 3909,
+          "messages_suppressed": 30091,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.8850294117647058,
+          "corrections_applied": 3098
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 3.488356356806435,
+          "jitter": 0.9442767943095354,
+          "messages_sent": 3916,
+          "messages_suppressed": 30084,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.8848235294117647,
+          "corrections_applied": 3145
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 3.4233055013189952,
+          "jitter": 0.8765099909737871,
+          "messages_sent": 3900,
+          "messages_suppressed": 30100,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.8852941176470588,
+          "corrections_applied": 3187
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 3.279352461347257,
+          "jitter": 0.8878960848872535,
+          "messages_sent": 3903,
+          "messages_suppressed": 30097,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.8852058823529412,
+          "corrections_applied": 3148
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 2.983755958303719,
+          "jitter": 0.9001492462858984,
+          "messages_sent": 3926,
+          "messages_suppressed": 30074,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.8845294117647059,
+          "corrections_applied": 3139
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 3.55184438326578,
+          "jitter": 1.0063758738355308,
+          "messages_sent": 3922,
+          "messages_suppressed": 30078,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.8846470588235295,
+          "corrections_applied": 3087
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 3.1394200382118798,
+          "jitter": 0.9982540367029674,
+          "messages_sent": 3931,
+          "messages_suppressed": 30069,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.8843823529411765,
+          "corrections_applied": 3141
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 3.258266813850239,
+          "jitter": 0.821261223626458,
+          "messages_sent": 3908,
+          "messages_suppressed": 30092,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.8850588235294118,
+          "corrections_applied": 3147
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 3.2549474041559954,
+          "jitter": 0.9770340383803965,
+          "messages_sent": 3927,
+          "messages_suppressed": 30073,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.8845,
+          "corrections_applied": 3119
+        },
+        {
+          "convergence_tick": null,
+          "steady_state_drift": 6.611377653241432,
+          "jitter": 1.2454264273969857,
+          "messages_sent": 3906,
+          "messages_suppressed": 30094,
+          "total_exchange_opportunities": 34000,
+          "comm_savings": 0.8851176470588236,
+          "corrections_applied": 3069
+        }
+      ]
+    }
+  },
+  "conclusion": {
+    "optimal_deadband": 0,
+    "hypothesis_0_1_optimal": false,
+    "hypothesis_80pct_savings": false
+  }
+}

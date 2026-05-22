@@ -1,0 +1,16 @@
+{
+  "source": "/tmp/openclaw/openclaw-2026-05-21.log",
+  "size_mb": 0.18,
+  "age_days": 0,
+  "unique_error_patterns": 2,
+  "top_patterns": [
+    {
+      "pattern": "{\"<N>\":\"[tools] read failed: ENOENT: no such file or directory, access '<PATH>' raw_params={\\\"path\\\":\\\"<PATH>\\\"}\",\"_meta\":{\"runtime\":\"node\",\"runtimeVersion\":\"<N>.<N>.<N>\",\"hostname\":\"unknown\",\"name\":\"",
+      "count": 6
+    },
+    {
+      "pattern": "{\"<N>\":\"{\\\"subsystem\\\":\\\"gateway<PATH>\\\"}\",\"<N>\":\"\u21c4 res \u2717 agent errorCode=UNAVAILABLE errorMessage=GatewayDrainingError: Gateway is draining for restart; new tasks are not accepted runId=f<N>e<N>-<N>f",
+      "count": 1
+    }
+  ]
+}

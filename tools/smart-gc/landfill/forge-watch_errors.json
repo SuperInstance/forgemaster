@@ -1,0 +1,12 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/forgemaster/.keeper/forge-watch.log",
+  "size_mb": 0.01,
+  "age_days": 0,
+  "unique_error_patterns": 1,
+  "top_patterns": [
+    {
+      "pattern": "[<TIMESTAMP>-<N>:<N>] WATCH: push_age=<N>min tiles=error stale=YES",
+      "count": 100
+    }
+  ]
+}

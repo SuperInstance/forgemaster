@@ -1,0 +1,81 @@
+{
+  "experiment": 33,
+  "description": "Frequency steps: drift rate changes mid-run",
+  "params": {
+    "n_agents": 10,
+    "topology": "laman",
+    "latency_ticks": 5,
+    "total_ticks": 1000,
+    "step_tick": 500,
+    "sigma_before": 0.01,
+    "sigma_after": 0.5
+  },
+  "scenario_A_single_step": {
+    "ptp": {
+      "pre_step_drift": 0.02,
+      "post_step_peak_drift": 1.4363,
+      "re_converge_ticks": 4,
+      "final_drift": 0.5186,
+      "cascade_non_stepped_deviation": 0.2431,
+      "drift_at_step_plus_10": 0.3397,
+      "drift_at_step_plus_20": 0.3366,
+      "drift_at_step_plus_50": 0.1991
+    },
+    "naive": {
+      "pre_step_drift": 0.0578,
+      "post_step_peak_drift": 3.2216,
+      "re_converge_ticks": 4,
+      "final_drift": 0.603,
+      "cascade_non_stepped_deviation": 0.1902,
+      "drift_at_step_plus_10": 0.9682,
+      "drift_at_step_plus_20": 1.0059,
+      "drift_at_step_plus_50": 0.8848
+    }
+  },
+  "scenario_B_multi_step": {
+    "ptp": {
+      "pre_step_drift": 0.0221,
+      "post_step_peak_drift": 1.5152,
+      "re_converge_ticks": 4,
+      "final_drift": 0.9945,
+      "cascade_non_stepped_deviation": 0.1927,
+      "drift_at_step_plus_10": 0.5989,
+      "drift_at_step_plus_20": 0.7549,
+      "drift_at_step_plus_50": 0.4372
+    },
+    "naive": {
+      "pre_step_drift": 0.0654,
+      "post_step_peak_drift": 4.2818,
+      "re_converge_ticks": 4,
+      "final_drift": 1.4945,
+      "cascade_non_stepped_deviation": 0.3507,
+      "drift_at_step_plus_10": 1.7422,
+      "drift_at_step_plus_20": 3.1216,
+      "drift_at_step_plus_50": 3.75
+    }
+  },
+  "scenario_C_gradual": {
+    "ptp": {
+      "pre_step_drift": 0.0304,
+      "post_step_peak_drift": 1.1109,
+      "re_converge_ticks": 4,
+      "final_drift": 0.4356,
+      "cascade_non_stepped_deviation": 0.2676,
+      "drift_at_step_plus_10": 0.0274,
+      "drift_at_step_plus_20": 0.043,
+      "drift_at_step_plus_50": 0.1267
+    },
+    "naive": {
+      "pre_step_drift": 0.0725,
+      "post_step_peak_drift": 3.8636,
+      "re_converge_ticks": 4,
+      "final_drift": 0.9393,
+      "cascade_non_stepped_deviation": 0.2632,
+      "drift_at_step_plus_10": 0.0878,
+      "drift_at_step_plus_20": 0.1153,
+      "drift_at_step_plus_50": 0.5071
+    }
+  },
+  "hypothesis": "PTP recovers within 20 ticks of a frequency step, no cascading",
+  "hypothesis_status": "SUPPORTED"
+}

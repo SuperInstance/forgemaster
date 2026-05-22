@@ -1,0 +1,16 @@
+[
+  {
+    "type": "high_memory",
+    "pid": 3120,
+    "command": "/usr/bin/node /home/phoenix/.nvm/versions/node/v24.15.0/lib/node_modules/openclaw/dist/index.js gate",
+    "mem_mb": 730.1,
+    "insight": "PID 3120 using 730MB: /usr/bin/node /home/phoenix/.nvm/versions/node/v24.15.0/lib/node_modules/opencla"
+  },
+  {
+    "type": "high_memory",
+    "pid": 756,
+    "command": "/sbin/conduwuit",
+    "mem_mb": 168.0,
+    "insight": "PID 756 using 168MB: /sbin/conduwuit"
+  }
+]

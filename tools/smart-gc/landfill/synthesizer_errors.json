@@ -1,0 +1,12 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/fleet-murmur/data/zeroclaw/synthesizer.log",
+  "size_mb": 0.28,
+  "age_days": 0,
+  "unique_error_patterns": 1,
+  "top_patterns": [
+    {
+      "pattern": "Preview: [ERROR: HTTP Error <N>: Unauthorized]...",
+      "count": 202
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "experiment": 21,
+  "name": "Emergence Early Warning",
+  "params": {
+    "N": 10,
+    "delta": 0.05,
+    "velocity_threshold": 0.0005,
+    "total_ticks": 400,
+    "inject_tick": 100,
+    "amplitude": 0.012,
+    "period": 40,
+    "consensus_strength": 0.05,
+    "cascade_coupling": 0.3,
+    "num_edges": 17,
+    "expected_edges_laman": 17
+  },
+  "tests": [
+    {
+      "label": "single_oscillation",
+      "agents": {
+        "0": {
+          "first_velocity_tick": 101,
+          "first_drift_violation_tick": 108,
+          "warning_time_ticks": 7
+        },
+        "1": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "2": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "3": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "4": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "5": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "6": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "7": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "8": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "9": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        }
+      },
+      "summary": {
+        "agent0_velocity_tick": 101,
+        "agent0_drift_tick": 108,
+        "agent0_warning_time": 7,
+        "agents_with_positive_warning": 1,
+        "avg_warning_time": 7.0,
+        "max_warning_time": 7,
+        "hypothesis_supported": false
+      }
+    },
+    {
+      "label": "cascade_oscillation",
+      "agents": {
+        "0": {
+          "first_velocity_tick": 101,
+          "first_drift_violation_tick": 108,
+          "warning_time_ticks": 7
+        },
+        "1": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "2": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "3": {
+          "first_velocity_tick": 105,
+          "first_drift_violation_tick": 120,
+          "warning_time_ticks": 15
+        },
+        "4": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "5": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "6": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "7": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "8": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        },
+        "9": {
+          "first_velocity_tick": null,
+          "first_drift_violation_tick": null,
+          "warning_time_ticks": null
+        }
+      },
+      "summary": {
+        "agent0_velocity_tick": 101,
+        "agent0_drift_tick": 108,
+        "agent0_warning_time": 7,
+        "agents_with_positive_warning": 2,
+        "avg_warning_time": 11.0,
+        "max_warning_time": 15,
+        "hypothesis_supported": false
+      }
+    }
+  ]
+}

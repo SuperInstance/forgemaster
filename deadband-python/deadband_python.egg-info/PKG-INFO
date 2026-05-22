@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: deadband-python
+Version: 0.1.1
+Summary: Deadband perceptual quantization — Eisenstein integers, Fibonacci spline search, and human perceptual models for sensor data
+License: MIT
+Keywords: deadband,quantization,perceptual,eisenstein,sensor,hpdf
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering :: Signal Processing
+Requires-Python: >=3.10

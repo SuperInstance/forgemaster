@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+metronome_dashboard/__init__.py
+metronome_dashboard/charts.py
+metronome_dashboard/cli.py
+metronome_dashboard/simulator.py
+metronome_dashboard.egg-info/PKG-INFO
+metronome_dashboard.egg-info/SOURCES.txt
+metronome_dashboard.egg-info/dependency_links.txt
+metronome_dashboard.egg-info/entry_points.txt
+metronome_dashboard.egg-info/requires.txt
+metronome_dashboard.egg-info/top_level.txt
+tests/test_dashboard.py

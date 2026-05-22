@@ -1,0 +1,505 @@
+{
+  "experiment": 20,
+  "title": "Latency-\u03b4 Tradeoff",
+  "N": 10,
+  "latencies": [
+    0,
+    1,
+    5,
+    10,
+    20,
+    50
+  ],
+  "deltas_tested": [
+    "1/64",
+    "1/32",
+    "1/16",
+    "1/8",
+    "1/4"
+  ],
+  "warmup_ticks": 100,
+  "convergence_threshold": 0.1,
+  "all_results": [
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "delta": 0.015625,
+      "delta_label": "1/64"
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "delta": 0.03125,
+      "delta_label": "1/32"
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "delta": 0.0625,
+      "delta_label": "1/16"
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "delta": 0.125,
+      "delta_label": "1/8"
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "delta": 0.25,
+      "delta_label": "1/4"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 8.8072,
+      "peak_drift": 8.8072,
+      "mean_drift_last100": 8.0061,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 1,
+      "delta": 0.015625,
+      "delta_label": "1/64"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 16.5728,
+      "peak_drift": 16.5728,
+      "mean_drift_last100": 15.0106,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 1,
+      "delta": 0.03125,
+      "delta_label": "1/32"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 32.1041,
+      "peak_drift": 32.1041,
+      "mean_drift_last100": 29.0061,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 1,
+      "delta": 0.0625,
+      "delta_label": "1/16"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 63.1473,
+      "peak_drift": 63.1473,
+      "mean_drift_last100": 56.9696,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 1,
+      "delta": 0.125,
+      "delta_label": "1/8"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 125.375,
+      "peak_drift": 125.375,
+      "mean_drift_last100": 112.9381,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 1,
+      "delta": 0.25,
+      "delta_label": "1/4"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 8.8594,
+      "peak_drift": 8.8594,
+      "mean_drift_last100": 7.9746,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 5,
+      "delta": 0.015625,
+      "delta_label": "1/64"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 16.5938,
+      "peak_drift": 16.5938,
+      "mean_drift_last100": 14.9355,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 5,
+      "delta": 0.03125,
+      "delta_label": "1/32"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 32.0625,
+      "peak_drift": 32.0625,
+      "mean_drift_last100": 28.8574,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 5,
+      "delta": 0.0625,
+      "delta_label": "1/16"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 63.0,
+      "peak_drift": 63.0,
+      "mean_drift_last100": 56.7011,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 5,
+      "delta": 0.125,
+      "delta_label": "1/8"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 124.875,
+      "peak_drift": 124.875,
+      "mean_drift_last100": 112.3886,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 5,
+      "delta": 0.25,
+      "delta_label": "1/4"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 8.7813,
+      "peak_drift": 8.7813,
+      "mean_drift_last100": 7.8964,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 10,
+      "delta": 0.015625,
+      "delta_label": "1/64"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 16.4375,
+      "peak_drift": 16.4375,
+      "mean_drift_last100": 14.7793,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 10,
+      "delta": 0.03125,
+      "delta_label": "1/32"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 31.75,
+      "peak_drift": 31.75,
+      "mean_drift_last100": 28.5449,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 10,
+      "delta": 0.0625,
+      "delta_label": "1/16"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 62.375,
+      "peak_drift": 62.375,
+      "mean_drift_last100": 56.0761,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 10,
+      "delta": 0.125,
+      "delta_label": "1/8"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 123.625,
+      "peak_drift": 123.625,
+      "mean_drift_last100": 111.1386,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 10,
+      "delta": 0.25,
+      "delta_label": "1/4"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 8.625,
+      "peak_drift": 8.625,
+      "mean_drift_last100": 7.7402,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 20,
+      "delta": 0.015625,
+      "delta_label": "1/64"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 16.125,
+      "peak_drift": 16.125,
+      "mean_drift_last100": 14.4668,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 20,
+      "delta": 0.03125,
+      "delta_label": "1/32"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 31.125,
+      "peak_drift": 31.125,
+      "mean_drift_last100": 27.9199,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 20,
+      "delta": 0.0625,
+      "delta_label": "1/16"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 61.125,
+      "peak_drift": 61.125,
+      "mean_drift_last100": 54.8261,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 20,
+      "delta": 0.125,
+      "delta_label": "1/8"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 121.125,
+      "peak_drift": 121.125,
+      "mean_drift_last100": 108.6386,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 20,
+      "delta": 0.25,
+      "delta_label": "1/4"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 8.1563,
+      "peak_drift": 8.1563,
+      "mean_drift_last100": 7.2714,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 50,
+      "delta": 0.015625,
+      "delta_label": "1/64"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 15.1875,
+      "peak_drift": 15.1875,
+      "mean_drift_last100": 13.5293,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 50,
+      "delta": 0.03125,
+      "delta_label": "1/32"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 29.25,
+      "peak_drift": 29.25,
+      "mean_drift_last100": 26.0449,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 50,
+      "delta": 0.0625,
+      "delta_label": "1/16"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 57.375,
+      "peak_drift": 57.375,
+      "mean_drift_last100": 51.0761,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 50,
+      "delta": 0.125,
+      "delta_label": "1/8"
+    },
+    {
+      "convergence_tick": null,
+      "steady_state_max_drift": 113.625,
+      "peak_drift": 113.625,
+      "mean_drift_last100": 101.1386,
+      "messages_sent": 17000,
+      "converged": false,
+      "latency": 50,
+      "delta": 0.25,
+      "delta_label": "1/4"
+    }
+  ],
+  "pareto_frontier": [
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "delta": 0.015625,
+      "delta_label": "1/64"
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "delta": 0.03125,
+      "delta_label": "1/32"
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "delta": 0.0625,
+      "delta_label": "1/16"
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "delta": 0.125,
+      "delta_label": "1/8"
+    },
+    {
+      "convergence_tick": 101,
+      "steady_state_max_drift": 0.2515,
+      "peak_drift": 0.2515,
+      "mean_drift_last100": 0.2268,
+      "messages_sent": 17000,
+      "converged": true,
+      "latency": 0,
+      "delta": 0.25,
+      "delta_label": "1/4"
+    }
+  ],
+  "optimal_delta_by_latency": [
+    {
+      "latency": 0,
+      "best_delta": 0.015625,
+      "best_delta_label": "1/64",
+      "best_drift_ss": 0.2515,
+      "converged": true,
+      "convergence_tick": 101
+    },
+    {
+      "latency": 1,
+      "best_delta": 0.015625,
+      "best_delta_label": "1/64",
+      "best_drift_ss": 8.8072,
+      "converged": false,
+      "convergence_tick": null
+    },
+    {
+      "latency": 5,
+      "best_delta": 0.015625,
+      "best_delta_label": "1/64",
+      "best_drift_ss": 8.8594,
+      "converged": false,
+      "convergence_tick": null
+    },
+    {
+      "latency": 10,
+      "best_delta": 0.015625,
+      "best_delta_label": "1/64",
+      "best_drift_ss": 8.7813,
+      "converged": false,
+      "convergence_tick": null
+    },
+    {
+      "latency": 20,
+      "best_delta": 0.015625,
+      "best_delta_label": "1/64",
+      "best_drift_ss": 8.625,
+      "converged": false,
+      "convergence_tick": null
+    },
+    {
+      "latency": 50,
+      "best_delta": 0.015625,
+      "best_delta_label": "1/64",
+      "best_drift_ss": 8.1563,
+      "converged": false,
+      "convergence_tick": null
+    }
+  ],
+  "hypothesis_check": {
+    "threshold_used": 0.5,
+    "linear_scaling_supported": null,
+    "viable_deltas_by_latency": [
+      {
+        "latency": 0,
+        "min_viable_delta": 0.015625,
+        "min_viable_delta_label": "1/64",
+        "drift_ss": 0.2515
+      },
+      {
+        "latency": 1,
+        "min_viable_delta": null,
+        "note": "no \u03b4 achieved drift < 0.5, best=8.8072 at \u03b4=1/64"
+      },
+      {
+        "latency": 5,
+        "min_viable_delta": null,
+        "note": "no \u03b4 achieved drift < 0.5, best=8.8594 at \u03b4=1/64"
+      },
+      {
+        "latency": 10,
+        "min_viable_delta": null,
+        "note": "no \u03b4 achieved drift < 0.5, best=8.7813 at \u03b4=1/64"
+      },
+      {
+        "latency": 20,
+        "min_viable_delta": null,
+        "note": "no \u03b4 achieved drift < 0.5, best=8.6250 at \u03b4=1/64"
+      },
+      {
+        "latency": 50,
+        "min_viable_delta": null,
+        "note": "no \u03b4 achieved drift < 0.5, best=8.1563 at \u03b4=1/64"
+      }
+    ],
+    "note": "If hypothesis holds, min_viable_delta/latency should be ~constant"
+  },
+  "key_findings": [
+    "CRITICAL: Naive average-based consensus FAILS with any latency >= 1 tick. Only latency=0 converges. Stale peer reports create destructive corrections that push clocks AWAY from consensus.",
+    "Larger \u03b4 makes divergence WORSE (not better), because stale-data corrections are amplified by the larger clamping window. Best strategy with latency>0 is smallest \u03b4 (1/64), which limits damage from bad corrections.",
+    "Hypothesis REJECTED: optimal \u03b4 does not scale linearly with latency because no \u03b4 achieves convergence with latency>0. The system needs a latency-aware correction protocol (e.g., timestamp-based offset estimation, Cristian's algorithm, or PTP-style round-trip measurement) rather than naive averaging.",
+    "Latency=0 achieves drift_ss=0.2515 regardless of \u03b4. Latency=1 (minimum nonzero) jumps to drift_ss=8.8072. This is a phase transition, not a gradual degradation."
+  ]
+}

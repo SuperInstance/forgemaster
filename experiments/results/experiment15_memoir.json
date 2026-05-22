@@ -1,0 +1,248 @@
+{
+  "experiment": "memoir_compression",
+  "hypothesis": "Agent calibration state compresses to O(log T) tiles while preserving drift prediction accuracy within 10%",
+  "results": {
+    "100": {
+      "random": {
+        "compressed_tiles": 10,
+        "compression_ratio": 10.0,
+        "prediction_accuracy": 0.0,
+        "prediction_mae": 2.9244,
+        "reconstruction_mse": 0.001726,
+        "theory_tiles": 10.0
+      },
+      "wavelet": {
+        "compressed_tiles": 10,
+        "compression_ratio": 10.0,
+        "prediction_accuracy": 0.0,
+        "prediction_mae": 3.2543,
+        "reconstruction_mse": 0.047232,
+        "theory_tiles": 10.0
+      },
+      "svd": {
+        "compressed_tiles": 6,
+        "compression_ratio": 16.67,
+        "prediction_accuracy": 0.0,
+        "prediction_mae": 3.2543,
+        "reconstruction_mse": 0.89874,
+        "theory_tiles": 6.6,
+        "energy_retained": 0.9997
+      },
+      "deadband": {
+        "compressed_tiles": 58,
+        "compression_ratio": 1.72,
+        "prediction_accuracy": 0.0,
+        "prediction_mae": 0.7565,
+        "reconstruction_mse": 0.001723,
+        "delta": 0.3378
+      }
+    },
+    "500": {
+      "random": {
+        "compressed_tiles": 22,
+        "compression_ratio": 22.73,
+        "prediction_accuracy": 0.3,
+        "prediction_mae": 0.2621,
+        "reconstruction_mse": 0.002028,
+        "theory_tiles": 22.4
+      },
+      "wavelet": {
+        "compressed_tiles": 22,
+        "compression_ratio": 22.73,
+        "prediction_accuracy": 0.0,
+        "prediction_mae": 1.1394,
+        "reconstruction_mse": 0.003972,
+        "theory_tiles": 22.4
+      },
+      "svd": {
+        "compressed_tiles": 8,
+        "compression_ratio": 62.5,
+        "prediction_accuracy": 0.0,
+        "prediction_mae": 1.1394,
+        "reconstruction_mse": 0.177648,
+        "theory_tiles": 9.0,
+        "energy_retained": 1.0
+      },
+      "deadband": {
+        "compressed_tiles": 400,
+        "compression_ratio": 1.25,
+        "prediction_accuracy": 0.29,
+        "prediction_mae": 0.2575,
+        "reconstruction_mse": 0.000373,
+        "delta": 0.1579
+      }
+    },
+    "1000": {
+      "random": {
+        "compressed_tiles": 31,
+        "compression_ratio": 32.26,
+        "prediction_accuracy": 0.35,
+        "prediction_mae": 0.1698,
+        "reconstruction_mse": 0.006124,
+        "theory_tiles": 31.6
+      },
+      "wavelet": {
+        "compressed_tiles": 31,
+        "compression_ratio": 32.26,
+        "prediction_accuracy": 0.28,
+        "prediction_mae": 0.2741,
+        "reconstruction_mse": 0.00164,
+        "theory_tiles": 31.6
+      },
+      "svd": {
+        "compressed_tiles": 9,
+        "compression_ratio": 111.11,
+        "prediction_accuracy": 0.28,
+        "prediction_mae": 0.2741,
+        "reconstruction_mse": 0.103747,
+        "theory_tiles": 10.0,
+        "energy_retained": 1.0
+      },
+      "deadband": {
+        "compressed_tiles": 943,
+        "compression_ratio": 1.06,
+        "prediction_accuracy": 0.32,
+        "prediction_mae": 0.1723,
+        "reconstruction_mse": 9.8e-05,
+        "delta": 0.1178
+      }
+    },
+    "5000": {
+      "random": {
+        "compressed_tiles": 70,
+        "compression_ratio": 71.43,
+        "prediction_accuracy": 0.25,
+        "prediction_mae": 0.1804,
+        "reconstruction_mse": 0.01603,
+        "theory_tiles": 70.7
+      },
+      "wavelet": {
+        "compressed_tiles": 70,
+        "compression_ratio": 71.43,
+        "prediction_accuracy": 0.42,
+        "prediction_mae": 0.1809,
+        "reconstruction_mse": 0.000454,
+        "theory_tiles": 70.7
+      },
+      "svd": {
+        "compressed_tiles": 12,
+        "compression_ratio": 416.67,
+        "prediction_accuracy": 0.42,
+        "prediction_mae": 0.1809,
+        "reconstruction_mse": 0.064235,
+        "theory_tiles": 12.3,
+        "energy_retained": 1.0
+      },
+      "deadband": {
+        "compressed_tiles": 4992,
+        "compression_ratio": 1.0,
+        "prediction_accuracy": 0.37,
+        "prediction_mae": 0.2467,
+        "reconstruction_mse": 1e-06,
+        "delta": 0.0725
+      }
+    },
+    "10000": {
+      "random": {
+        "compressed_tiles": 100,
+        "compression_ratio": 100.0,
+        "prediction_accuracy": 0.25,
+        "prediction_mae": 0.2611,
+        "reconstruction_mse": 0.009619,
+        "theory_tiles": 100.0
+      },
+      "wavelet": {
+        "compressed_tiles": 100,
+        "compression_ratio": 100.0,
+        "prediction_accuracy": 0.14,
+        "prediction_mae": 0.3841,
+        "reconstruction_mse": 0.000225,
+        "theory_tiles": 100.0
+      },
+      "svd": {
+        "compressed_tiles": 13,
+        "compression_ratio": 769.23,
+        "prediction_accuracy": 0.14,
+        "prediction_mae": 0.3841,
+        "reconstruction_mse": 0.044961,
+        "theory_tiles": 13.3,
+        "energy_retained": 1.0
+      },
+      "deadband": {
+        "compressed_tiles": 10000,
+        "compression_ratio": 1.0,
+        "prediction_accuracy": 0.32,
+        "prediction_mae": 0.1848,
+        "reconstruction_mse": 0.0,
+        "delta": 0.0409
+      }
+    }
+  },
+  "analysis": {
+    "scaling": {
+      "random": {
+        "log_fit_a": 19.3938,
+        "log_fit_b": -90.9218,
+        "log_r_squared": 0.9092,
+        "avg_prediction_accuracy": 0.23
+      },
+      "wavelet": {
+        "log_fit_a": 19.3938,
+        "log_fit_b": -90.9218,
+        "log_r_squared": 0.9092,
+        "avg_prediction_accuracy": 0.168
+      },
+      "svd": {
+        "log_fit_a": 1.5614,
+        "log_fit_b": -1.4722,
+        "log_r_squared": 0.9919,
+        "avg_prediction_accuracy": 0.168
+      },
+      "deadband": {
+        "log_fit_a": 2046.789,
+        "log_fit_b": -11235.2084,
+        "log_r_squared": 0.7834,
+        "avg_prediction_accuracy": 0.26
+      }
+    },
+    "conjecture_test": {
+      "random": {
+        "tiles_at_10k": 100,
+        "log2_10k": 13,
+        "tiles_within_2x_log": false,
+        "accuracy_at_10k": 0.25,
+        "accuracy_above_60pct": false,
+        "supports_conjecture": false
+      },
+      "wavelet": {
+        "tiles_at_10k": 100,
+        "log2_10k": 13,
+        "tiles_within_2x_log": false,
+        "accuracy_at_10k": 0.14,
+        "accuracy_above_60pct": false,
+        "supports_conjecture": false
+      },
+      "svd": {
+        "tiles_at_10k": 13,
+        "log2_10k": 13,
+        "tiles_within_2x_log": true,
+        "accuracy_at_10k": 0.14,
+        "accuracy_above_60pct": false,
+        "supports_conjecture": false
+      },
+      "deadband": {
+        "tiles_at_10k": 10000,
+        "log2_10k": 13,
+        "tiles_within_2x_log": false,
+        "accuracy_at_10k": 0.32,
+        "accuracy_above_60pct": false,
+        "supports_conjecture": false
+      }
+    }
+  },
+  "conclusion": {
+    "log_scaling_methods": [],
+    "best_compression": "svd",
+    "conjecture_status": "NOT SUPPORTED"
+  }
+}

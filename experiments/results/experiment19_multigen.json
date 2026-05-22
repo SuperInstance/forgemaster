@@ -1,0 +1,1172 @@
+{
+  "conclusion": "BOUNDED (inheritance is self-correcting)",
+  "hypothesis": "Drift grows linearly with generation count",
+  "novel_if_bounded": true,
+  "linear_fit": {
+    "slope": -2.5946752690515495e-05,
+    "intercept": 4.5685312986171756,
+    "r_squared": 0.5002313050199867
+  },
+  "drift_sequence": [
+    4.56855722136711,
+    4.5684275476038705,
+    4.568427507617083,
+    4.568427507603732,
+    4.568427507603728
+  ],
+  "drift_ratio_max_to_min": 1.0000283935255985,
+  "aggregated_by_generation": {
+    "gen1": {
+      "avg_max_drift": 4.56855722136711,
+      "std_max_drift": 3.3664970045471723,
+      "avg_mean_drift": 4.568413375550259,
+      "avg_calibration_quality": 0.04568413375550259,
+      "avg_convergence_tick": 7,
+      "convergence_rate": 0.5
+    },
+    "gen2": {
+      "avg_max_drift": 4.5684275476038705,
+      "std_max_drift": 3.3666672286159085,
+      "avg_mean_drift": 4.568427502781561,
+      "avg_calibration_quality": 0.045684275027815614,
+      "avg_convergence_tick": 0,
+      "convergence_rate": 0.5
+    },
+    "gen3": {
+      "avg_max_drift": 4.568427507617083,
+      "std_max_drift": 3.366667281406503,
+      "avg_mean_drift": 4.5684275076025855,
+      "avg_calibration_quality": 0.045684275076025856,
+      "avg_convergence_tick": 0,
+      "convergence_rate": 0.5
+    },
+    "gen4": {
+      "avg_max_drift": 4.568427507603732,
+      "std_max_drift": 3.3666672814241316,
+      "avg_mean_drift": 4.568427507603668,
+      "avg_calibration_quality": 0.04568427507603668,
+      "avg_convergence_tick": 0,
+      "convergence_rate": 0.5
+    },
+    "gen5": {
+      "avg_max_drift": 4.568427507603728,
+      "std_max_drift": 3.3666672814241307,
+      "avg_mean_drift": 4.5684275076036664,
+      "avg_calibration_quality": 0.04568427507603666,
+      "avg_convergence_tick": 0,
+      "convergence_rate": 0.5
+    }
+  },
+  "trials": [
+    {
+      "trial": 0,
+      "seed": 2000,
+      "generations": [
+        {
+          "generation": 1,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 7.784742454634809,
+          "mean_drift": 7.784742454634767,
+          "calibration_quality": 0.07784742454634767,
+          "agent_estimates": {
+            "0": 107.7847,
+            "1": 107.7847,
+            "2": 107.7847,
+            "3": 107.7847,
+            "4": 107.7847,
+            "5": 107.7847,
+            "6": 107.7847,
+            "7": 107.7847,
+            "8": 107.7847,
+            "9": 107.7847
+          },
+          "sunset_agent": 0
+        },
+        {
+          "generation": 2,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 7.784742454634809,
+          "mean_drift": 7.784742454634772,
+          "calibration_quality": 0.07784742454634773,
+          "agent_estimates": {
+            "0": 107.7847,
+            "1": 107.7847,
+            "2": 107.7847,
+            "3": 107.7847,
+            "4": 107.7847,
+            "5": 107.7847,
+            "6": 107.7847,
+            "7": 107.7847,
+            "8": 107.7847,
+            "9": 107.7847
+          },
+          "sunset_agent": 1
+        },
+        {
+          "generation": 3,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 7.784742454634809,
+          "mean_drift": 7.784742454634774,
+          "calibration_quality": 0.07784742454634774,
+          "agent_estimates": {
+            "0": 107.7847,
+            "1": 107.7847,
+            "2": 107.7847,
+            "3": 107.7847,
+            "4": 107.7847,
+            "5": 107.7847,
+            "6": 107.7847,
+            "7": 107.7847,
+            "8": 107.7847,
+            "9": 107.7847
+          },
+          "sunset_agent": 2
+        },
+        {
+          "generation": 4,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 7.784742454634809,
+          "mean_drift": 7.7847424546347765,
+          "calibration_quality": 0.07784742454634777,
+          "agent_estimates": {
+            "0": 107.7847,
+            "1": 107.7847,
+            "2": 107.7847,
+            "3": 107.7847,
+            "4": 107.7847,
+            "5": 107.7847,
+            "6": 107.7847,
+            "7": 107.7847,
+            "8": 107.7847,
+            "9": 107.7847
+          },
+          "sunset_agent": 3
+        },
+        {
+          "generation": 5,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 7.784742454634809,
+          "mean_drift": 7.7847424546347765,
+          "calibration_quality": 0.07784742454634777,
+          "agent_estimates": {
+            "0": 107.7847,
+            "1": 107.7847,
+            "2": 107.7847,
+            "3": 107.7847,
+            "4": 107.7847,
+            "5": 107.7847,
+            "6": 107.7847,
+            "7": 107.7847,
+            "8": 107.7847,
+            "9": 107.7847
+          },
+          "sunset_agent": 4
+        }
+      ]
+    },
+    {
+      "trial": 1,
+      "seed": 2013,
+      "generations": [
+        {
+          "generation": 1,
+          "converged": true,
+          "convergence_tick": 5,
+          "max_drift": 0.5688644908825182,
+          "mean_drift": 0.5674637601922115,
+          "calibration_quality": 0.005674637601922114,
+          "agent_estimates": {
+            "0": 100.5658,
+            "1": 100.5663,
+            "2": 100.5658,
+            "3": 100.5677,
+            "4": 100.5685,
+            "5": 100.5689,
+            "6": 100.5682,
+            "7": 100.5689,
+            "8": 100.5689,
+            "9": 100.5658
+          },
+          "sunset_agent": 0
+        },
+        {
+          "generation": 2,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.5676053266040384,
+          "mean_drift": 0.567604878650323,
+          "calibration_quality": 0.00567604878650323,
+          "agent_estimates": {
+            "0": 100.5676,
+            "1": 100.5676,
+            "2": 100.5676,
+            "3": 100.5676,
+            "4": 100.5676,
+            "5": 100.5676,
+            "6": 100.5676,
+            "7": 100.5676,
+            "8": 100.5676,
+            "9": 100.5676
+          },
+          "sunset_agent": 1
+        },
+        {
+          "generation": 3,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.5676049269795982,
+          "mean_drift": 0.5676049268351377,
+          "calibration_quality": 0.005676049268351377,
+          "agent_estimates": {
+            "0": 100.5676,
+            "1": 100.5676,
+            "2": 100.5676,
+            "3": 100.5676,
+            "4": 100.5676,
+            "5": 100.5676,
+            "6": 100.5676,
+            "7": 100.5676,
+            "8": 100.5676,
+            "9": 100.5676
+          },
+          "sunset_agent": 2
+        },
+        {
+          "generation": 4,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.5676049268461014,
+          "mean_drift": 0.5676049268459409,
+          "calibration_quality": 0.005676049268459408,
+          "agent_estimates": {
+            "0": 100.5676,
+            "1": 100.5676,
+            "2": 100.5676,
+            "3": 100.5676,
+            "4": 100.5676,
+            "5": 100.5676,
+            "6": 100.5676,
+            "7": 100.5676,
+            "8": 100.5676,
+            "9": 100.5676
+          },
+          "sunset_agent": 3
+        },
+        {
+          "generation": 5,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.5676049268461014,
+          "mean_drift": 0.5676049268459409,
+          "calibration_quality": 0.005676049268459408,
+          "agent_estimates": {
+            "0": 100.5676,
+            "1": 100.5676,
+            "2": 100.5676,
+            "3": 100.5676,
+            "4": 100.5676,
+            "5": 100.5676,
+            "6": 100.5676,
+            "7": 100.5676,
+            "8": 100.5676,
+            "9": 100.5676
+          },
+          "sunset_agent": 4
+        }
+      ]
+    },
+    {
+      "trial": 2,
+      "seed": 2026,
+      "generations": [
+        {
+          "generation": 1,
+          "converged": true,
+          "convergence_tick": 4,
+          "max_drift": 0.9755095780470526,
+          "mean_drift": 0.9754858049309945,
+          "calibration_quality": 0.009754858049309945,
+          "agent_estimates": {
+            "0": 99.0245,
+            "1": 99.0245,
+            "2": 99.0245,
+            "3": 99.0245,
+            "4": 99.0245,
+            "5": 99.0245,
+            "6": 99.0245,
+            "7": 99.0245,
+            "8": 99.0245,
+            "9": 99.0245
+          },
+          "sunset_agent": 0
+        },
+        {
+          "generation": 2,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.9754820296454056,
+          "mean_drift": 0.9754820295224974,
+          "calibration_quality": 0.009754820295224974,
+          "agent_estimates": {
+            "0": 99.0245,
+            "1": 99.0245,
+            "2": 99.0245,
+            "3": 99.0245,
+            "4": 99.0245,
+            "5": 99.0245,
+            "6": 99.0245,
+            "7": 99.0245,
+            "8": 99.0245,
+            "9": 99.0245
+          },
+          "sunset_agent": 1
+        },
+        {
+          "generation": 3,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.9754820295038797,
+          "mean_drift": 0.9754820295037533,
+          "calibration_quality": 0.009754820295037533,
+          "agent_estimates": {
+            "0": 99.0245,
+            "1": 99.0245,
+            "2": 99.0245,
+            "3": 99.0245,
+            "4": 99.0245,
+            "5": 99.0245,
+            "6": 99.0245,
+            "7": 99.0245,
+            "8": 99.0245,
+            "9": 99.0245
+          },
+          "sunset_agent": 2
+        },
+        {
+          "generation": 4,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.9754820295038655,
+          "mean_drift": 0.9754820295037518,
+          "calibration_quality": 0.009754820295037518,
+          "agent_estimates": {
+            "0": 99.0245,
+            "1": 99.0245,
+            "2": 99.0245,
+            "3": 99.0245,
+            "4": 99.0245,
+            "5": 99.0245,
+            "6": 99.0245,
+            "7": 99.0245,
+            "8": 99.0245,
+            "9": 99.0245
+          },
+          "sunset_agent": 3
+        },
+        {
+          "generation": 5,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.9754820295038513,
+          "mean_drift": 0.9754820295037419,
+          "calibration_quality": 0.009754820295037419,
+          "agent_estimates": {
+            "0": 99.0245,
+            "1": 99.0245,
+            "2": 99.0245,
+            "3": 99.0245,
+            "4": 99.0245,
+            "5": 99.0245,
+            "6": 99.0245,
+            "7": 99.0245,
+            "8": 99.0245,
+            "9": 99.0245
+          },
+          "sunset_agent": 4
+        }
+      ]
+    },
+    {
+      "trial": 3,
+      "seed": 2039,
+      "generations": [
+        {
+          "generation": 1,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 8.22040047273748,
+          "mean_drift": 8.220400472736555,
+          "calibration_quality": 0.08220400472736555,
+          "agent_estimates": {
+            "0": 108.2204,
+            "1": 108.2204,
+            "2": 108.2204,
+            "3": 108.2204,
+            "4": 108.2204,
+            "5": 108.2204,
+            "6": 108.2204,
+            "7": 108.2204,
+            "8": 108.2204,
+            "9": 108.2204
+          },
+          "sunset_agent": 0
+        },
+        {
+          "generation": 2,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 8.220400472736443,
+          "mean_drift": 8.220400472736383,
+          "calibration_quality": 0.08220400472736383,
+          "agent_estimates": {
+            "0": 108.2204,
+            "1": 108.2204,
+            "2": 108.2204,
+            "3": 108.2204,
+            "4": 108.2204,
+            "5": 108.2204,
+            "6": 108.2204,
+            "7": 108.2204,
+            "8": 108.2204,
+            "9": 108.2204
+          },
+          "sunset_agent": 1
+        },
+        {
+          "generation": 3,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 8.220400472736415,
+          "mean_drift": 8.220400472736369,
+          "calibration_quality": 0.0822040047273637,
+          "agent_estimates": {
+            "0": 108.2204,
+            "1": 108.2204,
+            "2": 108.2204,
+            "3": 108.2204,
+            "4": 108.2204,
+            "5": 108.2204,
+            "6": 108.2204,
+            "7": 108.2204,
+            "8": 108.2204,
+            "9": 108.2204
+          },
+          "sunset_agent": 2
+        },
+        {
+          "generation": 4,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 8.220400472736415,
+          "mean_drift": 8.220400472736369,
+          "calibration_quality": 0.0822040047273637,
+          "agent_estimates": {
+            "0": 108.2204,
+            "1": 108.2204,
+            "2": 108.2204,
+            "3": 108.2204,
+            "4": 108.2204,
+            "5": 108.2204,
+            "6": 108.2204,
+            "7": 108.2204,
+            "8": 108.2204,
+            "9": 108.2204
+          },
+          "sunset_agent": 3
+        },
+        {
+          "generation": 5,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 8.2204004727364,
+          "mean_drift": 8.220400472736365,
+          "calibration_quality": 0.08220400472736365,
+          "agent_estimates": {
+            "0": 108.2204,
+            "1": 108.2204,
+            "2": 108.2204,
+            "3": 108.2204,
+            "4": 108.2204,
+            "5": 108.2204,
+            "6": 108.2204,
+            "7": 108.2204,
+            "8": 108.2204,
+            "9": 108.2204
+          },
+          "sunset_agent": 4
+        }
+      ]
+    },
+    {
+      "trial": 4,
+      "seed": 2052,
+      "generations": [
+        {
+          "generation": 1,
+          "converged": true,
+          "convergence_tick": 13,
+          "max_drift": 3.222308677437283,
+          "mean_drift": 3.2223086774372307,
+          "calibration_quality": 0.03222308677437231,
+          "agent_estimates": {
+            "0": 96.7777,
+            "1": 96.7777,
+            "2": 96.7777,
+            "3": 96.7777,
+            "4": 96.7777,
+            "5": 96.7777,
+            "6": 96.7777,
+            "7": 96.7777,
+            "8": 96.7777,
+            "9": 96.7777
+          },
+          "sunset_agent": 0
+        },
+        {
+          "generation": 2,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 3.222308677437283,
+          "mean_drift": 3.222308677437238,
+          "calibration_quality": 0.03222308677437238,
+          "agent_estimates": {
+            "0": 96.7777,
+            "1": 96.7777,
+            "2": 96.7777,
+            "3": 96.7777,
+            "4": 96.7777,
+            "5": 96.7777,
+            "6": 96.7777,
+            "7": 96.7777,
+            "8": 96.7777,
+            "9": 96.7777
+          },
+          "sunset_agent": 1
+        },
+        {
+          "generation": 3,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 3.222308677437283,
+          "mean_drift": 3.222308677437238,
+          "calibration_quality": 0.03222308677437238,
+          "agent_estimates": {
+            "0": 96.7777,
+            "1": 96.7777,
+            "2": 96.7777,
+            "3": 96.7777,
+            "4": 96.7777,
+            "5": 96.7777,
+            "6": 96.7777,
+            "7": 96.7777,
+            "8": 96.7777,
+            "9": 96.7777
+          },
+          "sunset_agent": 2
+        },
+        {
+          "generation": 4,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 3.222308677437283,
+          "mean_drift": 3.222308677437238,
+          "calibration_quality": 0.03222308677437238,
+          "agent_estimates": {
+            "0": 96.7777,
+            "1": 96.7777,
+            "2": 96.7777,
+            "3": 96.7777,
+            "4": 96.7777,
+            "5": 96.7777,
+            "6": 96.7777,
+            "7": 96.7777,
+            "8": 96.7777,
+            "9": 96.7777
+          },
+          "sunset_agent": 3
+        },
+        {
+          "generation": 5,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 3.222308677437283,
+          "mean_drift": 3.222308677437238,
+          "calibration_quality": 0.03222308677437238,
+          "agent_estimates": {
+            "0": 96.7777,
+            "1": 96.7777,
+            "2": 96.7777,
+            "3": 96.7777,
+            "4": 96.7777,
+            "5": 96.7777,
+            "6": 96.7777,
+            "7": 96.7777,
+            "8": 96.7777,
+            "9": 96.7777
+          },
+          "sunset_agent": 4
+        }
+      ]
+    },
+    {
+      "trial": 5,
+      "seed": 2065,
+      "generations": [
+        {
+          "generation": 1,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 6.539094216575421,
+          "mean_drift": 6.539094216574678,
+          "calibration_quality": 0.06539094216574678,
+          "agent_estimates": {
+            "0": 93.4609,
+            "1": 93.4609,
+            "2": 93.4609,
+            "3": 93.4609,
+            "4": 93.4609,
+            "5": 93.4609,
+            "6": 93.4609,
+            "7": 93.4609,
+            "8": 93.4609,
+            "9": 93.4609
+          },
+          "sunset_agent": 0
+        },
+        {
+          "generation": 2,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 6.539094216574625,
+          "mean_drift": 6.539094216574554,
+          "calibration_quality": 0.06539094216574554,
+          "agent_estimates": {
+            "0": 93.4609,
+            "1": 93.4609,
+            "2": 93.4609,
+            "3": 93.4609,
+            "4": 93.4609,
+            "5": 93.4609,
+            "6": 93.4609,
+            "7": 93.4609,
+            "8": 93.4609,
+            "9": 93.4609
+          },
+          "sunset_agent": 1
+        },
+        {
+          "generation": 3,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 6.539094216574625,
+          "mean_drift": 6.539094216574566,
+          "calibration_quality": 0.06539094216574566,
+          "agent_estimates": {
+            "0": 93.4609,
+            "1": 93.4609,
+            "2": 93.4609,
+            "3": 93.4609,
+            "4": 93.4609,
+            "5": 93.4609,
+            "6": 93.4609,
+            "7": 93.4609,
+            "8": 93.4609,
+            "9": 93.4609
+          },
+          "sunset_agent": 2
+        },
+        {
+          "generation": 4,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 6.539094216574625,
+          "mean_drift": 6.5390942165745685,
+          "calibration_quality": 0.06539094216574569,
+          "agent_estimates": {
+            "0": 93.4609,
+            "1": 93.4609,
+            "2": 93.4609,
+            "3": 93.4609,
+            "4": 93.4609,
+            "5": 93.4609,
+            "6": 93.4609,
+            "7": 93.4609,
+            "8": 93.4609,
+            "9": 93.4609
+          },
+          "sunset_agent": 3
+        },
+        {
+          "generation": 5,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 6.539094216574611,
+          "mean_drift": 6.539094216574563,
+          "calibration_quality": 0.06539094216574562,
+          "agent_estimates": {
+            "0": 93.4609,
+            "1": 93.4609,
+            "2": 93.4609,
+            "3": 93.4609,
+            "4": 93.4609,
+            "5": 93.4609,
+            "6": 93.4609,
+            "7": 93.4609,
+            "8": 93.4609,
+            "9": 93.4609
+          },
+          "sunset_agent": 4
+        }
+      ]
+    },
+    {
+      "trial": 6,
+      "seed": 2078,
+      "generations": [
+        {
+          "generation": 1,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 5.990034944975221,
+          "mean_drift": 5.990034944974478,
+          "calibration_quality": 0.05990034944974478,
+          "agent_estimates": {
+            "0": 105.99,
+            "1": 105.99,
+            "2": 105.99,
+            "3": 105.99,
+            "4": 105.99,
+            "5": 105.99,
+            "6": 105.99,
+            "7": 105.99,
+            "8": 105.99,
+            "9": 105.99
+          },
+          "sunset_agent": 0
+        },
+        {
+          "generation": 2,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 5.990034944974582,
+          "mean_drift": 5.990034944974544,
+          "calibration_quality": 0.059900349449745434,
+          "agent_estimates": {
+            "0": 105.99,
+            "1": 105.99,
+            "2": 105.99,
+            "3": 105.99,
+            "4": 105.99,
+            "5": 105.99,
+            "6": 105.99,
+            "7": 105.99,
+            "8": 105.99,
+            "9": 105.99
+          },
+          "sunset_agent": 1
+        },
+        {
+          "generation": 3,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 5.990034944974582,
+          "mean_drift": 5.990034944974544,
+          "calibration_quality": 0.059900349449745434,
+          "agent_estimates": {
+            "0": 105.99,
+            "1": 105.99,
+            "2": 105.99,
+            "3": 105.99,
+            "4": 105.99,
+            "5": 105.99,
+            "6": 105.99,
+            "7": 105.99,
+            "8": 105.99,
+            "9": 105.99
+          },
+          "sunset_agent": 2
+        },
+        {
+          "generation": 4,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 5.990034944974582,
+          "mean_drift": 5.9900349449745445,
+          "calibration_quality": 0.05990034944974545,
+          "agent_estimates": {
+            "0": 105.99,
+            "1": 105.99,
+            "2": 105.99,
+            "3": 105.99,
+            "4": 105.99,
+            "5": 105.99,
+            "6": 105.99,
+            "7": 105.99,
+            "8": 105.99,
+            "9": 105.99
+          },
+          "sunset_agent": 3
+        },
+        {
+          "generation": 5,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 5.990034944974582,
+          "mean_drift": 5.9900349449745445,
+          "calibration_quality": 0.05990034944974545,
+          "agent_estimates": {
+            "0": 105.99,
+            "1": 105.99,
+            "2": 105.99,
+            "3": 105.99,
+            "4": 105.99,
+            "5": 105.99,
+            "6": 105.99,
+            "7": 105.99,
+            "8": 105.99,
+            "9": 105.99
+          },
+          "sunset_agent": 4
+        }
+      ]
+    },
+    {
+      "trial": 7,
+      "seed": 2091,
+      "generations": [
+        {
+          "generation": 1,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 9.27135382887515,
+          "mean_drift": 9.271353828875107,
+          "calibration_quality": 0.09271353828875106,
+          "agent_estimates": {
+            "0": 90.7286,
+            "1": 90.7286,
+            "2": 90.7286,
+            "3": 90.7286,
+            "4": 90.7286,
+            "5": 90.7286,
+            "6": 90.7286,
+            "7": 90.7286,
+            "8": 90.7286,
+            "9": 90.7286
+          },
+          "sunset_agent": 0
+        },
+        {
+          "generation": 2,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 9.271353828875121,
+          "mean_drift": 9.271353828875096,
+          "calibration_quality": 0.09271353828875097,
+          "agent_estimates": {
+            "0": 90.7286,
+            "1": 90.7286,
+            "2": 90.7286,
+            "3": 90.7286,
+            "4": 90.7286,
+            "5": 90.7286,
+            "6": 90.7286,
+            "7": 90.7286,
+            "8": 90.7286,
+            "9": 90.7286
+          },
+          "sunset_agent": 1
+        },
+        {
+          "generation": 3,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 9.271353828875121,
+          "mean_drift": 9.2713538288751,
+          "calibration_quality": 0.092713538288751,
+          "agent_estimates": {
+            "0": 90.7286,
+            "1": 90.7286,
+            "2": 90.7286,
+            "3": 90.7286,
+            "4": 90.7286,
+            "5": 90.7286,
+            "6": 90.7286,
+            "7": 90.7286,
+            "8": 90.7286,
+            "9": 90.7286
+          },
+          "sunset_agent": 2
+        },
+        {
+          "generation": 4,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 9.271353828875121,
+          "mean_drift": 9.2713538288751,
+          "calibration_quality": 0.092713538288751,
+          "agent_estimates": {
+            "0": 90.7286,
+            "1": 90.7286,
+            "2": 90.7286,
+            "3": 90.7286,
+            "4": 90.7286,
+            "5": 90.7286,
+            "6": 90.7286,
+            "7": 90.7286,
+            "8": 90.7286,
+            "9": 90.7286
+          },
+          "sunset_agent": 3
+        },
+        {
+          "generation": 5,
+          "converged": false,
+          "convergence_tick": 201,
+          "max_drift": 9.271353828875121,
+          "mean_drift": 9.2713538288751,
+          "calibration_quality": 0.092713538288751,
+          "agent_estimates": {
+            "0": 90.7286,
+            "1": 90.7286,
+            "2": 90.7286,
+            "3": 90.7286,
+            "4": 90.7286,
+            "5": 90.7286,
+            "6": 90.7286,
+            "7": 90.7286,
+            "8": 90.7286,
+            "9": 90.7286
+          },
+          "sunset_agent": 4
+        }
+      ]
+    },
+    {
+      "trial": 8,
+      "seed": 2104,
+      "generations": [
+        {
+          "generation": 1,
+          "converged": true,
+          "convergence_tick": 9,
+          "max_drift": 0.7090785291823778,
+          "mean_drift": 0.7090785291808614,
+          "calibration_quality": 0.007090785291808615,
+          "agent_estimates": {
+            "0": 100.7091,
+            "1": 100.7091,
+            "2": 100.7091,
+            "3": 100.7091,
+            "4": 100.7091,
+            "5": 100.7091,
+            "6": 100.7091,
+            "7": 100.7091,
+            "8": 100.7091,
+            "9": 100.7091
+          },
+          "sunset_agent": 0
+        },
+        {
+          "generation": 2,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.7090785291805872,
+          "mean_drift": 0.7090785291805333,
+          "calibration_quality": 0.007090785291805332,
+          "agent_estimates": {
+            "0": 100.7091,
+            "1": 100.7091,
+            "2": 100.7091,
+            "3": 100.7091,
+            "4": 100.7091,
+            "5": 100.7091,
+            "6": 100.7091,
+            "7": 100.7091,
+            "8": 100.7091,
+            "9": 100.7091
+          },
+          "sunset_agent": 1
+        },
+        {
+          "generation": 3,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.7090785291805872,
+          "mean_drift": 0.7090785291805404,
+          "calibration_quality": 0.007090785291805403,
+          "agent_estimates": {
+            "0": 100.7091,
+            "1": 100.7091,
+            "2": 100.7091,
+            "3": 100.7091,
+            "4": 100.7091,
+            "5": 100.7091,
+            "6": 100.7091,
+            "7": 100.7091,
+            "8": 100.7091,
+            "9": 100.7091
+          },
+          "sunset_agent": 2
+        },
+        {
+          "generation": 4,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.7090785291805872,
+          "mean_drift": 0.7090785291805475,
+          "calibration_quality": 0.007090785291805474,
+          "agent_estimates": {
+            "0": 100.7091,
+            "1": 100.7091,
+            "2": 100.7091,
+            "3": 100.7091,
+            "4": 100.7091,
+            "5": 100.7091,
+            "6": 100.7091,
+            "7": 100.7091,
+            "8": 100.7091,
+            "9": 100.7091
+          },
+          "sunset_agent": 3
+        },
+        {
+          "generation": 5,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 0.7090785291805872,
+          "mean_drift": 0.7090785291805475,
+          "calibration_quality": 0.007090785291805474,
+          "agent_estimates": {
+            "0": 100.7091,
+            "1": 100.7091,
+            "2": 100.7091,
+            "3": 100.7091,
+            "4": 100.7091,
+            "5": 100.7091,
+            "6": 100.7091,
+            "7": 100.7091,
+            "8": 100.7091,
+            "9": 100.7091
+          },
+          "sunset_agent": 4
+        }
+      ]
+    },
+    {
+      "trial": 9,
+      "seed": 2117,
+      "generations": [
+        {
+          "generation": 1,
+          "converged": true,
+          "convergence_tick": 4,
+          "max_drift": 2.40418502032378,
+          "mean_drift": 2.4041710659657056,
+          "calibration_quality": 0.024041710659657056,
+          "agent_estimates": {
+            "0": 97.5958,
+            "1": 97.5958,
+            "2": 97.5958,
+            "3": 97.5958,
+            "4": 97.5958,
+            "5": 97.5958,
+            "6": 97.5958,
+            "7": 97.5959,
+            "8": 97.5958,
+            "9": 97.5958
+          },
+          "sunset_agent": 0
+        },
+        {
+          "generation": 2,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 2.4041749953758114,
+          "mean_drift": 2.4041749952296727,
+          "calibration_quality": 0.024041749952296725,
+          "agent_estimates": {
+            "0": 97.5958,
+            "1": 97.5958,
+            "2": 97.5958,
+            "3": 97.5958,
+            "4": 97.5958,
+            "5": 97.5958,
+            "6": 97.5958,
+            "7": 97.5958,
+            "8": 97.5958,
+            "9": 97.5958
+          },
+          "sunset_agent": 1
+        },
+        {
+          "generation": 3,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 2.4041749952739337,
+          "mean_drift": 2.404174995273837,
+          "calibration_quality": 0.024041749952738372,
+          "agent_estimates": {
+            "0": 97.5958,
+            "1": 97.5958,
+            "2": 97.5958,
+            "3": 97.5958,
+            "4": 97.5958,
+            "5": 97.5958,
+            "6": 97.5958,
+            "7": 97.5958,
+            "8": 97.5958,
+            "9": 97.5958
+          },
+          "sunset_agent": 2
+        },
+        {
+          "generation": 4,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 2.4041749952739337,
+          "mean_drift": 2.404174995273846,
+          "calibration_quality": 0.024041749952738455,
+          "agent_estimates": {
+            "0": 97.5958,
+            "1": 97.5958,
+            "2": 97.5958,
+            "3": 97.5958,
+            "4": 97.5958,
+            "5": 97.5958,
+            "6": 97.5958,
+            "7": 97.5958,
+            "8": 97.5958,
+            "9": 97.5958
+          },
+          "sunset_agent": 3
+        },
+        {
+          "generation": 5,
+          "converged": true,
+          "convergence_tick": 0,
+          "max_drift": 2.4041749952739337,
+          "mean_drift": 2.404174995273846,
+          "calibration_quality": 0.024041749952738455,
+          "agent_estimates": {
+            "0": 97.5958,
+            "1": 97.5958,
+            "2": 97.5958,
+            "3": 97.5958,
+            "4": 97.5958,
+            "5": 97.5958,
+            "6": 97.5958,
+            "7": 97.5958,
+            "8": 97.5958,
+            "9": 97.5958
+          },
+          "sunset_agent": 4
+        }
+      ]
+    }
+  ]
+}

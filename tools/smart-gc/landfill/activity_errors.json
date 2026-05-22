@@ -1,0 +1,12 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/forgemaster/mud-agent/activity.log",
+  "size_mb": 0.0,
+  "age_days": 4,
+  "unique_error_patterns": 1,
+  "top_patterns": [
+    {
+      "pattern": "snap(<N>,<N>) and snap(<N>,<N>) error: avg=<N>.<N> max=<N>.<N>",
+      "count": 2
+    }
+  ]
+}

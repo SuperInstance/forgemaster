@@ -1,0 +1,16 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/flux-tensor-midi/c/build/CMakeFiles/CMakeOutput.log",
+  "size_mb": 0.02,
+  "age_days": 10,
+  "unique_error_patterns": 2,
+  "top_patterns": [
+    {
+      "pattern": "Configured with: ..<PATH> -v --with-pkgversion='Ubuntu <N>.<N>.<N>-<N>ubuntu<N>~<N>.<N>.<N>' --with-bugurl=file:<PATH><N><PATH> --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,m<N> --prefi",
+      "count": 2
+    },
+    {
+      "pattern": "ignore line: [Configured with: ..<PATH> -v --with-pkgversion='Ubuntu <N>.<N>.<N>-<N>ubuntu<N>~<N>.<N>.<N>' --with-bugurl=file:<PATH><N><PATH> --enable-languages=c ada c++ go brig d fortran objc obj-c+",
+      "count": 2
+    }
+  ]
+}

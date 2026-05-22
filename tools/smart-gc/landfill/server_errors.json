@@ -1,0 +1,20 @@
+{
+  "source": "/home/phoenix/.openclaw/workspace/fleet-murmur/data/mud/server.log",
+  "size_mb": 0.02,
+  "age_days": 14,
+  "unique_error_patterns": 3,
+  "top_patterns": [
+    {
+      "pattern": "UnicodeDecodeError: 'utf-<N>' codec can't decode byte <HEX> in position <N>: invalid continuation byte",
+      "count": 2
+    },
+    {
+      "pattern": "future: <Task finished name='Task-<N>' coro=<handle_client() done, defined at <PATH>:<N>> exception=UnicodeDecodeError('utf-<N>', b'\\x<N>\\x<N>\\x<N>\\x<N>\\xc<N>\\x<N>\\x<N>\\x<N>\\xc<N>\\x<N>\\x<N>\\xdb\\xecnj\\",
+      "count": 1
+    },
+    {
+      "pattern": "future: <Task finished name='Task-<N>' coro=<handle_client() done, defined at <PATH>:<N>> exception=UnicodeDecodeError('utf-<N>', b\"\\x<N>\\x<N>\\x<N>\\x<N>\\xca\\x<N>\\x<N>\\x<N>\\xc<N>\\x<N>\\x<N>\\x<N>(n\\x<N>d",
+      "count": 1
+    }
+  ]
+}
