@@ -19,8 +19,19 @@ from metronome_node import (
     PeerDiscovery,
     tensor_midi_encode,
     tensor_midi_decode,
-    tensor_midi_roundtrip,
     MULTICAST_GROUP,
+)
+from fleet_protocol import (
+    MAGIC as FLEET_MAGIC,
+    MessageType,
+    encode_tick,
+    encode_beacon,
+    encode_cadence_call,
+    encode_sunset,
+    encode_message,
+    decode_message,
+    decode_raw,
+    now_ms,
 )
 
 # ---------------------------------------------------------------------------
@@ -42,37 +53,69 @@ def test(name: str, condition: bool, detail: str = ""):
 
 
 # ---------------------------------------------------------------------------
-# Test 1: Tensor-MIDI round-trip
+# Test 1: Tensor-MIDI round-trip (spec-compliant via fleet_protocol)
 # ---------------------------------------------------------------------------
 
 def test_tensor_midi():
-    print("\n=== Test: Tensor-MIDI Encoding ===")
+    print("\n=== Test: Tensor-MIDI Encoding (Spec-Compliant) ===")
 
-    # Round-trip with small values
-    payload = {"a": 0.5, "b": -0.3, "c": 0.0}
-    decoded = tensor_midi_roundtrip(payload)
-    for k in payload:
-        test(
-            f"Round-trip key '{k}'",
-            abs(decoded[k] - payload[k]) < 0.001,
-            f"expected {payload[k]}, got {decoded[k]}",
-        )
+    # Round-trip via the backward-compatible tensor_midi_encode wrapper
+    payload = {"c": 0.5, "t": 0.3}
+    encoded = tensor_midi_encode(payload)
+    decoded = tensor_midi_decode(encoded)
+    test(
+        "Backward-compat wrapper round-trip",
+        decoded["type"] == MessageType.TICK,
+        f"expected TICK, got {decoded['type']}",
+    )
+    test(
+        "Backward-compat drift value",
+        abs(decoded["payload"]["drift"] - 0.5) < 0.01,
+        f"got drift={decoded['payload']['drift']}",
+    )
 
-    # INT8 saturation — values clamped to [-1, 1]
-    saturated = tensor_midi_roundtrip({"x": 5.0, "y": -10.0})
-    test("Saturation high clamped to 1.0", abs(saturated["x"] - 1.0) < 0.001, f"got {saturated['x']}")
-    test("Saturation low clamped to -1.0", abs(saturated["y"] + 1.0) < 0.001, f"got {saturated['y']}")
+    # Spec-compliant: magic is 0xF1EE7
+    raw = encode_tick(sender_id=7, timestamp_ms=12345, beat=42, time_ms=9999, drift=0.123, state=1)
+    test("Magic is 0xF1EE7", raw[:4] == struct.pack(">I", FLEET_MAGIC))
+    test("Packet has CRC16 footer", len(raw) >= 14 + 13 + 2)  # header + payload + CRC
 
-    # Empty payload
-    empty = tensor_midi_roundtrip({})
-    test("Empty payload round-trip", empty == {})
+    msg = decode_message(raw)
+    test("Decode type is TICK", msg["type"] == MessageType.TICK)
+    test("Decode sender_id", msg["sender_id"] == 7)
+    test("Decode beat", msg["payload"]["beat"] == 42)
+    test("Decode drift", abs(msg["payload"]["drift"] - 0.123) < 1e-6)
+    test("Decode state", msg["payload"]["state"] == 1)
 
-    # Single value at boundary
-    boundary = tensor_midi_roundtrip({"z": 1.0})
-    test("Boundary 1.0 round-trip", abs(boundary["z"] - 1.0) < 0.001)
+    # Round-trip: empty payload through TICK
+    empty = tensor_midi_encode({})
+    empty_decoded = tensor_midi_decode(empty)
+    test("Empty payload round-trip", empty_decoded["type"] == MessageType.TICK)
 
-    boundary_neg = tensor_midi_roundtrip({"z": -1.0})
-    test("Boundary -1.0 round-trip", abs(boundary_neg["z"] + 1.0) < 0.001)
+    # Spec-compliant: BEACON round-trip
+    theta = {
+        "T": Fraction(1, 2),
+        "phi0": 1000,
+        "epsilon": Fraction(1, 1000),
+        "delta": Fraction(1, 100),
+    }
+    beacon_raw = encode_beacon(sender_id=1, timestamp_ms=now_ms(), uptime_ms=5000, theta=theta, known_peers={2, 3})
+    beacon_msg = decode_message(beacon_raw)
+    test("BEACON round-trip type", beacon_msg["type"] == MessageType.BEACON)
+    test("BEACON uptime", beacon_msg["payload"]["uptime_ms"] == 5000)
+    test("BEACON theta T", beacon_msg["payload"]["theta"]["T"] == Fraction(1, 2))
+    test("BEACON peers", beacon_msg["payload"]["known_peers"] == {2, 3})
+
+    # Spec-compliant: SUNSET round-trip
+    sunset_raw = encode_sunset(sender_id=5, timestamp_ms=now_ms(), node_id=5, tile_count=99)
+    sunset_msg = decode_message(sunset_raw)
+    test("SUNSET round-trip type", sunset_msg["type"] == MessageType.SUNSET)
+    test("SUNSET tile_count", sunset_msg["payload"]["tile_count"] == 99)
+
+    # Spec-compliant: CADENCE_CALL round-trip
+    cad_raw = encode_cadence_call(sender_id=2, timestamp_ms=now_ms(), caller_id=2, caller_uptime_ms=10000, claimed_tick=500)
+    cad_msg = decode_message(cad_raw)
+    test("CADENCE_CALL round-trip type", cad_msg["type"] == MessageType.CADENCE_CALL)
+    test("CADENCE_CALL claimed_tick", cad_msg["payload"]["claimed_tick"] == 500)
 
 
 # ---------------------------------------------------------------------------

@@ -384,16 +384,6 @@ class MetronomeNode:
 
 
 # ---------------------------------------------------------------------------
-# Tensor-MIDI round-trip test helpers
-# ---------------------------------------------------------------------------
-
-def tensor_midi_roundtrip(payload: dict) -> dict:
-    """Encode and decode payload through Tensor-MIDI for testing."""
-    encoded = tensor_midi_encode(payload)
-    return tensor_midi_decode(encoded)
-
-
-# ---------------------------------------------------------------------------
 # CLI entry point
 # ---------------------------------------------------------------------------
 
