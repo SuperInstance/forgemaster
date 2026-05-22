@@ -1,0 +1,876 @@
+{
+  "experiment": 24,
+  "hypothesis": "N=3f+1 is the tight BFT bound",
+  "configurations": [
+    {
+      "f": 1,
+      "tight_bound": 4,
+      "tests": [
+        {
+          "N": 3,
+          "f": 1,
+          "is_tight_bound": false,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 35.9,
+          "max_drift_across_trials": 22.461159,
+          "avg_max_drift": 10.90692,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 28,
+              "max_drift": 3.157749
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 41,
+              "max_drift": 14.970878
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 43,
+              "max_drift": 22.461159
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 29,
+              "max_drift": 3.772008
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 43,
+              "max_drift": 19.754361
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 38,
+              "max_drift": 11.645055
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 33,
+              "max_drift": 5.668492
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 39,
+              "max_drift": 11.244896
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 40,
+              "max_drift": 14.12357
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 25,
+              "max_drift": 2.27103
+            }
+          ]
+        },
+        {
+          "N": 4,
+          "f": 1,
+          "is_tight_bound": true,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 1,
+          "max_drift_across_trials": 0.014789,
+          "avg_max_drift": 0.012303,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.014733
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.009841
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.009841
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.014789
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.009841
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.014789
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.009841
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.009841
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.014733
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.014789
+            }
+          ]
+        },
+        {
+          "N": 5,
+          "f": 1,
+          "is_tight_bound": false,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 1,
+          "max_drift_across_trials": 0.026129,
+          "avg_max_drift": 0.021242,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.026129
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.018629
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.018629
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.026129
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.018629
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.018629
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.018629
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.018629
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.022258
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.026129
+            }
+          ]
+        },
+        {
+          "N": 7,
+          "f": 1,
+          "is_tight_bound": false,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 1,
+          "max_drift_across_trials": 0.039198,
+          "avg_max_drift": 0.036177,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.031698
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.031698
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.031698
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.037294
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.039198
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.037232
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.039198
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.039198
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.037294
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.037264
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "f": 2,
+      "tight_bound": 7,
+      "tests": [
+        {
+          "N": 5,
+          "f": 2,
+          "is_tight_bound": false,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 50.4,
+          "max_drift_across_trials": 16.089328,
+          "avg_max_drift": 8.928716,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 48,
+              "max_drift": 6.280854
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 46,
+              "max_drift": 5.375969
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 52,
+              "max_drift": 9.530371
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 54,
+              "max_drift": 11.231021
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 51,
+              "max_drift": 9.99959
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 47,
+              "max_drift": 7.09283
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 47,
+              "max_drift": 6.030841
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 59,
+              "max_drift": 16.089328
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 47,
+              "max_drift": 6.812105
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 53,
+              "max_drift": 10.84425
+            }
+          ]
+        },
+        {
+          "N": 6,
+          "f": 2,
+          "is_tight_bound": false,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 55.9,
+          "max_drift_across_trials": 12.104698,
+          "avg_max_drift": 5.629354,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.029758
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 68,
+              "max_drift": 7.333996
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 47,
+              "max_drift": 5.707885
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 56,
+              "max_drift": 4.938119
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 68,
+              "max_drift": 7.012079
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 76,
+              "max_drift": 12.104698
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 61,
+              "max_drift": 3.040915
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 60,
+              "max_drift": 4.874551
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 72,
+              "max_drift": 6.589446
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 50,
+              "max_drift": 4.662089
+            }
+          ]
+        },
+        {
+          "N": 7,
+          "f": 2,
+          "is_tight_bound": true,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 55.4,
+          "max_drift_across_trials": 8.574123,
+          "avg_max_drift": 4.918427,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 58,
+              "max_drift": 3.735328
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 50,
+              "max_drift": 4.929293
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 66,
+              "max_drift": 6.490819
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 53,
+              "max_drift": 5.176256
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 71,
+              "max_drift": 8.574123
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 28,
+              "max_drift": 0.421443
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 55,
+              "max_drift": 4.142029
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 59,
+              "max_drift": 5.622617
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 55,
+              "max_drift": 5.497654
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 59,
+              "max_drift": 4.594703
+            }
+          ]
+        },
+        {
+          "N": 10,
+          "f": 2,
+          "is_tight_bound": false,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 1,
+          "max_drift_across_trials": 0.041274,
+          "avg_max_drift": 0.035608,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.039889
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.041274
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.03881
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.039628
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.032543
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.032543
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.032532
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.026274
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.032543
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.040043
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "f": 3,
+      "tight_bound": 10,
+      "tests": [
+        {
+          "N": 8,
+          "f": 3,
+          "is_tight_bound": false,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 56.6,
+          "max_drift_across_trials": 10.513118,
+          "avg_max_drift": 6.727957,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 66,
+              "max_drift": 8.206716
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 43,
+              "max_drift": 3.173925
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 64,
+              "max_drift": 8.547368
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 51,
+              "max_drift": 4.700033
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 50,
+              "max_drift": 5.98609
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 60,
+              "max_drift": 6.595918
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 67,
+              "max_drift": 7.854768
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 64,
+              "max_drift": 7.138546
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 54,
+              "max_drift": 10.513118
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 47,
+              "max_drift": 4.56309
+            }
+          ]
+        },
+        {
+          "N": 9,
+          "f": 3,
+          "is_tight_bound": false,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 37.9,
+          "max_drift_across_trials": 6.641115,
+          "avg_max_drift": 2.84515,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.037312
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 55,
+              "max_drift": 3.563891
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 60,
+              "max_drift": 6.641115
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 59,
+              "max_drift": 5.490884
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 59,
+              "max_drift": 3.595204
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.037603
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 58,
+              "max_drift": 4.187657
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 30,
+              "max_drift": 0.594281
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 55,
+              "max_drift": 4.271598
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.031957
+            }
+          ]
+        },
+        {
+          "N": 10,
+          "f": 3,
+          "is_tight_bound": true,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 35.7,
+          "max_drift_across_trials": 6.238608,
+          "avg_max_drift": 1.584675,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 35,
+              "max_drift": 0.962023
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 47,
+              "max_drift": 1.713006
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 28,
+              "max_drift": 0.513494
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.031564
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 51,
+              "max_drift": 2.387993
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 68,
+              "max_drift": 6.238608
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 37,
+              "max_drift": 0.77691
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.032824
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 31,
+              "max_drift": 0.66298
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 58,
+              "max_drift": 2.52735
+            }
+          ]
+        },
+        {
+          "N": 13,
+          "f": 3,
+          "is_tight_bound": false,
+          "convergence_rate": 1.0,
+          "avg_convergence_tick": 1,
+          "max_drift_across_trials": 0.041274,
+          "avg_max_drift": 0.03941,
+          "trials": [
+            {
+              "trial": 0,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.039779
+            },
+            {
+              "trial": 1,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.033704
+            },
+            {
+              "trial": 2,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.041041
+            },
+            {
+              "trial": 3,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.041152
+            },
+            {
+              "trial": 4,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.041152
+            },
+            {
+              "trial": 5,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.041105
+            },
+            {
+              "trial": 6,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.041076
+            },
+            {
+              "trial": 7,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.033787
+            },
+            {
+              "trial": 8,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.041274
+            },
+            {
+              "trial": 9,
+              "converged": true,
+              "convergence_tick": 1,
+              "max_drift": 0.040033
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
