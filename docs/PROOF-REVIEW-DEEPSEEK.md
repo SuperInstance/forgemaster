@@ -4,8 +4,10 @@
 ### 2. Optimal Coupling \(\alpha^*\)  
 **PARTIALLY CORRECT**. The formula \(\alpha^* = 2/(\lambda_2 + \lambda_N)\) is spectrally derived for ideal consensus and correct. However, experimental convergence at \(1.076\times\) the predicted rate indicates a deviation, likely due to unmodeled dynamics (e.g., noise, delays), making the claim incomplete in practice.  
 
-### 3. Mutual Information \(I(X;Y)=0\) Below Deadband  
-**INCORRECT**. \(I(X;Y)=0\) implies statistical independence, which is not guaranteed merely because drift is below a deadband \(\delta\). Correlated processes could have low drift but high mutual information (e.g., synchronized oscillators). The claim confuses bounded drift with independence.  
+### 3. Mutual Information I(X;Y)=0 Below Deadband  
+**INCORRECT** — now **CORRECTED**. The original claim was disproved: I(X;Y)=0 implies statistical independence, which is not guaranteed merely because drift is below a deadband δ. Correlated processes could have low drift but high mutual information (e.g., synchronized oscillators). The claim confused bounded drift with independence.
+
+**Correction applied (2025-05-22):** Theorem 2.1 has been rewritten as **Theorem 2.1 (Deadband Sparsity)** — a weaker but correct theorem about the sparsity of transmitted corrections, not mutual information. The deadband filter is a deterministic threshold: below ε, no useful correction is transmitted. The expected correction rate is P(|X|≥ε)·N, which is exponentially small for σ≪ε. No mutual information claim is made. Appendix C also corrected accordingly.  
 
 ### 4. Zero Drift with Exact Arithmetic  
 **CORRECT**. Using exact rational arithmetic (e.g., Python `Fraction`) eliminates floating-point rounding errors. For \(K\) operations (e.g., 10K beats), zero drift is expected and obvious—rational arithmetic preserves precision algebraically.  
