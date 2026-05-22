@@ -54,6 +54,7 @@ def adjacency_from_edges(n, edges):
 def simulate(n, adj, ticks, check_freq, seed=12345):
     import random
     rng = random.Random(seed)
+    load_rng = random.Random(seed + 99999)  # separate RNG for dummy load
     
     # Initialize agents with random offsets from true value
     values = [TRUE_VALUE + rng.gauss(0, 100) for _ in range(n)]
@@ -66,10 +67,10 @@ def simulate(n, adj, ticks, check_freq, seed=12345):
         t0 = time.perf_counter()
         
         # Simulate load: dummy computation proportional to check frequency
-        # This models constraint checking overhead
+        # Uses SEPARATE RNG so it doesn't affect consensus trajectory
         load = 0.0
         for _ in range(check_freq * n):
-            load += math.sqrt(rng.random() + 0.001)  # dummy work
+            load += math.sqrt(load_rng.random() + 0.001)  # dummy work
         
         # Agent consensus update (the "metronome" — always runs at same rate)
         new_values = list(values)
