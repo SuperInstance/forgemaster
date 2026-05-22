@@ -1,0 +1,7206 @@
+{
+  "experiment": 40,
+  "total_conditions": 288,
+  "results": [
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 164455.783806,
+      "convergence_time": 100,
+      "drift_history": [
+        1.652041,
+        11.781202,
+        52.244988,
+        197.070285,
+        709.677676,
+        2506.328453,
+        8749.528006,
+        30292.17338,
+        104305.687652,
+        358769.490386
+      ],
+      "anti_fragility_corr": 0.6026
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 7966880.163052,
+      "convergence_time": 100,
+      "drift_history": [
+        7.768798,
+        46.637258,
+        228.869089,
+        1124.075925,
+        5617.283176,
+        28396.028393,
+        144454.259416,
+        737642.545154,
+        3777094.5228,
+        19385903.4212
+      ],
+      "anti_fragility_corr": 0.838
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 10571610.641356,
+      "convergence_time": 100,
+      "drift_history": [
+        51.613208,
+        204.772294,
+        749.027834,
+        3048.935222,
+        13284.413416,
+        59459.812114,
+        267433.669104,
+        1211248.447136,
+        5503816.339107,
+        24999767.137824
+      ],
+      "anti_fragility_corr": 0.5343
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 206901.239686,
+      "convergence_time": 100,
+      "drift_history": [
+        1.263253,
+        7.101713,
+        32.336206,
+        126.766774,
+        493.180848,
+        1995.561654,
+        7724.420768,
+        29256.867824,
+        116329.348475,
+        475117.502758
+      ],
+      "anti_fragility_corr": 0.9313
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2160297.482141,
+      "convergence_time": 100,
+      "drift_history": [
+        7.436667,
+        40.612739,
+        175.510962,
+        754.086258,
+        3155.459853,
+        13079.450751,
+        57616.673985,
+        256718.337665,
+        1140355.604465,
+        5083818.504294
+      ],
+      "anti_fragility_corr": 0.5921
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 12143921.263773,
+      "convergence_time": 100,
+      "drift_history": [
+        60.845487,
+        292.711098,
+        1233.467338,
+        5263.768121,
+        22545.777336,
+        92945.418958,
+        388201.088021,
+        1671659.750644,
+        6764558.489105,
+        27995545.55157
+      ],
+      "anti_fragility_corr": 0.4683
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 154866.552081,
+      "convergence_time": 100,
+      "drift_history": [
+        1.297658,
+        8.186784,
+        38.113197,
+        139.700648,
+        508.626325,
+        1789.806417,
+        6300.270675,
+        23358.564682,
+        90359.37519,
+        350881.71637
+      ],
+      "anti_fragility_corr": 0.9376
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2180456.502166,
+      "convergence_time": 100,
+      "drift_history": [
+        7.938572,
+        47.711263,
+        221.685458,
+        969.016409,
+        4083.468286,
+        17180.825717,
+        66831.980396,
+        285767.42064,
+        1199030.811284,
+        5056571.274574
+      ],
+      "anti_fragility_corr": 0.9289
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 1649200.1442,
+      "convergence_time": 100,
+      "drift_history": [
+        52.633441,
+        204.256971,
+        731.678031,
+        2256.943042,
+        8003.747828,
+        28607.338065,
+        107498.36975,
+        348058.019506,
+        1090660.528582,
+        3508881.884512
+      ],
+      "anti_fragility_corr": 0.427
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 121979.899764,
+      "convergence_time": 100,
+      "drift_history": [
+        1.120003,
+        7.591366,
+        30.151973,
+        113.74334,
+        428.747087,
+        1534.966338,
+        5333.876164,
+        21378.383275,
+        77311.404036,
+        267249.91198
+      ],
+      "anti_fragility_corr": 0.9079
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 143771.19526,
+      "convergence_time": 100,
+      "drift_history": [
+        5.62614,
+        23.44607,
+        83.801483,
+        252.163208,
+        725.538467,
+        2512.548387,
+        8103.249715,
+        25323.895351,
+        83359.125878,
+        322630.564551
+      ],
+      "anti_fragility_corr": 0.9365
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 2336868.589839,
+      "convergence_time": 100,
+      "drift_history": [
+        56.356861,
+        236.511318,
+        788.779258,
+        2641.765408,
+        9258.334873,
+        32744.526797,
+        116990.722117,
+        361524.419359,
+        1401468.533685,
+        5247612.816473
+      ],
+      "anti_fragility_corr": -0.7037
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 636910.718167,
+      "convergence_time": 100,
+      "drift_history": [
+        4.817064,
+        27.340979,
+        112.085157,
+        437.555388,
+        1707.595248,
+        6681.953996,
+        26053.532549,
+        100283.246736,
+        380873.861484,
+        1429575.046282
+      ],
+      "anti_fragility_corr": 0.6026
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1224559.9895,
+      "convergence_time": 100,
+      "drift_history": [
+        7.537985,
+        36.172363,
+        150.286575,
+        623.830682,
+        2563.856785,
+        10362.907342,
+        41776.203931,
+        169248.441431,
+        689686.128841,
+        2814745.398229
+      ],
+      "anti_fragility_corr": 0.838
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 2208807.552331,
+      "convergence_time": 100,
+      "drift_history": [
+        49.438747,
+        179.88926,
+        590.523387,
+        1960.745007,
+        6776.685006,
+        24841.430599,
+        93783.964805,
+        351966.113462,
+        1316212.873567,
+        4958243.669966
+      ],
+      "anti_fragility_corr": 0.5343
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1329908.186472,
+      "convergence_time": 100,
+      "drift_history": [
+        5.805073,
+        32.258219,
+        127.472294,
+        517.962542,
+        2169.76504,
+        9111.147425,
+        38709.664067,
+        160820.677724,
+        704395.005135,
+        3124508.876556
+      ],
+      "anti_fragility_corr": 0.9313
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 4728529.341854,
+      "convergence_time": 100,
+      "drift_history": [
+        9.629276,
+        48.733314,
+        218.398655,
+        965.428403,
+        4460.485821,
+        21137.61883,
+        98425.969911,
+        465453.679984,
+        2310283.459183,
+        11409850.886394
+      ],
+      "anti_fragility_corr": 0.5921
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 9666868.451641,
+      "convergence_time": 100,
+      "drift_history": [
+        64.754288,
+        323.672761,
+        1360.823078,
+        5597.170823,
+        20889.17086,
+        86500.96099,
+        346161.894402,
+        1389022.938782,
+        5398580.50838,
+        22213001.90776
+      ],
+      "anti_fragility_corr": 0.4683
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 725724.939778,
+      "convergence_time": 100,
+      "drift_history": [
+        5.310422,
+        27.07426,
+        103.408757,
+        417.448961,
+        1731.384297,
+        6784.493181,
+        25605.599737,
+        106192.826948,
+        417780.307594,
+        1653201.684793
+      ],
+      "anti_fragility_corr": 0.9376
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 478074.730508,
+      "convergence_time": 100,
+      "drift_history": [
+        7.178952,
+        32.352356,
+        105.840495,
+        344.696967,
+        1169.776696,
+        4144.73196,
+        16369.171873,
+        66879.337204,
+        262545.007963,
+        1104799.846357
+      ],
+      "anti_fragility_corr": 0.9289
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 4818281.613622,
+      "convergence_time": 100,
+      "drift_history": [
+        56.349156,
+        240.703648,
+        802.540893,
+        3324.054557,
+        11666.501111,
+        42488.528745,
+        164954.016575,
+        609729.207383,
+        2617178.880213,
+        11227936.753272
+      ],
+      "anti_fragility_corr": 0.427
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 102005.149561,
+      "convergence_time": 100,
+      "drift_history": [
+        5.257235,
+        25.874372,
+        80.482062,
+        255.806349,
+        655.212919,
+        1758.804827,
+        6054.833898,
+        19005.602486,
+        57710.250966,
+        229299.595232
+      ],
+      "anti_fragility_corr": 0.9079
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 242370.51931,
+      "convergence_time": 100,
+      "drift_history": [
+        6.939992,
+        30.350186,
+        112.090822,
+        411.590281,
+        1333.164221,
+        4535.706181,
+        12652.616533,
+        43919.184496,
+        164601.752182,
+        518590.621252
+      ],
+      "anti_fragility_corr": 0.9365
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 2888714.475387,
+      "convergence_time": 100,
+      "drift_history": [
+        62.168863,
+        250.917855,
+        842.265541,
+        3381.09866,
+        11762.241928,
+        37785.212851,
+        131780.997499,
+        520082.178806,
+        1900884.875533,
+        6245176.371823
+      ],
+      "anti_fragility_corr": -0.7037
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1079340.230648,
+      "convergence_time": 100,
+      "drift_history": [
+        10.325951,
+        53.054545,
+        211.905283,
+        780.756392,
+        2849.224124,
+        10658.906932,
+        40997.275819,
+        159330.927954,
+        622932.444159,
+        2455757.319833
+      ],
+      "anti_fragility_corr": 0.6026
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 3370006.068088,
+      "convergence_time": 100,
+      "drift_history": [
+        13.76405,
+        68.08643,
+        294.341689,
+        1262.171535,
+        5479.889368,
+        23835.607621,
+        102869.016496,
+        439600.49551,
+        1860601.575851,
+        7809816.132903
+      ],
+      "anti_fragility_corr": 0.838
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 1685898.720248,
+      "convergence_time": 100,
+      "drift_history": [
+        49.859228,
+        172.196184,
+        535.25749,
+        1687.375013,
+        5375.379063,
+        18543.79058,
+        69612.473023,
+        264482.935021,
+        1000718.952453,
+        3792494.273271
+      ],
+      "anti_fragility_corr": 0.5343
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1479040.132412,
+      "convergence_time": 100,
+      "drift_history": [
+        9.384587,
+        45.125019,
+        170.760701,
+        675.976013,
+        2648.019612,
+        10377.383747,
+        43846.325987,
+        177471.447664,
+        782675.634741,
+        3476973.31483
+      ],
+      "anti_fragility_corr": 0.9313
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 4135891.401893,
+      "convergence_time": 100,
+      "drift_history": [
+        12.480269,
+        57.769396,
+        227.676955,
+        924.784332,
+        3934.93643,
+        17942.264773,
+        86562.5579,
+        414346.048535,
+        2055538.017425,
+        9937790.139718
+      ],
+      "anti_fragility_corr": 0.5921
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 3900339.924945,
+      "convergence_time": 100,
+      "drift_history": [
+        63.880567,
+        289.832861,
+        1088.095759,
+        3593.636188,
+        13043.456273,
+        47946.68704,
+        175605.89932,
+        667462.875651,
+        2475063.458668,
+        8558493.440515
+      ],
+      "anti_fragility_corr": 0.4683
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 497920.151728,
+      "convergence_time": 100,
+      "drift_history": [
+        9.030047,
+        36.770455,
+        137.776878,
+        487.976186,
+        1635.825829,
+        5859.162081,
+        21513.108224,
+        86167.64955,
+        295793.174437,
+        1111799.631196
+      ],
+      "anti_fragility_corr": 0.9376
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1619407.456442,
+      "convergence_time": 100,
+      "drift_history": [
+        10.761177,
+        57.235952,
+        244.746756,
+        990.475076,
+        3921.933037,
+        14568.194928,
+        56063.685024,
+        222373.872497,
+        903560.25425,
+        3732288.24258
+      ],
+      "anti_fragility_corr": 0.9289
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 1316657.247761,
+      "convergence_time": 100,
+      "drift_history": [
+        54.412502,
+        190.352033,
+        653.969383,
+        1910.887811,
+        6629.534468,
+        22409.854634,
+        77360.350045,
+        268798.003096,
+        887779.908616,
+        2793393.831569
+      ],
+      "anti_fragility_corr": 0.427
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 269081.966146,
+      "convergence_time": 100,
+      "drift_history": [
+        9.305956,
+        35.681677,
+        123.715625,
+        427.88034,
+        1382.93521,
+        4714.397629,
+        14776.498967,
+        52590.959407,
+        165788.942879,
+        588865.996154
+      ],
+      "anti_fragility_corr": 0.9079
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 846213.222799,
+      "convergence_time": 100,
+      "drift_history": [
+        12.043483,
+        54.95012,
+        194.920076,
+        630.49281,
+        2256.232708,
+        8386.278572,
+        29701.043904,
+        127311.44138,
+        510149.60457,
+        1901178.622445
+      ],
+      "anti_fragility_corr": 0.9365
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 3163482.653139,
+      "convergence_time": 100,
+      "drift_history": [
+        56.357258,
+        222.114638,
+        806.017282,
+        2778.552593,
+        9439.323539,
+        37074.274692,
+        136699.062548,
+        531224.95162,
+        1950325.15983,
+        7008897.847967
+      ],
+      "anti_fragility_corr": -0.7037
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 9782748.973261,
+      "convergence_time": 100,
+      "drift_history": [
+        18.478603,
+        91.941712,
+        395.510152,
+        1771.294555,
+        8305.792271,
+        40437.408637,
+        199546.244159,
+        983052.693762,
+        4822879.110463,
+        23542315.115557
+      ],
+      "anti_fragility_corr": 0.6026
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1316288.539501,
+      "convergence_time": 100,
+      "drift_history": [
+        18.139611,
+        78.527667,
+        285.741599,
+        1008.08173,
+        3574.18147,
+        12819.664798,
+        47189.090763,
+        180529.747249,
+        723286.00953,
+        3045049.861724
+      ],
+      "anti_fragility_corr": 0.838
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 8130728.7987,
+      "convergence_time": 100,
+      "drift_history": [
+        72.943395,
+        325.424999,
+        1268.652492,
+        4957.304142,
+        19527.377085,
+        76797.404714,
+        301672.056435,
+        1183214.275699,
+        4658549.097784,
+        18550423.022616
+      ],
+      "anti_fragility_corr": 0.5343
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 676579.350081,
+      "convergence_time": 100,
+      "drift_history": [
+        15.896932,
+        65.981105,
+        234.623143,
+        739.39776,
+        2446.249266,
+        8413.301098,
+        29503.666517,
+        110354.916162,
+        406470.03657,
+        1512913.097511
+      ],
+      "anti_fragility_corr": 0.9313
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 6729107.204661,
+      "convergence_time": 100,
+      "drift_history": [
+        16.639703,
+        72.775418,
+        291.221372,
+        1274.27017,
+        5907.746704,
+        27968.366658,
+        136212.413934,
+        668551.530494,
+        3289479.238646,
+        16229290.844845
+      ],
+      "anti_fragility_corr": 0.5921
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 5601032.136305,
+      "convergence_time": 100,
+      "drift_history": [
+        70.873962,
+        324.713003,
+        1281.087365,
+        4845.055066,
+        17874.105294,
+        67582.439707,
+        247749.537519,
+        846924.952418,
+        3248127.974417,
+        12708043.482079
+      ],
+      "anti_fragility_corr": 0.4683
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 2678131.28677,
+      "convergence_time": 100,
+      "drift_history": [
+        16.786212,
+        72.412763,
+        295.980857,
+        1231.236867,
+        4514.002018,
+        18938.814996,
+        79498.850258,
+        358003.880238,
+        1494703.861689,
+        6181686.118381
+      ],
+      "anti_fragility_corr": 0.9376
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1180315.775297,
+      "convergence_time": 100,
+      "drift_history": [
+        21.388269,
+        84.281,
+        238.708184,
+        674.256196,
+        2092.30713,
+        7340.216834,
+        29274.528196,
+        135699.891303,
+        633412.689369,
+        2771834.745218
+      ],
+      "anti_fragility_corr": 0.9289
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 4640869.474829,
+      "convergence_time": 100,
+      "drift_history": [
+        64.200414,
+        269.308447,
+        912.739421,
+        3192.751548,
+        10740.144895,
+        40807.242656,
+        161585.534075,
+        650498.170799,
+        2563192.911961,
+        10708917.341729
+      ],
+      "anti_fragility_corr": 0.427
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 719813.648692,
+      "convergence_time": 100,
+      "drift_history": [
+        12.840439,
+        55.396428,
+        184.178703,
+        588.396091,
+        2157.307373,
+        7228.954598,
+        28643.425533,
+        110985.512518,
+        438366.681959,
+        1610088.7516
+      ],
+      "anti_fragility_corr": 0.9079
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 609780.217249,
+      "convergence_time": 100,
+      "drift_history": [
+        17.46021,
+        54.705728,
+        183.250815,
+        668.413623,
+        2393.615277,
+        7498.18128,
+        28214.459217,
+        104368.630901,
+        375763.310623,
+        1349208.710223
+      ],
+      "anti_fragility_corr": 0.9365
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 936363.088939,
+      "convergence_time": 100,
+      "drift_history": [
+        53.632789,
+        188.830945,
+        530.232435,
+        1469.505917,
+        5883.409939,
+        16896.68327,
+        62303.173049,
+        184354.277388,
+        612284.995503,
+        2012449.993927
+      ],
+      "anti_fragility_corr": -0.7037
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 2264620.424043,
+      "convergence_time": 100,
+      "drift_history": [
+        31.787615,
+        131.318123,
+        459.812152,
+        1615.712784,
+        5842.076821,
+        21715.293837,
+        82834.55867,
+        323263.255024,
+        1285890.696622,
+        5184707.320483
+      ],
+      "anti_fragility_corr": 0.6026
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 4856077.543881,
+      "convergence_time": 100,
+      "drift_history": [
+        36.628381,
+        168.430156,
+        638.411741,
+        2293.230663,
+        8292.47952,
+        31689.872317,
+        130012.655592,
+        565535.673102,
+        2530363.335992,
+        11472333.622549
+      ],
+      "anti_fragility_corr": 0.838
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 8972990.802488,
+      "convergence_time": 100,
+      "drift_history": [
+        78.657481,
+        364.553336,
+        1461.943835,
+        5732.761333,
+        22279.712719,
+        86391.317872,
+        335975.312439,
+        1312529.698963,
+        5156339.770775,
+        20450102.937727
+      ],
+      "anti_fragility_corr": 0.5343
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 14309235.042319,
+      "convergence_time": 100,
+      "drift_history": [
+        41.292989,
+        211.529657,
+        901.081583,
+        3804.886889,
+        16797.381929,
+        73621.064502,
+        332929.7667,
+        1530930.322567,
+        7292217.215086,
+        34104557.589303
+      ],
+      "anti_fragility_corr": 0.9313
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2920687.60207,
+      "convergence_time": 100,
+      "drift_history": [
+        41.498411,
+        161.926175,
+        587.887497,
+        2199.91488,
+        7814.080794,
+        28876.739864,
+        114620.625351,
+        449549.084263,
+        1765262.827081,
+        6547250.894866
+      ],
+      "anti_fragility_corr": 0.5921
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 36725761.556255,
+      "convergence_time": 100,
+      "drift_history": [
+        83.878101,
+        404.485268,
+        1736.835605,
+        7230.807314,
+        32488.841264,
+        152338.692816,
+        727162.573657,
+        3583093.913503,
+        17748958.746495,
+        88845232.008767
+      ],
+      "anti_fragility_corr": 0.4683
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 3680137.491412,
+      "convergence_time": 100,
+      "drift_history": [
+        35.514886,
+        132.580577,
+        496.160491,
+        1924.886926,
+        7132.410515,
+        30079.282472,
+        118177.371921,
+        482638.636743,
+        1964121.939849,
+        8593651.897644
+      ],
+      "anti_fragility_corr": 0.9376
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 4095012.435818,
+      "convergence_time": 100,
+      "drift_history": [
+        35.154043,
+        133.801957,
+        509.703388,
+        1903.587897,
+        7462.190459,
+        30280.078651,
+        126790.550642,
+        512148.66823,
+        2162668.081813,
+        9610220.557409
+      ],
+      "anti_fragility_corr": 0.9289
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 8867520.213603,
+      "convergence_time": 100,
+      "drift_history": [
+        73.851835,
+        303.067174,
+        1319.859853,
+        5003.72159,
+        20835.075318,
+        78671.713333,
+        309988.476723,
+        1302930.393685,
+        5433718.077992,
+        19865912.169134
+      ],
+      "anti_fragility_corr": 0.427
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1467208.485468,
+      "convergence_time": 100,
+      "drift_history": [
+        29.384714,
+        92.215848,
+        324.653314,
+        1055.033748,
+        4340.4402,
+        14386.242043,
+        55147.92485,
+        203219.464409,
+        841430.43908,
+        3356975.552916
+      ],
+      "anti_fragility_corr": 0.9079
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 983776.205102,
+      "convergence_time": 100,
+      "drift_history": [
+        29.159438,
+        98.935215,
+        326.910324,
+        1014.451341,
+        3138.832161,
+        10868.92626,
+        41900.706129,
+        138143.318941,
+        538186.439421,
+        2274998.856943
+      ],
+      "anti_fragility_corr": 0.9365
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 1478895.556817,
+      "convergence_time": 100,
+      "drift_history": [
+        69.038999,
+        248.885159,
+        801.853685,
+        2664.085294,
+        9499.50256,
+        33053.659202,
+        120516.787234,
+        396555.411593,
+        1069297.782558,
+        2970833.4763
+      ],
+      "anti_fragility_corr": -0.7037
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 8770984.296089,
+      "convergence_time": 100,
+      "drift_history": [
+        76.69615,
+        377.709526,
+        1523.703741,
+        5797.857598,
+        21705.45986,
+        81828.436256,
+        315633.928336,
+        1246789.480006,
+        4996247.674666,
+        20069915.733594
+      ],
+      "anti_fragility_corr": 0.6026
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 22166914.788825,
+      "convergence_time": 100,
+      "drift_history": [
+        67.633449,
+        323.227202,
+        1432.572266,
+        6444.055768,
+        29109.804885,
+        131161.028235,
+        588906.351774,
+        2635278.26129,
+        11746189.484693,
+        52119276.620493
+      ],
+      "anti_fragility_corr": 0.838
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 10797005.395766,
+      "convergence_time": 100,
+      "drift_history": [
+        99.295767,
+        444.165522,
+        1864.075971,
+        7733.081597,
+        31542.712775,
+        124401.128114,
+        476890.160462,
+        1788171.327829,
+        6593525.404114,
+        24009319.455353
+      ],
+      "anti_fragility_corr": 0.5343
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 16716191.823686,
+      "convergence_time": 100,
+      "drift_history": [
+        65.129011,
+        301.368971,
+        1145.492458,
+        4801.375645,
+        20607.743072,
+        90983.020748,
+        404341.487861,
+        1826604.473991,
+        8532887.920273,
+        39789083.076793
+      ],
+      "anti_fragility_corr": 0.9313
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 7806951.344543,
+      "convergence_time": 100,
+      "drift_history": [
+        56.457127,
+        219.845918,
+        751.368091,
+        2965.20819,
+        11923.765393,
+        49979.106498,
+        216106.069158,
+        938601.06153,
+        4098877.517909,
+        18383375.45419
+      ],
+      "anti_fragility_corr": 0.5921
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 16372318.716641,
+      "convergence_time": 100,
+      "drift_history": [
+        100.234826,
+        500.922478,
+        2061.794111,
+        8676.279762,
+        36460.196987,
+        138366.804882,
+        565374.36341,
+        2274587.916825,
+        9240170.768005,
+        37602197.465091
+      ],
+      "anti_fragility_corr": 0.4683
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 26068439.790366,
+      "convergence_time": 100,
+      "drift_history": [
+        59.771507,
+        320.612513,
+        1510.401148,
+        6546.940088,
+        30330.594686,
+        127872.46437,
+        575315.763883,
+        2764680.422256,
+        13341910.072062,
+        62098728.87678
+      ],
+      "anti_fragility_corr": 0.9376
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 5963425.416345,
+      "convergence_time": 100,
+      "drift_history": [
+        79.735083,
+        332.970132,
+        1363.322663,
+        4919.665809,
+        19130.005462,
+        66434.620817,
+        263072.723736,
+        973046.327556,
+        3605115.706334,
+        13312114.215145
+      ],
+      "anti_fragility_corr": 0.9289
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 4447084.211994,
+      "convergence_time": 100,
+      "drift_history": [
+        110.752806,
+        397.215069,
+        1281.748928,
+        4365.632125,
+        15467.973792,
+        53454.277417,
+        203127.463798,
+        771165.216793,
+        2511910.728709,
+        10058176.690481
+      ],
+      "anti_fragility_corr": 0.427
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1530267.122823,
+      "convergence_time": 100,
+      "drift_history": [
+        58.483218,
+        204.845378,
+        697.602934,
+        2226.218745,
+        7089.471214,
+        24105.952546,
+        88837.744196,
+        285305.13453,
+        939619.995631,
+        3365876.238308
+      ],
+      "anti_fragility_corr": 0.9079
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1741819.429692,
+      "convergence_time": 100,
+      "drift_history": [
+        46.958062,
+        208.160533,
+        670.436346,
+        2073.751141,
+        6241.472319,
+        24594.884998,
+        88879.450249,
+        269291.984651,
+        1043049.024278,
+        3913117.280146
+      ],
+      "anti_fragility_corr": 0.9365
+    },
+    {
+      "protocol": "ntp_marzullo",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 890908.351703,
+      "convergence_time": 100,
+      "drift_history": [
+        65.581729,
+        241.838876,
+        640.397384,
+        1963.135396,
+        5597.005685,
+        18665.238971,
+        52975.576772,
+        169793.904506,
+        567155.124812,
+        1935776.02579
+      ],
+      "anti_fragility_corr": -0.7037
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.199616,
+      "convergence_time": 100,
+      "drift_history": [
+        0.273855,
+        0.232327,
+        0.202106,
+        0.19766,
+        0.197675,
+        0.213801,
+        0.193512,
+        0.200788,
+        0.190458,
+        0.207602
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 0.532549,
+      "convergence_time": 100,
+      "drift_history": [
+        0.742585,
+        0.538773,
+        0.502268,
+        0.501328,
+        0.573834,
+        0.546499,
+        0.501008,
+        0.522248,
+        0.520337,
+        0.555061
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 9.239316,
+      "convergence_time": 100,
+      "drift_history": [
+        8.826567,
+        9.185206,
+        9.219734,
+        9.213304,
+        9.174413,
+        9.196289,
+        9.22447,
+        9.236937,
+        9.227981,
+        9.253029
+      ],
+      "anti_fragility_corr": 0.9863
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.218023,
+      "convergence_time": 100,
+      "drift_history": [
+        0.245896,
+        0.221771,
+        0.196078,
+        0.186926,
+        0.253312,
+        0.217118,
+        0.177795,
+        0.172835,
+        0.23915,
+        0.242084
+      ],
+      "anti_fragility_corr": 0.9981
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 0.615596,
+      "convergence_time": 100,
+      "drift_history": [
+        0.829796,
+        0.661892,
+        0.544426,
+        0.527477,
+        0.499636,
+        0.514446,
+        0.563278,
+        0.69956,
+        0.627425,
+        0.519804
+      ],
+      "anti_fragility_corr": 0.9965
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 11.011735,
+      "convergence_time": 100,
+      "drift_history": [
+        8.800173,
+        11.280943,
+        9.319853,
+        9.98654,
+        9.607016,
+        10.227448,
+        10.097936,
+        11.377117,
+        10.626715,
+        11.031373
+      ],
+      "anti_fragility_corr": 0.9933
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.180728,
+      "convergence_time": 100,
+      "drift_history": [
+        0.260367,
+        0.237311,
+        0.208452,
+        0.250039,
+        0.267382,
+        0.23885,
+        0.230644,
+        0.189836,
+        0.142414,
+        0.209935
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 0.705386,
+      "convergence_time": 200,
+      "drift_history": [
+        1.461751,
+        0.748049,
+        0.664177,
+        0.856595,
+        0.754416,
+        1.00294,
+        0.88416,
+        0.780816,
+        0.747362,
+        0.587979
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 14.207416,
+      "convergence_time": 100,
+      "drift_history": [
+        10.86405,
+        13.127885,
+        11.459369,
+        12.81228,
+        11.768996,
+        11.648788,
+        13.440774,
+        14.078349,
+        11.955716,
+        16.588184
+      ],
+      "anti_fragility_corr": 0.975
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.213832,
+      "convergence_time": 100,
+      "drift_history": [
+        0.211924,
+        0.313557,
+        0.302626,
+        0.205118,
+        0.170627,
+        0.228624,
+        0.178989,
+        0.232097,
+        0.252213,
+        0.157187
+      ],
+      "anti_fragility_corr": 0.9956
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1.09202,
+      "convergence_time": 100,
+      "drift_history": [
+        2.283734,
+        1.559818,
+        1.044107,
+        0.950659,
+        1.255163,
+        1.270822,
+        1.031509,
+        0.808832,
+        1.016726,
+        1.450502
+      ],
+      "anti_fragility_corr": 0.9994
+    },
+    {
+      "protocol": "cristian",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 23.324014,
+      "convergence_time": 100,
+      "drift_history": [
+        14.195502,
+        16.43017,
+        20.770171,
+        15.48071,
+        22.585042,
+        15.574396,
+        23.080683,
+        20.941543,
+        20.577082,
+        28.453417
+      ],
+      "anti_fragility_corr": 0.7895
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.962812,
+      "convergence_time": 100,
+      "drift_history": [
+        1.240013,
+        0.880941,
+        0.978125,
+        1.118321,
+        1.103055,
+        0.899551,
+        1.055671,
+        1.064882,
+        0.872447,
+        0.951107
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1.08506,
+      "convergence_time": 100,
+      "drift_history": [
+        1.479252,
+        1.339756,
+        1.161183,
+        1.319012,
+        1.107178,
+        1.095429,
+        1.128269,
+        1.072627,
+        0.991304,
+        1.191247
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 9.719209,
+      "convergence_time": 100,
+      "drift_history": [
+        9.123792,
+        9.547424,
+        9.823927,
+        9.383697,
+        9.6884,
+        9.962891,
+        9.441749,
+        9.968733,
+        9.611154,
+        9.577739
+      ],
+      "anti_fragility_corr": 0.9863
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.931266,
+      "convergence_time": 100,
+      "drift_history": [
+        1.079318,
+        1.394746,
+        1.049041,
+        0.971754,
+        0.895132,
+        0.917861,
+        0.884372,
+        1.02819,
+        0.804533,
+        0.961077
+      ],
+      "anti_fragility_corr": 0.9981
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1.252212,
+      "convergence_time": 100,
+      "drift_history": [
+        1.746568,
+        1.09015,
+        1.342833,
+        1.216673,
+        1.135939,
+        1.191138,
+        1.241315,
+        1.322119,
+        1.316144,
+        1.118373
+      ],
+      "anti_fragility_corr": 0.9965
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 10.586345,
+      "convergence_time": 100,
+      "drift_history": [
+        9.215258,
+        11.357015,
+        9.864555,
+        10.947274,
+        10.566008,
+        10.213455,
+        12.221234,
+        10.280251,
+        11.627181,
+        9.851603
+      ],
+      "anti_fragility_corr": 0.9933
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1.064715,
+      "convergence_time": 100,
+      "drift_history": [
+        1.065247,
+        1.219876,
+        0.967165,
+        0.785438,
+        1.103963,
+        0.891756,
+        0.87493,
+        0.947431,
+        1.077861,
+        1.168853
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1.36187,
+      "convergence_time": 100,
+      "drift_history": [
+        1.787444,
+        1.513461,
+        1.500969,
+        1.260551,
+        1.201967,
+        1.291616,
+        1.183233,
+        1.431903,
+        1.398496,
+        1.255211
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 14.038166,
+      "convergence_time": 100,
+      "drift_history": [
+        11.82573,
+        12.96486,
+        15.680393,
+        11.955939,
+        13.610464,
+        14.13817,
+        13.47371,
+        13.201244,
+        11.193116,
+        17.720137
+      ],
+      "anti_fragility_corr": 0.975
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1.102453,
+      "convergence_time": 100,
+      "drift_history": [
+        1.101264,
+        1.159489,
+        1.03732,
+        1.050099,
+        0.922414,
+        0.92508,
+        1.232594,
+        1.1329,
+        1.215344,
+        0.959115
+      ],
+      "anti_fragility_corr": 0.9956
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1.30111,
+      "convergence_time": 100,
+      "drift_history": [
+        1.997023,
+        2.527249,
+        2.469039,
+        1.370404,
+        1.175229,
+        1.491935,
+        1.471898,
+        1.287314,
+        1.386997,
+        1.22902
+      ],
+      "anti_fragility_corr": 0.9994
+    },
+    {
+      "protocol": "cristian",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 19.447202,
+      "convergence_time": 100,
+      "drift_history": [
+        17.444223,
+        19.841097,
+        20.92066,
+        28.109773,
+        22.220528,
+        20.595779,
+        23.486333,
+        20.08541,
+        20.37138,
+        17.884817
+      ],
+      "anti_fragility_corr": 0.7895
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1.937271,
+      "convergence_time": 100,
+      "drift_history": [
+        2.055976,
+        2.371591,
+        1.774994,
+        2.068386,
+        1.959708,
+        2.121075,
+        2.461622,
+        1.958265,
+        1.832492,
+        2.021056
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.147698,
+      "convergence_time": 100,
+      "drift_history": [
+        2.153527,
+        2.389461,
+        1.885447,
+        2.020347,
+        2.092763,
+        2.498331,
+        1.796071,
+        1.906171,
+        2.050882,
+        2.48604
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 10.04993,
+      "convergence_time": 100,
+      "drift_history": [
+        9.818232,
+        10.219377,
+        9.765835,
+        9.874751,
+        9.961764,
+        9.741953,
+        9.659895,
+        10.305328,
+        9.931433,
+        9.913028
+      ],
+      "anti_fragility_corr": 0.9863
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 2.224405,
+      "convergence_time": 100,
+      "drift_history": [
+        1.902695,
+        2.12739,
+        2.201998,
+        2.83723,
+        2.131313,
+        1.74145,
+        1.846054,
+        2.323696,
+        2.379512,
+        1.970008
+      ],
+      "anti_fragility_corr": 0.9981
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1.909187,
+      "convergence_time": 100,
+      "drift_history": [
+        3.264606,
+        2.401086,
+        2.501767,
+        2.162197,
+        2.162894,
+        1.912215,
+        2.118758,
+        1.746663,
+        2.083873,
+        1.897026
+      ],
+      "anti_fragility_corr": 0.9965
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 12.080764,
+      "convergence_time": 100,
+      "drift_history": [
+        9.430747,
+        11.514776,
+        11.443032,
+        12.113766,
+        11.326147,
+        10.298579,
+        10.247518,
+        13.835117,
+        11.534916,
+        10.872258
+      ],
+      "anti_fragility_corr": 0.9933
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1.750559,
+      "convergence_time": 100,
+      "drift_history": [
+        2.529366,
+        2.207526,
+        1.833763,
+        2.164314,
+        2.177142,
+        1.893091,
+        2.294491,
+        1.842322,
+        1.377699,
+        2.031656
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.097146,
+      "convergence_time": 100,
+      "drift_history": [
+        3.051042,
+        2.582292,
+        2.617552,
+        2.777499,
+        2.557145,
+        2.29601,
+        2.405462,
+        1.811314,
+        2.36905,
+        2.111073
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 13.810675,
+      "convergence_time": 100,
+      "drift_history": [
+        11.733153,
+        16.301097,
+        12.029433,
+        14.743683,
+        16.106955,
+        12.750741,
+        13.444313,
+        14.506963,
+        14.940605,
+        11.984457
+      ],
+      "anti_fragility_corr": 0.975
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 2.181562,
+      "convergence_time": 100,
+      "drift_history": [
+        2.096314,
+        2.268005,
+        1.553639,
+        2.013583,
+        2.273414,
+        1.792128,
+        2.034953,
+        2.328235,
+        2.338956,
+        1.877496
+      ],
+      "anti_fragility_corr": 0.9956
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.454427,
+      "convergence_time": 100,
+      "drift_history": [
+        2.394455,
+        2.785607,
+        2.732036,
+        2.410883,
+        2.583326,
+        2.033284,
+        2.170447,
+        2.471509,
+        2.367499,
+        2.524271
+      ],
+      "anti_fragility_corr": 0.9994
+    },
+    {
+      "protocol": "cristian",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 21.293485,
+      "convergence_time": 100,
+      "drift_history": [
+        15.429425,
+        21.842078,
+        27.060492,
+        22.286194,
+        35.232317,
+        40.011364,
+        23.954289,
+        20.208987,
+        23.83191,
+        19.839559
+      ],
+      "anti_fragility_corr": 0.7895
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 3.842488,
+      "convergence_time": 100,
+      "drift_history": [
+        3.870765,
+        4.592431,
+        5.071887,
+        4.067701,
+        3.677743,
+        4.399119,
+        4.024187,
+        3.926722,
+        3.44869,
+        4.152051
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 4.088446,
+      "convergence_time": 100,
+      "drift_history": [
+        4.166122,
+        4.800523,
+        4.060765,
+        4.257494,
+        4.522292,
+        3.603464,
+        4.220675,
+        3.419788,
+        4.55926,
+        4.286291
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 10.793698,
+      "convergence_time": 100,
+      "drift_history": [
+        10.239304,
+        11.196787,
+        10.449435,
+        10.073288,
+        9.7934,
+        10.734028,
+        11.533305,
+        11.439581,
+        10.60613,
+        10.335385
+      ],
+      "anti_fragility_corr": 0.9863
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 3.676989,
+      "convergence_time": 100,
+      "drift_history": [
+        4.462546,
+        4.362157,
+        3.832309,
+        3.77761,
+        4.313203,
+        3.681187,
+        4.839328,
+        3.479422,
+        4.162065,
+        3.389479
+      ],
+      "anti_fragility_corr": 0.9981
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 4.014695,
+      "convergence_time": 100,
+      "drift_history": [
+        4.36706,
+        5.374675,
+        4.489837,
+        3.443935,
+        4.003406,
+        3.773864,
+        3.500055,
+        3.959036,
+        3.993075,
+        4.091974
+      ],
+      "anti_fragility_corr": 0.9965
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 11.983354,
+      "convergence_time": 100,
+      "drift_history": [
+        12.414222,
+        12.527904,
+        11.103902,
+        13.743386,
+        12.207002,
+        11.597618,
+        11.352705,
+        10.449712,
+        13.251944,
+        12.248406
+      ],
+      "anti_fragility_corr": 0.9933
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 4.072586,
+      "convergence_time": 100,
+      "drift_history": [
+        3.790734,
+        4.465099,
+        3.853707,
+        3.827582,
+        4.335151,
+        4.580579,
+        3.866839,
+        3.987521,
+        4.051899,
+        4.178337
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 4.230355,
+      "convergence_time": 100,
+      "drift_history": [
+        4.468342,
+        4.606768,
+        4.890297,
+        4.133817,
+        4.67628,
+        3.512916,
+        4.917876,
+        3.828987,
+        4.761821,
+        4.100258
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 13.533741,
+      "convergence_time": 100,
+      "drift_history": [
+        11.736723,
+        12.438257,
+        15.753633,
+        12.37087,
+        13.275068,
+        17.425916,
+        13.367842,
+        14.605041,
+        13.447636,
+        12.548546
+      ],
+      "anti_fragility_corr": 0.975
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 3.770745,
+      "convergence_time": 100,
+      "drift_history": [
+        4.654325,
+        3.998468,
+        5.178556,
+        5.632289,
+        3.635448,
+        3.937308,
+        3.473709,
+        3.246016,
+        3.90632,
+        4.159899
+      ],
+      "anti_fragility_corr": 0.9956
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 4.119707,
+      "convergence_time": 100,
+      "drift_history": [
+        4.11097,
+        4.164825,
+        4.361228,
+        4.864164,
+        5.504649,
+        4.474485,
+        4.32418,
+        4.09175,
+        4.30093,
+        3.966441
+      ],
+      "anti_fragility_corr": 0.9994
+    },
+    {
+      "protocol": "cristian",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 28.456679,
+      "convergence_time": 100,
+      "drift_history": [
+        14.766718,
+        24.124901,
+        20.356155,
+        23.965883,
+        24.32293,
+        23.074479,
+        27.936075,
+        33.394443,
+        29.238174,
+        22.73742
+      ],
+      "anti_fragility_corr": 0.7895
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 10.048811,
+      "convergence_time": 100,
+      "drift_history": [
+        9.105311,
+        10.797475,
+        9.710398,
+        11.192811,
+        9.66415,
+        12.181811,
+        7.692268,
+        10.270768,
+        10.630052,
+        9.245614
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 10.688688,
+      "convergence_time": 100,
+      "drift_history": [
+        10.060989,
+        11.753802,
+        10.602972,
+        9.630699,
+        9.678347,
+        10.491917,
+        10.751553,
+        11.133482,
+        10.005886,
+        10.926695
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 14.965397,
+      "convergence_time": 100,
+      "drift_history": [
+        16.507652,
+        13.788747,
+        17.00078,
+        17.114523,
+        18.202325,
+        12.976983,
+        13.236878,
+        15.898915,
+        13.661072,
+        15.336204
+      ],
+      "anti_fragility_corr": 0.9863
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 10.155203,
+      "convergence_time": 100,
+      "drift_history": [
+        9.062029,
+        10.471776,
+        10.298958,
+        11.68541,
+        11.046774,
+        8.348275,
+        10.189675,
+        10.983689,
+        11.410824,
+        8.071095
+      ],
+      "anti_fragility_corr": 0.9981
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 8.427995,
+      "convergence_time": 100,
+      "drift_history": [
+        9.41282,
+        11.542795,
+        11.134229,
+        8.810209,
+        11.138699,
+        10.345988,
+        11.078219,
+        8.39587,
+        8.638167,
+        8.249949
+      ],
+      "anti_fragility_corr": 0.9965
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 17.556001,
+      "convergence_time": 100,
+      "drift_history": [
+        15.203346,
+        17.071268,
+        14.405365,
+        17.238865,
+        16.079334,
+        17.29532,
+        17.2843,
+        18.923055,
+        16.144202,
+        17.600747
+      ],
+      "anti_fragility_corr": 0.9933
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 9.613638,
+      "convergence_time": 100,
+      "drift_history": [
+        9.576742,
+        11.778465,
+        10.295216,
+        9.884554,
+        11.877829,
+        10.46058,
+        12.466415,
+        9.708828,
+        10.377464,
+        8.754622
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 10.228169,
+      "convergence_time": 100,
+      "drift_history": [
+        10.912589,
+        11.523695,
+        10.941177,
+        10.800643,
+        11.718134,
+        10.004059,
+        9.497992,
+        11.486835,
+        10.054915,
+        9.142758
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 18.832052,
+      "convergence_time": 100,
+      "drift_history": [
+        19.629929,
+        18.553485,
+        20.068316,
+        17.932311,
+        19.078584,
+        18.691232,
+        19.733111,
+        22.729759,
+        18.408218,
+        15.35818
+      ],
+      "anti_fragility_corr": 0.975
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 11.309237,
+      "convergence_time": 100,
+      "drift_history": [
+        10.303705,
+        10.290076,
+        11.674649,
+        9.614926,
+        9.114572,
+        9.854449,
+        7.999657,
+        11.558048,
+        11.706183,
+        10.663481
+      ],
+      "anti_fragility_corr": 0.9956
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 10.429866,
+      "convergence_time": 100,
+      "drift_history": [
+        10.737784,
+        11.250246,
+        11.255089,
+        12.330416,
+        9.907122,
+        9.954946,
+        12.834782,
+        9.317194,
+        9.601268,
+        12.371136
+      ],
+      "anti_fragility_corr": 0.9994
+    },
+    {
+      "protocol": "cristian",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 24.894954,
+      "convergence_time": 100,
+      "drift_history": [
+        22.35453,
+        28.270779,
+        22.547443,
+        25.25955,
+        25.850945,
+        31.050289,
+        26.289501,
+        22.9043,
+        33.015139,
+        18.765424
+      ],
+      "anti_fragility_corr": 0.7895
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 20.665554,
+      "convergence_time": 100,
+      "drift_history": [
+        19.935729,
+        20.61359,
+        23.693665,
+        18.336956,
+        21.819198,
+        16.362528,
+        23.15163,
+        24.225846,
+        20.029525,
+        17.74129
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 19.507337,
+      "convergence_time": 100,
+      "drift_history": [
+        15.758469,
+        19.860531,
+        22.777231,
+        20.246518,
+        19.210637,
+        21.486038,
+        17.059576,
+        18.970576,
+        19.954988,
+        19.596447
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 26.178694,
+      "convergence_time": 100,
+      "drift_history": [
+        18.787247,
+        23.434208,
+        27.266028,
+        24.083066,
+        23.406004,
+        23.568393,
+        26.314347,
+        26.287679,
+        24.331214,
+        27.917189
+      ],
+      "anti_fragility_corr": 0.9863
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 18.095079,
+      "convergence_time": 100,
+      "drift_history": [
+        18.187227,
+        21.189929,
+        16.476542,
+        18.81277,
+        19.37792,
+        24.772974,
+        23.59688,
+        16.322013,
+        21.528008,
+        16.435217
+      ],
+      "anti_fragility_corr": 0.9981
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 19.672933,
+      "convergence_time": 100,
+      "drift_history": [
+        22.163433,
+        18.650872,
+        17.9422,
+        17.706549,
+        16.702561,
+        23.445623,
+        20.661948,
+        21.193242,
+        20.347194,
+        17.478362
+      ],
+      "anti_fragility_corr": 0.9965
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 25.475201,
+      "convergence_time": 100,
+      "drift_history": [
+        25.80653,
+        23.704054,
+        19.904027,
+        26.17971,
+        27.354305,
+        23.796473,
+        26.960436,
+        26.811475,
+        30.669195,
+        18.944932
+      ],
+      "anti_fragility_corr": 0.9933
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 18.83839,
+      "convergence_time": 100,
+      "drift_history": [
+        19.26304,
+        22.892672,
+        20.020524,
+        20.942892,
+        18.70915,
+        18.651681,
+        24.317867,
+        17.996176,
+        19.90887,
+        18.610123
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 20.028687,
+      "convergence_time": 100,
+      "drift_history": [
+        18.121017,
+        17.43161,
+        19.122026,
+        19.00608,
+        19.891158,
+        21.689001,
+        21.066212,
+        17.438912,
+        22.617001,
+        20.030148
+      ],
+      "anti_fragility_corr": 0.9999
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 27.380407,
+      "convergence_time": 100,
+      "drift_history": [
+        31.617251,
+        28.336856,
+        25.254072,
+        30.330631,
+        31.989125,
+        24.920883,
+        27.032021,
+        27.845911,
+        30.16636,
+        24.128949
+      ],
+      "anti_fragility_corr": 0.975
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 19.039468,
+      "convergence_time": 100,
+      "drift_history": [
+        19.956159,
+        15.39458,
+        21.692665,
+        22.781393,
+        19.237115,
+        21.032833,
+        19.186786,
+        16.903528,
+        21.703593,
+        18.511285
+      ],
+      "anti_fragility_corr": 0.9956
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 20.743401,
+      "convergence_time": 100,
+      "drift_history": [
+        19.791777,
+        16.828437,
+        18.829572,
+        19.70406,
+        20.094244,
+        22.999587,
+        21.79359,
+        18.708209,
+        20.877111,
+        22.644883
+      ],
+      "anti_fragility_corr": 0.9994
+    },
+    {
+      "protocol": "cristian",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 31.354095,
+      "convergence_time": 100,
+      "drift_history": [
+        26.807887,
+        29.616851,
+        28.334076,
+        35.583697,
+        29.870474,
+        33.593576,
+        31.603467,
+        25.940504,
+        29.827672,
+        38.29411
+      ],
+      "anti_fragility_corr": 0.7895
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.380794,
+      "convergence_time": 100,
+      "drift_history": [
+        0.423627,
+        0.431198,
+        0.424527,
+        0.375777,
+        0.365672,
+        0.418615,
+        0.332472,
+        0.421784,
+        0.399137,
+        0.321461
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 0.526216,
+      "convergence_time": 100,
+      "drift_history": [
+        0.518602,
+        0.29386,
+        0.250868,
+        0.380672,
+        0.539342,
+        0.496264,
+        0.498862,
+        0.524914,
+        0.505855,
+        0.547878
+      ],
+      "anti_fragility_corr": 0.9862
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 9.472107,
+      "convergence_time": 100,
+      "drift_history": [
+        9.237733,
+        9.511737,
+        9.421701,
+        9.430908,
+        9.470389,
+        9.455874,
+        9.478775,
+        9.476022,
+        9.476629,
+        9.463671
+      ],
+      "anti_fragility_corr": 0.9525
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.517018,
+      "convergence_time": 100,
+      "drift_history": [
+        0.406425,
+        0.51689,
+        0.633254,
+        0.580318,
+        0.452012,
+        0.489989,
+        0.573062,
+        0.553114,
+        0.474199,
+        0.523742
+      ],
+      "anti_fragility_corr": 0.9982
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 0.437044,
+      "convergence_time": 100,
+      "drift_history": [
+        0.381483,
+        0.292776,
+        0.272058,
+        0.276951,
+        0.357983,
+        0.458205,
+        0.406472,
+        0.376961,
+        0.451012,
+        0.483159
+      ],
+      "anti_fragility_corr": 0.9939
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 11.615406,
+      "convergence_time": 100,
+      "drift_history": [
+        11.393923,
+        11.984423,
+        11.600342,
+        13.082998,
+        11.830178,
+        11.342508,
+        11.502975,
+        11.744643,
+        11.506743,
+        11.594832
+      ],
+      "anti_fragility_corr": 0.9308
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.438501,
+      "convergence_time": 100,
+      "drift_history": [
+        0.488611,
+        0.58926,
+        0.498225,
+        0.477682,
+        0.470974,
+        0.601733,
+        0.403427,
+        0.455844,
+        0.368016,
+        0.491643
+      ],
+      "anti_fragility_corr": 0.9833
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 0.305306,
+      "convergence_time": 100,
+      "drift_history": [
+        0.574664,
+        0.192525,
+        0.196247,
+        0.274527,
+        0.357157,
+        0.391132,
+        0.331692,
+        0.31731,
+        0.242158,
+        0.356449
+      ],
+      "anti_fragility_corr": 0.9935
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 10.734792,
+      "convergence_time": 100,
+      "drift_history": [
+        10.844877,
+        10.693676,
+        9.753311,
+        11.55481,
+        9.3372,
+        9.507061,
+        12.723389,
+        9.903597,
+        10.408676,
+        11.892103
+      ],
+      "anti_fragility_corr": 0.9249
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.552647,
+      "convergence_time": 100,
+      "drift_history": [
+        0.414362,
+        0.620582,
+        0.556823,
+        0.543536,
+        0.705537,
+        0.439256,
+        0.443802,
+        0.562085,
+        0.494956,
+        0.6009
+      ],
+      "anti_fragility_corr": 0.9995
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 0.456379,
+      "convergence_time": 100,
+      "drift_history": [
+        0.742135,
+        0.388154,
+        0.245635,
+        0.408187,
+        0.526508,
+        0.379089,
+        0.476139,
+        0.49985,
+        0.394453,
+        0.474835
+      ],
+      "anti_fragility_corr": 0.9969
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 14.493563,
+      "convergence_time": 100,
+      "drift_history": [
+        13.121293,
+        15.163455,
+        11.911971,
+        15.675108,
+        12.307141,
+        10.999952,
+        12.487582,
+        12.091539,
+        13.385875,
+        18.003275
+      ],
+      "anti_fragility_corr": 0.9419
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 2.038344,
+      "convergence_time": 100,
+      "drift_history": [
+        1.807309,
+        1.885831,
+        1.622304,
+        1.694891,
+        1.730377,
+        1.823683,
+        2.086294,
+        1.998356,
+        1.87696,
+        2.239714
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.601553,
+      "convergence_time": 100,
+      "drift_history": [
+        2.146002,
+        2.741237,
+        2.445251,
+        2.118853,
+        2.258184,
+        2.122188,
+        2.293584,
+        2.985685,
+        2.558904,
+        2.260072
+      ],
+      "anti_fragility_corr": 0.9862
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 6.665517,
+      "convergence_time": 100,
+      "drift_history": [
+        6.827922,
+        6.879625,
+        6.701898,
+        6.879727,
+        6.807891,
+        6.667044,
+        6.567612,
+        6.678145,
+        6.68974,
+        6.628665
+      ],
+      "anti_fragility_corr": 0.9525
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 2.53636,
+      "convergence_time": 100,
+      "drift_history": [
+        2.846962,
+        2.654903,
+        3.308154,
+        2.835259,
+        2.14661,
+        2.409088,
+        2.470488,
+        2.174194,
+        3.022724,
+        2.412163
+      ],
+      "anti_fragility_corr": 0.9982
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.804356,
+      "convergence_time": 100,
+      "drift_history": [
+        2.295886,
+        2.827793,
+        2.313212,
+        2.578389,
+        2.818513,
+        3.285386,
+        2.315889,
+        2.946542,
+        2.910186,
+        2.55634
+      ],
+      "anti_fragility_corr": 0.9939
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 6.420908,
+      "convergence_time": 100,
+      "drift_history": [
+        6.626736,
+        6.99667,
+        7.068068,
+        6.449967,
+        7.047376,
+        7.132458,
+        7.250573,
+        6.643816,
+        6.693305,
+        5.925603
+      ],
+      "anti_fragility_corr": 0.9308
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 2.659721,
+      "convergence_time": 100,
+      "drift_history": [
+        2.834891,
+        3.102838,
+        2.726152,
+        3.363859,
+        2.730343,
+        2.161007,
+        2.560789,
+        2.470318,
+        3.139233,
+        2.369614
+      ],
+      "anti_fragility_corr": 0.9833
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.391291,
+      "convergence_time": 100,
+      "drift_history": [
+        1.921447,
+        2.357018,
+        2.413066,
+        2.257515,
+        2.502429,
+        1.847158,
+        2.413097,
+        2.478319,
+        2.490408,
+        2.205145
+      ],
+      "anti_fragility_corr": 0.9935
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 7.294565,
+      "convergence_time": 100,
+      "drift_history": [
+        7.291833,
+        8.661355,
+        6.127737,
+        10.269209,
+        9.354499,
+        9.081498,
+        7.061824,
+        7.536831,
+        7.874983,
+        6.471882
+      ],
+      "anti_fragility_corr": 0.9249
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1.756822,
+      "convergence_time": 100,
+      "drift_history": [
+        2.094609,
+        2.283182,
+        2.677943,
+        1.878199,
+        1.616059,
+        2.306194,
+        1.874355,
+        1.642855,
+        1.634979,
+        1.992632
+      ],
+      "anti_fragility_corr": 0.9995
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.50183,
+      "convergence_time": 100,
+      "drift_history": [
+        1.780275,
+        1.983637,
+        2.361246,
+        2.361328,
+        2.661166,
+        3.346044,
+        1.577283,
+        2.570271,
+        2.34905,
+        2.58617
+      ],
+      "anti_fragility_corr": 0.9969
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 12.892125,
+      "convergence_time": 100,
+      "drift_history": [
+        11.660419,
+        13.371848,
+        17.953327,
+        11.81433,
+        9.781897,
+        15.241487,
+        12.761974,
+        10.629031,
+        12.123477,
+        15.923866
+      ],
+      "anti_fragility_corr": 0.9419
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 4.446785,
+      "convergence_time": 100,
+      "drift_history": [
+        5.239632,
+        4.965482,
+        4.555941,
+        4.833096,
+        5.376475,
+        4.652489,
+        4.658145,
+        4.183783,
+        4.712515,
+        4.444057
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 4.411292,
+      "convergence_time": 100,
+      "drift_history": [
+        4.909064,
+        5.794783,
+        4.83454,
+        5.269078,
+        4.384965,
+        3.863344,
+        4.845055,
+        4.225176,
+        4.639534,
+        4.369166
+      ],
+      "anti_fragility_corr": 0.9862
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 6.188916,
+      "convergence_time": 100,
+      "drift_history": [
+        5.249403,
+        6.16565,
+        6.929556,
+        5.680655,
+        5.980393,
+        5.944486,
+        6.589902,
+        6.366004,
+        6.181216,
+        6.01953
+      ],
+      "anti_fragility_corr": 0.9525
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 5.852192,
+      "convergence_time": 100,
+      "drift_history": [
+        5.146464,
+        5.930421,
+        4.793953,
+        5.950252,
+        5.670949,
+        7.133957,
+        6.172534,
+        5.994328,
+        5.542417,
+        6.019831
+      ],
+      "anti_fragility_corr": 0.9982
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 4.067472,
+      "convergence_time": 100,
+      "drift_history": [
+        3.547545,
+        4.232144,
+        4.388759,
+        3.996894,
+        4.266828,
+        5.01333,
+        4.062211,
+        3.838137,
+        4.788606,
+        3.575675
+      ],
+      "anti_fragility_corr": 0.9939
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 7.03086,
+      "convergence_time": 100,
+      "drift_history": [
+        6.179543,
+        6.301676,
+        6.986766,
+        7.268127,
+        9.548882,
+        7.94893,
+        6.42397,
+        6.100346,
+        6.805364,
+        8.18687
+      ],
+      "anti_fragility_corr": 0.9308
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 5.838128,
+      "convergence_time": 100,
+      "drift_history": [
+        6.019577,
+        4.712951,
+        5.312743,
+        5.022405,
+        7.082623,
+        4.176754,
+        5.38454,
+        6.028434,
+        5.80822,
+        5.677729
+      ],
+      "anti_fragility_corr": 0.9833
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 5.988687,
+      "convergence_time": 100,
+      "drift_history": [
+        3.748446,
+        4.86133,
+        5.520622,
+        4.453981,
+        4.489714,
+        4.60038,
+        5.716183,
+        5.510169,
+        6.241626,
+        6.214267
+      ],
+      "anti_fragility_corr": 0.9935
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 5.577553,
+      "convergence_time": 100,
+      "drift_history": [
+        6.97085,
+        5.247318,
+        4.698013,
+        6.146596,
+        6.985551,
+        4.334106,
+        5.631531,
+        5.47831,
+        6.423977,
+        4.830371
+      ],
+      "anti_fragility_corr": 0.9249
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 5.570351,
+      "convergence_time": 100,
+      "drift_history": [
+        5.100891,
+        6.511957,
+        6.285593,
+        4.80704,
+        6.114397,
+        5.614531,
+        5.265456,
+        5.452831,
+        6.057608,
+        5.200616
+      ],
+      "anti_fragility_corr": 0.9995
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 5.236671,
+      "convergence_time": 100,
+      "drift_history": [
+        4.236389,
+        4.701298,
+        4.643872,
+        4.948116,
+        5.084142,
+        3.64304,
+        4.167696,
+        4.748706,
+        5.272628,
+        5.68868
+      ],
+      "anti_fragility_corr": 0.9969
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 12.545332,
+      "convergence_time": 100,
+      "drift_history": [
+        10.862881,
+        7.413201,
+        4.237235,
+        7.936123,
+        8.047174,
+        5.678509,
+        12.730078,
+        10.665686,
+        18.031475,
+        8.938835
+      ],
+      "anti_fragility_corr": 0.9419
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 9.919423,
+      "convergence_time": 100,
+      "drift_history": [
+        11.876186,
+        8.604137,
+        10.719088,
+        10.019913,
+        8.121181,
+        10.277401,
+        11.366663,
+        10.763535,
+        8.823036,
+        10.171699
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 10.916538,
+      "convergence_time": 100,
+      "drift_history": [
+        11.220261,
+        10.591656,
+        12.092662,
+        9.856177,
+        12.365398,
+        11.361023,
+        12.817389,
+        10.338704,
+        11.544837,
+        10.866073
+      ],
+      "anti_fragility_corr": 0.9862
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 5.189978,
+      "convergence_time": 100,
+      "drift_history": [
+        6.343647,
+        5.072911,
+        4.674111,
+        5.460119,
+        4.558543,
+        5.411168,
+        4.192991,
+        3.910844,
+        5.029388,
+        6.6297
+      ],
+      "anti_fragility_corr": 0.9525
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 7.459008,
+      "convergence_time": 100,
+      "drift_history": [
+        7.655358,
+        7.494573,
+        8.152452,
+        5.744451,
+        7.037487,
+        6.948064,
+        8.135144,
+        8.07534,
+        7.624643,
+        6.677041
+      ],
+      "anti_fragility_corr": 0.9982
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 6.816457,
+      "convergence_time": 100,
+      "drift_history": [
+        6.206347,
+        7.453488,
+        5.965366,
+        8.513015,
+        7.122815,
+        7.141794,
+        7.43037,
+        7.468982,
+        6.29791,
+        6.682478
+      ],
+      "anti_fragility_corr": 0.9939
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 5.092753,
+      "convergence_time": 100,
+      "drift_history": [
+        4.560266,
+        5.121915,
+        5.550048,
+        4.878701,
+        4.428231,
+        4.752303,
+        5.211152,
+        4.423697,
+        6.654123,
+        4.200439
+      ],
+      "anti_fragility_corr": 0.9308
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 12.002089,
+      "convergence_time": 100,
+      "drift_history": [
+        11.575509,
+        13.984629,
+        9.353203,
+        12.446042,
+        10.648707,
+        11.799671,
+        10.063226,
+        9.75304,
+        15.232025,
+        11.021202
+      ],
+      "anti_fragility_corr": 0.9833
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 8.312937,
+      "convergence_time": 100,
+      "drift_history": [
+        7.426298,
+        7.97425,
+        7.868039,
+        8.328324,
+        7.277012,
+        7.728339,
+        7.616095,
+        7.815756,
+        8.14833,
+        8.974723
+      ],
+      "anti_fragility_corr": 0.9935
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 5.022715,
+      "convergence_time": 100,
+      "drift_history": [
+        7.977666,
+        4.729072,
+        4.884055,
+        5.049652,
+        5.863585,
+        7.14624,
+        5.536919,
+        6.066193,
+        2.818245,
+        6.183707
+      ],
+      "anti_fragility_corr": 0.9249
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 8.8571,
+      "convergence_time": 100,
+      "drift_history": [
+        11.368495,
+        12.149265,
+        9.960132,
+        9.670935,
+        10.73693,
+        9.211204,
+        9.760575,
+        8.363069,
+        9.378486,
+        8.829746
+      ],
+      "anti_fragility_corr": 0.9995
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 7.504315,
+      "convergence_time": 100,
+      "drift_history": [
+        6.400723,
+        8.492218,
+        8.205788,
+        6.07021,
+        7.410301,
+        9.033742,
+        7.876966,
+        7.917473,
+        8.015049,
+        6.580424
+      ],
+      "anti_fragility_corr": 0.9969
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 10.382774,
+      "convergence_time": 100,
+      "drift_history": [
+        10.576619,
+        11.011845,
+        7.696478,
+        13.714601,
+        8.231514,
+        9.982863,
+        5.931802,
+        7.975319,
+        11.725296,
+        11.447706
+      ],
+      "anti_fragility_corr": 0.9419
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 23.268288,
+      "convergence_time": 100,
+      "drift_history": [
+        20.526202,
+        24.067574,
+        22.390237,
+        24.859872,
+        25.018388,
+        19.345245,
+        22.804741,
+        21.102037,
+        24.305315,
+        24.397513
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 26.828866,
+      "convergence_time": 100,
+      "drift_history": [
+        26.36855,
+        23.709882,
+        25.765648,
+        27.610843,
+        27.191501,
+        25.602923,
+        23.579498,
+        31.808706,
+        23.117673,
+        25.560219
+      ],
+      "anti_fragility_corr": 0.9862
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 16.0195,
+      "convergence_time": 100,
+      "drift_history": [
+        16.386047,
+        18.915003,
+        19.506219,
+        16.566107,
+        16.498556,
+        15.069916,
+        17.229175,
+        13.258228,
+        16.784341,
+        18.01593
+      ],
+      "anti_fragility_corr": 0.9525
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 22.748143,
+      "convergence_time": 100,
+      "drift_history": [
+        24.937202,
+        23.794839,
+        17.913189,
+        21.101603,
+        21.688893,
+        23.053499,
+        19.181714,
+        21.901221,
+        24.190285,
+        22.152923
+      ],
+      "anti_fragility_corr": 0.9982
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 18.751419,
+      "convergence_time": 100,
+      "drift_history": [
+        14.681154,
+        15.187906,
+        19.12952,
+        16.663883,
+        18.907463,
+        17.205364,
+        19.226234,
+        21.283224,
+        16.821102,
+        18.149931
+      ],
+      "anti_fragility_corr": 0.9939
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 15.722456,
+      "convergence_time": 100,
+      "drift_history": [
+        15.736429,
+        20.68819,
+        17.547824,
+        17.190845,
+        14.641174,
+        16.657894,
+        16.969845,
+        15.878944,
+        16.041237,
+        15.247187
+      ],
+      "anti_fragility_corr": 0.9308
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 17.034286,
+      "convergence_time": 100,
+      "drift_history": [
+        17.96331,
+        23.574568,
+        19.75684,
+        28.172199,
+        20.819783,
+        24.304902,
+        22.100997,
+        15.839386,
+        18.672418,
+        16.591055
+      ],
+      "anti_fragility_corr": 0.9833
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 23.790595,
+      "convergence_time": 100,
+      "drift_history": [
+        18.15629,
+        24.966116,
+        26.328228,
+        21.87252,
+        24.879,
+        24.3406,
+        28.933624,
+        24.300829,
+        22.553874,
+        24.517083
+      ],
+      "anti_fragility_corr": 0.9935
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 14.048625,
+      "convergence_time": 100,
+      "drift_history": [
+        14.249699,
+        12.855211,
+        11.035358,
+        19.841778,
+        12.67269,
+        15.846636,
+        14.488578,
+        14.217901,
+        14.4087,
+        13.519273
+      ],
+      "anti_fragility_corr": 0.9249
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 22.832581,
+      "convergence_time": 100,
+      "drift_history": [
+        18.39332,
+        21.491772,
+        22.860941,
+        27.300008,
+        23.753539,
+        20.519037,
+        19.182065,
+        26.174594,
+        20.67702,
+        21.64613
+      ],
+      "anti_fragility_corr": 0.9995
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 26.207422,
+      "convergence_time": 100,
+      "drift_history": [
+        19.932077,
+        25.894565,
+        27.120987,
+        25.950034,
+        25.105306,
+        17.473549,
+        16.061037,
+        26.987524,
+        19.866809,
+        31.767934
+      ],
+      "anti_fragility_corr": 0.9969
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 19.396572,
+      "convergence_time": 100,
+      "drift_history": [
+        9.762327,
+        21.339509,
+        14.11012,
+        14.274719,
+        13.700694,
+        16.328812,
+        20.629519,
+        18.637517,
+        17.503868,
+        22.048332
+      ],
+      "anti_fragility_corr": 0.9419
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 47.502253,
+      "convergence_time": 100,
+      "drift_history": [
+        45.133037,
+        39.762846,
+        43.888083,
+        52.181466,
+        40.399576,
+        50.615683,
+        41.183352,
+        51.432966,
+        46.922794,
+        44.150998
+      ],
+      "anti_fragility_corr": 0.9998
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 40.164392,
+      "convergence_time": 100,
+      "drift_history": [
+        38.170207,
+        42.473053,
+        43.740518,
+        40.100573,
+        42.315417,
+        35.837499,
+        41.374523,
+        42.530197,
+        38.393798,
+        39.56918
+      ],
+      "anti_fragility_corr": 0.9862
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 30.618289,
+      "convergence_time": 100,
+      "drift_history": [
+        27.732299,
+        39.674964,
+        31.234201,
+        38.482855,
+        38.713457,
+        40.619426,
+        28.76848,
+        31.126378,
+        28.69648,
+        32.03201
+      ],
+      "anti_fragility_corr": 0.9525
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 42.870673,
+      "convergence_time": 100,
+      "drift_history": [
+        37.543609,
+        43.132053,
+        42.903225,
+        41.086553,
+        44.126488,
+        42.165953,
+        38.268135,
+        42.059985,
+        43.443877,
+        43.108157
+      ],
+      "anti_fragility_corr": 0.9982
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 46.673175,
+      "convergence_time": 100,
+      "drift_history": [
+        40.414522,
+        46.184663,
+        49.657775,
+        49.931042,
+        48.288582,
+        60.233918,
+        55.397689,
+        43.897618,
+        41.36103,
+        54.760877
+      ],
+      "anti_fragility_corr": 0.9939
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 36.398216,
+      "convergence_time": 100,
+      "drift_history": [
+        38.208282,
+        37.128656,
+        34.812798,
+        36.56256,
+        33.860276,
+        42.627806,
+        37.919398,
+        44.065877,
+        34.592611,
+        30.53616
+      ],
+      "anti_fragility_corr": 0.9308
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 48.895438,
+      "convergence_time": 100,
+      "drift_history": [
+        50.226802,
+        51.115379,
+        52.102526,
+        47.549965,
+        62.230623,
+        46.349169,
+        51.602386,
+        54.16931,
+        47.984045,
+        44.532958
+      ],
+      "anti_fragility_corr": 0.9833
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 60.219408,
+      "convergence_time": 100,
+      "drift_history": [
+        51.215864,
+        61.221296,
+        50.958492,
+        59.13934,
+        68.918746,
+        58.154447,
+        66.888368,
+        58.352029,
+        57.223157,
+        65.083038
+      ],
+      "anti_fragility_corr": 0.9935
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 41.946135,
+      "convergence_time": 100,
+      "drift_history": [
+        32.189015,
+        34.030669,
+        29.209131,
+        39.00427,
+        34.770595,
+        33.046635,
+        43.574992,
+        32.148115,
+        42.98381,
+        50.706481
+      ],
+      "anti_fragility_corr": 0.9249
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 44.613351,
+      "convergence_time": 100,
+      "drift_history": [
+        36.716452,
+        58.606202,
+        64.794481,
+        50.391857,
+        44.288595,
+        44.036968,
+        50.743372,
+        40.64521,
+        46.870503,
+        46.324341
+      ],
+      "anti_fragility_corr": 0.9995
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 47.109996,
+      "convergence_time": 100,
+      "drift_history": [
+        36.689584,
+        39.885164,
+        52.233459,
+        46.812948,
+        40.943717,
+        47.794325,
+        34.576676,
+        46.575212,
+        43.858234,
+        50.896543
+      ],
+      "anti_fragility_corr": 0.9969
+    },
+    {
+      "protocol": "ptp_4timestamp",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 36.2554,
+      "convergence_time": 100,
+      "drift_history": [
+        25.697395,
+        37.109506,
+        45.517829,
+        60.168055,
+        38.172545,
+        33.462296,
+        31.216816,
+        50.397944,
+        25.881252,
+        32.487004
+      ],
+      "anti_fragility_corr": 0.9419
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.372102,
+      "convergence_time": 100,
+      "drift_history": [
+        0.172226,
+        0.238969,
+        0.262935,
+        0.242895,
+        0.285842,
+        0.290326,
+        0.348702,
+        0.344453,
+        0.319439,
+        0.452413
+      ],
+      "anti_fragility_corr": 0.9269
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 0.836301,
+      "convergence_time": 100,
+      "drift_history": [
+        1.381358,
+        1.677386,
+        1.63662,
+        1.465212,
+        1.263481,
+        1.090425,
+        0.932789,
+        0.847912,
+        0.803908,
+        0.857084
+      ],
+      "anti_fragility_corr": 0.6346
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 16.397544,
+      "convergence_time": 100,
+      "drift_history": [
+        12.293532,
+        15.068042,
+        16.027191,
+        16.262308,
+        16.400114,
+        16.425714,
+        16.438609,
+        16.386179,
+        16.377245,
+        16.429206
+      ],
+      "anti_fragility_corr": 0.1539
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.790795,
+      "convergence_time": 100,
+      "drift_history": [
+        0.244186,
+        0.377744,
+        0.461723,
+        0.533152,
+        0.609323,
+        0.671813,
+        0.69569,
+        0.783326,
+        0.776082,
+        0.812976
+      ],
+      "anti_fragility_corr": 0.9795
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 3.073283,
+      "convergence_time": 100,
+      "drift_history": [
+        1.723598,
+        2.339712,
+        2.639047,
+        2.764591,
+        2.952076,
+        2.918962,
+        2.945602,
+        2.968312,
+        3.086029,
+        3.165508
+      ],
+      "anti_fragility_corr": 0.8746
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 25.908693,
+      "convergence_time": 100,
+      "drift_history": [
+        13.306253,
+        17.985876,
+        21.517923,
+        23.526832,
+        24.344323,
+        24.774635,
+        24.649039,
+        25.574318,
+        25.907862,
+        26.2439
+      ],
+      "anti_fragility_corr": -0.4977
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.388542,
+      "convergence_time": 100,
+      "drift_history": [
+        0.185102,
+        0.281798,
+        0.288701,
+        0.276585,
+        0.280369,
+        0.280264,
+        0.300437,
+        0.357459,
+        0.388123,
+        0.420044
+      ],
+      "anti_fragility_corr": 0.9843
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 0.686125,
+      "convergence_time": 100,
+      "drift_history": [
+        0.988854,
+        1.009249,
+        0.87906,
+        0.862209,
+        0.752254,
+        0.741846,
+        0.639976,
+        0.667822,
+        0.675371,
+        0.71518
+      ],
+      "anti_fragility_corr": 0.9763
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 17.901703,
+      "convergence_time": 100,
+      "drift_history": [
+        13.559183,
+        16.532658,
+        19.079987,
+        17.789889,
+        21.092395,
+        17.820909,
+        17.129101,
+        17.06854,
+        18.209208,
+        18.42736
+      ],
+      "anti_fragility_corr": 0.6133
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.260198,
+      "convergence_time": 100,
+      "drift_history": [
+        0.180174,
+        0.116616,
+        0.171457,
+        0.208724,
+        0.196324,
+        0.236603,
+        0.289071,
+        0.25011,
+        0.281951,
+        0.248534
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 0.650176,
+      "convergence_time": 100,
+      "drift_history": [
+        1.057017,
+        0.91732,
+        0.786764,
+        0.681871,
+        0.631283,
+        0.656455,
+        0.603704,
+        0.641325,
+        0.666579,
+        0.642624
+      ],
+      "anti_fragility_corr": 0.9868
+    },
+    {
+      "protocol": "ewma",
+      "latency": 1,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 20.392936,
+      "convergence_time": 100,
+      "drift_history": [
+        14.446342,
+        15.833986,
+        19.935152,
+        22.344021,
+        27.928402,
+        21.931395,
+        24.131126,
+        22.30513,
+        19.348441,
+        19.525238
+      ],
+      "anti_fragility_corr": -0.4174
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1.329272,
+      "convergence_time": 100,
+      "drift_history": [
+        0.451746,
+        0.765708,
+        0.93965,
+        0.912583,
+        0.726977,
+        0.787485,
+        1.052784,
+        1.256892,
+        1.216235,
+        1.514688
+      ],
+      "anti_fragility_corr": 0.9269
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 5.453215,
+      "convergence_time": 100,
+      "drift_history": [
+        1.385577,
+        2.379425,
+        2.954976,
+        3.282804,
+        3.852633,
+        4.622515,
+        5.129345,
+        5.385283,
+        5.395962,
+        5.578399
+      ],
+      "anti_fragility_corr": 0.6346
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 15.664158,
+      "convergence_time": 100,
+      "drift_history": [
+        12.616908,
+        14.73121,
+        15.090392,
+        15.6381,
+        15.607828,
+        15.501318,
+        15.681836,
+        15.516041,
+        15.826195,
+        15.650238
+      ],
+      "anti_fragility_corr": 0.1539
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.489915,
+      "convergence_time": 100,
+      "drift_history": [
+        0.490286,
+        0.506454,
+        0.330372,
+        0.436243,
+        0.507863,
+        0.493,
+        0.358609,
+        0.41494,
+        0.585803,
+        0.469001
+      ],
+      "anti_fragility_corr": 0.9795
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 5.566905,
+      "convergence_time": 100,
+      "drift_history": [
+        1.595614,
+        2.182323,
+        2.937418,
+        3.359162,
+        4.01558,
+        4.438421,
+        5.309279,
+        5.291957,
+        5.414193,
+        5.994564
+      ],
+      "anti_fragility_corr": 0.8746
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 26.250294,
+      "convergence_time": 100,
+      "drift_history": [
+        13.917351,
+        17.7335,
+        19.771678,
+        21.179927,
+        23.287448,
+        24.353269,
+        25.834903,
+        24.746898,
+        26.401315,
+        27.602669
+      ],
+      "anti_fragility_corr": -0.4977
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.576001,
+      "convergence_time": 100,
+      "drift_history": [
+        0.640039,
+        0.581133,
+        0.552367,
+        0.874376,
+        0.643296,
+        0.846674,
+        1.012483,
+        0.681586,
+        0.561567,
+        0.484851
+      ],
+      "anti_fragility_corr": 0.9843
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.527582,
+      "convergence_time": 100,
+      "drift_history": [
+        1.447361,
+        1.605515,
+        1.754495,
+        1.817207,
+        2.133656,
+        2.395607,
+        2.42544,
+        2.720916,
+        2.626515,
+        2.235315
+      ],
+      "anti_fragility_corr": 0.9763
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 17.943806,
+      "convergence_time": 100,
+      "drift_history": [
+        13.635019,
+        15.256239,
+        16.71252,
+        15.796231,
+        17.93164,
+        16.974731,
+        17.800304,
+        18.943317,
+        18.105273,
+        16.782826
+      ],
+      "anti_fragility_corr": 0.6133
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.621604,
+      "convergence_time": 1000,
+      "drift_history": [
+        0.556211,
+        0.918292,
+        0.93995,
+        0.535294,
+        0.522527,
+        0.464233,
+        0.630153,
+        0.884032,
+        0.813495,
+        0.167286
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1.709892,
+      "convergence_time": 100,
+      "drift_history": [
+        1.189657,
+        1.360776,
+        1.222416,
+        1.651015,
+        1.741614,
+        1.882124,
+        1.729745,
+        1.505611,
+        1.617254,
+        2.006813
+      ],
+      "anti_fragility_corr": 0.9868
+    },
+    {
+      "protocol": "ewma",
+      "latency": 5,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 34.081122,
+      "convergence_time": 100,
+      "drift_history": [
+        18.145602,
+        29.167379,
+        34.912995,
+        34.66185,
+        34.270136,
+        33.081661,
+        32.458202,
+        34.15499,
+        36.245332,
+        31.843044
+      ],
+      "anti_fragility_corr": -0.4174
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.851943,
+      "convergence_time": 100,
+      "drift_history": [
+        0.779342,
+        0.751274,
+        0.568519,
+        1.094119,
+        1.231546,
+        0.694813,
+        0.58324,
+        0.870122,
+        0.66382,
+        1.021887
+      ],
+      "anti_fragility_corr": 0.9269
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1.456824,
+      "convergence_time": 100,
+      "drift_history": [
+        1.262879,
+        1.518211,
+        1.793707,
+        1.400921,
+        1.442516,
+        1.630382,
+        1.431283,
+        1.281211,
+        1.404868,
+        1.684392
+      ],
+      "anti_fragility_corr": 0.6346
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 26.20694,
+      "convergence_time": 100,
+      "drift_history": [
+        14.340171,
+        18.759748,
+        22.260991,
+        24.481582,
+        25.387851,
+        26.384578,
+        26.7625,
+        26.201584,
+        26.223673,
+        26.195564
+      ],
+      "anti_fragility_corr": 0.1539
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.80155,
+      "convergence_time": 100,
+      "drift_history": [
+        0.46623,
+        0.651792,
+        0.584326,
+        1.440525,
+        1.283593,
+        0.651639,
+        1.589962,
+        0.731711,
+        0.699628,
+        0.973311
+      ],
+      "anti_fragility_corr": 0.9795
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 3.520683,
+      "convergence_time": 100,
+      "drift_history": [
+        1.029992,
+        2.321411,
+        3.020019,
+        2.884459,
+        2.320291,
+        2.914953,
+        3.544975,
+        3.371437,
+        3.425026,
+        3.765586
+      ],
+      "anti_fragility_corr": 0.8746
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 31.878936,
+      "convergence_time": 100,
+      "drift_history": [
+        15.52723,
+        22.819868,
+        25.432643,
+        27.047515,
+        27.895963,
+        29.092369,
+        28.950044,
+        31.128696,
+        31.462618,
+        33.045495
+      ],
+      "anti_fragility_corr": -0.4977
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 0.979493,
+      "convergence_time": 100,
+      "drift_history": [
+        0.543102,
+        0.533854,
+        0.428871,
+        0.64222,
+        0.462605,
+        0.510509,
+        0.375578,
+        1.024874,
+        1.225133,
+        0.688471
+      ],
+      "anti_fragility_corr": 0.9843
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 1.61122,
+      "convergence_time": 100,
+      "drift_history": [
+        1.773173,
+        1.997195,
+        1.519023,
+        2.015095,
+        1.453498,
+        1.851296,
+        1.470323,
+        1.390467,
+        1.936629,
+        1.506565
+      ],
+      "anti_fragility_corr": 0.9763
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 15.159312,
+      "convergence_time": 100,
+      "drift_history": [
+        12.129232,
+        11.920046,
+        12.291813,
+        13.06074,
+        12.999557,
+        15.645104,
+        13.753424,
+        14.929456,
+        14.631868,
+        15.916612
+      ],
+      "anti_fragility_corr": 0.6133
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1.140218,
+      "convergence_time": 100,
+      "drift_history": [
+        1.109509,
+        0.625132,
+        1.062235,
+        1.209724,
+        1.093101,
+        1.07916,
+        0.851638,
+        1.107484,
+        1.112449,
+        1.20072
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.820641,
+      "convergence_time": 100,
+      "drift_history": [
+        1.995199,
+        2.134853,
+        2.053235,
+        1.956363,
+        1.978464,
+        2.208921,
+        2.417768,
+        2.848036,
+        2.754611,
+        2.859275
+      ],
+      "anti_fragility_corr": 0.9868
+    },
+    {
+      "protocol": "ewma",
+      "latency": 10,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 29.946036,
+      "convergence_time": 100,
+      "drift_history": [
+        13.958014,
+        21.272754,
+        23.599974,
+        29.410009,
+        29.149548,
+        31.339822,
+        31.484098,
+        28.240655,
+        30.056276,
+        31.541176
+      ],
+      "anti_fragility_corr": -0.4174
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1.274716,
+      "convergence_time": 100,
+      "drift_history": [
+        1.225677,
+        1.163255,
+        1.559915,
+        0.787761,
+        1.842351,
+        1.856027,
+        1.53506,
+        1.354975,
+        0.815442,
+        1.653732
+      ],
+      "anti_fragility_corr": 0.9269
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.355878,
+      "convergence_time": 100,
+      "drift_history": [
+        2.458963,
+        2.687922,
+        3.607954,
+        3.005396,
+        3.518316,
+        3.211441,
+        2.703057,
+        3.213625,
+        2.271779,
+        1.58223
+      ],
+      "anti_fragility_corr": 0.6346
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 41.402555,
+      "convergence_time": 100,
+      "drift_history": [
+        16.589901,
+        23.252357,
+        29.523202,
+        32.824599,
+        34.885537,
+        37.080699,
+        40.428465,
+        40.84968,
+        41.532884,
+        41.8251
+      ],
+      "anti_fragility_corr": 0.1539
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1.37572,
+      "convergence_time": 100,
+      "drift_history": [
+        1.786907,
+        1.725995,
+        1.240992,
+        1.30326,
+        1.743689,
+        2.635276,
+        0.850513,
+        1.083143,
+        1.621521,
+        1.422498
+      ],
+      "anti_fragility_corr": 0.9795
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.558327,
+      "convergence_time": 100,
+      "drift_history": [
+        2.017466,
+        1.888503,
+        1.613301,
+        2.233565,
+        2.956459,
+        3.139334,
+        2.550059,
+        3.087045,
+        2.269097,
+        2.31884
+      ],
+      "anti_fragility_corr": 0.8746
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 49.217403,
+      "convergence_time": 100,
+      "drift_history": [
+        19.430421,
+        30.505757,
+        37.569483,
+        43.543369,
+        46.444027,
+        48.135183,
+        46.889059,
+        48.086977,
+        49.44637,
+        50.118864
+      ],
+      "anti_fragility_corr": -0.4977
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 1.812189,
+      "convergence_time": 100,
+      "drift_history": [
+        2.400049,
+        1.599455,
+        1.271828,
+        1.652172,
+        1.60057,
+        1.648835,
+        1.913984,
+        2.310452,
+        1.740059,
+        1.386057
+      ],
+      "anti_fragility_corr": 0.9843
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 2.439618,
+      "convergence_time": 100,
+      "drift_history": [
+        1.881952,
+        3.074916,
+        2.316839,
+        1.957795,
+        2.878794,
+        2.080904,
+        3.101983,
+        2.193894,
+        2.658236,
+        2.466725
+      ],
+      "anti_fragility_corr": 0.9763
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 43.219585,
+      "convergence_time": 100,
+      "drift_history": [
+        20.156289,
+        31.919396,
+        34.278882,
+        37.563035,
+        40.778851,
+        43.951551,
+        43.959901,
+        43.825983,
+        42.673557,
+        43.159216
+      ],
+      "anti_fragility_corr": 0.6133
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 2.749536,
+      "convergence_time": 100,
+      "drift_history": [
+        1.958663,
+        2.96599,
+        2.698982,
+        3.962394,
+        2.412171,
+        2.14808,
+        2.4898,
+        3.57604,
+        2.79883,
+        1.873737
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 5.025982,
+      "convergence_time": 100,
+      "drift_history": [
+        3.487364,
+        3.112868,
+        4.508588,
+        5.482831,
+        4.533594,
+        6.502038,
+        4.565777,
+        4.14075,
+        6.240615,
+        4.696582
+      ],
+      "anti_fragility_corr": 0.9868
+    },
+    {
+      "protocol": "ewma",
+      "latency": 20,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 19.097036,
+      "convergence_time": 100,
+      "drift_history": [
+        15.297207,
+        17.496009,
+        17.377074,
+        15.86368,
+        13.910793,
+        17.310253,
+        18.216744,
+        17.689528,
+        19.48192,
+        20.11966
+      ],
+      "anti_fragility_corr": -0.4174
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 4.589054,
+      "convergence_time": 100,
+      "drift_history": [
+        4.147773,
+        2.546007,
+        2.289999,
+        2.612859,
+        3.479498,
+        2.006116,
+        1.266862,
+        4.186718,
+        6.923619,
+        2.656824
+      ],
+      "anti_fragility_corr": 0.9269
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 3.850768,
+      "convergence_time": 100,
+      "drift_history": [
+        2.540963,
+        2.599643,
+        3.672405,
+        3.066181,
+        3.678511,
+        5.870558,
+        6.905078,
+        4.516707,
+        4.154735,
+        2.880864
+      ],
+      "anti_fragility_corr": 0.6346
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 13.672808,
+      "convergence_time": 100,
+      "drift_history": [
+        9.540728,
+        12.201488,
+        14.435141,
+        15.037554,
+        17.596465,
+        14.338194,
+        13.642465,
+        13.766192,
+        13.800354,
+        13.451878
+      ],
+      "anti_fragility_corr": 0.1539
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 2.069611,
+      "convergence_time": 100,
+      "drift_history": [
+        3.174074,
+        3.332513,
+        2.947059,
+        2.445029,
+        3.557711,
+        2.563724,
+        2.301671,
+        2.197442,
+        2.38311,
+        1.628282
+      ],
+      "anti_fragility_corr": 0.9795
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 5.793869,
+      "convergence_time": 100,
+      "drift_history": [
+        2.741843,
+        2.200337,
+        3.481187,
+        4.942042,
+        4.319286,
+        4.845304,
+        3.990233,
+        5.638738,
+        6.421527,
+        5.321343
+      ],
+      "anti_fragility_corr": 0.8746
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 13.204979,
+      "convergence_time": 100,
+      "drift_history": [
+        14.678335,
+        16.811132,
+        14.958519,
+        11.977428,
+        13.635631,
+        12.287061,
+        13.638287,
+        14.841173,
+        13.069922,
+        11.703843
+      ],
+      "anti_fragility_corr": -0.4977
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 4.061865,
+      "convergence_time": 100,
+      "drift_history": [
+        4.017784,
+        3.101148,
+        3.530115,
+        4.58022,
+        2.571439,
+        2.827498,
+        2.657446,
+        4.985511,
+        3.859634,
+        3.340451
+      ],
+      "anti_fragility_corr": 0.9843
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 4.621879,
+      "convergence_time": 100,
+      "drift_history": [
+        2.12692,
+        4.437759,
+        2.396458,
+        3.241333,
+        4.385035,
+        3.739051,
+        4.26229,
+        4.970973,
+        3.26032,
+        5.634343
+      ],
+      "anti_fragility_corr": 0.9763
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 29.152317,
+      "convergence_time": 100,
+      "drift_history": [
+        19.924627,
+        26.167056,
+        25.304641,
+        27.995362,
+        30.694125,
+        25.625119,
+        33.822125,
+        30.712099,
+        27.724489,
+        29.020362
+      ],
+      "anti_fragility_corr": 0.6133
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 6.132652,
+      "convergence_time": 100,
+      "drift_history": [
+        4.198228,
+        6.854878,
+        3.422566,
+        4.44027,
+        4.504663,
+        5.937273,
+        7.89766,
+        7.23168,
+        6.706502,
+        4.459773
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 6.620113,
+      "convergence_time": 100,
+      "drift_history": [
+        4.359452,
+        3.564623,
+        3.242679,
+        4.807916,
+        3.833638,
+        5.32422,
+        5.059042,
+        5.6814,
+        3.516462,
+        10.662477
+      ],
+      "anti_fragility_corr": 0.9868
+    },
+    {
+      "protocol": "ewma",
+      "latency": 50,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 20.49169,
+      "convergence_time": 100,
+      "drift_history": [
+        12.774315,
+        13.223995,
+        20.381637,
+        25.432209,
+        22.137148,
+        19.329232,
+        20.92264,
+        23.03941,
+        19.193905,
+        19.241754
+      ],
+      "anti_fragility_corr": -0.4174
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 5.068334,
+      "convergence_time": 100,
+      "drift_history": [
+        2.450785,
+        7.259934,
+        7.07142,
+        5.599944,
+        8.721028,
+        5.661412,
+        3.927021,
+        5.336807,
+        5.536375,
+        4.331821
+      ],
+      "anti_fragility_corr": 0.9269
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 5.825387,
+      "convergence_time": 100,
+      "drift_history": [
+        4.796244,
+        6.532545,
+        8.556938,
+        10.850389,
+        9.183894,
+        4.545179,
+        4.120475,
+        5.849235,
+        6.674699,
+        4.952228
+      ],
+      "anti_fragility_corr": 0.6346
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.0,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 28.33864,
+      "convergence_time": 100,
+      "drift_history": [
+        18.086842,
+        25.704394,
+        26.303584,
+        24.31225,
+        24.159622,
+        28.498612,
+        27.617189,
+        33.31863,
+        27.799188,
+        23.8981
+      ],
+      "anti_fragility_corr": 0.1539
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 5.39084,
+      "convergence_time": 100,
+      "drift_history": [
+        2.135385,
+        4.489912,
+        8.774982,
+        12.420477,
+        6.671239,
+        5.88499,
+        7.576896,
+        3.874444,
+        4.302458,
+        7.995618
+      ],
+      "anti_fragility_corr": 0.9795
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 9.684681,
+      "convergence_time": 100,
+      "drift_history": [
+        4.180472,
+        11.766184,
+        13.391263,
+        11.71329,
+        10.531884,
+        8.987851,
+        6.781435,
+        8.19376,
+        11.482789,
+        9.377493
+      ],
+      "anti_fragility_corr": 0.8746
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.1,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 17.749209,
+      "convergence_time": 100,
+      "drift_history": [
+        11.907936,
+        12.322455,
+        9.277335,
+        15.148247,
+        10.692425,
+        16.69849,
+        15.457673,
+        17.953395,
+        17.515156,
+        17.779075
+      ],
+      "anti_fragility_corr": -0.4977
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 12.093446,
+      "convergence_time": 100,
+      "drift_history": [
+        6.863657,
+        9.63616,
+        9.252011,
+        6.220238,
+        14.765559,
+        20.661917,
+        10.46349,
+        6.137115,
+        14.856203,
+        15.28702
+      ],
+      "anti_fragility_corr": 0.9843
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 7.535165,
+      "convergence_time": 100,
+      "drift_history": [
+        12.887339,
+        9.444272,
+        6.565373,
+        8.285881,
+        6.842407,
+        5.977739,
+        9.800585,
+        6.136918,
+        9.085814,
+        7.382763
+      ],
+      "anti_fragility_corr": 0.9763
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.3,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 37.951605,
+      "convergence_time": 100,
+      "drift_history": [
+        24.310433,
+        31.512691,
+        43.691451,
+        37.72909,
+        31.732674,
+        28.803367,
+        30.033856,
+        32.76691,
+        40.729305,
+        40.358599
+      ],
+      "anti_fragility_corr": 0.6133
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "low",
+      "sigma_range": [
+        0.001,
+        0.01
+      ],
+      "steady_state_drift": 11.528274,
+      "convergence_time": 100,
+      "drift_history": [
+        9.96446,
+        6.067029,
+        9.716321,
+        13.986682,
+        14.583606,
+        19.458281,
+        26.40456,
+        11.594321,
+        11.107558,
+        11.882944
+      ],
+      "anti_fragility_corr": 0.999
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "medium",
+      "sigma_range": [
+        0.01,
+        0.1
+      ],
+      "steady_state_drift": 14.333879,
+      "convergence_time": 100,
+      "drift_history": [
+        6.181591,
+        9.466916,
+        22.842005,
+        15.438413,
+        22.73573,
+        16.714707,
+        15.39705,
+        7.803083,
+        14.233549,
+        20.965005
+      ],
+      "anti_fragility_corr": 0.9868
+    },
+    {
+      "protocol": "ewma",
+      "latency": 100,
+      "loss_rate": 0.5,
+      "drift_config": "high",
+      "sigma_range": [
+        0.1,
+        1.0
+      ],
+      "steady_state_drift": 21.025974,
+      "convergence_time": 100,
+      "drift_history": [
+        12.637111,
+        19.279682,
+        17.260349,
+        22.444627,
+        24.262847,
+        13.947064,
+        16.187975,
+        21.651181,
+        19.783101,
+        21.643641
+      ],
+      "anti_fragility_corr": -0.4174
+    }
+  ]
+}
