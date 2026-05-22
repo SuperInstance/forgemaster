@@ -1,0 +1,272 @@
+{
+  "experiment": "experiment_09_partition_tolerance",
+  "hypothesis": "Laman-rigid fleet recovers from partition within O(log N) rounds after healing",
+  "parameters": {
+    "N": 10,
+    "laman_edges": 17,
+    "drift_rates": [
+      0.001,
+      -0.002,
+      0.003,
+      -0.001,
+      0.002,
+      -0.003,
+      0.0015,
+      -0.0015,
+      0.0025,
+      -0.0025
+    ],
+    "phases": {
+      "pre_partition_ticks": 200,
+      "partition_ticks": 100,
+      "post_healing_ticks": 200
+    },
+    "cross_edges_removed": 7,
+    "cross_edges": [
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        7,
+        0
+      ],
+      [
+        8,
+        1
+      ],
+      [
+        8,
+        4
+      ],
+      [
+        9,
+        0
+      ]
+    ],
+    "components_during_partition": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      [
+        5,
+        6,
+        7,
+        9
+      ],
+      [
+        8
+      ]
+    ]
+  },
+  "results": {
+    "pre_partition": {
+      "max_agent_drift": 0.033320194857269225,
+      "pairwise_max_drift": 0.011776516158432386
+    },
+    "partition": {
+      "max_agent_drift_end": 0.2814437280665504,
+      "peak_pairwise_drift": 0.3798954462470771
+    },
+    "post_healing": {
+      "final_pairwise_drift": 0.011776516158432386,
+      "convergence_tick": 13,
+      "log2_N": 3,
+      "convergence_over_logN": 4.333333333333333
+    }
+  },
+  "verdict": "SUPPORTS",
+  "phase1_drift_log": [
+    {
+      "tick": 195,
+      "max_drift": 0.03279078309256334,
+      "pairwise_max": 0.011776516158432386
+    },
+    {
+      "tick": 196,
+      "max_drift": 0.032923136033739815,
+      "pairwise_max": 0.011776516158432386
+    },
+    {
+      "tick": 197,
+      "max_drift": 0.03305548897491629,
+      "pairwise_max": 0.011776516158432386
+    },
+    {
+      "tick": 198,
+      "max_drift": 0.03318784191609276,
+      "pairwise_max": 0.011776516158432386
+    },
+    {
+      "tick": 199,
+      "max_drift": 0.033320194857269225,
+      "pairwise_max": 0.011776516158432386
+    }
+  ],
+  "partition_drift_log": [
+    {
+      "tick": 95,
+      "max_drift": 0.27144372806655037,
+      "pairwise_max": 0.3652287795804085
+    },
+    {
+      "tick": 96,
+      "max_drift": 0.2739437280665504,
+      "pairwise_max": 0.3688954462470759
+    },
+    {
+      "tick": 97,
+      "max_drift": 0.2764437280665504,
+      "pairwise_max": 0.3725621129137431
+    },
+    {
+      "tick": 98,
+      "max_drift": 0.2789437280665504,
+      "pairwise_max": 0.3762287795804101
+    },
+    {
+      "tick": 99,
+      "max_drift": 0.2814437280665504,
+      "pairwise_max": 0.3798954462470771
+    }
+  ],
+  "heal_drift_log_sample": [
+    {
+      "tick": 0,
+      "max_drift": 0.2063795834749554,
+      "pairwise_max": 0.2634256643670576
+    },
+    {
+      "tick": 1,
+      "max_drift": 0.16825103927150648,
+      "pairwise_max": 0.194103805513151
+    },
+    {
+      "tick": 2,
+      "max_drift": 0.14225238555924202,
+      "pairwise_max": 0.14574677502866534
+    },
+    {
+      "tick": 3,
+      "max_drift": 0.12348339510187,
+      "pairwise_max": 0.11074730949584229
+    },
+    {
+      "tick": 4,
+      "max_drift": 0.10979101350976919,
+      "pairwise_max": 0.08499831923972365
+    },
+    {
+      "tick": 5,
+      "max_drift": 0.1008243156450049,
+      "pairwise_max": 0.06694869606779094
+    },
+    {
+      "tick": 6,
+      "max_drift": 0.09406719290213893,
+      "pairwise_max": 0.053299029254216965
+    },
+    {
+      "tick": 7,
+      "max_drift": 0.0889526119975409,
+      "pairwise_max": 0.04293457510982917
+    },
+    {
+      "tick": 8,
+      "max_drift": 0.0851213731787583,
+      "pairwise_max": 0.035095631154540875
+    },
+    {
+      "tick": 9,
+      "max_drift": 0.08227376454136279,
+      "pairwise_max": 0.02918255819193361
+    },
+    {
+      "tick": 10,
+      "max_drift": 0.08017187626043284,
+      "pairwise_max": 0.024730335464015853
+    },
+    {
+      "tick": 11,
+      "max_drift": 0.07863175911536353,
+      "pairwise_max": 0.021382309226867433
+    },
+    {
+      "tick": 12,
+      "max_drift": 0.0775132671621894,
+      "pairwise_max": 0.01886688968528223
+    },
+    {
+      "tick": 13,
+      "max_drift": 0.07671053343686574,
+      "pairwise_max": 0.016978239829051
+    },
+    {
+      "tick": 14,
+      "max_drift": 0.07614398398795558,
+      "pairwise_max": 0.015560854755235557
+    },
+    {
+      "tick": 15,
+      "max_drift": 0.07575398239110437,
+      "pairwise_max": 0.014497512763147579
+    },
+    {
+      "tick": 16,
+      "max_drift": 0.07549590949374924,
+      "pairwise_max": 0.013699986895607539
+    },
+    {
+      "tick": 17,
+      "max_drift": 0.07533641291553464,
+      "pairwise_max": 0.013178237967269081
+    },
+    {
+      "tick": 18,
+      "max_drift": 0.07525057383478317,
+      "pairwise_max": 0.012825037121627008
+    },
+    {
+      "tick": 19,
+      "max_drift": 0.07521977802625286,
+      "pairwise_max": 0.012560982193255974
+    },
+    {
+      "tick": 195,
+      "max_drift": 0.09802929601504114,
+      "pairwise_max": 0.011776516158432386
+    },
+    {
+      "tick": 196,
+      "max_drift": 0.09816164895621761,
+      "pairwise_max": 0.011776516158432386
+    },
+    {
+      "tick": 197,
+      "max_drift": 0.09829400189739408,
+      "pairwise_max": 0.011776516158432386
+    },
+    {
+      "tick": 198,
+      "max_drift": 0.09842635483857054,
+      "pairwise_max": 0.011776516158432386
+    },
+    {
+      "tick": 199,
+      "max_drift": 0.09855870777974701,
+      "pairwise_max": 0.011776516158432386
+    }
+  ]
+}
