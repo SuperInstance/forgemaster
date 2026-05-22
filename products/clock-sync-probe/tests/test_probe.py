@@ -61,7 +61,7 @@ def test_find_convergence_partial():
     # First 30 high, then 30 low
     offsets = [10.0] * 30 + [0.1] * 30
     result = _find_convergence(offsets, threshold=0.5)
-    assert result == 31  # 20 ticks after the first below-threshold
+    assert result == 30  # index 30 is first below-threshold tick
 
 
 def test_find_convergence_empty():
