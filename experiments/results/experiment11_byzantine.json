@@ -5,9 +5,9 @@
     "laman_edges": 17,
     "expected_edges": 17,
     "condition_met": true,
-    "max_drift_final": 0.213731,
-    "max_drift_peak": 0.213731,
-    "max_drift_mean": 0.12365,
+    "max_drift_final": 0.25,
+    "max_drift_peak": 0.25,
+    "max_drift_mean": 0.134294,
     "convergence_tick": 1
   },
   {
@@ -16,10 +16,10 @@
     "laman_edges": 17,
     "expected_edges": 17,
     "condition_met": true,
-    "max_drift_final": 34.474211,
-    "max_drift_peak": 557.507494,
-    "max_drift_mean": 206.18501,
-    "convergence_tick": null
+    "max_drift_final": 0.555448,
+    "max_drift_peak": 0.555448,
+    "max_drift_mean": 0.275913,
+    "convergence_tick": 1
   },
   {
     "byzantine_count": 2,
@@ -27,10 +27,10 @@
     "laman_edges": 17,
     "expected_edges": 17,
     "condition_met": true,
-    "max_drift_final": 155.5136,
-    "max_drift_peak": 705.262682,
-    "max_drift_mean": 332.672155,
-    "convergence_tick": null
+    "max_drift_final": 0.305993,
+    "max_drift_peak": 0.305993,
+    "max_drift_mean": 0.175991,
+    "convergence_tick": 1
   },
   {
     "byzantine_count": 3,
@@ -38,9 +38,9 @@
     "laman_edges": 17,
     "expected_edges": 17,
     "condition_met": true,
-    "max_drift_final": 173.631967,
-    "max_drift_peak": 528.473805,
-    "max_drift_mean": 320.560283,
-    "convergence_tick": null
+    "max_drift_final": 0.558667,
+    "max_drift_peak": 0.558667,
+    "max_drift_mean": 0.300268,
+    "convergence_tick": 1
   }
 ]

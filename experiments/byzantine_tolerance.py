@@ -1,96 +1,164 @@
 #!/usr/bin/env python3
-"""Experiment 11: Byzantine Fault Tolerance in a Laman-rigid fleet."""
+"""Experiment 11: Byzantine Fault Tolerance in a Laman-rigid fleet.
+
+Filter: Reputation-weighted trimmed mean.
+- Each honest agent tracks historical variance of peer reports.
+- Peers with variance > 2× fleet median variance are flagged suspicious.
+- Suspicious peer corrections are weighted down to ~0.
+- Trimmed mean (discard top/bottom 25%) only applied when >= 6 neighbors.
+- For sparse graphs, reputation alone does the filtering.
+"""
 import json
 import random
 import os
-from fractions import Fraction
 from statistics import median
 
 random.seed(42)
 
+
 class MetronomeAgent:
-    def __init__(self, idx, epsilon=Fraction(1, 100), delta=Fraction(1, 16)):
+    def __init__(self, idx, epsilon=0.01, delta=0.0625):
         self.idx = idx
-        self.local_clock = Fraction(0)
-        self.epsilon = epsilon  # max drift rate per tick
-        self.delta = delta      # deadband threshold
+        self.local_clock = 0.0
+        self.epsilon = epsilon
+        self.delta = delta
         self.byztantine = False
-        self.neighbors = []     # list of (agent, edge_weight)
+        self.neighbors = []
         self.converged_tick = None
-        # Each agent has a fixed drift direction
-        self.drift_rate = epsilon * Fraction(idx - 4, 20)  # varies by agent
+        self.drift_rate = epsilon * (idx - 4) / 20.0
+        # Reputation tracking
+        self.peer_dev_sq = {}   # peer idx -> running sum of squared deviations
+        self.peer_count = {}    # peer idx -> number of samples
 
     def tick(self, tick_num):
-        """Advance local clock with natural drift."""
-        self.local_clock += Fraction(1, 1) + self.drift_rate
+        self.local_clock += 1.0 + self.drift_rate
 
     def report_clock(self):
-        """What this agent sends to neighbors."""
         if self.byztantine:
-            # Byzantine: report a random clock value
-            return Fraction(random.randint(0, 1000), 1)
+            return float(random.randint(0, 1000))
         return self.local_clock
 
+    def _peer_variance(self, peer_idx):
+        """Running variance for a peer."""
+        if peer_idx not in self.peer_count or self.peer_count[peer_idx] < 2:
+            return 0.0
+        n = self.peer_count[peer_idx]
+        return self.peer_dev_sq[peer_idx] / n
+
     def correct(self):
-        """Apply corrections from neighbors using median filter."""
+        """Apply corrections using reputation-weighted trimmed mean."""
         if not self.neighbors:
             return
-        # Collect neighbor clock readings
-        reports = [neighbor.report_clock() for neighbor, _ in self.neighbors]
 
-        # Median filter: discard outliers beyond 2*MAD from median
-        if len(reports) > 2:
-            med = median(reports)
-            abs_devs = [abs(r - med) for r in reports]
-            mad = median(abs_devs)
-            threshold = max(2 * mad, self.delta)  # at least delta
-            filtered = [r for r in reports if abs(r - med) <= threshold]
-            if filtered:
-                reports = filtered
+        # Collect neighbor reports
+        peer_reports = []
+        for neighbor, _ in self.neighbors:
+            reported = neighbor.report_clock()
+            peer_reports.append((neighbor.idx, reported))
 
-        # Compute consensus from filtered reports
-        consensus = median(reports)
+            # Update running variance: deviation from our clock
+            deviation = reported - self.local_clock
+            pidx = neighbor.idx
+            if pidx not in self.peer_dev_sq:
+                self.peer_dev_sq[pidx] = 0.0
+                self.peer_count[pidx] = 0
+            # Exponential moving: weight recent samples more
+            alpha = 0.3
+            old_var = self._peer_variance(pidx)
+            new_sq = deviation * deviation
+            self.peer_dev_sq[pidx] = (1 - alpha) * self.peer_dev_sq[pidx] + alpha * new_sq
+            self.peer_count[pidx] = min(self.peer_count[pidx] + 1, 100)
 
-        # Apply correction: move toward consensus if beyond deadband
+        # Compute per-peer variance
+        peer_vars = {pidx: self._peer_variance(pidx) for pidx, _ in peer_reports}
+
+        # Fleet median variance
+        all_vars = list(peer_vars.values())
+        all_vars_sorted = sorted(all_vars)
+        fleet_median_var = all_vars_sorted[len(all_vars_sorted) // 2]
+
+        # Reputation weights: peers with variance > 2x median get near-zero weight
+        reputation_weights = {}
+        for pidx, var in peer_vars.items():
+            if fleet_median_var > 0.001 and var > 2.0 * fleet_median_var:
+                # Exponential penalty: the more suspicious, the lower the weight
+                ratio = var / max(fleet_median_var, 0.001)
+                reputation_weights[pidx] = max(0.01, 1.0 / (1.0 + ratio))
+            else:
+                reputation_weights[pidx] = 1.0
+
+        # Spread guard: if reports disagree too much, skip correction
+        values = [r for _, r in peer_reports]
+        report_range = max(values) - min(values)
+        # Honest neighbors should agree within a small band around our clock
+        # Allow spread up to 4 * delta; anything wider means Byzantine is active
+        if report_range > 4.0 * self.delta:
+            # Only use reports within delta of our own clock
+            trusted = [(pidx, r) for pidx, r in peer_reports
+                       if abs(r - self.local_clock) < 2.0 * self.delta]
+            if not trusted:
+                return  # no trustworthy reports, skip
+            peer_reports = trusted
+            values = [r for _, r in peer_reports]
+
+        # Trimmed mean only if enough neighbors (>= 6)
+        report_values = sorted(peer_reports, key=lambda x: x[1])
+        n = len(report_values)
+        if n >= 6:
+            trim = n // 4
+            trimmed = report_values[trim:-trim]
+        else:
+            trimmed = report_values
+
+        if not trimmed:
+            trimmed = report_values
+
+        # Weighted consensus
+        total_weight = 0.0
+        weighted_sum = 0.0
+        for pidx, reported in trimmed:
+            w = reputation_weights.get(pidx, 1.0)
+            weighted_sum += reported * w
+            total_weight += w
+
+        if total_weight > 0:
+            consensus = weighted_sum / total_weight
+        else:
+            consensus = median([r for _, r in trimmed])
+
         error = consensus - self.local_clock
         if abs(error) > self.delta:
-            # Apply dampened correction
-            self.local_clock += error * Fraction(1, 2)
+            self.local_clock += error * 0.5
+
 
 def build_laman_topology(n):
-    """Build a Laman graph on n agents with 2n-3 edges."""
     edges = []
-    # Start with triangle on first 3 nodes
     for i in range(3):
         for j in range(i + 1, 3):
             edges.append((i, j))
-    # Add remaining nodes: connect each to 2 existing
     for k in range(3, n):
         targets = random.sample(range(k), 2)
         for t in targets:
             edges.append((k, t))
     return edges
 
+
 def run_experiment():
     N = 10
-    expected_edges = 2 * N - 3  # 17
+    expected_edges = 2 * N - 3
 
     results = []
 
     for f in [0, 1, 2, 3]:
-        # Verify Byzantine condition
         assert N >= 3 * f + 1, f"Cannot tolerate f={f} with N={N}"
 
-        # Build fresh agents and topology
         agents = [MetronomeAgent(i) for i in range(N)]
         edges = build_laman_topology(N)
 
-        # Build neighbor lists
         for i, j in edges:
-            agents[i].neighbors.append((agents[j], Fraction(1, 1)))
-            agents[j].neighbors.append((agents[i], Fraction(1, 1)))
+            agents[i].neighbors.append((agents[j], 1.0))
+            agents[j].neighbors.append((agents[i], 1.0))
 
-        # Mark first f agents as Byzantine
         for i in range(f):
             agents[i].byztantine = True
 
@@ -99,25 +167,21 @@ def run_experiment():
         consecutive_stable = 0
 
         for tick in range(1, 501):
-            # Step 1: each agent ticks
             for a in agents:
                 a.tick(tick)
 
-            # Step 2: exchange and correct
             for a in agents:
                 if not a.byztantine:
                     a.correct()
 
-            # Measure drift among honest agents (deviation from ideal tick count)
             honest = [a for a in agents if not a.byztantine]
             honest_clocks = [a.local_clock for a in honest]
-            ideal_clock = Fraction(tick, 1)
+            ideal_clock = float(tick)
             drifts = [abs(c - ideal_clock) for c in honest_clocks]
-            max_drift = float(max(drifts))
+            max_drift = max(drifts)
             max_drifts.append(max_drift)
 
-            # Check convergence: max drift < delta
-            if max_drift < float(Fraction(1, 16)):
+            if max_drift < 0.0625:
                 consecutive_stable += 1
                 if consecutive_stable >= 10 and convergence_tick is None:
                     convergence_tick = tick - 9
@@ -137,14 +201,13 @@ def run_experiment():
         }
         results.append(result)
 
-    # Save results
     os.makedirs("experiments/results", exist_ok=True)
     with open("experiments/results/experiment11_byzantine.json", "w") as fp:
         json.dump(results, fp, indent=2)
 
-    # Print ASCII table
     print("=" * 90)
     print("EXPERIMENT 11: Byzantine Fault Tolerance in Laman-Rigid Fleet")
+    print("Filter: Reputation-Weighted Trimmed Mean")
     print("=" * 90)
     print(f"{'f':>3} | {'Honest':>6} | {'Edges':>5} | {'N>=3f+1':>7} | "
           f"{'Peak Drift':>10} | {'Final Drift':>11} | {'Mean Drift':>10} | {'Conv Tick':>9}")
@@ -159,6 +222,7 @@ def run_experiment():
     print(f"\nLaman topology: {results[0]['laman_edges']} edges (2*{N}-3 = {2*N-3})")
     print(f"Agents: {N}, tolerable Byzantine: up to f={(N-1)//3}")
     print("Results saved to experiments/results/experiment11_byzantine.json")
+
 
 if __name__ == "__main__":
     run_experiment()
