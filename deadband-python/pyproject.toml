@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deadband-python"
+version = "0.1.1"
+description = "Deadband perceptual quantization — Eisenstein integers, Fibonacci spline search, and human perceptual models for sensor data"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+keywords = ["deadband", "quantization", "perceptual", "eisenstein", "sensor", "hpdf"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Signal Processing",
+]
+
+[tool.setuptools.packages.find]
+include = ["deadband_python*"]
