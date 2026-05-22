@@ -221,23 +221,27 @@ def test_two_instances_discovery():
     pd_a = PeerDiscovery(
         node_id=10,
         theta=theta_a,
-        bind_addr="127.0.0.1",
+        bind_addr="0.0.0.0",
         multicast_group=group,
         port=port,
     )
     pd_b = PeerDiscovery(
         node_id=20,
         theta=theta_b,
-        bind_addr="127.0.0.1",
+        bind_addr="0.0.0.0",
         multicast_group=group,
         port=port,
     )
 
+    # Speed up beaconing for the test
+    pd_a.BEACON_INTERVAL = 0.3
+    pd_b.BEACON_INTERVAL = 0.3
+
     pd_a.start()
     pd_b.start()
     try:
-        # Wait for beacons to be exchanged
-        time.sleep(1.5)
+        # Wait for at least one beacon exchange
+        time.sleep(1.0)
 
         # Both should see each other
         assert 20 in pd_a.peer_ids()

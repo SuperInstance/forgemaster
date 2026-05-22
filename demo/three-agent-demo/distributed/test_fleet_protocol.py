@@ -37,7 +37,7 @@ def test_now_ms_is_positive():
 def test_encode_decode_roundtrip():
     payload = b"hello"
     raw = encode_raw(MessageType.TICK, sender_id=7, timestamp_ms=12345, payload=payload)
-    assert len(raw) == 10 + len(payload) + 2
+    assert len(raw) == 14 + len(payload) + 2
     decoded = decode_raw(raw)
     assert decoded["type"] == MessageType.TICK
     assert decoded["sender_id"] == 7

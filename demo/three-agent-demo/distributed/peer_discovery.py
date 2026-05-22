@@ -261,6 +261,8 @@ class PeerDiscovery:
                 logger.debug("Received %s from %d", msg["type"].name, sender)
 
     def _handle_beacon(self, sender: int, addr: tuple, msg: Dict) -> None:
+        if sender == self.node_id:
+            return
         payload = msg["payload"]
         new_peer = False
         with self._lock:
