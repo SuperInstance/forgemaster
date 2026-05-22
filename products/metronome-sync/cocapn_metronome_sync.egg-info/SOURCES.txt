@@ -1,5 +1,10 @@
 README.md
 pyproject.toml
+cocapn_metronome_sync.egg-info/PKG-INFO
+cocapn_metronome_sync.egg-info/SOURCES.txt
+cocapn_metronome_sync.egg-info/dependency_links.txt
+cocapn_metronome_sync.egg-info/requires.txt
+cocapn_metronome_sync.egg-info/top_level.txt
 metronome_sync/__init__.py
 metronome_sync/client.py
 metronome_sync/fraction_clock.py
@@ -8,9 +13,4 @@ metronome_sync/ptp.py
 metronome_sync/sunset.py
 metronome_sync/tensor_midi.py
 metronome_sync/topology.py
-metronome_sync.egg-info/PKG-INFO
-metronome_sync.egg-info/SOURCES.txt
-metronome_sync.egg-info/dependency_links.txt
-metronome_sync.egg-info/requires.txt
-metronome_sync.egg-info/top_level.txt
 tests/test_client.py

@@ -1,5 +1,5 @@
 [project]
-name = "metronome-sync"
+name = "cocapn-metronome-sync"
 version = "0.1.0"
 description = "Anti-fragile PTP clock synchronization for distributed agent fleets"
 requires-python = ">=3.10"

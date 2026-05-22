@@ -1,0 +1,16 @@
+[project]
+name = "clock-sync-probe"
+version = "0.1.0"
+description = "Test your network's clock synchronization capability in 30 seconds"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "click>=8.0"]
+
+[project.scripts]
+clock-sync-probe = "clock_sync_probe.cli:main"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
