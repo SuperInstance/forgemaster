@@ -1,0 +1,1426 @@
+{
+  "experiment": "experiment36_asymmetric_latency",
+  "config": {
+    "n_agents": 10,
+    "total_ticks": 10000,
+    "base_latency": 5.0,
+    "asymmetry_ratios": [
+      1.0,
+      1.5,
+      2.0,
+      3.0,
+      5.0,
+      10.0
+    ]
+  },
+  "hypothesis": "PTP degrades gracefully \u2014 3\u00d7 asymmetry causes <2\u00d7 drift increase",
+  "runs": [
+    {
+      "alpha": 1.0,
+      "send_delay": 5.0,
+      "recv_delay": 5.0,
+      "use_correction": false,
+      "final_max_drift": 0.931358,
+      "final_mean_drift": 0.418254,
+      "peak_drift": 1.059542,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 0.817754,
+          "mean_drift": 0.363924
+        },
+        {
+          "tick": 8100,
+          "max_drift": 0.880692,
+          "mean_drift": 0.367275
+        },
+        {
+          "tick": 8200,
+          "max_drift": 0.976558,
+          "mean_drift": 0.427632
+        },
+        {
+          "tick": 8300,
+          "max_drift": 0.962382,
+          "mean_drift": 0.396724
+        },
+        {
+          "tick": 8400,
+          "max_drift": 0.884671,
+          "mean_drift": 0.395123
+        },
+        {
+          "tick": 8500,
+          "max_drift": 0.79732,
+          "mean_drift": 0.38876
+        },
+        {
+          "tick": 8600,
+          "max_drift": 0.860655,
+          "mean_drift": 0.357113
+        },
+        {
+          "tick": 8700,
+          "max_drift": 0.93921,
+          "mean_drift": 0.377653
+        },
+        {
+          "tick": 8800,
+          "max_drift": 0.876861,
+          "mean_drift": 0.410611
+        },
+        {
+          "tick": 8900,
+          "max_drift": 0.906941,
+          "mean_drift": 0.390355
+        },
+        {
+          "tick": 9000,
+          "max_drift": 0.916096,
+          "mean_drift": 0.397893
+        },
+        {
+          "tick": 9100,
+          "max_drift": 0.912611,
+          "mean_drift": 0.37224
+        },
+        {
+          "tick": 9200,
+          "max_drift": 0.887347,
+          "mean_drift": 0.357548
+        },
+        {
+          "tick": 9300,
+          "max_drift": 0.98724,
+          "mean_drift": 0.392414
+        },
+        {
+          "tick": 9400,
+          "max_drift": 1.059542,
+          "mean_drift": 0.422001
+        },
+        {
+          "tick": 9500,
+          "max_drift": 0.903692,
+          "mean_drift": 0.412422
+        },
+        {
+          "tick": 9600,
+          "max_drift": 0.914125,
+          "mean_drift": 0.384448
+        },
+        {
+          "tick": 9700,
+          "max_drift": 0.89237,
+          "mean_drift": 0.383608
+        },
+        {
+          "tick": 9800,
+          "max_drift": 0.868531,
+          "mean_drift": 0.372118
+        },
+        {
+          "tick": 9900,
+          "max_drift": 0.769942,
+          "mean_drift": 0.333779
+        }
+      ],
+      "mode": "standard_ptp"
+    },
+    {
+      "alpha": 1.0,
+      "send_delay": 5.0,
+      "recv_delay": 5.0,
+      "use_correction": true,
+      "final_max_drift": 1.218296,
+      "final_mean_drift": 0.49679,
+      "peak_drift": 1.369593,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 1.045417,
+          "mean_drift": 0.422531
+        },
+        {
+          "tick": 8100,
+          "max_drift": 1.132157,
+          "mean_drift": 0.431219
+        },
+        {
+          "tick": 8200,
+          "max_drift": 1.294911,
+          "mean_drift": 0.508117
+        },
+        {
+          "tick": 8300,
+          "max_drift": 1.256116,
+          "mean_drift": 0.469903
+        },
+        {
+          "tick": 8400,
+          "max_drift": 1.124556,
+          "mean_drift": 0.44732
+        },
+        {
+          "tick": 8500,
+          "max_drift": 0.967088,
+          "mean_drift": 0.418768
+        },
+        {
+          "tick": 8600,
+          "max_drift": 1.093214,
+          "mean_drift": 0.425628
+        },
+        {
+          "tick": 8700,
+          "max_drift": 1.210537,
+          "mean_drift": 0.442712
+        },
+        {
+          "tick": 8800,
+          "max_drift": 1.127343,
+          "mean_drift": 0.482004
+        },
+        {
+          "tick": 8900,
+          "max_drift": 1.167083,
+          "mean_drift": 0.457068
+        },
+        {
+          "tick": 9000,
+          "max_drift": 1.187071,
+          "mean_drift": 0.466569
+        },
+        {
+          "tick": 9100,
+          "max_drift": 1.18041,
+          "mean_drift": 0.434398
+        },
+        {
+          "tick": 9200,
+          "max_drift": 1.132567,
+          "mean_drift": 0.425115
+        },
+        {
+          "tick": 9300,
+          "max_drift": 1.28902,
+          "mean_drift": 0.466546
+        },
+        {
+          "tick": 9400,
+          "max_drift": 1.364489,
+          "mean_drift": 0.474201
+        },
+        {
+          "tick": 9500,
+          "max_drift": 1.131405,
+          "mean_drift": 0.493502
+        },
+        {
+          "tick": 9600,
+          "max_drift": 1.163305,
+          "mean_drift": 0.453462
+        },
+        {
+          "tick": 9700,
+          "max_drift": 1.14098,
+          "mean_drift": 0.452479
+        },
+        {
+          "tick": 9800,
+          "max_drift": 1.117896,
+          "mean_drift": 0.43249
+        },
+        {
+          "tick": 9900,
+          "max_drift": 0.98333,
+          "mean_drift": 0.381165
+        }
+      ],
+      "mode": "corrected_ptp"
+    },
+    {
+      "alpha": 1.5,
+      "send_delay": 6.0,
+      "recv_delay": 4.0,
+      "use_correction": false,
+      "final_max_drift": 1.62054,
+      "final_mean_drift": 0.588468,
+      "peak_drift": 1.745624,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 1.504418,
+          "mean_drift": 0.537604
+        },
+        {
+          "tick": 8100,
+          "max_drift": 1.573431,
+          "mean_drift": 0.547915
+        },
+        {
+          "tick": 8200,
+          "max_drift": 1.667273,
+          "mean_drift": 0.59727
+        },
+        {
+          "tick": 8300,
+          "max_drift": 1.653012,
+          "mean_drift": 0.570458
+        },
+        {
+          "tick": 8400,
+          "max_drift": 1.575137,
+          "mean_drift": 0.578582
+        },
+        {
+          "tick": 8500,
+          "max_drift": 1.486611,
+          "mean_drift": 0.530619
+        },
+        {
+          "tick": 8600,
+          "max_drift": 1.550285,
+          "mean_drift": 0.55235
+        },
+        {
+          "tick": 8700,
+          "max_drift": 1.627806,
+          "mean_drift": 0.558715
+        },
+        {
+          "tick": 8800,
+          "max_drift": 1.561526,
+          "mean_drift": 0.580634
+        },
+        {
+          "tick": 8900,
+          "max_drift": 1.593532,
+          "mean_drift": 0.575291
+        },
+        {
+          "tick": 9000,
+          "max_drift": 1.605537,
+          "mean_drift": 0.56782
+        },
+        {
+          "tick": 9100,
+          "max_drift": 1.596952,
+          "mean_drift": 0.545415
+        },
+        {
+          "tick": 9200,
+          "max_drift": 1.572107,
+          "mean_drift": 0.548467
+        },
+        {
+          "tick": 9300,
+          "max_drift": 1.677082,
+          "mean_drift": 0.56924
+        },
+        {
+          "tick": 9400,
+          "max_drift": 1.744397,
+          "mean_drift": 0.580647
+        },
+        {
+          "tick": 9500,
+          "max_drift": 1.589371,
+          "mean_drift": 0.586339
+        },
+        {
+          "tick": 9600,
+          "max_drift": 1.602374,
+          "mean_drift": 0.585698
+        },
+        {
+          "tick": 9700,
+          "max_drift": 1.580897,
+          "mean_drift": 0.555487
+        },
+        {
+          "tick": 9800,
+          "max_drift": 1.560024,
+          "mean_drift": 0.56105
+        },
+        {
+          "tick": 9900,
+          "max_drift": 1.459062,
+          "mean_drift": 0.517544
+        }
+      ],
+      "mode": "standard_ptp"
+    },
+    {
+      "alpha": 1.5,
+      "send_delay": 6.0,
+      "recv_delay": 4.0,
+      "use_correction": true,
+      "final_max_drift": 1.241614,
+      "final_mean_drift": 0.499519,
+      "peak_drift": 1.393025,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 1.068772,
+          "mean_drift": 0.425251
+        },
+        {
+          "tick": 8100,
+          "max_drift": 1.15572,
+          "mean_drift": 0.43401
+        },
+        {
+          "tick": 8200,
+          "max_drift": 1.318467,
+          "mean_drift": 0.510931
+        },
+        {
+          "tick": 8300,
+          "max_drift": 1.279653,
+          "mean_drift": 0.472683
+        },
+        {
+          "tick": 8400,
+          "max_drift": 1.148051,
+          "mean_drift": 0.45008
+        },
+        {
+          "tick": 8500,
+          "max_drift": 0.990485,
+          "mean_drift": 0.417728
+        },
+        {
+          "tick": 8600,
+          "max_drift": 1.116641,
+          "mean_drift": 0.431147
+        },
+        {
+          "tick": 8700,
+          "max_drift": 1.233926,
+          "mean_drift": 0.445373
+        },
+        {
+          "tick": 8800,
+          "max_drift": 1.150559,
+          "mean_drift": 0.484609
+        },
+        {
+          "tick": 8900,
+          "max_drift": 1.19036,
+          "mean_drift": 0.462295
+        },
+        {
+          "tick": 9000,
+          "max_drift": 1.210412,
+          "mean_drift": 0.469184
+        },
+        {
+          "tick": 9100,
+          "max_drift": 1.20355,
+          "mean_drift": 0.437052
+        },
+        {
+          "tick": 9200,
+          "max_drift": 1.155725,
+          "mean_drift": 0.43057
+        },
+        {
+          "tick": 9300,
+          "max_drift": 1.312388,
+          "mean_drift": 0.46912
+        },
+        {
+          "tick": 9400,
+          "max_drift": 1.387656,
+          "mean_drift": 0.476792
+        },
+        {
+          "tick": 9500,
+          "max_drift": 1.154638,
+          "mean_drift": 0.496261
+        },
+        {
+          "tick": 9600,
+          "max_drift": 1.186582,
+          "mean_drift": 0.458962
+        },
+        {
+          "tick": 9700,
+          "max_drift": 1.164266,
+          "mean_drift": 0.45513
+        },
+        {
+          "tick": 9800,
+          "max_drift": 1.141294,
+          "mean_drift": 0.437995
+        },
+        {
+          "tick": 9900,
+          "max_drift": 1.006631,
+          "mean_drift": 0.383778
+        }
+      ],
+      "mode": "corrected_ptp"
+    },
+    {
+      "alpha": 2.0,
+      "send_delay": 6.6667,
+      "recv_delay": 3.3333,
+      "use_correction": false,
+      "final_max_drift": 1.983594,
+      "final_mean_drift": 0.666014,
+      "peak_drift": 2.18842,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 1.970362,
+          "mean_drift": 0.690162
+        },
+        {
+          "tick": 8100,
+          "max_drift": 2.073303,
+          "mean_drift": 0.704609
+        },
+        {
+          "tick": 8200,
+          "max_drift": 2.067248,
+          "mean_drift": 0.73514
+        },
+        {
+          "tick": 8300,
+          "max_drift": 2.078638,
+          "mean_drift": 0.712565
+        },
+        {
+          "tick": 8400,
+          "max_drift": 1.974398,
+          "mean_drift": 0.704771
+        },
+        {
+          "tick": 8500,
+          "max_drift": 2.00156,
+          "mean_drift": 0.676068
+        },
+        {
+          "tick": 8600,
+          "max_drift": 2.05564,
+          "mean_drift": 0.715991
+        },
+        {
+          "tick": 8700,
+          "max_drift": 2.088672,
+          "mean_drift": 0.707257
+        },
+        {
+          "tick": 8800,
+          "max_drift": 2.04304,
+          "mean_drift": 0.714315
+        },
+        {
+          "tick": 8900,
+          "max_drift": 2.016274,
+          "mean_drift": 0.69018
+        },
+        {
+          "tick": 9000,
+          "max_drift": 2.012763,
+          "mean_drift": 0.693187
+        },
+        {
+          "tick": 9100,
+          "max_drift": 2.03688,
+          "mean_drift": 0.70452
+        },
+        {
+          "tick": 9200,
+          "max_drift": 2.00901,
+          "mean_drift": 0.708553
+        },
+        {
+          "tick": 9300,
+          "max_drift": 2.075662,
+          "mean_drift": 0.713427
+        },
+        {
+          "tick": 9400,
+          "max_drift": 2.083543,
+          "mean_drift": 0.71025
+        },
+        {
+          "tick": 9500,
+          "max_drift": 2.118992,
+          "mean_drift": 0.72189
+        },
+        {
+          "tick": 9600,
+          "max_drift": 2.149548,
+          "mean_drift": 0.713644
+        },
+        {
+          "tick": 9700,
+          "max_drift": 2.18842,
+          "mean_drift": 0.762593
+        },
+        {
+          "tick": 9800,
+          "max_drift": 2.03549,
+          "mean_drift": 0.692304
+        },
+        {
+          "tick": 9900,
+          "max_drift": 2.034048,
+          "mean_drift": 0.708843
+        }
+      ],
+      "mode": "standard_ptp"
+    },
+    {
+      "alpha": 2.0,
+      "send_delay": 6.6667,
+      "recv_delay": 3.3333,
+      "use_correction": true,
+      "final_max_drift": 1.158257,
+      "final_mean_drift": 0.432878,
+      "peak_drift": 1.341284,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 1.089608,
+          "mean_drift": 0.419726
+        },
+        {
+          "tick": 8100,
+          "max_drift": 1.214272,
+          "mean_drift": 0.455044
+        },
+        {
+          "tick": 8200,
+          "max_drift": 1.280303,
+          "mean_drift": 0.506095
+        },
+        {
+          "tick": 8300,
+          "max_drift": 1.26567,
+          "mean_drift": 0.467132
+        },
+        {
+          "tick": 8400,
+          "max_drift": 1.103056,
+          "mean_drift": 0.403579
+        },
+        {
+          "tick": 8500,
+          "max_drift": 1.063908,
+          "mean_drift": 0.38207
+        },
+        {
+          "tick": 8600,
+          "max_drift": 1.178432,
+          "mean_drift": 0.450336
+        },
+        {
+          "tick": 8700,
+          "max_drift": 1.249761,
+          "mean_drift": 0.45232
+        },
+        {
+          "tick": 8800,
+          "max_drift": 1.186081,
+          "mean_drift": 0.456373
+        },
+        {
+          "tick": 8900,
+          "max_drift": 1.167011,
+          "mean_drift": 0.442652
+        },
+        {
+          "tick": 9000,
+          "max_drift": 1.16944,
+          "mean_drift": 0.446218
+        },
+        {
+          "tick": 9100,
+          "max_drift": 1.195306,
+          "mean_drift": 0.436978
+        },
+        {
+          "tick": 9200,
+          "max_drift": 1.149113,
+          "mean_drift": 0.468581
+        },
+        {
+          "tick": 9300,
+          "max_drift": 1.265234,
+          "mean_drift": 0.504395
+        },
+        {
+          "tick": 9400,
+          "max_drift": 1.280072,
+          "mean_drift": 0.459952
+        },
+        {
+          "tick": 9500,
+          "max_drift": 1.237498,
+          "mean_drift": 0.49547
+        },
+        {
+          "tick": 9600,
+          "max_drift": 1.285492,
+          "mean_drift": 0.456734
+        },
+        {
+          "tick": 9700,
+          "max_drift": 1.323555,
+          "mean_drift": 0.503385
+        },
+        {
+          "tick": 9800,
+          "max_drift": 1.167946,
+          "mean_drift": 0.438315
+        },
+        {
+          "tick": 9900,
+          "max_drift": 1.134695,
+          "mean_drift": 0.425095
+        }
+      ],
+      "mode": "corrected_ptp"
+    },
+    {
+      "alpha": 3.0,
+      "send_delay": 7.5,
+      "recv_delay": 2.5,
+      "use_correction": false,
+      "final_max_drift": 2.527538,
+      "final_mean_drift": 0.896013,
+      "peak_drift": 2.654991,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 2.593831,
+          "mean_drift": 0.923132
+        },
+        {
+          "tick": 8100,
+          "max_drift": 2.57392,
+          "mean_drift": 0.921033
+        },
+        {
+          "tick": 8200,
+          "max_drift": 2.500429,
+          "mean_drift": 0.894812
+        },
+        {
+          "tick": 8300,
+          "max_drift": 2.526405,
+          "mean_drift": 0.911599
+        },
+        {
+          "tick": 8400,
+          "max_drift": 2.581517,
+          "mean_drift": 0.904041
+        },
+        {
+          "tick": 8500,
+          "max_drift": 2.650049,
+          "mean_drift": 0.94575
+        },
+        {
+          "tick": 8600,
+          "max_drift": 2.588117,
+          "mean_drift": 0.912534
+        },
+        {
+          "tick": 8700,
+          "max_drift": 2.550832,
+          "mean_drift": 0.906324
+        },
+        {
+          "tick": 8800,
+          "max_drift": 2.568163,
+          "mean_drift": 0.905806
+        },
+        {
+          "tick": 8900,
+          "max_drift": 2.557998,
+          "mean_drift": 0.89854
+        },
+        {
+          "tick": 9000,
+          "max_drift": 2.550836,
+          "mean_drift": 0.909847
+        },
+        {
+          "tick": 9100,
+          "max_drift": 2.550698,
+          "mean_drift": 0.91331
+        },
+        {
+          "tick": 9200,
+          "max_drift": 2.569119,
+          "mean_drift": 0.914187
+        },
+        {
+          "tick": 9300,
+          "max_drift": 2.521084,
+          "mean_drift": 0.900805
+        },
+        {
+          "tick": 9400,
+          "max_drift": 2.513781,
+          "mean_drift": 0.898444
+        },
+        {
+          "tick": 9500,
+          "max_drift": 2.590805,
+          "mean_drift": 0.901664
+        },
+        {
+          "tick": 9600,
+          "max_drift": 2.574346,
+          "mean_drift": 0.896802
+        },
+        {
+          "tick": 9700,
+          "max_drift": 2.575353,
+          "mean_drift": 0.912328
+        },
+        {
+          "tick": 9800,
+          "max_drift": 2.574712,
+          "mean_drift": 0.921559
+        },
+        {
+          "tick": 9900,
+          "max_drift": 2.608605,
+          "mean_drift": 0.924406
+        }
+      ],
+      "mode": "standard_ptp"
+    },
+    {
+      "alpha": 3.0,
+      "send_delay": 7.5,
+      "recv_delay": 2.5,
+      "use_correction": true,
+      "final_max_drift": 1.148193,
+      "final_mean_drift": 0.439877,
+      "peak_drift": 1.160422,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 1.157685,
+          "mean_drift": 0.444194
+        },
+        {
+          "tick": 8100,
+          "max_drift": 1.157701,
+          "mean_drift": 0.444195
+        },
+        {
+          "tick": 8200,
+          "max_drift": 1.157634,
+          "mean_drift": 0.444184
+        },
+        {
+          "tick": 8300,
+          "max_drift": 1.157281,
+          "mean_drift": 0.444099
+        },
+        {
+          "tick": 8400,
+          "max_drift": 1.157193,
+          "mean_drift": 0.444075
+        },
+        {
+          "tick": 8500,
+          "max_drift": 1.157154,
+          "mean_drift": 0.44406
+        },
+        {
+          "tick": 8600,
+          "max_drift": 1.157133,
+          "mean_drift": 0.444051
+        },
+        {
+          "tick": 8700,
+          "max_drift": 1.157125,
+          "mean_drift": 0.444049
+        },
+        {
+          "tick": 8800,
+          "max_drift": 1.157151,
+          "mean_drift": 0.444062
+        },
+        {
+          "tick": 8900,
+          "max_drift": 1.157171,
+          "mean_drift": 0.444069
+        },
+        {
+          "tick": 9000,
+          "max_drift": 1.15718,
+          "mean_drift": 0.444073
+        },
+        {
+          "tick": 9100,
+          "max_drift": 1.157184,
+          "mean_drift": 0.444075
+        },
+        {
+          "tick": 9200,
+          "max_drift": 1.157187,
+          "mean_drift": 0.444075
+        },
+        {
+          "tick": 9300,
+          "max_drift": 1.157188,
+          "mean_drift": 0.444076
+        },
+        {
+          "tick": 9400,
+          "max_drift": 1.157188,
+          "mean_drift": 0.444076
+        },
+        {
+          "tick": 9500,
+          "max_drift": 1.157188,
+          "mean_drift": 0.444076
+        },
+        {
+          "tick": 9600,
+          "max_drift": 1.157189,
+          "mean_drift": 0.444076
+        },
+        {
+          "tick": 9700,
+          "max_drift": 1.157192,
+          "mean_drift": 0.444077
+        },
+        {
+          "tick": 9800,
+          "max_drift": 1.157193,
+          "mean_drift": 0.444077
+        },
+        {
+          "tick": 9900,
+          "max_drift": 1.157193,
+          "mean_drift": 0.444077
+        }
+      ],
+      "mode": "corrected_ptp"
+    },
+    {
+      "alpha": 5.0,
+      "send_delay": 8.3333,
+      "recv_delay": 1.6667,
+      "use_correction": false,
+      "final_max_drift": 3.222437,
+      "final_mean_drift": 1.159813,
+      "peak_drift": 3.288875,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 3.248783,
+          "mean_drift": 1.172984
+        },
+        {
+          "tick": 8100,
+          "max_drift": 3.239813,
+          "mean_drift": 1.18284
+        },
+        {
+          "tick": 8200,
+          "max_drift": 3.232661,
+          "mean_drift": 1.146656
+        },
+        {
+          "tick": 8300,
+          "max_drift": 3.201558,
+          "mean_drift": 1.159869
+        },
+        {
+          "tick": 8400,
+          "max_drift": 3.1993,
+          "mean_drift": 1.15822
+        },
+        {
+          "tick": 8500,
+          "max_drift": 3.255983,
+          "mean_drift": 1.171055
+        },
+        {
+          "tick": 8600,
+          "max_drift": 3.275279,
+          "mean_drift": 1.152787
+        },
+        {
+          "tick": 8700,
+          "max_drift": 3.215386,
+          "mean_drift": 1.168977
+        },
+        {
+          "tick": 8800,
+          "max_drift": 3.256454,
+          "mean_drift": 1.169643
+        },
+        {
+          "tick": 8900,
+          "max_drift": 3.231323,
+          "mean_drift": 1.17242
+        },
+        {
+          "tick": 9000,
+          "max_drift": 3.253082,
+          "mean_drift": 1.181494
+        },
+        {
+          "tick": 9100,
+          "max_drift": 3.204496,
+          "mean_drift": 1.171582
+        },
+        {
+          "tick": 9200,
+          "max_drift": 3.190672,
+          "mean_drift": 1.156817
+        },
+        {
+          "tick": 9300,
+          "max_drift": 3.174634,
+          "mean_drift": 1.151096
+        },
+        {
+          "tick": 9400,
+          "max_drift": 3.210566,
+          "mean_drift": 1.178253
+        },
+        {
+          "tick": 9500,
+          "max_drift": 3.169426,
+          "mean_drift": 1.143154
+        },
+        {
+          "tick": 9600,
+          "max_drift": 3.191659,
+          "mean_drift": 1.143048
+        },
+        {
+          "tick": 9700,
+          "max_drift": 3.168312,
+          "mean_drift": 1.121457
+        },
+        {
+          "tick": 9800,
+          "max_drift": 3.186959,
+          "mean_drift": 1.153581
+        },
+        {
+          "tick": 9900,
+          "max_drift": 3.195777,
+          "mean_drift": 1.161841
+        }
+      ],
+      "mode": "standard_ptp"
+    },
+    {
+      "alpha": 5.0,
+      "send_delay": 8.3333,
+      "recv_delay": 1.6667,
+      "use_correction": true,
+      "final_max_drift": 1.299001,
+      "final_mean_drift": 0.48387,
+      "peak_drift": 1.379551,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 1.267009,
+          "mean_drift": 0.476886
+        },
+        {
+          "tick": 8100,
+          "max_drift": 1.264985,
+          "mean_drift": 0.493961
+        },
+        {
+          "tick": 8200,
+          "max_drift": 1.331008,
+          "mean_drift": 0.470952
+        },
+        {
+          "tick": 8300,
+          "max_drift": 1.274641,
+          "mean_drift": 0.47152
+        },
+        {
+          "tick": 8400,
+          "max_drift": 1.215023,
+          "mean_drift": 0.469918
+        },
+        {
+          "tick": 8500,
+          "max_drift": 1.215898,
+          "mean_drift": 0.46107
+        },
+        {
+          "tick": 8600,
+          "max_drift": 1.289025,
+          "mean_drift": 0.485411
+        },
+        {
+          "tick": 8700,
+          "max_drift": 1.265474,
+          "mean_drift": 0.477471
+        },
+        {
+          "tick": 8800,
+          "max_drift": 1.291777,
+          "mean_drift": 0.484773
+        },
+        {
+          "tick": 8900,
+          "max_drift": 1.279529,
+          "mean_drift": 0.487057
+        },
+        {
+          "tick": 9000,
+          "max_drift": 1.30841,
+          "mean_drift": 0.478848
+        },
+        {
+          "tick": 9100,
+          "max_drift": 1.266652,
+          "mean_drift": 0.468599
+        },
+        {
+          "tick": 9200,
+          "max_drift": 1.237008,
+          "mean_drift": 0.48107
+        },
+        {
+          "tick": 9300,
+          "max_drift": 1.271087,
+          "mean_drift": 0.448574
+        },
+        {
+          "tick": 9400,
+          "max_drift": 1.315033,
+          "mean_drift": 0.479344
+        },
+        {
+          "tick": 9500,
+          "max_drift": 1.191366,
+          "mean_drift": 0.486146
+        },
+        {
+          "tick": 9600,
+          "max_drift": 1.229773,
+          "mean_drift": 0.451401
+        },
+        {
+          "tick": 9700,
+          "max_drift": 1.203393,
+          "mean_drift": 0.450919
+        },
+        {
+          "tick": 9800,
+          "max_drift": 1.222736,
+          "mean_drift": 0.447292
+        },
+        {
+          "tick": 9900,
+          "max_drift": 1.20531,
+          "mean_drift": 0.453036
+        }
+      ],
+      "mode": "corrected_ptp"
+    },
+    {
+      "alpha": 10.0,
+      "send_delay": 9.0909,
+      "recv_delay": 0.9091,
+      "use_correction": false,
+      "final_max_drift": 3.867951,
+      "final_mean_drift": 1.295078,
+      "peak_drift": 3.848217,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 3.727349,
+          "mean_drift": 1.385312
+        },
+        {
+          "tick": 8100,
+          "max_drift": 3.785395,
+          "mean_drift": 1.398833
+        },
+        {
+          "tick": 8200,
+          "max_drift": 3.827607,
+          "mean_drift": 1.412171
+        },
+        {
+          "tick": 8300,
+          "max_drift": 3.784978,
+          "mean_drift": 1.397999
+        },
+        {
+          "tick": 8400,
+          "max_drift": 3.753141,
+          "mean_drift": 1.380401
+        },
+        {
+          "tick": 8500,
+          "max_drift": 3.677979,
+          "mean_drift": 1.372145
+        },
+        {
+          "tick": 8600,
+          "max_drift": 3.722354,
+          "mean_drift": 1.39873
+        },
+        {
+          "tick": 8700,
+          "max_drift": 3.788487,
+          "mean_drift": 1.404439
+        },
+        {
+          "tick": 8800,
+          "max_drift": 3.724604,
+          "mean_drift": 1.385244
+        },
+        {
+          "tick": 8900,
+          "max_drift": 3.709577,
+          "mean_drift": 1.378103
+        },
+        {
+          "tick": 9000,
+          "max_drift": 3.781657,
+          "mean_drift": 1.392089
+        },
+        {
+          "tick": 9100,
+          "max_drift": 3.69457,
+          "mean_drift": 1.359496
+        },
+        {
+          "tick": 9200,
+          "max_drift": 3.725366,
+          "mean_drift": 1.400345
+        },
+        {
+          "tick": 9300,
+          "max_drift": 3.766201,
+          "mean_drift": 1.391084
+        },
+        {
+          "tick": 9400,
+          "max_drift": 3.674803,
+          "mean_drift": 1.371239
+        },
+        {
+          "tick": 9500,
+          "max_drift": 3.614757,
+          "mean_drift": 1.390687
+        },
+        {
+          "tick": 9600,
+          "max_drift": 3.661279,
+          "mean_drift": 1.391727
+        },
+        {
+          "tick": 9700,
+          "max_drift": 3.707789,
+          "mean_drift": 1.371858
+        },
+        {
+          "tick": 9800,
+          "max_drift": 3.74618,
+          "mean_drift": 1.417146
+        },
+        {
+          "tick": 9900,
+          "max_drift": 3.677679,
+          "mean_drift": 1.377072
+        }
+      ],
+      "mode": "standard_ptp"
+    },
+    {
+      "alpha": 10.0,
+      "send_delay": 9.0909,
+      "recv_delay": 0.9091,
+      "use_correction": true,
+      "final_max_drift": 1.469678,
+      "final_mean_drift": 0.525297,
+      "peak_drift": 1.426257,
+      "drift_history": [
+        {
+          "tick": 8000,
+          "max_drift": 1.234582,
+          "mean_drift": 0.472129
+        },
+        {
+          "tick": 8100,
+          "max_drift": 1.295845,
+          "mean_drift": 0.481466
+        },
+        {
+          "tick": 8200,
+          "max_drift": 1.411551,
+          "mean_drift": 0.485276
+        },
+        {
+          "tick": 8300,
+          "max_drift": 1.352764,
+          "mean_drift": 0.470909
+        },
+        {
+          "tick": 8400,
+          "max_drift": 1.253082,
+          "mean_drift": 0.459623
+        },
+        {
+          "tick": 8500,
+          "max_drift": 1.122659,
+          "mean_drift": 0.441895
+        },
+        {
+          "tick": 8600,
+          "max_drift": 1.223208,
+          "mean_drift": 0.463927
+        },
+        {
+          "tick": 8700,
+          "max_drift": 1.33595,
+          "mean_drift": 0.463566
+        },
+        {
+          "tick": 8800,
+          "max_drift": 1.25917,
+          "mean_drift": 0.476784
+        },
+        {
+          "tick": 8900,
+          "max_drift": 1.257485,
+          "mean_drift": 0.472844
+        },
+        {
+          "tick": 9000,
+          "max_drift": 1.330301,
+          "mean_drift": 0.47871
+        },
+        {
+          "tick": 9100,
+          "max_drift": 1.259374,
+          "mean_drift": 0.454703
+        },
+        {
+          "tick": 9200,
+          "max_drift": 1.26795,
+          "mean_drift": 0.478293
+        },
+        {
+          "tick": 9300,
+          "max_drift": 1.349838,
+          "mean_drift": 0.470961
+        },
+        {
+          "tick": 9400,
+          "max_drift": 1.27272,
+          "mean_drift": 0.431871
+        },
+        {
+          "tick": 9500,
+          "max_drift": 1.127888,
+          "mean_drift": 0.484267
+        },
+        {
+          "tick": 9600,
+          "max_drift": 1.193313,
+          "mean_drift": 0.45088
+        },
+        {
+          "tick": 9700,
+          "max_drift": 1.239884,
+          "mean_drift": 0.457958
+        },
+        {
+          "tick": 9800,
+          "max_drift": 1.267944,
+          "mean_drift": 0.463215
+        },
+        {
+          "tick": 9900,
+          "max_drift": 1.175434,
+          "mean_drift": 0.420666
+        }
+      ],
+      "mode": "corrected_ptp"
+    }
+  ],
+  "comparison": [
+    {
+      "alpha": 1.0,
+      "send_delay": 5.0,
+      "recv_delay": 5.0,
+      "standard_max_drift": 0.931358,
+      "corrected_max_drift": 1.218296,
+      "standard_degradation_vs_baseline": 1.0,
+      "corrected_degradation_vs_baseline": 1.3081,
+      "correction_improvement_factor": 0.7645
+    },
+    {
+      "alpha": 1.5,
+      "send_delay": 6.0,
+      "recv_delay": 4.0,
+      "standard_max_drift": 1.62054,
+      "corrected_max_drift": 1.241614,
+      "standard_degradation_vs_baseline": 1.74,
+      "corrected_degradation_vs_baseline": 1.3331,
+      "correction_improvement_factor": 1.3052
+    },
+    {
+      "alpha": 2.0,
+      "send_delay": 6.6667,
+      "recv_delay": 3.3333,
+      "standard_max_drift": 1.983594,
+      "corrected_max_drift": 1.158257,
+      "standard_degradation_vs_baseline": 2.1298,
+      "corrected_degradation_vs_baseline": 1.2436,
+      "correction_improvement_factor": 1.7126
+    },
+    {
+      "alpha": 3.0,
+      "send_delay": 7.5,
+      "recv_delay": 2.5,
+      "standard_max_drift": 2.527538,
+      "corrected_max_drift": 1.148193,
+      "standard_degradation_vs_baseline": 2.7138,
+      "corrected_degradation_vs_baseline": 1.2328,
+      "correction_improvement_factor": 2.2013
+    },
+    {
+      "alpha": 5.0,
+      "send_delay": 8.3333,
+      "recv_delay": 1.6667,
+      "standard_max_drift": 3.222437,
+      "corrected_max_drift": 1.299001,
+      "standard_degradation_vs_baseline": 3.4599,
+      "corrected_degradation_vs_baseline": 1.3947,
+      "correction_improvement_factor": 2.4807
+    },
+    {
+      "alpha": 10.0,
+      "send_delay": 9.0909,
+      "recv_delay": 0.9091,
+      "standard_max_drift": 3.867951,
+      "corrected_max_drift": 1.469678,
+      "standard_degradation_vs_baseline": 4.153,
+      "corrected_degradation_vs_baseline": 1.578,
+      "correction_improvement_factor": 2.6318
+    }
+  ],
+  "conclusion": "HYPOTHESIS REJECTED: At \u03b1=3.0, drift degradation is 2.71\u00d7 (exceeds 2\u00d7 threshold). PTP does NOT degrade gracefully."
+}
