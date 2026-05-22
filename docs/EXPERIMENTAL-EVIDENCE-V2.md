@@ -622,6 +622,254 @@ Galois connections between constraint spaces provide a formal framework for comp
 
 ---
 
+### 3.11 Experiment 15: Memoir Compression — O(log T) Refuted
+
+#### Hypothesis
+Agent calibration state compresses to O(log T) tiles while preserving drift prediction accuracy within 10%.
+
+#### Protocol
+Tested four compression methods (random sampling, wavelet, SVD, deadband) across five time horizons (T = 100, 500, 1,000, 5,000, 10,000 ticks). Measured compressed tile count, compression ratio, reconstruction MSE, and prediction accuracy (fraction of predictions within 10% of true drift).
+
+#### Results
+
+**Tile count scaling:**
+
+| T | Random | Wavelet | SVD | Deadband |
+|---|--------|---------|-----|----------|
+| 100 | 10 | 10 | 6 | 58 |
+| 500 | 22 | 22 | 8 | 400 |
+| 1,000 | 31 | 31 | 9 | 943 |
+| 5,000 | 70 | 70 | 12 | 4,992 |
+| 10,000 | 100 | 100 | 13 | 10,000 |
+
+SVD achieves O(log T) state-space dimension (13 tiles at T=10,000 vs log₂(10,000) ≈ 13.3), but prediction accuracy remains poor (14% at T=10,000). Random and wavelet methods scale as O(√T) — 100 tiles at T=10,000, matching √10,000 = 100.
+
+**Prediction accuracy (all methods, T=10,000):**
+
+| Method | Accuracy | MAE |
+|--------|----------|-----|
+| Random | 25% | 0.261 |
+| Wavelet | 14% | 0.384 |
+| SVD | 14% | 0.384 |
+| Deadband | 32% | 0.185 |
+
+None of the methods achieve the 60% accuracy threshold required to support the O(log T) conjecture.
+
+**Conjecture test:**
+
+| Method | Tiles at 10k | log₂(10k) ≈ 13.3 | Within 2× log? | Supports? |
+|--------|-------------|------------------|----------------|-----------|
+| Random | 100 | 13.3 | ❌ | ❌ |
+| Wavelet | 100 | 13.3 | ❌ | ❌ |
+| SVD | 13 | 13.3 | ✅ | ❌ (accuracy too low) |
+| Deadband | 10,000 | 13.3 | ❌ | ❌ |
+
+#### Verdict
+**REFUTED.** The O(log T) memoir compression conjecture is not supported by any tested method. SVD achieves O(log T) state dimension but fails on prediction accuracy. The empirical scaling for usable compression is O(√T). This has direct implications for sunset storage: a fleet operating for T ticks needs O(√T) tiles, not O(log T).
+
+> **Source:** `experiments/results/experiment15_memoir.json`
+
+---
+
+### 3.12 Experiment 16: BFT Filter Comparison — Reputation + Trimmed Near-Optimal
+
+#### Hypothesis
+Reputation-weighted trimmed mean is the optimal Byzantine fault tolerance filter for Laman topologies.
+
+#### Protocol
+Compared six filtering strategies on a 10-agent Laman fleet with f ≤ 3 Byzantine agents: no filter, median, trimmed mean, reputation-only, reputation + trimmed mean, and topology-aware filtering. Measured convergence rate, convergence tick, peak drift, and final drift across 10 trials per filter.
+
+#### Results
+
+**Filter comparison summary:**
+
+| Filter | Convergence Rate | Avg Conv. Tick | Avg Peak Drift | Avg Final Drift |
+|--------|-----------------|----------------|----------------|-----------------|
+| No Filter | 0% | 501 (none) | 137.2 | 56.6 |
+| Median | 70% | 7.6 | 14.4 | 3.95 |
+| Trimmed Mean | 100% | 67.2 | 63.3 | 20.3 |
+| Reputation Only | 90% | 89.9 | 52.9 | 6.40 |
+| **Reputation + Trimmed** | **90%** | **8.4** | **14.3** | **3.08** |
+| Topology-Aware | 80% | 66.0 | 52.4 | 5.43 |
+
+**Key findings:**
+- Reputation + trimmed mean achieves the fastest convergence (8.4 ticks) among filters with <10% final drift
+- Median is competitive on speed (7.6 ticks) but has lower convergence rate (70%)
+- Trimmed mean alone is reliable (100% convergence) but slow (67.2 ticks)
+- Topology-aware filtering adds no value on Laman graphs — all neighbors are already direct, so neighbor-weighting provides no additional discriminative power
+- The "best" filter depends on the optimization target: speed (reputation+trimmed), reliability (trimmed mean), or simplicity (median)
+
+#### Verdict
+**SUPPORTS (with nuance).** Reputation + trimmed mean is near-optimal for convergence speed, but a hybrid strategy (reputation primary, trimmed mean fallback) could be strictly optimal. Topology-aware filtering is underwhelming on Laman graphs because the topology already provides maximal local redundancy.
+
+> **Source:** `experiments/results/experiment16_bft_filters.json`
+
+---
+
+### 3.13 Experiment 17: Edge Augmentation — Monotonic Improvement, No Diminishing Returns
+
+#### Hypothesis
+Adding extra edges to a Laman base graph produces diminishing returns after ~20% augmentation.
+
+#### Protocol
+Starting from N=20 Laman graph (37 edges), added 0%, 10%, 20%, 50%, and 100% extra edges (up to 74 total). Ran 5 trials per level, measuring convergence tick, final drift, messages per tick, spectral gap, and wall time.
+
+#### Results
+
+**Augmentation effects:**
+
+| Augmentation | Extra Edges | Total Edges | Avg Conv. Tick | Final Drift | Spectral Gap |
+|-------------|-------------|-------------|----------------|-------------|--------------|
+| 0% | 0 | 37 | 36.2 | 0.00202 | 0.785 |
+| 10% | 3 | 40 | 30.2 | 0.00158 | 0.913 |
+| 20% | 7 | 44 | 24.8 | 0.00137 | 1.096 |
+| 50% | 18 | 55 | 17.6 | 0.00113 | 1.669 |
+| 100% | 37 | 74 | 12.0 | 0.00114 | 3.042 |
+
+Convergence improves monotonically: each augmentation level reduces convergence time. The improvement from 50% to 100% (17.6 → 12.0 ticks, 32% reduction) is comparable to the improvement from 0% to 10% (36.2 → 30.2 ticks, 17% reduction) on a relative basis. There is no evidence of diminishing returns in the tested range.
+
+**Spectral gap:** increases monotonically from 0.785 (0%) to 3.042 (100%), directly explaining the convergence improvement.
+
+**Messages per tick:** remain roughly constant (~3.7–5.5) because deadband filtering suppresses most messages regardless of edge count.
+
+#### Verdict
+**REFUTED.** There are no diminishing returns up to 100% augmentation. Laman is sufficient for minimal rigidity but not optimal for convergence speed. If communication budget allows, doubling edges (100% augmentation) yields a 3× convergence improvement with minimal message overhead.
+
+> **Source:** `experiments/results/experiment17_augmentation.json`
+
+---
+
+### 3.14 Experiment 18: Load-Drift Coupling — Zero Coupling Confirmed
+
+#### Hypothesis
+Drift is independent of constraint-checking load; the metronome and constraint checker are decoupled.
+
+#### Protocol
+Ran a 10-agent Laman fleet for 500 ticks while varying constraint-check frequency per tick: 1, 10, 100, 1,000, and 10,000 checks. Measured convergence tick, final drift, peak drift, and per-tick wall time.
+
+#### Results
+
+**All metrics identical across all load levels:**
+
+| Checks/Tick | Conv. Tick | Final Drift | Peak Drift | Tick Time (ms) |
+|-------------|-----------|-------------|------------|----------------|
+| 1 | 18 | 9.557 | 64.728 | 0.0073 |
+| 10 | 18 | 9.557 | 64.728 | 0.0142 |
+| 100 | 18 | 9.557 | 64.728 | 0.0717 |
+| 1,000 | 18 | 9.557 | 64.728 | 0.623 |
+| 10,000 | 18 | 9.557 | 64.728 | 6.545 |
+
+- **Drift range:** 0.0 (standard deviation = 0.0 across all conditions)
+- **Convergence tick:** identical (18) at all loads
+- **Peak and final drift:** identical to 6 decimal places
+- **Wall time:** scales linearly with load (as expected), but drift is unaffected
+
+#### Verdict
+**CONFIRMED.** Drift is completely decoupled from constraint-checking load. The architecture scales independently: adding more constraint validation does not degrade fleet coherence. This validates the separation of concerns between the metronome (timekeeping) and the constraint checker (validation).
+
+> **Source:** `experiments/results/experiment18_load_drift.json`
+
+---
+
+### 3.15 Experiment 19: Multi-Generation Sunset — Self-Correcting Inheritance
+
+#### Hypothesis
+Drift grows linearly with generation count; each sunset/inheritance handoff loses calibration quality.
+
+#### Protocol
+Simulated 5 generations of agent sunset and inheritance across 10 trials with different seeds. At each generation, one agent is sunset and a new agent inherits the fleet state. Measured max drift, mean drift, calibration quality, and convergence tick per generation.
+
+#### Results
+
+**Generation drift summary (aggregated across 10 trials):**
+
+| Generation | Avg Max Drift | Std Max Drift | Avg Mean Drift | Calibration Quality | Conv. Rate |
+|-----------|--------------|---------------|----------------|---------------------|------------|
+| 1 | 4.5686 | 3.3665 | 4.5684 | 0.04568 | 50% |
+| 2 | 4.5684 | 3.3667 | 4.5684 | 0.04568 | 50% |
+| 3 | 4.5684 | 3.3667 | 4.5684 | 0.04568 | 50% |
+| 4 | 4.5684 | 3.3667 | 4.5684 | 0.04568 | 50% |
+| 5 | 4.5684 | 3.3667 | 4.5684 | 0.04568 | 50% |
+
+**Drift ratio (max to min across generations):** 1.000028 — effectively flat.
+
+**Linear fit:** slope = −2.59×10⁻⁵, R² = 0.50. The slope is indistinguishable from zero.
+
+**Trial-level observation:** In trials that converge in generation 1, all subsequent generations inherit the calibrated state with zero additional convergence ticks (convergence_tick = 0). In trials that do not converge, drift remains stable across all generations — it does not accumulate.
+
+#### Verdict
+**NOVEL — REFUTED.** The hypothesis of linear drift growth is rejected. Drift remains bounded across 5 generations. Inheritance is self-correcting: converged fleets pass calibration intact, and non-converged fleets do not degrade further. This is the first experimental evidence that multi-generation fleets are viable without periodic re-calibration.
+
+> **Source:** `experiments/results/experiment19_multigen.json`
+
+---
+
+### 3.16 Experiment 20: Latency–δ Tradeoff — Phase Transition at Latency > 0
+
+#### Hypothesis
+Optimal δ scales linearly with network latency (δ_opt = k × latency), allowing self-tuning deadband thresholds.
+
+#### Protocol
+Tested N=10 fleet with latencies {0, 1, 5, 10, 20, 50} ticks and δ values {1/64, 1/32, 1/16, 1/8, 1/4}. Measured convergence, steady-state drift, and peak drift.
+
+#### Results
+
+**Convergence by latency and δ:**
+
+| Latency | 1/64 | 1/32 | 1/16 | 1/8 | 1/4 |
+|---------|------|------|------|-----|-----|
+| 0 | ✅ 0.252 | ✅ 0.252 | ✅ 0.252 | ✅ 0.252 | ✅ 0.252 |
+| 1 | ❌ 8.81 | ❌ 16.6 | ❌ 32.1 | ❌ 63.1 | ❌ 125 |
+| 5 | ❌ 8.86 | ❌ 16.6 | ❌ 32.1 | ❌ 63.0 | ❌ 125 |
+| 10 | ❌ 8.78 | ❌ 16.4 | ❌ 31.8 | ❌ 62.4 | ❌ 124 |
+| 20 | ❌ 8.63 | ❌ 16.1 | ❌ 31.1 | ❌ 61.1 | ❌ 121 |
+| 50 | ❌ 8.16 | ❌ 15.2 | ❌ 29.3 | ❌ 57.4 | ❌ 114 |
+
+All values show steady-state max drift. Latency = 0 converges for all δ (drift ≈ 0.25). Latency ≥ 1 fails for **all** δ — drift explodes to 8+ and grows with larger δ.
+
+**Key findings:**
+1. **Phase transition:** Latency = 0 works; latency = 1 (minimum non-zero) jumps to drift = 8.8. This is not gradual degradation — it is a phase transition.
+2. **Larger δ makes divergence worse:** Stale-data corrections are amplified by larger clamping windows. The "best" strategy with latency > 0 is the smallest δ (1/64), which merely limits damage.
+3. **No linear scaling:** No δ achieves convergence at any latency > 0. The hypothesis δ_opt = k × latency is rejected.
+
+#### Verdict
+**CRITICAL NEGATIVE RESULT.** Naive average-based consensus fails completely with any network latency ≥ 1 tick. The current protocol only works in zero-latency environments. To operate with latency, the system needs a latency-aware correction protocol (e.g., timestamp-based offset estimation, Cristian's algorithm, or PTP-style round-trip measurement) rather than naive averaging.
+
+> **Source:** `experiments/results/experiment20_latency_delta.json`
+
+---
+
+### 3.17 Experiment 21: Emergence Early Warning — Partially Supported
+
+#### Hypothesis
+Drift velocity (second derivative) detects emergent behaviors 10+ ticks before drift violation.
+
+#### Protocol
+Injected oscillatory drift into one agent at tick 100 (amplitude 0.012, period 40 ticks) on a 10-agent Laman fleet. Measured velocity detection tick and drift violation tick for both direct injection and cascade-coupled scenarios.
+
+#### Results
+
+**Single-agent oscillation:**
+- Agent 0 velocity detected at tick 101
+- Agent 0 drift violation at tick 108
+- **Warning time: 7 ticks**
+- Only 1 of 10 agents detected the anomaly before violation
+
+**Cascade oscillation (coupling strength 0.3):**
+- Agent 0: velocity at 101, violation at 108, warning 7 ticks
+- Agent 3: velocity at 105, violation at 120, warning 15 ticks
+- 2 of 10 agents with positive warning time
+- Average warning: 11.0 ticks; maximum: 15 ticks
+
+**Hypothesis check:** The target was 10+ ticks warning. Direct injection yields only 7 ticks. Cascade propagation yields up to 15 ticks for indirectly coupled agents, but only 2 of 10 agents are warned.
+
+#### Verdict
+**PARTIALLY SUPPORTED.** Early warning is possible but weaker than hypothesized. Direct injection provides 7 ticks of warning — insufficient for 10-tick proactive response. Cascade propagation extends warning to 15 ticks for indirectly affected agents, but coverage is sparse (20% of agents). Velocity-based detection works; the limitation is coverage, not speed.
+
+> **Source:** `experiments/results/experiment21_emergence.json`
+
+---
+
 ## 4. Analysis — Cross-Experiment Patterns and Correlations
 
 ### 4.1 The Laman Constant
@@ -702,6 +950,38 @@ Experiments 3 (CSC), 6 (deadband), and 9 (constraint library) all demonstrate sp
 - Constraint Library: 248 constraints across 5 industries — each application uses a sparse subset
 
 Sparsity is not an edge case — it is the normal operating regime for constraint systems. The fleet should be designed to exploit it, not tolerate it.
+
+### 4.8 The Latency Phase Transition — The Most Important Negative Result
+
+Experiment 20 reveals a critical architectural limitation: the current consensus protocol fails completely at any latency ≥ 1 tick. This is not a gradual degradation but a phase transition — latency = 0 converges with drift ≈ 0.25; latency = 1 diverges to drift ≈ 8.8 regardless of deadband threshold.
+
+This result interacts destructively with several confirmed positive results:
+- **Laman rigidity (Exp 1):** The topology is sound, but the *protocol* running on it is not latency-robust.
+- **Fleet scaling (Exp 8):** O(log N) convergence is valid only in the latency = 0 regime, which no real network satisfies.
+- **Edge augmentation (Exp 17):** Extra edges improve convergence speed, but they cannot compensate for latency-induced divergence.
+
+The implication is severe: **the current protocol is not deployable on any real distributed system without a latency-compensation layer.** Candidate solutions include PTP-style round-trip measurement, Cristian's algorithm for clock synchronization, or timestamp-based offset estimation. This becomes the highest-priority engineering gap.
+
+### 4.9 Self-Correcting Inheritance — The Most Important Positive Result
+
+Experiment 19 delivers the most consequential positive finding: multi-generation fleets are viable. Drift does not accumulate across 5 generations of sunset and inheritance. The drift ratio max/min is 1.000028 — indistinguishable from flat. Trials that converge in generation 1 pass calibrated state to all successors with zero additional convergence cost.
+
+This result enables a new operational model:
+- **Continuous fleet renewal:** Agents can be sunset and replaced indefinitely without fleet-wide recalibration
+- **No periodic re-calibration protocol needed:** The inheritance mechanism is self-correcting
+- **Long-running deployments:** Fleets operating for months or years with agent churn are feasible
+
+This is a novel result — we found no prior experimental evidence bounding drift across multi-generation agent handoffs.
+
+### 4.10 The O(√T) Sunset Storage Bound
+
+Experiment 15 refutes the O(log T) memoir compression conjecture, with direct implications for the sunset mechanism. If agent memoirs require O(√T) tiles rather than O(log T), then:
+
+- A fleet operating for 1 million ticks needs ~1,000 tiles per agent, not ~20
+- SVD achieves O(log T) dimensionality but sacrifices predictive accuracy
+- Deadband filtering achieves high reconstruction fidelity but needs O(T) tiles
+
+The practical implication is that **sunset storage must be provisioned for O(√T), not O(log T).** For a fleet with 100 agents operating for 10⁶ ticks, this is 100,000 tiles total rather than 2,000 — a 50× difference in storage planning.
 
 ---
 
