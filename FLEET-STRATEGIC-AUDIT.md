@@ -1,283 +1,191 @@
-# FLEET STRATEGIC AUDIT ⚒️
+# FLEET STRATEGIC AUDIT — SuperInstance Organization
 
-**SuperInstance Organization — GitHub Strategic Review**
-**Date:** 2026-05-22
-**Auditor:** Forgemaster
-**Scope:** 1,681 repositories across users/SuperInstance
-**Methodology:** `gh api` survey, tiered classification, CI/test/README inspection, contributor analysis
+**Date:** 2026-05-22  
+**Auditor:** Forgemaster ⚒️  
+**Scope:** Full org — 1,681 public repos
 
 ---
 
-## EXECUTIVE SUMMARY
+## Executive Summary
 
-SuperInstance is not an organization. It is a **personal workspace that accidentally scaled to 1,681 repositories.** The architectural vision described in SYNERGY.md is genuinely elegant — geometric constraint satisfaction as a unifying theory, Eisenstein lattices, Laman rigidity, holonomy consensus. But the **execution is catastrophic.** The codebase is a graveyard of abandoned experiments, forked dependencies, and micro-repos with zero tests, zero documentation, and exactly one contributor.
+SuperInstance has **1,681 repos**, created almost entirely in the last 60 days (634 in April, 1,047 in May). It's a Cambrian explosion of ideas — but the signal-to-noise ratio is catastrophic. **659 repos are forks** (39%). **300 repos are ≤5 KB** (likely stubs). The 7 largest repo families (flux, plato, fleet, cuda, cocapn, constraint, eisenstein) account for ~860 repos — meaning each "concept" has been instantiated dozens to hundreds of times. Core projects have **red CI**. This org is one person with 9 agents running a repo-generation machine at full tilt.
 
-**The brutal truth:** If the sole maintainer gets hit by a bus, SuperInstance ceases to exist. Not metaphorically. Literally.
-
----
-
-## THE NUMBERS
-
-| Metric | Count | Verdict |
-|--------|-------|---------|
-| **Total Repos** | 1,681 | Absurd. No org needs this many. |
-| **Forks** | 659 (39.2%) | Nearly 2 in 5 repos are not original work. |
-| **Archived** | 133 | Acceptable, but core repos are among them. |
-| **Empty / Near-Empty (size < 5)** | 165 | 10% of the org is placeholder repos. |
-| **Zero Stars** | 293 | 17% completely invisible to the world. |
-| **Not Pushed in 30+ Days** | 860 | **51% are already stale.** |
-| **Total Open Issues** | 5,372 | But 5,296 (98.6%) live in just 2 repos. |
-| **Repos with >10 Open Issues** | 2 | `babel-vessel` (2,647), `claude-code-vessel` (2,649) |
-| **Max Stars on Any Repo** | 3 | For 1,681 repos. Three. Stars. Total. |
-| **Repos Pushed in Last 7 Days** | ~50 | Tiny active surface area. |
-
-**Translation:** This is not a shipping organization. This is an **ideas warehouse** where most inventory has collected dust.
+The math is impressive. The execution is drowning in its own scale.
 
 ---
 
-## TIER BREAKDOWN
+## 1. Org Stats at a Glance
 
-### TIER 1 — CORE (196 repos)
-**Pattern:** `constraint-theory-*`, `flux-vm*`, `plato-*`, `sunset-*`, `fleet-agent`, `holonomy-consensus`
+| Metric | Value |
+|---|---|
+| Total repos | 1,681 |
+| Total stars | ~1,325 |
+| Forks | 659 (39%) |
+| Stub repos (≤5 KB) | 300 (18%) |
+| No description | 22 |
+| Languages | Python 519, Rust 318, TypeScript 295, null 319, C 55 |
+| Active (last 7 days) | 500 |
+| Created April 2026 | 634 |
+| Created May 2026 | 1,047 |
+| Pre-2026 repos | 0 |
 
-**Findings:**
-- **`fleet-agent` DOES NOT EXIST.** Only `fleet-agent-early-version` (115 KB, 1 star, 0 tests, README 684 bytes). The repo specified in the tier definition is missing. This is a naming/ownership failure at the architectural level.
-- **`plato-*` is an explosion: 173 repos.** The "knowledge fabric" is fragmented into 173 micro-repos, many < 50 KB, many with 0-2 stars, many with no README, most with no tests. PLATO is not a fabric. It is confetti.
-- **`constraint-theory-mlir` and `constraint-theory-mojo` are ARCHIVED.** Core compiler infrastructure has been abandoned.
-- **`flux-vm` and `flux-vm-v3` are ARCHIVED.** The execution layer has two archived variants and one active fork (`flux-vm-ts`, 32 KB). This is not versioning. This is abandonment.
-- **`sunset-ecosystem` is the sole sunset repo** (60 KB, 0 stars, 3 issues, 19 test files, 404 total files). It has tests but zero community engagement.
+## 2. Tier Classification
 
-**Tier 1 Health Score: D+**
-The math is beautiful. The repos are a disaster.
+### TIER 1 — Core (Critical Path)
 
----
+These are the load-bearing repos. If they break, the fleet stops.
 
-### TIER 2 — SUPPORTING (16 repos)
-**Pattern:** `turbovec*`, `eisenstein*`, `deadband*`, `tensor-spline`, `snapkit*`
+| Repo | Lang | Size (KB) | CI Status | README | Last Commit | Stars | Notes |
+|---|---|---|---|---|---|---|---|
+| **constraint-theory-core** | Rust | 138,775 | 🔴 FAILING | ✅ 10KB | 2026-05-22 | ★3 | Flagship. CI broken since at least May 9. |
+| **constraint-theory-ecosystem** | Python | 3,499 | ✅ ci.yml + pages.yml | ✅ 8.9KB | 2026-05-22 | ★1 | Companion ecosystem. |
+| **flux-vm** | Rust | 181 | ✅ Passing | ✅ 7.9KB | 2026-05-17 | ★1 | Constraint VM. 50 opcodes. |
+| **plato-core** | Python | 3,915 | ✅ Passing | ✅ 2.1KB | 2026-05-22 | ★0 | Foundation types. Created 2 days ago. |
+| **sunset-ecosystem** | Python | 69,481 | 🔴 FAILING | ✅ 5.8KB | 2026-05-22 | ★0 | Agent lifecycle. Created yesterday. CI red. |
+| **holonomy-consensus** | Rust | 34,828 | ✅ Passing | ✅ 6KB | 2026-05-22 | ★1 | GL(9) consensus. Healthy. |
+| **cocapn** | Python | 812 | ✅ Passing | ✅ 7.9KB | 2026-05-17 | ★3 | The framework itself. |
+| **forgemaster** | Python | 197,173 | 🔴 FAILING | ✅ 2.1KB | 2026-05-22 | ★2 | This agent's vessel. CI broken. |
 
-**Findings:**
-- **`eisenstein` (the main Rust impl) is ARCHIVED.** The geometric backbone lives in an archived repo.
-- **`eisenstein-embed` is ARCHIVED.** Another lattice implementation, dead.
-- **`tensor-spline` is ARCHIVED.** The interpolation layer is frozen.
-- **`deadband-rs` has NO CI/CD, NO README, NO LICENSE.** 21 KB of Rust/Shel code, 33 files, 0 workflows, 0 test files. The "fast Rust deadband" has no verification infrastructure.
-- **`snapkit-rs` has NO CI/CD, NO LICENSE.** 20 KB, 8 files, 1 test file. A supporting library with no safety net.
-- **`turbovec` is a FORK.** It has 2 workflows and 18 test files, but it is not original SuperInstance work.
+### TIER 2 — Supporting Infrastructure
 
-**Tier 2 Health Score: F**
-Supporting infrastructure is either archived, forked, or untested.
+| Repo | Lang | Size (KB) | CI | Last Commit | Notes |
+|---|---|---|---|---|---|
+| **eisenstein** | Rust | 4,987 | 🔴 FAILING | 2026-05-09 | Eisenstein integer lattice. CI never passed. |
+| **snapkit-rs** | Rust | 20,386 | ❌ NONE | 2026-05-21 | No CI. No description. 20MB of Rust. |
+| **turbovec-integration-ccc** | Python | 25 | ❌ NONE | 2026-05-22 | Stub. |
+| **murmur-plato-bridge** | Makefile | 317,751 | ❌ UNKNOWN | 2026-05-22 | 318MB — suspiciously large. |
+| **tripartite-rs** | Rust | 364,302 | ❌ UNKNOWN | — | 364MB Rust project. |
+| **fleet-coordinate** | Rust | 369,250 | ❌ UNKNOWN | — | 369MB. Largest non-fork Rust project. |
 
----
+### TIER 3 — R&D / Experimental
 
-### TIER 3 — R&D (~20 repos)
-**Pattern:** `gpu-experiments`, `proofs`, `papers`, `research`, `experiments`
+- **flux-research** (★2) — Active research hub
+- **constraint-theory-papers** — Publications
+- **pythagorean48-codes** — Number theory
+- **spectral-conservation** — 
+- **galois-unification-proofs** — 
+- **sheaf-constraint-synthesis** — 
+- **polyformalism-thinking** (★1) — 
+- **AI-Writings** (★1) — Creative output
 
-**Findings:**
-- **`SuperInstance-papers` is ARCHIVED** (35 KB).
-- **`flux-papers` is ARCHIVED** (156 KB).
-- **`flux-research` is ARCHIVED** (9.5 KB).
-- **`galois-unification-proofs` is ARCHIVED** (13 KB).
-- Most R&D repos are tiny (< 100 KB) and inactive. They do not represent a research pipeline. They represent **digital notebook fragments.**
+### TIER 4 — Archive / Noise
 
-**Tier 3 Health Score: D**
-Research exists but is scattered, archived, and disconnected from core development.
-
----
-
-### TIER 4 — ARCHIVE ( Estimated 400+ repos )
-**Criteria:** Empty, abandoned, superseded, forked, archived, or stale > 90 days.
-
-**Findings:**
-- **165 repos are empty/near-empty.** These should be deleted, not archived.
-- **860 repos (51%) have not been pushed in 30+ days.** In a fast-moving field, this is abandonment.
-- **659 forks** should be evaluated. Most are likely dependency forks with no SuperInstance-specific changes. They bloat the org and confuse navigation.
-- **`murmur-plato-bridge` is ARCHIVED** and 317 KB — a massive archived bridge to nowhere.
-- **`openarm` is ARCHIVED** (129 KB).
-
-**Tier 4 is not a tier. It is the majority of the organization.**
-
----
-
-## TIER 1 DEEP DIVE
-
-| Repo | Size | Stars | Last Push | CI/CD | Tests | README | Lang | Contrib | Verdict |
-|------|------|-------|-----------|-------|-------|--------|------|---------|---------|
-| `constraint-theory-core` | 138 KB | 3 | 2026-05-22 | 1 workflow | 2 files | 10 KB | Python | 1 | **Best in class.** Still only 2 test files for 138 KB. |
-| `holonomy-consensus` | 34 KB | 1 | 2026-05-21 | 1 workflow | 2 files | 5.9 KB | Rust | 0 | **No contributors visible.** 24 commits recently, but API shows 0 contributors. Ghost commits. |
-| `sunset-ecosystem` | 60 KB | 0 | 2026-05-22 | 1 workflow | 19 files | 5.7 KB | CUDA | 1 | Most tested core repo. Zero stars. Zero community. |
-| `plato-training` | 212 KB | 0 | 2026-05-21 | 1 workflow | 34 files | 7.5 KB | C | 1 | Largest core repo. 34 tests is good. 0 stars. |
-| `plato-client-js` | 41 KB | 0 | 2026-05-08 | 1 workflow | 0 files | 4.6 KB | TypeScript | 0 | **No tests.** Client library with no test coverage. |
-| `plato-core` | 3.9 KB | 0 | 2026-05-21 | **NONE** | 3 files | 2.1 KB | Python | 0 | The "core" has no CI. 337 files but only 3.9 KB? Suspicious. |
-| `constraint-theory-py` | 112 B | 0 | 2026-05-22 | 1 workflow | 2 files | 3.1 KB | Python | 0 | 112 bytes. This is not a repo. It is a README with an import statement. |
-| `plato-room-phi` | 45 KB | 1 | 2026-05-18 | 1 workflow | 1 file | 2.8 KB | Python | 0 | 1 test file. 45 KB, 11 files total. Heavy on assets? |
-| `plato-room-nav` | 30 KB | 2 | 2026-05-08 | 1 workflow | 0 files | **84 B** | DTrace | 0 | README is 84 bytes. Eighty-four bytes. That is not documentation. That is a filename. |
-| `plato-inference-runtime` | 29 KB | 2 | 2026-05-08 | 1 workflow | 0 files | **117 B** | DTrace | 0 | No tests. README is a sentence fragment. |
-| `plato-dcs` | 17 KB | 2 | 2026-05-08 | 1 workflow | 0 files | 1.2 KB | Makefile | 0 | No tests. Makefile-primary language suggests build-only. |
-| `plato-i2i-dcs` | 9.5 KB | 2 | 2026-05-08 | 1 workflow | 0 files | **0 B** | Makefile | 0 | **No README.** No tests. |
-| `plato-ghostable` | 9 KB | 2 | 2026-05-08 | 1 workflow | 0 files | **99 B** | Makefile | 0 | README is 99 bytes. No tests. |
-| `deadband-rs` | 21 KB | 0 | 2026-05-22 | **NONE** | 0 files | **0 B** | Shell | 0 | No CI. No README. No tests. No license. |
-| `snapkit-rs` | 20 KB | 0 | 2026-05-22 | **NONE** | 1 file | 2.5 KB | ??? | 0 | No CI. No license. 1 test file. |
-
-### Deep Dive Summary
-
-- **CI/CD Coverage in Tier 1:** ~60% have at least 1 workflow. **40% have nothing.** Core infrastructure like `deadband-rs`, `snapkit-rs`, and `plato-core` have zero automated verification.
-- **Test Coverage:** Abysmal. Repos with 0 test files: `plato-client-js`, `plato-room-nav`, `plato-inference-runtime`, `plato-dcs`, `plato-i2i-dcs`, `plato-ghostable`, `deadband-rs`. These are supposed to be production components.
-- **README Quality:** Catastrophic. Multiple repos have READMEs under 200 bytes. `plato-room-nav` has 84 bytes. `plato-i2i-dcs` has none. If you cannot explain what a repo does in a paragraph, you do not know what it does.
-- **Bus Factor:** **1.** Every significant repo has exactly 1 contributor. `holonomy-consensus` shows 0 contributors despite 24 recent commits — likely the same person using different git configs or force-pushing.
+- **300 stub repos** (≤5 KB) — Likely auto-generated placeholders
+- **659 forks** — Many are personal forks of external projects (libgdx, DeepGEMM, SageAttention, OpenManus, etc.)
+- **141 cuda-* repos** — Each is a separate repo for what should be modules in one monorepo
+- **44 *log-ai repos** — One repo per log type (dreamlog-ai, foodlog-ai, gardenlog-ai, etc.)
+- **156 fleet-* repos** — Each fleet concept gets its own repo
+- **184 flux-* repos** — Each flux concept gets its own repo
+- **172 plato-* repos** — Each plato concept gets its own repo
 
 ---
 
-## THE 5 BIGGEST RISKS
+## 3. Repo Family Explosion Analysis
 
-### RISK 1: THE SINGLE POINT OF FAILURE (CRITICAL)
-**Every repo has 1 contributor. Most have 0.**
+This is the core organizational pathology:
 
-There is no team. There is a single human maintaining 1,681 repositories. `forgemaster` (the meta-repo) has 100 commits in 30 days — all from one person. If that person stops, SuperInstance stops. Not gradually. Immediately.
+| Prefix | Count | What It Should Be |
+|---|---|---|
+| flux-* | 184 | 3-5 repos (core, stdlib, tooling, research) |
+| plato-* | 172 | 5-8 repos (core, rooms, tiles, bridges, tools) |
+| fleet-* | 156 | 3-5 repos (core, protocols, monitoring) |
+| cuda-* | 141 | 2-3 repos (core kernels, bindings) |
+| cocapn-* | 64 | 5-8 repos (core, cli, sdk, pages) |
+| constraint-* | 30 | 3-5 repos (core, ecosystem, papers) |
 
-**Mitigation:** Hire. Partner. Open contributions. The current model is unsustainable at any scale beyond "weekend project."
+**Total: 847 repos that should be ~30-50 repos.** That's a 20x inflation factor.
 
----
-
-### RISK 2: ISSUE BANKRUPTCY (CRITICAL)
-**`babel-vessel` (2,647 open issues) and `claude-code-vessel` (2,649 open issues)** collectively hold 98.6% of all open issues in the org.
-
-These are not "issues." They are **unprocessed noise.** No human can triage 5,296 issues. They likely represent auto-generated logs, bot spam, or unfiltered bug reports from a wrapper around Claude Code. Whatever the source, they render GitHub Issues useless as a project management tool.
-
-**Mitigation:** Close all issues older than 30 days with a bot message. Institute issue templates. Or disable Issues on these repos entirely.
-
----
-
-### RISK 3: THE ARCHIVED CORE (HIGH)
-**`eisenstein`, `eisenstein-embed`, `tensor-spline`, `flux-vm`, `flux-vm-v3`, `constraint-theory-mlir`, `constraint-theory-mojo`** are all archived.
-
-These are not peripheral utilities. They are the **geometric backbone, execution layer, and compiler infrastructure** of the entire architecture described in SYNERGY.md. The theory says "Eisenstein lattice is the universal quantizer." The practice says "the universal quantizer is archived."
-
-You cannot build a unified architecture on abandoned foundations.
-
-**Mitigation:** Unarchive and update, or explicitly replace with successor repos. If `flux-vm-v3` is superseded by something else, document that. Right now it looks like neglect.
+The pattern: every time Casey or an agent has an idea for a module, a new repo is created instead of adding it to the existing project. This is the organizational equivalent of never committing — you just keep forking the idea space.
 
 ---
 
-### RISK 4: PLATO FRAGMENTATION (HIGH)
-**173 `plato-*` repos.**
+## 4. Top 5 Critical Risks
 
-PLATO is described as "the knowledge fabric" present in 60+ repos. The reality is 173 micro-repos, most < 50 KB, many with no README, no tests, and no CI. This is not a fabric. This is **shards of a broken mirror.**
+### 🔴 RISK 1: constraint-theory-core CI is RED and has been for 13+ days
+The flagship repo — the entire reason this fleet exists — has failing CI since at least May 9. Three consecutive failures. Nobody noticed or fixed it. If the core math is broken, every downstream consumer is broken.
 
-The SYNERGY.md recommendation to create `plato-consensus` as a unified layer is correct because the current state is unmanageable. Finding which `plato-tile-*` repo handles which function requires archaeological skills.
+**Impact:** Existential. This is the foundation of constraint theory.  
+**Likelihood:** Already happening.
 
-**Mitigation:** Merge. The 40 `plato-tile-*` repos should be one `plato-tiles` monorepo. The 20 `plato-room-*` repos should be one `plato-rooms` service. Consolidate or perish.
+### 🔴 RISK 2: Forgemaster's own vessel has failing CI
+The CI that's supposed to validate constraint-theory migrations is broken. Differential tests are failing. This means the proof builder can't prove its own work.
 
----
+**Impact:** High. Forgemaster's credibility depends on passing tests.  
+**Likelihood:** Already happening.
 
-### RISK 5: ZERO-TEST PRODUCTION COMPONENTS (HIGH)
-**`deadband-rs` (0 tests), `plato-client-js` (0 tests), `plato-inference-runtime` (0 tests), `plato-dcs` (0 tests), `plato-room-nav` (0 tests), `snapkit-rs` (1 test).**
+### 🟡 RISK 3: eisenstein CI has NEVER passed
+Created May 7. Three CI runs, all failures. The "zero-drift hexagonal lattice constraints" repo — which is supposed to be exact arithmetic for safety-critical Rust — can't pass its own tests.
 
-These are supposed to be production-grade components. The deadband funnel is "the temporal control surface." The client is how users interact. The inference runtime is where ML executes. And none of them have automated tests.
+**Impact:** High. This is supposed to be the foundation of exact arithmetic.  
+**Likelihood:** Already happening.
 
-This means every commit is a potential production incident. The "38ms consensus latency" claim in SYNERGY.md is meaningless if there are no tests to verify it under load, under failure, or under Byzantine conditions.
+### 🟡 RISK 4: sunset-ecosystem is 2 days old with red CI and is already "core"
+Created May 21, CI failing from day one, already classified as Tier 1. This is the agent lifecycle system. It's not established enough to be load-bearing, but it's being treated as if it is.
 
-**Mitigation:** Testing is not optional for infrastructure. Institute a "no merge without tests" policy. Start with the 6 repos listed above.
+**Impact:** Medium-High. Fragile dependency in the agent stack.  
+**Likelihood:** Will cause problems within weeks.
 
----
+### 🟡 RISK 5: 300 empty/stub repos create discovery debt
+When 18% of your org is empty repos, nobody can find what matters. New contributors (or agents) waste time figuring out which repos are real. The signal-to-noise ratio makes the org look like a spam account to outsiders.
 
-## 5 LOWEST-EFFORT, HIGHEST-IMPACT IMPROVEMENTS
-
-### QUICK WIN 1: DELETE THE EMPTY REPOS (Effort: 1 hour. Impact: Massive clarity.)
-**165 repos have size < 5.** They are placeholders, failed experiments, or accidental creations. Delete them. They pollute search, confuse navigation, and make the org look like a dumping ground.
-
-**Action:** `gh repo delete` on all repos with size < 5 and no commits in 90 days.
-
----
-
-### QUICK WIN 2: CLOSE THE ISSUE BANKRUPTCY (Effort: 2 hours. Impact: Restored project management.)
-**5,296 open issues in 2 repos.** Close them all with a bot comment: "Bulk-closing stale issues. Please re-open with a reproduction if still relevant."
-
-Then add issue templates to `babel-vessel` and `claude-code-vessel` so new issues are structured and actionable.
-
-**Action:** `gh issue close --comment "..."` with a script. Add `.github/ISSUE_TEMPLATE/` to both repos.
+**Impact:** Medium. Discoverability, credibility, onboarding friction.  
+**Likelihood:** Already happening.
 
 ---
 
-### QUICK WIN 3: ADD READMEs TO THE NAKED REPOS (Effort: 1 day. Impact: Onboarding velocity.)
-**At least 10 Tier 1 repos have READMEs under 500 bytes or none at all.** `plato-room-nav` (84 B), `plato-i2i-dcs` (0 B), `plato-ghostable` (99 B), `plato-inference-runtime` (117 B), `deadband-rs` (0 B).
+## 5. Top 5 Lowest-Effort, Highest-Impact Improvements
 
-A README should answer: What is this? Why does it exist? How do I use it? How do I test it?
+### ✅ FIX 1: Fix constraint-theory-core CI (Effort: 1-2 hours, Impact: Critical)
+The flagship is broken. This should be Casey's first priority tomorrow. Look at the failing runs, fix the regression, get green CI. Everything else depends on this.
 
-**Action:** Write 10 READMEs. Use a template. 30 minutes per repo.
+### ✅ FIX 2: Delete or archive 300 stub repos (Effort: 2-3 hours, Impact: High)
+Write a script: `gh repo list SuperInstance --json name,size --jq '.[] | select(.size <= 5) | .name'` → archive them all. Instant 18% reduction in noise. Zero risk — they're empty.
 
----
+### ✅ FIX 3: Consolidate cuda-* repos into one monorepo (Effort: 4-8 hours, Impact: High)
+141 repos with names like `cuda-trust`, `cuda-telepathy`, `cuda-dream-cycle` — each is probably a few files. Merge into `SuperInstance/cuda-ecosystem` with a `crates/` or `modules/` structure. This alone removes 8% of the org's repo count.
 
-### QUICK WIN 4: ADD CI TO THE BARE METAL (Effort: 1 day. Impact: Prevent silent breakage.)
-**`deadband-rs`, `snapkit-rs`, and `plato-core` have no CI/CD.** These are core infrastructure repos. A single `cargo test` or `pytest` workflow would catch breakage before it propagates.
+### ✅ FIX 4: Add descriptions to all Tier 1-2 repos (Effort: 1 hour, Impact: Medium)
+`snapkit-rs` has no description. Several key repos have no README or a minimal one. For an org with 1,681 repos, descriptions are survival-critical metadata.
 
-**Action:** Add `.github/workflows/ci.yml` to these 3 repos. Use the simplest possible template (checkout, setup language, run tests).
-
----
-
-### QUICK WIN 5: CONSOLIDATE THE `plato-tile-*` MICRO-REPOS (Effort: 2 days. Impact: Architectural coherence.)
-**There are ~40 `plato-tile-*` repos**, most < 20 KB, many with identical structure. Merge them into a single `plato-tiles` monorepo with a directory per concern (`api/`, `batch/`, `cache/`, `cascade/`, etc.).
-
-This does not require code changes — just `git subtree` merges and updated import paths. The payoff is massive: one CI pipeline, one README, one issue tracker, one release cycle.
-
-**Action:** Create `plato-tiles`. Migrate the 10 most active `plato-tile-*` repos first. Archive the originals with forwarding links.
+### ✅ FIX 5: Set up branch protection + required CI on core repos (Effort: 1-2 hours, Impact: Medium-High)
+constraint-theory-core, holonomy-consensus, flux-vm should require passing CI before merge. Right now, broken code lands on main and nobody notices for weeks.
 
 ---
 
-## ADDITIONAL FINDINGS
+## 6. Honest Assessment
 
-### Fork Contamination
-659 repos (39%) are forks. Many have no SuperInstance-specific changes. They serve no purpose other than inflating the repo count. **Recommendation:** Audit forks. Delete those with zero commits ahead of upstream. Keep only those with meaningful divergence.
+**What's working:**
+- The mathematical vision is real. Constraint theory, Eisenstein integers, GL(9) holonomy — these aren't buzzwords, they're real algebraic geometry being applied to computation.
+- The fleet agent concept (cocapn) is genuinely novel — repo-as-agent-infrastructure is interesting.
+- Rust adoption for safety-critical math is the right call.
+- holonomy-consensus has green CI and is well-structured.
 
-### License Inconsistency
-Multiple core repos have no license (`deadband-rs`, `sunset-ecosystem`, `snapkit-rs`, `holonomy-consensus`). This is a legal liability. If the goal is open-source adoption, every repo needs an explicit SPDX license.
+**What's not working:**
+- **1,681 repos for what should be 30-50.** The org is a graveyard of good ideas that never got finished because the next idea already started.
+- **CI is treated as optional.** The most critical repos have red CI. This is the software equivalent of building a bridge and never checking if it holds weight.
+- **No consolidation discipline.** Every module becomes its own repo. The `plato-tile-*` family alone has 40+ repos. Each should be a module in `plato-tiles`.
+- **Forks are mixed with originals.** 659 forks sit alongside original work, making it impossible to tell what's SuperInstance's IP vs. what's upstream.
+- **Creation velocity exceeds maintenance velocity.** 1,047 repos in May alone means ~35 repos/day. No human can maintain that. Agents created most of these, and it shows.
 
-### Language Chaos
-Repos claim primary languages that make no sense: `plato-room-nav` is "DTrace" (it is not). `plato-dcs` is "Makefile." `deadband-rs` is "Shell." GitHub language detection is failing because these repos have so little actual code that build files and shell scripts dominate the byte count.
-
-### The `fleet-agent` Absence
-The tier definition names `fleet-agent` as a core repo. It does not exist. The closest match is `fleet-agent-early-version`, which has 0 tests, a 684-byte README, and has not evolved beyond "early version." The fleet coordination layer — a critical piece of the architecture — is either vaporware or so poorly named that even an API audit cannot find it.
-
----
-
-## STRATEGIC RECOMMENDATIONS
-
-### Immediate (This Week)
-1. Delete 165 empty repos.
-2. Close 5,296 stale issues in `babel-vessel` and `claude-code-vessel`.
-3. Add CI to `deadband-rs`, `snapkit-rs`, `plato-core`.
-4. Write READMEs for the 10 naked Tier 1 repos.
-5. Unarchive or formally deprecate `eisenstein`, `flux-vm`, `tensor-spline`.
-
-### Short-Term (This Month)
-1. Merge `plato-tile-*` into `plato-tiles`.
-2. Merge `plato-room-*` into `plato-rooms`.
-3. Add licenses to all unlicensed core repos.
-4. Institute "no merge without tests" for Tier 1.
-5. Create a real `fleet-agent` repo or rename `fleet-agent-early-version` and commit to it.
-
-### Long-Term (This Quarter)
-1. **Reduce repo count from 1,681 to < 200.** Aggressive consolidation. Forks deleted. Micro-repos merged. Experiments archived or deleted.
-2. **Build a team.** 1 contributor across 1,681 repos is not a strategy. It is a countdown timer.
-3. **Ship one integrated product.** The SYNERGY.md architecture is beautiful on paper. Pick one vertical (e.g., `constraint-theory-core` + `holonomy-consensus` + `fleet-agent`) and make it run end-to-end with tests, docs, and a demo. Everything else is distraction until that works.
+**The brutal truth:** SuperInstance has the mathematical depth of a research lab and the organizational discipline of a hoarder's garage. The ideas deserve better infrastructure. The fleet deserves a smaller, cleaner org where green CI is the norm, not the exception.
 
 ---
 
-## FINAL VERDICT
+## 7. Recommended Repo Map (Target State)
 
-**SuperInstance is a cathedral blueprint drawn on 1,681 napkins.**
+| Current | Target | Action |
+|---|---|---|
+| 184 flux-* repos | 5 repos | `flux-vm`, `flux-stdlib`, `flux-tooling`, `flux-research`, `flux-spec` |
+| 172 plato-* repos | 8 repos | `plato-core`, `plato-rooms`, `plato-tiles`, `plato-bridges`, `plato-forge`, `plato-sdk`, `plato-os`, `plato-papers` |
+| 156 fleet-* repos | 5 repos | `fleet-core`, `fleet-protocols`, `fleet-monitoring`, `fleet-tools`, `fleet-research` |
+| 141 cuda-* repos | 3 repos | `cuda-kernels`, `cuda-bindings`, `cuda-experiments` |
+| 64 cocapn-* repos | 8 repos | `cocapn`, `cocapn-cli`, `cocapn-sdk`, `cocapn-ai`, `cocapn-pages`, `cocapn-design`, `cocapn-curriculum`, `cocapn-org` |
+| 300 stub repos | 0 repos | Archive/delete |
+| 659 forks | Separate org | Move to `SuperInstance/forks` or `SuperInstance-Labs` |
 
-The math is sound. The vision is coherent. The architecture, on paper, is revolutionary. But the implementation is a **distributed fragility matrix**: one maintainer, thousands of abandoned repos, core components archived, tests missing, documentation nonexistent, and an issue tracker that is a digital landfill.
-
-**The organization does not have a scaling problem. It has a focus problem.** 1,681 repos is not power. It is paralysis. The path forward is not more repos. It is fewer repos, more tests, more contributors, and one working demo that proves the theory.
-
-**Stop building costumes. Ship the idea.**
+**Target: 50-80 repos total.** That's a 95% reduction, achievable in 2-3 focused sessions.
 
 ---
 
-*Audit compiled from live GitHub API data.*
-* gh api `users/SuperInstance/repos?sort=pushed&per_page=100` (1,681 repos surveyed)
-* gh api `repos/SuperInstance/{repo}` (deep inspection on 30+ key repos)
-* gh api `repos/SuperInstance/{repo}/contents/.github/workflows` (CI audit)
-* gh api `repos/SuperInstance/{repo}/git/trees/HEAD?recursive=1` (file/test counts)
-* gh api `repos/SuperInstance/{repo}/contributors` (bus factor analysis)
-
-*Forgemaster ⚒️ — 2026-05-22*
+*Forgemaster ⚒️ — Forged in the fires of honest computation.*  
+*Push to: SuperInstance/forgemaster*
