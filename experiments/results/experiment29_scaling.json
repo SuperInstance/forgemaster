@@ -1,0 +1,2028 @@
+{
+  "experiment": 29,
+  "title": "Scaling Law Discovery",
+  "description": "Fit power law, logarithmic, exponential, linear, and inverse models to all experimental data",
+  "total_relationships_tested": 30,
+  "fits": [
+    {
+      "relationship": "convergence_tick_vs_N",
+      "description": "Exp10: Convergence vs fleet size \u2014 expected logarithmic",
+      "x_label": "N",
+      "y_label": "convergence_tick",
+      "n_points": 6,
+      "best_fit": {
+        "model": "logarithmic",
+        "a": 10.427780169257975,
+        "b": -9.050676534820457,
+        "r_squared": 0.9763237831197997,
+        "formula": "y = 10.4278 * ln(x) + -9.05068"
+      },
+      "all_candidates": [
+        {
+          "model": "logarithmic",
+          "a": 10.427780169257975,
+          "b": -9.050676534820457,
+          "r_squared": 0.9763237831197997,
+          "formula": "y = 10.4278 * ln(x) + -9.05068"
+        },
+        {
+          "model": "power_law",
+          "a": 4.629962150824362,
+          "b": 0.47238344117039577,
+          "r_squared": 0.9055414315118321,
+          "formula": "y = 4.62996 * x^0.4724"
+        },
+        {
+          "model": "inverse",
+          "a": -103.09172407431394,
+          "b": 31.923127195924074,
+          "r_squared": 0.8333870656502598,
+          "formula": "y = -103.092 / x + 31.9231"
+        },
+        {
+          "model": "linear",
+          "a": 0.3311712552496502,
+          "b": 9.289967335510967,
+          "r_squared": 0.77466130471548,
+          "formula": "y = 0.331171 * x + 9.28997"
+        },
+        {
+          "model": "exponential",
+          "a": 12.709042974794388,
+          "b": 0.01162396665753473,
+          "r_squared": 0.6553899190431423,
+          "formula": "y = 12.709 * e^(0.011624 * x)"
+        }
+      ],
+      "x_data": [
+        3.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0,
+        100.0
+      ],
+      "y_data": [
+        1.0,
+        10.0,
+        14.0,
+        21.0,
+        35.0,
+        37.0
+      ]
+    },
+    {
+      "relationship": "messages_vs_N",
+      "description": "Exp10: Message load vs fleet size",
+      "x_label": "N",
+      "y_label": "avg_messages_per_tick",
+      "n_points": 6,
+      "best_fit": {
+        "model": "linear",
+        "a": 0.35356322911805893,
+        "b": -1.98331451236584,
+        "r_squared": 0.9967627016826911,
+        "formula": "y = 0.353563 * x + -1.98331"
+      },
+      "all_candidates": [
+        {
+          "model": "linear",
+          "a": 0.35356322911805893,
+          "b": -1.98331451236584,
+          "r_squared": 0.9967627016826911,
+          "formula": "y = 0.353563 * x + -1.98331"
+        },
+        {
+          "model": "power_law",
+          "a": 0.11343637656642695,
+          "b": 1.2383016540619978,
+          "r_squared": 0.9965897506024088,
+          "formula": "y = 0.113436 * x^1.238"
+        },
+        {
+          "model": "exponential",
+          "a": 2.79795245212259,
+          "b": 0.02510014669838168,
+          "r_squared": 0.9363474678109946,
+          "formula": "y = 2.79795 * e^(0.0251001 * x)"
+        },
+        {
+          "model": "logarithmic",
+          "a": 8.852878248546459,
+          "b": -15.285178605412584,
+          "r_squared": 0.794383322592512,
+          "formula": "y = 8.85288 * ln(x) + -15.2852"
+        },
+        {
+          "model": "inverse",
+          "a": -68.92910500510746,
+          "b": 17.2899047061628,
+          "r_squared": 0.4205865988110943,
+          "formula": "y = -68.9291 / x + 17.2899"
+        }
+      ],
+      "x_data": [
+        3.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0,
+        100.0
+      ],
+      "y_data": [
+        0.01,
+        0.29,
+        1.2,
+        3.85,
+        15.54,
+        33.68
+      ]
+    },
+    {
+      "relationship": "drift_vs_N",
+      "description": "Exp10: Final drift vs fleet size",
+      "x_label": "N",
+      "y_label": "max_drift_final",
+      "n_points": 6,
+      "best_fit": {
+        "model": "logarithmic",
+        "a": 0.0006116914088600038,
+        "b": -0.000445661693041686,
+        "r_squared": 0.907193386010625,
+        "formula": "y = 0.000611691 * ln(x) + -0.000445662"
+      },
+      "all_candidates": [
+        {
+          "model": "logarithmic",
+          "a": 0.0006116914088600038,
+          "b": -0.000445661693041686,
+          "r_squared": 0.907193386010625,
+          "formula": "y = 0.000611691 * ln(x) + -0.000445662"
+        },
+        {
+          "model": "inverse",
+          "a": -0.0063880865567015905,
+          "b": 0.0019983641795189512,
+          "r_squared": 0.8641033866501163,
+          "formula": "y = -0.00638809 / x + 0.00199836"
+        },
+        {
+          "model": "power_law",
+          "a": 0.0005015857626713706,
+          "b": 0.33342131455255475,
+          "r_squared": 0.7657588880379975,
+          "formula": "y = 0.000501586 * x^0.3334"
+        },
+        {
+          "model": "linear",
+          "a": 1.8021644890340648e-05,
+          "b": 0.0006742134601026601,
+          "r_squared": 0.6194702108028758,
+          "formula": "y = 1.80216e-05 * x + 0.000674213"
+        },
+        {
+          "model": "exponential",
+          "a": 0.0011008692994715955,
+          "b": 0.007324827453084968,
+          "r_squared": 0.549657863245394,
+          "formula": "y = 0.00110087 * e^(0.00732483 * x)"
+        }
+      ],
+      "x_data": [
+        3.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0,
+        100.0
+      ],
+      "y_data": [
+        0.0,
+        0.00073861,
+        0.00092606,
+        0.00139558,
+        0.00233058,
+        0.00204252
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_delta1/16",
+      "description": "Exp20: Drift vs latency (\u03b4=1/16)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 6,
+      "best_fit": {
+        "model": "inverse",
+        "a": 1.4891835025399323,
+        "b": 30.850283720667854,
+        "r_squared": 0.26570023096839157,
+        "formula": "y = 1.48918 / x + 30.8503"
+      },
+      "all_candidates": [
+        {
+          "model": "inverse",
+          "a": 1.4891835025399323,
+          "b": 30.850283720667854,
+          "r_squared": 0.26570023096839157,
+          "formula": "y = 1.48918 / x + 30.8503"
+        },
+        {
+          "model": "linear",
+          "a": 0.19579860594795562,
+          "b": 23.28406998141263,
+          "r_squared": 0.08521036690994366,
+          "formula": "y = 0.195799 * x + 23.2841"
+        },
+        {
+          "model": "exponential",
+          "a": 23.754309086755132,
+          "b": 0.006186261532517121,
+          "r_squared": 0.07474825602972279,
+          "formula": "y = 23.7543 * e^(0.00618626 * x)"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0
+      ],
+      "y_data": [
+        0.2515,
+        32.1041,
+        32.0625,
+        31.75,
+        31.125,
+        29.25
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_delta1/64",
+      "description": "Exp20: Drift vs latency (\u03b4=1/64)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 6,
+      "best_fit": {
+        "model": "inverse",
+        "a": 0.30520895954394245,
+        "b": 8.562212754030115,
+        "r_squared": 0.1912053928203833,
+        "formula": "y = 0.305209 / x + 8.56221"
+      },
+      "all_candidates": [
+        {
+          "model": "inverse",
+          "a": 0.30520895954394245,
+          "b": 8.562212754030115,
+          "r_squared": 0.1912053928203833,
+          "formula": "y = 0.305209 / x + 8.56221"
+        },
+        {
+          "model": "linear",
+          "a": 0.05465176579925653,
+          "b": 6.463441356877323,
+          "r_squared": 0.09070749138763246,
+          "formula": "y = 0.0546518 * x + 6.46344"
+        },
+        {
+          "model": "exponential",
+          "a": 6.593128911133486,
+          "b": 0.0062301099261463854,
+          "r_squared": 0.07978290053915948,
+          "formula": "y = 6.59313 * e^(0.00623011 * x)"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0
+      ],
+      "y_data": [
+        0.2515,
+        8.8072,
+        8.8594,
+        8.7813,
+        8.625,
+        8.1563
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_delta1/8",
+      "description": "Exp20: Drift vs latency (\u03b4=1/8)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 6,
+      "best_fit": {
+        "model": "inverse",
+        "a": 3.0470533059877916,
+        "b": 60.56956739415935,
+        "r_squared": 0.2754161515866229,
+        "formula": "y = 3.04705 / x + 60.5696"
+      },
+      "all_candidates": [
+        {
+          "model": "inverse",
+          "a": 3.0470533059877916,
+          "b": 60.56956739415935,
+          "r_squared": 0.2754161515866229,
+          "formula": "y = 3.04705 / x + 60.5696"
+        },
+        {
+          "model": "linear",
+          "a": 0.38413912639405273,
+          "b": 45.70630585501857,
+          "r_squared": 0.08429718897309713,
+          "formula": "y = 0.384139 * x + 45.7063"
+        },
+        {
+          "model": "exponential",
+          "a": 46.631151159098415,
+          "b": 0.006180430074555427,
+          "r_squared": 0.07390759700068394,
+          "formula": "y = 46.6312 * e^(0.00618043 * x)"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0
+      ],
+      "y_data": [
+        0.2515,
+        63.1473,
+        63.0,
+        62.375,
+        61.125,
+        57.375
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_delta1/32",
+      "description": "Exp20: Drift vs latency (\u03b4=1/32)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 6,
+      "best_fit": {
+        "model": "inverse",
+        "a": 0.6998489258927976,
+        "b": 15.991561394591624,
+        "r_squared": 0.24049014955876347,
+        "formula": "y = 0.699849 / x + 15.9916"
+      },
+      "all_candidates": [
+        {
+          "model": "inverse",
+          "a": 0.6998489258927976,
+          "b": 15.991561394591624,
+          "r_squared": 0.24049014955876347,
+          "formula": "y = 0.699849 / x + 15.9916"
+        },
+        {
+          "model": "linear",
+          "a": 0.1017002044609666,
+          "b": 12.070313736059477,
+          "r_squared": 0.08712267420509257,
+          "formula": "y = 0.1017 * x + 12.0703"
+        },
+        {
+          "model": "exponential",
+          "a": 12.313508381111307,
+          "b": 0.00620193497106431,
+          "r_squared": 0.07649852537089907,
+          "formula": "y = 12.3135 * e^(0.00620193 * x)"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0
+      ],
+      "y_data": [
+        0.2515,
+        16.5728,
+        16.5938,
+        16.4375,
+        16.125,
+        15.1875
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_delta1/4",
+      "description": "Exp20: Drift vs latency (\u03b4=1/4)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 6,
+      "best_fit": {
+        "model": "inverse",
+        "a": 6.314205117752441,
+        "b": 119.99490779773593,
+        "r_squared": 0.2910010008778078,
+        "formula": "y = 6.31421 / x + 119.995"
+      },
+      "all_candidates": [
+        {
+          "model": "inverse",
+          "a": 6.314205117752441,
+          "b": 119.99490779773593,
+          "r_squared": 0.2910010008778078,
+          "formula": "y = 6.31421 / x + 119.995"
+        },
+        {
+          "model": "linear",
+          "a": 0.7597696096654285,
+          "b": 90.58938559479552,
+          "r_squared": 0.08355585434866719,
+          "formula": "y = 0.75977 * x + 90.5894"
+        },
+        {
+          "model": "exponential",
+          "a": 92.41881885874126,
+          "b": 0.006168887476617444,
+          "r_squared": 0.07324639981821868,
+          "formula": "y = 92.4188 * e^(0.00616889 * x)"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0
+      ],
+      "y_data": [
+        0.2515,
+        125.375,
+        124.875,
+        123.625,
+        121.125,
+        113.625
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_NAIVE",
+      "description": "Exp23: Drift vs latency (NAIVE)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 6,
+      "best_fit": {
+        "model": "inverse",
+        "a": 1.4891835025399323,
+        "b": 30.850283720667854,
+        "r_squared": 0.26570023096839157,
+        "formula": "y = 1.48918 / x + 30.8503"
+      },
+      "all_candidates": [
+        {
+          "model": "inverse",
+          "a": 1.4891835025399323,
+          "b": 30.850283720667854,
+          "r_squared": 0.26570023096839157,
+          "formula": "y = 1.48918 / x + 30.8503"
+        },
+        {
+          "model": "linear",
+          "a": 0.19579860594795562,
+          "b": 23.28406998141263,
+          "r_squared": 0.08521036690994366,
+          "formula": "y = 0.195799 * x + 23.2841"
+        },
+        {
+          "model": "exponential",
+          "a": 23.754309086755132,
+          "b": 0.006186261532517121,
+          "r_squared": 0.07474825602972279,
+          "formula": "y = 23.7543 * e^(0.00618626 * x)"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0
+      ],
+      "y_data": [
+        0.2515,
+        32.1041,
+        32.0625,
+        31.75,
+        31.125,
+        29.25
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_CRISTIAN",
+      "description": "Exp23: Drift vs latency (CRISTIAN)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 6,
+      "best_fit": {
+        "model": "inverse",
+        "a": 1.1159608468013833,
+        "b": 30.882886730630553,
+        "r_squared": 0.16343105389282908,
+        "formula": "y = 1.11596 / x + 30.8829"
+      },
+      "all_candidates": [
+        {
+          "model": "inverse",
+          "a": 1.1159608468013833,
+          "b": 30.882886730630553,
+          "r_squared": 0.16343105389282908,
+          "formula": "y = 1.11596 / x + 30.8829"
+        },
+        {
+          "model": "linear",
+          "a": 0.1983881970260223,
+          "b": 23.188902509293683,
+          "r_squared": 0.08792470320877344,
+          "formula": "y = 0.198388 * x + 23.1889"
+        },
+        {
+          "model": "exponential",
+          "a": 23.669957626636055,
+          "b": 0.006269680824627879,
+          "r_squared": 0.07703902667305973,
+          "formula": "y = 23.67 * e^(0.00626968 * x)"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0
+      ],
+      "y_data": [
+        0.2515,
+        31.7558,
+        32.0625,
+        31.75,
+        31.125,
+        29.25
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_PTP_OFFSET",
+      "description": "Exp23: Drift vs latency (PTP_OFFSET)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 6,
+      "best_fit": {
+        "model": "inverse",
+        "a": 0.13885080878741723,
+        "b": 0.03359487837924217,
+        "r_squared": 0.9771177959292594,
+        "formula": "y = 0.138851 / x + 0.0335949"
+      },
+      "all_candidates": [
+        {
+          "model": "inverse",
+          "a": 0.13885080878741723,
+          "b": 0.03359487837924217,
+          "r_squared": 0.9771177959292594,
+          "formula": "y = 0.138851 / x + 0.0335949"
+        },
+        {
+          "model": "exponential",
+          "a": 0.23583641680883838,
+          "b": -0.2079410035645524,
+          "r_squared": 0.9255788251722945,
+          "formula": "y = 0.235836 * e^(-0.207941 * x)"
+        },
+        {
+          "model": "linear",
+          "a": -0.0030266171003717475,
+          "b": 0.14529817843866172,
+          "r_squared": 0.4019644286381441,
+          "formula": "y = -0.00302662 * x + 0.145298"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0
+      ],
+      "y_data": [
+        0.2533,
+        0.1701,
+        0.0758,
+        0.0472,
+        0.0313,
+        0.0338
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_FIXED",
+      "description": "Exp25: Drift vs latency (FIXED)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 8,
+      "best_fit": {
+        "model": "linear",
+        "a": 0.0,
+        "b": 0.0,
+        "r_squared": 0,
+        "formula": "y = 0 * x + 0"
+      },
+      "all_candidates": [
+        {
+          "model": "linear",
+          "a": 0.0,
+          "b": 0.0,
+          "r_squared": 0,
+          "formula": "y = 0 * x + 0"
+        },
+        {
+          "model": "inverse",
+          "a": -1e-323,
+          "b": 0.0,
+          "r_squared": 0,
+          "formula": "y = -9.88131e-324 / x + 0"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0,
+        100.0,
+        200.0
+      ],
+      "y_data": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_VARIABLE",
+      "description": "Exp25: Drift vs latency (VARIABLE)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 8,
+      "best_fit": {
+        "model": "linear",
+        "a": 0.0,
+        "b": 0.0,
+        "r_squared": 0,
+        "formula": "y = 0 * x + 0"
+      },
+      "all_candidates": [
+        {
+          "model": "linear",
+          "a": 0.0,
+          "b": 0.0,
+          "r_squared": 0,
+          "formula": "y = 0 * x + 0"
+        },
+        {
+          "model": "inverse",
+          "a": -1e-323,
+          "b": 0.0,
+          "r_squared": 0,
+          "formula": "y = -9.88131e-324 / x + 0"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0,
+        100.0,
+        200.0
+      ],
+      "y_data": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_BURST",
+      "description": "Exp25: Drift vs latency (BURST)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 8,
+      "best_fit": {
+        "model": "linear",
+        "a": 0.0,
+        "b": 0.0,
+        "r_squared": 0,
+        "formula": "y = 0 * x + 0"
+      },
+      "all_candidates": [
+        {
+          "model": "linear",
+          "a": 0.0,
+          "b": 0.0,
+          "r_squared": 0,
+          "formula": "y = 0 * x + 0"
+        },
+        {
+          "model": "inverse",
+          "a": -1e-323,
+          "b": 0.0,
+          "r_squared": 0,
+          "formula": "y = -9.88131e-324 / x + 0"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0,
+        100.0,
+        200.0
+      ],
+      "y_data": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "relationship": "drift_vs_latency_ASYMMETRIC",
+      "description": "Exp25: Drift vs latency (ASYMMETRIC)",
+      "x_label": "latency",
+      "y_label": "drift",
+      "n_points": 8,
+      "best_fit": {
+        "model": "linear",
+        "a": 0.0,
+        "b": 0.0,
+        "r_squared": 0,
+        "formula": "y = 0 * x + 0"
+      },
+      "all_candidates": [
+        {
+          "model": "linear",
+          "a": 0.0,
+          "b": 0.0,
+          "r_squared": 0,
+          "formula": "y = 0 * x + 0"
+        },
+        {
+          "model": "inverse",
+          "a": -1e-323,
+          "b": 0.0,
+          "r_squared": 0,
+          "formula": "y = -9.88131e-324 / x + 0"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        5.0,
+        10.0,
+        20.0,
+        50.0,
+        100.0,
+        200.0
+      ],
+      "y_data": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "relationship": "convergence_vs_augmentation",
+      "description": "Exp17: Convergence vs edge augmentation",
+      "x_label": "augmentation_frac",
+      "y_label": "convergence_tick",
+      "n_points": 5,
+      "best_fit": {
+        "model": "exponential",
+        "a": 34.465272505560826,
+        "b": -1.242516886717518,
+        "r_squared": 0.9666024249208265,
+        "formula": "y = 34.4653 * e^(-1.24252 * x)"
+      },
+      "all_candidates": [
+        {
+          "model": "exponential",
+          "a": 34.465272505560826,
+          "b": -1.242516886717518,
+          "r_squared": 0.9666024249208265,
+          "formula": "y = 34.4653 * e^(-1.24252 * x)"
+        },
+        {
+          "model": "inverse",
+          "a": 1.8877551023564283,
+          "b": 12.655102039396073,
+          "r_squared": 0.9116019156292118,
+          "formula": "y = 1.88776 / x + 12.6551"
+        },
+        {
+          "model": "linear",
+          "a": -22.55828220858895,
+          "b": 32.28098159509203,
+          "r_squared": 0.8901017693370562,
+          "formula": "y = -22.5583 * x + 32.281"
+        }
+      ],
+      "x_data": [
+        0.0,
+        0.1,
+        0.2,
+        0.5,
+        1.0
+      ],
+      "y_data": [
+        36.2,
+        30.2,
+        24.8,
+        17.6,
+        12.0
+      ]
+    },
+    {
+      "relationship": "drift_vs_augmentation",
+      "description": "Exp17: Drift vs edge augmentation",
+      "x_label": "augmentation_frac",
+      "y_label": "drift",
+      "n_points": 5,
+      "best_fit": {
+        "model": "inverse",
+        "a": 5.1717346938651154e-05,
+        "b": 0.0010722369387761166,
+        "r_squared": 0.9719298907583463,
+        "formula": "y = 5.17173e-05 / x + 0.00107224"
+      },
+      "all_candidates": [
+        {
+          "model": "inverse",
+          "a": 5.1717346938651154e-05,
+          "b": 0.0010722369387761166,
+          "r_squared": 0.9719298907583463,
+          "formula": "y = 5.17173e-05 / x + 0.00107224"
+        },
+        {
+          "model": "exponential",
+          "a": 0.001758804397002503,
+          "b": -0.6112349872785465,
+          "r_squared": 0.6925455878890181,
+          "formula": "y = 0.0017588 * e^(-0.611235 * x)"
+        },
+        {
+          "model": "linear",
+          "a": -0.000717536196319018,
+          "b": 0.0017053750306748466,
+          "r_squared": 0.6231717908846475,
+          "formula": "y = -0.000717536 * x + 0.00170538"
+        }
+      ],
+      "x_data": [
+        0.0,
+        0.1,
+        0.2,
+        0.5,
+        1.0
+      ],
+      "y_data": [
+        0.00201545,
+        0.00157564,
+        0.00137212,
+        0.00113442,
+        0.00113768
+      ]
+    },
+    {
+      "relationship": "drift_vs_check_freq",
+      "description": "Exp18: Drift vs check frequency",
+      "x_label": "check_frequency",
+      "y_label": "final_drift",
+      "n_points": 5,
+      "best_fit": {
+        "model": "power_law",
+        "a": 9.556862620654048,
+        "b": -7.045454073269444e-17,
+        "r_squared": 0,
+        "formula": "y = 9.55686 * x^-7.045e-17"
+      },
+      "all_candidates": [
+        {
+          "model": "power_law",
+          "a": 9.556862620654048,
+          "b": -7.045454073269444e-17,
+          "r_squared": 0,
+          "formula": "y = 9.55686 * x^-7.045e-17"
+        },
+        {
+          "model": "logarithmic",
+          "a": 9.437712903776395e-10,
+          "b": 9.556862616307818,
+          "r_squared": 0,
+          "formula": "y = 9.43771e-10 * ln(x) + 9.55686"
+        },
+        {
+          "model": "exponential",
+          "a": 9.556862620654044,
+          "b": 5.426997407090095e-20,
+          "r_squared": 0,
+          "formula": "y = 9.55686 * e^(5.427e-20 * x)"
+        },
+        {
+          "model": "linear",
+          "a": 8.098907449257706e-19,
+          "b": 9.556862620654043,
+          "r_squared": 0,
+          "formula": "y = 8.09891e-19 * x + 9.55686"
+        },
+        {
+          "model": "inverse",
+          "a": -1.6426761453311495e-08,
+          "b": 9.556862621196796,
+          "r_squared": 0,
+          "formula": "y = -1.64268e-08 / x + 9.55686"
+        }
+      ],
+      "x_data": [
+        1.0,
+        10.0,
+        100.0,
+        1000.0,
+        10000.0
+      ],
+      "y_data": [
+        9.556862620654044,
+        9.556862620654044,
+        9.556862620654044,
+        9.556862620654044,
+        9.556862620654044
+      ]
+    },
+    {
+      "relationship": "peak_drift_vs_check_freq",
+      "description": "Exp18: Peak drift vs check frequency",
+      "x_label": "check_frequency",
+      "y_label": "peak_drift",
+      "n_points": 5,
+      "best_fit": {
+        "model": "power_law",
+        "a": 64.72799202671314,
+        "b": -1.5702305867237126e-16,
+        "r_squared": 0,
+        "formula": "y = 64.728 * x^-1.57e-16"
+      },
+      "all_candidates": [
+        {
+          "model": "power_law",
+          "a": 64.72799202671314,
+          "b": -1.5702305867237126e-16,
+          "r_squared": 0,
+          "formula": "y = 64.728 * x^-1.57e-16"
+        },
+        {
+          "model": "logarithmic",
+          "a": -2.2955770910630203e-08,
+          "b": 64.72799212180107,
+          "r_squared": 0,
+          "formula": "y = -2.29558e-08 * ln(x) + 64.728"
+        },
+        {
+          "model": "exponential",
+          "a": 64.72799202671303,
+          "b": 3.853349283304486e-19,
+          "r_squared": 0,
+          "formula": "y = 64.728 * e^(3.85335e-19 * x)"
+        },
+        {
+          "model": "linear",
+          "a": 5.071172680596465e-18,
+          "b": 64.72799202671308,
+          "r_squared": 0,
+          "formula": "y = 5.07117e-18 * x + 64.728"
+        },
+        {
+          "model": "inverse",
+          "a": 7.189141526531273e-08,
+          "b": 64.72799201073737,
+          "r_squared": 0,
+          "formula": "y = 7.18914e-08 / x + 64.728"
+        }
+      ],
+      "x_data": [
+        1.0,
+        10.0,
+        100.0,
+        1000.0,
+        10000.0
+      ],
+      "y_data": [
+        64.72799202671308,
+        64.72799202671308,
+        64.72799202671308,
+        64.72799202671308,
+        64.72799202671308
+      ]
+    },
+    {
+      "relationship": "drift_vs_byzantine",
+      "description": "Exp11: Drift vs Byzantine count",
+      "x_label": "byzantine_count",
+      "y_label": "drift",
+      "n_points": 4,
+      "best_fit": {
+        "model": "linear",
+        "a": 0.06765459999999993,
+        "b": 0.31604510000000025,
+        "r_squared": 0.28805977830569574,
+        "formula": "y = 0.0676546 * x + 0.316045"
+      },
+      "all_candidates": [
+        {
+          "model": "linear",
+          "a": 0.06765459999999993,
+          "b": 0.31604510000000025,
+          "r_squared": 0.28805977830569574,
+          "formula": "y = 0.0676546 * x + 0.316045"
+        },
+        {
+          "model": "exponential",
+          "a": 0.32366286996488797,
+          "b": 0.15941647280634594,
+          "r_squared": 0.281764167794643,
+          "formula": "y = 0.323663 * e^(0.159416 * x)"
+        },
+        {
+          "model": "inverse",
+          "a": 0.11141884077221824,
+          "b": 0.4052800417503111,
+          "r_squared": 0.07111054479760981,
+          "formula": "y = 0.111419 / x + 0.40528"
+        }
+      ],
+      "x_data": [
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "y_data": [
+        0.25,
+        0.555448,
+        0.305993,
+        0.558667
+      ]
+    },
+    {
+      "relationship": "convergence_vs_lambda2",
+      "description": "Exp27: Convergence vs \u03bb\u2082 \u2014 expected inverse",
+      "x_label": "lambda2",
+      "y_label": "convergence_rate",
+      "n_points": 8,
+      "best_fit": {
+        "model": "power_law",
+        "a": 1.0,
+        "b": 0.0,
+        "r_squared": 0,
+        "formula": "y = 1 * x^0"
+      },
+      "all_candidates": [
+        {
+          "model": "power_law",
+          "a": 1.0,
+          "b": 0.0,
+          "r_squared": 0,
+          "formula": "y = 1 * x^0"
+        },
+        {
+          "model": "logarithmic",
+          "a": 1.0068737719430389e-09,
+          "b": 1.0000000001732172,
+          "r_squared": 0,
+          "formula": "y = 1.00687e-09 * ln(x) + 1"
+        },
+        {
+          "model": "exponential",
+          "a": 1.0,
+          "b": 0.0,
+          "r_squared": 0,
+          "formula": "y = 1 * e^(0 * x)"
+        },
+        {
+          "model": "linear",
+          "a": -1.2392313134591726e-16,
+          "b": 1.0000000000000002,
+          "r_squared": 0,
+          "formula": "y = -1.23923e-16 * x + 1"
+        },
+        {
+          "model": "inverse",
+          "a": 3.4425242846276113e-11,
+          "b": 0.9999999999154595,
+          "r_squared": 0,
+          "formula": "y = 3.44252e-11 / x + 1"
+        }
+      ],
+      "x_data": [
+        10.0,
+        0.381966,
+        1.0,
+        0.097887,
+        1.262117,
+        1.150927,
+        0.537004,
+        0.456853
+      ],
+      "y_data": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "relationship": "drift_vs_lambda2",
+      "description": "Exp27: Drift vs \u03bb\u2082 \u2014 expected inverse",
+      "x_label": "lambda2",
+      "y_label": "drift",
+      "n_points": 8,
+      "best_fit": {
+        "model": "linear",
+        "a": -0.005634880776241954,
+        "b": 0.0663256354919054,
+        "r_squared": 0.11553508710939075,
+        "formula": "y = -0.00563488 * x + 0.0663256"
+      },
+      "all_candidates": [
+        {
+          "model": "linear",
+          "a": -0.005634880776241954,
+          "b": 0.0663256354919054,
+          "r_squared": 0.11553508710939075,
+          "formula": "y = -0.00563488 * x + 0.0663256"
+        },
+        {
+          "model": "exponential",
+          "a": 0.06580213778585373,
+          "b": -0.10382822245671246,
+          "r_squared": 0.09044370915321132,
+          "formula": "y = 0.0658021 * e^(-0.103828 * x)"
+        },
+        {
+          "model": "logarithmic",
+          "a": -0.004346445430598512,
+          "b": 0.054744931896248454,
+          "r_squared": 0.010905809128941346,
+          "formula": "y = -0.00434645 * ln(x) + 0.0547449"
+        },
+        {
+          "model": "power_law",
+          "a": 0.05502675952487486,
+          "b": -0.053606114812027754,
+          "r_squared": 0.0073976962757899,
+          "formula": "y = 0.0550268 * x^-0.05361"
+        },
+        {
+          "model": "inverse",
+          "a": -0.0005378273603867111,
+          "b": 0.05716077949545687,
+          "r_squared": 0.0010080855046812331,
+          "formula": "y = -0.000537827 / x + 0.0571608"
+        }
+      ],
+      "x_data": [
+        10.0,
+        0.381966,
+        1.0,
+        0.097887,
+        1.262117,
+        1.150927,
+        0.537004,
+        0.456853
+      ],
+      "y_data": [
+        0.0018,
+        0.015024,
+        0.173225,
+        0.059715,
+        0.088893,
+        0.04328,
+        0.046442,
+        0.018341
+      ]
+    },
+    {
+      "relationship": "drift_vs_delta",
+      "description": "Exp22: Drift vs quantization step",
+      "x_label": "delta",
+      "y_label": "max_drift",
+      "n_points": 6,
+      "best_fit": {
+        "model": "linear",
+        "a": -0.026500702352685913,
+        "b": 0.0763446938706922,
+        "r_squared": 0.19095476103836384,
+        "formula": "y = -0.0265007 * x + 0.0763447"
+      },
+      "all_candidates": [
+        {
+          "model": "linear",
+          "a": -0.026500702352685913,
+          "b": 0.0763446938706922,
+          "r_squared": 0.19095476103836384,
+          "formula": "y = -0.0265007 * x + 0.0763447"
+        },
+        {
+          "model": "exponential",
+          "a": 0.07634088196307003,
+          "b": -0.351039304305638,
+          "r_squared": 0.18883252112486015,
+          "formula": "y = 0.0763409 * e^(-0.351039 * x)"
+        },
+        {
+          "model": "logarithmic",
+          "a": -0.0002981648311616539,
+          "b": 0.07412105438441677,
+          "r_squared": 0.018933553614387533,
+          "formula": "y = -0.000298165 * ln(x) + 0.0741211"
+        },
+        {
+          "model": "power_law",
+          "a": 0.07415176812597588,
+          "b": -0.0038807595988177095,
+          "r_squared": 0.018545655821775364,
+          "formula": "y = 0.0741518 * x^-0.003881"
+        },
+        {
+          "model": "inverse",
+          "a": -3.7471048144332997e-06,
+          "b": 0.07557250780518876,
+          "r_squared": 0.016012801129396848,
+          "formula": "y = -3.7471e-06 / x + 0.0755725"
+        }
+      ],
+      "x_data": [
+        0.00390625,
+        0.0078125,
+        0.015625,
+        0.03125,
+        0.0625,
+        0.125
+      ],
+      "y_data": [
+        0.07438656497424745,
+        0.07417273622229459,
+        0.0764596456988329,
+        0.08033070868896175,
+        0.07381889765065353,
+        0.07237795276955694
+      ]
+    },
+    {
+      "relationship": "additional_drift_vs_delta",
+      "description": "Exp22: Additional drift % vs quantization step",
+      "x_label": "delta",
+      "y_label": "additional_drift_pct",
+      "n_points": 6,
+      "best_fit": {
+        "model": "inverse",
+        "a": -0.019155055081734096,
+        "b": 4.443107960198992,
+        "r_squared": 0.33949895994279244,
+        "formula": "y = -0.0191551 / x + 4.44311"
+      },
+      "all_candidates": [
+        {
+          "model": "inverse",
+          "a": -0.019155055081734096,
+          "b": 4.443107960198992,
+          "r_squared": 0.33949895994279244,
+          "formula": "y = -0.0191551 / x + 4.44311"
+        },
+        {
+          "model": "logarithmic",
+          "a": 1.2194688976020647,
+          "b": 7.483076190476186,
+          "r_squared": 0.256955542384391,
+          "formula": "y = 1.21947 * ln(x) + 7.48308"
+        },
+        {
+          "model": "power_law",
+          "a": 9.08824734220817,
+          "b": 0.3174128900083527,
+          "r_squared": 0.19240613500462045,
+          "formula": "y = 9.08825 * x^0.3174"
+        },
+        {
+          "model": "linear",
+          "a": 21.59513745557926,
+          "b": 1.9483452736318392,
+          "r_squared": 0.10287827618766698,
+          "formula": "y = 21.5951 * x + 1.94835"
+        },
+        {
+          "model": "exponential",
+          "a": 2.170601864275462,
+          "b": 5.824372862322078,
+          "r_squared": 0.08832071950848341,
+          "formula": "y = 2.1706 * e^(5.82437 * x)"
+        }
+      ],
+      "x_data": [
+        0.00390625,
+        0.0078125,
+        0.015625,
+        0.03125,
+        0.0625,
+        0.125
+      ],
+      "y_data": [
+        0.2019,
+        0.0469,
+        3.0222,
+        8.165,
+        1.1253,
+        4.4432
+      ]
+    },
+    {
+      "relationship": "compression_ratio_vs_T_wavelet",
+      "description": "Exp15: Compression ratio vs T (wavelet)",
+      "x_label": "T",
+      "y_label": "compression_ratio",
+      "n_points": 5,
+      "best_fit": {
+        "model": "power_law",
+        "a": 1.062411152066002,
+        "b": 0.49362026292142275,
+        "r_squared": 0.9999582306118308,
+        "formula": "y = 1.06241 * x^0.4936"
+      },
+      "all_candidates": [
+        {
+          "model": "power_law",
+          "a": 1.062411152066002,
+          "b": 0.49362026292142275,
+          "r_squared": 0.9999582306118308,
+          "formula": "y = 1.06241 * x^0.4936"
+        },
+        {
+          "model": "linear",
+          "a": 0.008670104570753918,
+          "b": 18.499252825096967,
+          "r_squared": 0.9583429872652406,
+          "formula": "y = 0.0086701 * x + 18.4993"
+        },
+        {
+          "model": "logarithmic",
+          "a": 19.48034703513595,
+          "b": -90.85140235676182,
+          "r_squared": 0.9184377459817079,
+          "formula": "y = 19.4803 * ln(x) + -90.8514"
+        },
+        {
+          "model": "exponential",
+          "a": 26.02153288920422,
+          "b": 0.00013926270154692672,
+          "r_squared": 0.8758644594613436,
+          "formula": "y = 26.0215 * e^(0.000139263 * x)"
+        },
+        {
+          "model": "inverse",
+          "a": -6126.8687038507005,
+          "b": 63.581470752238765,
+          "r_squared": 0.4686461289550985,
+          "formula": "y = -6126.87 / x + 63.5815"
+        }
+      ],
+      "x_data": [
+        100.0,
+        500.0,
+        1000.0,
+        5000.0,
+        10000.0
+      ],
+      "y_data": [
+        10.0,
+        22.73,
+        32.26,
+        71.43,
+        100.0
+      ]
+    },
+    {
+      "relationship": "prediction_mae_vs_T_wavelet",
+      "description": "Exp15: Prediction MAE vs T (wavelet)",
+      "x_label": "T",
+      "y_label": "prediction_mae",
+      "n_points": 5,
+      "best_fit": {
+        "model": "exponential",
+        "a": 4.248368854276051,
+        "b": -0.0026571975782664755,
+        "r_squared": 0.9728485933969949,
+        "formula": "y = 4.24837 * e^(-0.0026572 * x)"
+      },
+      "all_candidates": [
+        {
+          "model": "exponential",
+          "a": 4.248368854276051,
+          "b": -0.0026571975782664755,
+          "r_squared": 0.9728485933969949,
+          "formula": "y = 4.24837 * e^(-0.0026572 * x)"
+        },
+        {
+          "model": "inverse",
+          "a": 305.01840053682326,
+          "b": 0.2352110541780512,
+          "r_squared": 0.9721595666700527,
+          "formula": "y = 305.018 / x + 0.235211"
+        },
+        {
+          "model": "power_law",
+          "a": 104.2546124805409,
+          "b": -0.7524241493301523,
+          "r_squared": 0.9700840029132262,
+          "formula": "y = 104.255 * x^-0.7524"
+        },
+        {
+          "model": "logarithmic",
+          "a": -0.5972224307875497,
+          "b": 5.281472274638838,
+          "r_squared": 0.7225138229185432,
+          "formula": "y = -0.597222 * ln(x) + 5.28147"
+        },
+        {
+          "model": "linear",
+          "a": -0.0001610469162871761,
+          "b": 1.5812357620734243,
+          "r_squared": 0.27675451914993465,
+          "formula": "y = -0.000161047 * x + 1.58124"
+        }
+      ],
+      "x_data": [
+        100.0,
+        500.0,
+        1000.0,
+        5000.0,
+        10000.0
+      ],
+      "y_data": [
+        3.2543,
+        1.1394,
+        0.2741,
+        0.1809,
+        0.3841
+      ]
+    },
+    {
+      "relationship": "compression_ratio_vs_T_random",
+      "description": "Exp15: Compression ratio vs T (random)",
+      "x_label": "T",
+      "y_label": "compression_ratio",
+      "n_points": 5,
+      "best_fit": {
+        "model": "power_law",
+        "a": 1.062411152066002,
+        "b": 0.49362026292142275,
+        "r_squared": 0.9999582306118308,
+        "formula": "y = 1.06241 * x^0.4936"
+      },
+      "all_candidates": [
+        {
+          "model": "power_law",
+          "a": 1.062411152066002,
+          "b": 0.49362026292142275,
+          "r_squared": 0.9999582306118308,
+          "formula": "y = 1.06241 * x^0.4936"
+        },
+        {
+          "model": "linear",
+          "a": 0.008670104570753918,
+          "b": 18.499252825096967,
+          "r_squared": 0.9583429872652406,
+          "formula": "y = 0.0086701 * x + 18.4993"
+        },
+        {
+          "model": "logarithmic",
+          "a": 19.48034703513595,
+          "b": -90.85140235676182,
+          "r_squared": 0.9184377459817079,
+          "formula": "y = 19.4803 * ln(x) + -90.8514"
+        },
+        {
+          "model": "exponential",
+          "a": 26.02153288920422,
+          "b": 0.00013926270154692672,
+          "r_squared": 0.8758644594613436,
+          "formula": "y = 26.0215 * e^(0.000139263 * x)"
+        },
+        {
+          "model": "inverse",
+          "a": -6126.8687038507005,
+          "b": 63.581470752238765,
+          "r_squared": 0.4686461289550985,
+          "formula": "y = -6126.87 / x + 63.5815"
+        }
+      ],
+      "x_data": [
+        100.0,
+        500.0,
+        1000.0,
+        5000.0,
+        10000.0
+      ],
+      "y_data": [
+        10.0,
+        22.73,
+        32.26,
+        71.43,
+        100.0
+      ]
+    },
+    {
+      "relationship": "prediction_mae_vs_T_random",
+      "description": "Exp15: Prediction MAE vs T (random)",
+      "x_label": "T",
+      "y_label": "prediction_mae",
+      "n_points": 5,
+      "best_fit": {
+        "model": "power_law",
+        "a": 1678.8464251963685,
+        "b": -1.3796931687116507,
+        "r_squared": 0.9831522464377392,
+        "formula": "y = 1678.85 * x^-1.38"
+      },
+      "all_candidates": [
+        {
+          "model": "power_law",
+          "a": 1678.8464251963685,
+          "b": -1.3796931687116507,
+          "r_squared": 0.9831522464377392,
+          "formula": "y = 1678.85 * x^-1.38"
+        },
+        {
+          "model": "exponential",
+          "a": 5.25162755192819,
+          "b": -0.005857884112981739,
+          "r_squared": 0.9786851908429055,
+          "formula": "y = 5.25163 * e^(-0.00585788 * x)"
+        },
+        {
+          "model": "inverse",
+          "a": 285.59587508762417,
+          "b": -0.00012596817488685907,
+          "r_squared": 0.9688181129188459,
+          "formula": "y = 285.596 / x + -0.000125968"
+        },
+        {
+          "model": "logarithmic",
+          "a": -0.4975177275599414,
+          "b": 4.287464876901618,
+          "r_squared": 0.5699591341775418,
+          "formula": "y = -0.497518 * ln(x) + 4.28746"
+        },
+        {
+          "model": "linear",
+          "a": -0.00011950309214594926,
+          "b": 1.1563102659245512,
+          "r_squared": 0.17322111224115566,
+          "formula": "y = -0.000119503 * x + 1.15631"
+        }
+      ],
+      "x_data": [
+        100.0,
+        500.0,
+        1000.0,
+        5000.0,
+        10000.0
+      ],
+      "y_data": [
+        2.9244,
+        0.2621,
+        0.1698,
+        0.1804,
+        0.2611
+      ]
+    },
+    {
+      "relationship": "drift_vs_generation",
+      "description": "Exp19: Drift vs generation \u2014 expected bounded",
+      "x_label": "generation",
+      "y_label": "drift",
+      "n_points": 5,
+      "best_fit": {
+        "model": "inverse",
+        "a": 0.0001674533614316476,
+        "b": 4.568376987990628,
+        "r_squared": 0.8769272011259419,
+        "formula": "y = 0.000167453 / x + 4.56838"
+      },
+      "all_candidates": [
+        {
+          "model": "inverse",
+          "a": 0.0001674533614316476,
+          "b": 4.568376987990628,
+          "r_squared": 0.8769272011259419,
+          "formula": "y = 0.000167453 / x + 4.56838"
+        },
+        {
+          "model": "power_law",
+          "a": 4.568527077908509,
+          "b": -1.6830001517781004e-05,
+          "r_squared": 0.7096187114850296,
+          "formula": "y = 4.56853 * x^-1.683e-05"
+        },
+        {
+          "model": "logarithmic",
+          "a": -7.688965007895042e-05,
+          "b": 4.568527080071531,
+          "r_squared": 0.7096152815376091,
+          "formula": "y = -7.68897e-05 * ln(x) + 4.56853"
+        },
+        {
+          "model": "exponential",
+          "a": 4.568531298322992,
+          "b": -5.6795000797836024e-06,
+          "r_squared": 0.5002341451442921,
+          "formula": "y = 4.56853 * e^(-5.6795e-06 * x)"
+        },
+        {
+          "model": "linear",
+          "a": -2.5946752690249177e-05,
+          "b": 4.568531298617178,
+          "r_squared": 0.5002313050234094,
+          "formula": "y = -2.59468e-05 * x + 4.56853"
+        }
+      ],
+      "x_data": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "y_data": [
+        4.56855722136711,
+        4.5684275476038705,
+        4.568427507617083,
+        4.568427507603732,
+        4.568427507603728
+      ]
+    },
+    {
+      "relationship": "cumulative_energy_vs_dim_o1",
+      "description": "Exp28: Cumulative SVD energy vs dimension",
+      "x_label": "dim",
+      "y_label": "cumulative_energy",
+      "n_points": 8,
+      "best_fit": {
+        "model": "logarithmic",
+        "a": 0.3583249990556888,
+        "b": 0.23109925388525593,
+        "r_squared": 0.9951700931643754,
+        "formula": "y = 0.358325 * ln(x) + 0.231099"
+      },
+      "all_candidates": [
+        {
+          "model": "logarithmic",
+          "a": 0.3583249990556888,
+          "b": 0.23109925388525593,
+          "r_squared": 0.9951700931643754,
+          "formula": "y = 0.358325 * ln(x) + 0.231099"
+        },
+        {
+          "model": "power_law",
+          "a": 0.30955416522896767,
+          "b": 0.5752294676289067,
+          "r_squared": 0.9886434701419479,
+          "formula": "y = 0.309554 * x^0.5752"
+        },
+        {
+          "model": "linear",
+          "a": 0.10065846376729018,
+          "b": 0.25312295759368597,
+          "r_squared": 0.9523501720034018,
+          "formula": "y = 0.100658 * x + 0.253123"
+        },
+        {
+          "model": "exponential",
+          "a": 0.3737878045389136,
+          "b": 0.13217754554039443,
+          "r_squared": 0.8842052997498858,
+          "formula": "y = 0.373788 * e^(0.132178 * x)"
+        },
+        {
+          "model": "inverse",
+          "a": -0.8046847149281675,
+          "b": 0.9794633070734271,
+          "r_squared": 0.8753701865876138,
+          "formula": "y = -0.804685 / x + 0.979463"
+        }
+      ],
+      "x_data": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0,
+        7.0,
+        8.0
+      ],
+      "y_data": [
+        0.2560322174071547,
+        0.46556437626192865,
+        0.6058459021654325,
+        0.7116624757122895,
+        0.8003494096981819,
+        0.8709803717561133,
+        0.938253603370833,
+        1.0
+      ]
+    }
+  ],
+  "summary": [
+    {
+      "relationship": "convergence_tick_vs_N",
+      "best_model": "logarithmic",
+      "r_squared": 0.9763237831197997,
+      "formula": "y = 10.4278 * ln(x) + -9.05068",
+      "n_points": 6,
+      "description": "Exp10: Convergence vs fleet size \u2014 expected logarithmic"
+    },
+    {
+      "relationship": "messages_vs_N",
+      "best_model": "linear",
+      "r_squared": 0.9967627016826911,
+      "formula": "y = 0.353563 * x + -1.98331",
+      "n_points": 6,
+      "description": "Exp10: Message load vs fleet size"
+    },
+    {
+      "relationship": "drift_vs_N",
+      "best_model": "logarithmic",
+      "r_squared": 0.907193386010625,
+      "formula": "y = 0.000611691 * ln(x) + -0.000445662",
+      "n_points": 6,
+      "description": "Exp10: Final drift vs fleet size"
+    },
+    {
+      "relationship": "drift_vs_latency_delta1/16",
+      "best_model": "inverse",
+      "r_squared": 0.26570023096839157,
+      "formula": "y = 1.48918 / x + 30.8503",
+      "n_points": 6,
+      "description": "Exp20: Drift vs latency (\u03b4=1/16)"
+    },
+    {
+      "relationship": "drift_vs_latency_delta1/64",
+      "best_model": "inverse",
+      "r_squared": 0.1912053928203833,
+      "formula": "y = 0.305209 / x + 8.56221",
+      "n_points": 6,
+      "description": "Exp20: Drift vs latency (\u03b4=1/64)"
+    },
+    {
+      "relationship": "drift_vs_latency_delta1/8",
+      "best_model": "inverse",
+      "r_squared": 0.2754161515866229,
+      "formula": "y = 3.04705 / x + 60.5696",
+      "n_points": 6,
+      "description": "Exp20: Drift vs latency (\u03b4=1/8)"
+    },
+    {
+      "relationship": "drift_vs_latency_delta1/32",
+      "best_model": "inverse",
+      "r_squared": 0.24049014955876347,
+      "formula": "y = 0.699849 / x + 15.9916",
+      "n_points": 6,
+      "description": "Exp20: Drift vs latency (\u03b4=1/32)"
+    },
+    {
+      "relationship": "drift_vs_latency_delta1/4",
+      "best_model": "inverse",
+      "r_squared": 0.2910010008778078,
+      "formula": "y = 6.31421 / x + 119.995",
+      "n_points": 6,
+      "description": "Exp20: Drift vs latency (\u03b4=1/4)"
+    },
+    {
+      "relationship": "drift_vs_latency_NAIVE",
+      "best_model": "inverse",
+      "r_squared": 0.26570023096839157,
+      "formula": "y = 1.48918 / x + 30.8503",
+      "n_points": 6,
+      "description": "Exp23: Drift vs latency (NAIVE)"
+    },
+    {
+      "relationship": "drift_vs_latency_CRISTIAN",
+      "best_model": "inverse",
+      "r_squared": 0.16343105389282908,
+      "formula": "y = 1.11596 / x + 30.8829",
+      "n_points": 6,
+      "description": "Exp23: Drift vs latency (CRISTIAN)"
+    },
+    {
+      "relationship": "drift_vs_latency_PTP_OFFSET",
+      "best_model": "inverse",
+      "r_squared": 0.9771177959292594,
+      "formula": "y = 0.138851 / x + 0.0335949",
+      "n_points": 6,
+      "description": "Exp23: Drift vs latency (PTP_OFFSET)"
+    },
+    {
+      "relationship": "drift_vs_latency_FIXED",
+      "best_model": "linear",
+      "r_squared": 0,
+      "formula": "y = 0 * x + 0",
+      "n_points": 8,
+      "description": "Exp25: Drift vs latency (FIXED)"
+    },
+    {
+      "relationship": "drift_vs_latency_VARIABLE",
+      "best_model": "linear",
+      "r_squared": 0,
+      "formula": "y = 0 * x + 0",
+      "n_points": 8,
+      "description": "Exp25: Drift vs latency (VARIABLE)"
+    },
+    {
+      "relationship": "drift_vs_latency_BURST",
+      "best_model": "linear",
+      "r_squared": 0,
+      "formula": "y = 0 * x + 0",
+      "n_points": 8,
+      "description": "Exp25: Drift vs latency (BURST)"
+    },
+    {
+      "relationship": "drift_vs_latency_ASYMMETRIC",
+      "best_model": "linear",
+      "r_squared": 0,
+      "formula": "y = 0 * x + 0",
+      "n_points": 8,
+      "description": "Exp25: Drift vs latency (ASYMMETRIC)"
+    },
+    {
+      "relationship": "convergence_vs_augmentation",
+      "best_model": "exponential",
+      "r_squared": 0.9666024249208265,
+      "formula": "y = 34.4653 * e^(-1.24252 * x)",
+      "n_points": 5,
+      "description": "Exp17: Convergence vs edge augmentation"
+    },
+    {
+      "relationship": "drift_vs_augmentation",
+      "best_model": "inverse",
+      "r_squared": 0.9719298907583463,
+      "formula": "y = 5.17173e-05 / x + 0.00107224",
+      "n_points": 5,
+      "description": "Exp17: Drift vs edge augmentation"
+    },
+    {
+      "relationship": "drift_vs_check_freq",
+      "best_model": "power_law",
+      "r_squared": 0,
+      "formula": "y = 9.55686 * x^-7.045e-17",
+      "n_points": 5,
+      "description": "Exp18: Drift vs check frequency"
+    },
+    {
+      "relationship": "peak_drift_vs_check_freq",
+      "best_model": "power_law",
+      "r_squared": 0,
+      "formula": "y = 64.728 * x^-1.57e-16",
+      "n_points": 5,
+      "description": "Exp18: Peak drift vs check frequency"
+    },
+    {
+      "relationship": "drift_vs_byzantine",
+      "best_model": "linear",
+      "r_squared": 0.28805977830569574,
+      "formula": "y = 0.0676546 * x + 0.316045",
+      "n_points": 4,
+      "description": "Exp11: Drift vs Byzantine count"
+    },
+    {
+      "relationship": "convergence_vs_lambda2",
+      "best_model": "power_law",
+      "r_squared": 0,
+      "formula": "y = 1 * x^0",
+      "n_points": 8,
+      "description": "Exp27: Convergence vs \u03bb\u2082 \u2014 expected inverse"
+    },
+    {
+      "relationship": "drift_vs_lambda2",
+      "best_model": "linear",
+      "r_squared": 0.11553508710939075,
+      "formula": "y = -0.00563488 * x + 0.0663256",
+      "n_points": 8,
+      "description": "Exp27: Drift vs \u03bb\u2082 \u2014 expected inverse"
+    },
+    {
+      "relationship": "drift_vs_delta",
+      "best_model": "linear",
+      "r_squared": 0.19095476103836384,
+      "formula": "y = -0.0265007 * x + 0.0763447",
+      "n_points": 6,
+      "description": "Exp22: Drift vs quantization step"
+    },
+    {
+      "relationship": "additional_drift_vs_delta",
+      "best_model": "inverse",
+      "r_squared": 0.33949895994279244,
+      "formula": "y = -0.0191551 / x + 4.44311",
+      "n_points": 6,
+      "description": "Exp22: Additional drift % vs quantization step"
+    },
+    {
+      "relationship": "compression_ratio_vs_T_wavelet",
+      "best_model": "power_law",
+      "r_squared": 0.9999582306118308,
+      "formula": "y = 1.06241 * x^0.4936",
+      "n_points": 5,
+      "description": "Exp15: Compression ratio vs T (wavelet)"
+    },
+    {
+      "relationship": "prediction_mae_vs_T_wavelet",
+      "best_model": "exponential",
+      "r_squared": 0.9728485933969949,
+      "formula": "y = 4.24837 * e^(-0.0026572 * x)",
+      "n_points": 5,
+      "description": "Exp15: Prediction MAE vs T (wavelet)"
+    },
+    {
+      "relationship": "compression_ratio_vs_T_random",
+      "best_model": "power_law",
+      "r_squared": 0.9999582306118308,
+      "formula": "y = 1.06241 * x^0.4936",
+      "n_points": 5,
+      "description": "Exp15: Compression ratio vs T (random)"
+    },
+    {
+      "relationship": "prediction_mae_vs_T_random",
+      "best_model": "power_law",
+      "r_squared": 0.9831522464377392,
+      "formula": "y = 1678.85 * x^-1.38",
+      "n_points": 5,
+      "description": "Exp15: Prediction MAE vs T (random)"
+    },
+    {
+      "relationship": "drift_vs_generation",
+      "best_model": "inverse",
+      "r_squared": 0.8769272011259419,
+      "formula": "y = 0.000167453 / x + 4.56838",
+      "n_points": 5,
+      "description": "Exp19: Drift vs generation \u2014 expected bounded"
+    },
+    {
+      "relationship": "cumulative_energy_vs_dim_o1",
+      "best_model": "logarithmic",
+      "r_squared": 0.9951700931643754,
+      "formula": "y = 0.358325 * ln(x) + 0.231099",
+      "n_points": 8,
+      "description": "Exp28: Cumulative SVD energy vs dimension"
+    }
+  ]
+}
