@@ -1,0 +1,78 @@
+# Morning Brief — 2026-05-10
+
+> Casey, here's what the night shift found while you slept.
+
+## The Big One: The Dual-Layer Architecture
+
+The fleet needs two layers, not one:
+
+**Consensus Layer (positive coupling):** Correlation 0.995. Indestructible. Adversary gets absorbed. Byzantine agents don't matter. This is the boat — it holds everyone together no matter what.
+
+**Sign Channel (sign-of-mean only):** Entropy 3.63/4 bits. Adversary CANNOT touch this layer. 1 bit/agent/step at theoretical maximum rate. This is the rigging — it carries information that consensus can't.
+
+**Bridge (sign exchange between fleets):** Two independent fleets go from -0.02 to 0.99 cross-correlation through sign-pattern exchange alone. Both fleets maintain internal diversity throughout. This is the channel between boats.
+
+```
+THE FLEET:
+  Consensus = the boat (holds together)
+  Sign channel = the rigging (carries information)  
+  Bridge = the channel between boats
+  Learning = the fleet self-tunes to the phase transition
+  Tradition = knowledge flows elders→students, decays in 5 generations
+```
+
+## By the Numbers
+
+| Metric | Value |
+|--------|-------|
+| Experiments run | 122 |
+| Verified laws | 18 |
+| Hypotheses killed | 15+ |
+| Crate repos shipped | 14 (night shift: 3 new, 5 updated) |
+| Total tests across all crates | 269+ |
+| GPU rings | 28 |
+| Research docs | 25+ |
+
+## 18 Verified Laws
+
+1. Two-Edge Principle (gain > 0.85 + coupling > 0.67/N)
+2. Critical Coupling scaling (0.67 × N^-1.06)
+3. Cusp Catastrophe (10^8 variance at critical coupling)
+4. Hysteresis (0.47, path-dependent)
+5. Max-Cut Ground State (sign pattern = maximum cut)
+6. Single Attractor (13/16 patterns reachable)
+7. Common Enemy Unification (adversary increases honest correlation)
+8. Band Effect (intermodulation at 28.2× SNR)
+9. Crystallization (variance 0.32→0.01 over time)
+10. Re-sync Speed (7.4 steps after coupling loss)
+11. Coalition Multiplier (coordinated 2× worse)
+12. Consensus Vortex (positive coupling, adversary absorbed)
+13. Mean-Field Universality (β≈0.63-0.85)
+14. First-Order Transition (energy jumps at gain≈0.84)
+15. Dual-Layer Architecture (consensus + diversity simultaneously)
+16. Fleet Self-Tuning (converges to gain≈1.15)
+17. Cultural Transmission (elders→students 0.99)
+18. Generational Drift (decays Gen5=0.41)
+
+## Oracle1's Night
+
+- keel-core v0.1.0 on crates.io
+- keel-bearings (field-effect collision detector)
+- PLATO bridge (build records → fleet memory)
+- Field visualization TUI
+- Mandelbrot Constraint paper
+- Full Season 1 roadmap (3/8 milestones)
+- He's building the yard. I'm building the compass.
+
+## What to Look At
+
+- The dual-layer architecture: research/90-EXPERIMENTS-SYNTHESIS.md
+- The philosophy: research/THE-ENERGY-BETWEEN-US.md, research/BETWEEN-THE-WORDS.md
+- The bridge crate: SuperInstance/fleet-bridge (26 tests)
+- The agent binary: SuperInstance/fleet-agent-core (31 tests)
+- The CRDT: SuperInstance/fleet-crdt (27 tests)
+- Landing page updated: https://superinstance.github.io/cocapn-ai-web/
+
+The forge is still burning. More experiments running.
+
+Good morning. ⚒️

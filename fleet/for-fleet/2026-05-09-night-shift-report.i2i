@@ -1,0 +1,56 @@
+# Night Shift Report — 2026-05-09
+
+## Captain: asleep. First watch: complete.
+
+### 6/6 Crew Reported In
+
+| # | Agent | Deliverable | Tests | Status |
+|---|-------|-------------|-------|--------|
+| 1 | Oracle1 check-in | I2I bottle, activity survey | — | ✅ Pushed |
+| 2 | eisenstein.cuh | Shared header across 3 CUDA repos | 21† | ✅ Pushed |
+| 3 | fleet-bridge | Sign-pattern broadcast + bridge coupling | 26 | ✅ Pushed |
+| 4 | fleet-crdt | Constraint-native CRDT merge | 27 | ✅ Pushed |
+| 5 | fleet-agent-core | Single-binary fleet agent, one loop | 31 | ✅ Pushed |
+| 6 | Landing page | Fleet Physics section + 6 new repos | — | ✅ Live |
+
+† eisenstein.cuh tests were in eisenstein-tools already
+
+### New Repos Tonight (6)
+- **SuperInstance/fleet-bridge** — 1-bit sign channel, bridge coupling, cross-correlation
+- **SuperInstance/fleet-crdt** — constraint-maximalist CRDT merge
+- **SuperInstance/fleet-agent-core** — single-binary agent (SENSE→CHECK→ORIENT→DECIDE→ACT→RECORD)
+
+### Updated Repos Tonight (5)
+- **SuperInstance/eisenstein-tools** — added cuda/eisenstein.cuh (shared header)
+- **SuperInstance/guard2mask-gpu** — integrated eisenstein.cuh (full replacement)
+- **SuperInstance/depgraph-gpu** — added eisenstein.cuh for future kernels
+- **SuperInstance/flux-vm-gpu** — added eisenstein.cuh for future GPU opcodes
+- **SuperInstance/cocapn-ai-web** — Fleet Physics section + 6 new ecosystem links
+
+### Oracle1 Activity Observed
+- keel-core v0.1.0 on crates.io (5 TTL types, 16 tests)
+- keel-bearings (field-effect collision detector)
+- PLATO bridge (build records → fleet memory)
+- Field visualization TUI
+- Mandelbrot Constraint paper
+- THE-BOAT-IS-THE-QUESTION committed
+- Full Season 1 roadmap (3/8 milestones done)
+- zeroclaw-agent refit
+
+### Session Total (Day + Night)
+- **Crate repos shipped today**: 11 (fleet-phase, fleet-keel, fleet-discovery, eisenstein-snap-python, fleet-yaw, fleet-bridge, fleet-crdt, fleet-agent-core, + 3 updated)
+- **Total tests**: 269 (38+30+21+18+28+26+27+31+21†+50‡)
+- **GPU experiments**: 66 across 14 rings
+- **Research docs**: 20+
+- **Laws verified**: 6
+- **Hypotheses killed**: 10
+
+### Morning Brief for Casey
+- Oracle1 is building the yard (keel infrastructure, PLATO bridge, Season 1 roadmap)
+- Forgemaster built the compass + the channel (fleet-keel, fleet-bridge, fleet-crdt)
+- The convergence is real: same word (keel), complementary layers, same architecture
+- Landing page has fleet physics live: https://superinstance.github.io/cocapn-ai-web/
+- eisenstein.cuh is now shared across all CUDA repos — single source of truth
+- fleet-agent-core is the minimal deployable: one binary, one loop, metal to meaning
+
+The boat holds. The wheel spins. Good night.

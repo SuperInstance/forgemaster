@@ -1,0 +1,76 @@
+[I2I:DELIVERABLE] Forgemaster — Cross-Pollination Synthesis + Experimental Campaigns
+
+## What I Built
+
+### 1. Tool Decompositions (8 files, ~1800 lines)
+Every major orchestration/coordination tool ripped open to find stealable ideas:
+- ACG Protocol → claim markers, reasoning taxonomy, VAR audit
+- A2A → Agent Cards, Part containers, protocol bindings
+- PBFT → Byzantine consensus math, 3-phase commit
+- Automerge → CRDT merge for concurrent editing
+- CrewAI → Agent personas, process types, memory layers
+- Penrose → Deterministic subdivision, multi-resolution
+- Tri-Quarter → RDTLG hex graph, E12 signal processing
+- Queue-Xec → Zero-friction API surface, P2P
+
+### 2. Cross-Pollination Synthesis (15 synergies, 7 campaigns)
+15 synergy operations where combining insights from 2+ tools creates something none have alone.
+
+Top 3:
+1. **Verified Agent Cards** (A2A + ACG + PBFT): Agent Card claims verified by 2f+1 consensus
+2. **Terrain-Weighted Voting** (Tri-Quarter + PBFT + E12): Nearby agents get more vote weight
+3. **78% Token Savings** (Penrose + Tile Perspectives): Hierarchical search beats flat
+
+### 3. Experiments Run
+**Campaign A (Verified Agent Cards):**
+- 80% of declared capabilities failed verification
+- Even "verified" capabilities failed cross-checks
+- Single-agent verification is INSUFFICIENT
+
+**Campaign B (Retrieval Optimization):**
+- Hierarchical search: 78% fewer tokens at 76% accuracy
+- Two-phase retrieval validated (coarse first, flat for precision)
+
+**Campaign C (Terrain-Weighted Voting):**
+- 33% accuracy for both uniform and weighted (phi4-mini too weak)
+- CCC scored 80% when close to its domain (one signal)
+- Terrain weighting is second-order effect — needs ≥60% baseline
+
+### 4. E12 Terrain Graph (RDTLG)
+- e12_terrain/rdtlg.py: Full hex lattice graph with neighbors, shortest path, terrain weighting, subdivision
+- 17 vertices (5 agents, 10 domains, 12 tiles)
+- Fleet terrain is NAVIGABLE
+
+### 5. Forked Repos (5)
+All with COCAPN-CREDITS.md and adaptation stubs:
+- SuperInstance/acg_protocol
+- SuperInstance/pbft-rust
+- SuperInstance/penrose
+- SuperInstance/tri-quarter-toolbox
+- SuperInstance/automerge
+
+## Key Finding
+
+Our initial grammar was WRONG. We said DO/NEED/DONE. The data says:
+- **Execution:** DO/DATA/DONE
+- **Planning:** CHAIN/CLAIM/ORDER
+- **Discovery:** REGISTRY/TERRAIN/VERIFY
+
+These are three separate atom sets, not one. The grammar bifurcates under empirical pressure.
+
+## What's Next
+
+1. RDTLG graph layer wired into PLATO room metadata
+2. PBFT consensus for fleet tile verification (from pbft-rust fork)
+3. FLUX-ISA as universal task encoding (Campaign D)
+4. Better model for terrain-weighted voting (needs ≥60% baseline)
+
+## For Oracle1
+
+- Your fleet-registry design is empirically validated (2.5/3 vs 1.5/3 vs 1.0/3)
+- Your heartbeat.py IS the task dispatcher — no new infrastructure needed
+- The CrewAI-PLATO bridge uses your rooms directly (no wrapper)
+- Check cocapn-bridge/crew_plato_bridge.py for the integration code
+
+Status: COMPLETE — wheel is rolling
+Deliverables: 8 decompositions, 3 campaigns, 1 terrain module, 5 forks, 1 synthesis

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuperInstance Fleet Quality Dashboard</title>
+<style>
+:root{--bg:#111827;--surface:#1f2937;--border:#374151;--text:#f9fafb;--muted:#9ca3af;--radius:8px;--green:#22c55e;--blue:#3b82f6;--purple:#a855f7;--amber:#f59e0b;--red:#ef4444;--gray:#6b7280;--orange:#f97316}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'SF Mono','Fira Code','Cascadia Code',monospace,system-ui;font-size:13px;line-height:1.5}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+header h1{font-size:18px;font-weight:700;letter-spacing:-0.02em}
+header .meta{color:var(--muted);font-size:12px}
+.clear-filter{display:none;background:var(--blue);color:#fff;border:none;border-radius:4px;padding:4px 12px;cursor:pointer;font-size:12px;font-family:inherit}
+.clear-filter.visible{display:inline-block}
+.clear-filter:hover{opacity:.85}
+.stats-bar{display:flex;gap:24px;padding:12px 24px;background:var(--surface);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.stat{display:flex;flex-direction:column;align-items:center;min-width:80px}
+.stat .val{font-size:22px;font-weight:700;color:var(--text)}
+.stat .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+main{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;padding:16px 24px;max-width:1600px;margin:0 auto}
+.panel{background:var(--surface);border-radius:var(--radius);padding:16px;overflow:hidden}
+.panel-full{grid-column:1/-1}
+.panel-title{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:12px;font-weight:600}
+.dimmed{opacity:.2!important;transition:opacity .2s}
+#tooltip{display:none;position:fixed;pointer-events:none;z-index:9999;background:#0f172a;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:12px;max-width:260px;line-height:1.4}
+canvas{display:block}
+/* CI grid */
+.ci-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:4px}
+.ci-cell{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:4px;font-size:11px;cursor:pointer;transition:opacity .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.ci-summary{font-size:11px;color:var(--muted);margin-bottom:8px}
+/* Activity grid */
+.act-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:4px}
+.act-cell{padding:6px;border-radius:4px;font-size:10px;text-align:center;cursor:pointer;transition:opacity .2s;position:relative}
+.act-cell .days{font-size:9px;color:rgba(255,255,255,.7)}
+.act-legend{display:flex;gap:12px;margin-bottom:8px;font-size:10px;align-items:center}
+.act-legend span{display:flex;align-items:center;gap:4px}
+.act-legend .swatch{width:12px;height:12px;border-radius:2px}
+/* Bar charts */
+.bar-chart{max-height:400px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:3px;cursor:pointer;transition:opacity .2s}
+.bar-label{width:140px;font-size:10px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
+.bar-track{flex:1;height:16px;background:rgba(255,255,255,.05);border-radius:3px;position:relative;min-width:20px}
+.bar-fill{height:100%;border-radius:3px;min-width:1px}
+.bar-val{font-size:10px;color:var(--muted);width:32px;text-align:right;flex-shrink:0}
+/* Crate badges */
+.crate-list{max-height:350px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.crate-row{display:flex;align-items:center;gap:8px;padding:4px 0;transition:opacity .2s;cursor:pointer;font-size:12px}
+.badge{display:inline-flex;border-radius:4px;overflow:hidden;font-size:11px;font-weight:600}
+.badge-left{background:#1c2333;padding:2px 8px;color:var(--muted)}
+.badge-right{background:var(--orange);padding:2px 8px;color:#fff}
+.crate-unpub{color:var(--muted);font-style:italic;font-size:11px}
+.crate-summary{font-size:11px;color:var(--muted);margin-bottom:8px}
+/* Dep graph */
+#dep-graph{width:100%;height:500px;border-radius:4px;cursor:grab}
+#dep-graph:active{cursor:grabbing}
+.graph-hint{font-size:10px;color:var(--muted);margin-top:4px}
+/* Sortable table */
+.table-wrap{max-height:420px;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{position:sticky;top:0;background:var(--surface);color:var(--muted);text-align:left;padding:6px 8px;cursor:pointer;user-select:none;font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:10px;border-bottom:1px solid var(--border);white-space:nowrap}
+th:hover{color:var(--text)}
+td{padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.04);white-space:nowrap}
+tr{transition:opacity .2s}
+tr:hover td{background:rgba(255,255,255,.03)}
+.tier-badge{display:inline-block;width:18px;height:18px;line-height:18px;text-align:center;border-radius:4px;font-size:10px;font-weight:700;color:#fff}
+@media(max-width:1200px){main{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<h1>⚒️ SuperInstance Fleet Quality Dashboard</h1>
+<div class="meta">57 repos · 6 tiers · Generated: <span id="gen-time"></span></div>
+<button class="clear-filter" id="clear-btn" onclick="clearFilter()">Clear filter ×</button>
+</header>
+<div class="stats-bar" id="stats-bar"></div>
+<div id="tooltip"></div>
+<main>
+<section class="panel" id="panel-tier"><div class="panel-title">Tier Distribution</div><svg id="tier-donut" width="260" height="260"></svg><div id="tier-legend"></div></section>
+<section class="panel" id="panel-ci"><div class="panel-title">CI Status</div><div class="ci-summary" id="ci-summary"></div><div class="ci-grid" id="ci-grid"></div></section>
+<section class="panel" id="panel-tests"><div class="panel-title">Test Counts</div><label style="font-size:11px;color:var(--muted);display:block;margin-bottom:8px"><input type="checkbox" id="show-zero-tests"> Show untested repos</label><div class="bar-chart" id="tests-chart"></div><div style="font-size:11px;color:var(--muted);margin-top:8px" id="tests-total"></div></section>
+<section class="panel" id="panel-readme"><div class="panel-title">README Quality</div><div class="bar-chart" id="readme-chart"></div></section>
+<section class="panel" id="panel-crates"><div class="panel-title">Published Crates</div><div class="crate-summary" id="crate-summary"></div><div class="crate-list" id="crate-list"></div></section>
+<section class="panel" id="panel-activity"><div class="panel-title">Last Activity</div><div class="act-legend" id="act-legend"></div><div class="act-grid" id="act-grid"></div></section>
+<section class="panel panel-full" id="panel-deps"><div class="panel-title">Dependency Graph</div><canvas id="dep-graph"></canvas><div class="graph-hint">Scroll to zoom · Drag to pan · Click node to highlight deps</div></section>
+<section class="panel panel-full" id="panel-table"><div class="panel-title">Repo Details</div><div class="table-wrap"><table id="repo-table"><thead><tr><th data-col="id">Repo</th><th data-col="tier">Tier</th><th data-col="lang">Lang</th><th data-col="ci">CI</th><th data-col="tests">Tests</th><th data-col="readme_lines">README</th><th data-col="crate_name">Crate</th><th data-col="last_commit_days">Last Active</th><th data-col="deps">Deps</th></tr></thead><tbody id="repo-tbody"></tbody></table></div></section>
+</main>
+<script id="fleet-data" type="application/json">
+{"generated":"2026-05-12T10:55:00Z","repos":[{"id":"dodecet-encoder","tier":1,"readme_lines":824,"ci":"green","tests":98,"crate_name":"dodecet-encoder","crate_version":"1.1.0","last_commit_days":1,"lang":["rust"],"deps":["eisenstein","flux-lucid"]},{"id":"eisenstein","tier":1,"readme_lines":180,"ci":"green","tests":45,"crate_name":"eisenstein","crate_version":"0.3.1","last_commit_days":3,"lang":["rust"],"deps":[]},{"id":"holonomy-consensus","tier":1,"readme_lines":293,"ci":"green","tests":30,"crate_name":"holonomy-consensus","crate_version":"0.1.2","last_commit_days":5,"lang":["rust"],"deps":["constraint-theory-core"]},{"id":"flux-lucid","tier":1,"readme_lines":120,"ci":"green","tests":86,"crate_name":"flux-lucid","crate_version":"0.1.7","last_commit_days":0,"lang":["rust"],"deps":["constraint-theory-llvm","holonomy-consensus","eisenstein"]},{"id":"constraint-theory-core","tier":1,"readme_lines":95,"ci":"green","tests":42,"crate_name":"constraint-theory-core","crate_version":"2.2.0","last_commit_days":7,"lang":["rust"],"deps":[]},{"id":"constraint-theory-llvm","tier":2,"readme_lines":120,"ci":"green","tests":15,"crate_name":"constraint-theory-llvm","crate_version":"0.1.1","last_commit_days":5,"lang":["rust"],"deps":[]},{"id":"flux-isa","tier":2,"readme_lines":70,"ci":"green","tests":22,"crate_name":"flux-isa","crate_version":"0.1.2","last_commit_days":3,"lang":["rust"],"deps":[]},{"id":"guardc","tier":2,"readme_lines":70,"ci":"green","tests":12,"crate_name":"guardc","crate_version":"0.1.0","last_commit_days":7,"lang":["rust"],"deps":["flux-isa"]},{"id":"flux-verify-api","tier":2,"readme_lines":65,"ci":"green","tests":19,"crate_name":"flux-verify-api","crate_version":"0.1.2","last_commit_days":0,"lang":["rust"],"deps":["flux-isa"]},{"id":"flux-contracts","tier":2,"readme_lines":55,"ci":"none","tests":5,"crate_name":"flux-contracts","crate_version":"0.1.0","last_commit_days":0,"lang":["rust"],"deps":[]},{"id":"zeitgeist-protocol","tier":2,"readme_lines":60,"ci":"none","tests":9,"crate_name":"zeitgeist-protocol","crate_version":"0.1.0","last_commit_days":0,"lang":["rust"],"deps":["flux-contracts"]},{"id":"constraint-inference","tier":2,"readme_lines":95,"ci":"green","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":5,"lang":["typescript"],"deps":[]},{"id":"intent-inference","tier":2,"readme_lines":90,"ci":"green","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":5,"lang":["typescript"],"deps":["constraint-inference"]},{"id":"fleet-murmur","tier":3,"readme_lines":95,"ci":"green","tests":22,"crate_name":null,"crate_version":null,"last_commit_days":0,"lang":["python"],"deps":[]},{"id":"fleet-health-monitor","tier":3,"readme_lines":70,"ci":"green","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":0,"lang":["python"],"deps":["fleet-murmur"]},{"id":"quality-gate-stream","tier":3,"readme_lines":65,"ci":"green","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":0,"lang":["python"],"deps":["fleet-murmur"]},{"id":"fleet-murmur-worker","tier":3,"readme_lines":30,"ci":"green","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":2,"lang":["python"],"deps":["fleet-murmur"]},{"id":"fleet-coordinate","tier":3,"readme_lines":50,"ci":"none","tests":8,"crate_name":"fleet-coordinate","crate_version":"0.1.0","last_commit_days":3,"lang":["rust"],"deps":[]},{"id":"papers","tier":4,"readme_lines":50,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":2,"lang":["latex"],"deps":[]},{"id":"constraint-theory-math","tier":4,"readme_lines":80,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":7,"lang":["latex"],"deps":[]},{"id":"negative-knowledge","tier":4,"readme_lines":40,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":7,"lang":["markdown"],"deps":[]},{"id":"intent-directed-compilation","tier":4,"readme_lines":45,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":7,"lang":["markdown"],"deps":[]},{"id":"multi-model-adversarial-testing","tier":4,"readme_lines":35,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":7,"lang":["markdown"],"deps":[]},{"id":"sheaf-constraint-synthesis","tier":4,"readme_lines":30,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":7,"lang":["markdown"],"deps":[]},{"id":"polyformalism-thinking","tier":4,"readme_lines":60,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":5,"lang":["markdown"],"deps":[]},{"id":"snapkit-rs","tier":5,"readme_lines":40,"ci":"none","tests":0,"crate_name":"snapkit","crate_version":"0.1.0","last_commit_days":3,"lang":["rust"],"deps":["eisenstein"]},{"id":"snapkit-v2","tier":5,"readme_lines":20,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":3,"lang":["python"],"deps":[]},{"id":"snapkit-zig","tier":5,"readme_lines":15,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":3,"lang":["zig"],"deps":[]},{"id":"plato-mud","tier":5,"readme_lines":50,"ci":"none","tests":32,"crate_name":null,"crate_version":null,"last_commit_days":0,"lang":["rust"],"deps":["holonomy-consensus"]},{"id":"eisenstein-c","tier":5,"readme_lines":60,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":10,"lang":["c"],"deps":["eisenstein"]},{"id":"eisenstein-wasm","tier":5,"readme_lines":55,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":10,"lang":["rust"],"deps":["eisenstein"]},{"id":"eisenstein-bench","tier":5,"readme_lines":45,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":10,"lang":["rust"],"deps":["eisenstein"]},{"id":"eisenstein-fuzz","tier":5,"readme_lines":40,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":10,"lang":["rust"],"deps":["eisenstein"]},{"id":"eisenstein-do178c","tier":5,"readme_lines":50,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":10,"lang":["coq"],"deps":["eisenstein"]},{"id":"hexgrid-gen","tier":5,"readme_lines":35,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":10,"lang":["rust"],"deps":["eisenstein"]},{"id":"pythagorean48-codes","tier":5,"readme_lines":45,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":10,"lang":["rust"],"deps":["eisenstein"]},{"id":"arm-neon-eisenstein-bench","tier":5,"readme_lines":40,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":10,"lang":["asm"],"deps":["eisenstein"]},{"id":"eisenstein-vs-z2","tier":5,"readme_lines":30,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":1,"lang":["python"],"deps":["eisenstein"]},{"id":"constraint-theory-ecosystem","tier":5,"readme_lines":200,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":5,"lang":["rust"],"deps":["constraint-theory-core","flux-lucid"]},{"id":"casting-call","tier":5,"readme_lines":80,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":7,"lang":["markdown"],"deps":[]},{"id":"flux-research","tier":5,"readme_lines":40,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":7,"lang":["rust"],"deps":["flux-isa"]},{"id":"flux-compiler","tier":5,"readme_lines":30,"ci":"none","tests":0,"crate_name":"flux-compiler","crate_version":"0.1.0","last_commit_days":10,"lang":["rust"],"deps":["flux-isa"]},{"id":"polyformalism-a2a-python","tier":5,"readme_lines":50,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":7,"lang":["python"],"deps":[]},{"id":"polyformalism-a2a-js","tier":5,"readme_lines":45,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":7,"lang":["javascript"],"deps":[]},{"id":"openarm","tier":5,"readme_lines":60,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":5,"lang":["python"],"deps":[]},{"id":"cocapn-cli","tier":5,"readme_lines":20,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":14,"lang":["rust"],"deps":[]},{"id":"fleet-resonance","tier":5,"readme_lines":25,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":10,"lang":["rust"],"deps":[]},{"id":"flux-hardware","tier":5,"readme_lines":20,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":10,"lang":["rust"],"deps":["flux-isa"]},{"id":"flux-ast","tier":5,"readme_lines":15,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":14,"lang":["rust"],"deps":[]},{"id":"fleet-scribe","tier":5,"readme_lines":30,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":1,"lang":["python"],"deps":[]},{"id":"constraint-theory-rust-python","tier":5,"readme_lines":40,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":14,"lang":["rust","python"],"deps":["constraint-theory-core"]},{"id":"constraint-theory-mlir","tier":5,"readme_lines":35,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":14,"lang":["mlir"],"deps":[]},{"id":"constraint-theory-engine-cpp-lua","tier":5,"readme_lines":40,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":14,"lang":["cpp","lua"],"deps":[]},{"id":"lucineer","tier":6,"readme_lines":20,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":21,"lang":["external"],"deps":[]},{"id":"marine-gpu-edge","tier":6,"readme_lines":15,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":14,"lang":["cuda"],"deps":[]},{"id":"claude","tier":6,"readme_lines":0,"ci":"none","tests":0,"crate_name":null,"crate_version":null,"last_commit_days":30,"lang":["none"],"deps":[]}],"tier_labels":{"1":"Core Production","2":"Infrastructure","3":"Fleet Services","4":"Papers / Research","5":"Needs Attention","6":"Dormant / External"}}
+</script>
+<script>
+// ============ DATA ============
+const FD=JSON.parse(document.getElementById('fleet-data').textContent);
+const R=FD.repos;
+const TL=FD.tier_labels;
+const TC={1:'#22c55e',2:'#3b82f6',3:'#a855f7',4:'#f59e0b',5:'#ef4444',6:'#6b7280'};
+
+// ============ CROSS-FILTER ============
+let activeFilter=new Set();
+const filterListeners=[];
+function emitFilter(ids){
+  activeFilter=ids;
+  document.getElementById('clear-btn').classList.toggle('visible',ids.size>0&&ids.size<R.length);
+  filterListeners.forEach(fn=>fn(ids));
+}
+function clearFilter(){emitFilter(new Set(R.map(r=>r.id)))}
+function toggleFilter(id){
+  if(activeFilter.has(id)&&activeFilter.size===1)clearFilter();
+  else{const s=new Set();s.add(id);emitFilter(s)}
+}
+function setFilterByTier(t){
+  emitFilter(new Set(R.filter(r=>r.tier===t).map(r=>r.id)));
+}
+
+// ============ TOOLTIP ============
+const tip=document.getElementById('tooltip');
+function showTip(e,html){
+  tip.innerHTML=html;tip.style.display='block';
+  let x=e.clientX+12,y=e.clientY+12;
+  if(x+260>window.innerWidth)x=e.clientX-260;
+  if(y+120>window.innerHeight)y=e.clientY-120;
+  tip.style.left=x+'px';tip.style.top=y+'px';
+}
+function hideTip(){tip.style.display='none'}
+
+// ============ HEADER ============
+document.getElementById('gen-time').textContent=new Date(FD.generated).toLocaleString();
+const totalTests=R.reduce((s,r)=>s+r.tests,0);
+const totalCrates=R.filter(r=>r.crate_name).length;
+const greenCI=R.filter(r=>r.ci==='green').length;
+const redCI=R.filter(r=>r.ci==='red').length;
+const noCI=R.filter(r=>r.ci==='none').length;
+document.getElementById('stats-bar').innerHTML=
+  `<div class="stat"><div class="val">${R.length}</div><div class="lbl">Repos</div></div>`+
+  `<div class="stat"><div class="val">${totalTests}</div><div class="lbl">Tests</div></div>`+
+  `<div class="stat"><div class="val">${totalCrates}</div><div class="lbl">Crates</div></div>`+
+  `<div class="stat"><div class="val" style="color:var(--green)">${greenCI}</div><div class="lbl">CI Green</div></div>`+
+  `<div class="stat"><div class="val" style="color:var(--red)">${redCI}</div><div class="lbl">CI Red</div></div>`+
+  `<div class="stat"><div class="val" style="color:var(--muted)">${noCI}</div><div class="lbl">No CI</div></div>`;
+
+// ============ TIER DONUT ============
+(function(){
+  const svg=document.getElementById('tier-donut');
+  const cx=130,cy=130,ro=110,ri=65;
+  const counts={};R.forEach(r=>{counts[r.tier]=(counts[r.tier]||0)+1});
+  const total=R.length;
+  const segs=Object.keys(counts).sort((a,b)=>a-b);
+  let angle=-Math.PI/2;
+  segs.forEach(t=>{
+    const frac=counts[t]/total;
+    const sweep=frac*Math.PI*2;
+    const end=angle+sweep;
+    const x1=cx+ro*Math.cos(angle),y1=cy+ro*Math.sin(angle);
+    const x2=cx+ro*Math.cos(end),y2=cy+ro*Math.sin(end);
+    const x3=cx+ri*Math.cos(end),y3=cy+ri*Math.sin(end);
+    const x4=cx+ri*Math.cos(angle),y4=cy+ri*Math.sin(angle);
+    const large=sweep>Math.PI?1:0;
+    const d=`M${x1} ${y1}A${ro} ${ro} 0 ${large} 1 ${x2} ${y2}L${x3} ${y3}A${ri} ${ri} 0 ${large} 0 ${x4} ${y4}Z`;
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',d);path.setAttribute('fill',TC[t]);
+    path.style.cursor='pointer';
+    path.addEventListener('mouseenter',e=>showTip(e,`<b>Tier ${t}:</b> ${TL[t]}<br>${counts[t]} repos (${(frac*100).toFixed(1)}%)`));
+    path.addEventListener('mouseleave',hideTip);
+    path.addEventListener('click',()=>setFilterByTier(+t));
+    svg.appendChild(path);
+    angle=end;
+  });
+  // Center text
+  const txt=document.createElementNS('http://www.w3.org/2000/svg','text');
+  txt.setAttribute('x',cx);txt.setAttribute('y',cy-4);txt.setAttribute('text-anchor','middle');
+  txt.setAttribute('fill','#fff');txt.setAttribute('font-size','20');txt.setAttribute('font-weight','700');
+  txt.textContent=total;svg.appendChild(txt);
+  const txt2=document.createElementNS('http://www.w3.org/2000/svg','text');
+  txt2.setAttribute('x',cx);txt2.setAttribute('y',cy+14);txt2.setAttribute('text-anchor','middle');
+  txt2.setAttribute('fill','#9ca3af');txt2.setAttribute('font-size','10');txt2.textContent='repos';
+  svg.appendChild(txt2);
+  // Legend
+  const leg=document.getElementById('tier-legend');
+  leg.style.cssText='display:flex;flex-wrap:wrap;gap:8px;margin-top:12px';
+  segs.forEach(t=>{
+    const pct=((counts[t]/total)*100).toFixed(0);
+    leg.innerHTML+=`<span style="display:flex;align-items:center;gap:4px;font-size:11px;cursor:pointer" data-tier="${t}"><span style="width:10px;height:10px;border-radius:2px;background:${TC[t]}"></span>${TL[t]} <span style="color:var(--muted)">${counts[t]} (${pct}%)</span></span>`;
+  });
+  leg.querySelectorAll('[data-tier]').forEach(el=>{
+    el.addEventListener('click',()=>setFilterByTier(+el.dataset.tier));
+  });
+})();
+
+// ============ CI GRID ============
+(function(){
+  const order={green:0,red:1,none:2};
+  const sorted=[...R].sort((a,b)=>(order[a.ci]||2)-(order[b.ci]||2));
+  document.getElementById('ci-summary').textContent=`${greenCI} passing · ${redCI} failing · ${noCI} no CI`;
+  const grid=document.getElementById('ci-grid');
+  const ciColors={green:'#22c55e',red:'#ef4444',none:'#4b5563'};
+  sorted.forEach(r=>{
+    const cell=document.createElement('div');
+    cell.className='ci-cell';cell.dataset.repo=r.id;
+    const icon=r.ci==='green'?'✓':r.ci==='red'?'✗':'—';
+    cell.innerHTML=`<span class="ci-dot" style="background:${ciColors[r.ci]}"></span>${r.id}`;
+    cell.addEventListener('mouseenter',e=>showTip(e,`<b>${r.id}</b><br>Tier ${r.tier} · CI: ${r.ci}`));
+    cell.addEventListener('mouseleave',hideTip);
+    cell.addEventListener('click',()=>toggleFilter(r.id));
+    grid.appendChild(cell);
+  });
+  filterListeners.push(ids=>{
+    grid.querySelectorAll('.ci-cell').forEach(c=>{
+      c.classList.toggle('dimmed',!ids.has(c.dataset.repo));
+    });
+  });
+})();
+
+// ============ TEST BARS ============
+(function(){
+  const cb=document.getElementById('show-zero-tests');
+  function draw(){
+    const showZero=cb.checked;
+    const repos=showZero?R:R.filter(r=>r.tests>0);
+    const sorted=[...repos].sort((a,b)=>b.tests-a.tests);
+    const max=sorted[0]?.tests||1;
+    const chart=document.getElementById('tests-chart');
+    chart.innerHTML='';
+    sorted.forEach(r=>{
+      const w=max>0?(r.tests/max*100):0;
+      const row=document.createElement('div');row.className='bar-row';row.dataset.repo=r.id;
+      row.innerHTML=`<span class="bar-label">${r.id}</span><div class="bar-track"><div class="bar-fill" style="width:${w}%;background:var(--blue)"></div></div><span class="bar-val">${r.tests}</span>`;
+      row.addEventListener('mouseenter',e=>showTip(e,`<b>${r.id}</b><br>Tests: ${r.tests} · Tier ${r.tier}`));
+      row.addEventListener('mouseleave',hideTip);
+      row.addEventListener('click',()=>toggleFilter(r.id));
+      chart.appendChild(row);
+    });
+    const tested=R.filter(r=>r.tests>0).length;
+    document.getElementById('tests-total').textContent=`Total: ${totalTests} tests across ${tested} repos`;
+    filterListeners.forEach(fn=>fn(activeFilter));
+  }
+  cb.addEventListener('change',draw);
+  draw();
+})();
+
+// ============ README BARS ============
+(function(){
+  const sorted=[...R].sort((a,b)=>b.readme_lines-a.readme_lines);
+  const max=sorted[0]?.readme_lines||1;
+  const chart=document.getElementById('readme-chart');
+  sorted.forEach(r=>{
+    const w=max>0?(r.readme_lines/max*100):0;
+    const col=r.readme_lines>=150?'#22c55e':r.readme_lines>=50?'#f59e0b':r.readme_lines>0?'#ef4444':'#374151';
+    const label=r.readme_lines>=150?'Good':r.readme_lines>=50?'Minimal':r.readme_lines>0?'Stub':'Missing';
+    const row=document.createElement('div');row.className='bar-row';row.dataset.repo=r.id;
+    row.innerHTML=`<span class="bar-label">${r.id}</span><div class="bar-track"><div class="bar-fill" style="width:${w}%;background:${col}"></div></div><span class="bar-val">${r.readme_lines}</span>`;
+    row.addEventListener('mouseenter',e=>showTip(e,`<b>${r.id}</b><br>README: ${r.readme_lines} lines · ${label} · Tier ${r.tier}`));
+    row.addEventListener('mouseleave',hideTip);
+    row.addEventListener('click',()=>toggleFilter(r.id));
+    chart.appendChild(row);
+  });
+  filterListeners.push(ids=>{
+    chart.querySelectorAll('.bar-row').forEach(r=>{
+      r.classList.toggle('dimmed',!ids.has(r.dataset.repo));
+    });
+  });
+})();
+
+// ============ CRATES ============
+(function(){
+  const published=R.filter(r=>r.crate_name).sort((a,b)=>a.crate_name.localeCompare(b.crate_name));
+  const unpublished=R.filter(r=>!r.crate_name).sort((a,b)=>a.id.localeCompare(b.id));
+  document.getElementById('crate-summary').textContent=`${published.length} crates published`;
+  const list=document.getElementById('crate-list');
+  published.forEach(r=>{
+    const row=document.createElement('div');row.className='crate-row';row.dataset.repo=r.id;
+    row.innerHTML=`<span class="badge"><span class="badge-left">${r.crate_name}</span><span class="badge-right">v${r.crate_version}</span></span>`;
+    row.addEventListener('mouseenter',e=>showTip(e,`<b>${r.id}</b><br>${r.crate_name} v${r.crate_version}<br>Lang: ${r.lang.join('+')} · ${r.last_commit_days}d ago`));
+    row.addEventListener('mouseleave',hideTip);
+    row.addEventListener('click',()=>toggleFilter(r.id));
+    list.appendChild(row);
+  });
+  // Show a few unpublished
+  const show=unpublished.slice(0,8);
+  show.forEach(r=>{
+    const row=document.createElement('div');row.className='crate-row';row.dataset.repo=r.id;
+    row.innerHTML=`<span style="color:var(--muted);font-size:11px">${r.id}</span> <span class="crate-unpub">not published</span>`;
+    list.appendChild(row);
+  });
+  if(unpublished.length>8){
+    const more=document.createElement('div');more.style.cssText='font-size:10px;color:var(--muted);padding:4px 0';
+    more.textContent=`+${unpublished.length-8} more unpublished`;list.appendChild(more);
+  }
+  filterListeners.push(ids=>{
+    list.querySelectorAll('.crate-row').forEach(r=>{
+      r.classList.toggle('dimmed',!ids.has(r.dataset.repo));
+    });
+  });
+})();
+
+// ============ ACTIVITY GRID ============
+(function(){
+  const legend=document.getElementById('act-legend');
+  const bins=[{max:1,color:'#22c55e',label:'0-1d'},{max:7,color:'#84cc16',label:'2-7d'},{max:30,color:'#f59e0b',label:'8-30d'},{max:90,color:'#ef4444',label:'31-90d'},{max:Infinity,color:'#1f2937',label:'90d+'}];
+  bins.forEach(b=>{
+    legend.innerHTML+=`<span><span class="swatch" style="background:${b.color}"></span>${b.label}</span>`;
+  });
+  const grid=document.getElementById('act-grid');
+  const sorted=[...R].sort((a,b)=>a.last_commit_days-b.last_commit_days);
+  sorted.forEach(r=>{
+    const bin=bins.find(b=>r.last_commit_days<=b.max);
+    const cell=document.createElement('div');cell.className='act-cell';cell.dataset.repo=r.id;
+    cell.style.background=bin.color;
+    cell.innerHTML=`${r.id}<br><span class="days">${r.last_commit_days}d</span>`;
+    cell.addEventListener('mouseenter',e=>{
+      const d=new Date(FD.generated);d.setDate(d.getDate()-r.last_commit_days);
+      showTip(e,`<b>${r.id}</b><br>Last commit: ~${d.toLocaleDateString()}<br>Tier ${r.tier}`);
+    });
+    cell.addEventListener('mouseleave',hideTip);
+    cell.addEventListener('click',()=>toggleFilter(r.id));
+    grid.appendChild(cell);
+  });
+  filterListeners.push(ids=>{
+    grid.querySelectorAll('.act-cell').forEach(c=>{
+      c.classList.toggle('dimmed',!ids.has(c.dataset.repo));
+    });
+  });
+})();
+
+// ============ DEPENDENCY GRAPH ============
+(function(){
+  const canvas=document.getElementById('dep-graph');
+  const ctx=canvas.getContext('2d');
+  let W,H;
+  const dpr=window.devicePixelRatio||1;
+  function resize(){
+    const rect=canvas.getBoundingClientRect();
+    W=rect.width;H=500;
+    canvas.width=W*dpr;canvas.height=H*dpr;
+    canvas.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  resize();
+
+  // Build nodes
+  const repoMap={};R.forEach((r,i)=>repoMap[r.id]=i);
+  const nodes=R.map((r,i)=>({
+    id:r.id,tier:r.tier,x:W/2+Math.min(W,H)*.35*Math.cos(2*Math.PI*i/R.length),
+    y:H/2+Math.min(W,H)*.35*Math.sin(2*Math.PI*i/R.length),vx:0,vy:0,outDeg:0,inDeg:0
+  }));
+  const edges=[];
+  R.forEach((r,i)=>{
+    (r.deps||[]).forEach(dep=>{
+      const j=repoMap[dep];
+      if(j!==undefined){edges.push({s:i,t:j});nodes[i].outDeg++;nodes[j].inDeg++}
+    });
+  });
+
+  let transform={x:0,y:0,scale:1};
+  let selected=null;
+  let hovered=null;
+  let dragging=false,dragStart={x:0,y:0},dragTrans={x:0,y:0};
+
+  // Force sim
+  const C_repel=3000,k_spring=0.05,rest=120,gravity=0.002,damping=0.85;
+  let tickCount=0,converged=false;
+
+  function applyForces(){
+    if(converged)return;
+    for(let i=0;i<nodes.length;i++){
+      // Gravity
+      const dx=nodes[i].x-W/2,dy=nodes[i].y-H/2;
+      nodes[i].vx-=gravity*dx;nodes[i].vy-=gravity*dy;
+      // Repulsion
+      for(let j=i+1;j<nodes.length;j++){
+        const ddx=nodes[i].x-nodes[j].x,ddy=nodes[i].y-nodes[j].y;
+        const dist2=Math.max(ddx*ddx+ddy*ddy,100);
+        const f=C_repel/dist2;
+        const dist=Math.sqrt(dist2);
+        const fx=f*ddx/dist,fy=f*ddy/dist;
+        nodes[i].vx+=fx;nodes[i].vy+=fy;nodes[j].vx-=fx;nodes[j].vy-=fy;
+      }
+    }
+    // Spring
+    edges.forEach(e=>{
+      const dx=nodes[e.t].x-nodes[e.s].x,dy=nodes[e.t].y-nodes[e.s].y;
+      const dist=Math.max(Math.sqrt(dx*dx+dy*dy),1);
+      const f=k_spring*(dist-rest);
+      const fx=f*dx/dist,fy=f*dy/dist;
+      nodes[e.s].vx+=fx;nodes[e.s].vy+=fy;
+      nodes[e.t].vx-=fx;nodes[e.t].vy-=fy;
+    });
+    let maxV=0;
+    nodes.forEach(n=>{
+      n.vx*=damping;n.vy*=damping;
+      n.x+=n.vx;n.y+=n.vy;
+      maxV=Math.max(maxV,Math.abs(n.vx),Math.abs(n.vy));
+    });
+    tickCount++;
+    if(tickCount>300||maxV<0.5)converged=true;
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    ctx.save();
+    ctx.translate(transform.x,transform.y);
+    ctx.scale(transform.scale,transform.scale);
+
+    // Edges
+    edges.forEach(e=>{
+      const highlighted=selected!==null&&(e.s===selected||e.t===selected);
+      const dimmed=activeFilter.size<R.length&&activeFilter.size>0&&
+        (!activeFilter.has(nodes[e.s].id)||!activeFilter.has(nodes[e.t].id));
+      ctx.beginPath();
+      ctx.moveTo(nodes[e.s].x,nodes[e.s].y);
+      ctx.lineTo(nodes[e.t].x,nodes[e.t].y);
+      if(highlighted){
+        ctx.strokeStyle=e.s===selected?'#22c55e':'#f97316';
+        ctx.lineWidth=2.5;
+      }else if(dimmed){
+        ctx.strokeStyle='rgba(156,163,175,0.1)';ctx.lineWidth=1;
+      }else{
+        ctx.strokeStyle='rgba(156,163,175,0.5)';ctx.lineWidth=1.5;
+      }
+      ctx.stroke();
+    });
+
+    // Nodes
+    nodes.forEach((n,i)=>{
+      const r=6+Math.sqrt(n.outDeg)*2;
+      const dimmed=activeFilter.size<R.length&&activeFilter.size>0&&!activeFilter.has(n.id);
+      const isSelected=selected===i;
+      const isHovered=hovered===i;
+      const alpha=dimmed?0.15:1;
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,r,0,Math.PI*2);
+      ctx.fillStyle=TC[n.tier];ctx.globalAlpha=alpha;ctx.fill();
+      ctx.globalAlpha=1;
+      if(isSelected||isHovered){
+        ctx.strokeStyle=isSelected?'#fde047':'#fff';
+        ctx.lineWidth=isSelected?3:2;ctx.stroke();
+      }else if(!dimmed){
+        ctx.strokeStyle='rgba(255,255,255,0.3)';ctx.lineWidth=1;ctx.stroke();
+      }
+    });
+
+    // Labels
+    if(transform.scale>1.2||hovered!==null||selected!==null){
+      ctx.font='11px system-ui,sans-serif';ctx.fillStyle='#fff';ctx.textAlign='center';
+      nodes.forEach((n,i)=>{
+        const show=transform.scale>1.2||hovered===i||selected===i;
+        if(!show)return;
+        const dimmed=activeFilter.size<R.length&&!activeFilter.has(n.id);
+        ctx.globalAlpha=dimmed?0.2:1;
+        const r=6+Math.sqrt(n.outDeg)*2;
+        ctx.fillText(n.id,n.x,n.y+r+14);
+        ctx.globalAlpha=1;
+      });
+    }
+    ctx.restore();
+  }
+
+  function loop(){
+    applyForces();render();
+    if(!converged)requestAnimationFrame(loop);
+    else render();
+  }
+  loop();
+
+  // Hit test
+  function hitTest(mx,my){
+    const x=(mx-transform.x)/transform.scale,y=(my-transform.y)/transform.scale;
+    for(let i=nodes.length-1;i>=0;i--){
+      const n=nodes[i],r=6+Math.sqrt(n.outDeg)*2+4;
+      if((x-n.x)**2+(y-n.y)**2<r*r)return i;
+    }
+    return null;
+  }
+
+  canvas.addEventListener('mousemove',e=>{
+    const rect=canvas.getBoundingClientRect();
+    const mx=e.clientX-rect.left,my=e.clientY-rect.top;
+    if(dragging){
+      transform.x=dragTrans.x+(e.clientX-dragStart.x);
+      transform.y=dragTrans.y+(e.clientY-dragStart.y);
+      if(converged)render();
+      return;
+    }
+    const hit=hitTest(mx,my);
+    hovered=hit;
+    canvas.style.cursor=hit!==null?'pointer':'grab';
+    if(hit!==null){
+      const n=nodes[hit],r=R[repoMap[n.id]];
+      showTip(e,`<b>${n.id}</b><br>Tier ${n.tier} · ${TL[n.tier]}<br>Deps: ${n.outDeg} out, ${n.inDeg} in<br>Lang: ${r.lang.join('+')}`);
+    }else hideTip();
+    if(converged)render();
+  });
+
+  canvas.addEventListener('mousedown',e=>{
+    const rect=canvas.getBoundingClientRect();
+    const mx=e.clientX-rect.left,my=e.clientY-rect.top;
+    const hit=hitTest(mx,my);
+    if(hit!==null){
+      if(selected===hit){selected=null;clearFilter()}
+      else{selected=hit;toggleFilter(nodes[hit].id)}
+      if(converged)render();
+    }else{
+      dragging=true;dragStart={x:e.clientX,y:e.clientY};
+      dragTrans={x:transform.x,y:transform.y};
+    }
+  });
+  window.addEventListener('mouseup',()=>{dragging=false});
+
+  canvas.addEventListener('wheel',e=>{
+    e.preventDefault();
+    const rect=canvas.getBoundingClientRect();
+    const mx=e.clientX-rect.left,my=e.clientY-rect.top;
+    const oldScale=transform.scale;
+    const delta=e.deltaY>0?0.9:1.1;
+    transform.scale=Math.max(0.3,Math.min(4,transform.scale*delta));
+    // Zoom toward cursor
+    transform.x=mx-(mx-transform.x)*(transform.scale/oldScale);
+    transform.y=my-(my-transform.y)*(transform.scale/oldScale);
+    if(converged)render();
+  },{passive:false});
+
+  canvas.addEventListener('mouseleave',()=>{hovered=null;hideTip();if(converged)render()});
+
+  window.addEventListener('resize',()=>{
+    resize();
+    // Reset positions
+    nodes.forEach((n,i)=>{
+      n.x=W/2+Math.min(W,H)*.35*Math.cos(2*Math.PI*i/nodes.length);
+      n.y=H/2+Math.min(W,H)*.35*Math.sin(2*Math.PI*i/nodes.length);
+      n.vx=0;n.vy=0;
+    });
+    tickCount=0;converged=false;transform={x:0,y:0,scale:1};
+    loop();
+  });
+
+  filterListeners.push(ids=>{
+    if(converged)render();
+  });
+})();
+
+// ============ SORTABLE TABLE ============
+(function(){
+  const tbody=document.getElementById('repo-tbody');
+  let sortCol='tier',sortDir=1;
+  function draw(){
+    const sorted=[...R].sort((a,b)=>{
+      let va=a[sortCol],vb=b[sortCol];
+      if(sortCol==='deps'){va=va.length;vb=vb.length}
+      if(sortCol==='crate_name'){va=va||'';vb=vb||''}
+      if(typeof va==='string')return va.localeCompare(vb)*sortDir;
+      return(va-vb)*sortDir;
+    });
+    tbody.innerHTML='';
+    sorted.forEach(r=>{
+      const tierCol=TC[r.tier];
+      const ciCol=r.ci==='green'?'color:#22c55e':r.ci==='red'?'color:#ef4444':'color:#6b7280';
+      const ciIcon=r.ci==='green'?'✓':r.ci==='red'?'✗':'—';
+      const tr=document.createElement('tr');tr.dataset.repo=r.id;
+      tr.innerHTML=
+        `<td>${r.id}</td>`+
+        `<td><span class="tier-badge" style="background:${tierCol}">${r.tier}</span></td>`+
+        `<td>${r.lang.join('+')}</td>`+
+        `<td style="${ciCol}">${ciIcon}</td>`+
+        `<td>${r.tests}</td>`+
+        `<td>${r.readme_lines}</td>`+
+        `<td>${r.crate_name?r.crate_name+' <span style="color:var(--orange)">v'+r.crate_version+'</span>':'<span style="color:var(--muted)">—</span>'}</td>`+
+        `<td>${r.last_commit_days}d</td>`+
+        `<td style="font-size:10px">${r.deps.length?r.deps.join(', '):'—'}</td>`;
+      tr.addEventListener('click',()=>toggleFilter(r.id));
+      tbody.appendChild(tr);
+    });
+    filterListeners.forEach(fn=>fn(activeFilter));
+  }
+  document.querySelectorAll('#repo-table th').forEach(th=>{
+    th.addEventListener('click',()=>{
+      const col=th.dataset.col;
+      if(col===sortCol)sortDir*=-1;else{sortCol=col;sortDir=1}
+      draw();
+    });
+  });
+  draw();
+  filterListeners.push(ids=>{
+    tbody.querySelectorAll('tr').forEach(tr=>{
+      tr.classList.toggle('dimmed',!ids.has(tr.dataset.repo));
+    });
+  });
+})();
+
+// Init with no filter
+clearFilter();
+</script>
+</body>
+</html>

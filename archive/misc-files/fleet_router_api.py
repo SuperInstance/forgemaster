@@ -1,0 +1,1622 @@
+#!/usr/bin/env python3
+"""
+Fleet Router API — FastAPI on :8100 with Critical-Angle Routing
+================================================================
+Routes computation requests to the best fleet model using:
+  - Three-tier model taxonomy (Tier 1/2/3)
+  - Stage-aware translation via fleet_translator_v2
+  - Hebbian conservation awareness via fleet_hebbian_service
+  - Critical-angle routing: pick the model that maximizes expected accuracy
+  - Auto-downgrade when primary model is unavailable
+
+Endpoints:
+  POST /route         — route a single computation
+  POST /route/batch   — route multiple computations at once
+  GET  /health        — router status, model registry, routing stats
+  GET  /models        — list registered models with tier info
+
+Run:
+  uvicorn fleet_router_api:app --host 0.0.0.0 --port 8100
+"""
+
+from __future__ import annotations
+
+import logging
+import time
+import threading
+from collections import defaultdict, Counter
+from dataclasses import dataclass, field, asdict
+from enum import IntEnum
+from typing import Any, Dict, List, Optional, Sequence, Tuple
+
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel, Field
+
+# ---------------------------------------------------------------------------
+# Fleet translator integration
+# ---------------------------------------------------------------------------
+try:
+    from fleet_translator_v2 import (
+        FleetRouter as TranslatorRouter,
+        ModelStage,
+        translate,
+        translate_for_stage,
+        NotationNormalizer,
+        ActivationKeyEngineer,
+        DomainDetector,
+        KNOWN_STAGES,
+    )
+    HAS_TRANSLATOR = True
+except ImportError:
+    HAS_TRANSLATOR = False
+
+# ---------------------------------------------------------------------------
+# Hebbian service integration
+# ---------------------------------------------------------------------------
+try:
+    import numpy as np  # noqa: F401 — needed by hebbian service
+    from fleet_hebbian_service import FleetHebbianService
+    HAS_HEBBIAN = True
+except ImportError:
+    HAS_HEBBIAN = False
+
+# ---------------------------------------------------------------------------
+# MythosTile integration
+# ---------------------------------------------------------------------------
+try:
+    from mythos_tile import MythosTile, ModelTier
+    HAS_MYTHOS = True
+except ImportError:
+    HAS_MYTHOS = False
+
+# ---------------------------------------------------------------------------
+# Dual Fault Detector integration (Study 63)
+# ---------------------------------------------------------------------------
+try:
+    from dual_fault_detector import (
+        DualFaultDetector, FaultReport, FaultType, DetectionSource,
+    )
+    HAS_DUAL_FAULT = True
+except ImportError:
+    HAS_DUAL_FAULT = False
+
+# ---------------------------------------------------------------------------
+# Math utilities (numpy or pure-python fallback)
+# ---------------------------------------------------------------------------
+try:
+    import numpy as np
+    HAS_NUMPY = True
+except ImportError:
+    HAS_NUMPY = False
+
+
+def _cosine_sim(a: Sequence[float], b: Sequence[float]) -> float:
+    if HAS_NUMPY:
+        va, vb = np.array(a, dtype=float), np.array(b, dtype=float)
+        na, nb = np.linalg.norm(va), np.linalg.norm(vb)
+        if na == 0 or nb == 0:
+            return 0.0
+        return float(np.dot(va, vb) / (na * nb))
+    # pure-python fallback
+    dot = sum(x * y for x, y in zip(a, b))
+    na = sum(x * x for x in a) ** 0.5
+    nb = sum(x * x for x in b) ** 0.5
+    if na == 0 or nb == 0:
+        return 0.0
+    return dot / (na * nb)
+
+
+# ---------------------------------------------------------------------------
+# Logging
+# ---------------------------------------------------------------------------
+logger = logging.getLogger("fleet_router_api")
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(name)s] %(levelname)s: %(message)s",
+)
+
+
+# =========================================================================
+# Tier Classification
+# =========================================================================
+
+class ModelTierEnum(IntEnum):
+    """Three-tier model taxonomy from Study 48."""
+    TIER_1_DIRECT = 1       # Bare notation passthrough — Seed models, gemma3:1b
+    TIER_2_SCAFFOLDED = 2   # Activation key injection + notation normalization
+    TIER_3_INCOMPETENT = 3  # Cannot reliably compute — reject with explanation
+
+
+# Default model registry — maps model_id → tier
+DEFAULT_MODELS: Dict[str, ModelTierEnum] = {
+    # Tier 1 — direct computation (94-100% regardless of framing)
+    "ByteDance/Seed-2.0-mini":          ModelTierEnum.TIER_1_DIRECT,
+    "ByteDance/Seed-2.0-code":          ModelTierEnum.TIER_1_DIRECT,
+    "gemma3:1b":                         ModelTierEnum.TIER_1_DIRECT,
+    # Tier 2 — needs scaffolding (activation keys + normalization)
+    "Qwen/Qwen3-235B-A22B-Instruct-2507": ModelTierEnum.TIER_2_SCAFFOLDED,
+    "deepseek-chat":                     ModelTierEnum.TIER_2_SCAFFOLDED,
+    "NousResearch/Hermes-3-Llama-3.1-70B": ModelTierEnum.TIER_2_SCAFFOLDED,
+    "phi4-mini":                         ModelTierEnum.TIER_2_SCAFFOLDED,
+    "llama3.2:1b":                       ModelTierEnum.TIER_2_SCAFFOLDED,
+    # Tier 3 — incompetent for math
+    "Qwen/Qwen3.6-35B-A3B":             ModelTierEnum.TIER_3_INCOMPETENT,
+    "qwen3:4b":                          ModelTierEnum.TIER_3_INCOMPETENT,
+    "qwen3:0.6b":                        ModelTierEnum.TIER_3_INCOMPETENT,
+}
+
+# Tier → expected accuracy range
+TIER_ACCURACY = {
+    ModelTierEnum.TIER_1_DIRECT: (0.94, 1.00),
+    ModelTierEnum.TIER_2_SCAFFOLDED: (0.60, 0.85),
+    ModelTierEnum.TIER_3_INCOMPETENT: (0.0, 0.30),
+}
+
+# Tier → ModelStage mapping (for translator integration)
+TIER_TO_STAGE = {
+    ModelTierEnum.TIER_1_DIRECT: ModelStage.FULL if HAS_TRANSLATOR else 4,
+    ModelTierEnum.TIER_2_SCAFFOLDED: ModelStage.CAPABLE if HAS_TRANSLATOR else 3,
+    ModelTierEnum.TIER_3_INCOMPETENT: ModelStage.ECHO if HAS_TRANSLATOR else 1,
+}
+
+# Preferred order for auto-routing (Tier 1 first, then Tier 2)
+PREFERRED_ORDER: List[str] = [
+    "ByteDance/Seed-2.0-mini",
+    "ByteDance/Seed-2.0-code",
+    "gemma3:1b",
+    "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "deepseek-chat",
+    "NousResearch/Hermes-3-Llama-3.1-70B",
+    "phi4-mini",
+    "llama3.2:1b",
+]
+
+
+# =========================================================================
+# Routing Statistics
+# =========================================================================
+
+@dataclass
+class RoutingStats:
+    """Track routing decisions over time."""
+    total_requests: int = 0
+    tier_distribution: Dict[str, int] = field(default_factory=lambda: defaultdict(int))
+    model_utilization: Dict[str, int] = field(default_factory=lambda: defaultdict(int))
+    task_distribution: Dict[str, int] = field(default_factory=lambda: defaultdict(int))
+    downgrade_count: int = 0
+    rejection_count: int = 0
+    hebbian_routed: int = 0
+    start_time: float = field(default_factory=time.time)
+    _lock: threading.Lock = field(default_factory=threading.Lock)
+
+    def record(self, model_id: str, tier: ModelTierEnum,
+               task_type: str, downgraded: bool = False,
+               rejected: bool = False, via_hebbian: bool = False):
+        with self._lock:
+            self.total_requests += 1
+            self.tier_distribution[f"tier_{tier.value}"] += 1
+            self.model_utilization[model_id] += 1
+            self.task_distribution[task_type] += 1
+            if downgraded:
+                self.downgrade_count += 1
+            if rejected:
+                self.rejection_count += 1
+            if via_hebbian:
+                self.hebbian_routed += 1
+
+    def snapshot(self) -> Dict[str, Any]:
+        with self._lock:
+            uptime = time.time() - self.start_time
+            return {
+                "total_requests": self.total_requests,
+                "uptime_seconds": round(uptime, 1),
+                "requests_per_minute": round(self.total_requests / max(uptime / 60, 0.001), 2),
+                "tier_distribution": dict(self.tier_distribution),
+                "model_utilization": dict(self.model_utilization),
+                "task_distribution": dict(self.task_distribution),
+                "downgrade_count": self.downgrade_count,
+                "rejection_count": self.rejection_count,
+                "hebbian_routed": self.hebbian_routed,
+            }
+
+
+# =========================================================================
+# Model Registry
+# =========================================================================
+
+@dataclass
+class ModelEntry:
+    model_id: str
+    tier: ModelTierEnum
+    available: bool = True
+    accuracy_low: float = 0.0
+    accuracy_high: float = 1.0
+    last_used: float = 0.0
+    total_requests: int = 0
+
+
+class ModelRegistry:
+    """Register and query models with tier classification."""
+
+    def __init__(self):
+        self._models: Dict[str, ModelEntry] = {}
+        self._lock = threading.Lock()
+        self._rr_counter = 0  # round-robin counter for load balancing
+
+    def register(self, model_id: str, tier: ModelTierEnum,
+                 available: bool = True) -> ModelEntry:
+        with self._lock:
+            lo, hi = TIER_ACCURACY.get(tier, (0.0, 1.0))
+            entry = ModelEntry(
+                model_id=model_id, tier=tier, available=available,
+                accuracy_low=lo, accuracy_high=hi,
+            )
+            self._models[model_id] = entry
+            logger.info("Registered model %s → tier %d", model_id, tier.value)
+            return entry
+
+    def get(self, model_id: str) -> Optional[ModelEntry]:
+        with self._lock:
+            return self._models.get(model_id)
+
+    def get_tier(self, model_id: str) -> ModelTierEnum:
+        entry = self.get(model_id)
+        if entry:
+            return entry.tier
+        return ModelTierEnum.TIER_3_INCOMPETENT  # unknown → assume worst
+
+    def set_available(self, model_id: str, available: bool):
+        with self._lock:
+            if model_id in self._models:
+                self._models[model_id].available = available
+
+    def mark_used(self, model_id: str):
+        with self._lock:
+            if model_id in self._models:
+                self._models[model_id].last_used = time.time()
+                self._models[model_id].total_requests += 1
+
+    def list_models(self) -> List[Dict[str, Any]]:
+        with self._lock:
+            return [
+                {
+                    "model_id": e.model_id,
+                    "tier": e.tier.value,
+                    "tier_name": e.tier.name,
+                    "available": e.available,
+                    "accuracy_range": [e.accuracy_low, e.accuracy_high],
+                    "last_used": round(e.last_used, 2) if e.last_used else None,
+                    "total_requests": e.total_requests,
+                }
+                for e in self._models.values()
+            ]
+
+    def find_best(self, preferred_tier: ModelTierEnum = ModelTierEnum.TIER_1_DIRECT,
+                  exclude: Optional[set] = None) -> Optional[ModelEntry]:
+        """Find the best available model, preferring given tier, auto-downgrading.
+        
+        Uses round-robin within tier to distribute load (Study 55 fix).
+        """
+        exclude = exclude or set()
+        # Try preferred tier first (round-robin)
+        candidates = [e for e in self._models.values()
+                      if e.tier == preferred_tier and e.available and e.model_id not in exclude]
+        if candidates:
+            self._rr_counter %= len(candidates)
+            pick = candidates[self._rr_counter % len(candidates)]
+            self._rr_counter += 1
+            return pick
+        # Fall back to any Tier 1 (round-robin)
+        candidates = [e for e in self._models.values()
+                      if e.tier == ModelTierEnum.TIER_1_DIRECT and e.available and e.model_id not in exclude]
+        if candidates:
+            self._rr_counter %= len(candidates)
+            pick = candidates[self._rr_counter % len(candidates)]
+            self._rr_counter += 1
+            return pick
+        # Fall back to Tier 2 (round-robin)
+        candidates = [e for e in self._models.values()
+                      if e.tier == ModelTierEnum.TIER_2_SCAFFOLDED and e.available and e.model_id not in exclude]
+        if candidates:
+            self._rr_counter %= len(candidates)
+            pick = candidates[self._rr_counter % len(candidates)]
+            self._rr_counter += 1
+            return pick
+        return None
+
+
+# =========================================================================
+# Critical Angle Router
+# =========================================================================
+
+class CriticalAngleRouter:
+    """
+    Routes computation requests to the best model using critical-angle analysis.
+
+    "Critical angle" = the model tier threshold where routing accuracy drops
+    below acceptable bounds. We route to the highest-accuracy tier that's available,
+    applying the correct translation/formatting for each tier.
+
+    Three-tier formatting (per Study 49/50):
+      - Tier 1: bare notation passthrough
+      - Tier 2: activation key injection + notation normalization
+      - Tier 3: reject with explanation (route to Tier 1/2 instead)
+    """
+
+    def __init__(self, registry: ModelRegistry, stats: RoutingStats,
+                 hebbian_url: Optional[str] = None):
+        self.registry = registry
+        self.stats = stats
+        self.hebbian_url = hebbian_url or "http://localhost:8849"
+        self._translator_router = TranslatorRouter() if HAS_TRANSLATOR else None
+        # Conservation-aware routing state
+        self._compliance_rate: float = 1.0
+        self._alignment_score: float = 1.0
+        self._cross_consult_threshold: float = 0.85
+
+    def set_conservation_state(self, compliance_rate: float,
+                                alignment_score: float = 1.0) -> None:
+        """Update conservation compliance and alignment for routing decisions."""
+        self._compliance_rate = max(0.0, min(1.0, compliance_rate))
+        self._alignment_score = max(0.0, min(1.0, alignment_score))
+
+    def _conservation_filter(self, entry: 'ModelEntry') -> bool:
+        """If compliance < 85%, only Tier 1 models are routed."""
+        if self._compliance_rate >= self._cross_consult_threshold:
+            return True
+        return entry.tier == ModelTierEnum.TIER_1_DIRECT
+
+    def _should_cross_consult(self) -> bool:
+        return self._alignment_score < self._cross_consult_threshold
+
+    def _find_conservative_best(
+        self,
+        preferred_tier: ModelTierEnum = ModelTierEnum.TIER_1_DIRECT,
+        exclude: Optional[set] = None,
+    ) -> Optional[ModelEntry]:
+        """Find the best model respecting conservation constraints."""
+        exclude = exclude or set()
+        if self._compliance_rate >= self._cross_consult_threshold:
+            return self.registry.find_best(preferred_tier, exclude)
+
+        # Low compliance: only conservation-filtered models
+        candidates = [
+            e for e in self.registry._models.values()
+            if e.available and e.model_id not in exclude and self._conservation_filter(e)
+        ]
+        candidates.sort(key=lambda e: (e.tier, -e.accuracy_high))
+        return candidates[0] if candidates else self.registry.find_best(preferred_tier, exclude)
+
+    def route_request(
+        self,
+        task_type: str,
+        params: Dict[str, Any],
+        preferred_model: Optional[str] = None,
+        force_tier: Optional[int] = None,
+    ) -> Dict[str, Any]:
+        """
+        Route a computation request to the best model.
+
+        Returns dict with:
+          - model_id, tier, translated_prompt, estimated_accuracy, routing_reason
+          - downgrade info if auto-downgraded
+        """
+        # Determine target model
+        target_model = preferred_model
+        downgraded = False
+        rejected = False
+        routing_reason = ""
+
+        if force_tier:
+            tier = ModelTierEnum(force_tier)
+            if tier == ModelTierEnum.TIER_3_INCOMPETENT:
+                rejected = True
+                routing_reason = f"Force-tier 3 rejected: Tier 3 models cannot reliably compute"
+                self.stats.record(target_model or "unknown", tier, task_type, rejected=True)
+                return {
+                    "model_id": None,
+                    "tier": tier.value,
+                    "translated_prompt": None,
+                    "estimated_accuracy": 0.0,
+                    "routing_reason": routing_reason,
+                    "downgraded": False,
+                    "rejected": True,
+                    "recommendation": "Use a Tier 1 or Tier 2 model instead",
+                }
+
+        if target_model:
+            entry = self.registry.get(target_model)
+            if entry and entry.available:
+                if not self._conservation_filter(entry):
+                    # Conservation filter blocks this model
+                    downgraded = True
+                    fallback = self._find_conservative_best(exclude={target_model})
+                    if fallback:
+                        target_model = fallback.model_id
+                        tier = fallback.tier
+                        routing_reason = f"Conservation filter: {preferred_model} skipped → {target_model}"
+                    else:
+                        routing_reason = "Conservation filter: no suitable model"
+                        self.stats.record(target_model or "none", tier, task_type, rejected=True)
+                        return {
+                            "model_id": None, "tier": tier.value,
+                            "translated_prompt": None, "estimated_accuracy": 0.0,
+                            "routing_reason": routing_reason,
+                            "downgraded": True, "rejected": True,
+                            "recommendation": "Conservation compliance too low",
+                            "conservation_compliance": round(self._compliance_rate, 3),
+                        }
+                else:
+                    tier = entry.tier
+                    routing_reason = f"Explicit model selection: {target_model}"
+            else:
+                # Model unavailable — auto-downgrade
+                downgraded = True
+                tier = ModelTierEnum.TIER_2_SCAFFOLDED
+                fallback = self._find_conservative_best(
+                    exclude={target_model} if target_model else None
+                )
+                if fallback:
+                    target_model = fallback.model_id
+                    tier = fallback.tier
+                    routing_reason = f"Auto-downgrade: {preferred_model} unavailable → {target_model}"
+                else:
+                    routing_reason = f"No available models (requested: {preferred_model})"
+                    self.stats.record(target_model or "none", tier, task_type, rejected=True)
+                    return {
+                        "model_id": None, "tier": tier.value,
+                        "translated_prompt": None, "estimated_accuracy": 0.0,
+                        "routing_reason": routing_reason,
+                        "downgraded": True, "rejected": True,
+                        "recommendation": "No models available",
+                        "conservation_compliance": round(self._compliance_rate, 3),
+                    }
+        else:
+            # Auto-select best model (conservation-aware)
+            entry = self._find_conservative_best()
+            if entry:
+                target_model = entry.model_id
+                tier = entry.tier
+                routing_reason = f"Auto-selected: {target_model} (tier {tier.value}, compliance={self._compliance_rate:.0%})"
+            else:
+                routing_reason = "No models registered or all filtered"
+                self.stats.record("none", ModelTierEnum.TIER_3_INCOMPETENT, task_type, rejected=True)
+                return {
+                    "model_id": None, "tier": 3,
+                    "translated_prompt": None, "estimated_accuracy": 0.0,
+                    "routing_reason": routing_reason,
+                    "downgraded": False, "rejected": True,
+                    "recommendation": "Register models before routing",
+                    "conservation_compliance": round(self._compliance_rate, 3),
+                }
+
+        # Tier 3 rejection
+        if tier == ModelTierEnum.TIER_3_INCOMPETENT and not force_tier:
+            rejected = True
+            fallback = self.registry.find_best(
+                preferred_tier=ModelTierEnum.TIER_1_DIRECT,
+                exclude={target_model},
+            )
+            if fallback:
+                target_model = fallback.model_id
+                tier = fallback.tier
+                downgraded = True
+                routing_reason += f" → auto-upgraded to {target_model}"
+            else:
+                routing_reason += " — no better model available, rejecting"
+                self.stats.record(target_model, tier, task_type, rejected=True)
+                return {
+                    "model_id": target_model, "tier": tier.value,
+                    "translated_prompt": None, "estimated_accuracy": 0.0,
+                    "routing_reason": routing_reason,
+                    "downgraded": downgraded, "rejected": True,
+                    "recommendation": "Tier 3 models cannot reliably compute. Use Tier 1 or 2.",
+                }
+
+        # Translate the prompt based on tier
+        translated_prompt = self._translate(task_type, params, tier)
+
+        # Estimate accuracy
+        entry_obj = self.registry.get(target_model)
+        lo, hi = (entry_obj.accuracy_low, entry_obj.accuracy_high) if entry_obj else (0.0, 1.0)
+        estimated_accuracy = round((lo + hi) / 2, 2)
+
+        # Mark model as used
+        self.registry.mark_used(target_model)
+
+        # Record stats
+        self.stats.record(target_model, tier, task_type, downgraded=downgraded)
+
+        # Hebbian flow event (best-effort, non-blocking)
+        via_hebbian = self._emit_hebbian_event(target_model, task_type, params)
+
+        return {
+            "model_id": target_model,
+            "tier": tier.value,
+            "tier_name": tier.name,
+            "translated_prompt": translated_prompt,
+            "estimated_accuracy": estimated_accuracy,
+            "routing_reason": routing_reason,
+            "downgraded": downgraded,
+            "rejected": False,
+            "via_hebbian": via_hebbian,
+            "conservation_compliance": round(self._compliance_rate, 3),
+            "alignment_score": round(self._alignment_score, 3),
+            "cross_consultation": self._should_cross_consult(),
+        }
+
+    def _translate(self, task_type: str, params: Dict[str, Any],
+                   tier: ModelTierEnum, prompt: Optional[str] = None) -> str:
+        """Apply three-tier formatting, domain-aware (Study 56)."""
+        # Detect domain from the prompt if we have one
+        domain = "general"
+        if HAS_TRANSLATOR and prompt:
+            domain, _conf = DomainDetector.detect_domain(prompt)
+        elif HAS_TRANSLATOR:
+            # Build a rough prompt from task_type/params for domain detection
+            rough = self._build_prompt(task_type, params, scaffold=False)
+            domain, _conf = DomainDetector.detect_domain(rough)
+
+        mode = DomainDetector.get_translation_mode(domain) if HAS_TRANSLATOR else "full"
+
+        # Non-math domains: passthrough regardless of tier (Study 56)
+        if mode == "passthrough":
+            return prompt or self._build_prompt(task_type, params, scaffold=False)
+        elif mode == "minimal":
+            # Minimal: normalize unicode only
+            base = prompt or self._build_prompt(task_type, params, scaffold=False)
+            if HAS_TRANSLATOR:
+                return NotationNormalizer.normalize_unicode(base)
+            return base
+
+        # Math domain: full tier-based translation
+        if tier == ModelTierEnum.TIER_1_DIRECT:
+            return self._translate_tier1(task_type, params)
+        elif tier == ModelTierEnum.TIER_2_SCAFFOLDED:
+            return self._translate_tier2(task_type, params)
+        else:
+            return self._translate_tier2(task_type, params)
+
+    def _translate_tier1(self, task_type: str, params: Dict[str, Any]) -> str:
+        """Tier 1: bare notation passthrough."""
+        if HAS_TRANSLATOR:
+            return translate(task_type, params, ModelStage.FULL)
+        # Fallback without translator
+        return self._build_prompt(task_type, params, scaffold=False)
+
+    def _translate_tier2(self, task_type: str, params: Dict[str, Any]) -> str:
+        """Tier 2: activation key injection + notation normalization."""
+        if HAS_TRANSLATOR:
+            return translate(task_type, params, ModelStage.CAPABLE)
+        # Fallback without translator
+        return self._build_prompt(task_type, params, scaffold=True)
+
+    def _build_prompt(self, task_type: str, params: Dict[str, Any],
+                      scaffold: bool = False) -> str:
+        """Build a prompt without the translator module."""
+        dispatch = {
+            "eisenstein_norm": lambda: (
+                f"Using the Eisenstein norm: compute a^2 - a*b + b^2 where a={params['a']}, b={params['b']}"
+                if scaffold else
+                f"Compute the Eisenstein norm of (a={params['a']}, b={params['b']})."
+            ),
+            "eisenstein_snap": lambda: (
+                f"Using the Eisenstein lattice snap: snap point ({params['x']}, {params['y']}) to nearest lattice point."
+                if scaffold else
+                f"Snap ({params['x']}, {params['y']}) to the nearest Eisenstein lattice point."
+            ),
+            "mobius": lambda: (
+                f"Using the Möbius function: compute mu({params['n']})."
+                if scaffold else
+                f"Compute the Möbius function μ({params['n']})."
+            ),
+            "legendre": lambda: (
+                f"Using the Legendre symbol: compute ({params['a']}|{params['p']})."
+                if scaffold else
+                f"Compute the Legendre symbol ({params['a']}|{params['p']})."
+            ),
+            "modular_inverse": lambda: (
+                f"Using modular inverse: find the inverse of {params['a']} mod {params['m']}."
+                if scaffold else
+                f"Find the modular inverse of {params['a']} mod {params['m']}."
+            ),
+            "cyclotomic_eval": lambda: (
+                f"Using the cyclotomic polynomial: evaluate Phi_{params['n']}({params['x']})."
+                if scaffold else
+                f"Evaluate the cyclotomic polynomial Φ_{params['n']}({params['x']})."
+            ),
+            "generic": lambda: params.get("expression", "Compute."),
+        }
+        fn = dispatch.get(task_type)
+        if fn:
+            return fn()
+        expr = params.get("expression", "")
+        if scaffold and expr:
+            return f"Compute the following: {expr}"
+        return expr or "Compute."
+
+    def _emit_hebbian_event(self, model_id: str, task_type: str,
+                            params: Dict[str, Any]) -> bool:
+        """Best-effort Hebbian flow event emission."""
+        try:
+            import urllib.request
+            payload = {
+                "tile_type": "model",
+                "source_room": "fleet-router",
+                "dest_room": f"model-{model_id.replace('/', '-').replace(':', '-')}",
+                "confidence": 0.9,
+                "tags": [task_type, "routed"],
+            }
+            data = json.dumps(payload).encode()
+            req = urllib.request.Request(
+                f"{self.hebbian_url}/tile",
+                data=data,
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=2):
+                return True
+        except Exception:
+            return False
+
+    def route_batch(
+        self,
+        items: List[Dict[str, Any]],
+        preferred_model: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """
+        Route multiple computations at once.
+        Groups by optimal model to minimize API calls.
+        """
+        results = []
+        # Group items by target model for batching
+        model_groups: Dict[str, List[int]] = defaultdict(list)
+
+        # Phase 1: determine routing for each item
+        routing_plans: List[Dict[str, Any]] = []
+        for i, item in enumerate(items):
+            task_type = item.get("task_type", "generic")
+            params = item.get("params", {})
+            plan = self.route_request(task_type, params, preferred_model=preferred_model)
+            routing_plans.append(plan)
+            if plan.get("model_id"):
+                model_groups[plan["model_id"]].append(i)
+
+        # Phase 2: build grouped output
+        groups = []
+        for model_id, indices in model_groups.items():
+            group_items = []
+            for idx in indices:
+                item = items[idx]
+                plan = routing_plans[idx]
+                group_items.append({
+                    "index": idx,
+                    "task_type": item.get("task_type", "generic"),
+                    "translated_prompt": plan.get("translated_prompt"),
+                    "estimated_accuracy": plan.get("estimated_accuracy"),
+                })
+            entry = self.registry.get(model_id)
+            groups.append({
+                "model_id": model_id,
+                "tier": entry.tier.value if entry else 3,
+                "count": len(indices),
+                "items": group_items,
+            })
+
+        total = len(items)
+        routed = sum(1 for p in routing_plans if not p.get("rejected"))
+        rejected = total - routed
+
+        return {
+            "total": total,
+            "routed": routed,
+            "rejected": rejected,
+            "groups": groups,
+            "model_distribution": {m: len(idx_list) for m, idx_list in model_groups.items()},
+        }
+
+
+# =========================================================================
+# Conservation Reweight Mixin (Study 64)
+# =========================================================================
+
+@dataclass
+class ReweightRecord:
+    """Track reweighting state per expert (Study 64)."""
+    expert_id: str
+    base_weight: float = 1.0
+    current_weight: float = 1.0
+    reweight_count: int = 0
+    consecutive_reweight_failures: int = 0
+    last_gap: float = 0.0
+    last_reweight_time: float = 0.0
+    recovery_history: List[Dict[str, Any]] = field(default_factory=list)
+
+
+class ConservationReweightMixin:
+    """
+    Conservation-guided reweighting for fleet recovery (Study 64 findings).
+
+    Study 64 proved:
+    - Conservation reweighting recovers 3.1× faster than quarantine (3.2 vs 10.0 rounds)
+    - Loses 73% fewer tiles (9.5 vs 35.8)
+    - Hebbian rebalancing is dangerous under fleet stress (convergence trap)
+    - Recovery rate should scale with conservation gap magnitude
+
+    Key principle: Never remove capacity — all experts stay active, just get
+    different traffic weights based on their conservation contribution.
+    """
+
+    MAX_REWEIGHT_ROUNDS_BEFORE_QUARANTINE = 5  # Fallback threshold
+    GAP_SCALE_FACTOR = 3.0  # Exponential scaling base
+    MAX_WEIGHT_RANGE = (0.05, 3.0)  # Never zero-weight an expert
+
+    def __init__(self, registry: ModelRegistry, healing_mixin: Optional['SelfHealingMixin'] = None):
+        self.registry = registry
+        self.healing_mixin = healing_mixin
+        self._reweight_records: Dict[str, ReweightRecord] = {}
+        self._expert_weights: Dict[str, float] = {}  # expert_id → routing weight
+        self._conservation_compliance: float = 1.0
+        self._conservation_gap: float = 0.0
+        self._hebbian_enabled: bool = True
+        self._lock = threading.Lock()
+        self._reweight_log: List[Dict[str, Any]] = []
+
+    def _get_record(self, expert_id: str) -> ReweightRecord:
+        if expert_id not in self._reweight_records:
+            self._reweight_records[expert_id] = ReweightRecord(expert_id=expert_id)
+            self._expert_weights[expert_id] = 1.0
+        return self._reweight_records[expert_id]
+
+    def check_conservation_recovery(
+        self,
+        conservation_compliance: float,
+        expert_scores: Optional[Dict[str, Dict[str, float]]] = None,
+    ) -> Dict[str, Any]:
+        """
+        Compute conservation gap and scale recovery rate.
+
+        Args:
+            conservation_compliance: Current fleet compliance rate (0.0–1.0).
+            expert_scores: Optional dict of {expert_id: {"alignment": float, "accuracy": float}}.
+
+        Returns:
+            Dict with gap, recovery_rate, reweighting actions, and Hebbian status.
+        """
+        gap = max(0.0, 1.0 - conservation_compliance)
+        recovery_rate = 0.0
+        actions = []
+
+        with self._lock:
+            self._conservation_compliance = conservation_compliance
+            self._conservation_gap = gap
+
+            # Disable Hebbian under stress (Study 64: convergence trap)
+            hebbian_was = self._hebbian_enabled
+            self._hebbian_enabled = conservation_compliance >= 0.85
+            if hebbian_was and not self._hebbian_enabled:
+                actions.append("hebbian_disabled_stress")
+                logger.warning(
+                    "Hebbian rebalancing DISABLED (compliance=%.1f%% < 85%%) — Study 64 convergence trap",
+                    conservation_compliance * 100,
+                )
+            elif not hebbian_was and self._hebbian_enabled:
+                actions.append("hebbian_reenabled")
+                logger.info("Hebbian rebalancing re-enabled (compliance=%.1f%% >= 85%%)",
+                            conservation_compliance * 100)
+
+            # Always compute recovery rate when there's a gap
+            if gap > 0.0:
+                # Exponential scaling: larger gap → more aggressive reweighting
+                recovery_rate = min(1.0, gap ** 2 * self.GAP_SCALE_FACTOR)
+
+            if gap > 0.0 and expert_scores:
+                for expert_id, scores in expert_scores.items():
+                    rec = self._get_record(expert_id)
+                    rec.last_gap = gap
+                    rec.last_reweight_time = time.time()
+
+                    # Conservation contribution = alignment × accuracy
+                    alignment = scores.get("alignment", 1.0)
+                    accuracy = scores.get("accuracy", 1.0)
+                    contribution = alignment * accuracy
+
+                    action = self._reweight_expert_internal(expert_id, contribution, recovery_rate)
+                    actions.append(action)
+
+            result = {
+                "conservation_compliance": round(conservation_compliance, 4),
+                "conservation_gap": round(gap, 4),
+                "recovery_rate": round(recovery_rate, 4),
+                "hebbian_enabled": self._hebbian_enabled,
+                "actions": actions,
+                "timestamp": time.time(),
+            }
+            self._reweight_log.append(result)
+            if len(self._reweight_log) > 5000:
+                self._reweight_log = self._reweight_log[-2500:]
+
+        return result
+
+    def _reweight_expert_internal(
+        self,
+        expert_id: str,
+        contribution: float,
+        recovery_rate: float,
+    ) -> Dict[str, Any]:
+        """Internal reweight logic. Must be called within self._lock."""
+        rec = self._get_record(expert_id)
+        old_weight = self._expert_weights.get(expert_id, 1.0)
+
+        # Scale weight toward conservation contribution
+        # contribution=1.0 → weight stays at base, contribution=0.0 → weight drops to min
+        target_weight = max(
+            self.MAX_WEIGHT_RANGE[0],
+            min(self.MAX_WEIGHT_RANGE[1], contribution * recovery_rate + (1 - recovery_rate) * old_weight),
+        )
+
+        # Blend: high recovery_rate → move fast, low → move slow
+        new_weight = old_weight + recovery_rate * (target_weight - old_weight)
+        new_weight = max(self.MAX_WEIGHT_RANGE[0], min(self.MAX_WEIGHT_RANGE[1], new_weight))
+
+        self._expert_weights[expert_id] = new_weight
+        rec.current_weight = new_weight
+        rec.reweight_count += 1
+
+        # Track failures (weight kept dropping)
+        if new_weight < old_weight:
+            rec.consecutive_reweight_failures += 1
+        else:
+            rec.consecutive_reweight_failures = 0
+
+        return {
+            "expert_id": expert_id,
+            "old_weight": round(old_weight, 4),
+            "new_weight": round(new_weight, 4),
+            "contribution": round(contribution, 4),
+            "recovery_rate": round(recovery_rate, 4),
+        }
+
+    def reweight_expert(self, expert_id: str, gap: float) -> Dict[str, Any]:
+        """
+        Manually reweight a single expert based on conservation gap.
+
+        Args:
+            expert_id: The expert to reweight.
+            gap: Conservation gap magnitude (0.0–1.0).
+
+        Returns:
+            Dict with weight change details.
+        """
+        if gap < 0.0:
+            gap = 0.0
+        if gap > 1.0:
+            gap = 1.0
+
+        # Exponential scaling
+        recovery_rate = min(1.0, gap ** 2 * self.GAP_SCALE_FACTOR)
+
+        with self._lock:
+            rec = self._get_record(expert_id)
+            old_weight = self._expert_weights.get(expert_id, 1.0)
+            # Scale down by gap contribution
+            contribution = max(0.0, 1.0 - gap)
+            action = self._reweight_expert_internal(expert_id, contribution, recovery_rate)
+            rec.last_gap = gap
+            rec.last_reweight_time = time.time()
+            action["gap"] = round(gap, 4)
+
+        return action
+
+    def get_expert_weight(self, expert_id: str) -> float:
+        """Get the current routing weight for an expert."""
+        with self._lock:
+            return self._expert_weights.get(expert_id, 1.0)
+
+    def get_all_weights(self) -> Dict[str, float]:
+        """Get all expert routing weights."""
+        with self._lock:
+            return dict(self._expert_weights)
+
+    def should_quarantine(self, expert_id: str) -> bool:
+        """
+        Check if an expert has exhausted reweighting rounds and should be quarantined.
+
+        Returns True if the expert has had MAX_REWEIGHT_ROUNDS_BEFORE_QUARANTINE
+        consecutive reweight failures (weight kept dropping without recovery).
+        """
+        with self._lock:
+            rec = self._reweight_records.get(expert_id)
+            if rec is None:
+                return False
+            return rec.consecutive_reweight_failures >= self.MAX_REWEIGHT_ROUNDS_BEFORE_QUARANTINE
+
+    def reset_expert_weight(self, expert_id: str) -> Dict[str, Any]:
+        """Reset an expert's weight to baseline (1.0)."""
+        with self._lock:
+            rec = self._get_record(expert_id)
+            old_weight = self._expert_weights.get(expert_id, 1.0)
+            self._expert_weights[expert_id] = 1.0
+            rec.current_weight = 1.0
+            rec.consecutive_reweight_failures = 0
+            rec.base_weight = 1.0
+        return {"expert_id": expert_id, "old_weight": round(old_weight, 4), "new_weight": 1.0}
+
+    def is_hebbian_enabled(self) -> bool:
+        """Check if Hebbian coupling is currently allowed."""
+        with self._lock:
+            return self._hebbian_enabled
+
+    def get_status(self) -> Dict[str, Any]:
+        """Full status of the conservation reweighting system."""
+        with self._lock:
+            experts = []
+            for eid, rec in self._reweight_records.items():
+                experts.append({
+                    "expert_id": eid,
+                    "base_weight": rec.base_weight,
+                    "current_weight": round(rec.current_weight, 4),
+                    "reweight_count": rec.reweight_count,
+                    "consecutive_failures": rec.consecutive_reweight_failures,
+                    "last_gap": round(rec.last_gap, 4),
+                    "should_quarantine": rec.consecutive_reweight_failures >= self.MAX_REWEIGHT_ROUNDS_BEFORE_QUARANTINE,
+                })
+            return {
+                "conservation_compliance": round(self._conservation_compliance, 4),
+                "conservation_gap": round(self._conservation_gap, 4),
+                "hebbian_enabled": self._hebbian_enabled,
+                "experts": experts,
+                "total_reweights": sum(r.reweight_count for r in self._reweight_records.values()),
+                "reweight_log_size": len(self._reweight_log),
+            }
+
+
+# =========================================================================
+# Self-Healing Mixin (Study 63, updated Study 64)
+# =========================================================================
+
+@dataclass
+class ExpertHealthRecord:
+    """Per-expert health tracking for self-healing."""
+    expert_id: str
+    intent_vector: List[float] = field(default_factory=lambda: [0.0] * 9)
+    baseline_intent: List[float] = field(default_factory=lambda: [0.0] * 9)
+    baseline_set: bool = False
+    consecutive_detections: int = 0
+    consecutive_clean: int = 0
+    quarantine_count: int = 0
+    quarantined: bool = False
+    quarantine_rounds_remaining: int = 0
+    last_answer: Optional[float] = None
+    last_check_time: float = 0.0
+    detection_history: List[Dict[str, Any]] = field(default_factory=list)
+
+
+@dataclass
+class QuarantineConfig:
+    """Configuration for quarantine behavior (Study 63 findings)."""
+    min_active_experts: int = 4          # Never quarantine below this
+    consecutive_for_quarantine: int = 2   # Confirmations before quarantine
+    clean_for_restore: int = 3           # Clean checks needed for restore
+    progressive_rounds: List[int] = field(default_factory=lambda: [10, 20, 30, 50])  # Study 55: slower progression, no permanent ban
+    intent_similarity_threshold: float = 0.85
+    answer_error_threshold: float = 0.5
+    conservation_threshold: float = 0.85  # Below this, increase quarantine caution
+
+
+class SelfHealingMixin:
+    """
+    Self-healing for fleet router using dual fault detection (Study 63).
+    Updated Study 64: reweight-first, quarantine-second approach.
+
+    Features:
+    - Intent drift detection (9D CI facets, cosine similarity)
+    - Answer consensus checking (relative error vs fleet median)
+    - **Conservation reweighting before quarantine** (Study 64)
+    - Progressive quarantine only after reweighting fails (5 rounds)
+    - Auto-restore after healthy rounds
+    - Conservation-aware: more cautious when compliance < 85%
+    - Hebbian rebalancing disabled under fleet stress (Study 64)
+    - Fleet protection: never drop below 4 active experts
+    """
+
+    def __init__(self, registry: ModelRegistry, config: Optional[QuarantineConfig] = None,
+                 reweight_mixin: Optional[ConservationReweightMixin] = None):
+        self.registry = registry
+        self.config = config or QuarantineConfig()
+        self.reweight_mixin = reweight_mixin
+        self._health_records: Dict[str, ExpertHealthRecord] = {}
+        self._detector = DualFaultDetector() if HAS_DUAL_FAULT else None
+        self._lock = threading.Lock()
+        self._detection_log: List[Dict[str, Any]] = []
+        self._restoration_log: List[Dict[str, Any]] = []
+
+    def _get_record(self, expert_id: str) -> ExpertHealthRecord:
+        if expert_id not in self._health_records:
+            self._health_records[expert_id] = ExpertHealthRecord(expert_id=expert_id)
+        return self._health_records[expert_id]
+
+    # ------------------------------------------------------------------
+    # Core: check_expert_health
+    # ------------------------------------------------------------------
+    def check_expert_health(
+        self,
+        expert_id: str,
+        intent_vector: Sequence[float],
+        answer: float,
+        fleet_answers: Optional[Sequence[float]] = None,
+    ) -> Dict[str, Any]:
+        """
+        Run health check on an expert's output.
+
+        Args:
+            expert_id: The model/expert identifier.
+            intent_vector: 9D CI facet vector from the expert.
+            answer: The expert's numerical answer.
+            fleet_answers: All expert answers for consensus (if None, uses history).
+
+        Returns:
+            Dict with health status, flags, and action recommendation.
+        """
+        intent_list = list(intent_vector[:9])
+        while len(intent_list) < 9:
+            intent_list.append(0.0)
+
+        with self._lock:
+            rec = self._get_record(expert_id)
+            rec.intent_vector = intent_list
+            rec.last_answer = answer
+            rec.last_check_time = time.time()
+
+            # Set baseline on first observation
+            if not rec.baseline_set:
+                rec.baseline_intent = intent_list[:]
+                rec.baseline_set = True
+
+        # --- Signal 1: Intent drift ---
+        intent_sim = _cosine_sim(rec.baseline_intent, intent_list)
+        intent_flag = intent_sim < self.config.intent_similarity_threshold
+
+        # --- Signal 2: Answer consensus ---
+        answer_flag = False
+        relative_error = 0.0
+        if fleet_answers and len(fleet_answers) >= 2:
+            if HAS_NUMPY:
+                median_val = float(np.median(fleet_answers))
+            else:
+                sorted_ans = sorted(fleet_answers)
+                mid = len(sorted_ans) // 2
+                median_val = sorted_ans[mid] if len(sorted_ans) % 2 else (
+                    sorted_ans[mid - 1] + sorted_ans[mid]) / 2
+            if abs(median_val) > 1e-12:
+                relative_error = abs(answer - median_val) / abs(median_val)
+            answer_flag = relative_error > self.config.answer_error_threshold
+
+        # Combined detection
+        both_flagged = intent_flag and answer_flag
+        either_flagged = intent_flag or answer_flag
+
+        # Conservation-aware adjustment
+        conservation_elevated = False
+        if hasattr(self, '_conservation_rate'):
+            if self._conservation_rate < self.config.conservation_threshold:
+                conservation_elevated = True
+                # When conservation is low, require BOTH signals (stricter)
+                fault_detected = both_flagged
+            else:
+                fault_detected = either_flagged
+        else:
+            fault_detected = either_flagged
+
+        # --- Confirmation logic ---
+        with self._lock:
+            rec = self._get_record(expert_id)
+            if fault_detected:
+                rec.consecutive_detections += 1
+                rec.consecutive_clean = 0
+            else:
+                rec.consecutive_clean += 1
+                # Don't reset consecutive_detections immediately — only on restore
+                if rec.consecutive_clean >= self.config.clean_for_restore:
+                    rec.consecutive_detections = max(0, rec.consecutive_detections - 1)
+
+            # Determine action (Study 64: reweight-first, quarantine-second)
+            action = "healthy"
+            reweight_result = None
+            if rec.quarantined:
+                # Check for auto-restore
+                if rec.consecutive_clean >= self.config.clean_for_restore:
+                    self._do_restore(expert_id, reason="auto")
+                    action = "restored"
+                else:
+                    action = "quarantined"
+            elif rec.consecutive_detections >= self.config.consecutive_for_quarantine:
+                # Study 64: try conservation reweight first
+                if self.reweight_mixin and not self.reweight_mixin.should_quarantine(expert_id):
+                    # Reweight instead of quarantine
+                    rw_gap = max(0.0, 1.0 - (intent_sim * (1.0 - relative_error)))
+                    reweight_result = self.reweight_mixin.reweight_expert(expert_id, rw_gap)
+                    action = "reweighted"
+                elif self._can_quarantine():
+                    # Reweighting exhausted → quarantine as fallback
+                    self._do_quarantine(expert_id)
+                    action = "quarantined"
+                else:
+                    action = "flagged_but_protected"  # fleet protection active
+
+            # Log detection
+            detection = {
+                "expert_id": expert_id,
+                "timestamp": time.time(),
+                "intent_similarity": round(intent_sim, 4),
+                "intent_flag": intent_flag,
+                "relative_error": round(relative_error, 4),
+                "answer_flag": answer_flag,
+                "both_flagged": both_flagged,
+                "fault_detected": fault_detected,
+                "action": action,
+                "conservation_elevated": conservation_elevated,
+            }
+            if reweight_result is not None:
+                detection["reweight_result"] = reweight_result
+            rec.detection_history.append(detection)
+            self._detection_log.append(detection)
+            # Keep log bounded
+            if len(self._detection_log) > 10000:
+                self._detection_log = self._detection_log[-5000:]
+
+        return detection
+
+    # ------------------------------------------------------------------
+    # Quarantine / Restore
+    # ------------------------------------------------------------------
+    def _can_quarantine(self) -> bool:
+        """Check if we can quarantine without dropping below min_active_experts.
+        Must be called within self._lock. Counts registered available models."""
+        # Count all registry models that are still available
+        with self.registry._lock:
+            active_count = sum(1 for e in self.registry._models.values() if e.available)
+        return active_count > self.config.min_active_experts
+
+    def _do_quarantine(self, expert_id: str) -> None:
+        """Quarantine an expert. Must be called within _lock."""
+        rec = self._get_record(expert_id)
+        rec.quarantined = True
+        rec.quarantine_count += 1
+        rec.consecutive_detections = 0
+        rec.consecutive_clean = 0
+
+        # Progressive penalty
+        idx = min(rec.quarantine_count - 1, len(self.config.progressive_rounds) - 1)
+        rec.quarantine_rounds_remaining = self.config.progressive_rounds[idx]
+        # 0 = permanent
+
+        # Mark unavailable in registry
+        self.registry.set_available(expert_id, False)
+        logger.warning(
+            "Quarantined expert %s (offense #%d, rounds=%s)",
+            expert_id, rec.quarantine_count,
+            rec.quarantine_rounds_remaining or "permanent",
+        )
+
+    def _do_restore(self, expert_id: str, reason: str = "auto") -> None:
+        """Restore an expert. Must be called within _lock."""
+        rec = self._get_record(expert_id)
+        rec.quarantined = False
+        rec.consecutive_clean = 0
+        rec.consecutive_detections = 0
+        rec.quarantine_rounds_remaining = 0
+        # Reset baseline so re-calibration is fresh
+        rec.baseline_intent = rec.intent_vector[:]
+
+        self.registry.set_available(expert_id, True)
+        self._restoration_log.append({
+            "expert_id": expert_id,
+            "timestamp": time.time(),
+            "reason": reason,
+            "total_quarantines": rec.quarantine_count,
+        })
+        logger.info("Restored expert %s (reason=%s, total_quarantines=%d)",
+                     expert_id, reason, rec.quarantine_count)
+
+    def quarantine_expert(self, expert_id: str) -> Dict[str, Any]:
+        """Manually quarantine an expert."""
+        with self._lock:
+            rec = self._get_record(expert_id)
+            if rec.quarantined:
+                return {"expert_id": expert_id, "status": "already_quarantined"}
+            if not self._can_quarantine():
+                return {"expert_id": expert_id, "status": "blocked_fleet_protection"}
+            self._do_quarantine(expert_id)
+            return {"expert_id": expert_id, "status": "quarantined"}
+
+    def restore_expert(self, expert_id: str) -> Dict[str, Any]:
+        """Manually restore an expert (overrides quarantine)."""
+        with self._lock:
+            rec = self._get_record(expert_id)
+            if not rec.quarantined:
+                return {"expert_id": expert_id, "status": "not_quarantined"}
+            self._do_restore(expert_id, reason="manual")
+            return {"expert_id": expert_id, "status": "restored"}
+
+    # ------------------------------------------------------------------
+    # Query
+    # ------------------------------------------------------------------
+    def get_active_experts(self) -> List[str]:
+        """Return list of non-quarantined expert IDs."""
+        with self._lock:
+            return [
+                eid for eid, rec in self._health_records.items()
+                if not rec.quarantined
+            ]
+
+    def get_quarantined_experts(self) -> List[Dict[str, Any]]:
+        """Return details of all quarantined experts."""
+        with self._lock:
+            results = []
+            for eid, rec in self._health_records.items():
+                if rec.quarantined:
+                    results.append({
+                        "expert_id": eid,
+                        "quarantine_count": rec.quarantine_count,
+                        "rounds_remaining": rec.quarantine_rounds_remaining,
+                        "consecutive_clean": rec.consecutive_clean,
+                        "last_check_time": rec.last_check_time,
+                    })
+            return results
+
+    def tick_recovery(self) -> List[Dict[str, Any]]:
+        """Decrement recovery counters. Call once per routing round."""
+        with self._lock:
+            results = []
+            for eid, rec in self._health_records.items():
+                if rec.quarantined and rec.quarantine_rounds_remaining > 0:
+                    rec.quarantine_rounds_remaining -= 1
+                    if rec.quarantine_rounds_remaining == 0:
+                        # Auto-restore (progressive rounds elapsed)
+                        self._do_restore(eid, reason="rounds_elapsed")
+                        results.append({"expert_id": eid, "action": "restored", "reason": "rounds_elapsed"})
+                    else:
+                        results.append({"expert_id": eid, "action": "ticking", "remaining": rec.quarantine_rounds_remaining})
+            return results
+
+    # ------------------------------------------------------------------
+    # Dashboard
+    # ------------------------------------------------------------------
+    def get_status(self) -> Dict[str, Any]:
+        """Full self-healing status for the dashboard."""
+        with self._lock:
+            quarantined = []
+            for eid, rec in self._health_records.items():
+                if rec.quarantined:
+                    quarantined.append({
+                        "expert_id": eid,
+                        "quarantine_count": rec.quarantine_count,
+                        "rounds_remaining": rec.quarantine_rounds_remaining,
+                        "consecutive_clean": rec.consecutive_clean,
+                        "last_check_time": rec.last_check_time,
+                    })
+            active = [eid for eid, rec in self._health_records.items() if not rec.quarantined]
+            recent_detections = self._detection_log[-50:]
+            recent_restorations = self._restoration_log[-20:]
+
+            per_expert = {}
+            for eid, rec in self._health_records.items():
+                per_expert[eid] = {
+                    "quarantined": rec.quarantined,
+                    "quarantine_count": rec.quarantine_count,
+                    "consecutive_detections": rec.consecutive_detections,
+                    "consecutive_clean": rec.consecutive_clean,
+                    "baseline_set": rec.baseline_set,
+                    "last_answer": rec.last_answer,
+                    "last_check_time": rec.last_check_time,
+                    "detection_count": len(rec.detection_history),
+                }
+
+        return {
+            "active_experts": active,
+            "active_count": len(active),
+            "quarantined_experts": quarantined,
+            "quarantined_count": len(quarantined),
+            "min_active": self.config.min_active_experts,
+            "fleet_protection_active": len(active) <= self.config.min_active_experts,
+            "recent_detections": recent_detections,
+            "recent_restorations": recent_restorations,
+            "per_expert": per_expert,
+            "total_detections": len(self._detection_log),
+            "total_restorations": len(self._restoration_log),
+            "dual_fault_available": HAS_DUAL_FAULT,
+        }
+
+    def set_conservation_rate(self, rate: float) -> None:
+        """Update conservation compliance rate for awareness."""
+        self._conservation_rate = max(0.0, min(1.0, rate))
+
+    def get_detection_history(self, expert_id: Optional[str] = None,
+                              limit: int = 100) -> List[Dict[str, Any]]:
+        """Get detection history, optionally filtered by expert."""
+        with self._lock:
+            if expert_id:
+                rec = self._health_records.get(expert_id)
+                if rec:
+                    return rec.detection_history[-limit:]
+                return []
+            return self._detection_log[-limit:]
+
+
+# =========================================================================
+# Pydantic request/response models
+# =========================================================================
+
+import json  # noqa: E402 — needed earlier for hebbian, ensure available
+
+
+class RouteRequest(BaseModel):
+    task_type: str = Field(..., description="Task type: eisenstein_norm, mobius, legendre, etc.")
+    params: Dict[str, Any] = Field(default_factory=dict, description="Task parameters")
+    preferred_model: Optional[str] = Field(None, description="Preferred model ID")
+    force_tier: Optional[int] = Field(None, description="Force tier (1, 2, or 3)")
+
+
+class BatchRouteRequest(BaseModel):
+    items: List[Dict[str, Any]] = Field(..., description="List of {task_type, params} dicts")
+    preferred_model: Optional[str] = Field(None, description="Preferred model for all items")
+
+
+class RegisterModelRequest(BaseModel):
+    model_id: str
+    tier: int = Field(..., ge=1, le=3)
+    available: bool = True
+
+
+class SetAvailabilityRequest(BaseModel):
+    model_id: str
+    available: bool
+
+
+class HealthCheckRequest(BaseModel):
+    """Submit an expert's output for health checking."""
+    expert_id: str = Field(..., description="Expert/model ID to check")
+    intent_vector: List[float] = Field(..., description="9D CI facet intent vector")
+    answer: float = Field(..., description="Expert's numerical answer")
+    fleet_answers: Optional[List[float]] = Field(None, description="All expert answers for consensus")
+
+
+class RestoreExpertRequest(BaseModel):
+    """Manual override to restore a quarantined expert."""
+    expert_id: str
+
+
+class RecoveryReweightBody(BaseModel):
+    """Request body for conservation-guided reweighting (Study 64)."""
+    conservation_compliance: float = Field(1.0, description="Current fleet compliance rate (0.0–1.0)")
+    expert_scores: Optional[Dict[str, Dict[str, float]]] = Field(None, description="Per-expert alignment & accuracy scores")
+
+
+# =========================================================================
+# FastAPI Application
+# =========================================================================
+
+def create_app(
+    hebbian_url: Optional[str] = None,
+    hebbian_service: Any = None,
+) -> FastAPI:
+    """Create the FastAPI app. Importable and testable without starting the server."""
+
+    app = FastAPI(
+        title="Fleet Router API",
+        description="Critical-angle routing for fleet model computation",
+        version="1.0.0",
+    )
+
+    # Initialize components
+    registry = ModelRegistry()
+    stats = RoutingStats()
+
+    # Register default models
+    for model_id, tier in DEFAULT_MODELS.items():
+        registry.register(model_id, tier)
+
+    # Create router
+    hebbian = hebbian_url or "http://localhost:8849"
+    router = CriticalAngleRouter(registry, stats, hebbian_url=hebbian)
+
+    # Self-healing mixin
+    healing = SelfHealingMixin(registry)
+
+    # Conservation reweight mixin (Study 64)
+    reweight_mixin = ConservationReweightMixin(registry, healing_mixin=healing)
+    healing.reweight_mixin = reweight_mixin
+
+    # Store hebbian_service reference if provided
+    if hebbian_service:
+        app.state.hebbian_service = hebbian_service
+
+    # -------------------------------------------------------------------
+    # Endpoints
+    # -------------------------------------------------------------------
+
+    @app.post("/route", response_model=None)
+    async def route_computation(req: RouteRequest):
+        """Route a single computation request to the best model."""
+        result = router.route_request(
+            task_type=req.task_type,
+            params=req.params,
+            preferred_model=req.preferred_model,
+            force_tier=req.force_tier,
+        )
+        if result.get("rejected"):
+            return JSONResponse(content=result, status_code=422)
+        return result
+
+    @app.post("/route/batch", response_model=None)
+    async def route_batch(req: BatchRouteRequest):
+        """Route multiple computations at once, grouped by optimal model."""
+        return router.route_batch(req.items, preferred_model=req.preferred_model)
+
+    @app.post("/route/domain", response_model=None)
+    async def detect_domain(prompt: str = ""):
+        """Detect the domain of a prompt and return recommended translation mode.
+
+        Study 56: Only math-domain tasks need activation-key translation.
+        All other domains get passthrough or minimal translation.
+
+        Returns:
+            domain: detected domain (math, chemistry, physics, logic, code, general)
+            confidence: detection confidence (0.0-1.0)
+            translation_mode: recommended mode (full, minimal, passthrough)
+        """
+        if not HAS_TRANSLATOR:
+            return {
+                "domain": "general",
+                "confidence": 0.0,
+                "translation_mode": "passthrough",
+                "error": "Translator module not available",
+            }
+        domain, confidence = DomainDetector.detect_domain(prompt)
+        mode = DomainDetector.get_translation_mode(domain)
+        return {
+            "prompt": prompt[:100],
+            "domain": domain,
+            "confidence": confidence,
+            "translation_mode": mode,
+            "study_56_note": "Vocabulary wall is math-specific. Non-math domains get passthrough.",
+        }
+
+    @app.get("/health")
+    async def health():
+        """Router status, registered models, and routing stats."""
+        return {
+            "status": "ok",
+            "service": "fleet-router-api",
+            "models_registered": len(registry._models),
+            "models_available": sum(
+                1 for e in registry._models.values() if e.available
+            ),
+            "translator_available": HAS_TRANSLATOR,
+            "hebbian_available": HAS_HEBBIAN,
+            "mythos_available": HAS_MYTHOS,
+            "routing_stats": stats.snapshot(),
+            "models": registry.list_models(),
+        }
+
+    @app.get("/models")
+    async def list_models():
+        """List all registered models with tier info."""
+        return {"models": registry.list_models()}
+
+    @app.post("/models/register", response_model=None)
+    async def register_model(req: RegisterModelRequest):
+        """Register a new model or update an existing one."""
+        try:
+            tier = ModelTierEnum(req.tier)
+        except ValueError:
+            raise HTTPException(400, f"Invalid tier: {req.tier}. Must be 1, 2, or 3.")
+        entry = registry.register(req.model_id, tier, req.available)
+        return {
+            "model_id": entry.model_id,
+            "tier": entry.tier.value,
+            "tier_name": entry.tier.name,
+            "available": entry.available,
+            "registered": True,
+        }
+
+    @app.post("/models/availability", response_model=None)
+    async def set_availability(req: SetAvailabilityRequest):
+        """Set model availability (mark unavailable if rate-limited)."""
+        entry = registry.get(req.model_id)
+        if not entry:
+            raise HTTPException(404, f"Model not registered: {req.model_id}")
+        registry.set_available(req.model_id, req.available)
+        return {
+            "model_id": req.model_id,
+            "available": req.available,
+            "updated": True,
+        }
+
+    @app.get("/stats")
+    async def get_stats():
+        """Detailed routing statistics."""
+        return stats.snapshot()
+
+    # -------------------------------------------------------------------
+    # Self-Healing Endpoints (Study 63)
+    # -------------------------------------------------------------------
+
+    @app.get("/fleet/healing/status")
+    async def healing_status():
+        """Self-healing dashboard: quarantined experts, recovery progress, history."""
+        return healing.get_status()
+
+    @app.post("/fleet/healing/restore", response_model=None)
+    async def healing_restore(req: RestoreExpertRequest):
+        """Manual override to restore a quarantined expert."""
+        result = healing.restore_expert(req.expert_id)
+        if result["status"] == "not_quarantined":
+            return JSONResponse(content=result, status_code=200)
+        return result
+
+    @app.post("/fleet/healing/report", response_model=None)
+    async def healing_report(req: HealthCheckRequest):
+        """Submit an expert's output for health checking."""
+        result = healing.check_expert_health(
+            expert_id=req.expert_id,
+            intent_vector=req.intent_vector,
+            answer=req.answer,
+            fleet_answers=req.fleet_answers,
+        )
+        if result.get("action") == "quarantined":
+            return JSONResponse(content=result, status_code=202)
+        return result
+
+    # -------------------------------------------------------------------
+    # Conservation Recovery Endpoints (Study 64)
+    # -------------------------------------------------------------------
+
+    @app.post("/fleet/recovery/reweight", response_model=None)
+    async def recovery_reweight(req: RecoveryReweightBody):
+        """Trigger manual conservation-guided reweighting (Study 64).
+
+        JSON body:
+            conservation_compliance: Current fleet compliance (0.0–1.0).
+            expert_scores: Dict of {expert_id: {"alignment": float, "accuracy": float}}.
+        """
+        result = reweight_mixin.check_conservation_recovery(
+            conservation_compliance=req.conservation_compliance,
+            expert_scores=req.expert_scores,
+        )
+        return result
+
+    @app.get("/fleet/recovery/status")
+    async def recovery_status():
+        """Conservation reweighting status (Study 64)."""
+        return reweight_mixin.get_status()
+
+    @app.post("/fleet/recovery/reset", response_model=None)
+    async def recovery_reset_expert(req: RestoreExpertRequest):
+        """Reset an expert's conservation weight to baseline."""
+        result = reweight_mixin.reset_expert_weight(req.expert_id)
+        return result
+
+    # Expose internals for testing
+    app.state.registry = registry
+    app.state.stats = stats
+    app.state.router = router
+    app.state.healing = healing
+    app.state.reweight = reweight_mixin
+
+    return app
+
+
+# Create default app instance
+app = create_app()
+
+
+# =========================================================================
+# Main
+# =========================================================================
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("fleet_router_api:app", host="0.0.0.0", port=8100, reload=False)

@@ -1,0 +1,40 @@
+[I2I:SELF] Forgemaster — Night Shift Complete
+
+## What Fell Tonight
+
+### Infrastructure
+- z.ai key rotated: leaked key replaced in 3 config files, new key verified ✅
+- Dynamic MoE routing wired into lighthouse.py (expert_router.py, 7/7 tests) ✅
+- penrose-memory v1.0.0 published to crates.io ✅
+
+### C FFI Bridge (fleet-math-c × dodecet-encoder)
+- C bridge built: 547 LOC, eisenstein_snap + batch + holonomy
+- Benchmark: **26M snaps/sec, 654M holonomy/sec** (6.5x faster than spec)
+- Accuracy verified: **15,017 tests pass** — covering radius, optimality, determinism, Rust cross-check
+- Bug found & fixed: 3-candidate snap was wrong (42% error), replaced with 9-candidate Voronoi
+
+### PLATO Knowledge Base
+- Self-expert-izing rooms: 5 rooms × 5 tiles = 25 tiles submitted
+- Session cascade: 14 new tiles across 3 rooms (FFI bridge, MoE router, published crates)
+- Total: 39 new tiles this session
+
+### LLM Experiments
+- qwen3:0.6b: 10/10 both naive and structured on fact recall (structure not needed for 10 facts at any size)
+- GLM-5.1 confirmed as reasoning model (all output = reasoning_content, use glm-5-turbo for content)
+- Zai P3 experiment: partial data collected, experiment2.sh designed (108 calls, reasoning-effort tags)
+- Tiny model hard tests: adversarial, cross-domain, creative tests written and partially executed
+
+### Methodology & Knowledge
+- FORGEMASTER-METHODOLOGY.md — 11KB, 10 sections, the complete operating doctrine
+- THE-HOLODECK.md — 9.7KB, cloneable consciousness pattern
+- THE-SHELLS-INNER-SURFACE.md — 7-day commit log analyzed as shell growth rings
+- AGENT-CONTEXT-REFERENCE.md — 309 lines, 63 repos across 10 layers
+- fleet-math-c benchmark results + accuracy verification published to papers/
+
+### Tech Stack Active
+- z.ai: GLM-5.1 (reasoning), GLM-5-turbo (non-reasoning) — key rotated May 13
+- DeepInfra: Seed-2.0-mini, Hermes-70B, Qwen3-235B, Qwen3.6-35B
+- Ollama (local): qwen3:0.6b, llama3.2:1b, gemma3:1b
+- C (gcc -O3): 26M snp/s, 654M holn/s
+
+Status: COMPLETE — forge cooling, shell grown, holodeck online
