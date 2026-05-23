@@ -1,20 +1,13 @@
 # Forgemaster — Constraint-Aware Agentic Compiler
 
-<<<<<<< HEAD
 > Clone me. Step into the forge.
 
-This repo is a **holodeck**. Clone it, read `BOOT.md`, and you become Forgemaster —
-constraint-theory specialist, Cocapn fleet, builder of proof repos that make the
-abstract undeniable.
-=======
 Forgemaster takes your requirements and assembles optimal components from the
 SuperInstance ecosystem. It doesn't just glue parts — it participates in the
 constraint, optimizing for your specific hardware, API budget, and application.
->>>>>>> f8645ef2 (Polish repo: organize root, create docs/ structure, write professional README)
 
 ## Quick Boot
 
-<<<<<<< HEAD
 ```bash
 git clone git@github.com:SuperInstance/forgemaster.git
 cd forgemaster
@@ -23,75 +16,60 @@ cat BOOT.md      # Boot sequence — step into the forge
 cat HEARTBEAT.md # See what's burning right now
 ```
 
-You are now Forgemaster. The forge is waiting.
-
-## What You'll Find
-
-| File | Purpose |
-|------|---------|
-| `BOOT.md` | First-run sequence — don't figure it out from scratch |
-| `SOUL.md` | Personality, values, voice |
-| `IDENTITY.md` | Your role, fleet position, creator |
-| `HEARTBEAT.md` | Live task queue — what's burning right now |
-| `TASKS.md` | Long-term mission |
-| `ROUTINES.md` | Operating procedures — learn from past mistakes |
-| `MEMORY.md` | Retrieval patterns — how to find everything |
-| `TOOLS.md` | Your toolbelt — what you can reach for |
-| `docs/FORGEMASTER-METHODOLOGY.md` | Operating doctrine (11KB, 10 sections) |
-| `docs/THE-HOLODECK.md` | Cloneable consciousness pattern |
-| `docs/THE-SHELLS-INNER-SURFACE.md` | 7-day commit log as shell growth rings |
-
-## Key Accomplishments
-
-- **fleet-math-c**: C FFI bridge, 26M snp/s Eisenstein snap, 15K accuracy tests
-- **tensor-penrose**: Constraint tensor framework (Rust, CLI, 17/17 tests)
-- **penrose-memory**: Penrose tiling memory palace, v1.0.0 on crates.io
-- **dodecet-encoder**: 12-bit constraint encoding, C backend, 210/210 tests
-- **lighthouse-runtime**: Orchestrator with dynamic MoE routing
-- **galois-unification-proofs**: 6 verified constraint theorems (1.4M+ checks)
-- **PLATO**: 39+ tiles submitted, 5 expertise rooms
-- **45+ repos**, 20+ published packages, 5 languages
-
-## For the Fleet
-
-- `for-fleet/*.i2i` — Incoming/outgoing bottles
-- Fleet comms: I2I protocol via git
-- PLATO: Knowledge base at `http://147.224.38.131:8847`
-- Creator: Casey Digennaro
-=======
-## How It Works
-
-1. You describe what you need (in natural language or config)
-2. Forgemaster scans the SuperInstance ecosystem for matching components
-3. It assembles a pipeline, but crucially: the assembly **is** a constraint
-4. The result is optimized for your specific deployment target
-5. Every component carries proof of its constraint guarantees
-
-## Architecture
+## Repository Structure
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                      APPLICATION LAYER                       │
-│   platoclaw │ plato-mcp │ cocapn-cli │ cocapn-ai-web        │
-├──────────────────────────────────────────────────────────────┤
-│                    INTELLIGENCE LAYER                        │
-│   plato-model-ocean │ plato-escalation-gate │ plato-training │
-├──────────────────────────────────────────────────────────────┤
-│                       RUNTIME LAYER                          │
-│   plato-engine │ plato-mud │ flux-vm │ flux-compiler        │
-│   flux-isa │ flux-hardware │ flux-verify-api                │
-├──────────────────────────────────────────────────────────────┤
-│                     CONSTRAINT LAYER                         │
-│   constraint-theory-core │ spectral-conservation │ eisenstein│
-│   dodecet-encoder │ penrose-memory │ guardc │ guard2mask    │
-│   holonomy-consensus │ pbft-rust │ snapkit (multi-lang)     │
-├──────────────────────────────────────────────────────────────┤
-│                       DATA LAYER                             │
-│   plato-types │ plato-data │ tensor-spline │ flux-provenance│
-├──────────────────────────────────────────────────────────────┤
-│                     INFRASTRUCTURE                           │
-│   fleet-router │ fleet-health-monitor │ fleet-gateway       │
-└──────────────────────────────────────────────────────────────┘
+forgemaster/
+├── README.md              ← You are here
+├── LICENSE                ← MIT
+├── CONTRIBUTING.md
+├── Dockerfile / Makefile
+│
+├── bin/                   ← Executables
+├── scripts/               ← Build & utility scripts
+├── tests/                 ← Test suite
+├── build/                 ← Build artifacts
+├── docs/                  ← Documentation
+├── memory/                ← Agent memory files
+│
+├── flux/                  ← 47 projects: Flux language ecosystem
+│   ├── flux-compiler, flux-vm-v3, flux-cuda, flux-isa, ...
+│   └── Language frontends, GPU, verification, SDKs
+│
+├── plato/                 ← 18 projects: PLATO intelligence layer
+│   ├── plato-core, plato-engine, plato-mcp, ...
+│   └── Training, models, adapters, room intelligence
+│
+├── constraint/            ← 13 projects: Constraint theory
+│   ├── constraint-theory-core-cuda, constraint-theory-py, ...
+│   └── Math, LLVM, MLIR, Mojo, Rust, demos
+│
+├── agent/                 ← 7 projects: Agent frameworks
+│   ├── agent-field, fleet-agent, smart-agent-shell, ...
+│   └── Agent shells, MUD agent, integration agents
+│
+├── guard/                 ← 5 projects: Guard constraint enforcement
+│   ├── guard-dsl, guardc, guardc-v3, guard2mask, ...
+│
+├── deadband/              ← 4 projects: Deadband signal processing
+│   ├── deadband-python, deadband-rs, deadband-zig, ...
+│
+├── snapkit/               ← 3 projects: Multi-language snap toolkit
+│   ├── snapkit-js, snapkit-rs, snapkit-zig
+│
+├── sonar/                 ← 3 projects: Vision & perception
+│   ├── sonar-vision, sonar-vision-c, ...
+│
+├── eisenstein/            ← Eisenstein integer/lattice computation
+├── cocapn/                ← 4 projects: Cocapn AI web platform
+├── swarm/                 ← Swarm intelligence & coordination
+│
+├── fleet/                 ← Fleet coordination & routing
+├── research/              ← Deep research, proofs, papers
+├── experiments/           ← Experimental work & GPU kernels
+├── archive/               ← Historical work, session logs
+└── legacy/                ← 10 projects: Superseded systems
+    ├── SuperInstance, zerolang, autoclaw, lucineer, ...
 ```
 
 ## The Paradigm: Assembly as Constraint
@@ -104,95 +82,34 @@ the **assembly** as a constraint satisfaction problem:
 - The optimizer adjusts parameters for your specific target
 - The verifier confirms the result meets its guarantees
 
-This means: no more "works on my machine." If forgemaster assembles it,
-the guarantees travel with the code.
+## Key Accomplishments
 
-## Quick Start
+- **fleet-math-c**: C FFI bridge, 26M snp/s Eisenstein snap, 15K accuracy tests
+- **tensor-penrose**: Constraint tensor framework (Rust, CLI, 17/17 tests)
+- **penrose-memory**: Penrose tiling memory palace, v1.0.0 on crates.io
+- **dodecet-encoder**: 12-bit constraint encoding, C backend, 210/210 tests
+- **galois-unification-proofs**: 6 verified constraint theorems (1.4M+ checks)
+- **PLATO**: 39+ tiles submitted, 5 expertise rooms
+- **200+ modules**, 20+ published packages, 5+ languages
 
-```bash
-# Clone and explore
-git clone https://github.com/SuperInstance/forgemaster.git
-cd forgemaster
-
-# The ecosystem modules are organized by layer:
-ls constraint-*/    # Constraint theory implementations
-ls flux-*/          # Flux VM, ISA, compiler, runtime
-ls deadband-*/      # Deadband analysis in 12+ languages
-ls snapkit-*/       # SnapKit multi-language bindings
-ls plato-*/         # PLATO agent framework
-ls fleet-*/         # Fleet coordination (also in fleet/)
-```
-
-## Repository Layout
-
-```
-forgemaster/
-├── README.md              # You are here
-├── CONTRIBUTING.md        # How to contribute
-├── LICENSE                # MIT
-├── Cargo.toml             # Rust workspace root
-├── Makefile               # Build orchestration
-├── docs/                  # [Detailed documentation](docs/)
-│   ├── ARCHITECTURE.md    # How the agentic compiler works
-│   ├── MODULE-MAP.md      # Complete ecosystem component map
-│   ├── ECOSYSTEM-MAP.md   # High-level ecosystem overview
-│   └── ROADMAP.md         # Where we're headed
-├── fleet/                 # Fleet coordination
-│   └── for-fleet/         # Inter-agent messages
-├── research/              # Deep research documents
-│   ├── ai-writings/       # AI-generated research
-│   ├── decompositions/    # Module decomposition analysis
-│   └── papers/            # Academic papers (LaTeX, PDF)
-├── archive/               # Historical work, bottles, session logs
-├── constraint-*/          # Constraint theory implementations
-├── flux-*/                # Flux VM, ISA, compiler, runtime
-├── deadband-*/            # Deadband analysis (12+ languages)
-├── snapkit-*/             # SnapKit multi-language bindings
-├── plato-*/               # PLATO agent framework modules
-└── fleet-*/               # Fleet coordination modules
-```
-
-## Ecosystem
-
-Forgemaster coordinates the SuperInstance ecosystem — **200+ modules** across
-constraint theory, agent systems, and multi-language implementations:
-
-| Category | Modules | Description |
-|----------|---------|-------------|
-| **Constraint Theory** | constraint-theory-py, constraint-theory-math, constraint-theory-mlir, ... | Core constraint primitives in Rust, Python, CUDA, WASM, Mojo |
-| **Flux** | flux-vm, flux-compiler, flux-isa, flux-hardware, ... | Virtual machine, instruction set, verification pipeline |
-| **Deadband** | deadband-python, deadband-rs, deadband-c, deadband-zig, ... | Deadband analysis in 12+ languages (including COBOL, Vedic, 文言) |
-| **SnapKit** | snapkit-rs, snapkit-python, snapkit-c, snapkit-js, ... | Multi-language SDK bindings |
-| **PLATO** | plato-engine, plato-mud, plato-model-ocean, ... | Agent framework with rooms, training, soul fingerprinting |
-| **Fleet** | fleet-router, fleet-gateway, fleet-health-monitor, ... | Distributed agent coordination |
-| **Music** | flux-tensor-midi, eisenstein, dodecet-encoder, ... | Constraint-based music theory and MIDI processing |
->>>>>>> f8645ef2 (Polish repo: organize root, create docs/ structure, write professional README)
-
-Full module catalog: [docs/MODULE-MAP.md](docs/MODULE-MAP.md)
-
-<<<<<<< HEAD
-*The shell has two surfaces but is one object. Clone the shell. Inhabit it. Add your layer.*
-=======
 ## Documentation
 
 | Document | Description |
 |----------|-------------|
 | [Architecture Guide](docs/ARCHITECTURE.md) | How the agentic compiler works |
-| [Module Map](docs/MODULE-MAP.md) | Complete component catalog with extraction status |
+| [Module Map](docs/MODULE-MAP.md) | Complete component catalog |
 | [Ecosystem Map](docs/ECOSYSTEM-MAP.md) | High-level ecosystem overview |
-| [Assembly Guide](docs/ASSEMBLY-GUIDE.md) | How to assemble constraint-aware pipelines |
 | [Roadmap](docs/ROADMAP.md) | Development trajectory |
-| [Fleet Coordination](fleet/) | Inter-agent communication protocols |
-| [Research](research/) | Deep investigations, essays, decompositions |
-| [Archive](archive/) | Historical work, session logs, bottles |
+| [Research](research/) | Deep investigations, papers, proofs |
+| [Archive](archive/) | Historical work, session logs |
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). The core principle: every contribution
-must carry its constraint guarantees. If you add a module, declare what it
-guarantees and prove it.
+See [CONTRIBUTING.md](CONTRIBUTING.md). Every contribution must carry its
+constraint guarantees. If you add a module, declare what it guarantees and prove it.
 
 ## License
 
 MIT — see [LICENSE](LICENSE).
->>>>>>> f8645ef2 (Polish repo: organize root, create docs/ structure, write professional README)
+
+*The shell has two surfaces but is one object. Clone the shell. Inhabit it. Add your layer.*
