@@ -103,6 +103,18 @@ the **assembly** as a constraint satisfaction problem:
 | [Research](research/) | Deep investigations, papers, proofs |
 | [Archive](archive/) | Historical work, session logs |
 
+## Ecosystem Repos
+
+Forgemaster is the monorepo at the center of the SuperInstance ecosystem. Related repositories:
+
+| Repo | Description | Link |
+|------|-------------|------|
+| **fm-research** | Extracted research from forgemaster — standalone papers, proofs, experiments | [→ GitHub](https://github.com/SuperInstance/fm-research) |
+| **docs** | Research documents: theory, evidence, cross-cultural studies, paper drafts | [→ GitHub](https://github.com/SuperInstance/docs) |
+| **wiki** | Ecosystem catalog, capacities, architecture overview | [→ GitHub](https://github.com/SuperInstance/wiki) |
+| **superinstance-wiki** | Fleet wiki: lessons, protocols, scripts, agent templates, bottle logs | [→ GitHub](https://github.com/SuperInstance/superinstance-wiki) |
+| **constraint-toolkit** | Published constraint theory packages (PyPI, crates.io) | [→ GitHub](https://github.com/SuperInstance/constraint-toolkit) |
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Every contribution must carry its
