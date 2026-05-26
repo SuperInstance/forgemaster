@@ -1,0 +1,72 @@
+[
+  {
+    "name": "simple_gt_true",
+    "category": "boundary_values",
+    "guard_source": "constraint gt_check { expr: x > 5, inputs: [x] }",
+    "inputs": [10],
+    "expected": [true]
+  },
+  {
+    "name": "simple_gt_false",
+    "category": "boundary_values",
+    "guard_source": "constraint gt_check { expr: x > 5, inputs: [x] }",
+    "inputs": [3],
+    "expected": [false]
+  },
+  {
+    "name": "boundary_eq",
+    "category": "boundary_values",
+    "guard_source": "constraint eq_check { expr: x == 5, inputs: [x] }",
+    "inputs": [5],
+    "expected": [true]
+  },
+  {
+    "name": "boundary_eq_false",
+    "category": "boundary_values",
+    "guard_source": "constraint eq_check { expr: x == 5, inputs: [x] }",
+    "inputs": [4],
+    "expected": [false]
+  },
+  {
+    "name": "lt_check",
+    "category": "boundary_values",
+    "guard_source": "constraint lt_check { expr: x < 10, inputs: [x] }",
+    "inputs": [5],
+    "expected": [true]
+  },
+  {
+    "name": "gte_check",
+    "category": "boundary_values",
+    "guard_source": "constraint gte_check { expr: x >= 0, inputs: [x] }",
+    "inputs": [0],
+    "expected": [true]
+  },
+  {
+    "name": "type_confusion_zero",
+    "category": "type_confusion",
+    "guard_source": "constraint tc_zero { expr: x != 0, inputs: [x] }",
+    "inputs": [0],
+    "expected": [false]
+  },
+  {
+    "name": "type_confusion_nonzero",
+    "category": "type_confusion",
+    "guard_source": "constraint tc_nonzero { expr: x != 0, inputs: [x] }",
+    "inputs": [1],
+    "expected": [true]
+  },
+  {
+    "name": "arith_expr",
+    "category": "boundary_values",
+    "guard_source": "constraint arith { expr: x + 1 > 5, inputs: [x] }",
+    "inputs": [5],
+    "expected": [true]
+  },
+  {
+    "name": "lte_check",
+    "category": "boundary_values",
+    "guard_source": "constraint lte_check { expr: x <= 100, inputs: [x] }",
+    "inputs": [100],
+    "expected": [true]
+  }
+]
