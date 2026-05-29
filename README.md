@@ -59,3 +59,7 @@ make setup
 ```
 
 Requires Python 3.10+ and Docker. MIT license.
+
+## Documentation
+
+📚 [OpenConstruct Docs](https://github.com/SuperInstance/openconstruct-docs)
