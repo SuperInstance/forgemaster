@@ -89,6 +89,11 @@ def tensor_midi_decode(data: bytes) -> dict:
     return decode_message(data)
 
 
+def tensor_midi_roundtrip(payload: dict) -> dict:
+    """Encode then decode a payload — convenience for round-trip tests."""
+    return tensor_midi_decode(tensor_midi_encode(payload))
+
+
 # ---------------------------------------------------------------------------
 # UDP peer discovery
 # ---------------------------------------------------------------------------

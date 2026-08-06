@@ -540,10 +540,12 @@ def main():
     )
     args = parser.parse_args()
 
-    global GUARD_DIR, ITERATIONS, REGRESSION_THRESHOLD
-    GUARD_DIR = args.guard_dir
-    ITERATIONS = args.iterations
-    REGRESSION_THRESHOLD = args.threshold
+    # Update module-level globals (use globals() to avoid Python 3.14
+    # SyntaxError when the name is used prior to the global declaration)
+    _g = globals()
+    _g["GUARD_DIR"] = args.guard_dir
+    _g["ITERATIONS"] = args.iterations
+    _g["REGRESSION_THRESHOLD"] = args.threshold
 
     print(f"🔍 Discovering .guard files in {GUARD_DIR}...")
     guard_files = discover_guard_files()
