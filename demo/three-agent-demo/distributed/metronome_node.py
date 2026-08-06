@@ -26,11 +26,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fleet_protocol import (
     MAGIC as FLEET_MAGIC,
     MessageType,
+    encode_raw,
+    decode_raw,
     encode_tick,
     encode_cadence_call,
     encode_sunset,
     encode_message,
     decode_message,
+    DECODERS,
+    ProtocolError,
     now_ms,
 )
 
@@ -54,11 +58,15 @@ log = logging.getLogger("metronome_node")
 
 
 def tensor_midi_encode(payload: dict) -> bytes:
-    """Encode a dict into Tensor-MIDI wire format using fleet_protocol.
+    """Encode a dict into Tensor-MIDI wire format.
 
-    The payload dict must include a 'type' key indicating the MessageType name,
-    a 'sender_id' key, and type-specific fields.
-    Falls back to TICK encoding for simple {key: float} payloads (backward compat).
+    Three modes:
+    1. **Fleet protocol mode** — payload includes a 'type' key matching a
+       MessageType name. Uses fleet_protocol encoders for full spec compliance.
+    2. **TICK compat mode** — payload keys are a subset of {beat, t, c, state}.
+       Maps to TICK fields: beat→beat, t→time_ms (×10000), c→drift, state→state.
+    3. **Simple dict mode** — arbitrary {key: float} with values in [-1, 1].
+       Encodes as a self-describing JSON blob with type tag 0.
     """
     msg_type_name = payload.get("type")
     sender_id = payload.get("sender_id", 0)
@@ -70,23 +78,58 @@ def tensor_midi_encode(payload: dict) -> bytes:
         kwargs["timestamp_ms"] = ts
         return encode_message(msg_type, sender_id=sender_id, **kwargs)
 
-    # Backward-compatible: simple float payload → TICK
-    beat = int(payload.get("beat", 0))
-    time_ms = int(payload.get("t", 0) * 10000) if "t" in payload else 0
-    drift = float(payload.get("c", 0.0))
-    return encode_tick(
-        sender_id=sender_id,
-        timestamp_ms=ts,
-        beat=beat,
-        time_ms=time_ms,
-        drift=drift,
-        state=0,
-    )
+    # TICK compat mode: only when payload explicitly uses TICK-specific
+    # field names ("beat" or "drift") that don't collide with common keys.
+    if "beat" in payload or "drift" in payload:
+        beat = int(payload.get("beat", 0))
+        time_ms = int(payload.get("t", 0) * 10000) if "t" in payload else 0
+        drift = float(payload.get("drift", payload.get("c", 0.0)))
+        state = int(payload.get("state", 0))
+        return encode_tick(
+            sender_id=sender_id,
+            timestamp_ms=ts,
+            beat=beat,
+            time_ms=time_ms,
+            drift=drift,
+            state=state,
+        )
+
+    # Simple dict mode (includes empty payload): clamp values to [-1, 1]
+    clamped = {}
+    for k, v in payload.items():
+        try:
+            fv = float(v)
+        except (TypeError, ValueError):
+            fv = 0.0
+        clamped[k] = max(-1.0, min(1.0, fv))
+    json_bytes = json.dumps(clamped, separators=(",", ":"), sort_keys=True).encode("utf-8")
+    SIMPLE_TYPE = 0  # Non-protocol type for simple dict payloads
+    return encode_raw(SIMPLE_TYPE, sender_id, ts, json_bytes)
 
 
 def tensor_midi_decode(data: bytes) -> dict:
-    """Decode Tensor-MIDI wire format back to a dict using fleet_protocol."""
-    return decode_message(data)
+    """Decode Tensor-MIDI wire format back to a dict.
+
+    Handles both fleet-protocol messages and simple dict payloads.
+    """
+    raw = decode_raw(data)
+    msg_type = raw["type"]
+
+    # Simple dict mode (type 0)
+    if isinstance(msg_type, int) and msg_type == 0:
+        return json.loads(raw["payload"].decode("utf-8"))
+
+    # Fleet protocol mode — delegate to per-type decoder
+    decoder = DECODERS.get(msg_type)
+    if decoder is None:
+        raise ProtocolError(f"No decoder for {msg_type}")
+    parsed = decoder(raw["payload"])
+    return {
+        "type": msg_type,
+        "sender_id": raw["sender_id"],
+        "timestamp_ms": raw["timestamp_ms"],
+        "payload": parsed,
+    }
 
 
 def tensor_midi_roundtrip(payload: dict) -> dict:

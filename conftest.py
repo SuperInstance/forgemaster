@@ -19,6 +19,10 @@ _SUBPROJECTS = [
     ("products/metronome-sync",         "."),
     # fleet
     ("fleet/fleet-math-py",             "."),
+    # constraint-theory core library
+    ("libs/constraint-theory-py",        "."),
+    # sunset ecosystem
+    ("libs/sunset-ecosystem",            "."),
     # demo (imports from project root)
     ("demo/three-agent-demo",           "."),
     ("demo/three-agent-demo/distributed", "."),

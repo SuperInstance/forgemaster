@@ -81,10 +81,13 @@ def decode_raw(data: bytes) -> Dict[str, Any]:
     if recv_crc != calc_crc:
         raise ProtocolError(f"CRC mismatch: {recv_crc:04X} != {calc_crc:04X}")
 
-    try:
-        typ = MessageType(msg_type)
-    except ValueError as exc:
-        raise ProtocolError(f"Unknown message type: {msg_type}") from exc
+    if msg_type == 0:
+        typ = 0  # Simple dict payload (not a MessageType enum value)
+    else:
+        try:
+            typ = MessageType(msg_type)
+        except ValueError as exc:
+            raise ProtocolError(f"Unknown message type: {msg_type}") from exc
 
     return {
         "type": typ,

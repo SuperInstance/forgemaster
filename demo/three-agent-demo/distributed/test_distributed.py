@@ -60,18 +60,19 @@ def test_tensor_midi():
     print("\n=== Test: Tensor-MIDI Encoding (Spec-Compliant) ===")
 
     # Round-trip via the backward-compatible tensor_midi_encode wrapper
+    # Simple float dicts now round-trip as self-describing JSON (type 0)
     payload = {"c": 0.5, "t": 0.3}
     encoded = tensor_midi_encode(payload)
     decoded = tensor_midi_decode(encoded)
     test(
         "Backward-compat wrapper round-trip",
-        decoded["type"] == MessageType.TICK,
-        f"expected TICK, got {decoded['type']}",
+        decoded.get("c") is not None and abs(decoded["c"] - 0.5) < 0.01,
+        f"expected c=0.5, got {decoded}",
     )
     test(
-        "Backward-compat drift value",
-        abs(decoded["payload"]["drift"] - 0.5) < 0.01,
-        f"got drift={decoded['payload']['drift']}",
+        "Backward-compat second value",
+        decoded.get("t") is not None and abs(decoded["t"] - 0.3) < 0.01,
+        f"expected t=0.3, got {decoded}",
     )
 
     # Spec-compliant: magic is 0xF1EE7
@@ -86,10 +87,10 @@ def test_tensor_midi():
     test("Decode drift", abs(msg["payload"]["drift"] - 0.123) < 1e-6)
     test("Decode state", msg["payload"]["state"] == 1)
 
-    # Round-trip: empty payload through TICK
+    # Round-trip: empty payload (type 0 simple dict)
     empty = tensor_midi_encode({})
     empty_decoded = tensor_midi_decode(empty)
-    test("Empty payload round-trip", empty_decoded["type"] == MessageType.TICK)
+    test("Empty payload round-trip", empty_decoded == {})
 
     # Spec-compliant: BEACON round-trip
     theta = {
@@ -333,3 +334,6 @@ if __name__ == "__main__":
     print("=" * 60)
 
     sys.exit(0 if failed == 0 else 1)
+
+# Tell pytest not to collect the helper function named 'test'
+test.__test__ = False
