@@ -88,7 +88,6 @@ def test_guard_compiles():
     assert first_op == 0x1D, f"Expected BITMASK_RANGE (0x1D), got 0x{first_op:02X}"
     
     print(f"  ✅ GUARD compiles to {len(bytecode)} bytes ({len(bytecode)//4} instructions)")
-    return bytecode
 
 
 def test_range_pass():
