@@ -5,6 +5,17 @@ All notable changes to Forgemaster will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-08-07
+
+### Fixed
+- **Stale error on retry success** — `_execute_step` now clears `step.error` when a retry succeeds, preventing stale error messages from earlier attempts. (queue.py)
+- **Uninformative error on False return** — When a step's action returns `False` instead of raising, `step.error` is now set to a descriptive message instead of remaining `None`. (queue.py)
+- **Transitive dependency execution** — `Forge.build_one` and `BuildQueue.execute_one` now check for both `FAILED` and `SKIPPED` upstream steps, preventing execution of steps whose dependencies were transitively skipped due to upstream failures. (forge.py, queue.py)
+
+### Added
+- 27 new tests covering bug fixes, transitive dependency skipping, error propagation, empty recipe handling, and more. (tests/test_bugfixes.py)
+- CI now runs the full pytest suite in addition to the differential test harness. (.github/workflows/ci.yml)
+
 ## [0.1.0] - 2024-06-18
 
 ### Added

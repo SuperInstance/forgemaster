@@ -82,7 +82,10 @@ class BuildQueue:
                 result = step.action()
                 if result:
                     step.status = StepStatus.SUCCEEDED
+                    step.error = None  # clear stale error from earlier attempts
                     return True
+                else:
+                    step.error = step.error or f"Step '{step.name}' returned False"
             except Exception as exc:
                 step.error = str(exc)
             attempts_left -= 1
@@ -108,11 +111,13 @@ class BuildQueue:
         errors: list[str] = []
 
         for step in ordered:
-            upstream_failed = any(
-                recipe.step_by_name(d) and recipe.step_by_name(d).status == StepStatus.FAILED
-                for d in step.depends_on
-            )
-            if upstream_failed:
+            upstream_blocked = False
+            for dep_name in step.depends_on:
+                dep_step = recipe.step_by_name(dep_name)
+                if dep_step is not None and dep_step.status in (StepStatus.FAILED, StepStatus.SKIPPED):
+                    upstream_blocked = True
+                    break
+            if upstream_blocked:
                 step.status = StepStatus.SKIPPED
                 continue
             ok = self._execute_step(step)

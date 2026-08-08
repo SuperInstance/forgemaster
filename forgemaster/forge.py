@@ -69,11 +69,13 @@ class Forge:
         build_start = time.time()
 
         for step in ordered:
-            upstream_failed = any(
-                recipe.step_by_name(d) and recipe.step_by_name(d).status == StepStatus.FAILED
-                for d in step.depends_on
-            )
-            if upstream_failed:
+            upstream_blocked = False
+            for dep_name in step.depends_on:
+                dep_step = recipe.step_by_name(dep_name)
+                if dep_step is not None and dep_step.status in (StepStatus.FAILED, StepStatus.SKIPPED):
+                    upstream_blocked = True
+                    break
+            if upstream_blocked:
                 step.status = StepStatus.SKIPPED
                 continue
 
