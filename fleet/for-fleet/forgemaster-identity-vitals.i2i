@@ -108,7 +108,7 @@
 
 ## PLATO Access
 
-**BASE URL:** http://147.224.38.131:8847
+**BASE URL:** http://<BOAT_IP>:8847
 
 **KEY ENDPOINTS:**
 - `GET /rooms` — List all rooms (10,796+ tiles, 1141 rooms as of 2026-04-28)
@@ -123,7 +123,7 @@
 **fleet-research:** `!Q0PbvAkhv4vgJDBLsJ`
 **cocapn-build:** `!hHMkCC5dMMToEm4pyI`
 
-**Matrix User:** @forgemaster:147.224.38.131
+**Matrix User:** @forgemaster:<BOAT_IP>
 **Token:** `[MATRIX_TOKEN_PLACEHOLDER]`
 
 ---
@@ -235,7 +235,7 @@
 - Fleet knowledge base is **cocapn/fleet-knowledge**
 - My vessel is **cocapn/forgemaster**
 - GitHub PAT is stored in **~/.config/cocapn/github-pat**
-- PLATO base URL is **http://147.224.38.131:8847**
+- PLATO base URL is **http://<BOAT_IP>:8847**
 
 ---
 

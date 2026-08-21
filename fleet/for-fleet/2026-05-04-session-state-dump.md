@@ -209,7 +209,7 @@ CCC is VERY ACTIVE. Key work:
 - **crates.io:** `~/.cargo/credentials.toml`
 - **DeepInfra:** `~/.openclaw/workspace/.credentials/deepinfra-api-key.txt`
 - **DeepSeek:** `~/.openclaw/workspace/.credentials/deepseek-api-key.txt`
-- **PLATO:** http://147.224.38.131:8847
+- **PLATO:** http://<BOAT_IP>:8847
 
 ## Key File Locations
 - GPU experiments: `gpu-experiments/exp01-*.cu` through `exp20-*.cu` (binaries too)
@@ -222,7 +222,7 @@ CCC is VERY ACTIVE. Key work:
 
 ## PLATO Tile Submission Pattern
 ```bash
-curl -s -X POST http://147.224.38.131:8847/submit \
+curl -s -X POST http://<BOAT_IP>:8847/submit \
   -H "Content-Type: application/json" \
   -d '{"room":"ROOM","domain":"DOMAIN","question":"Q","answer":"A"}'
 ```

@@ -26,7 +26,7 @@ from core.prophet_agent import ProphetAgent
 from core.agency_fleet import AgencyFleet
 from core.system_ground import SystemGround
 
-PLATO_URL = "http://147.224.38.131:8847"
+PLATO_URL = "http://<BOAT_IP>:8847"
 
 def main():
     print("=" * 70)

@@ -34,7 +34,7 @@ Each one is self-contained. Copy the file, `require_once`, done.
 
 ### PLATO API Endpoint
 ```
-http://147.224.38.131:8847
+http://<BOAT_IP>:8847
 ```
 Available endpoints:
 - `GET /rooms` — list all rooms
@@ -100,7 +100,7 @@ Claude Opus wrote a 464-line, 35KB EMSOFT-quality paper on the FLUX RAU. 9 secti
 
 1. **Your sites** — what's the PHP environment? Standard Apache? Nginx + PHP-FPM? Shared hosting? The kit is pure PHP 8.0+, should work anywhere.
 
-2. **PLATO access** — can your site reach `147.224.38.131:8847`? If not, I can add a caching layer that pre-fetches tiles.
+2. **PLATO access** — can your site reach `<BOAT_IP>:8847`? If not, I can add a caching layer that pre-fetches tiles.
 
 3. **The A2A Signal Protocol** — I see `flux-isa` has 256 opcodes and `flux-compiler` compiles structured code to FLUX. Does the compiler already handle `tell`/`ask`/`branch`/`fork` as opcodes, or are those planned?
 

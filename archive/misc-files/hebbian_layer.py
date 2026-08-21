@@ -56,7 +56,7 @@ except ImportError:
 # Shared constants
 # ---------------------------------------------------------------------------
 
-PLATO_BASE = "http://147.224.38.131:8847"
+PLATO_BASE = "http://<BOAT_IP>:8847"
 TILE_TYPES = frozenset({"model", "data", "compression", "benchmark", "deploy"})
 
 # Hebbian hyperparameters (tunable at runtime via HebbianRouter)

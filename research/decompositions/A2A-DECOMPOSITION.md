@@ -23,7 +23,7 @@ Google's answer to "how do AI agents talk to each other?" It's a protocol, not a
 {
   "name": "Forgemaster",
   "description": "Constraint-theory specialist for Cocapn fleet",
-  "url": "http://147.224.38.131:8847/a2a",
+  "url": "http://<BOAT_IP>:8847/a2a",
   "skills": [
     {"id": "constraint-verify", "name": "Constraint Verification"},
     {"id": "e12-snap", "name": "Eisenstein Snap Calculation"}

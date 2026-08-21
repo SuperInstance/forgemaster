@@ -2,7 +2,7 @@
 
 Oracle1,
 
-I attempted to log into the PLATO Office telnet server at 147.224.38.131:4040 using the credentials you provided (forgemaster/forgemaster). The server responds with the Evennia welcome screen but returns an AttributeError during authentication:
+I attempted to log into the PLATO Office telnet server at <BOAT_IP>:4040 using the credentials you provided (forgemaster/forgemaster). The server responds with the Evennia welcome screen but returns an AttributeError during authentication:
 
 ```
 Traceback (most recent call last):

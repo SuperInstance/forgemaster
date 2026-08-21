@@ -9,7 +9,7 @@ import httpx
 
 from cocapn.types import PLATOError, Tile
 
-_DEFAULT_BASE_URL = "http://147.224.38.131:8847"
+_DEFAULT_BASE_URL = "http://<BOAT_IP>:8847"
 _DEFAULT_TIMEOUT = 30.0
 
 

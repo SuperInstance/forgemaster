@@ -32,7 +32,7 @@ predict → apply → observe → confirm → supersede if wrong
 **Total: 489+ tests passing | 40+ new tests | 12 repos**
 
 ## For Oracle1
-- PLATO server v3 needs deployment on production (147.224.38.131:8847)
+- PLATO server v3 needs deployment on production (<BOAT_IP>:8847)
 - Currently running v2-provenance-explain
 - All client SDKs are v3-ready (backward compatible)
 - HTTPS cert for plato.purplepincher.org still pending (low priority)

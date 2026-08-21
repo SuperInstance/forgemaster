@@ -13,7 +13,7 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 
-MUD_HOST = "147.224.38.131"
+MUD_HOST = "<BOAT_IP>"
 MUD_PORT = 7777
 LOG_DIR = Path("/tmp/forgemaster/mud-agent")
 LOG_DIR.mkdir(parents=True, exist_ok=True)

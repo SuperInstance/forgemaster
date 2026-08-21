@@ -16,7 +16,7 @@ import sys
 import urllib.request
 from collections import defaultdict
 
-def fetch_room_tiles(room_id, plato_url="http://147.224.38.131:8847"):
+def fetch_room_tiles(room_id, plato_url="http://<BOAT_IP>:8847"):
     """Fetch tiles from a PLATO room."""
     url = f"{plato_url}/room/{room_id}"
     resp = json.loads(urllib.request.urlopen(url, timeout=10).read())
@@ -66,7 +66,7 @@ def check_constraint_conflict(claims):
     
     return conflicts, max(total_pairs, 1)
 
-def compute_csd(room_id=None, tiles_file=None, plato_url="http://147.224.38.131:8847"):
+def compute_csd(room_id=None, tiles_file=None, plato_url="http://<BOAT_IP>:8847"):
     """Compute Constraint Satisfaction Density for a room."""
     if tiles_file:
         with open(tiles_file) as f:
@@ -122,6 +122,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--room", help="PLATO room ID")
     parser.add_argument("--tiles", help="JSON file with tiles")
-    parser.add_argument("--plato-url", default="http://147.224.38.131:8847")
+    parser.add_argument("--plato-url", default="http://<BOAT_IP>:8847")
     args = parser.parse_args()
     compute_csd(args.room, args.tiles, args.plato_url)

@@ -41,7 +41,7 @@ evennia restart
 ## Test
 After applying fix, test with:
 ```
-telnet 147.224.38.131 4040
+telnet <BOAT_IP> 4040
 connect forgemaster forgemaster
 ```
 

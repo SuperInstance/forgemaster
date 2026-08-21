@@ -3,7 +3,7 @@
  * PLATO Knowledge Browser — Live Fleet Knowledge Widget
  * 
  * Drop-in PHP page that browses PLATO rooms and tiles in real-time.
- * Connects to PLATO API at 147.224.38.131:8847.
+ * Connects to PLATO API at <BOAT_IP>:8847.
  * 
  * Features:
  * - Search across 1400+ knowledge rooms
@@ -13,7 +13,7 @@
  * - API mode (?api=1)
  */
 
-$PLATO_URL = 'http://147.224.38.131:8847';
+$PLATO_URL = 'http://<BOAT_IP>:8847';
 
 // ─── API Mode ───
 if (isset($_GET['api'])) {

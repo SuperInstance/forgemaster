@@ -22,7 +22,7 @@ from autodata.plugins import PluginSpec
 # Constants
 # ---------------------------------------------------------------------------
 
-PLATO_BASE_URL = "http://147.224.38.131:8847"
+PLATO_BASE_URL = "http://<BOAT_IP>:8847"
 
 # Mackenzie (1981) equation coefficients for sound speed in seawater
 #   c = 1448.96 + 4.591T - 5.304e-2 T² + 2.374e-4 T³

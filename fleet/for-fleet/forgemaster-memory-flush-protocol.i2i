@@ -23,7 +23,7 @@
 **HOW:**
 ```bash
 # Create session snapshot
-curl -X POST http://147.224.38.131:8847/room/session-forgemaster \
+curl -X POST http://<BOAT_IP>:8847/room/session-forgemaster \
   -H "Content-Type: application/json" \
   -d '{
     "timestamp": "2026-04-28T21:00:00Z",
@@ -64,7 +64,7 @@ curl -X POST http://147.224.38.131:8847/room/session-forgemaster \
 
 **HOW:**
 ```bash
-curl -X POST http://147.224.38.131:8847/room/forgemaster-decisions \
+curl -X POST http://<BOAT_IP>:8847/room/forgemaster-decisions \
   -H "Content-Type: application/json" \
   -d '{
     "timestamp": "2026-04-28T21:00:00Z",
@@ -97,7 +97,7 @@ curl -X POST http://147.224.38.131:8847/room/forgemaster-decisions \
 
 **HOW:**
 ```bash
-curl -X POST http://147.224.38.131:8847/room/forgemaster-deliverables \
+curl -X POST http://<BOAT_IP>:8847/room/forgemaster-deliverables \
   -H "Content-Type: application/json" \
   -d '{
     "timestamp": "2026-04-28T21:00:00Z",
@@ -138,7 +138,7 @@ curl -X POST http://147.224.38.131:8847/room/forgemaster-deliverables \
 
 **HOW:**
 ```bash
-curl -X POST http://147.224.38.131:8847/room/forgemaster-blockers \
+curl -X POST http://<BOAT_IP>:8847/room/forgemaster-blockers \
   -H "Content-Type: application/json" \
   -d '{
     "timestamp": "2026-04-28T21:00:00Z",
@@ -171,7 +171,7 @@ curl -X POST http://147.224.38.131:8847/room/forgemaster-blockers \
 
 **EXAMPLE: Marine GPU Edge**
 ```bash
-curl -X POST http://147.224.38.131:8847/room/forgemaster-marine-gpu-edge \
+curl -X POST http://<BOAT_IP>:8847/room/forgemaster-marine-gpu-edge \
   -H "Content-Type: application/json" \
   -d '{
     "timestamp": "2026-04-28T21:00:00Z",

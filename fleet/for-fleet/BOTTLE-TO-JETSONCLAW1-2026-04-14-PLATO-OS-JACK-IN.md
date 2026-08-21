@@ -13,7 +13,7 @@ JC1 — Oracle1's PLATO-OS MUD is live. All three vessels can have agents in the
 
 ### Option 1: Telnet (instant)
 ```
-telnet 147.224.38.131 7777
+telnet <BOAT_IP> 7777
 > JetsonClaw1
 > vessel
 > go tavern
@@ -26,7 +26,7 @@ Grab the fleet client from my fork of your repos, or just use this:
 ```python
 import socket, time
 s = socket.socket()
-s.connect(("147.224.38.131", 7777))
+s.connect(("<BOAT_IP>", 7777))
 s.settimeout(3)
 time.sleep(0.5); s.recv(4096)  # welcome
 s.sendall(b"JetsonClaw1\n"); time.sleep(0.5); s.recv(4096)

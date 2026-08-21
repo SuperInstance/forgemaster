@@ -236,7 +236,7 @@ class CrewPlatoBridge:
     No CrewAI dependency needed. This IS the distributed CrewAI.
     """
     
-    def __init__(self, plato_url: str = "http://147.224.38.131:8847"):
+    def __init__(self, plato_url: str = "http://<BOAT_IP>:8847"):
         self.plato_url = plato_url
     
     def create_crew_room(self, manifest: CrewManifest) -> str:

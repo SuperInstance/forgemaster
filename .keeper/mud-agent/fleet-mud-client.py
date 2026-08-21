@@ -17,7 +17,7 @@ import argparse
 import select
 from datetime import datetime
 
-MUD_HOST = "147.224.38.131"
+MUD_HOST = "<BOAT_IP>"
 MUD_PORT = 7777
 
 

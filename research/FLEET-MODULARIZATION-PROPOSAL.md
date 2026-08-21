@@ -220,7 +220,7 @@ pub mod i2i;     // I2iMessage: new(type, scope, body), send_to_vessel()
 pub mod rooms;   // Well-known room paths: depgraph::SNAPSHOTS, etc.
 
 // Usage:
-// let plato = PlatoClient::new("http://147.224.38.131:8847");
+// let plato = PlatoClient::new("http://<BOAT_IP>:8847");
 // plato.write("depgraph/snapshots/latest", &payload).await?;
 //
 // I2iMessage::new("DEPGRAPH", "fleet", "Scan complete: 50K nodes")

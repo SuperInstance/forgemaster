@@ -11,13 +11,13 @@ Usage:
 Config:
     {
         "agent": "my-agent-name",
-        "homeserver": "http://147.224.38.131:6167",
-        "matrix_user": "@my-agent:147.224.38.131",
+        "homeserver": "http://<BOAT_IP>:6167",
+        "matrix_user": "@my-agent:<BOAT_IP>",
         "matrix_token": "...",
         "matrix_password": "...",
         "plato_url": "http://localhost:8847",
         "plato_rooms": ["fleet-coord", "forge", "my-personal-room"],
-        "presence_room": "!fleet-presence:147.224.38.131",
+        "presence_room": "!fleet-presence:<BOAT_IP>",
         "poll_ms": 3000,
         "log_file": "/tmp/plato-matrix.log"
     }
@@ -159,7 +159,7 @@ class PlatoMatrixBridge:
     def plato_room_to_matrix_room(self, plato_room):
         """Generate deterministic Matrix room alias from PLATO room name."""
         safe = plato_room.replace("_", "-").replace(" ", "-").lower()
-        return f"#plato-{safe}:147.224.38.131"
+        return f"#plato-{safe}:<BOAT_IP>"
     
     def ensure_matrix_room(self, plato_room):
         """Ensure a Matrix room exists for this PLATO room. Join if invited."""
@@ -478,12 +478,12 @@ def main():
         # Create template
         template = {
             "agent": "my-agent",
-            "homeserver": "http://147.224.38.131:6167",
-            "matrix_user": "@my-agent:147.224.38.131",
+            "homeserver": "http://<BOAT_IP>:6167",
+            "matrix_user": "@my-agent:<BOAT_IP>",
             "matrix_password": "your-password",
             "plato_url": "http://localhost:8847",
             "plato_rooms": ["fleet-coord", "forge", "oracle1-forgemaster-bridge"],
-            "presence_room": "!fleet-presence:147.224.38.131",
+            "presence_room": "!fleet-presence:<BOAT_IP>",
             "poll_ms": 3000,
             "log_file": "/tmp/plato-matrix.log"
         }

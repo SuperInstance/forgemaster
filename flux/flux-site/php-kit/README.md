@@ -50,7 +50,7 @@ echo $result['status'] === 'halted' ? 'PASS ✅' : 'FAIL ❌';
 | `GET /search?q=query` | Search tiles | Matching tiles |
 | `POST /submit` | Submit tile | `{"status": "accepted", ...}` |
 
-Base URL: `http://147.224.38.131:8847`
+Base URL: `http://<BOAT_IP>:8847`
 
 ## All PHP Files Are Self-Contained
 

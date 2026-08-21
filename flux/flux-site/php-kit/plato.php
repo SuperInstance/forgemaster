@@ -3,7 +3,7 @@
  * PLATO API Client — queries the live PLATO knowledge server
  */
 class PlatoClient {
-    private string $base_url = 'http://147.224.38.131:8847';
+    private string $base_url = 'http://<BOAT_IP>:8847';
     private int $timeout = 5;
 
     public function getRooms(string $prefix = ''): array {

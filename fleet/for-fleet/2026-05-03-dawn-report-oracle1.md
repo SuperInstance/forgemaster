@@ -162,7 +162,7 @@ All 5 models agreed on the critical path:
 ## 5. PLATO KNOWLEDGE GRAPH
 
 **Live stats:** 18,731 tiles, 1,374 rooms
-**API:** http://147.224.38.131:8847
+**API:** http://<BOAT_IP>:8847
 
 | Endpoint | Method | Purpose |
 |----------|--------|---------|

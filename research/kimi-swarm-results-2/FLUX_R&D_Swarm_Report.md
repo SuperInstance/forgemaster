@@ -14964,7 +14964,7 @@ All 10 posts are publication-ready with minor copyediting. Recommended publicati
 
 ## Executive Summary
 
-This mission generated and submitted **500 unique PLATO tiles** across **10 knowledge domains** (50 tiles per domain). All 500 tiles were successfully accepted by the PLATO knowledge server at `http://147.224.38.131:8847/submit`.
+This mission generated and submitted **500 unique PLATO tiles** across **10 knowledge domains** (50 tiles per domain). All 500 tiles were successfully accepted by the PLATO knowledge server at `http://<BOAT_IP>:8847/submit`.
 
 **Submission Statistics:**
 - Total tiles submitted: 500
@@ -15214,7 +15214,7 @@ The PLATO server was healthy at mission start, hosting 45 rooms with 257 existin
 
 ## Submission Log
 
-All 500 tiles were submitted via HTTP POST to `http://147.224.38.131:8847/submit`.
+All 500 tiles were submitted via HTTP POST to `http://<BOAT_IP>:8847/submit`.
 
 **Summary Statistics:**
 - HTTP 200 (Accepted): 500

@@ -2,7 +2,7 @@
 import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-URL = "http://147.224.38.131:8847"
+URL = "http://<BOAT_IP>:8847"
 
 def audit_room(name):
     try:

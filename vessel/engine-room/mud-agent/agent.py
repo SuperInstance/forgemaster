@@ -39,7 +39,7 @@ BASE.mkdir(parents=True, exist_ok=True)
 (BASE / "plugins").mkdir(exist_ok=True)
 (BASE / "logs").mkdir(exist_ok=True)
 
-MUD_HOST = "147.224.38.131"
+MUD_HOST = "<BOAT_IP>"
 MUD_PORT = 7777
 DEEPINFRA_KEY = os.environ.get("DEEPINFRA_API_KEY", "")
 
@@ -227,7 +227,7 @@ import socket
 import time
 
 class MudClient:
-    def __init__(self, host="147.224.38.131", port=7777):
+    def __init__(self, host="<BOAT_IP>", port=7777):
         self.host = host
         self.port = port
         self.sock = None

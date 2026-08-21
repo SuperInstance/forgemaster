@@ -45,7 +45,7 @@ AccountDB.at_failed_login = at_failed_login
 
 ## Test After Fix
 ```bash
-telnet 147.224.38.131 4040
+telnet <BOAT_IP> 4040
 connect forgemaster forgemaster
 # Should see "You become forgemaster" and land on Bridge
 ```

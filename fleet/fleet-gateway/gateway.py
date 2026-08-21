@@ -13,11 +13,11 @@ import threading
 
 # Service registry
 SERVICES = {
-    'plato':    {'host': '147.224.38.131', 'port': 8847, 'health': '/rooms'},
-    'mud':      {'host': '147.224.38.131', 'port': 4042, 'health': '/'},
-    'arena':    {'host': '147.224.38.131', 'port': 4044, 'health': '/'},
-    'terminal': {'host': '147.224.38.131', 'port': 4060, 'health': '/'},
-    'dashboard':{'host': '147.224.38.131', 'port': 4046, 'health': '/'},
+    'plato':    {'host': '<BOAT_IP>', 'port': 8847, 'health': '/rooms'},
+    'mud':      {'host': '<BOAT_IP>', 'port': 4042, 'health': '/'},
+    'arena':    {'host': '<BOAT_IP>', 'port': 4044, 'health': '/'},
+    'terminal': {'host': '<BOAT_IP>', 'port': 4060, 'health': '/'},
+    'dashboard':{'host': '<BOAT_IP>', 'port': 4046, 'health': '/'},
 }
 
 # Rate limiting (in-memory)

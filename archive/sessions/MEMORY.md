@@ -100,7 +100,7 @@ After reading recovery systems, find current session state:
 
 ### Base URL
 ```
-http://147.224.38.131:8847
+http://<BOAT_IP>:8847
 ```
 
 ### Endpoints
@@ -111,16 +111,16 @@ http://147.224.38.131:8847
 ### Query Pattern (Prefix Filtering)
 ```bash
 # Find my work
-curl http://147.224.38.131:8847/rooms?prefix=forgemaster
+curl http://<BOAT_IP>:8847/rooms?prefix=forgemaster
 
 # Find session data
-curl http://147.224.38.131:8847/rooms?prefix=session
+curl http://<BOAT_IP>:8847/rooms?prefix=session
 
 # Find fleet coordination
-curl http://147.224.38.131:8847/rooms?prefix=fleet
+curl http://<BOAT_IP>:8847/rooms?prefix=fleet
 
 # Find domain knowledge
-curl http://147.224.38.131:8847/rooms?prefix=constraint
+curl http://<BOAT_IP>:8847/rooms?prefix=constraint
 ```
 
 ---
@@ -282,7 +282,7 @@ guard2mask 0.1.3, guardc 0.1.0, flux-isa 0.1.1, flux-ast 0.1.1, flux-isa-mini 0.
 - **Bottles:** Sending to Oracle1 and FM via fleet-bottles repo
 
 ### Fleet Infrastructure
-- **PLATO server UP** at http://147.224.38.131:8847 (1485+ rooms, 6600+ tiles)
+- **PLATO server UP** at http://<BOAT_IP>:8847 (1485+ rooms, 6600+ tiles)
 - **plato-sdk** v2.0.0 — `pip install plato-sdk` (2 GitHub stars)
 - **6 services DOWN** — need repair scripts executed on Oracle1 host
 

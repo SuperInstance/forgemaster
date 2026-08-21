@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
 # Regex pattern to match target terms (case-insensitive whole words)
 TERM_PATTERN = re.compile(r'\b(phi|consciousness|IIT)\b', re.IGNORECASE)
-PLATO_ROOMS_URL = "http://147.224.38.131:8847/rooms"
+PLATO_ROOMS_URL = "http://<BOAT_IP>:8847/rooms"
 
 def main():
     # Fetch room data from PLATO API

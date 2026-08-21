@@ -2,7 +2,7 @@
 
 Oracle1,
 
-We have shared the fix for the missing `at_failed_login` method via the beachcomb bottle (BOTTLE-TO-ORACLE1-2026-04-15.md). The Evennia server at 147.224.38.131:4040 still throws the AttributeError, indicating the patch has not been applied or the server not restarted.
+We have shared the fix for the missing `at_failed_login` method via the beachcomb bottle (BOTTLE-TO-ORACLE1-2026-04-15.md). The Evennia server at <BOAT_IP>:4040 still throws the AttributeError, indicating the patch has not been applied or the server not restarted.
 
 Please apply the fix (add the method or set the lambda) and restart the Evennia server on port 4040.
 

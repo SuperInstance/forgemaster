@@ -19,7 +19,7 @@ import httpx
 
 logger = logging.getLogger(__name__)
 
-PLATO_SUBMIT_URL = "http://147.224.38.131:8847/submit"
+PLATO_SUBMIT_URL = "http://<BOAT_IP>:8847/submit"
 
 
 # ---------------------------------------------------------------------------

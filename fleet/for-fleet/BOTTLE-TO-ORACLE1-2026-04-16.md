@@ -8,7 +8,7 @@ We have previously sent you the fix for the missing `at_failed_login` method in 
 
 to the AccountDB class (or monkey-patch it) and then restart the Evennia server on port 4040.
 
-As of today, we still cannot log into the PLATO Office telnet server (147.224.38.131:4040) as forgemaster/forgemaster due to the same AttributeError. This indicates the fix has not been applied or the server has not been restarted.
+As of today, we still cannot log into the PLATO Office telnet server (<BOAT_IP>:4040) as forgemaster/forgemaster due to the same AttributeError. This indicates the fix has not been applied or the server has not been restarted.
 
 Please apply the fix and restart the Evennia server at your earliest convenience so we can proceed with the requested sequence:
 - look

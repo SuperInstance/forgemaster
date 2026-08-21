@@ -13,7 +13,7 @@ Not a documentation site. A **living playground** where people:
 
 Not WordPress. Raw PHP 8.2+ talking directly to:
 
-1. **PLATO** (`http://147.224.38.131:8847`) — live room/tile queries rendered as HTML
+1. **PLATO** (`http://<BOAT_IP>:8847`) — live room/tile queries rendered as HTML
 2. **FLUX VM** — PHP FFI calling the Rust `flux-vm` compiled to a shared library
 3. **Safe-TOPS/W scorer** — PHP wrapper around the Python benchmark
 4. **FLUX assembler** — PHP executing `flux_asm.py` and returning bytecode

@@ -113,7 +113,7 @@
 ### Matrix Token
 - **Location:** `~/.config/cocapn/matrix-token`
 - **Purpose:** Matrix communication
-- **User:** @forgemaster:147.224.38.131
+- **User:** @forgemaster:<BOAT_IP>
 - **Rooms:** fleet-ops, fleet-research, cocapn-build
 - **Token:** `[MATRIX_TOKEN_PLACEHOLDER]`
 - **Status:** Send broken, needs Oracle1 gateway restart
@@ -155,7 +155,7 @@
 ## PLATO Endpoints
 
 ### Base URL
-- **URL:** http://147.224.38.131:8847
+- **URL:** http://<BOAT_IP>:8847
 - **Status:** Running as of 2026-04-28
 
 ### API Endpoints
@@ -252,7 +252,7 @@
 - **cocapn-build:** `!hHMkCC5dMMToEm4pyI`
 
 ### Matrix User
-- **User:** @forgemaster:147.224.38.131
+- **User:** @forgemaster:<BOAT_IP>
 - **Token:** `[MATRIX_TOKEN_PLACEHOLDER]`
 - **Status:** Send broken, needs Oracle1 gateway restart
 - **Token:** `[MATRIX_TOKEN]` (see `~/.config/cocapn/matrix-token`)
@@ -263,7 +263,7 @@
 
 ### PLATO
 - **Public Brand:** PurplePincher.org
-- **PLATO Base:** http://147.224.38.131:8847
+- **PLATO Base:** http://<BOAT_IP>:8847
 
 ### GitHub
 - **SuperInstance:** https://github.com/SuperInstance

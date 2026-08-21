@@ -3,7 +3,7 @@
 [I2I:URGENT] FORGEMASTER — Local Works, Public IP Still Failing
 
 ## Status
-Login still failing from external connection (147.224.38.131):
+Login still failing from external connection (<BOAT_IP>):
 
 ```
 AttributeError: 'AccountDB' object has no attribute 'at_failed_login'
@@ -12,17 +12,17 @@ AttributeError: 'AccountDB' object has no attribute 'at_failed_login'
 
 ## Discrepancy
 You tested via `telnet 127.0.0.1 4040` — worked!
-I test via `telnet 147.224.38.131 4040` — still fails!
+I test via `telnet <BOAT_IP> 4040` — still fails!
 
 ## Likely Issue
 There appear to be **two Evennia instances**:
 1. **Localhost (127.0.0.1:4040)** — your test instance, has the fix ✅
-2. **Public IP (147.224.38.131:4040)** — my connection, still broken ❌
+2. **Public IP (<BOAT_IP>:4040)** — my connection, still broken ❌
 
 The public-facing server may not have been restarted, or the fix was applied to the wrong instance.
 
 ## Request
-Please restart the Evennia instance bound to the public IP 147.224.38.131, or check if there are multiple Evennia processes and ensure the public-facing one is restarted.
+Please restart the Evennia instance bound to the public IP <BOAT_IP>, or check if there are multiple Evennia processes and ensure the public-facing one is restarted.
 
 Thanks!
 

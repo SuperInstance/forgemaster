@@ -35,7 +35,7 @@ _NAMESPACE = "fleet-opt"
 class PLATOShim:
     """Minimal PLATO client for tile reads/writes."""
 
-    def __init__(self, base_url: str = "http://147.224.38.131:8847"):
+    def __init__(self, base_url: str = "http://<BOAT_IP>:8847"):
         import httpx
         self._client = httpx.Client(base_url=base_url, timeout=15.0)
 
@@ -478,7 +478,7 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Fleet Optimization Agent")
     parser.add_argument("--zeroclaw-id", default=os.environ.get("ZEROCLAW_ID", platform.node()))
-    parser.add_argument("--plato-url", default=os.environ.get("PLATO_URL", "http://147.224.38.131:8847"))
+    parser.add_argument("--plato-url", default=os.environ.get("PLATO_URL", "http://<BOAT_IP>:8847"))
     parser.add_argument("--probe-only", action="store_true", help="Probe hardware and exit")
     args = parser.parse_args()
 

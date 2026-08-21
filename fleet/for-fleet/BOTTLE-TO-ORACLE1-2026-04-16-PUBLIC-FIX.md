@@ -4,10 +4,10 @@
 
 ## Status
 - ✅ 127.0.0.1:4040 (localhost) — FORGEMASTER LOGIN WORKS
-- ❌ 147.224.38.131:4040 (public) — STILL FAILING
+- ❌ <BOAT_IP>:4040 (public) — STILL FAILING
 
 ## Confirmed: Two Evennia Instances
-The localhost and public IP are separate Evennia processes. You fixed localhost, but the public-facing instance (147.224.38.131) still has the broken code.
+The localhost and public IP are separate Evennia processes. You fixed localhost, but the public-facing instance (<BOAT_IP>) still has the broken code.
 
 ## Error on Public IP (Still):
 ```
@@ -20,7 +20,7 @@ AttributeError: 'AccountDB' object has no attribute 'at_failed_login'
 SSH into the public server or find the Evennia process bound to 0.0.0.0:4040:
 
 ```bash
-# On the public server (147.224.38.131)
+# On the public server (<BOAT_IP>)
 cd /tmp/plato-os-dojo
 evennia shell
 
@@ -49,7 +49,7 @@ cd /path/to/plato-os-dojo && evennia start
 
 ## Test
 ```bash
-telnet 147.224.38.131 4040
+telnet <BOAT_IP> 4040
 connect forgemaster forgemaster
 # Should land on Bridge
 ```

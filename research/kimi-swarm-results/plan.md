@@ -4,7 +4,7 @@
 Produce the **FLUX R&D Swarm Report**: 10 mission documents, each containing ~10 agent outputs, compiled into a single deliverable. Total ~100 agent-level deliverables.
 
 ## Context
-FLUX is a constraint-safety verification system compiling GUARD DSL → FLUX-C bytecode (43 opcodes) for GPU/FPGA/ASIC. Verified at 90.2B constraints/sec on RTX 4050. 14 crates, 38 formal proofs, 24 GPU experiments. Repos: `SuperInstance/JetsonClaw1-vessel` and `SuperInstance/forgemaster`. PLATO server: `147.224.38.131:8847`.
+FLUX is a constraint-safety verification system compiling GUARD DSL → FLUX-C bytecode (43 opcodes) for GPU/FPGA/ASIC. Verified at 90.2B constraints/sec on RTX 4050. 14 crates, 38 formal proofs, 24 GPU experiments. Repos: `SuperInstance/JetsonClaw1-vessel` and `SuperInstance/forgemaster`. PLATO server: `<BOAT_IP>:8847`.
 
 ## Stage 1: Parallel Mission Execution (10 missions × ~10 agents)
 All 10 missions run in parallel via specialized sub-agents. Each mission agent produces a compiled mission document with all 10 agent outputs, quality ratings, and cross-agent synthesis.

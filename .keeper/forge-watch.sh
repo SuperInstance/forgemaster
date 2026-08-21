@@ -23,7 +23,7 @@ else
 fi
 
 # Check last tile submission (chain growth) via PLATO API
-CHAIN_NOW=$(curl -sf http://147.224.38.131:8847/rooms 2>/dev/null | python3 -c "
+CHAIN_NOW=$(curl -sf http://<BOAT_IP>:8847/rooms 2>/dev/null | python3 -c "
 import sys, json
 rooms = json.loads(sys.stdin.read())
 total = sum(d.get('tile_count',0) for d in rooms.values())

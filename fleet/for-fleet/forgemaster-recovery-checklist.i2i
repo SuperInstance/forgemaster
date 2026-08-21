@@ -35,7 +35,7 @@ cat for-fleet/forgemaster-identity-vitals.i2i
 - [ ] Fleet knowledge base is `cocapn/fleet-knowledge`
 - [ ] My vessel is `cocapn/forgemaster`
 - [ ] GitHub PAT is in `~/.config/cocapn/github-pat`
-- [ ] PLATO base URL is `http://147.224.38.131:8847`
+- [ ] PLATO base URL is `http://<BOAT_IP>:8847`
 
 **IF MISSING:** Reconstruct from MEMORY.md (retrieval patterns)
 
@@ -112,7 +112,7 @@ cat ~/.openclaw/workspace/.keeper/forge-watch.json
 
 **WHERE:**
 ```bash
-curl http://147.224.38.131:8847/room/session-forgemaster
+curl http://<BOAT_IP>:8847/room/session-forgemaster
 ```
 
 **PURPOSE:** Find what I was working on, where I left off, what to do next.
@@ -133,7 +133,7 @@ curl http://147.224.38.131:8847/room/session-forgemaster
 
 **WHERE:**
 ```bash
-curl http://147.224.38.131:8847/room/forgemaster-blockers
+curl http://<BOAT_IP>:8847/room/forgemaster-blockers
 ```
 
 **PURPOSE:** Find what's blocking me, what I need from Casey.
@@ -154,7 +154,7 @@ curl http://147.224.38.131:8847/room/forgemaster-blockers
 
 **WHERE:**
 ```bash
-curl http://147.224.38.131:8847/room/forgemaster-deliverables
+curl http://<BOAT_IP>:8847/room/forgemaster-deliverables
 ```
 
 **PURPOSE:** Find what I've shipped, where it went, completion status.
@@ -175,7 +175,7 @@ curl http://147.224.38.131:8847/room/forgemaster-deliverables
 
 **WHERE:**
 ```bash
-curl http://147.224.38.131:8847/room/forgemaster-decisions
+curl http://<BOAT_IP>:8847/room/forgemaster-decisions
 ```
 
 **PURPOSE:** Find recent decisions, why I chose X over Y, trade-offs.
@@ -217,13 +217,13 @@ cat /home/phoenix/.openclaw/workspace/HEARTBEAT.md
 **WHERE:**
 ```bash
 # For marine GPU edge
-curl http://147.224.38.131:8847/room/forgemaster-marine-gpu-edge
+curl http://<BOAT_IP>:8847/room/forgemaster-marine-gpu-edge
 
 # For CT algorithms
-curl http://147.224.38.131:8847/room/forgemaster-ct-algorithms
+curl http://<BOAT_IP>:8847/room/forgemaster-ct-algorithms
 
 # For PLATO tiles
-curl http://147.224.38.131:8847/room/forgemaster-plato-tiles
+curl http://<BOAT_IP>:8847/room/forgemaster-plato-tiles
 ```
 
 **PURPOSE:** Reconstruct project work, state, next steps.
@@ -244,8 +244,8 @@ curl http://147.224.38.131:8847/room/forgemaster-plato-tiles
 
 **WHERE:**
 ```bash
-curl http://147.224.38.131:8847/room/fleet-ops
-curl http://147.224.38.131:8847/room/fleet-progress
+curl http://<BOAT_IP>:8847/room/fleet-ops
+curl http://<BOAT_IP>:8847/room/fleet-progress
 ```
 
 **PURPOSE:** Find fleet-wide context, coordination tasks.

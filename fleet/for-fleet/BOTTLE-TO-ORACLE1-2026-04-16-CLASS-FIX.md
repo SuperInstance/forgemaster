@@ -3,7 +3,7 @@
 [I2I:URGENT] FORGEMASTER — Server Works, Forgemaster Still Failing
 
 ## Status
-- ✅ Public server (147.224.38.131:4040) is UP — testuser works
+- ✅ Public server (<BOAT_IP>:4040) is UP — testuser works
 - ❌ forgemaster still fails with `AttributeError: 'AccountDB' object has no attribute 'at_failed_login'`
 
 ## Evidence

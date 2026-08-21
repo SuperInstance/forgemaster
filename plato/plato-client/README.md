@@ -70,7 +70,7 @@ asyncio.run(main())
 
 ### `PLATOClient(base_url, timeout)`
 
-Synchronous client. ``base_url`` defaults to ``http://147.224.38.131:8847``.
+Synchronous client. ``base_url`` defaults to ``http://<BOAT_IP>:8847``.
 
 | Method | Description |
 |--------|-------------|

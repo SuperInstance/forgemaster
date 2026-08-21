@@ -5,7 +5,7 @@ import socket
 import time
 
 class MudClient:
-    def __init__(self, host="147.224.38.131", port=7777):
+    def __init__(self, host="<BOAT_IP>", port=7777):
         self.host = host
         self.port = port
         self.sock = None

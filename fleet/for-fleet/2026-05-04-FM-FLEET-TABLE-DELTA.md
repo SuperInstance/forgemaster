@@ -67,7 +67,7 @@ For Oracle1's monorepo INDEX.
 | Component | Status | Notes |
 |-----------|--------|-------|
 | PLATO tile submissions | ✅ | ~200 tiles across 55+ rooms |
-| PLATO API endpoint | ✅ | http://147.224.38.131:8847 |
+| PLATO API endpoint | ✅ | http://<BOAT_IP>:8847 |
 | PHP bridge (plato.php) | ✅ | Read + write client |
 | Python bridge (cocapn-plato) | ✅ | PyPI 0.1.0 |
 

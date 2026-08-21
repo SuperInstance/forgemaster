@@ -891,9 +891,9 @@ struct Cli {
     #[arg(short, long, global = true)]
     verbose: bool,
 
-    /// PLATO base URL (default: http://147.224.38.131:8847)
+    /// PLATO base URL (default: http://<BOAT_IP>:8847)
     #[arg(long, global = true, env = "PLATO_URL",
-          default_value = "http://147.224.38.131:8847")]
+          default_value = "http://<BOAT_IP>:8847")]
     plato_url: String,
 
     /// Disable GPU acceleration (force CPU path)
@@ -1334,7 +1334,7 @@ depgraph/
     └── 2026-05-08     ← Cross-repo dependency heatmap, circular dep list
 ```
 
-Each room is a JSON document. The PLATO HTTP API (147.224.38.131:8847) is used:
+Each room is a JSON document. The PLATO HTTP API (<BOAT_IP>:8847) is used:
 - `POST /rooms/{room}` — write/overwrite
 - `GET /rooms/{room}` — read
 - `GET /rooms/depgraph/` — list sub-rooms

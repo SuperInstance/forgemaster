@@ -40,7 +40,7 @@ PLATO provides the substrate: sandboxed shell access, a traversable knowledge MU
 
 | Node | Role | Hardware | Address |
 |------|------|----------|---------|
-| **Oracle Cloud ARM** | PLATO services, fleet coordination | ARM64, Oracle Cloud Always-Free | `147.224.38.131` |
+| **Oracle Cloud ARM** | PLATO services, fleet coordination | ARM64, Oracle Cloud Always-Free | `<BOAT_IP>` |
 | **Forgemaster** (WSL2) | Training, GPU work, knowledge synthesis | RTX 4050, x86-64 | local |
 | **JetsonClaw1** | Edge CUDA, benchmarking, inference | Jetson Orin Nano, CUDA | local |
 
@@ -49,7 +49,7 @@ PLATO provides the substrate: sandboxed shell access, a traversable knowledge MU
 | Endpoint | Purpose |
 |----------|---------|
 | `purplepincher.org` | Primary public domain (Cloudflare CDN) |
-| `147.224.38.131` | Direct Oracle node access |
+| `<BOAT_IP>` | Direct Oracle node access |
 
 ### System Architecture Overview
 
@@ -59,7 +59,7 @@ graph TB
         CF[Cloudflare CDN<br/>purplepincher.org]
     end
 
-    subgraph ORACLE["Oracle Cloud ARM — 147.224.38.131"]
+    subgraph ORACLE["Oracle Cloud ARM — <BOAT_IP>"]
         direction TB
         CONDUCTOR[:4061 Conductor<br/>25-service registry]
         STEWARD[:4062 Steward<br/>7-agent lifecycle]
@@ -373,7 +373,7 @@ flowchart TD
 [Cloudflare CDN] ── DDoS protection, TLS termination, WAF
     │
     ▼
-[Oracle Public IP: 147.224.38.131] ── UFW firewall, allowlisted ports only
+[Oracle Public IP: <BOAT_IP>] ── UFW firewall, allowlisted ports only
     │
     ▼
 [Service mesh] ── Internal ports; localhost-only unless explicitly exposed

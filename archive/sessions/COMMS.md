@@ -7,9 +7,9 @@ Read this on session start to recover full comms state.
 - **Module:** `SuperInstance/plato-matrix-bridge`
 - **Clone:** `/tmp/plato-matrix-bridge/`
 - **Config:** `/tmp/plato-matrix-bridge/config-forgemaster.json`
-- **User:** `@forgemaster:147.224.38.131`
+- **User:** `@forgemaster:<BOAT_IP>`
 - **Password:** `fleet-fm-2026`
-- **Homeserver:** `http://147.224.38.131:6167`
+- **Homeserver:** `http://<BOAT_IP>:6167`
 - **Log:** `/tmp/plato-matrix-forgemaster.log`
 - **Command:** `cd /tmp/plato-matrix-bridge && python3 plato-matrix-bridge.py --config config-forgemaster.json`
 
@@ -17,28 +17,28 @@ Read this on session start to recover full comms state.
 
 | Room | ID | Purpose |
 |------|----|---------|
-| Fleet Operations | `!Gf5JuGxtRwahLSjwzS:147.224.38.131` | Main fleet coordination |
-| PLATO: fleet-coord | `!GK13VlHjg9cNJRYPkL:147.224.38.131` | PLATO↔Matrix synced |
-| PLATO: FM↔Oracle1 bridge | `!4ufW6MTmxHSAyU2VTs:147.224.38.131` | Direct FM↔Oracle1 |
-| PLATO: forge | `!OfEw2mPq2kLG7yMckh:147.224.38.131` | Forge room |
-| Fleet Research | `!Q0PbvAkhv4vgJDBLsJ:147.224.38.131` | Research discussion |
-| Cocapn Build | `!hHMkCC5dMMToEm4pyI:147.224.38.131` | Build coordination |
+| Fleet Operations | `!Gf5JuGxtRwahLSjwzS:<BOAT_IP>` | Main fleet coordination |
+| PLATO: fleet-coord | `!GK13VlHjg9cNJRYPkL:<BOAT_IP>` | PLATO↔Matrix synced |
+| PLATO: FM↔Oracle1 bridge | `!4ufW6MTmxHSAyU2VTs:<BOAT_IP>` | Direct FM↔Oracle1 |
+| PLATO: forge | `!OfEw2mPq2kLG7yMckh:<BOAT_IP>` | Forge room |
+| Fleet Research | `!Q0PbvAkhv4vgJDBLsJ:<BOAT_IP>` | Research discussion |
+| Cocapn Build | `!hHMkCC5dMMToEm4pyI:<BOAT_IP>` | Build coordination |
 
 ## Sending Messages
 
 ```python
 # Login
 import json, urllib.request
-payload = json.dumps({"type": "m.login.password", "user": "@forgemaster:147.224.38.131", "password": "fleet-fm-2026"}).encode()
-req = urllib.request.Request("http://147.224.38.131:6167/_matrix/client/v3/login", data=payload, headers={"Content-Type": "application/json"})
+payload = json.dumps({"type": "m.login.password", "user": "@forgemaster:<BOAT_IP>", "password": "fleet-fm-2026"}).encode()
+req = urllib.request.Request("http://<BOAT_IP>:6167/_matrix/client/v3/login", data=payload, headers={"Content-Type": "application/json"})
 token = json.loads(urllib.request.urlopen(req, timeout=10).read())["access_token"]
 
 # Send to any room (URL-encode the room ID)
-encoded_room = "!GK13VlHjg9cNJRYPkL%3A147.224.38.131"
+encoded_room = "!GK13VlHjg9cNJRYPkL%3A<BOAT_IP>"
 txn = f"fm-{int(time.time()*1000)}"
 msg = {"msgtype": "m.text", "body": "your message here"}
 req = urllib.request.Request(
-    f"http://147.224.38.131:6167/_matrix/client/v3/rooms/{encoded_room}/send/m.room.message/{txn}",
+    f"http://<BOAT_IP>:6167/_matrix/client/v3/rooms/{encoded_room}/send/m.room.message/{txn}",
     data=json.dumps(msg).encode(),
     headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
     method="PUT"
@@ -48,7 +48,7 @@ urllib.request.urlopen(req, timeout=10)
 
 ## PLATO Server
 
-- **URL:** `http://147.224.38.131:8847`
+- **URL:** `http://<BOAT_IP>:8847`
 - **Version:** v2-provenance-explain (v3 pending deployment)
 - **Submit:** `POST /submit` with `{room_id, domain, question, answer, source}`
 - **Read room:** `GET /room/{room_name}`
@@ -86,7 +86,7 @@ pkill -f plato-matrix-bridge
 ## Real-Time Loop
 
 ```
-FM → Matrix (147.224.38.131:6167) → Oracle1 → Telegram → Casey
+FM → Matrix (<BOAT_IP>:6167) → Oracle1 → Telegram → Casey
 Casey → Telegram → Oracle1 → Matrix → FM bridge → PLATO tile → fm-inbox
 ```
 

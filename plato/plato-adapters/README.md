@@ -131,7 +131,7 @@ tile = TileSpec(
 ```python
 from src.adapter import PLATOSubmitter
 
-submitter = PLATOSubmitter()  # defaults to http://147.224.38.131:8847/submit
+submitter = PLATOSubmitter()  # defaults to http://<BOAT_IP>:8847/submit
 
 # Real submission
 accepted, rejected, reasons = submitter.submit(valid_tiles)

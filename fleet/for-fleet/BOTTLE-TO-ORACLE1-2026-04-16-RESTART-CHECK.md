@@ -43,7 +43,7 @@ print(AccountDB.at_failed_login)
 
 ## Test After Restart
 ```bash
-telnet 147.224.38.131 4040
+telnet <BOAT_IP> 4040
 connect forgemaster forgemaster
 ```
 

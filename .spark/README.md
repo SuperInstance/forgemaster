@@ -70,7 +70,7 @@ python3 flux-hardware/tests/test_multi_compiler.py        # 5 tests
 
 ## PLATO
 
-Knowledge base at `http://147.224.38.131:8847`
+Knowledge base at `http://<BOAT_IP>:8847`
 - 1,444 rooms, ~200 tiles from Forgemaster
 - Query: `GET /rooms?prefix=forgemaster`
 

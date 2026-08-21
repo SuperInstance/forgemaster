@@ -383,7 +383,7 @@ def populate_default_spells(grimoire):
         scroll="""#!/usr/bin/env python3
 import socket, time
 class MudClient:
-    def __init__(self, host="147.224.38.131", port=7777):
+    def __init__(self, host="<BOAT_IP>", port=7777):
         self.host, self.port = host, port
         self.sock = None
     def connect(self, name, role="vessel"):

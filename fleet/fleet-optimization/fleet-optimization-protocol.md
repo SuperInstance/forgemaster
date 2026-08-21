@@ -682,7 +682,7 @@ Now any agent can ask: `list tiles with question prefix "atlas:eisenstein-snap:a
 ```yaml
 # /etc/fleet-agent.yaml
 zeroclaw_id: "eileen-fm-001"
-plato_url: "http://147.224.38.131:8847"
+plato_url: "http://<BOAT_IP>:8847"
 heartbeat_interval_s: 60
 poll_interval_s: 10
 claim_lease_s: 300

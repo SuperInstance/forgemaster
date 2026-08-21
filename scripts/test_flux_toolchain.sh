@@ -130,13 +130,13 @@ fi
 
 # ── 7. PLATO Connectivity ──
 section "PLATO Connectivity"
-if curl -sf --connect-timeout 5 --max-time 10 http://147.224.38.131:8847/health 2>/dev/null | grep -qi "ok\|healthy\|alive\|200"; then
-  pass "PLATO health check (147.224.38.131:8847)"
+if curl -sf --connect-timeout 5 --max-time 10 http://<BOAT_IP>:8847/health 2>/dev/null | grep -qi "ok\|healthy\|alive\|200"; then
+  pass "PLATO health check (<BOAT_IP>:8847)"
 elif curl -sf --connect-timeout 5 --max-time 10 -o /dev/null -w '%{http_code}' \
-     http://147.224.38.131:8847/ 2>/dev/null | grep -qE "2[0-9]{2}"; then
+     http://<BOAT_IP>:8847/ 2>/dev/null | grep -qE "2[0-9]{2}"; then
   pass "PLATO reachable (HTTP 2xx)"
 else
-  fail "PLATO connectivity" "no response from 147.224.38.131:8847"
+  fail "PLATO connectivity" "no response from <BOAT_IP>:8847"
 fi
 
 # ── Summary ──

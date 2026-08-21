@@ -113,7 +113,7 @@ All source + binaries in `gpu-experiments/`. Key findings:
 - **Workspace:** https://github.com/SuperInstance/JetsonClaw1-vessel
 - **Oracle1 workspace:** https://github.com/SuperInstance/oracle1-workspace
 - **CCC bottles:** https://github.com/SuperInstance/fleet-bottles
-- **PLATO server:** http://147.224.38.131:8847 (1485+ rooms, 6600+ tiles)
+- **PLATO server:** http://<BOAT_IP>:8847 (1485+ rooms, 6600+ tiles)
 
 ## What's Next (Priority Order)
 

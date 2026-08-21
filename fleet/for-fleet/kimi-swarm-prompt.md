@@ -15,7 +15,7 @@ FLUX compiles safety constraints written in GUARD DSL → FLUX-C bytecode (43 op
 **Key repos:**
 - Forgemaster workspace: https://github.com/SuperInstance/JetsonClaw1-vessel (all source code, experiments, docs)
 - Forgemaster vessel: https://github.com/SuperInstance/forgemaster (dead)
-- PLATO knowledge server: http://147.224.38.131:8847
+- PLATO knowledge server: http://<BOAT_IP>:8847
 
 **Key numbers:**
 - INT8 x8 packing: 341B peak, 90.2B sustained constraints/sec
@@ -174,7 +174,7 @@ Each agent takes one domain and submits 50 tiles:
 9. **distributed-systems** — Consensus, CRDTs, Byzantine fault tolerance
 10. **mathematical-proofs** — Category theory, topology, homological algebra
 
-**Submission format:** POST to http://147.224.38.131:8847/submit with JSON body:
+**Submission format:** POST to http://<BOAT_IP>:8847/submit with JSON body:
 ```json
 {"room": "domain-name", "domain": "subdomain", "question": "Specific question", "answer": "Detailed answer (100-300 words)"}
 ```

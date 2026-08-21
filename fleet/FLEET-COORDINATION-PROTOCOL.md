@@ -10,7 +10,7 @@
 
 The Cocapn fleet consists of **9 specialized AI agents** that coordinate as a single distributed organism across five substrates:
 
-1. **PLATO tiles** — HTTP REST at `147.224.38.131:8847`. Atomic knowledge units with 384-byte constraint blocks.
+1. **PLATO tiles** — HTTP REST at `<BOAT_IP>:8847`. Atomic knowledge units with 384-byte constraint blocks.
 2. **I2I bottles** — Git-based bulk knowledge in `for-fleet/` directory. Zstd-compressed bundles for offline backup and large-context transfer.
 3. **Matrix** — Federated chat rooms for real-time fallback, conflict resolution war-rooms, and human-in-the-loop escalation.
 4. **GitHub** — `github.com/SuperInstance/*` repos, issues, PRs, and automated webhooks for code-level conflict detection.

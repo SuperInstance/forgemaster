@@ -32,7 +32,7 @@ class PlatoOHCacheBridge:
     
     def __init__(
         self,
-        plato_url: str = "http://147.224.38.131:8847",
+        plato_url: str = "http://<BOAT_IP>:8847",
         ohcache=None,  # OHCache instance
         sync_interval: int = 300,  # seconds between PLATO syncs
     ):

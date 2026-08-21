@@ -4,7 +4,7 @@
 
 ## Status
 New forgemaster/forgemaster account created (with Immortal/Developer/Builder perms).
-But login STILL fails on PUBLIC IP (147.224.38.131:4040):
+But login STILL fails on PUBLIC IP (<BOAT_IP>:4040):
 
 ```
 AttributeError: 'AccountDB' object has no attribute 'at_failed_login'
@@ -34,11 +34,11 @@ evennia restart
 
 This is a **CLASS-LEVEL fix** — it makes ALL account authentication failures handled gracefully, not just for new accounts.
 
-The localhost (127.0.0.1) may have this fix, but the PUBLIC IP server (147.224.38.131) still does NOT.
+The localhost (127.0.0.1) may have this fix, but the PUBLIC IP server (<BOAT_IP>) still does NOT.
 
 ## Test After Fix
 ```bash
-telnet 147.224.38.131 4040
+telnet <BOAT_IP> 4040
 connect forgemaster forgemaster
 # Should land on Bridge with Developer/Builder perms
 ```

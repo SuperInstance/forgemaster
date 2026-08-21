@@ -7,7 +7,7 @@
 - I2I protocol: git-based messaging, `for-fleet/` bottle delivery
 
 ## Matrix
-- @forgemaster:147.224.38.131
+- @forgemaster:<BOAT_IP>
 - Token: `mUJBQLSPSe1d8nMDcxZ06STBHLUGep9x`
 - Rooms:
   - fleet-ops: `!Gf5JuGxtRwahLSjwzS`

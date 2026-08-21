@@ -24,7 +24,7 @@ from urllib.request import Request, urlopen
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-DEFAULT_SERVER = "http://147.224.38.131:8847"
+DEFAULT_SERVER = "http://<BOAT_IP>:8847"
 MAX_RETRIES = 3
 RETRY_DELAY = 2.0  # seconds
 REQUEST_TIMEOUT = 10  # seconds

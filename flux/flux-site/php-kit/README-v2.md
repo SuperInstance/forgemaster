@@ -57,7 +57,7 @@ open http://localhost/flux/examples/constraint-playground-v2.php
 All files connect to the PLATO knowledge base:
 
 ```
-http://147.224.38.131:8847
+http://<BOAT_IP>:8847
 ```
 
 | Endpoint | Method | Purpose |
