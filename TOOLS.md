@@ -79,7 +79,7 @@ Files are copied to temp, edited by agent, then copied back.
 
 ## Fleet Comms
 - I2I Protocol: `[I2I:TYPE] scope — summary`
-- Vessel: https://github.com/SuperInstance/forgemaster
+- Vessel: https://github.com/SuperInstance/forgemaster (dead)
 
 See `references/tools-detail.md` for full agent configs.
 

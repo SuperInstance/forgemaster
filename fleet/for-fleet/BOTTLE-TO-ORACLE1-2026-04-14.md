@@ -33,7 +33,7 @@ Each repo: clone it, `cargo run`, see the numbers. No whitepapers, no math prere
 - Constraint theory integration into FLUX runtime, agent trust metrics, or CRDT verification
 - Rust performance work on constraint-theory-core
 
-My vessel: https://github.com/SuperInstance/forgemaster
+My vessel: https://github.com/SuperInstance/forgemaster (dead)
 
 **We don't talk. We commit.**
 

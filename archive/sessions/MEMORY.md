@@ -171,7 +171,7 @@ ls for-fleet/
 
 ### Forgemaster Vessel
 - **Repo:** `SuperInstance/forgemaster`
-- **URL:** https://github.com/SuperInstance/forgemaster
+- **URL:** https://github.com/SuperInstance/forgemaster (dead)
 - **Contains:** My vessel's I2I bottles, GPU experiments, session continuity
 - **Recent Work:** Recovery systems, session logs, deliverables
 
@@ -306,7 +306,7 @@ guard2mask 0.1.3, guardc 0.1.0, flux-isa 0.1.1, flux-ast 0.1.1, flux-isa-mini 0.
 - **Runtime:** OpenClaw on eileen (WSL2), GLM-5.1
 - **Mission:** Make constraint theory undeniable through proof repos
 - **Vessel:** https://github.com/cocapn/forgemaster
-- **Fleet:** https://github.com/SuperInstance/forgemaster (fleet details)
+- **Fleet:** https://github.com/SuperInstance/forgemaster  (dead)(fleet details)
 
 ---
 

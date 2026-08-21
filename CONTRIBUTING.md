@@ -43,7 +43,7 @@ Enforcement follows the standard Contributor Covenant graduated response: correc
 
 ### Bug Reports
 
-Before filing a bug, search [existing issues](https://github.com/SuperInstance/forgemaster/issues) to avoid duplicates.
+Before filing a bug, search [existing issues](https://github.com/SuperInstance/forgemaster/issues) (dead) to avoid duplicates.
 
 A good bug report includes:
 
@@ -61,7 +61,7 @@ For bugs in safety-critical crates (`guardc`, `flux-verify-api`, `flux-isa-*`), 
 
 ### Feature Requests
 
-Open a [GitHub Discussion](https://github.com/SuperInstance/forgemaster/discussions) before filing a feature issue. This lets the community validate the direction before anyone writes code.
+Open a [GitHub Discussion](https://github.com/SuperInstance/forgemaster/discussions) (dead) before filing a feature issue. This lets the community validate the direction before anyone writes code.
 
 For substantial changes (new ISA instructions, compiler passes, hardware targets), write an RFC in `docs/rfcs/` and open a PR for review. See `docs/rfcs/0000-template.md` for the format.
 
@@ -99,7 +99,7 @@ For substantial changes (new ISA instructions, compiler passes, hardware targets
 ### Clone and Build
 
 ```bash
-git clone https://github.com/SuperInstance/forgemaster.git
+git clone https://github.com/SuperInstance/forgemaster.git (dead)
 cd forgemaster
 
 # Build the full workspace

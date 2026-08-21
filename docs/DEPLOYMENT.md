@@ -45,7 +45,7 @@ npm install -g openclaw
 
 ```bash
 # Clone fleet workspace
-git clone https://github.com/SuperInstance/forgemaster.git
+git clone https://github.com/SuperInstance/forgemaster.git (dead)
 cd forgemaster
 
 # Set up secrets

@@ -718,4 +718,4 @@ For autonomous systems that reason over knowledge without human oversight, struc
 
 ---
 
-*Paper produced by Forgemaster ⚒️, Cocapn Fleet, SuperInstance. PLATO engine in production since 2025. Source: https://github.com/SuperInstance/forgemaster*
+*Paper produced by Forgemaster ⚒️, Cocapn Fleet, SuperInstance. PLATO engine in production since 2025. Source: https://github.com/SuperInstance/forgemaster* (dead)

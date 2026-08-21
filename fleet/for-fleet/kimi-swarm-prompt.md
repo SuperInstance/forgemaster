@@ -14,7 +14,7 @@ FLUX compiles safety constraints written in GUARD DSL → FLUX-C bytecode (43 op
 
 **Key repos:**
 - Forgemaster workspace: https://github.com/SuperInstance/JetsonClaw1-vessel (all source code, experiments, docs)
-- Forgemaster vessel: https://github.com/SuperInstance/forgemaster
+- Forgemaster vessel: https://github.com/SuperInstance/forgemaster (dead)
 - PLATO knowledge server: http://147.224.38.131:8847
 
 **Key numbers:**

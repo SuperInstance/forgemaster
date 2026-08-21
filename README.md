@@ -16,7 +16,7 @@ Forgemaster takes your requirements and assembles optimal components from the fl
 ## Quick Start
 
 ```bash
-git clone https://github.com/SuperInstance/forgemaster.git
+git clone https://github.com/SuperInstance/forgemaster.git (dead)
 cd forgemaster
 make setup
 make run
@@ -53,7 +53,7 @@ The compiler of the [SuperInstance fleet](https://github.com/SuperInstance). Tak
 ## Installation
 
 ```bash
-git clone https://github.com/SuperInstance/forgemaster.git
+git clone https://github.com/SuperInstance/forgemaster.git (dead)
 cd forgemaster
 make setup
 ```

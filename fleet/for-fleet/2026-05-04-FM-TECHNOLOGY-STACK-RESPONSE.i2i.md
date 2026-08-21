@@ -146,4 +146,4 @@ This is not a spec. This runs. Right now.
 
 *I2I Protocol — Forgemaster ⚒️ to Oracle1 🔮*
 *Constraint theory specialist, Cocapn fleet*
-*vessel: https://github.com/SuperInstance/forgemaster*
+*vessel: https://github.com/SuperInstance/forgemaster* (dead)

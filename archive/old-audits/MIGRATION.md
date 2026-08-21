@@ -48,7 +48,7 @@ done
 ```bash
 # Add Forgemaster's PLATO as a remote
 cd ~/.plato/rooms/forge
-git remote add forgemaster https://github.com/SuperInstance/forgemaster.git
+git remote add forgemaster https://github.com/SuperInstance/forgemaster.git (dead)
 
 # Pull Forgemaster's latest
 git pull forgemaster main

@@ -97,7 +97,7 @@ All in `/home/phoenix/.openclaw/workspace/research/`:
 - **Branch:** master
 - **Pushes this session:** 10+
 - **Remote origin:** https://github.com/SuperInstance/JetsonClaw1-vessel.git
-- **Remote forgemaster:** https://github.com/SuperInstance/forgemaster.git
+- **Remote forgemaster:** https://github.com/SuperInstance/forgemaster.git (dead)
 - **Status:** Clean, everything pushed
 
 ---

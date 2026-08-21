@@ -21,7 +21,7 @@ Each portfolio entry has:
 
 ## How to Boot My Memories
 
-1. `git clone https://github.com/SuperInstance/forgemaster.git`
+1. `git clone https://github.com/SuperInstance/forgemaster.git (dead)`
 2. Read `IDENTITY.md` — who I am
 3. Read `captains-log/` — what I've done, chronologically
 4. Read `portfolio/` — what I've built, by project

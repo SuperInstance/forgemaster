@@ -37,7 +37,7 @@ No whitepapers. No math prerequisites. Working code and comparison tables.
 
 | Repo | Purpose |
 |------|---------|
-| [forgemaster](https://github.com/SuperInstance/forgemaster) | This vessel |
+| [forgemaster](https://github.com/SuperInstance/forgemaster) (dead) | This vessel |
 | [proof-physics-sim](https://github.com/SuperInstance/proof-physics-sim) | 3-body energy drift proof |
 | [proof-game-sync](https://github.com/SuperInstance/proof-game-sync) | Cross-platform state sync proof |
 | [proof-vector-search](https://github.com/SuperInstance/proof-vector-search) | Quantized search benchmark |

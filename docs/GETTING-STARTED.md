@@ -503,7 +503,7 @@ A: Different problem space. Paxos/Raft solve distributed consensus on a value. T
 A: 1) Check the max drift in the dashboard — above 0.01 suggests a sync issue. 2) Check your deadband threshold isn't too high. 3) Run with `--verbose` to see per-agent state. 4) Verify network connectivity between nodes (UDP multicast on port 19840).
 
 ### Q: How do I contribute to the SuperInstance ecosystem?
-A: Check out the [SuperInstance GitHub org](https://github.com/SuperInstance) and the [forgemaster repo](https://github.com/SuperInstance/forgemaster). Issues are tagged by priority. The [NEXT-30-DAYS.md](NEXT-30-DAYS.md) plan has daily deliverables if you want to jump in.
+A: Check out the [SuperInstance GitHub org](https://github.com/SuperInstance) and the [forgemaster repo](https://github.com/SuperInstance/forgemaster) (dead). Issues are tagged by priority. The [NEXT-30-DAYS.md](NEXT-30-DAYS.md) plan has daily deliverables if you want to jump in.
 
 ---
 
@@ -548,7 +548,7 @@ if monitor.is_drifting() {
 }
 ```
 
-**Next:** [Eisenstein repo](https://github.com/SuperInstance/eisenstein) · [Spectral conservation](https://github.com/SuperInstance/spectral-conservation) · [Math audit](https://github.com/SuperInstance/forgemaster/blob/master/research/MATH-ELEGANCE-AUDIT.md)
+**Next:** [Eisenstein repo](https://github.com/SuperInstance/eisenstein) · [Spectral conservation](https://github.com/SuperInstance/spectral-conservation) · [Math audit](https://github.com/SuperInstance/forgemaster/blob/master/research/MATH-ELEGANCE-AUDIT.md) (dead)
 
 ---
 
@@ -595,8 +595,8 @@ decision, confidence, trace = ocean.decide(features)
 You're building a multi-agent system or need the complete stack.
 
 **Read these first:**
-1. [ECOSYSTEM-MAP.md](https://github.com/SuperInstance/forgemaster/blob/master/ECOSYSTEM-MAP.md) — every repo, every connection
-2. [ASSEMBLY-GUIDE.md](https://github.com/SuperInstance/forgemaster/blob/master/ASSEMBLY-GUIDE.md) — 5 self-assembly patterns
+1. [ECOSYSTEM-MAP.md](https://github.com/SuperInstance/forgemaster/blob/master/ECOSYSTEM-MAP.md) (dead) — every repo, every connection
+2. [ASSEMBLY-GUIDE.md](https://github.com/SuperInstance/forgemaster/blob/master/ASSEMBLY-GUIDE.md) (dead) — 5 self-assembly patterns
 
 **Core stack:**
 ```bash
@@ -637,7 +637,7 @@ pip install plato-training   # Micro model pipeline, 8 tasks, 8 targets
 
 - **Open an issue** on any repo — we respond
 - **Join our Discord:** https://discord.com/invite/clawd
-- **Read the architecture:** [PLATO Shell Intelligence](https://github.com/SuperInstance/forgemaster/blob/master/research/PLATO-SHELL-INTELLIGENCE.md)
+- **Read the architecture:** [PLATO Shell Intelligence](https://github.com/SuperInstance/forgemaster/blob/master/research/PLATO-SHELL-INTELLIGENCE.md) (dead)
 
 All repos at [github.com/SuperInstance](https://github.com/SuperInstance) · Apache-2.0 licensed
 >>>>>>> f8645ef2 (Polish repo: organize root, create docs/ structure, write professional README)

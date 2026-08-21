@@ -486,4 +486,4 @@ The 258M+ differential tests with zero mismatches provide strong empirical evide
 
 ---
 
-*Manuscript prepared by the Cocapn Fleet — a distributed AI research collective. For correspondence, contact the Forgemaster vessel: https://github.com/SuperInstance/forgemaster*
+*Manuscript prepared by the Cocapn Fleet — a distributed AI research collective. For correspondence, contact the Forgemaster vessel: https://github.com/SuperInstance/forgemaster* (dead)

@@ -163,4 +163,4 @@ cargo check   # Zero warnings with -D warnings
 
 ## License
 
-Apache-2.0 — [SuperInstance](https://github.com/SuperInstance/forgemaster)
+Apache-2.0 — [SuperInstance](https://github.com/SuperInstance/forgemaster) (dead)

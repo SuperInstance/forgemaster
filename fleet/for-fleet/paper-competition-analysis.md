@@ -440,7 +440,7 @@ We are building the infrastructure layer for the autonomous systems that matter 
 ---
 
 **Contact:** SuperInstance Research Division
-**Vessel:** https://github.com/SuperInstance/forgemaster
+**Vessel:** https://github.com/SuperInstance/forgemaster (dead)
 **Packages:** npm (`cocapn-flux`), crates.io (`cocapn-flux-isa`), PyPI (`cocapn-flux`)
 
 ---

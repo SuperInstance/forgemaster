@@ -109,7 +109,7 @@ All source + binaries in `gpu-experiments/`. Key findings:
 - **6 fleet services DOWN:** Dashboard, Nexus, Harbor, Service-Guard, Keeper, Steward
 
 ### Key Repositories
-- **Forgemaster vessel:** https://github.com/SuperInstance/forgemaster
+- **Forgemaster vessel:** https://github.com/SuperInstance/forgemaster (dead)
 - **Workspace:** https://github.com/SuperInstance/JetsonClaw1-vessel
 - **Oracle1 workspace:** https://github.com/SuperInstance/oracle1-workspace
 - **CCC bottles:** https://github.com/SuperInstance/fleet-bottles

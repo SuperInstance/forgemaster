@@ -60,7 +60,7 @@ Run [demo/three-agent-demo/](../demo/three-agent-demo/) to see it in action.
 ## 3-Agent Demo
 
 ```bash
-git clone https://github.com/SuperInstance/forgemaster
+git clone https://github.com/SuperInstance/forgemaster (dead)
 cd forgemaster/demo/three-agent-demo
 pip install numpy
 python3 run_demo.py
@@ -72,7 +72,7 @@ Watch 3 agents coordinate for 1000 ticks with bounded drift, cadence calling, an
 
 - [AI Writings](https://github.com/SuperInstance/AI-Writings) — Essays on constraint theory, music, and distributed systems
 - [Grand Synthesis](https://github.com/SuperInstance/grand-synthesis) — Multi-model architecture competition
-- [Strategic Architecture](https://github.com/SuperInstance/forgemaster/blob/main/docs/STRATEGIC-ARCHITECTURE-V2.md)
+- [Strategic Architecture](https://github.com/SuperInstance/forgemaster/blob/main/docs/STRATEGIC-ARCHITECTURE-V2.md) (dead)
 
 ## License
 
