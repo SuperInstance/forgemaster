@@ -2,6 +2,10 @@
 
 > Clone me. Step into the forge.
 
+<p align="center">
+  <img src="assets/gallery-forgemaster.jpg" width="680" alt="The ship's forge at night — one fire doing precise work among benches of warm brass tools">
+</p>
+
 Forgemaster takes your requirements and assembles optimal components from the fleet, respecting constraints, budgets, and safety requirements. It's an agentic compiler — you describe what you want, it figures out how to build it.
 
 ## What This Gives You
