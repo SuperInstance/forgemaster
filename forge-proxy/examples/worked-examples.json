@@ -1,0 +1,51 @@
+[
+  {
+    "id": "worked-example-1",
+    "question": "Should we ship FLUX via Path A or build Path B now?",
+    "matchKeywords": ["path a", "path b"],
+    "answer": {
+      "verdict": "Ship Path A (FFI constraint-gating library); Path B stays gated on FM.",
+      "citedBasis": [
+        "docs/FLUX_PATH_A_INTEGRATION.md §Summary @f188a33 — \"Path B requires Forgemaster (FM) approval and is out of scope here\"",
+        "docs/SPEC-FLUX-RESOLUTION.md @f188a33 — v3 canonical because it has source code; compiler archived pending FM"
+      ],
+      "confidence": "HIGH",
+      "overrideTriggers": [
+        "if production gating exceeds the Python fallback's throughput, FM authorizes the Rust FFI build"
+      ]
+    }
+  },
+  {
+    "id": "worked-example-2",
+    "question": "Can breeding v2 ship with reverse-actualization P0 gaps open?",
+    "matchKeywords": ["reverse-actualization", "p0"],
+    "answer": {
+      "verdict": "No — reverse-actualization is a P0 track; ship only when every P0 gap is closed and green.",
+      "citedBasis": [
+        "memory.md @f188a33 — \"All reverse-actualization P0 gaps closed\" is the recorded definition of done",
+        "STRATEGY.md §Approach @f188a33 — P0 code modules precede reverse-actualization in the layered track order"
+      ],
+      "confidence": "HIGH",
+      "overrideTriggers": [
+        "if closing a gap requires redesigning the harness contract, that redesign is FM's call, not the proxy's"
+      ]
+    },
+    "correction": "RECON-FIRST CORRECTION (2026-09-20): the recon draft cited 'STRATEGY.md Tracks #2 (Distributed Systems = reverse-actualization, P0)'. Direct grep of the pinned checkout shows reverse-actualization lives in memory.md:107 ('All reverse-actualization P0 gaps closed') and STRATEGY.md's layered ordering — no literal 'Tracks #2' line exists. Citations corrected to the real anchors."
+  },
+  {
+    "id": "worked-example-3",
+    "question": "Should agent scoring be multiplicative (ethos×pathos×logos) or additive-weighted?",
+    "matchKeywords": ["scoring", "multiplicative"],
+    "answer": {
+      "verdict": "Multiplicative, unchanged — zero in any dimension sunsets the agent; additive weighting would let a dominant dimension mask a dead one and breaks conservation.",
+      "citedBasis": [
+        "README.md @f188a33 — \"Every agent carries a composite score: ethos × pathos × logos. Drop to zero in any dimension and the fleet sunsets you.\"",
+        "STRATEGY.md @f188a33 — Non-Goals: we are a fleet, not a generic assistant"
+      ],
+      "confidence": "HIGH",
+      "overrideTriggers": [
+        "only Casey amends the constitution; the proxy never certifies a constitutional change on its own authority"
+      ]
+    }
+  }
+]
